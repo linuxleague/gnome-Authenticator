@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-06-15 10:53+0000\n"
-"PO-Revision-Date: 2019-06-19 12:06+0200\n"
+"POT-Creation-Date: 2019-07-02 16:11+0000\n"
+"PO-Revision-Date: 2019-08-21 10:30+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gnome.org>\n"
-"Language: es\n"
+"Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.0\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
@@ -28,8 +28,10 @@ msgstr "Authenticator"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-msgid "Two-factor authentication code generator"
-msgstr "Generador de códigos de autenticación de doble factor"
+#: data/resources/gtk/ui/about_dialog.ui.in:10
+#| msgid "Two-factor authentication"
+msgid "A Two-Factor Authentication application"
+msgstr "Una aplicación de autenticación de doble factor"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
 msgid ""
@@ -62,7 +64,6 @@ msgstr ""
 "contraseña"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-#| msgid "Automtically fetch an image for services using their favicon"
 msgid "Automatically fetch an image for services using their favicon"
 msgstr "Obtener automáticamente una imagen para servicios que usan el favicon"
 
@@ -79,7 +80,7 @@ msgid "Main Window - empty state"
 msgstr "Ventana principal - estado vacío"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-#: data/resources/gtk/ui/account_add.ui:14
+#: data/resources/gtk/ui/account_add.ui:15
 msgid "Add a new account"
 msgstr "Añadir una cuenta nueva"
 
@@ -96,7 +97,8 @@ msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor authentication"
+#| msgid "Two-factor authentication"
+msgid "Two-factor Authentication"
 msgstr "Autenticación de doble factor"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
@@ -125,7 +127,6 @@ msgid "Auto lock timeout"
 msgstr "Tiempo de espera del bloqueo automático"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-#| msgid "Lock the application with a password"
 msgid "Lock the application on idle after X minutes"
 msgstr "Bloquear la aplicación tras X minutos de inactividad"
 
@@ -144,10 +145,6 @@ msgstr "Activar el modo oscuro automáticamente durante la noche."
 msgid "Default window maximized behaviour"
 msgstr "Comportamiento predeterminado al maximizar la ventana"
 
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "Two-factor authentication code generator."
-msgstr "Generador de códigos de autenticación de doble factor."
-
 #: data/resources/gtk/ui/about_dialog.ui.in:13
 msgid "translator-credits"
 msgstr ""
@@ -155,32 +152,32 @@ msgstr ""
 "advocatux <advocatux@airpost.net>, 2018\n"
 "Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2018"
 
-#: data/resources/gtk/ui/account_add.ui:32
+#: data/resources/gtk/ui/account_add.ui:33
 msgid "Add"
 msgstr "Añadir"
 
-#: data/resources/gtk/ui/account_add.ui:52
+#: data/resources/gtk/ui/account_add.ui:53
 msgid "Scan QR Code"
 msgstr "Escanear código QR"
 
-#: data/resources/gtk/ui/account_config.ui:80
+#: data/resources/gtk/ui/account_config.ui:56
 msgid "Account Name"
 msgstr "Nombre de la cuenta"
 
-#: data/resources/gtk/ui/account_config.ui:103
+#: data/resources/gtk/ui/account_config.ui:78
 msgid "Provider"
 msgstr "Proveedor"
 
-#: data/resources/gtk/ui/account_config.ui:120
+#: data/resources/gtk/ui/account_config.ui:95
+#: data/resources/gtk/ui/account_config.ui:96
 msgid "Enable 2FA for this account"
 msgstr "Activar 2FA en esta cuenta"
 
-#: data/resources/gtk/ui/account_config.ui:121
+#: data/resources/gtk/ui/account_config.ui:97
 msgid "2FA Token"
 msgstr "Testigo 2FA"
 
-#: data/resources/gtk/ui/account_config.ui:135
-#| msgid "Provider"
+#: data/resources/gtk/ui/account_config.ui:111
 msgid "Provider Website"
 msgstr "Página web del proveedor"
 
@@ -213,7 +210,7 @@ msgid "Confirm New Password:"
 msgstr "Confirme la contraseña nueva:"
 
 #: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:167
+#: src/Authenticator/widgets/settings.py:174
 msgid "Change Password"
 msgstr "Cambiar la contraseña"
 
@@ -265,27 +262,27 @@ msgctxt "shortcut window"
 msgid "Search"
 msgstr "Buscar"
 
-#: data/resources/gtk/ui/window.ui.in:185
+#: data/resources/gtk/ui/window.ui.in:189
 msgid "There are no accounts yet…"
 msgstr "No hay ninguna cuenta aún…"
 
-#: data/resources/gtk/ui/window.ui.in:214
+#: data/resources/gtk/ui/window.ui.in:218
 msgid "Add a new account from the menu"
 msgstr "Añadir una cuenta nueva desde el menú"
 
-#: data/resources/gtk/ui/window.ui.in:230
+#: data/resources/gtk/ui/window.ui.in:234
 msgid "Scan a QR Code"
 msgstr "Escanear un código QR"
 
-#: data/resources/gtk/ui/window.ui.in:362
+#: data/resources/gtk/ui/window.ui.in:366
 msgid "No results found"
 msgstr "No se encontraron resultados"
 
-#: data/resources/gtk/ui/window.ui.in:425
+#: data/resources/gtk/ui/window.ui.in:429
 msgid "Authenticator is locked"
 msgstr "Authenticator está bloqueado"
 
-#: data/resources/gtk/ui/window.ui.in:464
+#: data/resources/gtk/ui/window.ui.in:468
 msgid "Unlock"
 msgstr "Desbloquear"
 
@@ -326,55 +323,60 @@ msgstr "Atajos de teclado"
 msgid "About Authenticator"
 msgstr "Acerca de Authenticator"
 
-#: src/Authenticator/models/account.py:71
+#: src/Authenticator/models/account.py:84
 msgid "Default"
 msgstr "Predeterminado"
 
-#: src/Authenticator/widgets/accounts/add.py:57
+#: src/Authenticator/widgets/accounts/add.py:247
 msgid "Invalid QR code"
 msgstr "Código QR no válido"
 
-#: src/Authenticator/widgets/accounts/list.py:153
-#| msgid "The One-Time Passwords expires in {} seconds"
+#: src/Authenticator/widgets/accounts/list.py:152
 msgid "The One-Time Passwords expire in {} seconds"
 msgstr "Las contraseñas de un solo uso caducan en {} segundos"
 
-#: src/Authenticator/widgets/accounts/row.py:82
+#: src/Authenticator/widgets/accounts/row.py:90
 msgid "Couldn't generate the secret code"
 msgstr "No se pudo generar el código secreto"
 
-#: src/Authenticator/widgets/accounts/row.py:93
+#: src/Authenticator/widgets/accounts/row.py:100
 msgid "The PIN of {} was copied to the clipboard"
 msgstr "El PIN de {} se copió desde el portapapeles"
 
-#: src/Authenticator/widgets/accounts/row.py:133
+#: src/Authenticator/widgets/accounts/row.py:141
 msgid "The account was updated successfully"
 msgstr "La cuenta se actualizó correctamente"
 
 #: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:83
+#: src/Authenticator/widgets/notification.py:84
 msgid "Undo"
 msgstr "Deshacer"
 
-#: src/Authenticator/widgets/notification.py:78
+#: src/Authenticator/widgets/notification.py:79
 msgid "Close the notification"
 msgstr "Cerrar la notificación"
 
-#: src/Authenticator/widgets/settings.py:163
+#: src/Authenticator/widgets/settings.py:170
 msgid "Save Password"
 msgstr "Guardar la contraseña"
 
-#: src/Authenticator/widgets/settings.py:214
+#: src/Authenticator/widgets/settings.py:222
 msgid "Do you want to remove the authentication password?"
 msgstr "¿Quiere eliminar la contraseña de autenticación?"
 
-#: src/Authenticator/widgets/settings.py:215
+#: src/Authenticator/widgets/settings.py:223
 msgid "Authentication password enforces the privacy of your accounts."
 msgstr "La contraseña de autenticación refuerza la privacidad de sus cuentas."
 
 #: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
 msgid "JSON files"
 msgstr "Archivos JSON"
+
+#~ msgid "Two-factor authentication code generator"
+#~ msgstr "Generador de códigos de autenticación de doble factor"
+
+#~ msgid "Two-factor authentication code generator."
+#~ msgstr "Generador de códigos de autenticación de doble factor."
 
 #~ msgid "Close"
 #~ msgstr "Cerrar"
