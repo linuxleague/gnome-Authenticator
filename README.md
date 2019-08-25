@@ -17,7 +17,7 @@
 - Beautiful UI
 - Huge database of more than 560 supported services
 - Keep your PIN tokens secure by locking the application with a password
-- Automtically fetch an image for services using their favicon
+- Automatically fetch an image for services using their favicon
 - The possibility to add new services
 
 ## Hack on Authenticator
