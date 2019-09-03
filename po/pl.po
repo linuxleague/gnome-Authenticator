@@ -1,0 +1,371 @@
+# Polish translation for Authenticator.
+# Copyright © 2018-2019 the Authenticator authors.
+# This file is distributed under the same license as the Authenticator package.
+# WaldiS <admin@sto.ugu.pl>, 2018.
+# Piotr Drąg <piotrdrag@gmail.com>, 2019.
+# Aviary.pl <community-poland@mozilla.org>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Authenticator\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2019-07-02 16:11+0000\n"
+"PO-Revision-Date: 2019-07-07 13:33+0200\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
+#: src/Authenticator/application.py.in:36
+msgid "Authenticator"
+msgstr "Authenticator"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
+#: data/resources/gtk/ui/about_dialog.ui.in:10
+msgid "A Two-Factor Authentication application"
+msgstr "Program do uwierzytelniania dwuetapowego"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+msgid ""
+"Simple application that generates a two-factor authentication code, created "
+"for GNOME."
+msgstr ""
+"Prosty program generujący kody uwierzytelniania dwuetapowego napisany dla "
+"środowiska GNOME."
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
+msgid "Features:"
+msgstr "Funkcje:"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
+msgid "QR code scanner"
+msgstr "Skaner kodów QR"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
+msgid "Beautiful UI"
+msgstr "Piękny interfejs"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
+msgid "Huge database of more than 560 supported services"
+msgstr "Wielka baza ponad 560 obsługiwanych serwisów"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
+msgid "Keep your PIN tokens secure by locking the application with a password"
+msgstr "Zabezpieczanie tokenów PIN przez zablokowanie programu hasłem"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
+msgid "Automatically fetch an image for services using their favicon"
+msgstr "Automatyczne pobieranie obrazów dla serwisów"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
+msgid "The possibility to add new services"
+msgstr "Możliwość dodawania nowych serwisów"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
+msgid "Dark theme and night light"
+msgstr "Ciemny motyw i nocne światło"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
+msgid "Main Window - empty state"
+msgstr "Główne okno — puste"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
+#: data/resources/gtk/ui/account_add.ui:15
+msgid "Add a new account"
+msgstr "Dodawanie nowego konta"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
+msgid "Main Window - Accounts List"
+msgstr "Główne okno — lista kont"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
+msgid "Settings Window"
+msgstr "Okno ustawień"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:160
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-factor Authentication"
+msgstr "Uwierzytelnianie dwuetapowe"
+
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgstr ""
+"GNOME;GTK;Weryfikacja;2FA;Uwierzytelnianie;Upoważnianie;Autentykacja;"
+"Dwuetapowe;Dwuskładnikowe;TwoFactor;"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window position"
+msgstr "Domyślne położenie okna"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
+#: data/resources/gtk/ui/settings.ui.in:28
+msgid "Dark Theme"
+msgstr "Ciemny motyw"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
+#: data/resources/gtk/ui/settings.ui.in:29
+#: data/resources/gtk/ui/settings.ui.in:76
+msgid "Whether the application should use a dark theme."
+msgstr "Czy program ma używać ciemnego motywu."
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
+#: data/resources/gtk/ui/settings.ui.in:83
+msgid "Auto lock timeout"
+msgstr "Czas oczekiwania na automatyczną blokadę"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
+msgid "Lock the application on idle after X minutes"
+msgstr "Blokowanie programu po bezczynności przez X minut"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
+#: data/resources/gtk/ui/settings.ui.in:43
+msgid "Night Light"
+msgstr "Nocne światło"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
+#: data/resources/gtk/ui/settings.ui.in:44
+#: data/resources/gtk/ui/settings.ui.in:84
+msgid "Automatically enable dark mode at night."
+msgstr "Automatyczne włączanie ciemnego trybu w nocy."
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Default window maximized behaviour"
+msgstr "Domyślne zachowanie zmaksymalizowanego okna"
+
+#: data/resources/gtk/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr ""
+"WaldiS <admin@sto.ugu.pl>, 2018\n"
+"Piotr Drąg <piotrdrag@gmail.com>, 2019\n"
+"Aviary.pl <community-poland@mozilla.org>, 2019"
+
+#: data/resources/gtk/ui/account_add.ui:33
+msgid "Add"
+msgstr "Dodaj"
+
+#: data/resources/gtk/ui/account_add.ui:53
+msgid "Scan QR Code"
+msgstr "Skanuj kod QR"
+
+#: data/resources/gtk/ui/account_config.ui:56
+msgid "Account Name"
+msgstr "Nazwa konta"
+
+#: data/resources/gtk/ui/account_config.ui:78
+msgid "Provider"
+msgstr "Dostawca"
+
+#: data/resources/gtk/ui/account_config.ui:95
+#: data/resources/gtk/ui/account_config.ui:96
+msgid "Enable 2FA for this account"
+msgstr "Włącz uwierzytelnianie dwuetapowe dla tego konta"
+
+#: data/resources/gtk/ui/account_config.ui:97
+msgid "2FA Token"
+msgstr "Token uwierzytelniania dwuetapowego"
+
+#: data/resources/gtk/ui/account_config.ui:111
+msgid "Provider Website"
+msgstr "Strona dostawcy"
+
+#: data/resources/gtk/ui/account_edit.ui:31
+msgid "Save"
+msgstr "Zapisz"
+
+#: data/resources/gtk/ui/account_row.ui:22
+msgid "Edit"
+msgstr "Modyfikuj"
+
+#: data/resources/gtk/ui/account_row.ui:40
+msgid "Delete"
+msgstr "Usuń"
+
+#: data/resources/gtk/ui/account_row.ui:97
+msgid "Copy PIN to clipboard"
+msgstr "Skopiuj PIN do schowka"
+
+#: data/resources/gtk/ui/password_widget.ui:46
+msgid "Current Password:"
+msgstr "Obecne hasło:"
+
+#: data/resources/gtk/ui/password_widget.ui:91
+msgid "New Password:"
+msgstr "Nowe hasło:"
+
+#: data/resources/gtk/ui/password_widget.ui:136
+msgid "Confirm New Password:"
+msgstr "Potwierdzenie nowego hasła:"
+
+#: data/resources/gtk/ui/password_widget.ui:184
+#: src/Authenticator/widgets/settings.py:174
+msgid "Change Password"
+msgstr "Zmień hasło"
+
+#: data/resources/gtk/ui/password_widget.ui:205
+msgid "Delete Password"
+msgstr "Usuń hasło"
+
+#: data/resources/gtk/ui/settings.ui.in:24
+msgid "Appearance"
+msgstr "Interfejs"
+
+#: data/resources/gtk/ui/settings.ui.in:75
+#: src/Authenticator/application.py.in:106
+msgid "Lock the application"
+msgstr "Zablokuj program"
+
+#: data/resources/gtk/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Ogólne"
+
+#: data/resources/gtk/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Wyświetlenie skrótów"
+
+#: data/resources/gtk/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Preferencje"
+
+#: data/resources/gtk/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Zakończenie działania"
+
+#: data/resources/gtk/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "Konta"
+
+#: data/resources/gtk/ui/shortcuts.ui:44
+msgctxt "shortcut window"
+msgid "Add"
+msgstr "Dodanie"
+
+#: data/resources/gtk/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Wyszukiwanie"
+
+#: data/resources/gtk/ui/window.ui.in:189
+msgid "There are no accounts yet…"
+msgstr "Nie ma jeszcze żadnych kont…"
+
+#: data/resources/gtk/ui/window.ui.in:218
+msgid "Add a new account from the menu"
+msgstr "Dodaj nowe konto z menu"
+
+#: data/resources/gtk/ui/window.ui.in:234
+msgid "Scan a QR Code"
+msgstr "Skanuj kod QR"
+
+#: data/resources/gtk/ui/window.ui.in:366
+msgid "No results found"
+msgstr "Brak wyników"
+
+#: data/resources/gtk/ui/window.ui.in:429
+msgid "Authenticator is locked"
+msgstr "Program jest zablokowany"
+
+#: data/resources/gtk/ui/window.ui.in:468
+msgid "Unlock"
+msgstr "Odblokuj"
+
+#: src/authenticator.py.in:49
+msgid "Start in debug mode"
+msgstr "Uruchom w trybie debugowania"
+
+#: src/Authenticator/application.py.in:114
+msgid "from a plain-text JSON file"
+msgstr "z tekstowego pliku JSON"
+
+#: src/Authenticator/application.py.in:115
+msgid "in a plain-text JSON file"
+msgstr "w tekstowym pliku JSON"
+
+#: src/Authenticator/application.py.in:117
+msgid "Restore"
+msgstr "Przywróć"
+
+#: src/Authenticator/application.py.in:118
+msgid "Backup"
+msgstr "Kopia zapasowa"
+
+#. Night mode action
+#: src/Authenticator/application.py.in:126
+msgid "Preferences"
+msgstr "Preferencje"
+
+#: src/Authenticator/application.py.in:127
+msgid "Donate"
+msgstr "Przekaż datek"
+
+#: src/Authenticator/application.py.in:128
+msgid "Keyboard Shortcuts"
+msgstr "Skróty klawiszowe"
+
+#: src/Authenticator/application.py.in:129
+msgid "About Authenticator"
+msgstr "O programie"
+
+#: src/Authenticator/models/account.py:84
+msgid "Default"
+msgstr "Domyślne"
+
+#: src/Authenticator/widgets/accounts/add.py:247
+msgid "Invalid QR code"
+msgstr "Nieprawidłowy kod QR"
+
+#: src/Authenticator/widgets/accounts/list.py:152
+msgid "The One-Time Passwords expire in {} seconds"
+msgstr "Hasła jednorazowe wygasają za {} s"
+
+#: src/Authenticator/widgets/accounts/row.py:90
+msgid "Couldn't generate the secret code"
+msgstr "Nie można wygenerować tajnego kodu"
+
+#: src/Authenticator/widgets/accounts/row.py:100
+msgid "The PIN of {} was copied to the clipboard"
+msgstr "Skopiowano PIN „{}” do schowka"
+
+#: src/Authenticator/widgets/accounts/row.py:141
+msgid "The account was updated successfully"
+msgstr "Pomyślnie zaktualizowano konto"
+
+#: src/Authenticator/widgets/notification.py:53
+#: src/Authenticator/widgets/notification.py:84
+msgid "Undo"
+msgstr "Cofnij"
+
+#: src/Authenticator/widgets/notification.py:79
+msgid "Close the notification"
+msgstr "Zamknij powiadomienie"
+
+#: src/Authenticator/widgets/settings.py:170
+msgid "Save Password"
+msgstr "Zapisz hasło"
+
+#: src/Authenticator/widgets/settings.py:222
+msgid "Do you want to remove the authentication password?"
+msgstr "Usunąć hasło uwierzytelniania?"
+
+#: src/Authenticator/widgets/settings.py:223
+msgid "Authentication password enforces the privacy of your accounts."
+msgstr "Hasło uwierzytelniania zapewnia prywatność kont."
+
+#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
+msgid "JSON files"
+msgstr "Pliki JSON"

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema path="/com/belmoussaoui/Authenticator/" id="@app-id@" gettext-domain="@gettext-package@">
+    <key name="window-width" type="i">
+      <default>-1</default>
+      <summary>Default window width</summary>
+      <description>Default window width</description>
+    </key>
+    <key name="window-height" type="i">
+      <default>-1</default>
+      <summary>Default window height</summary>
+      <description>Default window height</description>
+    </key>
+    <key name="window-x" type="i">
+      <default>-1</default>
+      <summary>Default window x position</summary>
+      <description>Default window x position</description>
+    </key>
+    <key name="window-y" type="i">
+      <default>-1</default>
+      <summary>Default window y position</summary>
+      <description>Default window y position</description>
+    </key>
+    <key name="is-maximized" type="b">
+      <default>false</default>
+      <summary>Default window maximized behaviour</summary>
+      <description></description>
+    </key>
+    <key name="dark-theme" type="b">
+        <default>false</default>
+        <summary>Dark Theme</summary>
+        <description>Whether the application should use a dark theme.</description>
+    </key>
+    <key name='auto-lock-timeout' type='i'>
+        <default>15</default>
+        <summary>Auto lock timeout</summary>
+        <description>Lock the application on idle after X minutes</description>
+    </key>
+    <key name="night-light" type="b">
+        <default>false</default>
+        <summary>Night Light</summary>
+        <description>Automatically enable dark mode at night.</description>
+    </key>
+  </schema>
+</schemalist>

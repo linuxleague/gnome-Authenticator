@@ -1,0 +1,56 @@
+
+/* Empty View */
+.empty-logo{
+  -gtk-icon-shadow:0 2px 12px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.5);
+}
+/* Common */
+label.head-title{
+	font-size: 26px;
+	font-weight: bolder;
+	color: @theme_fg_color;
+}
+
+
+
+
+.insert-image-box{
+	border: 1px solid mix(@theme_fg_color, @theme_bg_color, 0.7);
+}
+.account-name{
+  font-weight: bold;
+}
+
+/* Common */
+.progress-bar trough progress {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.progress-bar trough {
+  border-radius: 0px
+}
+
+
+
+
+/* Accounts Widget */
+.provider-name{
+  margin: 6px;
+  font-weight: bold;
+  font-size: 18px;
+}
+/* Accounts List */
+.accounts-list {
+  margin-left:6px;
+  margin-right:6px;
+}
+/* Account Row */
+.account-row{
+  padding: 6px;
+}
+.account-name{
+  font-size: 16px;
+}
+.account-pin {
+  font-size: 14px;
+}

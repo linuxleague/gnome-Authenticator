@@ -1,0 +1,69 @@
+{
+    "app-id": "com.belmoussaoui.AuthenticatorDevel",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "master",
+    "sdk": "org.gnome.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
+    "tags" : [
+        "nightly"
+    ],
+    "desktop-file-name-prefix" : "(Development) ",
+    "command": "authenticator",
+    "finish-args": [
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+    ],
+    "build-options": {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin",
+        "build-args" : [
+            "--share=network"
+        ],
+        "env" : {
+            "RUSTFLAGS" : "--remap-path-prefix =../ --error-format=human",
+            "CARGO_HOME" : "/run/build/authenticator/cargo",
+            "RUST_BACKTRACE" : "1",
+            "RUST_LOG" : "authenticator=debug"
+        }
+    },
+    "modules": [
+    	{
+            "name": "libhandy",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dintrospection=disabled",
+                "-Dgtk_doc=false",
+                "-Dtests=false",
+                "-Dexamples=false",
+                "-Dvapi=false",
+                "-Dglade_catalog=disabled"
+            ],
+            "sources": [{
+                "type": "git",
+                "url": "https://source.puri.sm/Librem5/libhandy.git",
+                "tag": "v0.0.11",
+                "commit": "f5909a897f70143bdd2f89f47a63c1bf848330ce"
+            }]
+        },
+        {
+            "name": "authenticator",
+            "buildsystem": "meson",
+            "config-opts" : [
+                "-Dprofile=development"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url" : "https://gitlab.gnome.org/World/authenticator.git"
+                }
+            ]
+        }
+    ]
+}
