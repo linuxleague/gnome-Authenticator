@@ -22,6 +22,7 @@ impl AddAccountDialog {
 
         add_account_dialog.setup_actions(add_account_dialog.clone());
         add_account_dialog.setup_signals();
+        add_account_dialog.setup_widgets();
         add_account_dialog
     }
 
@@ -86,11 +87,12 @@ impl AddAccountDialog {
             let builder = &add_account_dialog.builder;
             let username_entry: gtk::Entry = builder.get_object("username_entry").expect("Failed to retrieve username_entry");
             let token_entry: gtk::Entry = builder.get_object("token_entry").expect("Failed to retrieve token_entry");
+            let provider_combobox: gtk::ComboBox = builder.get_object("provider_combobox").expect("Failed to retrieve provider_combobox");
 
             let new_account = NewAccount {
                 username: username_entry.get_text().unwrap().to_string(),
                 token_id: token_entry.get_text().unwrap().to_string(),
-                provider: 1,
+                provider: provider_combobox.get_active_id().unwrap().parse::<i32>().unwrap(),
             };
             if let Err(err) = add_account_dialog.add_account(new_account) {
                 add_account_dialog.notify_err("Failed to add a new account");
@@ -109,5 +111,23 @@ impl AddAccountDialog {
         });
         actions.add_action(&scan_qr);
         self.widget.insert_action_group("add", Some(&actions));
+    }
+
+    fn setup_widgets(&self) {
+        // Fill the providers gtk::ListStore
+        let col_types: [gtk::Type; 2] = [gtk::Type::String, gtk::Type::String];
+        let providers_store = gtk::ListStore::new(&col_types);
+
+        if let Ok(providers) = database::get_providers() {
+            for provider in providers.iter() {
+                let values: [&dyn ToValue; 2] = [&provider.id, &provider.name];
+                providers_store.set(&providers_store.append(), &[0, 1], &values);
+            }
+        }
+
+        let provider_completion: gtk::EntryCompletion = self.builder.get_object("provider_completion").expect("Failed to retrieve provider_completion");
+        let provider_combobox: gtk::ComboBox = self.builder.get_object("provider_combobox").expect("Failed to retrieve provider_combobox");
+        provider_combobox.set_model(Some(&providers_store));
+        provider_completion.set_model(Some(&providers_store));
     }
 }

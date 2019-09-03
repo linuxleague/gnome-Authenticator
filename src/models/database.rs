@@ -33,7 +33,7 @@ fn init_pool() -> Result<Pool, Error> {
         File::create(&db_path.to_str().unwrap())?;
     }
     let manager = ConnectionManager::<SqliteConnection>::new(db_path.to_str().unwrap());
-    let pool = r2d2::Pool::builder().max_size(1).build(manager)?;
+    let pool = r2d2::Pool::builder().build(manager)?;
 
     {
         let db = pool.get()?;
