@@ -23,6 +23,8 @@ from .account import Account
 from .database import Database
 from .provider import Provider
 
+import math
+
 
 class AccountsManager(GObject.GObject):
     __gsignals__ = {
@@ -46,7 +48,6 @@ class AccountsManager(GObject.GObject):
         self.__fill_accounts()
         self._timeout_id = 0
         self.counter_max = 30
-        self.counter = self.counter_max
         self._start_progress_countdown()
 
     @staticmethod
@@ -145,6 +146,8 @@ class AccountsManager(GObject.GObject):
 
     def _start_progress_countdown(self):
         self._stop_progress_countdown()
+        time_seconds = GLib.get_real_time() / 1000000
+        self.counter = math.floor(self.counter_max - (time_seconds % self.counter_max))
         self._timeout_id = GLib.timeout_add_seconds(1, self.__update_counter,
                                                     None)
 
