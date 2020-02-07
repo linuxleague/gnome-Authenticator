@@ -1,637 +1,362 @@
-# SOME DESCRIPTIVE TITLE.
+# Danish translation for authenticator.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# scootergrisen, 2019-2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-20 05:14+0200\n"
-"PO-Revision-Date: 2018-11-03 21:23+0000\n"
-"Last-Translator: Jack Fredericksen <jack.a.fredericksen@gmail.com>\n"
-"Language-Team: Danish <https://hosted.weblate.org/projects/authenticator/"
-"translation/da/>\n"
+"Project-Id-Version: authenticator master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2020-01-02 06:51+0000\n"
+"PO-Revision-Date: 2019-10-29 00:00+0200\n"
+"Last-Translator: scootergrisen\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:37
-msgid "Authenticator"
-msgstr "TofaktorAutentifikation"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#, fuzzy
-msgid "Two-factor authentication code generator"
-msgstr "TofaktorAutentifikation kodegenerator"
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
+#: src/Authenticator/application.py.in:36
+msgid "Authenticator"
+msgstr "Autentifikation"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:9
-#, fuzzy
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
+#: data/resources/gtk/ui/about_dialog.ui.in:10
+msgid "A Two-Factor Authentication application"
+msgstr "Et tofaktor autentifikationsprogram"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
 msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
 msgstr ""
-"Enkel applikation som genererer to-faktor autentifikationskode, lavet til "
-"Gnome"
+"Simpelt program til at generere en tofaktor autentifikationskode, skabt til "
+"GNOME."
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
 msgid "Features:"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:12
-msgid "QR code scanner"
-msgstr ""
+msgstr "Funktioner:"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
-msgid "Beautiful UI"
-msgstr ""
+msgid "QR code scanner"
+msgstr "QR-kodeskanner"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
-msgid "Huge database of more than 560 supported services"
-msgstr ""
+msgid "Beautiful UI"
+msgstr "Smuk brugerflade"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
-#, fuzzy
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr "Lås applikationen"
+msgid "Huge database of more than 560 supported services"
+msgstr "Kæmpe database med mere end 560 understøttede tjenester"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
-msgid "Automtically fetch an image for services using their favicon"
-msgstr ""
+msgid "Keep your PIN tokens secure by locking the application with a password"
+msgstr "Hold dine PIN-symboler sikre ved at låse programmet med en adgangskode"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
+msgid "Automatically fetch an image for services using their favicon"
+msgstr "Hent automatisk et billede til tjenesterne ved at bruge deres favicon"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
 msgid "The possibility to add new services"
-msgstr ""
+msgstr "Mulighed for at tilføje nye tjenester"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
+msgid "Dark theme and night light"
+msgstr "Mørkt tema og nattelys"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
+msgid "Main Window - empty state"
+msgstr "Hovedvindue — tom tilstand"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
+#: data/resources/gtk/ui/account_add.ui:15
+msgid "Add a new account"
+msgstr "Tilføj en ny konto"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
+msgid "Main Window - Accounts List"
+msgstr "Hovedvindue — Kontiliste"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid ""
-"New 3.31 beta is out! Here's an overview of what changed Please backup your "
-"accounts before updating to the latest version and restore the data after "
-"update."
-msgstr ""
+msgid "Settings Window"
+msgstr "Indstillingsvindue"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:42
-msgid "New settings window"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:43
-msgid "Download provider images using their favicon if possible"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:44
-msgid "Night Light feature: not working yet!"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:45
-msgid ""
-"The possiblity to enable/disable a password without having to reset "
-"everything"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:46
-msgid ""
-"You can now add new providers and set images for providers that we didn't "
-"find an icon for"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:47
-msgid "Mobile ready"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:48
-msgid "New icon by Tobias"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:49
-msgid "Bunch of fixed bugs"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:55
-msgid ""
-"Since I have moved the application to GOME Gitlab's World group, a Flatpak "
-"build for each new commit is available to download from the site's website."
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:59
-msgid "Backup and restore from a basic JSON file"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:60
-msgid "Backup and restore from an encrypted-GPG JSON file"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:61
-msgid "Add andOTP support (free and open Android 2FA application)"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:62
-msgid "New Settings Widow with 3 sections: appearance, behavior and backup"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:63
-msgid "Fix Flatpak Build with the latest GNOME Runtime"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:64
-msgid "Move the project to GOME Gitlab's World group"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:71
-msgid "GNOME Shell Search provider"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:72
-msgid "Codes expire simultaneously #91"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:79
-msgid "Revamped main window to more closely follow the GNOME HIG"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:80
-msgid "Revamped add a new account window to make it easier to use"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:81
-msgid ""
-"Possibility to add an account from a provider not listed in the shipped "
-"database"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:82
-msgid "Possibilty to edit an account"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:83
-msgid "One Time Password now visible by default"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:90
-msgid "Fix python-dbus by using GDbus instead"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:97
-msgid "Fix the QRScanner on GNOME Shell"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:98
-msgid "Add a new entry for the account's username"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:99
-msgid "Updated database of supported accounts"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:106
-msgid "HOTFIX: App not running in DE other than GNOME"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:113
-#, fuzzy
-msgid "Rename project to Authenticator"
-msgstr "Om Gnome TofaktorAutentifikation"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:114
-msgid "Cleaner code base"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:115
-msgid "Faster startup"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:116
-#, fuzzy
-msgid "Remove unneeded features"
-msgstr "Fjern valgte konti"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:117
-msgid "Switch to pyzbar instead of zbarlight"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:118
-msgid "Flatpak package"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:134
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
 msgid "Bilal Elmoussaoui"
-msgstr ""
+msgstr "Bilal Elmoussaoui"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-#, fuzzy
-msgid "Two-factor authentication"
-msgstr "TofaktorAutentifikation"
+msgid "Two-factor Authentication"
+msgstr "Tofaktor autentifikation"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:11
-msgid "@appid@"
-msgstr ""
+msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgstr "Gnome;GTK;Verifikation;2FA;Autentifikation;Tofaktor;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
 msgid "Default window position"
-msgstr ""
+msgstr "Standardvinduesplacering"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: src/Authenticator/widgets/settings.py:83
+#: data/resources/gtk/ui/settings.ui.in:28
 msgid "Dark Theme"
-msgstr ""
+msgstr "Mørkt tema"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: src/Authenticator/widgets/settings.py:84
+#: data/resources/gtk/ui/settings.ui.in:29
+#: data/resources/gtk/ui/settings.ui.in:76
 msgid "Whether the application should use a dark theme."
-msgstr ""
+msgstr "Om programmet skal bruge et mørkt tema."
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: src/Authenticator/widgets/settings.py:88
-msgid "Night Light"
-msgstr ""
+#: data/resources/gtk/ui/settings.ui.in:83
+msgid "Auto lock timeout"
+msgstr "Timeout for automatisk lås"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-#: src/Authenticator/widgets/settings.py:89
-msgid "Automatically enable dark mode at night."
-msgstr ""
+msgid "Lock the application on idle after X minutes"
+msgstr "Lås programmet ved inaktivitet efter X minutter"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
+#: data/resources/gtk/ui/settings.ui.in:43
+msgid "Night Light"
+msgstr "Nattelys"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
+#: data/resources/gtk/ui/settings.ui.in:44
+#: data/resources/gtk/ui/settings.ui.in:84
+msgid "Automatically enable dark mode at night."
+msgstr "Aktivér automatisk mørk tilstand om natten."
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Default window maximized behaviour"
-msgstr ""
+msgstr "Standardopførsel for maksimeret vindue"
 
-#: data/ui/about_dialog.ui.in:10
-#, fuzzy
-msgid "Two-factor authentication code generator."
-msgstr "TofaktorAutentifikation kodegenerator"
-
-#: data/ui/about_dialog.ui.in:13
+#: data/resources/gtk/ui/about_dialog.ui.in:13
 msgid "translator-credits"
-msgstr ""
+msgstr "scootergrisen"
 
-#: data/ui/account_add.ui:22
-msgid "Add a new account"
-msgstr "Tilføj en ny konto"
-
-#: data/ui/account_add.ui:25 data/ui/account_edit.ui:19
-msgid "Close"
-msgstr ""
-
-#: data/ui/account_add.ui:34
+#: data/resources/gtk/ui/account_add.ui:33
 msgid "Add"
 msgstr "Tilføj"
 
-#: data/ui/account_add.ui:54
-#, fuzzy
+#: data/resources/gtk/ui/account_add.ui:53
 msgid "Scan QR Code"
-msgstr "Indskan en QR-kode"
+msgstr "Skan QR-kode"
 
-#: data/ui/account_config.ui:85
-msgid "Enable 2FA for this account"
-msgstr ""
-
-#: data/ui/account_config.ui:86
-msgid "2FA Token"
-msgstr ""
-
-#: data/ui/account_config.ui:100
-#, fuzzy
+#: data/resources/gtk/ui/account_config.ui:56
 msgid "Account Name"
 msgstr "Kontonavn"
 
-#: data/ui/account_config.ui:123
+#: data/resources/gtk/ui/account_config.ui:78
 msgid "Provider"
-msgstr ""
+msgstr "Udbyder"
 
-#: data/ui/account_edit.ui:28 data/ui/settings.ui.in:50
+#: data/resources/gtk/ui/account_config.ui:95
+#: data/resources/gtk/ui/account_config.ui:96
+msgid "Enable 2FA for this account"
+msgstr "Aktivér 2FA for kontoen"
+
+#: data/resources/gtk/ui/account_config.ui:97
+msgid "2FA Token"
+msgstr "2FA-symbol"
+
+#: data/resources/gtk/ui/account_config.ui:111
+msgid "Provider Website"
+msgstr "Udbyderens websted"
+
+#: data/resources/gtk/ui/account_edit.ui:31
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
-#: data/ui/account_row.ui:23
+#: data/resources/gtk/ui/account_row.ui:22
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
-#: data/ui/account_row.ui:41
+#: data/resources/gtk/ui/account_row.ui:40
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
-#: data/ui/account_row.ui:97
-#, fuzzy
+#: data/resources/gtk/ui/account_row.ui:97
 msgid "Copy PIN to clipboard"
-msgstr "Kode \"%s\" kopieret til clipboard"
+msgstr "Kopiér PIN til udklipsholderen"
 
-#: data/ui/password_widget.ui:46
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:46
 msgid "Current Password:"
-msgstr "Gentag nyt password"
+msgstr "Nuværende adgangskode:"
 
-#: data/ui/password_widget.ui:90
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:91
 msgid "New Password:"
-msgstr "Nyt password"
+msgstr "Ny adgangskode:"
 
-#: data/ui/password_widget.ui:135
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:136
 msgid "Confirm New Password:"
-msgstr "Nyt password"
+msgstr "Bekræft ny adgangskode:"
 
-#: data/ui/password_widget.ui:183 src/Authenticator/widgets/settings.py:208
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:184
+#: src/Authenticator/widgets/settings.py:174
 msgid "Change Password"
-msgstr "Gammelt password"
+msgstr "Skift adgangskode"
 
-#: data/ui/password_widget.ui:204
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:205
 msgid "Delete Password"
-msgstr "Gentag nyt password"
+msgstr "Slet adgangskode"
 
-#: data/ui/provider_image.ui:41
-msgid "We couldn't find an image for this provider"
-msgstr ""
+#: data/resources/gtk/ui/settings.ui.in:24
+msgid "Appearance"
+msgstr "Udseende"
 
-#. Night mode action
-#: data/ui/settings.ui.in:28 src/Authenticator/application.py.in:112
-msgid "Preferences"
-msgstr ""
+#: data/resources/gtk/ui/settings.ui.in:75
+#: src/Authenticator/application.py.in:106
+msgid "Lock the application"
+msgstr "Lås programmet"
 
-#: data/ui/settings.ui.in:95
-#, fuzzy
-msgid "Behaviour"
-msgstr "Adfærd"
-
-#: data/ui/shortcuts.ui:13
+#: data/resources/gtk/ui/shortcuts.ui:13
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "Generelt"
 
-#: data/ui/shortcuts.ui:17
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:17
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Genveje"
+msgstr "Vis genveje"
 
-#: data/ui/shortcuts.ui:24
+#: data/resources/gtk/ui/shortcuts.ui:24
 msgctxt "shortcut window"
 msgid "Preferences"
-msgstr ""
+msgstr "Indstillinger"
 
-#: data/ui/shortcuts.ui:31
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Afslut"
 
-#: data/ui/shortcuts.ui:40
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
-msgstr "Konto"
+msgstr "Konti"
 
-#: data/ui/shortcuts.ui:44
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:44
 msgctxt "shortcut window"
 msgid "Add"
 msgstr "Tilføj"
 
-#: data/ui/shortcuts.ui:51
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:51
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Søg"
 
-#: data/ui/window.ui.in:182
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:189
 msgid "There are no accounts yet…"
-msgstr "Der er ingen konto i øjeblikket"
+msgstr "Der er endnu ikke nogen konti …"
 
-#: data/ui/window.ui.in:211
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:218
 msgid "Add a new account from the menu"
-msgstr "Tilføj en ny konto"
+msgstr "Tilføj en ny konto fra menuen"
 
-#: data/ui/window.ui.in:227
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:234
 msgid "Scan a QR Code"
-msgstr "Indskan en QR-kode"
+msgstr "Skan en QR-kode"
 
-#: data/ui/window.ui.in:373
+#: data/resources/gtk/ui/window.ui.in:366
 msgid "No results found"
-msgstr ""
+msgstr "Fandt ingen resultater"
 
-#: data/ui/window.ui.in:437
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:429
 msgid "Authenticator is locked"
-msgstr "TofaktorAutentifikation"
+msgstr "Autentifikation er låst"
 
-#: data/ui/window.ui.in:476
+#: data/resources/gtk/ui/window.ui.in:468
 msgid "Unlock"
 msgstr "Lås op"
 
-#: src/authenticator.py.in:50
+#: src/authenticator.py.in:49
 msgid "Start in debug mode"
-msgstr "Start i debug-tilstand"
-
-#: src/authenticator.py.in:52
-msgid "Authenticator version number"
-msgstr "Gnome-TofaktorAutentifikation versionsnummer"
-
-#: src/Authenticator/application.py.in:92
-#: src/Authenticator/widgets/settings.py:92
-msgid "Lock the application"
-msgstr "Lås applikationen"
-
-#: src/Authenticator/application.py.in:100
-msgid "from a plain-text JSON file"
-msgstr ""
-
-#: src/Authenticator/application.py.in:101
-msgid "in a plain-text JSON file"
-msgstr ""
-
-#: src/Authenticator/application.py.in:103
-msgid "Restore"
-msgstr ""
-
-#: src/Authenticator/application.py.in:104
-msgid "Backup"
-msgstr ""
-
-#: src/Authenticator/application.py.in:113
-msgid "Donate"
-msgstr ""
+msgstr "Start i fejlsøgningstilstand"
 
 #: src/Authenticator/application.py.in:114
-#, fuzzy
-msgid "Keyboard Shortcuts"
-msgstr "Genveje"
+msgid "from a plain-text JSON file"
+msgstr "fra en JSON-fil i ren tekst"
 
 #: src/Authenticator/application.py.in:115
-#, fuzzy
+msgid "in a plain-text JSON file"
+msgstr "i en JSON-fil i ren tekst"
+
+#: src/Authenticator/application.py.in:117
+msgid "Restore"
+msgstr "Gendan"
+
+#: src/Authenticator/application.py.in:118
+msgid "Backup"
+msgstr "Sikkerhedskopiér"
+
+#. Night mode action
+#: src/Authenticator/application.py.in:126
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: src/Authenticator/application.py.in:127
+msgid "Donate"
+msgstr "Donér"
+
+#: src/Authenticator/application.py.in:128
+msgid "Keyboard Shortcuts"
+msgstr "Tastaturgenveje"
+
+#: src/Authenticator/application.py.in:129
 msgid "About Authenticator"
-msgstr "TofaktorAutentifikation"
+msgstr "Om Autentifikation"
 
-#: src/Authenticator/models/account.py:71
+#: src/Authenticator/models/account.py:84
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
-#: src/Authenticator/widgets/accounts/add.py:58
-#, fuzzy
+#: src/Authenticator/widgets/accounts/add.py:247
 msgid "Invalid QR code"
-msgstr "Indskan en QR-kode"
+msgstr "Ugyldig QR-kode"
 
-#: src/Authenticator/widgets/accounts/list.py:143
-msgid "The One-Time Passwords expires in {} seconds"
-msgstr ""
+#: src/Authenticator/widgets/accounts/list.py:152
+msgid "The One-Time Passwords expire in {} seconds"
+msgstr "Engangsadgangskoderne udløber om {} sekunder"
 
-#: src/Authenticator/widgets/accounts/row.py:80
+#: src/Authenticator/widgets/accounts/row.py:90
 msgid "Couldn't generate the secret code"
 msgstr "Kunne ikke generere den hemmelige kode"
 
-#: src/Authenticator/widgets/accounts/row.py:91
+#: src/Authenticator/widgets/accounts/row.py:100
 msgid "The PIN of {} was copied to the clipboard"
-msgstr ""
+msgstr "PIN'en {} blev kopieret til udklipsholderen"
 
-#: src/Authenticator/widgets/accounts/row.py:123
+#: src/Authenticator/widgets/accounts/row.py:141
 msgid "The account was updated successfully"
-msgstr ""
+msgstr "Kontoen blev opdateret"
 
-#: src/Authenticator/widgets/notification.py:43
-#, fuzzy
-msgid "Close the notification"
-msgstr "Skjul beskeder"
-
-#: src/Authenticator/widgets/notification.py:48
-#: src/Authenticator/widgets/notification.py:63
+#: src/Authenticator/widgets/notification.py:53
+#: src/Authenticator/widgets/notification.py:84
 msgid "Undo"
 msgstr "Fortryd"
 
-#: src/Authenticator/widgets/settings.py:93
-#, fuzzy
-msgid "Lock the application with a password"
-msgstr "Lås applikationen"
+#: src/Authenticator/widgets/notification.py:79
+msgid "Close the notification"
+msgstr "Luk underretningen"
 
-#: src/Authenticator/widgets/settings.py:157
-#, fuzzy
-msgid "Authentication password is now enabled."
-msgstr "TofaktorAutentifikation"
-
-#: src/Authenticator/widgets/settings.py:159
-#, fuzzy
-msgid "The authentication password was updated."
-msgstr "TofaktorAutentifikation"
-
-#: src/Authenticator/widgets/settings.py:163
-#, fuzzy
-msgid "The authentication password was deleted."
-msgstr "TofaktorAutentifikation"
-
-#: src/Authenticator/widgets/settings.py:204
-#, fuzzy
+#: src/Authenticator/widgets/settings.py:170
 msgid "Save Password"
-msgstr "Gammelt password"
+msgstr "Gem adgangskode"
 
-#: src/Authenticator/widgets/utils.py:40 src/Authenticator/widgets/utils.py:45
+#: src/Authenticator/widgets/settings.py:222
+msgid "Do you want to remove the authentication password?"
+msgstr "Vil du fjerne autentifikationsadgangskoden?"
+
+#: src/Authenticator/widgets/settings.py:223
+msgid "Authentication password enforces the privacy of your accounts."
+msgstr "Autentifikationsadgangskoden håndhæver privatlivet for dine konti."
+
+#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
 msgid "JSON files"
-msgstr ""
-
-#~ msgid "Settings"
-#~ msgstr "Indstillinger"
-
-#, fuzzy
-#~ msgid "Authenticator Password"
-#~ msgstr "TofaktorAutentifikation"
-
-#~ msgid "Cancel"
-#~ msgstr "Afbryd"
-
-#, fuzzy
-#~ msgid "Select"
-#~ msgstr "Udvælgelsesindstilling"
-
-#, fuzzy
-#~ msgid "Secret token"
-#~ msgstr "Hemmelig kode"
-
-#~ msgid "Search"
-#~ msgstr "Søg"
-
-#~ msgid "Selection mode"
-#~ msgstr "Udvælgelsesindstilling"
-
-#, fuzzy
-#~ msgid "Old Password"
-#~ msgstr "Gammelt password"
-
-#, fuzzy
-#~ msgctxt "shortcut window"
-#~ msgid "Select"
-#~ msgstr "Udvælgelsesindstilling"
-
-#, fuzzy
-#~ msgid "Authenticator@NAME_SUFFIX@"
-#~ msgstr "TofaktorAutentifikation"
-
-#~ msgid "About"
-#~ msgstr "Om"
-
-#, fuzzy
-#~ msgid "Backup Password"
-#~ msgstr "Skift password"
-
-#~ msgid "Next"
-#~ msgstr "Næste"
-
-#~ msgid "Two Factor Authentication code generator"
-#~ msgstr "TofaktorAutentifikation kodegenerator"
-
-#~ msgid "Two-Factor Authentication code generator"
-#~ msgstr "TofaktorAutentifikation kodegenerator"
-
-#~ msgid "Remove the account"
-#~ msgstr "Fjern kontoen"
-
-#~ msgid "Copy the generated code"
-#~ msgstr "Kopier den genererede kode"
-
-#~ msgid "Edit the account"
-#~ msgstr "Redigér kontoen"
-
-#~ msgid "Save the new account name"
-#~ msgstr "Gem det nye kontonavn"
-
-#~ msgid "Expires in %s seconds"
-#~ msgstr "Udløber om %s sekunder"
-
-#~ msgid "Error during the generation of code"
-#~ msgstr "Fejl under generering af kode"
-
-#~ msgid "Do you really want to remove \"%s\"?"
-#~ msgstr "Er du sikker på, at du vil slette \"%s\"?"
-
-#~ msgid "\"%s\" was removed"
-#~ msgstr "\"%s\" blev slettet"
-
-#~ msgid "Selected area is not a valid QR code"
-#~ msgstr "Det valgte område er ikke en valid QR-kode"
-
-#~ msgid "Select an application"
-#~ msgstr "Vælg en applikation"
-
-#~ msgid "Apply"
-#~ msgstr "Tilføj"
-
-#~ msgid "Enter your password"
-#~ msgstr "Indtast dit password"
-
-#~ msgid "Password protection"
-#~ msgstr "Passwordbeskyttelse"
-
-#~ msgid "Auto-lock the application (m):"
-#~ msgstr "Lås applikationen automatisk (m):"
-
-#~ msgid "Show about dialog"
-#~ msgstr "Vis Om dialog"
+msgstr "JSON-filer"
