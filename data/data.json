@@ -1944,6 +1944,11 @@
         "url": "https://phacility.com/",
         "doc": ""
     },
+    "Phabricator": {
+        "img": "phabricator.png",
+        "url": "https://phacility.com/phabricator/",
+        "doc": "https://secure.phabricator.com/book/phabricator/article/multi_factor_auth/"
+    },
     "PhraseApp": {
         "img": "phraseapp.png",
         "url": "https://phraseapp.com",
