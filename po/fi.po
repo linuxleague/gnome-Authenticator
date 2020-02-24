@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-07-02 16:11+0000\n"
-"PO-Revision-Date: 2019-08-18 17:46+0300\n"
+"POT-Creation-Date: 2020-02-24 06:12+0000\n"
+"PO-Revision-Date: 2020-02-24 20:47+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
@@ -87,7 +87,7 @@ msgstr "Pääikkuna - Tililuettelo"
 msgid "Settings Window"
 msgstr "Asetukset-ikkuna"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:160
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -96,10 +96,10 @@ msgid "Two-factor Authentication"
 msgstr "Kaksivaiheinen todennus"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
 msgstr ""
-"Gnome;GTK;Verification;2FA;Authentication;TwoFactor;tunnistaminen;vahvistus;"
-"kaksivaiheinen;todentaminen;"
+"Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;tunnistaminen;"
+"vahvistus;kaksivaiheinen;todentaminen;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
