@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the Authenticator package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Rodrigo Lledó <rodhos92@gmail.com>, 2019.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2019.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2019-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-07-02 16:11+0000\n"
-"PO-Revision-Date: 2019-08-21 10:30+0200\n"
+"POT-Creation-Date: 2020-02-24 06:12+0000\n"
+"PO-Revision-Date: 2020-02-24 13:12+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"X-Generator: Gtranslator 3.34.0\n"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
@@ -29,7 +29,6 @@ msgstr "Authenticator"
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
 #: data/resources/gtk/ui/about_dialog.ui.in:10
-#| msgid "Two-factor authentication"
 msgid "A Two-Factor Authentication application"
 msgstr "Una aplicación de autenticación de doble factor"
 
@@ -92,18 +91,18 @@ msgstr "Ventana principal - Lista de cuentas"
 msgid "Settings Window"
 msgstr "Ventana de configuración"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:160
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-#| msgid "Two-factor authentication"
 msgid "Two-factor Authentication"
 msgstr "Autenticación de doble factor"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
-msgstr "Gnome;GTK;Autenticación;Verificación;2FA;Factores;Pasos;"
+#| msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+msgstr "Gnome;GTK;verificación;2FA;autenticación;OTP;doble;factor;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
