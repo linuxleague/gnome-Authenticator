@@ -281,8 +281,6 @@ class Application(Gtk.Application):
         Close the application, stops all threads
         and clear clipboard for safety reasons
         """
-        clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-        clipboard.clear()
         Window.get_default().close()
         self.quit()
 
