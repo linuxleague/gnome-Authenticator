@@ -39,6 +39,7 @@ class Window(Gtk.ApplicationWindow):
 
     view = GObject.Property(type=int, default=0)
 
+    unlock_btn: Gtk.Button = Gtk.Template.Child()
     search_btn: Gtk.ToggleButton = Gtk.Template.Child()
     primary_menu_btn: Gtk.MenuButton = Gtk.Template.Child()
 
@@ -169,6 +170,7 @@ class Window(Gtk.ApplicationWindow):
         if self.props.view == WindowView.LOCKED:
             visible_child = "locked_state"
             visible_headerbar = "locked_headerbar"
+            self.unlock_btn.grab_default()
             if self.key_press_signal:
                 self.disconnect(self.key_press_signal)
         else:
