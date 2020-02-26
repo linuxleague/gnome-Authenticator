@@ -1,11 +1,4 @@
 include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
-stages:
-  - check
-  - test
-  - deploy
-
-variables:
-    BUNDLE: "authenticator-dev.flatpak"
 
 flatpak:
     image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
@@ -15,22 +8,11 @@ flatpak:
         MESON_ARGS: "-Dprofile=development"
         RUNTIME_REPO: "https://sdk.gnome.org/gnome-nightly.flatpakrepo"
         APP_ID: "com.github.bilelmoussaoui.AuthenticatorDevel"
+        BUNDLE: "authenticator-dev.flatpak"
     extends: .flatpak
 
-review:
-    stage: deploy
-    dependencies:
-        - 'flatpak'
-    extends: '.review'
-
-stop_review:
-    stage: deploy
-    extends: '.stop_review'
-
-
-
 flake8:
-  stage: check
+  stage: ".pre"
   script:
     - dnf install -y python3-flake8
     - flake8 --ignore E402,W503,E501 --show-source src/ --exclude __init__.py

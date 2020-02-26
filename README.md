@@ -4,7 +4,7 @@
 
 
 # Authenticator
-<img src="https://gitlab.gnome.org/World/Authenticator/raw/master/data/icons/hicolor/scalable/apps/com.github.bilelmoussaoui.Authenticator.svg" width="128" height="128" />
+<img src="https://gitlab.gnome.org/World/Authenticator/raw/master/data/icons/hicolor/scalable/apps/com.github.bilelmoussaoui.Authenticator.svg" width="128px" height="128px" />
 <p>Two-factor authentication application built for GNOME.</p>
 
 ## Screenshots
