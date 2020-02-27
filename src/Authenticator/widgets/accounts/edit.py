@@ -77,7 +77,7 @@ class EditAccountWindow(Handy.Dialog):
         # Update the AccountRow widget
         self.emit("updated", username, provider)
         # Update the providers list
-        if provider.provider_id != old_provider.provider_id:
+        if provider.id != old_provider.id:
             ac_widget.update_provider(self._account, provider)
 
         ac_widget.update_provider_image(provider)

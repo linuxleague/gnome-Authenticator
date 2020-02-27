@@ -28,7 +28,7 @@ require_version('Gdk', '3.0')
 require_version('Secret', '1')
 from gi.repository import Gio, GLib
 
-from Authenticator.models import AccountsManager, Account, Clipboard, Keyring
+from Authenticator.models import AccountsManager, Account, Clipboard, Keyring, Logger
 
 class Server:
     def __init__(self, con, path):
@@ -162,7 +162,7 @@ class AuthenticatorSearchProvider(Server, Gio.Application):
                      }
                 results.append(d)
         except Exception as e:
-            print("AuthenticatorSearchProvider::GetResultMetas():", e)
+            Logger.error("AuthenticatorSearchProvider::GetResultMetas():", e)
             return []
         return results
 
@@ -183,7 +183,7 @@ class AuthenticatorSearchProvider(Server, Gio.Application):
                 accounts = AccountsManager.get_default().search(terms)
                 ids = [str(account.id) for account in accounts]
             except Exception as e:
-                print("AuthenticatorSearchProvider::__search():", e)
+                Logger.error("AuthenticatorSearchProvider::__search():", e)
         return ids
 
 

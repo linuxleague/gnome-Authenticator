@@ -6,7 +6,7 @@ if ! which flake8 &> /dev/null; then
 fi
 
 echo "--Checking style--"
-flake8 --ignore E402,W503,E501 --show-source src/ --exclude __init__.py
+flake8 --ignore E402,W503,E501,F821 --show-source src/ --exclude __init__.py
 if test $? != 0; then
     echo "--Checking style fail--"
     echo "Please fix the above issues"

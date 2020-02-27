@@ -19,15 +19,10 @@
 import sqlite3
 from os import path, makedirs
 from gi.repository import GLib
-from collections import namedtuple
 from shutil import move
 from typing import Iterable
 
 from Authenticator.models import Logger
-
-
-Provider = namedtuple('Provider', ['id', 'name', 'website', 'doc_url', 'image'])
-Account = namedtuple('Account', ['id', 'username', 'token_id', 'provider'])
 
 
 class Database:
@@ -70,6 +65,7 @@ class Database:
         :param token_id: The token identifier stored using libsecret
         :param provider: The provider foreign key
         """
+        from Authenticator.models.account import Account
         query = "INSERT INTO accounts (username, token_id, provider) VALUES (?, ?, ?)"
         cursor = self.conn.cursor()
         try:
@@ -89,6 +85,7 @@ class Database:
         :param doc_url: The provider doc_url, used to allow user get the docs
         :param image: The image path of a provider
         """
+        from Authenticator.models.provider import Provider
         query = "INSERT INTO providers (name, website, doc_url, image) VALUES (?, ?, ?, ?)"
         cursor = self.conn.cursor()
         try:
@@ -99,12 +96,13 @@ class Database:
             Logger.error("[SQL] Couldn't add a new account")
             Logger.error(str(error))
 
-    def account_by_id(self, id_: int) -> Account:
+    def account_by_id(self, id_: int) -> 'Account':
         """
             Get an account by the ID
             :param id_: int the account id
             :return: Account: The account data
         """
+        from Authenticator.models.account import Account
         query = "SELECT * FROM accounts WHERE id=?"
         try:
             data = self.conn.cursor().execute(query, (id_,))
@@ -114,18 +112,20 @@ class Database:
             Logger.error(str(error))
         return None
 
-    def accounts_by_provider(self, provider_id: int) -> Iterable[Account]:
+    def accounts_by_provider(self, provider_id: int) -> Iterable['Account']:
+        from Authenticator.models.account import Account
         query = "SElECT * FROM accounts WHERE provider=?"
         query_d = self.conn.execute(query, (provider_id, ))
         accounts = query_d.fetchall()
         return [Account(*account) for account in accounts]
 
-    def provider_by_id(self, id_: int) -> Provider:
+    def provider_by_id(self, id_: int) -> 'Provider':
         """
             Get a provider by the ID
             :param id_: int the provider id
             :return: Provider: The provider data
         """
+        from Authenticator.models.provider import Provider
         query = "SELECT * FROM providers WHERE id=?"
         try:
             data = self.conn.cursor().execute(query, (id_,))
@@ -135,12 +135,13 @@ class Database:
             Logger.error(str(error))
         return None
 
-    def provider_by_name(self, provider_name: str) -> Provider:
+    def provider_by_name(self, provider_name: str) -> 'Provider':
         """
             Get a provider by the ID
             :param id_: int the provider id
             :return: Provider: The provider data
         """
+        from Authenticator.models.provider import Provider
         query = "SELECT * FROM providers WHERE name LIKE ? "
         try:
             data = self.conn.cursor().execute(query, (provider_name,))
@@ -179,7 +180,8 @@ class Database:
         # Update a provider by id
         self.__update_by_id("providers", provider_data, id_)
 
-    def search_accounts(self, terms: Iterable[str]) -> Iterable[Account]:
+    def search_accounts(self, terms: Iterable[str]) -> Iterable['Account']:
+        from Authenticator.models.account import Account
         if terms:
             filters = " ".join(terms)
             if filters:
@@ -221,7 +223,8 @@ class Database:
         """
         return self.__count("providers")
 
-    def get_providers(self, **kwargs) -> Iterable[Provider]:
+    def get_providers(self, **kwargs) -> Iterable['Provider']:
+        from Authenticator.models.provider import Provider
         only_used = kwargs.get("only_used",)
         query = "SELECT * FROM providers"
         if only_used:
@@ -236,12 +239,13 @@ class Database:
         return None
 
     @property
-    def accounts(self) -> [Account]:
+    def accounts(self) -> ['Account']:
         """
             Retrieve the list of accounts.
 
             :return list
         """
+        from Authenticator.models.account import Account
         query = "SELECT * FROM accounts"
         try:
             data = self.conn.cursor().execute(query)

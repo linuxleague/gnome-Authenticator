@@ -17,4 +17,4 @@ flake8:
   stage: '.pre'
   script:
     - dnf install -y python3-flake8
-    - flake8 --ignore E402,W503,E501 --show-source src/ --exclude __init__.py
+    - flake8 --ignore E402,W503,E501,F821 --show-source src/ --exclude __init__.py

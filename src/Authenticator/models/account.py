@@ -20,7 +20,7 @@ from gettext import gettext as _
 from gi.repository import GObject, Gtk, Gdk
 from hashlib import sha256
 from typing import Union
-from Authenticator.models import Database, Keyring, Logger, OTP, Provider
+from Authenticator.models import Keyring, Logger, OTP
 
 
 class Account(GObject.GObject):
@@ -42,14 +42,14 @@ class Account(GObject.GObject):
             ()
         ),
     }
-    _provider: Provider = None
+    _provider: 'Provider' = None
 
-    def __init__(self, _id: str, username: str, token_id: str, provider: int):
+    def __init__(self, *args):
         GObject.GObject.__init__(self)
-        self.id = _id
-        self.username = username
-        self.provider = provider
-        self._token_id = token_id
+        self.id = args[0]
+        self.username = args[1]
+        self._token_id = args[2]
+        self.provider = args[3]
         token = Keyring.get_default().get_by_id(self._token_id)
         self.connect("otp_out_of_date", self._on_otp_out_of_date)
         if token:
@@ -70,6 +70,8 @@ class Account(GObject.GObject):
         :param token: the OTP secret token
         :return: Account object
         """
+        from .database import Database
+
         # Encrypt the token to create a secret_id
         token_id = sha256(token.encode('utf-8')).hexdigest()
         # Save the account
@@ -79,6 +81,7 @@ class Account(GObject.GObject):
 
     @staticmethod
     def create_from_json(json_obj: dict) -> 'Account':
+        from .provider import Provider
         tags = json_obj["tags"]
         if not tags:
             provider_name = _("Default")
@@ -91,6 +94,8 @@ class Account(GObject.GObject):
 
     @staticmethod
     def get_by_id(id_: int) -> 'Account':
+        from .database import Database
+
         obj = Database.get_default().account_by_id(id_)
         return Account(obj.id, obj.username, obj.token_id, obj.provider)
 
@@ -101,16 +106,19 @@ class Account(GObject.GObject):
     @provider.setter
     def provider(self, provider: Union[int, 'Provider']) -> 'Provider':
         if isinstance(provider, int):
+            from .provider import Provider
             self._provider = Provider.get_by_id(provider)
         else:
             self._provider = provider
 
-    def update(self, username: str, provider: Provider):
+    def update(self, username: str, provider: 'Provider'):
         """
         Update the account name and/or provider.
         :param username: the account's username
         :param provider: the account's provider
         """
+        from .database import Database
+
         self.username = username
         self.provider = provider
         account = {
@@ -123,6 +131,8 @@ class Account(GObject.GObject):
         """
         Remove the account.
         """
+        from .database import Database
+
         Database.get_default().delete_account(self.id)
         Keyring.get_default().remove(self._token_id)
         self.emit("removed")

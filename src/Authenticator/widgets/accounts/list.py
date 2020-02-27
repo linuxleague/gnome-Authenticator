@@ -68,7 +68,7 @@ class AccountsWidget(Gtk.Box):
 
     def _get_by_provider(self, provider):
         for provider_info in self._providers:
-            if provider.provider_id == provider_info['provider'].provider_id:
+            if provider.id == provider_info['provider'].id:
                 return provider_info
         return {
             'provider': None,
@@ -95,7 +95,7 @@ class AccountsWidget(Gtk.Box):
 
     def update_provider_image(self, provider):
         for child in self.accounts_container.get_children():
-            if child.provider.provider_id == provider.provider_id:
+            if child.provider.id == provider.id:
                 child.provider_image.set_image(provider.image)
                 break
 

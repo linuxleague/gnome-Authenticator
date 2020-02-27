@@ -135,10 +135,8 @@ class AccountsManager(GObject.GObject):
         providers = Database.get_default().get_providers(only_used=True)
         for provider in providers:
             accounts = Database.get_default().accounts_by_provider(provider.id)
-            provider = Provider(*provider)
             _accounts = []
             for account in accounts:
-                account = Account(*account)
                 if account.otp:
                     _accounts.append(account)
             self._accounts_per_provider.append((provider, _accounts))

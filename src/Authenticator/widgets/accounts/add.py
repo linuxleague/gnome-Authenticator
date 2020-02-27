@@ -68,7 +68,7 @@ class AddAccountWindow(Handy.Dialog):
         # Create a new account
         account = Account.create(account_obj["username"],
                                  account_obj["token"],
-                                 account_obj["provider"].provider_id)
+                                 account_obj["provider"].id)
         # Add it to the AccountsManager
         AccountsManager.get_default().add(account_obj["provider"], account)
         AccountsWidget.get_default().append(account)
@@ -201,7 +201,7 @@ class AccountConfig(Gtk.Overlay):
     def _fill_data(self):
         providers = Provider.all()
         for provider in providers:
-            self.providers_store.append([provider.provider_id, provider.name])
+            self.providers_store.append([provider.id, provider.name])
 
     @Gtk.Template.Callback('account_edited')
     def _validate(self, *_):

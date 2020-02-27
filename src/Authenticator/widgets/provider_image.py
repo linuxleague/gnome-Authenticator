@@ -25,7 +25,6 @@ from tempfile import NamedTemporaryFile
 import asyncio
 from pyfavicon import Favicon
 import concurrent
-from Authenticator.models import Provider
 
 
 class ProviderImageState(Enum):
@@ -74,7 +73,7 @@ class ProviderImage(Gtk.Stack):
     def __init__(self, provider=None, image_size=48):
         super(ProviderImage, self).__init__()
         self.init_template('ProviderImage')
-        self.provider = provider if provider else Provider()
+        self.provider = provider
 
         self.image_size = image_size
 
@@ -86,7 +85,7 @@ class ProviderImage(Gtk.Stack):
 
         self.connect("provider-changed", self.__on_provider_changed)
 
-        if self.provider.image:
+        if self.image:
             if not self.set_image(self.provider.image) and self.provider.website:
                 self.fetch_favicon_from_url(self.provider.website)
 
@@ -210,7 +209,7 @@ class ProviderImage(Gtk.Stack):
             if provider:
                 provider.update(image=image_path)  # Update the database
             # If the user didn't change the provider while downloading
-            if provider.provider_id == self.provider.provider_id:
+            if provider.id == self.provider.id:
                 self.set_image(image_path)
                 self.set_state(ProviderImageState.FOUND)
             return

@@ -26,41 +26,38 @@ class Provider:
 
     instance: 'Provider' = None
 
-    def __init__(self,
-                 provider_id: int = None,
-                 name: str = None,
-                 website: str = None,
-                 doc_url: str = None,
-                 image: str = None):
-
-        self.provider_id = provider_id
-        self.name = name
-        self.website = website
-        self.doc_url = doc_url
-        self.image = image
+    def __init__(self, *args):
+        self._provider_id = args[0]
+        self.name = args[1]
+        self.website = args[2]
+        self.doc_url = args[3]
+        self.image = args[4]
+        self.period = args[5]
+        self.type = args[6]
 
     @staticmethod
     def create(name: str, website: str, doc_url: str, image: str) -> 'Provider':
         provider = Database.get_default().insert_provider(name, website, doc_url, image)
-        return Provider(*provider)
+        return provider
 
     @staticmethod
     def get_by_id(id_) -> 'Provider':
         provider = Database.get_default().provider_by_id(id_)
-        return Provider(*provider) if provider else None
+        return provider
 
     @staticmethod
     def get_by_name(name) -> 'Provider':
         provider = Database.get_default().provider_by_name(name)
-        return Provider(*provider) if provider else None
+        return provider
 
     @staticmethod
     def all() -> ['Provider']:
         providers = Database.get_default().get_providers()
-        return [
-            Provider(*provider)
-            for provider in providers
-        ]
+        return providers
+
+    @property
+    def id(self):
+        return self._provider_id
 
     @property
     def image_path(self) -> str:
@@ -78,4 +75,4 @@ class Provider:
     def update(self, **provider_data):
         self.name = provider_data.get("name", self.name)
         self.image = provider_data.get("image", self.image)
-        Database.get_default().update_provider(provider_data, self.provider_id)
+        Database.get_default().update_provider(provider_data, self._provider_id)
