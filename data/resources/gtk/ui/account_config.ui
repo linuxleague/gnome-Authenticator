@@ -2,6 +2,7 @@
 <!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.22"/>
+  <requires lib="libhandy" version="0.0"/>
   <object class="GtkListStore" id="providers_store">
     <columns>
       <!-- column-name id -->
@@ -12,6 +13,7 @@
   </object>
   <object class="GtkEntryCompletion" id="provider_completion">
     <property name="model">providers_store</property>
+    <property name="minimum_key_length">3</property>
     <property name="text_column">1</property>
     <property name="inline_selection">True</property>
     <child>
@@ -25,106 +27,129 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
-      <object class="GtkBox" id="main_container">
+      <object class="HdyColumn">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="halign">center</property>
-        <property name="valign">start</property>
-        <property name="margin_top">42</property>
-        <property name="hexpand">True</property>
+        <property name="valign">center</property>
+        <property name="margin_left">12</property>
+        <property name="margin_right">12</property>
+        <property name="margin_top">12</property>
+        <property name="margin_bottom">12</property>
         <property name="vexpand">True</property>
-        <property name="orientation">vertical</property>
+        <property name="maximum_width">400</property>
+        <property name="linear_growth_width">400</property>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <object class="GtkGrid">
+          <object class="GtkBox" id="main_container">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="halign">center</property>
-            <property name="valign">baseline</property>
-            <property name="margin_top">24</property>
-            <property name="hexpand">True</property>
-            <property name="row_spacing">6</property>
-            <property name="column_spacing">6</property>
-            <property name="column_homogeneous">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">42</property>
             <child>
-              <object class="GtkEntry" id="account_name_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="placeholder_text" translatable="yes">Account Name</property>
-                <property name="enable_emoji_completion">True</property>
-                <signal name="changed" handler="account_edited" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="provider_combobox">
+              <object class="GtkListBox" id="account_list">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="hexpand">True</property>
-                <property name="model">providers_store</property>
-                <property name="has_entry">True</property>
-                <property name="entry_text_column">1</property>
-                <property name="id_column">0</property>
-                <signal name="changed" handler="provider_changed" swapped="no"/>
-                <child internal-child="entry">
-                  <object class="GtkEntry" id="provider_entry">
+                <property name="selection_mode">none</property>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="placeholder_text" translatable="yes">Provider</property>
-                    <property name="completion">provider_completion</property>
+                    <property name="activatable_widget">provider_combobox</property>
+                    <property name="title" translatable="yes">Provider</property>
+                    <child type="action">
+                      <object class="GtkComboBox" id="provider_combobox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="model">providers_store</property>
+                        <property name="has_entry">True</property>
+                        <property name="entry_text_column">1</property>
+                        <property name="id_column">0</property>
+                        <signal name="changed" handler="provider_changed" swapped="no"/>
+                        <child internal-child="entry">
+                          <object class="GtkEntry" id="provider_entry">
+                            <property name="can_focus">True</property>
+                            <property name="completion">provider_completion</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="activatable_widget">provider_website_entry</property>
+                    <property name="title" translatable="yes">Website</property>
+                    <child type="action">
+                      <object class="GtkEntry" id="provider_website_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="input_purpose">url</property>
+                        <property name="enable_emoji_completion">True</property>
+                        <signal name="key-release-event" handler="on_provider_website_changed" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="activatable_widget">account_name_entry</property>
+                    <property name="title" translatable="yes">Account</property>
+                    <child type="action">
+                      <object class="GtkEntry" id="account_name_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="enable_emoji_completion">True</property>
+                        <signal name="changed" handler="account_edited" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyActionRow" id="token_row">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="activatable_widget">token_entry</property>
+                    <property name="title" translatable="yes">Token</property>
+                    <child type="action">
+                      <object class="GtkEntry" id="token_entry">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="visibility">False</property>
+                        <property name="secondary_icon_name">dialog-information-symbolic</property>
+                        <property name="secondary_icon_tooltip_text" translatable="yes">Enable 2FA for this account</property>
+                        <property name="secondary_icon_tooltip_markup" translatable="yes">Enable 2FA for this account</property>
+                        <property name="input_purpose">pin</property>
+                        <signal name="changed" handler="account_edited" swapped="no"/>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <style>
+                  <class name="frame"/>
+                </style>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="token_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="visibility">False</property>
-                <property name="secondary_icon_name">dialog-information-symbolic</property>
-                <property name="secondary_icon_tooltip_text" translatable="yes">Enable 2FA for this account</property>
-                <property name="secondary_icon_tooltip_markup" translatable="yes">Enable 2FA for this account</property>
-                <property name="placeholder_text" translatable="yes">2FA Token</property>
-                <property name="input_purpose">pin</property>
-                <signal name="changed" handler="account_edited" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="provider_website_entry">
-                <property name="can_focus">True</property>
-                <property name="no_show_all">True</property>
-                <property name="hexpand">True</property>
-                <property name="placeholder_text" translatable="yes">Provider Website</property>
-                <property name="input_purpose">url</property>
-                <property name="enable_emoji_completion">True</property>
-                <signal name="key-release-event" handler="on_provider_website_changed" swapped="no"/>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
       <packing>
@@ -132,4 +157,12 @@
       </packing>
     </child>
   </template>
+  <object class="GtkSizeGroup">
+    <widgets>
+      <widget name="provider_combobox"/>
+      <widget name="provider_website_entry"/>
+      <widget name="account_name_entry"/>
+      <widget name="token_entry"/>
+    </widgets>
+  </object>
 </interface>

@@ -61,7 +61,7 @@ class Application(Gtk.Application):
         keyring = Keyring.get_default()
         self.is_locked = keyring.can_be_locked
 
-        Application._setup_css()
+        self._setup_css()
 
         # Restore default state
         self._on_dark_theme_changed()
@@ -84,19 +84,15 @@ class Application(Gtk.Application):
         window.show_all()
         window.present()
 
-    @staticmethod
-    def _setup_css():
+    def _setup_css(self):
         """Setup the CSS and load it."""
-        uri = 'resource:///com/github/bilelmoussaoui/Authenticator/style.css'
-        provider_file = Gio.File.new_for_uri(uri)
-        provider = Gtk.CssProvider()
-        screen = Gdk.Screen.get_default()
-        context = Gtk.StyleContext()
-        provider.load_from_file(provider_file)
-        context.add_provider_for_screen(screen, provider,
-                                        Gtk.STYLE_PROVIDER_PRIORITY_USER)
-        Gtk.IconTheme.get_default().add_resource_path("/com/github/bilelmoussaoui/Authenticator")
         Logger.debug("Loading CSS")
+        provider = Gtk.CssProvider()
+        provider.load_from_resource('/com/github/bilelmoussaoui/Authenticator/style.css')
+        Gtk.StyleContext().add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                                                   Gtk.STYLE_PROVIDER_PRIORITY_USER)
+        Gtk.IconTheme.get_default().add_resource_path("/com/github/bilelmoussaoui/Authenticator/icons")
+
 
     def _generate_menu(self):
         """Generate application menu."""
@@ -124,7 +120,6 @@ class Application(Gtk.Application):
         main_content = Gio.Menu.new()
         # Night mode action
         main_content.append_item(Gio.MenuItem.new(_("Preferences"), "app.settings"))
-        main_content.append_item(Gio.MenuItem.new(_("Donate"), "app.donate"))
         main_content.append_item(Gio.MenuItem.new(_("Keyboard Shortcuts"), "app.shortcuts"))
         main_content.append_item(Gio.MenuItem.new(_("About Authenticator"), "app.about"))
         help_section = Gio.MenuItem.new_section(None, main_content)
@@ -133,7 +128,6 @@ class Application(Gtk.Application):
     def _setup_actions(self):
         self._add_action("about", self._on_about)
         self._add_action("shortcuts", self._on_shortcuts)
-        self._add_action("donate", self._on_donate)
         self._add_action("quit", self._on_quit)
         self._add_action("settings", self._on_settings, "is_locked")
         self._add_action("import_json", self._on_import_json, "is_locked")
@@ -226,9 +220,6 @@ class Application(Gtk.Application):
             self._auto_lock_timeout_id = GLib.timeout_add_seconds(lockout_seconds,
                                                                   self._on_lock)
 
-    def _on_donate(self, *_):
-        librepay_url = "https://liberapay.com/bielmoussaoui"
-        Gio.app_info_launch_default_for_uri(librepay_url)
 
     @staticmethod
     def _on_about(*_):
@@ -271,8 +262,6 @@ class Application(Gtk.Application):
         settings_window = SettingsWindow()
         main_window = Window.get_default()
         settings_window.set_transient_for(main_window)
-        settings_window.set_size_request(*main_window.get_size())
-        settings_window.resize(*main_window.get_size())
         settings_window.present()
         settings_window.show_all()
 

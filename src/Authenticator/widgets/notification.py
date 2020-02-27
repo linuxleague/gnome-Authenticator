@@ -30,7 +30,7 @@ class Notification(Gtk.Revealer):
     action_callback = None
 
     _action_signal = None
-    _source = 0
+    _source_id = 0
 
     def __init__(self):
         Gtk.Revealer.__init__(self)
@@ -58,6 +58,8 @@ class Notification(Gtk.Revealer):
         self.action_callback = kwargs.get("action_callback")
 
         self.set_reveal_child(True)
+        if self._source_id != 0:
+            GLib.source_remove(self._source_id)
         self._source_id = GLib.timeout_add_seconds(self.timeout,
                                                    self._delete_notification, None)
 

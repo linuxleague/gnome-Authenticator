@@ -2,10 +2,6 @@
 	border: 1px solid mix(@theme_fg_color, @theme_bg_color, 0.7);
 }
 
-.account-name{
-  font-weight: bold;
-}
-
 /* Common */
 .progress-bar trough progress {
   border-top-left-radius: 0px;
@@ -27,9 +23,8 @@ label.head-title{
 
 /* Accounts Widget */
 .provider-name{
-  margin: 6px;
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: 800;
+  font-size: 16pt;
 }
 /* Accounts List */
 .accounts-list {
@@ -38,11 +33,12 @@ label.head-title{
 }
 /* Account Row */
 .account-row{
-  padding: 6px;
+  padding: 12px;
 }
 .account-name{
-  font-size: 16px;
+  font-size: 12pt;
+  font-weight: 400;
 }
 .account-pin {
-  font-size: 14px;
-}
+  font-size: 12pt;
+} 

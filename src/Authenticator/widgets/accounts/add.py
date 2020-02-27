@@ -25,37 +25,44 @@ from Authenticator.widgets.provider_image import ProviderImage, ProviderImageSta
 from Authenticator.models import AccountsManager, Account, OTP, Provider, QRReader, GNOMEScreenshot
 
 
-@Gtk.Template(resource_path='/com/github/bilelmoussaoui/Authenticator/account_add.ui')
-class AddAccountWindow(Gtk.Window):
+class AddAccountWindow(Handy.Dialog):
     """Add Account Window."""
     __gtype_name__ = "AddAccountWindow"
     # Widgets
-    add_btn: Gtk.Button = Gtk.Template.Child()
-    scan_btn: Gtk.Button = Gtk.Template.Child()
-    back_btn: Gtk.Button = Gtk.Template.Child()
-
-    column: Handy.Column = Gtk.Template.Child()
 
     def __init__(self):
-        super(AddAccountWindow, self).__init__()
-        self.init_template('AddAccountWindow')
-        self.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK)
+        super(AddAccountWindow, self).__init__(use_header_bar=True, default_width=720, default_height=500)
+        self.account_config = AccountConfig()
+        self.add_button = Gtk.Button.new_with_label(_("Add"))
+        self.scan_button = Gtk.Button.new()
         self.__init_widgets()
 
     def __init_widgets(self):
         """Create the Add Account widgets."""
-        self.account_config = AccountConfig()
-        self.account_config.connect("changed", self._on_account_config_changed)
+        self.add_events(Gdk.EventMask.ENTER_NOTIFY_MASK)
 
-        self.scan_btn.connect("clicked", self.account_config.scan_qr)
-        self.back_btn.connect("clicked", lambda *_: self.destroy())
-        self.column.add(self.account_config)
+        headerbar = self.get_header_bar()
+        scanner_image = Gtk.Image.new_from_icon_name("qrscanner-symbolic", Gtk.IconSize.BUTTON)
+        self.scan_button.add(scanner_image)
+
+        self.add_button.get_style_context().add_class("suggested-action")
+        self.add_button.set_sensitive(False)
+        self.add_button.set_can_default(True)
+
+        headerbar.pack_end(self.add_button)
+        headerbar.pack_end(self.scan_button)
+
+        self.account_config.connect("changed", self._on_account_config_changed)
+        self.add_button.connect("clicked", self._on_add)
+        self.scan_button.connect("clicked", self.account_config.scan_qr)
+        self.get_content_area().pack_start(self.account_config, True, True, 0)
 
     def _on_account_config_changed(self, _, state: bool):
         """Set the sensitivity of the AddButton depends on the AccountConfig."""
-        self.add_btn.set_sensitive(state)
+        if state:
+            self.add_button.grab_default()
+        self.add_button.set_sensitive(state)
 
-    @Gtk.Template.Callback('add_btn_clicked')
     def _on_add(self, *_):
         account_obj = self.account_config.account
         # Create a new account
@@ -92,10 +99,14 @@ class AccountConfig(Gtk.Overlay):
     account_name_entry: Gtk.Entry = Gtk.Template.Child()
     provider_website_entry: Gtk.Entry = Gtk.Template.Child()
     token_entry: Gtk.Entry = Gtk.Template.Child()
+    token_row: Handy.ActionRow = Gtk.Template.Child()
+    account_list: Gtk.ListBox = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super(AccountConfig, self).__init__()
         self.init_template('AccountConfig')
+
+        self.account_list.set_header_func(Handy.list_box_separator_header)
 
         self.props.is_edit = kwargs.get("edit", False)
         self._account = kwargs.get("account", None)
@@ -132,6 +143,7 @@ class AccountConfig(Gtk.Overlay):
 
     def __init_widgets(self):
         self.add_overlay(self._notification)
+
         if self._account is not None:
             self.provider_image = ProviderImage(self._account.provider,
                                                 96)
@@ -147,13 +159,14 @@ class AccountConfig(Gtk.Overlay):
         # Set up auto completion
         if self._account and self._account.provider:
             self.provider_entry.set_text(self._account.provider.name)
+            self.provider_website_entry.set_text(self._account.provider.website)
 
         if self._account and self._account.username:
             self.account_name_entry.set_text(self._account.username)
 
         if self.props.is_edit:
-            self.token_entry.hide()
-            self.token_entry.set_no_show_all(True)
+            self.token_row.hide()
+            self.token_row.set_no_show_all(True)
         else:
             self.token_entry.connect("icon-press", self.__on_open_doc_url)
 
@@ -181,11 +194,8 @@ class AccountConfig(Gtk.Overlay):
         if provider:
             self.token_entry.props.secondary_icon_activatable = provider.doc_url is not None
             self.provider_image.emit("provider-changed", provider)
-            self.provider_website_entry.hide()
-            self.provider_website_entry.set_no_show_all(True)
+            self.provider_website_entry.set_text(provider.website)
         else:
-            self.provider_website_entry.show()
-            self.provider_website_entry.set_no_show_all(False)
             self.provider_image.set_state(ProviderImageState.NOT_FOUND)
 
     def _fill_data(self):

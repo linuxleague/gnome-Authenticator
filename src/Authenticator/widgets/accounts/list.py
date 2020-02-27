@@ -17,7 +17,7 @@
  along with Authenticator. If not, see <http://www.gnu.org/licenses/>.
 """
 from gettext import gettext as _
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GObject, Handy
 
 from Authenticator.widgets.provider_image import ProviderImage
 from .row import AccountRow
@@ -200,7 +200,8 @@ class AccountsList(Gtk.ListBox):
         self.set_selection_mode(Gtk.SelectionMode.NONE)
         self.get_style_context().add_class("accounts-list")
         self.get_style_context().add_class("frame")
-        self.set_header_func(self._update_header_func)
+        self.set_header_func(Handy.list_box_separator_header)
+        self.set_placeholder(Gtk.Label.new())
 
     def add_row(self, account: Account):
         row = AccountRow(account)
@@ -213,13 +214,3 @@ class AccountsList(Gtk.ListBox):
         account = account_row.account
         account.remove()
         self.emit("account-deleted", account)
-
-    def _update_header_func(self, row, row_before):
-        def on_realize_sep(separator):
-            separator.set_size_request(row_before.get_allocated_width(), -1)
-
-        if row_before:
-            separator = Gtk.Separator()
-            separator.connect("realize", on_realize_sep)
-            row.set_header(separator)
-            separator.show()

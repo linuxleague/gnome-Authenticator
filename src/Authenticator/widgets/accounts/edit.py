@@ -16,11 +16,11 @@
  You should have received a copy of the GNU General Public License
  along with Authenticator. If not, see <http://www.gnu.org/licenses/>.
 """
-from gi.repository import Gtk, GObject
+from gettext import gettext as _
+from gi.repository import Gtk, GObject, Handy
 
 
-@Gtk.Template(resource_path='/com/github/bilelmoussaoui/Authenticator/account_edit.ui')
-class EditAccountWindow(Gtk.Window):
+class EditAccountWindow(Handy.Dialog):
     __gtype_name__ = 'EditAccountWindow'
     # Signals
     __gsignals__ = {
@@ -30,26 +30,26 @@ class EditAccountWindow(Gtk.Window):
             (str, GObject.TYPE_PYOBJECT, )
         ),
     }
-    # Widgets
-    save_btn: Gtk.Button = Gtk.Template.Child()
-    back_btn: Gtk.Button = Gtk.Template.Child()
 
     def __init__(self, account):
-        super(EditAccountWindow, self).__init__()
-        self.init_template('EditAccountWindow')
-
+        super(EditAccountWindow, self).__init__(use_header_bar=True, default_width=760, default_height=500)
         self._account = account
+        self._save_button = Gtk.Button.new_with_label(_("Save"))
         self.__init_widgets()
 
     def __init_widgets(self):
         from .add import AccountConfig
+        self._save_button.get_style_context().add_class("suggested-action")
+        self._save_button.set_sensitive(True)
+        self._save_button.set_can_default(True)
+
+        self.get_header_bar().pack_end(self._save_button)
 
         self.account_config = AccountConfig(edit=True, account=self._account)
         self.account_config.connect("changed", self._on_account_config_changed)
 
-        self.back_btn.connect("clicked", lambda *_: self.destroy())
-
-        self.add(self.account_config)
+        self.get_content_area().pack_start(self.account_config, True, True, 0)
+        self._save_button.connect("clicked", self._on_save)
 
     def _on_account_config_changed(self, _, state: bool):
         """
@@ -59,9 +59,10 @@ class EditAccountWindow(Gtk.Window):
         :param state: the state of the save button
         :type state: bool
         """
-        self.save_btn.set_sensitive(state)
+        if state:
+            self._save_button.grab_default()
+        self._save_button.set_sensitive(state)
 
-    @Gtk.Template.Callback('save_btn_clicked')
     def _on_save(self, *_):
         """
             Save Button clicked signal handler.

@@ -35,10 +35,8 @@ class ProviderImageState(Enum):
 
     @property
     def stack_name(self):
-        if self.value == 0:
+        if self.value in [0, 1]:
             return "provider_image"
-        elif self.value == 1:
-            return "provider_not_found"
         else:
             return "provider_loading"
 
@@ -69,9 +67,6 @@ class ProviderImage(Gtk.Stack):
 
     provider_image = Gtk.Template.Child()
     provider_spinner = Gtk.Template.Child()
-    image_eventbox = Gtk.Template.Child()
-    insert_image = Gtk.Template.Child()
-    not_found_box = Gtk.Template.Child()
 
     _timeout_id = 0
     CACHE_DIR = path.join(GLib.get_user_cache_dir(), "Authenticator")
@@ -87,21 +82,9 @@ class ProviderImage(Gtk.Stack):
 
     def _build_widget(self):
         self.set_state(ProviderImageState.NOT_FOUND)
-        self.not_found_box.props.width_request = self.image_size
-        self.not_found_box.props.height_request = self.image_size
         self.provider_image.set_pixel_size(self.image_size)
 
         self.connect("provider-changed", self.__on_provider_changed)
-
-        def set_show_insert_image(state):
-            if state != self.insert_image.get_visible():
-                self.insert_image.set_visible(state)
-                self.insert_image.set_no_show_all(not state)
-
-        self.image_eventbox.connect("enter-notify-event",
-                                    lambda *_: set_show_insert_image(True))
-        self.image_eventbox.connect("leave-notify-event",
-                                    lambda *_: set_show_insert_image(False))
 
         if self.provider.image:
             if not self.set_image(self.provider.image) and self.provider.website:
@@ -113,6 +96,9 @@ class ProviderImage(Gtk.Stack):
             self.provider_spinner.start()
         else:
             self.provider_spinner.stop()
+
+        if state == ProviderImageState.NOT_FOUND:
+            self.provider_image.set_from_icon_name("image-missing-symbolic", Gtk.IconSize.DIALOG)
         self.set_visible_child_name(state.stack_name)
 
     @property
@@ -176,6 +162,7 @@ class ProviderImage(Gtk.Stack):
             self.set_state(ProviderImageState.NOT_FOUND)
 
     def fetch_favicon_from_url(self, provider_website):
+        self.set_state(ProviderImageState.LOADING)
         if provider_website:
             worker_loop = asyncio.new_event_loop()
             pool = concurrent.futures.ThreadPoolExecutor()
