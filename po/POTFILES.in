@@ -2,9 +2,7 @@ data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in
 data/com.github.bilelmoussaoui.Authenticator.desktop.in.in
 data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in
 data/resources/gtk/ui/about_dialog.ui.in
-data/resources/gtk/ui/account_add.ui
 data/resources/gtk/ui/account_config.ui
-data/resources/gtk/ui/account_edit.ui
 data/resources/gtk/ui/account_row.ui
 data/resources/gtk/ui/password_widget.ui
 data/resources/gtk/ui/provider_image.ui
@@ -15,6 +13,7 @@ src/authenticator.py.in
 src/Authenticator/application.py.in
 src/Authenticator/models/account.py
 src/Authenticator/widgets/accounts/add.py
+src/Authenticator/widgets/accounts/edit.py
 src/Authenticator/widgets/accounts/list.py
 src/Authenticator/widgets/accounts/row.py
 src/Authenticator/widgets/notification.py
