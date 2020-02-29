@@ -84,12 +84,7 @@ class Window(Gtk.ApplicationWindow):
             add_window.present()
 
     def set_menu(self, menu: Gio.Menu):
-        popover = Gtk.Popover.new_from_model(self.primary_menu_btn, menu)
-
-        def primary_menu_btn_handler(_, popover):
-            popover.set_visible(not popover.get_visible())
-
-        self.primary_menu_btn.connect('clicked', primary_menu_btn_handler, popover)
+        self.primary_menu_btn.props.menu_model = menu
 
     def toggle_search(self, *_):
         """

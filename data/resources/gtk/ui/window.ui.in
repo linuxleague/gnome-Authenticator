@@ -124,11 +124,10 @@
           </object>
         </child>
         <child>
-          <object class="GtkButton" id="primary_menu_btn">
+          <object class="GtkMenuButton" id="primary_menu_btn">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
-            <signal name="clicked" handler="primary_menu_btn_clicked" swapped="no"/>
             <child>
               <object class="GtkImage" id="primary_menu_image">
                 <property name="visible">True</property>
