@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-02-27 23:13+0000\n"
-"PO-Revision-Date: 2020-03-02 23:00+0900\n"
+"POT-Creation-Date: 2020-03-02 14:57+0000\n"
+"PO-Revision-Date: 2020-03-03 00:05+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -37,7 +37,7 @@ msgstr "GNOME 用のシンプルな二要素認証コード生成アプリケー
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
 msgid "Features:"
-msgstr "機能:"
+msgstr "特徴:"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
 msgid "QR code scanner"
@@ -94,8 +94,8 @@ msgstr "二要素認証"
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
 msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
 msgstr ""
-"Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;認証;二要素;2要素;"
-"2段階;二段階;ワンタイムパスワード;"
+"Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;認証;二要素;2要素;2段"
+"階;二段階;ワンタイムパスワード;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
@@ -239,27 +239,27 @@ msgctxt "shortcut window"
 msgid "Search"
 msgstr "検索する"
 
-#: data/resources/gtk/ui/window.ui.in:189
+#: data/resources/gtk/ui/window.ui.in:188
 msgid "There are no accounts yet…"
 msgstr "まだアカウントはありません…"
 
-#: data/resources/gtk/ui/window.ui.in:218
+#: data/resources/gtk/ui/window.ui.in:217
 msgid "Add a new account from the menu"
 msgstr "メニューから新しいアカウントを追加します"
 
-#: data/resources/gtk/ui/window.ui.in:234
+#: data/resources/gtk/ui/window.ui.in:233
 msgid "Scan a QR Code"
 msgstr "QR コードをスキャンします"
 
-#: data/resources/gtk/ui/window.ui.in:366
+#: data/resources/gtk/ui/window.ui.in:365
 msgid "No results found"
 msgstr "見つかりませんでした"
 
-#: data/resources/gtk/ui/window.ui.in:429
+#: data/resources/gtk/ui/window.ui.in:428
 msgid "Authenticator is locked"
 msgstr "Authenticator をロックしています"
 
-#: data/resources/gtk/ui/window.ui.in:469
+#: data/resources/gtk/ui/window.ui.in:468
 msgid "Unlock"
 msgstr "ロック解除"
 
