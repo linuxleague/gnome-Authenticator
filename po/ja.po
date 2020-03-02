@@ -1,14 +1,14 @@
 # Japanese translation for authenticator.
-# Copyright (C) 2019 authenticator's COPYRIGHT HOLDER
+# Copyright (C) 2019-2020 authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
-# sicklylife <translation@sicklylife.jp>, 2019.
+# sicklylife <translation@sicklylife.jp>, 2019-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-09-09 10:28+0000\n"
-"PO-Revision-Date: 2019-09-24 22:00+0900\n"
+"POT-Creation-Date: 2020-02-27 23:13+0000\n"
+"PO-Revision-Date: 2020-03-02 23:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -37,31 +37,31 @@ msgstr "GNOME 用のシンプルな二要素認証コード生成アプリケー
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
 msgid "Features:"
-msgstr ""
+msgstr "機能:"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
 msgid "QR code scanner"
-msgstr ""
+msgstr "QR コードスキャナー"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
 msgid "Beautiful UI"
-msgstr ""
+msgstr "美しい UI"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
 msgid "Huge database of more than 560 supported services"
-msgstr ""
+msgstr "560 を超えるサポートしているサービスの膨大なデータベース"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
 msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr ""
+msgstr "アプリケーションをパスワードでロックして PIN トークンの安全性を維持"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services using their favicon"
-msgstr ""
+msgid "Automatically fetch an image for services"
+msgstr "サービスの画像の自動取得"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
 msgid "The possibility to add new services"
-msgstr ""
+msgstr "新しいサービスの追加"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
 msgid "Dark theme and night light"
@@ -72,7 +72,6 @@ msgid "Main Window - empty state"
 msgstr "メインウィンドウ - 空の状態"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-#: data/resources/gtk/ui/account_add.ui:15
 msgid "Add a new account"
 msgstr "アカウントの追加"
 
@@ -86,15 +85,17 @@ msgstr "設定ウィンドウ"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
 msgid "Bilal Elmoussaoui"
-msgstr ""
+msgstr "Bilal Elmoussaoui"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
 msgid "Two-factor Authentication"
 msgstr "二要素認証"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
-msgstr "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;認証;二要素;2要素;2段階;二段階;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+msgstr ""
+"Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;認証;二要素;2要素;"
+"2段階;二段階;ワンタイムパスワード;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
@@ -134,56 +135,44 @@ msgstr "夜間は自動でダークモードにします。"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Default window maximized behaviour"
-msgstr ""
+msgstr "デフォルトでウィンドウを最大化するかどうか"
 
 #: data/resources/gtk/ui/about_dialog.ui.in:13
 msgid "translator-credits"
 msgstr "sicklylife <translation@sicklylife.jp>"
 
-#: data/resources/gtk/ui/account_add.ui:33
-msgid "Add"
-msgstr "追加"
-
-#: data/resources/gtk/ui/account_add.ui:53
-msgid "Scan QR Code"
-msgstr "QR コードをスキャンします"
-
-#: data/resources/gtk/ui/account_config.ui:56
-msgid "Account Name"
-msgstr "アカウント名"
-
-#: data/resources/gtk/ui/account_config.ui:78
+#: data/resources/gtk/ui/account_config.ui:57
 msgid "Provider"
 msgstr "プロバイダー"
 
-#: data/resources/gtk/ui/account_config.ui:95
-#: data/resources/gtk/ui/account_config.ui:96
+#: data/resources/gtk/ui/account_config.ui:85
+msgid "Website"
+msgstr "ウェブサイト"
+
+#: data/resources/gtk/ui/account_config.ui:105
+msgid "Account"
+msgstr "アカウント"
+
+#: data/resources/gtk/ui/account_config.ui:124
+msgid "Token"
+msgstr "トークン"
+
+#: data/resources/gtk/ui/account_config.ui:134
+#: data/resources/gtk/ui/account_config.ui:135
 msgid "Enable 2FA for this account"
 msgstr "このアカウントの二要素認証を有効にします"
 
-#: data/resources/gtk/ui/account_config.ui:97
-msgid "2FA Token"
-msgstr "二要素認証トークン"
+#: data/resources/gtk/ui/account_row.ui:48
+msgid "Copy PIN to clipboard"
+msgstr "PIN をクリップボードにコピーします"
 
-#: data/resources/gtk/ui/account_config.ui:111
-msgid "Provider Website"
-msgstr "プロバイダーのウェブサイト"
-
-#: data/resources/gtk/ui/account_edit.ui:31
-msgid "Save"
-msgstr "保存"
-
-#: data/resources/gtk/ui/account_row.ui:22
+#: data/resources/gtk/ui/account_row.ui:158
 msgid "Edit"
 msgstr "編集"
 
-#: data/resources/gtk/ui/account_row.ui:40
+#: data/resources/gtk/ui/account_row.ui:176
 msgid "Delete"
 msgstr "削除"
-
-#: data/resources/gtk/ui/account_row.ui:97
-msgid "Copy PIN to clipboard"
-msgstr "PIN をクリップボードにコピーします"
 
 #: data/resources/gtk/ui/password_widget.ui:46
 msgid "Current Password:"
@@ -211,7 +200,7 @@ msgid "Appearance"
 msgstr "外観"
 
 #: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:106
+#: src/Authenticator/application.py.in:102
 msgid "Lock the application"
 msgstr "アプリケーションをロック"
 
@@ -264,60 +253,64 @@ msgstr "QR コードをスキャンします"
 
 #: data/resources/gtk/ui/window.ui.in:366
 msgid "No results found"
-msgstr "見つかりません"
+msgstr "見つかりませんでした"
 
 #: data/resources/gtk/ui/window.ui.in:429
 msgid "Authenticator is locked"
 msgstr "Authenticator をロックしています"
 
-#: data/resources/gtk/ui/window.ui.in:468
+#: data/resources/gtk/ui/window.ui.in:469
 msgid "Unlock"
 msgstr "ロック解除"
 
 #: src/authenticator.py.in:49
 msgid "Start in debug mode"
-msgstr ""
+msgstr "デバッグモードで起動"
 
-#: src/Authenticator/application.py.in:114
+#: src/Authenticator/application.py.in:110
 msgid "from a plain-text JSON file"
 msgstr "プレーンテキスト JSON ファイルから"
 
-#: src/Authenticator/application.py.in:115
+#: src/Authenticator/application.py.in:111
 msgid "in a plain-text JSON file"
 msgstr "プレーンテキスト JSON ファイルへ"
 
-#: src/Authenticator/application.py.in:117
+#: src/Authenticator/application.py.in:113
 msgid "Restore"
 msgstr "復元"
 
-#: src/Authenticator/application.py.in:118
+#: src/Authenticator/application.py.in:114
 msgid "Backup"
 msgstr "バックアップ"
 
 #. Night mode action
-#: src/Authenticator/application.py.in:126
+#: src/Authenticator/application.py.in:122
 msgid "Preferences"
 msgstr "設定"
 
-#: src/Authenticator/application.py.in:127
-msgid "Donate"
-msgstr "寄付"
-
-#: src/Authenticator/application.py.in:128
+#: src/Authenticator/application.py.in:123
 msgid "Keyboard Shortcuts"
 msgstr "キーボードショートカット"
 
-#: src/Authenticator/application.py.in:129
+#: src/Authenticator/application.py.in:124
 msgid "About Authenticator"
 msgstr "Authenticator について"
 
-#: src/Authenticator/models/account.py:84
+#: src/Authenticator/models/account.py:87
 msgid "Default"
 msgstr "デフォルト"
 
-#: src/Authenticator/widgets/accounts/add.py:247
+#: src/Authenticator/widgets/accounts/add.py:36
+msgid "Add"
+msgstr "追加"
+
+#: src/Authenticator/widgets/accounts/add.py:257
 msgid "Invalid QR code"
 msgstr "不正な QR コードです"
+
+#: src/Authenticator/widgets/accounts/edit.py:37
+msgid "Save"
+msgstr "保存"
 
 #: src/Authenticator/widgets/accounts/list.py:152
 msgid "The One-Time Passwords expire in {} seconds"
@@ -331,16 +324,16 @@ msgstr "シークレットコードを生成できませんでした"
 msgid "The PIN of {} was copied to the clipboard"
 msgstr "{} の PIN をクリップボードにコピーしました"
 
-#: src/Authenticator/widgets/accounts/row.py:141
+#: src/Authenticator/widgets/accounts/row.py:139
 msgid "The account was updated successfully"
 msgstr "アカウントは正常に更新されました"
 
 #: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:84
+#: src/Authenticator/widgets/notification.py:86
 msgid "Undo"
 msgstr "元に戻す"
 
-#: src/Authenticator/widgets/notification.py:79
+#: src/Authenticator/widgets/notification.py:81
 msgid "Close the notification"
 msgstr "通知を閉じます"
 
