@@ -1,16 +1,16 @@
 # Swedish translation of authenticator.
-# Copyright 2016-2019 authenticator's COPYRIGHT HOLDER
+# Copyright 2016-2020 authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2018, 2019, 2020.
 # Sebastian Rasmussen <sebras@gmail.com>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-08-25 21:37+0000\n"
-"PO-Revision-Date: 2019-12-22 12:13+0100\n"
-"Last-Translator: Sebastian Rasmussen <sebras@gmail.com>\n"
+"POT-Creation-Date: 2020-02-27 23:13+0000\n"
+"PO-Revision-Date: 2020-03-05 01:21+0100\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/authenticator/"
 "translation/sv/>\n"
 "Language: sv\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
@@ -61,8 +61,8 @@ msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr "Håll dina PIN-token säkra genom att låsa programmet med ett lösenord"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services using their favicon"
-msgstr "Hämta automatiskt en bild för tjänster via deras favicon"
+msgid "Automatically fetch an image for services"
+msgstr "Hämta automatiskt en bild för tjänster"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
 msgid "The possibility to add new services"
@@ -77,7 +77,6 @@ msgid "Main Window - empty state"
 msgstr "Huvudfönster - tomt tillstånd"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-#: data/resources/gtk/ui/account_add.ui:15
 msgid "Add a new account"
 msgstr "Lägg till ett nytt konto"
 
@@ -98,8 +97,8 @@ msgid "Two-factor Authentication"
 msgstr "Tvåfaktorsautentisering"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
-msgstr "GNOME;GTK;Verifiering;2FA;Autentisering;Tvåfaktor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+msgstr "GNOME;GTK;Verifiering;2FA;Autentisering;OTP;Tvåfaktor;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
@@ -145,50 +144,38 @@ msgstr "Standardfönstrets maximeringsbeteende"
 msgid "translator-credits"
 msgstr "Anders Jonsson <anders.jonsson@norsjovallen.se>"
 
-#: data/resources/gtk/ui/account_add.ui:33
-msgid "Add"
-msgstr "Lägg till"
-
-#: data/resources/gtk/ui/account_add.ui:53
-msgid "Scan QR Code"
-msgstr "Läs av QR-kod"
-
-#: data/resources/gtk/ui/account_config.ui:56
-msgid "Account Name"
-msgstr "Kontonamn"
-
-#: data/resources/gtk/ui/account_config.ui:78
+#: data/resources/gtk/ui/account_config.ui:57
 msgid "Provider"
 msgstr "Leverantör"
 
-#: data/resources/gtk/ui/account_config.ui:95
-#: data/resources/gtk/ui/account_config.ui:96
+#: data/resources/gtk/ui/account_config.ui:85
+msgid "Website"
+msgstr "Webbplats"
+
+#: data/resources/gtk/ui/account_config.ui:105
+msgid "Account"
+msgstr "Konto"
+
+#: data/resources/gtk/ui/account_config.ui:124
+msgid "Token"
+msgstr "Token"
+
+#: data/resources/gtk/ui/account_config.ui:134
+#: data/resources/gtk/ui/account_config.ui:135
 msgid "Enable 2FA for this account"
 msgstr "Aktivera 2FA för detta konto"
 
-#: data/resources/gtk/ui/account_config.ui:97
-msgid "2FA Token"
-msgstr "2FA-token"
+#: data/resources/gtk/ui/account_row.ui:48
+msgid "Copy PIN to clipboard"
+msgstr "Kopiera PIN till urklipp"
 
-#: data/resources/gtk/ui/account_config.ui:111
-msgid "Provider Website"
-msgstr "Leverantörswebbplats"
-
-#: data/resources/gtk/ui/account_edit.ui:31
-msgid "Save"
-msgstr "Spara"
-
-#: data/resources/gtk/ui/account_row.ui:22
+#: data/resources/gtk/ui/account_row.ui:158
 msgid "Edit"
 msgstr "Redigera"
 
-#: data/resources/gtk/ui/account_row.ui:40
+#: data/resources/gtk/ui/account_row.ui:176
 msgid "Delete"
 msgstr "Ta bort"
-
-#: data/resources/gtk/ui/account_row.ui:97
-msgid "Copy PIN to clipboard"
-msgstr "Kopiera PIN till urklipp"
 
 #: data/resources/gtk/ui/password_widget.ui:46
 msgid "Current Password:"
@@ -216,7 +203,7 @@ msgid "Appearance"
 msgstr "Utseende"
 
 #: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:106
+#: src/Authenticator/application.py.in:102
 msgid "Lock the application"
 msgstr "Lås programmet"
 
@@ -275,7 +262,7 @@ msgstr "Inga resultat hittade"
 msgid "Authenticator is locked"
 msgstr "Authenticator är låst"
 
-#: data/resources/gtk/ui/window.ui.in:468
+#: data/resources/gtk/ui/window.ui.in:469
 msgid "Unlock"
 msgstr "Lås upp"
 
@@ -283,46 +270,50 @@ msgstr "Lås upp"
 msgid "Start in debug mode"
 msgstr "Starta i felsökningsläge"
 
-#: src/Authenticator/application.py.in:114
+#: src/Authenticator/application.py.in:110
 msgid "from a plain-text JSON file"
 msgstr "från en oformaterad JSON-fil"
 
-#: src/Authenticator/application.py.in:115
+#: src/Authenticator/application.py.in:111
 msgid "in a plain-text JSON file"
 msgstr "i en oformaterad JSON-fil"
 
-#: src/Authenticator/application.py.in:117
+#: src/Authenticator/application.py.in:113
 msgid "Restore"
 msgstr "Återställ"
 
-#: src/Authenticator/application.py.in:118
+#: src/Authenticator/application.py.in:114
 msgid "Backup"
 msgstr "Säkerhetskopiera"
 
 #. Night mode action
-#: src/Authenticator/application.py.in:126
+#: src/Authenticator/application.py.in:122
 msgid "Preferences"
 msgstr "Inställningar"
 
-#: src/Authenticator/application.py.in:127
-msgid "Donate"
-msgstr "Donera"
-
-#: src/Authenticator/application.py.in:128
+#: src/Authenticator/application.py.in:123
 msgid "Keyboard Shortcuts"
 msgstr "Tangentbordsgenvägar"
 
-#: src/Authenticator/application.py.in:129
+#: src/Authenticator/application.py.in:124
 msgid "About Authenticator"
 msgstr "Om Authenticator"
 
-#: src/Authenticator/models/account.py:84
+#: src/Authenticator/models/account.py:87
 msgid "Default"
 msgstr "Standard"
 
-#: src/Authenticator/widgets/accounts/add.py:247
+#: src/Authenticator/widgets/accounts/add.py:36
+msgid "Add"
+msgstr "Lägg till"
+
+#: src/Authenticator/widgets/accounts/add.py:257
 msgid "Invalid QR code"
 msgstr "Ogiltig QR-kod"
+
+#: src/Authenticator/widgets/accounts/edit.py:37
+msgid "Save"
+msgstr "Spara"
 
 #: src/Authenticator/widgets/accounts/list.py:152
 msgid "The One-Time Passwords expire in {} seconds"
@@ -336,16 +327,16 @@ msgstr "Kunde inte generera den hemliga koden"
 msgid "The PIN of {} was copied to the clipboard"
 msgstr "PIN för {} kopierades till urklipp"
 
-#: src/Authenticator/widgets/accounts/row.py:141
+#: src/Authenticator/widgets/accounts/row.py:139
 msgid "The account was updated successfully"
 msgstr "Kontot uppdaterades framgångsrikt"
 
 #: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:84
+#: src/Authenticator/widgets/notification.py:86
 msgid "Undo"
 msgstr "Ångra"
 
-#: src/Authenticator/widgets/notification.py:79
+#: src/Authenticator/widgets/notification.py:81
 msgid "Close the notification"
 msgstr "Stäng aviseringen"
 
@@ -364,6 +355,15 @@ msgstr "Autentiseringslösenord upprätthåller säkerheten för dina konton."
 #: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
 msgid "JSON files"
 msgstr "JSON-filer"
+
+#~ msgid "Scan QR Code"
+#~ msgstr "Läs av QR-kod"
+
+#~ msgid "Account Name"
+#~ msgstr "Kontonamn"
+
+#~ msgid "Donate"
+#~ msgstr "Donera"
 
 #~ msgid "Two-factor authentication code generator"
 #~ msgstr "Generator för tvåfaktorsautentiseringskoder"
