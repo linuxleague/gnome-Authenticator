@@ -4,14 +4,15 @@
 #
 # Serdar Sağlam <teknomobil@yandex.com>, 2019.
 # Sabri Ünal <libreajans@gmail.com>, 2019.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-09-03 12:45+0000\n"
-"PO-Revision-Date: 2019-09-07 19:54+0300\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"POT-Creation-Date: 2020-02-27 23:13+0000\n"
+"PO-Revision-Date: 2020-03-10 16:18+0300\n"
+"Last-Translator: Emin Tufan Çetin <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +38,7 @@ msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
 msgstr ""
-"GNOME için oluşturulan iki aşamalı kimlik doğrulama kodu üreten basit bir "
+"GNOME için yaratılmış, iki aşamalı kimlik doğrulama kodu üreten basit "
 "uygulama."
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
@@ -54,16 +55,16 @@ msgstr "Mükemmel kullanıcı arayüzü"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
 msgid "Huge database of more than 560 supported services"
-msgstr "560’tan fazla desteklenen hizmetten oluşan devasa veritabanı"
+msgstr "560’tan çok desteklenen hizmetten oluşan devasa veritabanı"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
 msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr ""
-"Uygulamayı parola ile kilitleyerek PIN jetonlarını güvende tutabilirsiniz"
+"Uygulamayı parolayla kilitleyerek PIN jetonlarını güvende tutabilirsiniz"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services using their favicon"
-msgstr "Favicon’larını kullanarak servisler için kendiliğinden resim getirme"
+msgid "Automatically fetch an image for services"
+msgstr "Servisler için kendiliğinden resim getir"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
 msgid "The possibility to add new services"
@@ -78,7 +79,6 @@ msgid "Main Window - empty state"
 msgstr "Ana Pencere - boş durum"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-#: data/resources/gtk/ui/account_add.ui:15
 msgid "Add a new account"
 msgstr "Yeni hesap ekle"
 
@@ -99,10 +99,10 @@ msgid "Two-factor Authentication"
 msgstr "İki Aşamalı Kimlik Doğrulama"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
 msgstr ""
 "Gnome;GTK;Doğrulama;2FA;Kimlik Doğrulama;İki Aşamalı;İki Aşamalı Kimlik "
-"Doğrulama;"
+"Doğrulama;OTP;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
@@ -150,50 +150,38 @@ msgstr ""
 "Serdar Sağlam <teknomobil@yandex.com\n"
 "Sabri Ünal <libreajans@gmail.com>"
 
-#: data/resources/gtk/ui/account_add.ui:33
-msgid "Add"
-msgstr "Ekle"
-
-#: data/resources/gtk/ui/account_add.ui:53
-msgid "Scan QR Code"
-msgstr "QR Kodunu Tara"
-
-#: data/resources/gtk/ui/account_config.ui:56
-msgid "Account Name"
-msgstr "Hesap Adı"
-
-#: data/resources/gtk/ui/account_config.ui:78
+#: data/resources/gtk/ui/account_config.ui:57
 msgid "Provider"
 msgstr "Sağlayıcı"
 
-#: data/resources/gtk/ui/account_config.ui:95
-#: data/resources/gtk/ui/account_config.ui:96
+#: data/resources/gtk/ui/account_config.ui:85
+msgid "Website"
+msgstr "Web Sitesi"
+
+#: data/resources/gtk/ui/account_config.ui:105
+msgid "Account"
+msgstr "Hesap"
+
+#: data/resources/gtk/ui/account_config.ui:124
+msgid "Token"
+msgstr "Jeton"
+
+#: data/resources/gtk/ui/account_config.ui:134
+#: data/resources/gtk/ui/account_config.ui:135
 msgid "Enable 2FA for this account"
 msgstr "Bu hesap için iki aşamalı kimlik doğrulamasını (2FA) etkinleştir"
 
-#: data/resources/gtk/ui/account_config.ui:97
-msgid "2FA Token"
-msgstr "2FA Jetonu"
+#: data/resources/gtk/ui/account_row.ui:48
+msgid "Copy PIN to clipboard"
+msgstr "PIN’i panoya kopyala"
 
-#: data/resources/gtk/ui/account_config.ui:111
-msgid "Provider Website"
-msgstr "Sağlayıcı Websitesi"
-
-#: data/resources/gtk/ui/account_edit.ui:31
-msgid "Save"
-msgstr "Kaydet"
-
-#: data/resources/gtk/ui/account_row.ui:22
+#: data/resources/gtk/ui/account_row.ui:158
 msgid "Edit"
 msgstr "Düzenle"
 
-#: data/resources/gtk/ui/account_row.ui:40
+#: data/resources/gtk/ui/account_row.ui:176
 msgid "Delete"
 msgstr "Sil"
-
-#: data/resources/gtk/ui/account_row.ui:97
-msgid "Copy PIN to clipboard"
-msgstr "PIN’i panoya kopyala"
 
 #: data/resources/gtk/ui/password_widget.ui:46
 msgid "Current Password:"
@@ -221,7 +209,7 @@ msgid "Appearance"
 msgstr "Görünüm"
 
 #: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:106
+#: src/Authenticator/application.py.in:102
 msgid "Lock the application"
 msgstr "Uygulamayı kilitle"
 
@@ -280,7 +268,7 @@ msgstr "Sonuç bulunamadı"
 msgid "Authenticator is locked"
 msgstr "Kimlik Doğrulayıcı kilitlendi"
 
-#: data/resources/gtk/ui/window.ui.in:468
+#: data/resources/gtk/ui/window.ui.in:469
 msgid "Unlock"
 msgstr "Kilidi aç"
 
@@ -288,46 +276,50 @@ msgstr "Kilidi aç"
 msgid "Start in debug mode"
 msgstr "Hata ayıklama kipinde başlat"
 
-#: src/Authenticator/application.py.in:114
+#: src/Authenticator/application.py.in:110
 msgid "from a plain-text JSON file"
 msgstr "düz metin JSON dosyasından"
 
-#: src/Authenticator/application.py.in:115
+#: src/Authenticator/application.py.in:111
 msgid "in a plain-text JSON file"
 msgstr "düz metinli JSON dosyasına"
 
-#: src/Authenticator/application.py.in:117
+#: src/Authenticator/application.py.in:113
 msgid "Restore"
 msgstr "Onar"
 
-#: src/Authenticator/application.py.in:118
+#: src/Authenticator/application.py.in:114
 msgid "Backup"
 msgstr "Yedekle"
 
 #. Night mode action
-#: src/Authenticator/application.py.in:126
+#: src/Authenticator/application.py.in:122
 msgid "Preferences"
 msgstr "Tercihler"
 
-#: src/Authenticator/application.py.in:127
-msgid "Donate"
-msgstr "Bağış"
-
-#: src/Authenticator/application.py.in:128
+#: src/Authenticator/application.py.in:123
 msgid "Keyboard Shortcuts"
 msgstr "Klavye Kısayolları"
 
-#: src/Authenticator/application.py.in:129
+#: src/Authenticator/application.py.in:124
 msgid "About Authenticator"
 msgstr "Kimlik Doğrulayıcı Hakkında"
 
-#: src/Authenticator/models/account.py:84
+#: src/Authenticator/models/account.py:87
 msgid "Default"
 msgstr "Öntanımlı"
 
-#: src/Authenticator/widgets/accounts/add.py:247
+#: src/Authenticator/widgets/accounts/add.py:36
+msgid "Add"
+msgstr "Ekle"
+
+#: src/Authenticator/widgets/accounts/add.py:257
 msgid "Invalid QR code"
 msgstr "Geçersiz QR kodu"
+
+#: src/Authenticator/widgets/accounts/edit.py:37
+msgid "Save"
+msgstr "Kaydet"
 
 #: src/Authenticator/widgets/accounts/list.py:152
 msgid "The One-Time Passwords expire in {} seconds"
@@ -341,16 +333,16 @@ msgstr "Gizli kod oluşturulamadı"
 msgid "The PIN of {} was copied to the clipboard"
 msgstr "{} PIN’i panoya kopyalandı"
 
-#: src/Authenticator/widgets/accounts/row.py:141
+#: src/Authenticator/widgets/accounts/row.py:139
 msgid "The account was updated successfully"
 msgstr "Hesap başarıyla güncellendi"
 
 #: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:84
+#: src/Authenticator/widgets/notification.py:86
 msgid "Undo"
 msgstr "Geri al"
 
-#: src/Authenticator/widgets/notification.py:79
+#: src/Authenticator/widgets/notification.py:81
 msgid "Close the notification"
 msgstr "Bildirimi kapat"
 
@@ -369,6 +361,15 @@ msgstr "Kimlik Doğrulama parolası hesaplarınızın güvenliğini güçlendiri
 #: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
 msgid "JSON files"
 msgstr "JSON dosyası"
+
+#~ msgid "Scan QR Code"
+#~ msgstr "QR Kodunu Tara"
+
+#~ msgid "Account Name"
+#~ msgstr "Hesap Adı"
+
+#~ msgid "Donate"
+#~ msgstr "Bağış"
 
 #~ msgid "Two-factor authentication code generator"
 #~ msgstr "İki aşamalı kimlik doğrulama kodu üreteci"
