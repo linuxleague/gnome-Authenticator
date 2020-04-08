@@ -1,548 +1,413 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Indonesian translation of authenticator
+# Copyright (C) 2020 THE authenticator's COPYRIGHT HOLDER
+# This file is distributed under the same license as the authenticator package.
+# Andika Triwidada <andika@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-20 05:14+0200\n"
-"PO-Revision-Date: 2019-03-16 10:02+0000\n"
-"Last-Translator: yusuf afandi <afandi.yusuf.04@gmail.com>\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2020-04-01 07:35+0000\n"
+"PO-Revision-Date: 2020-04-08 08:57+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/authenticator/"
 "translation/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.6-dev\n"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:37
-msgid "Authenticator"
-msgstr "AutentiksiDuaFaktor"
+"Plural-Forms: nplurals=2; plural=n>1;\n"
+"X-Generator: Poedit 2.3\n"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#, fuzzy
-msgid "Two-factor authentication code generator"
-msgstr "Pembuat kode autentikasi dua faktor."
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
+#: src/Authenticator/application.py.in:36
+msgid "Authenticator"
+msgstr "Autentikator"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:9
-#, fuzzy
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
+#: data/resources/gtk/ui/about_dialog.ui.in:10
+msgid "A Two-Factor Authentication application"
+msgstr "Aplikasi Autentikasi Dua Faktor"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
 msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
 msgstr ""
-"Aplikasi sederhana untuk menghasilkan kode autentifikasi 2 faktor, dibuat "
-"untuk Gnome"
+"Aplikasi sederhana yang menghasilkan kode autentikasi dua faktor, dibuat "
+"untuk GNOME."
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
 msgid "Features:"
 msgstr "Fitur:"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:12
-msgid "QR code scanner"
-msgstr "Pembaca QR code"
-
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
-msgid "Beautiful UI"
-msgstr ""
+msgid "QR code scanner"
+msgstr "Pemindai kode QR"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
-msgid "Huge database of more than 560 supported services"
-msgstr ""
+msgid "Beautiful UI"
+msgstr "UI yang indah"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
-#, fuzzy
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr "Kunci aplikasi"
+msgid "Huge database of more than 560 supported services"
+msgstr "Database besar lebih dari 560 layanan yang didukung"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
-msgid "Automtically fetch an image for services using their favicon"
+msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr ""
+"Menjaga token PIN Anda tetap aman dengan mengunci aplikasi memakai kata sandi"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
+msgid "Automatically fetch an image for services"
+msgstr "Secara otomatis mengambil gambar untuk layanan"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
 msgid "The possibility to add new services"
-msgstr ""
+msgstr "Kemungkinan untuk menambahkan layanan baru"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
+msgid "Dark theme and night light"
+msgstr "Tema gelap dan cahaya malam"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
+msgid "Main Window - empty state"
+msgstr "Jendela Utama - keadaan kosong"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
+msgid "Add a new account"
+msgstr "Tambah akun baru"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
+msgid "Main Window - Accounts List"
+msgstr "Jendela Utama - Daftar Akun"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid ""
-"New 3.31 beta is out! Here's an overview of what changed Please backup your "
-"accounts before updating to the latest version and restore the data after "
-"update."
-msgstr ""
+msgid "Settings Window"
+msgstr "Jendela Pengaturan"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:42
-msgid "New settings window"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:43
-msgid "Download provider images using their favicon if possible"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:44
-msgid "Night Light feature: not working yet!"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:45
-msgid ""
-"The possiblity to enable/disable a password without having to reset "
-"everything"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:46
-msgid ""
-"You can now add new providers and set images for providers that we didn't "
-"find an icon for"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:47
-msgid "Mobile ready"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:48
-msgid "New icon by Tobias"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:49
-msgid "Bunch of fixed bugs"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:55
-msgid ""
-"Since I have moved the application to GOME Gitlab's World group, a Flatpak "
-"build for each new commit is available to download from the site's website."
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:59
-msgid "Backup and restore from a basic JSON file"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:60
-msgid "Backup and restore from an encrypted-GPG JSON file"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:61
-msgid "Add andOTP support (free and open Android 2FA application)"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:62
-msgid "New Settings Widow with 3 sections: appearance, behavior and backup"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:63
-msgid "Fix Flatpak Build with the latest GNOME Runtime"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:64
-msgid "Move the project to GOME Gitlab's World group"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:71
-msgid "GNOME Shell Search provider"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:72
-msgid "Codes expire simultaneously #91"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:79
-msgid "Revamped main window to more closely follow the GNOME HIG"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:80
-msgid "Revamped add a new account window to make it easier to use"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:81
-msgid ""
-"Possibility to add an account from a provider not listed in the shipped "
-"database"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:82
-msgid "Possibilty to edit an account"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:83
-msgid "One Time Password now visible by default"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:90
-msgid "Fix python-dbus by using GDbus instead"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:97
-msgid "Fix the QRScanner on GNOME Shell"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:98
-msgid "Add a new entry for the account's username"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:99
-msgid "Updated database of supported accounts"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:106
-msgid "HOTFIX: App not running in DE other than GNOME"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:113
-#, fuzzy
-msgid "Rename project to Authenticator"
-msgstr "Tentang Authenticator"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:114
-msgid "Cleaner code base"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:115
-msgid "Faster startup"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:116
-#, fuzzy
-msgid "Remove unneeded features"
-msgstr "Hapus akun terpilih"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:117
-msgid "Switch to pyzbar instead of zbarlight"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:118
-msgid "Flatpak package"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:134
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
 msgid "Bilal Elmoussaoui"
-msgstr ""
+msgstr "Bilal Elmoussaoui"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-#, fuzzy
-msgid "Two-factor authentication"
+msgid "Two-factor Authentication"
 msgstr "Autentikasi Dua Faktor"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;"
-msgstr "Gnome;GTK;Verifikasi;"
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:11
-msgid "@appid@"
-msgstr ""
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+msgstr "Gnome;GTK;Verifikasi;2FA;Autentikasi;OTP;Dua Faktor;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
 msgid "Default window position"
-msgstr ""
+msgstr "Posisi jendela baku"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: src/Authenticator/widgets/settings.py:83
+#: data/resources/gtk/ui/settings.ui.in:28
 msgid "Dark Theme"
-msgstr ""
+msgstr "Tema Gelap"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: src/Authenticator/widgets/settings.py:84
+#: data/resources/gtk/ui/settings.ui.in:29
+#: data/resources/gtk/ui/settings.ui.in:76
 msgid "Whether the application should use a dark theme."
-msgstr ""
+msgstr "Apakah aplikasi harus menggunakan tema gelap."
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: src/Authenticator/widgets/settings.py:88
-msgid "Night Light"
-msgstr ""
+#: data/resources/gtk/ui/settings.ui.in:83
+msgid "Auto lock timeout"
+msgstr "Batas waktu kunci otomatis"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-#: src/Authenticator/widgets/settings.py:89
-msgid "Automatically enable dark mode at night."
-msgstr ""
+msgid "Lock the application on idle after X minutes"
+msgstr "Kunci aplikasi yang menganggur setelah X menit"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
+#: data/resources/gtk/ui/settings.ui.in:43
+msgid "Night Light"
+msgstr "Cahaya Malam"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
+#: data/resources/gtk/ui/settings.ui.in:44
+#: data/resources/gtk/ui/settings.ui.in:84
+msgid "Automatically enable dark mode at night."
+msgstr "Mengaktifkan mode gelap secara otomatis di malam hari."
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Default window maximized behaviour"
-msgstr ""
+msgstr "Perilaku baku jendela dimaksimalkan"
 
-#: data/ui/about_dialog.ui.in:10
-#, fuzzy
-msgid "Two-factor authentication code generator."
-msgstr "Pembuat kode autentikasi dua faktor."
-
-#: data/ui/about_dialog.ui.in:13
+#: data/resources/gtk/ui/about_dialog.ui.in:13
 msgid "translator-credits"
-msgstr "kredit-penerjemah"
+msgstr "Andika Triwidada <andika@gmail.com>, 2020"
 
-#: data/ui/account_add.ui:22
-msgid "Add a new account"
-msgstr "Tambah akun baru"
-
-#: data/ui/account_add.ui:25 data/ui/account_edit.ui:19
-msgid "Close"
-msgstr "Tutup"
-
-#: data/ui/account_add.ui:34
-msgid "Add"
-msgstr "Tambah"
-
-#: data/ui/account_add.ui:54
-#, fuzzy
-msgid "Scan QR Code"
-msgstr "Pindai kode QR"
-
-#: data/ui/account_config.ui:85
-msgid "Enable 2FA for this account"
-msgstr ""
-
-#: data/ui/account_config.ui:86
-msgid "2FA Token"
-msgstr ""
-
-#: data/ui/account_config.ui:100
-#, fuzzy
-msgid "Account Name"
-msgstr "Nama Akun"
-
-#: data/ui/account_config.ui:123
+#: data/resources/gtk/ui/account_config.ui:57
 msgid "Provider"
-msgstr ""
+msgstr "Penyedia"
 
-#: data/ui/account_edit.ui:28 data/ui/settings.ui.in:50
-msgid "Save"
-msgstr ""
+#: data/resources/gtk/ui/account_config.ui:85
+msgid "Website"
+msgstr "Situs Web"
 
-#: data/ui/account_row.ui:23
+#: data/resources/gtk/ui/account_config.ui:105
+msgid "Account"
+msgstr "Akun"
+
+#: data/resources/gtk/ui/account_config.ui:124
+msgid "Token"
+msgstr "Token"
+
+#: data/resources/gtk/ui/account_config.ui:134
+#: data/resources/gtk/ui/account_config.ui:135
+msgid "Enable 2FA for this account"
+msgstr "Aktifkan 2FA untuk akun ini"
+
+#: data/resources/gtk/ui/account_row.ui:48
+msgid "Copy PIN to clipboard"
+msgstr "Salin PIN ke papan klip"
+
+#: data/resources/gtk/ui/account_row.ui:158
 msgid "Edit"
-msgstr ""
+msgstr "Sunting"
 
-#: data/ui/account_row.ui:41
+#: data/resources/gtk/ui/account_row.ui:176
 msgid "Delete"
 msgstr "Hapus"
 
-#: data/ui/account_row.ui:97
-msgid "Copy PIN to clipboard"
-msgstr ""
-
-#: data/ui/password_widget.ui:46
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:46
 msgid "Current Password:"
-msgstr "Ulangan kata sandi baru"
+msgstr "Kata Sandi Saat Ini:"
 
-#: data/ui/password_widget.ui:90
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:91
 msgid "New Password:"
-msgstr "Kata sandi baru"
+msgstr "Kata Sandi Baru:"
 
-#: data/ui/password_widget.ui:135
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:136
 msgid "Confirm New Password:"
-msgstr "Kata sandi baru"
+msgstr "Konfirmasi Kata Sandi Baru:"
 
-#: data/ui/password_widget.ui:183 src/Authenticator/widgets/settings.py:208
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:184
+#: src/Authenticator/widgets/settings.py:174
 msgid "Change Password"
-msgstr "Kata sandi lama"
+msgstr "Ganti Kata Sandi"
 
-#: data/ui/password_widget.ui:204
-#, fuzzy
+#: data/resources/gtk/ui/password_widget.ui:205
 msgid "Delete Password"
-msgstr "Ulangan kata sandi baru"
+msgstr "Hapus Kata Sandi"
 
-#: data/ui/provider_image.ui:41
-msgid "We couldn't find an image for this provider"
-msgstr ""
+#: data/resources/gtk/ui/settings.ui.in:24
+msgid "Appearance"
+msgstr "Penampilan"
 
-#. Night mode action
-#: data/ui/settings.ui.in:28 src/Authenticator/application.py.in:112
-msgid "Preferences"
-msgstr ""
+#: data/resources/gtk/ui/settings.ui.in:75
+#: src/Authenticator/application.py.in:102
+msgid "Lock the application"
+msgstr "Kunci aplikasi"
 
-#: data/ui/settings.ui.in:95
-#, fuzzy
-msgid "Behaviour"
-msgstr "Kebiasaan"
-
-#: data/ui/shortcuts.ui:13
+#: data/resources/gtk/ui/shortcuts.ui:13
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Umum"
 
-#: data/ui/shortcuts.ui:17
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:17
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Jalan pintas"
+msgstr "Tampilkan Pintasan"
 
-#: data/ui/shortcuts.ui:24
+#: data/resources/gtk/ui/shortcuts.ui:24
 msgctxt "shortcut window"
 msgid "Preferences"
-msgstr ""
+msgstr "Preferensi"
 
-#: data/ui/shortcuts.ui:31
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Keluar"
 
-#: data/ui/shortcuts.ui:40
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "Akun"
 
-#: data/ui/shortcuts.ui:44
-#, fuzzy
+#: data/resources/gtk/ui/shortcuts.ui:44
 msgctxt "shortcut window"
 msgid "Add"
 msgstr "Tambah"
 
-#: data/ui/shortcuts.ui:51
+#: data/resources/gtk/ui/shortcuts.ui:51
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Cari"
 
-#: data/ui/window.ui.in:182
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:188
 msgid "There are no accounts yet…"
-msgstr "Tidak ada akun saat ini..."
+msgstr "Belum ada akun…"
 
-#: data/ui/window.ui.in:211
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:217
 msgid "Add a new account from the menu"
-msgstr "Tambah akun baru"
+msgstr "Tambah akun baru dari menu"
 
-#: data/ui/window.ui.in:227
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:233
 msgid "Scan a QR Code"
 msgstr "Pindai kode QR"
 
-#: data/ui/window.ui.in:373
+#: data/resources/gtk/ui/window.ui.in:365
 msgid "No results found"
-msgstr ""
+msgstr "Tidak ada hasil yang ditemukan"
 
-#: data/ui/window.ui.in:437
-#, fuzzy
+#: data/resources/gtk/ui/window.ui.in:428
 msgid "Authenticator is locked"
-msgstr "AutentiksiDuaFaktor"
+msgstr "Autentikator terkunci"
 
-#: data/ui/window.ui.in:476
+#: data/resources/gtk/ui/window.ui.in:468
 msgid "Unlock"
 msgstr "Buka Kunci"
 
-#: src/authenticator.py.in:50
+#: src/authenticator.py.in:49
 msgid "Start in debug mode"
 msgstr "Mulai dengan mode debud"
 
-#: src/authenticator.py.in:52
-msgid "Authenticator version number"
-msgstr "Nomor versi Authenticator"
-
-#: src/Authenticator/application.py.in:92
-#: src/Authenticator/widgets/settings.py:92
-#, fuzzy
-msgid "Lock the application"
-msgstr "Kunci aplikasi"
-
-#: src/Authenticator/application.py.in:100
+#: src/Authenticator/application.py.in:110
 msgid "from a plain-text JSON file"
-msgstr ""
+msgstr "dari berkas JSON teks polos"
 
-#: src/Authenticator/application.py.in:101
+#: src/Authenticator/application.py.in:111
 msgid "in a plain-text JSON file"
-msgstr ""
-
-#: src/Authenticator/application.py.in:103
-msgid "Restore"
-msgstr ""
-
-#: src/Authenticator/application.py.in:104
-#, fuzzy
-msgid "Backup"
-msgstr "Kembali"
+msgstr "dalam berkas JSON teks polos"
 
 #: src/Authenticator/application.py.in:113
-msgid "Donate"
-msgstr ""
+msgid "Restore"
+msgstr "Pulihkan"
 
 #: src/Authenticator/application.py.in:114
-#, fuzzy
+msgid "Backup"
+msgstr "Cadangan"
+
+#. Night mode action
+#: src/Authenticator/application.py.in:122
+msgid "Preferences"
+msgstr "Preferensi"
+
+#: src/Authenticator/application.py.in:123
 msgid "Keyboard Shortcuts"
-msgstr "Jalan pintas"
+msgstr "Pintasan Papan Tik"
 
-#: src/Authenticator/application.py.in:115
-#, fuzzy
+#: src/Authenticator/application.py.in:124
 msgid "About Authenticator"
-msgstr "AutentiksiDuaFaktor"
+msgstr "Tentang Autentikator"
 
-#: src/Authenticator/models/account.py:71
+#: src/Authenticator/models/account.py:87
 msgid "Default"
-msgstr ""
+msgstr "Baku"
 
-#: src/Authenticator/widgets/accounts/add.py:58
+#: src/Authenticator/widgets/accounts/add.py:36
+msgid "Add"
+msgstr "Tambah"
+
+#: src/Authenticator/widgets/accounts/add.py:257
 msgid "Invalid QR code"
 msgstr "Kode QR tidak valid"
 
-#: src/Authenticator/widgets/accounts/list.py:143
-msgid "The One-Time Passwords expires in {} seconds"
-msgstr ""
+#: src/Authenticator/widgets/accounts/edit.py:37
+msgid "Save"
+msgstr "Simpan"
 
-#: src/Authenticator/widgets/accounts/row.py:80
+#: src/Authenticator/widgets/accounts/list.py:152
+msgid "The One-Time Passwords expire in {} seconds"
+msgstr "Kata Sandi Satu Kali (OTP, One-Time Password) berakhir dalam {} detik"
+
+#: src/Authenticator/widgets/accounts/row.py:90
 msgid "Couldn't generate the secret code"
 msgstr "Tidak dapat menghasilkan kode rahasia"
 
-#: src/Authenticator/widgets/accounts/row.py:91
+#: src/Authenticator/widgets/accounts/row.py:100
 msgid "The PIN of {} was copied to the clipboard"
-msgstr ""
+msgstr "PIN {} disalin ke papan klip"
 
-#: src/Authenticator/widgets/accounts/row.py:123
+#: src/Authenticator/widgets/accounts/row.py:139
 msgid "The account was updated successfully"
-msgstr ""
+msgstr "Akun telah berhasil diperbarui"
 
-#: src/Authenticator/widgets/notification.py:43
-#, fuzzy
-msgid "Close the notification"
-msgstr "Kunci aplikasi"
-
-#: src/Authenticator/widgets/notification.py:48
-#: src/Authenticator/widgets/notification.py:63
+#: src/Authenticator/widgets/notification.py:53
+#: src/Authenticator/widgets/notification.py:86
 msgid "Undo"
 msgstr "Undo"
 
-#: src/Authenticator/widgets/settings.py:93
-#, fuzzy
-msgid "Lock the application with a password"
-msgstr "Kunci aplikasi"
+#: src/Authenticator/widgets/notification.py:81
+msgid "Close the notification"
+msgstr "Menutup notifikasi"
 
-#: src/Authenticator/widgets/settings.py:157
-#, fuzzy
-msgid "Authentication password is now enabled."
-msgstr "AutentiksiDuaFaktor"
-
-#: src/Authenticator/widgets/settings.py:159
-#, fuzzy
-msgid "The authentication password was updated."
-msgstr "AutentiksiDuaFaktor"
-
-#: src/Authenticator/widgets/settings.py:163
-#, fuzzy
-msgid "The authentication password was deleted."
-msgstr "AutentiksiDuaFaktor"
-
-#: src/Authenticator/widgets/settings.py:204
-#, fuzzy
+#: src/Authenticator/widgets/settings.py:170
 msgid "Save Password"
-msgstr "Kata sandi lama"
+msgstr "Simpan Kata Sandi"
 
-#: src/Authenticator/widgets/utils.py:40 src/Authenticator/widgets/utils.py:45
+#: src/Authenticator/widgets/settings.py:222
+msgid "Do you want to remove the authentication password?"
+msgstr "Apakah Anda ingin menghapus kata sandi autentikasi?"
+
+#: src/Authenticator/widgets/settings.py:223
+msgid "Authentication password enforces the privacy of your accounts."
+msgstr "Kata sandi autentikasi memaksakan privasi akun Anda."
+
+#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
 msgid "JSON files"
-msgstr ""
+msgstr "Berkas JSON"
+
+#, fuzzy
+#~ msgid "Two-factor authentication code generator"
+#~ msgstr "Pembuat kode autentikasi dua faktor."
+
+#, fuzzy
+#~ msgid "Rename project to Authenticator"
+#~ msgstr "Tentang Authenticator"
+
+#, fuzzy
+#~ msgid "Remove unneeded features"
+#~ msgstr "Hapus akun terpilih"
+
+#~ msgid "Gnome;GTK;Verification;"
+#~ msgstr "Gnome;GTK;Verifikasi;"
+
+#, fuzzy
+#~ msgid "Two-factor authentication code generator."
+#~ msgstr "Pembuat kode autentikasi dua faktor."
+
+#~ msgid "Close"
+#~ msgstr "Tutup"
+
+#, fuzzy
+#~ msgid "Scan QR Code"
+#~ msgstr "Pindai kode QR"
+
+#, fuzzy
+#~ msgid "Account Name"
+#~ msgstr "Nama Akun"
+
+#, fuzzy
+#~ msgid "Behaviour"
+#~ msgstr "Kebiasaan"
+
+#~ msgid "Authenticator version number"
+#~ msgstr "Nomor versi Authenticator"
+
+#, fuzzy
+#~ msgid "Authentication password is now enabled."
+#~ msgstr "AutentiksiDuaFaktor"
+
+#, fuzzy
+#~ msgid "The authentication password was updated."
+#~ msgstr "AutentiksiDuaFaktor"
+
+#, fuzzy
+#~ msgid "The authentication password was deleted."
+#~ msgstr "AutentiksiDuaFaktor"
 
 #, fuzzy
 #~ msgid "Night mode"
 #~ msgstr "Mode Malam"
-
-#~ msgid "Settings"
-#~ msgstr "Pengaturan"
 
 #, fuzzy
 #~ msgid "Authenticator Password"
@@ -598,9 +463,6 @@ msgstr ""
 #~ msgstr "Selanjutnya"
 
 #~ msgid "Two Factor Authentication code generator"
-#~ msgstr "Pembuat kode Autentikasi Dua Faktor"
-
-#~ msgid "Two-Factor Authentication code generator"
 #~ msgstr "Pembuat kode Autentikasi Dua Faktor"
 
 #~ msgctxt "shortcut window"
