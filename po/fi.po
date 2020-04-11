@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-02-24 06:12+0000\n"
-"PO-Revision-Date: 2020-02-24 20:47+0200\n"
+"POT-Creation-Date: 2020-04-01 07:35+0000\n"
+"PO-Revision-Date: 2020-04-11 20:20+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -59,8 +59,8 @@ msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr "Pidä PIN-koodit turvassa lukitsemalla sovellus salasanalla"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services using their favicon"
-msgstr "Nouda palvelujen kuva automaattisesti käyttäen faviconia"
+msgid "Automatically fetch an image for services"
+msgstr "Nouda palvelujen kuva automaattisesti"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
 msgid "The possibility to add new services"
@@ -75,7 +75,6 @@ msgid "Main Window - empty state"
 msgstr "Pääikkuna - tyhjä tilanne"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-#: data/resources/gtk/ui/account_add.ui:15
 msgid "Add a new account"
 msgstr "Lisää uusi tili"
 
@@ -145,50 +144,38 @@ msgstr "Suurennetun ikkunan oletusarvoinen toiminta"
 msgid "translator-credits"
 msgstr "Jiri Grönroos"
 
-#: data/resources/gtk/ui/account_add.ui:33
-msgid "Add"
-msgstr "Lisää"
-
-#: data/resources/gtk/ui/account_add.ui:53
-msgid "Scan QR Code"
-msgstr "Skannaa QR-koodi"
-
-#: data/resources/gtk/ui/account_config.ui:56
-msgid "Account Name"
-msgstr "Tilin nimi"
-
-#: data/resources/gtk/ui/account_config.ui:78
+#: data/resources/gtk/ui/account_config.ui:57
 msgid "Provider"
 msgstr "Palveluntarjoaja"
 
-#: data/resources/gtk/ui/account_config.ui:95
-#: data/resources/gtk/ui/account_config.ui:96
+#: data/resources/gtk/ui/account_config.ui:85
+msgid "Website"
+msgstr "Verkkosivusto"
+
+#: data/resources/gtk/ui/account_config.ui:105
+msgid "Account"
+msgstr "Tili"
+
+#: data/resources/gtk/ui/account_config.ui:124
+msgid "Token"
+msgstr "Poletti"
+
+#: data/resources/gtk/ui/account_config.ui:134
+#: data/resources/gtk/ui/account_config.ui:135
 msgid "Enable 2FA for this account"
 msgstr "Ota kaksivaiheinen todentaminen käyttöön tälle tilille"
 
-#: data/resources/gtk/ui/account_config.ui:97
-msgid "2FA Token"
-msgstr "Kaksivaiheinen koodi"
+#: data/resources/gtk/ui/account_row.ui:48
+msgid "Copy PIN to clipboard"
+msgstr "Kopioi PIN leikepöydälle"
 
-#: data/resources/gtk/ui/account_config.ui:111
-msgid "Provider Website"
-msgstr "Tarjoajan sivusto"
-
-#: data/resources/gtk/ui/account_edit.ui:31
-msgid "Save"
-msgstr "Tallenna"
-
-#: data/resources/gtk/ui/account_row.ui:22
+#: data/resources/gtk/ui/account_row.ui:158
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: data/resources/gtk/ui/account_row.ui:40
+#: data/resources/gtk/ui/account_row.ui:176
 msgid "Delete"
 msgstr "Poista"
-
-#: data/resources/gtk/ui/account_row.ui:97
-msgid "Copy PIN to clipboard"
-msgstr "Kopioi PIN leikepöydälle"
 
 #: data/resources/gtk/ui/password_widget.ui:46
 msgid "Current Password:"
@@ -216,7 +203,7 @@ msgid "Appearance"
 msgstr "Ulkoasu"
 
 #: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:106
+#: src/Authenticator/application.py.in:102
 msgid "Lock the application"
 msgstr "Lukitse sovellus"
 
@@ -255,23 +242,23 @@ msgctxt "shortcut window"
 msgid "Search"
 msgstr "Haku"
 
-#: data/resources/gtk/ui/window.ui.in:189
+#: data/resources/gtk/ui/window.ui.in:188
 msgid "There are no accounts yet…"
 msgstr "Ei vielä tilejä…"
 
-#: data/resources/gtk/ui/window.ui.in:218
+#: data/resources/gtk/ui/window.ui.in:217
 msgid "Add a new account from the menu"
 msgstr "Lisää uusi tili valikosta"
 
-#: data/resources/gtk/ui/window.ui.in:234
+#: data/resources/gtk/ui/window.ui.in:233
 msgid "Scan a QR Code"
 msgstr "Skannaa QR-koodi"
 
-#: data/resources/gtk/ui/window.ui.in:366
+#: data/resources/gtk/ui/window.ui.in:365
 msgid "No results found"
 msgstr "Tuloksia ei löytynyt"
 
-#: data/resources/gtk/ui/window.ui.in:429
+#: data/resources/gtk/ui/window.ui.in:428
 msgid "Authenticator is locked"
 msgstr "Todennin on lukittu"
 
@@ -283,46 +270,50 @@ msgstr "Avaa lukitus"
 msgid "Start in debug mode"
 msgstr "Käynnistä vianselvitystilassa"
 
-#: src/Authenticator/application.py.in:114
+#: src/Authenticator/application.py.in:110
 msgid "from a plain-text JSON file"
 msgstr "raakatekstipohjaisesta JSON-tiedostosta"
 
-#: src/Authenticator/application.py.in:115
+#: src/Authenticator/application.py.in:111
 msgid "in a plain-text JSON file"
 msgstr "raakatekstipohjaisessa JSON-tiedostossa"
 
-#: src/Authenticator/application.py.in:117
+#: src/Authenticator/application.py.in:113
 msgid "Restore"
 msgstr "Palauta"
 
-#: src/Authenticator/application.py.in:118
+#: src/Authenticator/application.py.in:114
 msgid "Backup"
 msgstr "Varmuuskopioi"
 
 #. Night mode action
-#: src/Authenticator/application.py.in:126
+#: src/Authenticator/application.py.in:122
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: src/Authenticator/application.py.in:127
-msgid "Donate"
-msgstr "Lahjoita"
-
-#: src/Authenticator/application.py.in:128
+#: src/Authenticator/application.py.in:123
 msgid "Keyboard Shortcuts"
 msgstr "Pikanäppäimet"
 
-#: src/Authenticator/application.py.in:129
+#: src/Authenticator/application.py.in:124
 msgid "About Authenticator"
 msgstr "Tietoja - Todennin"
 
-#: src/Authenticator/models/account.py:84
+#: src/Authenticator/models/account.py:87
 msgid "Default"
 msgstr "Oletus"
 
-#: src/Authenticator/widgets/accounts/add.py:247
+#: src/Authenticator/widgets/accounts/add.py:36
+msgid "Add"
+msgstr "Lisää"
+
+#: src/Authenticator/widgets/accounts/add.py:257
 msgid "Invalid QR code"
 msgstr "Virheellinen QR-koodi"
+
+#: src/Authenticator/widgets/accounts/edit.py:37
+msgid "Save"
+msgstr "Tallenna"
 
 #: src/Authenticator/widgets/accounts/list.py:152
 msgid "The One-Time Passwords expire in {} seconds"
@@ -336,16 +327,16 @@ msgstr "Salaista koodia ei voitu luoda"
 msgid "The PIN of {} was copied to the clipboard"
 msgstr "Palvelun {} PIN kopioitiin leikepöydälle"
 
-#: src/Authenticator/widgets/accounts/row.py:141
+#: src/Authenticator/widgets/accounts/row.py:139
 msgid "The account was updated successfully"
 msgstr "Tili päivitettiin onnistuneesti"
 
 #: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:84
+#: src/Authenticator/widgets/notification.py:86
 msgid "Undo"
 msgstr "Kumoa"
 
-#: src/Authenticator/widgets/notification.py:79
+#: src/Authenticator/widgets/notification.py:81
 msgid "Close the notification"
 msgstr "Sulje ilmoitus"
 
@@ -364,6 +355,15 @@ msgstr "Todentimen salasana parantaa tiliesi yksityisyyttä."
 #: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
 msgid "JSON files"
 msgstr "JSON-tiedostot"
+
+#~ msgid "Scan QR Code"
+#~ msgstr "Skannaa QR-koodi"
+
+#~ msgid "Account Name"
+#~ msgstr "Tilin nimi"
+
+#~ msgid "Donate"
+#~ msgstr "Lahjoita"
 
 #~ msgid "Two-factor authentication code generator"
 #~ msgstr "Kaksivaiheisen todennuskoodien generaattori"
