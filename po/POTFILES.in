@@ -1,6 +1,6 @@
-data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in
 data/com.github.bilelmoussaoui.Authenticator.desktop.in.in
 data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in
+data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in
 data/resources/gtk/ui/about_dialog.ui.in
 data/resources/gtk/ui/account_config.ui
 data/resources/gtk/ui/account_row.ui

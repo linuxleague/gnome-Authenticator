@@ -85,29 +85,29 @@ if desktop_file_validate.found()
   )
 endif
 
-# Freedesktop AppData File
-appdata_conf = configuration_data()
-appdata_conf.set('APP_ID', application_id)
-appdata_conf.set('GETTEXT_PACKAGE', gettext_package)
-appdata_file = i18n.merge_file(
-  'appdata',
+# FreeDesktop MetaInfo File
+metainfo_conf = configuration_data()
+metainfo_conf.set('APP_ID', application_id)
+metainfo_conf.set('GETTEXT_PACKAGE', gettext_package)
+metainfo_file = i18n.merge_file(
+  'metainfo',
   input: configure_file(
-    input: meson.project_name() + '.appdata.xml.in.in',
+    input: meson.project_name() + '.metainfo.xml.in.in',
     output: '@BASENAME@',
-    configuration: appdata_conf
+    configuration: metainfo_conf
   ),
-  output: '@0@.appdata.xml'.format(application_id),
+  output: '@0@.metainfo.xml'.format(application_id),
   po_dir: podir,
   install: true,
   install_dir: get_option('datadir') / 'metainfo'
 )
-# Validate AppData File
+# Validate MetaInfo File
 appstream_util = find_program('appstream-util', required: false)
 if appstream_util.found()
   test (
-    'Validate appdata file',
+    'Validate metainfo file',
     appstream_util,
-    args: ['validate-relax', '--nonet', appdata_file.full_path()]
+    args: ['validate-relax', '--nonet', metainfo_file.full_path()]
   )
 endif
 
