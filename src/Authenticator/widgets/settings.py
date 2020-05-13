@@ -37,7 +37,6 @@ class SettingsWindow(Handy.PreferencesWindow):
 
     def __init__(self):
         super(SettingsWindow, self).__init__()
-        self.init_template('SettingsWindow')
 
         self.__init_widgets()
         self.__bind_signals()
@@ -150,7 +149,6 @@ class PasswordWidget(Gtk.Box):
     def __init__(self):
         super(PasswordWidget, self).__init__()
         self.parent = None
-        self.init_template('PasswordWidget')
 
     def reset_widgets(self):
         """Reset widgets state."""

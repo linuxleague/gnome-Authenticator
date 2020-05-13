@@ -61,7 +61,6 @@ class AccountRow(Gtk.ListBoxRow):
         :param account: Account
         """
         super(AccountRow, self).__init__()
-        self.init_template('AccountRow')
         self._account = account
 
         self._account.connect("otp_updated", self._on_pin_updated)

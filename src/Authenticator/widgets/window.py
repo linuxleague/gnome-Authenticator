@@ -53,7 +53,6 @@ class Window(Gtk.ApplicationWindow):
 
     def __init__(self):
         super(Window, self).__init__()
-        self.init_template('Window')
 
         self.connect("notify::view", self.__state_changed)
 

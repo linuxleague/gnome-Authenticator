@@ -40,7 +40,6 @@ class AccountsWidget(Gtk.Box):
 
     def __init__(self):
         super(AccountsWidget, self).__init__()
-        self.init_template('AccountsWidget')
 
         self._providers = []
         self._to_delete = []
