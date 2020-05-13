@@ -104,7 +104,6 @@ class AccountConfig(Gtk.Overlay):
 
     def __init__(self, **kwargs):
         super(AccountConfig, self).__init__()
-        self.init_template('AccountConfig')
 
         self.account_list.set_header_func(Handy.list_box_separator_header)
 
