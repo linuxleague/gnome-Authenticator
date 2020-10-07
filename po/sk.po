@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
 "POT-Creation-Date: 2020-09-17 10:08+0000\n"
-"PO-Revision-Date: 2020-10-06 14:27+0200\n"
+"PO-Revision-Date: 2020-10-07 07:02+0200\n"
 "Language-Team: Slovak <gnome-sk-list@gnome.org>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,8 @@ msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
 msgstr ""
+"Jednoduchá aplikácia vytvorená pre prostredie GNOME, ktorá generuje kód pre "
+"dvojfaktorové overenie totožnosti."
 
 #: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
@@ -105,6 +107,7 @@ msgstr "Obrovská databáza s viac ako 560 podporovanými zariadeniami"
 #: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr ""
+"Uchovajte vaše tokeny s PINom v bezpečí uzamknutím aplikácie pomocou hesla"
 
 #: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Automatically fetch an image for services"
