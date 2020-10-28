@@ -17,27 +17,21 @@ impl ProvidersList {
     pub fn new(sender: Sender<Action>) -> Self {
         let builder =
             gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/providers_list.ui");
-        let widget: gtk::Box = builder
-            .get_object("providers_list")
-            .expect("Failed to retrieve providers_list");
-
+        get_widget!(builder, gtk::Box, providers_list);
         let model = RefCell::new(ProvidersModel::new());
 
-        let providers_list = Self {
-            widget,
+        let list = Self {
+            widget: providers_list,
             builder,
             sender,
             model,
         };
-        providers_list.init();
-        providers_list
+        list.init();
+        list
     }
 
     fn init(&self) {
-        let providers_container: gtk::Box = self
-            .builder
-            .get_object("providers_container")
-            .expect("Failed to retrieve providers_container");
+        get_widget!(self.builder, gtk::Box, providers_container);
 
         for (provider, accounts_model) in &self.model.borrow().model {
             if accounts_model.get_count() != 0 {

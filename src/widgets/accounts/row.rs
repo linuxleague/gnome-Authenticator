@@ -13,26 +13,20 @@ pub struct AccountRow {
 impl AccountRow {
     pub fn new(account: Account, sender: Sender<Action>) -> Self {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/account_row.ui");
-        let widget: gtk::ListBoxRow = builder
-            .get_object("account_row")
-            .expect("Failed to load library_row object");
+        get_widget!(builder, gtk::ListBoxRow, account_row);
 
-        let account_row = Self {
-            widget,
+        let row = Self {
+            widget: account_row,
             builder,
             sender,
             account,
         };
-        account_row.init();
-        account_row
+        row.init();
+        row
     }
 
     fn init(&self) {
-        let username_label: gtk::Label = self
-            .builder
-            .get_object("username_label")
-            .expect("Failed to retrieve username_label");
-
+        get_widget!(self.builder, gtk::Label, username_label);
         username_label.set_text(&self.account.username);
     }
 }

@@ -15,12 +15,10 @@ pub struct AddAccountDialog {
 impl AddAccountDialog {
     pub fn new(sender: Sender<Action>) -> Rc<Self> {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/add_account.ui");
-        let widget: libhandy::Window = builder
-            .get_object("add_dialog")
-            .expect("Failed to retrieve AddAccountDialog");
+        get_widget!(builder, libhandy::Window, add_dialog);
 
         let add_account_dialog = Rc::new(Self {
-            widget,
+            widget: add_dialog,
             builder,
             sender,
         });
@@ -34,14 +32,6 @@ impl AddAccountDialog {
     fn add_account(&self, account: NewAccount) -> Result<Account, database::Error> {
         // TODO: add the account to the provider model.
         account.insert()
-    }
-
-    fn notify_err(&self, error_msg: &str) {
-        get_widget!(self.builder, gtk::Revealer, notification);
-        get_widget!(self.builder, gtk::Label, notification_msg);
-
-        notification_msg.set_text(error_msg);
-        notification.set_reveal_child(true); // Display the notification
     }
 
     fn setup_signals(&self) {
@@ -65,19 +55,15 @@ impl AddAccountDialog {
 
     fn setup_actions(&self, s: Rc<Self>) {
         let actions = gio::SimpleActionGroup::new();
-        let back = gio::SimpleAction::new("back", None);
-        let sender = self.sender.clone();
-
-        let weak_dialog = self.widget.downgrade();
-        back.connect_activate(move |_, _| {
-            if let Some(dialog) = weak_dialog.upgrade() {
+        action!(
+            actions,
+            "back",
+            clone!(@weak self.widget as dialog => move |_, _| {
                 dialog.destroy();
-            }
-        });
-        actions.add_action(&back);
+            })
+        );
 
         let save = gio::SimpleAction::new("save", None);
-
         save.connect_activate(clone!(@strong self.builder as builder => move |_, _| {
             get_widget!(builder, gtk::Entry, username_entry);
             get_widget!(builder, gtk::Entry, token_entry);
@@ -85,12 +71,6 @@ impl AddAccountDialog {
             get_widget!(builder, gtk::Entry, website_entry);
             // get_widget!(builder, gtk::Entry, period_entry);
             // get_widget!(builder, gtk::Entry, algorithm_model);
-
-
-
-
-
-
 
             /*
             let new_account = NewAccount {
@@ -109,12 +89,14 @@ impl AddAccountDialog {
         save.set_enabled(false);
         actions.add_action(&save);
 
-        let scan_qr = gio::SimpleAction::new("scan-qr", None);
-        let sender = self.sender.clone();
-        scan_qr.connect_activate(move |_, _| {
-            // sender.send(Action::OpenAddAccountDialog).unwrap();
-        });
-        actions.add_action(&scan_qr);
+        action!(
+            actions,
+            "sqcan-qr",
+            clone!(@strong self.sender as sender => move |_, _| {
+                    // sender.send(Action::OpenAddAccountDialog).unwrap();
+
+            })
+        );
         self.widget.insert_action_group("add", Some(&actions));
     }
 

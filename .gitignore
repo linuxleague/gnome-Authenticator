@@ -8,4 +8,4 @@ src/config.rs
 src/static_resources.rs
 *.*.in~
 *.*~
-
+builddir/
