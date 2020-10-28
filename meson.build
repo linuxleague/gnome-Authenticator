@@ -7,8 +7,8 @@ project('authenticator', 'rust',
 dependency('glib-2.0', version: '>= 2.56')
 dependency('gio-2.0', version: '>= 2.56')
 dependency('gdk-pixbuf-2.0')
-dependency('gtk+-3.0', version: '>= 3.24.7')
-dependency('libhandy-0.0', version: '>= 0.0.11')
+dependency('gtk4', version: '>= 3.99.2')
+#dependency('libhandy-4', version: '>= 1')
 
 cargo = find_program('cargo', required: false)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)

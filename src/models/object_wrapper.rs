@@ -43,19 +43,19 @@ mod imp {
         }
 
         fn new() -> Self {
-            Self { data: RefCell::new(None) }
+            Self {
+                data: RefCell::new(None),
+            }
         }
     }
 
     impl ObjectImpl for ObjectWrapper {
-        glib_object_impl!();
-
         fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
             let prop = &PROPERTIES[id];
 
             match *prop {
                 subclass::Property("data", ..) => {
-                    let data = value.get();
+                    let data = value.get().unwrap();
                     self.data.replace(data);
                 }
                 _ => unimplemented!(),
@@ -86,17 +86,25 @@ impl ObjectWrapper {
     where
         O: serde::ser::Serialize,
     {
-        glib::Object::new(Self::static_type(), &[("data", &serde_json::to_string(&object).unwrap())])
-            .unwrap()
-            .downcast()
-            .unwrap()
+        glib::Object::new(
+            Self::static_type(),
+            &[("data", &serde_json::to_string(&object).unwrap())],
+        )
+        .unwrap()
+        .downcast()
+        .unwrap()
     }
 
     pub fn deserialize<O>(&self) -> O
     where
         O: DeserializeOwned,
     {
-        let data = self.get_property("data").unwrap().get::<String>().unwrap();
+        let data = self
+            .get_property("data")
+            .unwrap()
+            .get::<String>()
+            .unwrap()
+            .unwrap();
         serde_json::from_str(&data).unwrap()
     }
 }

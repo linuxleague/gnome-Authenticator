@@ -29,8 +29,13 @@ impl database::Insert<Account> for NewAccount {
         let db = database::connection();
         let conn = db.get()?;
 
-        diesel::insert_into(accounts::table).values(self).execute(&conn)?;
+        diesel::insert_into(accounts::table)
+            .values(self)
+            .execute(&conn)?;
 
-        accounts::table.order(accounts::columns::id.desc()).first::<Account>(&conn).map_err(From::from)
+        accounts::table
+            .order(accounts::columns::id.desc())
+            .first::<Account>(&conn)
+            .map_err(From::from)
     }
 }

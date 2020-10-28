@@ -1,24 +1,29 @@
 use crate::application::Action;
 use crate::models::database::{self, *};
-use crate::models::{Account, AccountsModel, NewAccount};
+use crate::models::{Account, NewAccount};
 use gio::prelude::*;
 use glib::Sender;
 use gtk::prelude::*;
 use std::rc::Rc;
 
 pub struct AddAccountDialog {
-    pub widget: gtk::Window,
+    pub widget: libhandy::Window,
     builder: gtk::Builder,
     sender: Sender<Action>,
 }
 
 impl AddAccountDialog {
     pub fn new(sender: Sender<Action>) -> Rc<Self> {
-        let builder = gtk::Builder::new_from_resource("/com/belmoussaoui/Authenticator/add_account.ui");
-        let widget: gtk::Window = builder.get_object("add_dialog").expect("Failed to retrieve AddAccountDialog");
-        widget.show_all();
+        let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/add_account.ui");
+        let widget: libhandy::Window = builder
+            .get_object("add_dialog")
+            .expect("Failed to retrieve AddAccountDialog");
 
-        let add_account_dialog = Rc::new(Self { widget, builder, sender });
+        let add_account_dialog = Rc::new(Self {
+            widget,
+            builder,
+            sender,
+        });
 
         add_account_dialog.setup_actions(add_account_dialog.clone());
         add_account_dialog.setup_signals();
@@ -32,37 +37,27 @@ impl AddAccountDialog {
     }
 
     fn notify_err(&self, error_msg: &str) {
-        let notification: gtk::Revealer = self.builder.get_object("notification").expect("Failed to retrieve notification");
-
-        let notification_msg: gtk::Label = self.builder.get_object("notification_msg").expect("Failed to retrieve notification_msg");
+        get_widget!(self.builder, gtk::Revealer, notification);
+        get_widget!(self.builder, gtk::Label, notification_msg);
 
         notification_msg.set_text(error_msg);
         notification.set_reveal_child(true); // Display the notification
     }
 
     fn setup_signals(&self) {
-        let username_entry: gtk::Entry = self.builder.get_object("username_entry").expect("Failed to retrieve username_entry");
-        let token_entry: gtk::Entry = self.builder.get_object("token_entry").expect("Failed to retrieve token_entry");
+        get_widget!(self.builder, gtk::Entry, username_entry);
+        get_widget!(self.builder, gtk::Entry, token_entry);
 
-        let action_group = self.widget.get_action_group("add").unwrap().downcast::<gio::SimpleActionGroup>().unwrap();
-        let save_action = action_group.lookup_action("save").unwrap().downcast::<gio::SimpleAction>().unwrap();
+        //let action_group = self.widget.get_action_group("add").unwrap().downcast::<gio::SimpleActionGroup>().unwrap();
+        //let save_action = action_group.lookup_action("save").unwrap().downcast::<gio::SimpleAction>().unwrap();
 
-        let weak_username = username_entry.downgrade();
-        let weak_token = token_entry.downgrade();
-        let validate_entries = move |entry: &gtk::Entry| {
-            let mut username = String::new();
-            let mut token = String::new();
-
-            if let Some(username_entry) = weak_username.upgrade() {
-                username.push_str(&username_entry.get_text().unwrap());
-            }
-            if let Some(token_entry) = weak_token.upgrade() {
-                token.push_str(&token_entry.get_text().unwrap());
-            }
+        let validate_entries = clone!(@weak username_entry, @weak token_entry => move |_: &gtk::Entry| {
+            let username = username_entry.get_text().unwrap();
+            let token = token_entry.get_text().unwrap();
 
             let is_valid = !(username.is_empty() || token.is_empty());
-            save_action.set_enabled(is_valid);
-        };
+            //save_action.set_enabled(is_valid);
+        });
 
         username_entry.connect_changed(validate_entries.clone());
         token_entry.connect_changed(validate_entries);
@@ -82,13 +77,22 @@ impl AddAccountDialog {
         actions.add_action(&back);
 
         let save = gio::SimpleAction::new("save", None);
-        let add_account_dialog = s.clone();
-        save.connect_activate(move |_, _| {
-            let builder = &add_account_dialog.builder;
-            let username_entry: gtk::Entry = builder.get_object("username_entry").expect("Failed to retrieve username_entry");
-            let token_entry: gtk::Entry = builder.get_object("token_entry").expect("Failed to retrieve token_entry");
-            let provider_combobox: gtk::ComboBox = builder.get_object("provider_combobox").expect("Failed to retrieve provider_combobox");
 
+        save.connect_activate(clone!(@strong self.builder as builder => move |_, _| {
+            get_widget!(builder, gtk::Entry, username_entry);
+            get_widget!(builder, gtk::Entry, token_entry);
+            get_widget!(builder, gtk::Entry, provider_entry);
+            get_widget!(builder, gtk::Entry, website_entry);
+            // get_widget!(builder, gtk::Entry, period_entry);
+            // get_widget!(builder, gtk::Entry, algorithm_model);
+
+
+
+
+
+
+
+            /*
             let new_account = NewAccount {
                 username: username_entry.get_text().unwrap().to_string(),
                 token_id: token_entry.get_text().unwrap().to_string(),
@@ -100,7 +104,8 @@ impl AddAccountDialog {
                 // Close the dialog if everything is fine.
                 add_account_dialog.widget.destroy();
             }
-        });
+            */
+        }));
         save.set_enabled(false);
         actions.add_action(&save);
 
@@ -115,19 +120,14 @@ impl AddAccountDialog {
 
     fn setup_widgets(&self) {
         // Fill the providers gtk::ListStore
-        let col_types: [gtk::Type; 2] = [gtk::Type::String, gtk::Type::String];
-        let providers_store = gtk::ListStore::new(&col_types);
-
+        /*get_widget!(self.builder, gtk::ListStore, providers_store);
         if let Ok(providers) = database::get_providers() {
             for provider in providers.iter() {
                 let values: [&dyn ToValue; 2] = [&provider.id, &provider.name];
                 providers_store.set(&providers_store.append(), &[0, 1], &values);
             }
-        }
+        }*/
 
-        let provider_completion: gtk::EntryCompletion = self.builder.get_object("provider_completion").expect("Failed to retrieve provider_completion");
-        let provider_combobox: gtk::ComboBox = self.builder.get_object("provider_combobox").expect("Failed to retrieve provider_combobox");
-        provider_combobox.set_model(Some(&providers_store));
-        provider_completion.set_model(Some(&providers_store));
+        get_widget!(self.builder, gtk::SpinButton, @period_spinbutton).set_value(30.0);
     }
 }

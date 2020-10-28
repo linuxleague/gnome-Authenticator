@@ -6,20 +6,13 @@
     "sdk-extensions" : [
         "org.freedesktop.Sdk.Extension.rust-stable"
     ],
-    "tags" : [
-        "nightly"
-    ],
-    "desktop-file-name-prefix" : "(Development) ",
     "command": "authenticator",
     "finish-args": [
         "--share=network",
         "--share=ipc",
+        "--device=dri",
         "--socket=fallback-x11",
-        "--socket=wayland",
-        "--filesystem=xdg-run/dconf",
-        "--filesystem=~/.config/dconf:ro",
-        "--talk-name=ca.desrt.dconf",
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+        "--socket=wayland"
     ],
     "build-options": {
         "append-path" : "/usr/lib/sdk/rust-stable/bin",
@@ -27,7 +20,6 @@
             "--share=network"
         ],
         "env" : {
-            "RUSTFLAGS" : "--remap-path-prefix =../ --error-format=human",
             "CARGO_HOME" : "/run/build/authenticator/cargo",
             "RUST_BACKTRACE" : "1",
             "RUST_LOG" : "authenticator=debug"
@@ -38,7 +30,7 @@
             "name": "libhandy",
             "buildsystem": "meson",
             "config-opts": [
-                "-Dintrospection=disabled",
+                "-Dintrospection=enabled",
                 "-Dgtk_doc=false",
                 "-Dtests=false",
                 "-Dexamples=false",
@@ -47,9 +39,8 @@
             ],
             "sources": [{
                 "type": "git",
-                "url": "https://source.puri.sm/Librem5/libhandy.git",
-                "tag": "v0.0.11",
-                "commit": "f5909a897f70143bdd2f89f47a63c1bf848330ce"
+                "url": "https://gitlab.gnome.org/exalm/libhandy.git",
+                "branch": "gtk4"
             }]
         },
         {
@@ -60,8 +51,8 @@
             ],
             "sources": [
                 {
-                    "type": "git",
-                    "url" : "https://gitlab.gnome.org/World/authenticator.git"
+                    "type": "dir",
+                    "path" : "../"
                 }
             ]
         }

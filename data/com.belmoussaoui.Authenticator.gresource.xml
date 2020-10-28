@@ -22,7 +22,7 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">window.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">settings.ui</file>
   </gresource>
-  <gresource prefix="/com/belmoussaoui/Authenticator/icons">
+  <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions">
     <file alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>
   </gresource>
 

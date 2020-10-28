@@ -3,7 +3,6 @@ use super::database;
 use super::object_wrapper::ObjectWrapper;
 use super::provider::Provider;
 use gio::prelude::*;
-use glib::prelude::*;
 use std::cell::RefCell;
 
 #[derive(Clone, PartialEq)]
@@ -61,8 +60,9 @@ impl AccountsModel {
         let object = ObjectWrapper::new(Box::new(account));
         let sort_by = self.sort_by.clone();
         let sort_order = self.sort_order.clone();
-        self.model
-            .insert_sorted(&object, move |a, b| Self::accounts_cmp(a, b, sort_by.borrow().clone(), sort_order.borrow().clone()));
+        self.model.insert_sorted(&object, move |a, b| {
+            Self::accounts_cmp(a, b, sort_by.borrow().clone(), sort_order.borrow().clone())
+        });
     }
 
     pub fn get_count(&self) -> u32 {
@@ -85,10 +85,16 @@ impl AccountsModel {
             }
             None => self.sort_order.borrow().clone(),
         };
-        self.model.sort(move |a, b| Self::accounts_cmp(a, b, sort_by.clone(), sort_order.clone()));
+        self.model
+            .sort(move |a, b| Self::accounts_cmp(a, b, sort_by.clone(), sort_order.clone()));
     }
 
-    fn accounts_cmp(a: &gio::Object, b: &gio::Object, sort_by: SortBy, sort_order: SortOrder) -> std::cmp::Ordering {
+    fn accounts_cmp(
+        a: &glib::Object,
+        b: &glib::Object,
+        sort_by: SortBy,
+        sort_order: SortOrder,
+    ) -> std::cmp::Ordering {
         let mut account_a: Account = a.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
         let mut account_b: Account = b.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
 

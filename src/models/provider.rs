@@ -31,8 +31,13 @@ impl database::Insert<Provider> for NewProvider {
         let db = database::connection();
         let conn = db.get()?;
 
-        diesel::insert_into(providers::table).values(self).execute(&conn)?;
+        diesel::insert_into(providers::table)
+            .values(self)
+            .execute(&conn)?;
 
-        providers::table.order(providers::columns::id.desc()).first::<Provider>(&conn).map_err(From::from)
+        providers::table
+            .order(providers::columns::id.desc())
+            .first::<Provider>(&conn)
+            .map_err(From::from)
     }
 }

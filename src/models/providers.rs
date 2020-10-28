@@ -1,9 +1,6 @@
 use super::accounts::AccountsModel;
 use super::database;
 use super::provider::Provider;
-use gio::prelude::*;
-use glib::prelude::*;
-use std::cell::RefCell;
 use std::collections::HashMap;
 
 pub struct ProvidersModel {
@@ -12,7 +9,9 @@ pub struct ProvidersModel {
 
 impl ProvidersModel {
     pub fn new() -> Self {
-        let mut model = Self { model: HashMap::new() };
+        let mut model = Self {
+            model: HashMap::new(),
+        };
         model.init();
         model
     }
@@ -23,6 +22,7 @@ impl ProvidersModel {
     }
 
     pub fn get_count(&self) -> usize {
+        println!("{}", self.model.len());
         self.model.len()
     }
 

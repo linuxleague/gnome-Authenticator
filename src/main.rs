@@ -1,4 +1,3 @@
-extern crate pretty_env_logger;
 #[macro_use]
 extern crate log;
 #[macro_use]
@@ -13,10 +12,10 @@ extern crate diesel;
 extern crate glib;
 #[macro_use]
 extern crate serde_derive;
+#[macro_use]
+extern crate gtk_macros;
 
-extern crate gtk;
 use gettextrs::*;
-use libhandy::ColumnExt;
 mod application;
 mod config;
 mod models;
@@ -32,16 +31,16 @@ fn main() {
     pretty_env_logger::init();
 
     gtk::init().expect("Unable to start GTK3");
+    libhandy::functions::init();
     // Prepare i18n
     setlocale(LocaleCategory::LcAll, "");
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
     textdomain(GETTEXT_PACKAGE);
 
-    static_resources::init().expect("Failed to initialize the resource file.");
+    glib::set_application_name("Authenticator");
+    glib::set_prgname(Some("authenticator"));
 
-    let column = libhandy::Column::new();
-    column.set_maximum_width(800);
-    column.set_linear_growth_width(600);
+    static_resources::init().expect("Failed to initialize the resource file.");
 
     let app = Application::new();
     app.run(app.clone());

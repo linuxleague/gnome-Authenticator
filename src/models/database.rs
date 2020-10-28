@@ -10,7 +10,7 @@ use std::{fs, fs::File};
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
 lazy_static! {
-    static ref DB_PATH: PathBuf = glib::get_user_data_dir().unwrap().join("authenticator");
+    static ref DB_PATH: PathBuf = glib::get_user_data_dir().join("authenticator");
     static ref POOL: Pool = init_pool().expect("Failed to create a pool");
 }
 
@@ -54,7 +54,10 @@ pub fn get_accounts_by_provider(provider_model: Provider) -> Result<Vec<Account>
     let db = connection();
     let conn = db.get()?;
 
-    accounts.filter(provider.eq(provider_model.id)).load::<Account>(&conn).map_err(From::from)
+    accounts
+        .filter(provider.eq(provider_model.id))
+        .load::<Account>(&conn)
+        .map_err(From::from)
 }
 
 pub fn get_accounts() -> Result<Vec<Account>, Error> {
