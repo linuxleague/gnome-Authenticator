@@ -1,7 +1,6 @@
 install_data(
-  'com.belmoussaoui.Authenticator.svg',
+  '@0@.svg'.format(application_id),
   install_dir: iconsdir / 'hicolor' / 'scalable' / 'apps',
-  rename: '@0@.svg'.format(application_id)
 )
 
 install_data(
