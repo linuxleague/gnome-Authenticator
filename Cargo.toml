@@ -18,6 +18,9 @@ nanoid = "0.3"
 reqwest = "0.10"
 url = "2.1"
 gtk-macros = "0.2"
+ashpd = "0.1"
+zbar-rust = "0.0"
+image = "0.23"
 
 [dependencies.gtk]
 git = "https://github.com/gtk-rs/gtk4"

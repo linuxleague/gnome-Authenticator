@@ -1,4 +1,5 @@
 use crate::application::Action;
+use crate::helpers::qrcode;
 use crate::models::database::*;
 use crate::models::{Account, Algorithm, NewAccount, Provider, ProvidersModel};
 use anyhow::Result;
@@ -61,7 +62,29 @@ impl AddAccountDialog {
         token_entry.connect_changed(validate_entries);
     }
 
-    fn setup_actions(&self, s: Rc<Self>) {
+    fn set_provider(&self, provider: Provider) {
+        get_widget!(self.builder, gtk::Entry, @provider_entry).set_text(&provider.name());
+        get_widget!(self.builder, gtk::SpinButton, @period_spinbutton)
+            .set_value(provider.period() as f64);
+
+        if let Some(ref website) = provider.website() {
+            get_widget!(self.builder, gtk::Entry, @provider_website_entry).set_text(website);
+        }
+
+        unsafe {
+            // This is safe because of the repr(u32)
+            let selected_position: u32 = std::mem::transmute(provider.algorithm());
+            get_widget!(self.builder, libhandy::ComboRow, @algorithm_comborow)
+                .set_selected(selected_position);
+        }
+
+        get_widget!(self.builder, gtk::Entry, @token_entry)
+            .set_property_secondary_icon_sensitive(provider.help_url().is_some());
+
+        self.selected_provider.replace(Some(provider));
+    }
+
+    fn setup_actions(&self, dialog: Rc<Self>) {
         let actions = gio::SimpleActionGroup::new();
         action!(
             actions,
@@ -100,9 +123,19 @@ impl AddAccountDialog {
         action!(
             actions,
             "scan-qr",
-            clone!(@strong self.sender as sender => move |_, _| {
-                    // sender.send(Action::OpenAddAccountDialog).unwrap();
-
+            clone!(@strong self.builder as builder, @strong dialog, @strong self.model as model => move |_, _| {
+                qrcode::screenshot_area(clone!(@strong builder, @strong dialog, @strong model => move |screenshot| {
+                    if let Ok(otpauth) = qrcode::scan(&gio::File::new_for_uri(&screenshot)) {
+                        get_widget!(builder, gtk::Entry, @token_entry).set_text(&otpauth.token);
+                        if let Some(ref username) = otpauth.account {
+                            get_widget!(builder, gtk::Entry, @username_entry).set_text(&username);
+                        }
+                        if let Some(ref provider) = otpauth.issuer {
+                            let provider = model.find_by_name(provider).unwrap();
+                            dialog.set_provider(provider);
+                        }
+                    }
+                }));
             })
         );
         self.widget.insert_action_group("add", Some(&actions));
@@ -116,32 +149,18 @@ impl AddAccountDialog {
             .set_property_secondary_icon_sensitive(false);
 
         get_widget!(self.builder, libhandy::ComboRow, algorithm_comborow);
-        let algoirthms_model = libhandy::EnumListModel::new(Algorithm::static_type());
-        algorithm_comborow.set_model(Some(&algoirthms_model));
+        let algorithms_model = libhandy::EnumListModel::new(Algorithm::static_type());
+        algorithm_comborow.set_model(Some(&algorithms_model));
 
         provider_completion.connect_match_selected(
-            clone!(@strong dialog,
-                @strong self.model as model,
-                @strong self.builder as builder =>
-        move |completion, store, iter| {
-            let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();
-            let provider = model.find_by_id(provider_id).unwrap();
+            clone!(@strong dialog, @strong self.model as model => move |completion, store, iter| {
+                let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();
+                let provider = model.find_by_id(provider_id).unwrap();
+                dialog.set_provider(provider);
 
-            get_widget!(builder, gtk::Entry, provider_website_entry);
-            if let Some(ref website) = provider.website() {
-                provider_website_entry.set_text(website);
-            }
-
-            get_widget!(builder, gtk::SpinButton, @period_spinbutton).set_value(provider.period() as f64);
-            //let selected_position = algorithms_model.position(provider.algorithm()).unwrap_or(0);
-            //get_widget!(builder, libhandy::ComboRow, @algorithm_comborow).set_selected(selected_position);
-            get_widget!(builder, gtk::Entry, @token_entry)
-                .set_property_secondary_icon_sensitive(provider.help_url().is_some());
-
-            dialog.selected_provider.replace(Some(provider));
-
-            Inhibit(false)
-        }));
+                Inhibit(false)
+            }),
+        );
 
         get_widget!(self.builder, gtk::Entry, token_entry);
         token_entry.connect_icon_press(clone!(@strong dialog => move |entry, pos| {

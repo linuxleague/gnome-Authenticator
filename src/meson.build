@@ -39,6 +39,10 @@ run_command(
 
 
 sources = files(
+  'helpers/database.rs',
+  'helpers/keyring.rs',
+  'helpers/mod.rs',
+  'helpers/qrcode.rs',
   'models/account.rs',
   'models/accounts.rs',
   'models/database.rs',

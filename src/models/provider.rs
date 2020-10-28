@@ -203,11 +203,11 @@ impl Provider {
                 Self::new(
                     p.id,
                     &p.name,
+                    p.period,
+                    Algorithm::from_str(&p.algorithm).unwrap(),
                     p.website,
                     p.help_url,
                     p.image_uri,
-                    p.period,
-                    Algorithm::from_str(&p.algorithm).unwrap(),
                 )
             })
             .collect::<Vec<Provider>>();
@@ -217,11 +217,11 @@ impl Provider {
     pub fn new(
         id: i32,
         name: &str,
+        period: i32,
+        algorithm: Algorithm,
         website: Option<String>,
         help_url: Option<String>,
         image_uri: Option<String>,
-        period: i32,
-        algorithm: Algorithm,
     ) -> Provider {
         glib::Object::new(
             Provider::static_type(),
