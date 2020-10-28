@@ -42,7 +42,7 @@ impl Application {
     }
 
     pub fn run(&self, app: Rc<Self>) {
-        info!("{}Authenticator ({})", config::NAME_PREFIX, config::APP_ID);
+        info!("Authenticator ({})", config::APP_ID);
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
 

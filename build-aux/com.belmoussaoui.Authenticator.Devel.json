@@ -1,5 +1,5 @@
 {
-    "app-id": "com.belmoussaoui.AuthenticatorDevel",
+    "app-id": "com.belmoussaoui.Authenticator.Devel",
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",

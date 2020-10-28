@@ -16,7 +16,6 @@ glib_compile_resources = find_program('glib-compile-resources', required: true)
 
 cargo_script = find_program('build-aux/cargo.sh')
 
-
 version = meson.project_version()
 version_array = version.split('.')
 major_version = version_array[0].to_int()
@@ -34,8 +33,8 @@ podir = meson.source_root () / 'po'
 gettext_package = meson.project_name()
 
 if get_option('profile') == 'development'
+  application_id = 'com.belmoussaoui.Authenticator.Devel'
   profile = 'Devel'
-  name_prefix = '(Development) '
   vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
   if vcs_tag == ''
     version_suffix = '-devel'
@@ -44,12 +43,10 @@ if get_option('profile') == 'development'
   endif
 else
   profile = ''
-  name_suffix = ''
   version_suffix = ''
-  name_prefix = ''
+  application_id = 'com.belmoussaoui.Authenticator'
 endif
 
-application_id = 'com.belmoussaoui.Authenticator@0@'.format(profile)
 
 
 i18n = import('i18n')
