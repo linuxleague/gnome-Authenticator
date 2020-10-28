@@ -1,16 +1,16 @@
 include:
-  - project: 'gnome/citemplates'
-    file: 'flatpak/flatpak_ci_initiative.yml'
+  - project: "gnome/citemplates"
+    file: "flatpak/flatpak_ci_initiative.yml"
 
 flatpak:
-  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master'
+  image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
   variables:
     BUNDLE: "authenticator-nightly.flatpak"
     MANIFEST_PATH: "build-aux/com.belmoussaoui.Authenticator.Devel.json"
     FLATPAK_MODULE: "authenticator"
     APP_ID: "com.belmoussaoui.Authenticator.Devel"
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-  extends: '.flatpak'
+  extends: ".flatpak"
 
 rustfmt:
   image: "rust:slim"

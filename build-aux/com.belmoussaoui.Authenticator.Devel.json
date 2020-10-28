@@ -3,9 +3,7 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions" : [
-        "org.freedesktop.Sdk.Extension.rust-stable"
-    ],
+    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
     "command": "authenticator",
     "finish-args": [
         "--share=network",
@@ -15,44 +13,42 @@
         "--socket=wayland"
     ],
     "build-options": {
-        "append-path" : "/usr/lib/sdk/rust-stable/bin",
-        "build-args" : [
-            "--share=network"
-        ],
-        "env" : {
-            "CARGO_HOME" : "/run/build/authenticator/cargo",
-            "RUST_BACKTRACE" : "1",
-            "RUST_LOG" : "authenticator=debug"
+        "append-path": "/usr/lib/sdk/rust-stable/bin",
+        "build-args": ["--share=network"],
+        "env": {
+            "CARGO_HOME": "/run/build/authenticator/cargo",
+            "RUST_BACKTRACE": "1",
+            "RUST_LOG": "authenticator=debug"
         }
     },
     "modules": [
-    	{
+        {
             "name": "libhandy",
             "buildsystem": "meson",
             "config-opts": [
-                "-Dintrospection=enabled",
+                "-Dintrospection=disabled",
                 "-Dgtk_doc=false",
                 "-Dtests=false",
                 "-Dexamples=false",
                 "-Dvapi=false",
                 "-Dglade_catalog=disabled"
             ],
-            "sources": [{
-                "type": "git",
-                "url": "https://gitlab.gnome.org/exalm/libhandy.git",
-                "branch": "gtk4"
-            }]
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/exalm/libhandy.git",
+                    "branch": "gtk4"
+                }
+            ]
         },
         {
             "name": "authenticator",
             "buildsystem": "meson",
-            "config-opts" : [
-                "-Dprofile=development"
-            ],
+            "config-opts": ["-Dprofile=development"],
             "sources": [
                 {
                     "type": "dir",
-                    "path" : "../"
+                    "path": "../"
                 }
             ]
         }
