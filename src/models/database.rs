@@ -1,9 +1,8 @@
 use crate::models::{Account, Provider};
-
+use anyhow::Result;
 use diesel::prelude::*;
 use diesel::r2d2;
 use diesel::r2d2::ConnectionManager;
-pub use failure::Error;
 use std::path::PathBuf;
 use std::{fs, fs::File};
 
@@ -20,15 +19,15 @@ pub(crate) fn connection() -> Pool {
     POOL.clone()
 }
 
-fn run_migration_on(connection: &SqliteConnection) -> Result<(), Error> {
+fn run_migration_on(connection: &SqliteConnection) -> Result<()> {
     info!("Running DB Migrations...");
     embedded_migrations::run_with_output(connection, &mut std::io::stdout()).map_err(From::from)
 }
 
-fn init_pool() -> Result<Pool, Error> {
+fn init_pool() -> Result<Pool> {
     let db_path = &DB_PATH;
     fs::create_dir_all(&db_path.to_str().unwrap())?;
-    let db_path = db_path.join("library.db");
+    let db_path = db_path.join("authenticator.db");
     if !db_path.exists() {
         File::create(&db_path.to_str().unwrap())?;
     }
@@ -49,29 +48,21 @@ pub trait Insert<T> {
     fn insert(&self) -> Result<T, Self::Error>;
 }
 
-pub fn get_accounts_by_provider(provider_model: Provider) -> Result<Vec<Account>, Error> {
+pub fn get_accounts_by_provider(provider_model: Provider) -> Result<Vec<Account>> {
     use crate::schema::accounts::dsl::*;
     let db = connection();
     let conn = db.get()?;
 
     accounts
-        .filter(provider.eq(provider_model.id))
+        .filter(provider.eq(provider_model.id()))
         .load::<Account>(&conn)
         .map_err(From::from)
 }
 
-pub fn get_accounts() -> Result<Vec<Account>, Error> {
+pub fn get_accounts() -> Result<Vec<Account>> {
     use crate::schema::accounts::dsl::*;
     let db = connection();
     let conn = db.get()?;
 
     accounts.load::<Account>(&conn).map_err(From::from)
-}
-
-pub fn get_providers() -> Result<Vec<Provider>, Error> {
-    use crate::schema::providers::dsl::*;
-    let db = connection();
-    let conn = db.get()?;
-
-    providers.load::<Provider>(&conn).map_err(From::from)
 }

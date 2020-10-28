@@ -1,6 +1,6 @@
 use gtk::prelude::*;
 
-use glib::{signal::Inhibit, Sender};
+use glib::Sender;
 
 use crate::application::Action;
 use crate::models::{Account, AccountsModel, ObjectWrapper, Provider};
@@ -36,7 +36,7 @@ impl<'a> AccountsList<'a> {
 
     fn init(&self) {
         get_widget!(self.builder, gtk::Label, provider_name);
-        provider_name.set_text(&self.provider.name);
+        provider_name.set_text(&self.provider.name());
 
         get_widget!(self.builder, gtk::ListBox, listbox);
         listbox.bind_model(

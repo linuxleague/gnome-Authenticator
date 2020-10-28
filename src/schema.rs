@@ -11,8 +11,10 @@ table! {
     providers (id) {
         id -> Integer,
         name -> Text,
-        website -> Text,
-        help_url -> Text,
-        image_uri -> Text,
+        period -> Integer,
+        algorithm -> Text,
+        website -> Nullable<Text>,
+        help_url -> Nullable<Text>,
+        image_uri -> Nullable<Text>,
     }
 }

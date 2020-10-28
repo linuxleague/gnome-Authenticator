@@ -4,7 +4,7 @@ use crate::widgets::providers::ProvidersList;
 use crate::window_state;
 
 use gio::prelude::*;
-use glib::{signal::Inhibit, Sender, WeakRef};
+use glib::{signal::Inhibit, Sender};
 use gtk::prelude::*;
 
 use std::cell::RefCell;

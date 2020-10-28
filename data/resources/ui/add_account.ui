@@ -149,6 +149,9 @@
                             <child>
                               <object class="HdyComboRow" id="algorithm_comborow">
                                 <property name="title" translatable="yes">Algorithm</property>
+                                <property name="expression">
+                                  <lookup type="HdyEnumValueObject" name="name"/>
+                                </property>
                               </object>
                             </child>
                             <style>

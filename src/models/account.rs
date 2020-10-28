@@ -1,9 +1,8 @@
-use crate::schema::accounts;
-
 use crate::models::database;
+use crate::schema::accounts;
+use anyhow::Result;
 
 use diesel::RunQueryDsl;
-pub use failure::Error;
 
 use diesel::prelude::*;
 
@@ -24,8 +23,8 @@ pub struct NewAccount {
 }
 
 impl database::Insert<Account> for NewAccount {
-    type Error = database::Error;
-    fn insert(&self) -> Result<Account, database::Error> {
+    type Error = anyhow::Error;
+    fn insert(&self) -> Result<Account> {
         let db = database::connection();
         let conn = db.get()?;
 

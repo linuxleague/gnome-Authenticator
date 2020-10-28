@@ -1,15 +1,21 @@
 use crate::application::Action;
-use crate::models::database::{self, *};
-use crate::models::{Account, NewAccount};
+use crate::models::database::*;
+use crate::models::{Account, Algorithm, NewAccount, Provider, ProvidersModel};
+use anyhow::Result;
 use gio::prelude::*;
-use glib::Sender;
+use glib::StaticType;
+use glib::{signal::Inhibit, Sender};
 use gtk::prelude::*;
+use libhandy::ComboRowExt;
+use std::cell::RefCell;
 use std::rc::Rc;
 
 pub struct AddAccountDialog {
     pub widget: libhandy::Window,
     builder: gtk::Builder,
     sender: Sender<Action>,
+    model: Rc<ProvidersModel>,
+    selected_provider: Rc<RefCell<Option<Provider>>>,
 }
 
 impl AddAccountDialog {
@@ -21,15 +27,17 @@ impl AddAccountDialog {
             widget: add_dialog,
             builder,
             sender,
+            model: Rc::new(ProvidersModel::new()),
+            selected_provider: Rc::new(RefCell::new(None)),
         });
 
         add_account_dialog.setup_actions(add_account_dialog.clone());
         add_account_dialog.setup_signals();
-        add_account_dialog.setup_widgets();
+        add_account_dialog.setup_widgets(add_account_dialog.clone());
         add_account_dialog
     }
 
-    fn add_account(&self, account: NewAccount) -> Result<Account, database::Error> {
+    fn add_account(&self, account: NewAccount) -> Result<Account> {
         // TODO: add the account to the provider model.
         account.insert()
     }
@@ -91,7 +99,7 @@ impl AddAccountDialog {
 
         action!(
             actions,
-            "sqcan-qr",
+            "scan-qr",
             clone!(@strong self.sender as sender => move |_, _| {
                     // sender.send(Action::OpenAddAccountDialog).unwrap();
 
@@ -100,16 +108,49 @@ impl AddAccountDialog {
         self.widget.insert_action_group("add", Some(&actions));
     }
 
-    fn setup_widgets(&self) {
-        // Fill the providers gtk::ListStore
-        /*get_widget!(self.builder, gtk::ListStore, providers_store);
-        if let Ok(providers) = database::get_providers() {
-            for provider in providers.iter() {
-                let values: [&dyn ToValue; 2] = [&provider.id, &provider.name];
-                providers_store.set(&providers_store.append(), &[0, 1], &values);
-            }
-        }*/
+    fn setup_widgets(&self, dialog: Rc<Self>) {
+        get_widget!(self.builder, gtk::EntryCompletion, provider_completion);
+        provider_completion.set_model(Some(&self.model.completion_model()));
 
+        get_widget!(self.builder, gtk::Entry, @token_entry)
+            .set_property_secondary_icon_sensitive(false);
+
+        get_widget!(self.builder, libhandy::ComboRow, algorithm_comborow);
+        let algoirthms_model = libhandy::EnumListModel::new(Algorithm::static_type());
+        algorithm_comborow.set_model(Some(&algoirthms_model));
+
+        provider_completion.connect_match_selected(
+            clone!(@strong dialog,
+                @strong self.model as model,
+                @strong self.builder as builder =>
+        move |completion, store, iter| {
+            let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();
+            let provider = model.find_by_id(provider_id).unwrap();
+
+            get_widget!(builder, gtk::Entry, provider_website_entry);
+            if let Some(ref website) = provider.website() {
+                provider_website_entry.set_text(website);
+            }
+
+            get_widget!(builder, gtk::SpinButton, @period_spinbutton).set_value(provider.period() as f64);
+            //let selected_position = algorithms_model.position(provider.algorithm()).unwrap_or(0);
+            //get_widget!(builder, libhandy::ComboRow, @algorithm_comborow).set_selected(selected_position);
+            get_widget!(builder, gtk::Entry, @token_entry)
+                .set_property_secondary_icon_sensitive(provider.help_url().is_some());
+
+            dialog.selected_provider.replace(Some(provider));
+
+            Inhibit(false)
+        }));
+
+        get_widget!(self.builder, gtk::Entry, token_entry);
+        token_entry.connect_icon_press(clone!(@strong dialog => move |entry, pos| {
+            if pos == gtk::EntryIconPosition::Secondary {
+                if let Some(ref provider) = dialog.selected_provider.borrow().clone() {
+                   gio::AppInfo::launch_default_for_uri(&provider.help_url().unwrap(),  None::<&gio::AppLaunchContext>);
+                }
+            }
+        }));
         get_widget!(self.builder, gtk::SpinButton, @period_spinbutton).set_value(30.0);
     }
 }

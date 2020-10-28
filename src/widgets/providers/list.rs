@@ -32,7 +32,7 @@ impl ProvidersList {
 
     fn init(&self) {
         get_widget!(self.builder, gtk::Box, providers_container);
-
+        /*
         for (provider, accounts_model) in &self.model.borrow().model {
             if accounts_model.get_count() != 0 {
                 let accounts_list =
@@ -40,5 +40,6 @@ impl ProvidersList {
                 providers_container.append(&accounts_list.widget);
             }
         }
+        */
     }
 }
