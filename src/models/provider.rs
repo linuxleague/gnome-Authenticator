@@ -1,7 +1,9 @@
 use super::algorithm::Algorithm;
 use crate::models::database;
+use crate::models::{FaviconError, FaviconScrapper};
 use anyhow::Result;
 use diesel::RunQueryDsl;
+use gio::FileExt;
 use glib::subclass;
 use glib::subclass::prelude::*;
 use glib::translate::*;
@@ -10,6 +12,7 @@ use glib::{StaticType, ToValue};
 use std::cell::{Cell, RefCell};
 use std::str::FromStr;
 use std::string::ToString;
+use url::Url;
 
 #[derive(Queryable, Hash, PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]
 struct DiProvider {
@@ -238,6 +241,32 @@ impl Provider {
         .expect("Failed to create provider")
         .downcast()
         .expect("Created provider is of wrong type")
+    }
+
+    pub async fn favicon(&self) -> Result<gio::File, FaviconError> {
+        let website_url = Url::parse(&self.website().unwrap())?;
+        let favicons = FaviconScrapper::from_url(website_url).await?;
+
+        let icon_name = format!("{}_{}", self.id(), self.name().replace(' ', "_"));
+        let cache_path = glib::get_user_cache_dir()
+            .join("authenticator")
+            .join("favicons")
+            .join(icon_name);
+        let dest = gio::File::new_for_path(cache_path);
+
+        if let Some(favicon) = favicons.get(0) {
+            let mut res = surf::get(favicon).await?;
+            let body = res.body_bytes().await?;
+            dest.replace_contents(
+                &body,
+                None,
+                false,
+                gio::FileCreateFlags::REPLACE_DESTINATION,
+                gio::NONE_CANCELLABLE,
+            );
+            return Ok(dest);
+        }
+        Err(FaviconError::NoResults)
     }
 
     pub fn id(&self) -> i32 {

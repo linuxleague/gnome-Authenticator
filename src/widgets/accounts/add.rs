@@ -3,31 +3,43 @@ use crate::helpers::qrcode;
 use crate::models::database::*;
 use crate::models::{Account, Algorithm, NewAccount, Provider, ProvidersModel};
 use anyhow::Result;
+use futures::future::FutureExt;
 use gio::prelude::*;
 use glib::StaticType;
-use glib::{signal::Inhibit, Sender};
+use glib::{signal::Inhibit, Receiver, Sender};
 use gtk::prelude::*;
 use libhandy::ComboRowExt;
 use std::cell::RefCell;
 use std::rc::Rc;
 
+pub enum AddAccountAction {
+    SetIcon(gio::File),
+}
+
 pub struct AddAccountDialog {
     pub widget: libhandy::Window,
     builder: gtk::Builder,
-    sender: Sender<Action>,
+    global_sender: Sender<Action>,
+    sender: Sender<AddAccountAction>,
+    receiver: RefCell<Option<Receiver<AddAccountAction>>>,
     model: Rc<ProvidersModel>,
     selected_provider: Rc<RefCell<Option<Provider>>>,
 }
 
 impl AddAccountDialog {
-    pub fn new(sender: Sender<Action>) -> Rc<Self> {
+    pub fn new(global_sender: Sender<Action>) -> Rc<Self> {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/add_account.ui");
         get_widget!(builder, libhandy::Window, add_dialog);
+
+        let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+        let receiver = RefCell::new(Some(r));
 
         let add_account_dialog = Rc::new(Self {
             widget: add_dialog,
             builder,
+            global_sender,
             sender,
+            receiver,
             model: Rc::new(ProvidersModel::new()),
             selected_provider: Rc::new(RefCell::new(None)),
         });
@@ -71,12 +83,22 @@ impl AddAccountDialog {
             get_widget!(self.builder, gtk::Entry, @provider_website_entry).set_text(website);
         }
 
+        get_widget!(self.builder, gtk::Stack, @image_stack).set_visible_child_name("loading");
+        get_widget!(self.builder, gtk::Spinner, @spinner).start();
+
         unsafe {
             // This is safe because of the repr(u32)
             let selected_position: u32 = std::mem::transmute(provider.algorithm());
             get_widget!(self.builder, libhandy::ComboRow, @algorithm_comborow)
                 .set_selected(selected_position);
         }
+        let p = provider.clone();
+        let sender = self.sender.clone();
+        spawn!(async move {
+            if let Ok(file) = p.favicon().await {
+                send!(sender, AddAccountAction::SetIcon(file));
+            }
+        });
 
         get_widget!(self.builder, gtk::Entry, @token_entry)
             .set_property_secondary_icon_sensitive(provider.help_url().is_some());
@@ -131,7 +153,7 @@ impl AddAccountDialog {
                             get_widget!(builder, gtk::Entry, @username_entry).set_text(&username);
                         }
                         if let Some(ref provider) = otpauth.issuer {
-                            let provider = model.find_by_name(provider).unwrap();
+                            let provider = model.find_by_name(provider).    unwrap();
                             dialog.set_provider(provider);
                         }
                     }
@@ -142,6 +164,12 @@ impl AddAccountDialog {
     }
 
     fn setup_widgets(&self, dialog: Rc<Self>) {
+        let receiver = self.receiver.borrow_mut().take().unwrap();
+        receiver.attach(
+            None,
+            clone!(@strong dialog => move |action| dialog.do_action(action)),
+        );
+
         get_widget!(self.builder, gtk::EntryCompletion, provider_completion);
         provider_completion.set_model(Some(&self.model.completion_model()));
 
@@ -153,7 +181,7 @@ impl AddAccountDialog {
         algorithm_comborow.set_model(Some(&algorithms_model));
 
         provider_completion.connect_match_selected(
-            clone!(@strong dialog, @strong self.model as model => move |completion, store, iter| {
+            clone!(@strong dialog, @strong self.model as model => move |_, store, iter| {
                 let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();
                 let provider = model.find_by_id(provider_id).unwrap();
                 dialog.set_provider(provider);
@@ -163,7 +191,7 @@ impl AddAccountDialog {
         );
 
         get_widget!(self.builder, gtk::Entry, token_entry);
-        token_entry.connect_icon_press(clone!(@strong dialog => move |entry, pos| {
+        token_entry.connect_icon_press(clone!(@strong dialog => move |_, pos| {
             if pos == gtk::EntryIconPosition::Secondary {
                 if let Some(ref provider) = dialog.selected_provider.borrow().clone() {
                    gio::AppInfo::launch_default_for_uri(&provider.help_url().unwrap(),  None::<&gio::AppLaunchContext>);
@@ -171,5 +199,17 @@ impl AddAccountDialog {
             }
         }));
         get_widget!(self.builder, gtk::SpinButton, @period_spinbutton).set_value(30.0);
+    }
+
+    fn do_action(&self, action: AddAccountAction) -> glib::Continue {
+        match action {
+            AddAccountAction::SetIcon(file) => {
+                get_widget!(self.builder, gtk::Image, @image)
+                    .set_from_file(file.get_path().unwrap());
+                get_widget!(self.builder, gtk::Spinner, @spinner).stop();
+                get_widget!(self.builder, gtk::Stack, @image_stack).set_visible_child_name("image");
+            }
+        };
+        glib::Continue(true)
     }
 }

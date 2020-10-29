@@ -58,6 +58,33 @@
                         <property name="orientation">vertical</property>
                         <property name="spacing">42</property>
                         <child>
+                          <object class="GtkStack" id="image_stack">
+                            <property name="transition-type">crossfade</property>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">image</property>
+                                <property name="child">
+                                  <object class="GtkImage" id="image">
+                                    <property name="icon-name">image-missing</property>
+                                    <property name="pixel-size">96</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">loading</property>
+                                <property name="child">
+                                  <object class="GtkSpinner" id="spinner">
+                                    <property name="valign">center</property>
+                                    <property name="halign">center</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
                           <object class="GtkListBox" id="basic_list">
                             <property name="selection_mode">none</property>
                             <child>
