@@ -4,7 +4,6 @@ use std::cell::RefCell;
 
 use crate::application::Action;
 use crate::models::ProvidersModel;
-use crate::widgets::AccountsList;
 
 pub struct ProvidersList {
     pub widget: gtk::Box,

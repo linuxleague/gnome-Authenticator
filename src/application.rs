@@ -1,4 +1,5 @@
 use crate::config;
+use crate::models::Account;
 use crate::widgets::{AddAccountDialog, View, Window};
 use gio::prelude::*;
 use gtk::prelude::*;
@@ -9,6 +10,7 @@ use std::{cell::RefCell, rc::Rc};
 use glib::{Receiver, Sender};
 pub enum Action {
     ViewAccounts,
+    AccountCreated(Account),
     OpenAddAccountDialog,
 }
 
@@ -106,6 +108,9 @@ impl Application {
                 dialog.widget.show();
             }
             Action::ViewAccounts => self.window.set_view(View::Accounts),
+            Action::AccountCreated(account) => {
+                println!("{:#?}", account);
+            }
         };
 
         glib::Continue(true)

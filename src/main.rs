@@ -9,8 +9,6 @@ extern crate diesel;
 #[macro_use]
 extern crate glib;
 #[macro_use]
-extern crate serde_derive;
-#[macro_use]
 extern crate gtk_macros;
 
 use gettextrs::*;

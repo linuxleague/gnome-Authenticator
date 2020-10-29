@@ -48,7 +48,6 @@ sources = files(
   'models/database.rs',
   'models/favicon.rs',
   'models/mod.rs',
-  'models/object_wrapper.rs',
   'models/provider.rs',
   'models/providers.rs',
   'widgets/accounts/add.rs',

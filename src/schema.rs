@@ -1,9 +1,9 @@
 table! {
     accounts (id) {
         id -> Integer,
-        username -> Text,
+        name -> Text,
         token_id -> Text,
-        provider -> Integer,
+        provider_id -> Integer,
     }
 }
 

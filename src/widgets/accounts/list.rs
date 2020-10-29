@@ -3,7 +3,7 @@ use gtk::prelude::*;
 use glib::Sender;
 
 use crate::application::Action;
-use crate::models::{Account, AccountsModel, ObjectWrapper, Provider};
+use crate::models::{Account, AccountsModel, Provider};
 use crate::widgets::accounts::AccountRow;
 
 pub struct AccountsList<'a> {
@@ -43,10 +43,9 @@ impl<'a> AccountsList<'a> {
             Some(&self.model.model),
             Some(Box::new(
                 clone!(@strong self.sender as sender => move |account: &glib::Object| {
-                    let account: Account = account
-                        .downcast_ref::<ObjectWrapper>()
-                        .unwrap()
-                        .deserialize();
+                    let account: &Account = account
+                        .downcast_ref::<Account>()
+                        .unwrap();
                     let row = AccountRow::new(account, sender.clone());
                     /*row.set_on_click_callback(move |_, _| {
                         // sender.send(Action::LoadChapter(chapter.clone())).unwrap();

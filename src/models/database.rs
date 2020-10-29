@@ -1,4 +1,3 @@
-use crate::models::{Account, Provider};
 use anyhow::Result;
 use diesel::prelude::*;
 use diesel::r2d2;
@@ -47,14 +46,14 @@ pub trait Insert<T> {
 
     fn insert(&self) -> Result<T, Self::Error>;
 }
-
+/*
 pub fn get_accounts_by_provider(provider_model: Provider) -> Result<Vec<Account>> {
     use crate::schema::accounts::dsl::*;
     let db = connection();
     let conn = db.get()?;
 
     accounts
-        .filter(provider.eq(provider_model.id()))
+        .filter(provider_id.eq(provider_model.id()))
         .load::<Account>(&conn)
         .map_err(From::from)
 }
@@ -66,3 +65,4 @@ pub fn get_accounts() -> Result<Vec<Account>> {
 
     accounts.load::<Account>(&conn).map_err(From::from)
 }
+*/

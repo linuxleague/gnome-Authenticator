@@ -1,6 +1,7 @@
 use super::algorithm::Algorithm;
 use crate::models::database;
 use crate::models::{FaviconError, FaviconScrapper};
+use crate::schema::providers;
 use anyhow::Result;
 use diesel::RunQueryDsl;
 use gio::FileExt;
@@ -14,7 +15,18 @@ use std::str::FromStr;
 use std::string::ToString;
 use url::Url;
 
-#[derive(Queryable, Hash, PartialEq, Eq, Debug, Clone, Serialize, Deserialize)]
+#[derive(Insertable)]
+#[table_name = "providers"]
+struct NewProvider {
+    pub name: String,
+    pub period: i32,
+    pub algorithm: String,
+    pub website: Option<String>,
+    pub help_url: Option<String>,
+    pub image_uri: Option<String>,
+}
+
+#[derive(Queryable, Hash, PartialEq, Eq, Debug, Clone)]
 struct DiProvider {
     pub id: i32,
     pub name: String,
@@ -194,6 +206,34 @@ glib_wrapper! {
 }
 
 impl Provider {
+    pub fn create(
+        name: &str,
+        period: i32,
+        algorithm: Algorithm,
+        website: Option<String>,
+    ) -> Result<Self> {
+        use crate::diesel::{ExpressionMethods, QueryDsl};
+        let db = database::connection();
+        let conn = db.get()?;
+
+        diesel::insert_into(providers::table)
+            .values(NewProvider {
+                name: name.to_string(),
+                period,
+                algorithm: algorithm.to_string(),
+                website,
+                help_url: None,
+                image_uri: None,
+            })
+            .execute(&conn)?;
+
+        providers::table
+            .order(providers::columns::id.desc())
+            .first::<DiProvider>(&conn)
+            .map_err(From::from)
+            .map(From::from)
+    }
+
     pub fn load() -> Result<Vec<Self>> {
         use crate::schema::providers::dsl::*;
         let db = database::connection();
@@ -202,17 +242,7 @@ impl Provider {
         let results = providers
             .load::<DiProvider>(&conn)?
             .into_iter()
-            .map(|p| {
-                Self::new(
-                    p.id,
-                    &p.name,
-                    p.period,
-                    Algorithm::from_str(&p.algorithm).unwrap(),
-                    p.website,
-                    p.help_url,
-                    p.image_uri,
-                )
-            })
+            .map(From::from)
             .collect::<Vec<Provider>>();
         Ok(results)
     }
@@ -302,5 +332,19 @@ impl Provider {
     pub fn image_uri(&self) -> Option<String> {
         let priv_ = ProviderPriv::from_instance(self);
         priv_.image_uri.borrow().clone()
+    }
+}
+
+impl From<DiProvider> for Provider {
+    fn from(p: DiProvider) -> Self {
+        Self::new(
+            p.id,
+            &p.name,
+            p.period,
+            Algorithm::from_str(&p.algorithm).unwrap(),
+            p.website,
+            p.help_url,
+            p.image_uri,
+        )
     }
 }

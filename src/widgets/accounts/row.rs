@@ -3,15 +3,15 @@ use crate::models::Account;
 use glib::Sender;
 use gtk::prelude::*;
 
-pub struct AccountRow {
+pub struct AccountRow<'a> {
     pub widget: gtk::ListBoxRow,
     builder: gtk::Builder,
     sender: Sender<Action>,
-    account: Account,
+    account: &'a Account,
 }
 
-impl AccountRow {
-    pub fn new(account: Account, sender: Sender<Action>) -> Self {
+impl<'a> AccountRow<'a> {
+    pub fn new(account: &'a Account, sender: Sender<Action>) -> Self {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/account_row.ui");
         get_widget!(builder, gtk::ListBoxRow, account_row);
 
@@ -27,6 +27,6 @@ impl AccountRow {
 
     fn init(&self) {
         get_widget!(self.builder, gtk::Label, username_label);
-        username_label.set_text(&self.account.username);
+        username_label.set_text(&self.account.name());
     }
 }

@@ -1,6 +1,4 @@
 use super::account::Account;
-use super::database;
-use super::object_wrapper::ObjectWrapper;
 use super::provider::Provider;
 use gio::prelude::*;
 use std::cell::RefCell;
@@ -36,7 +34,7 @@ pub struct AccountsModel {
 
 impl AccountsModel {
     pub fn from_provider(provider: &Provider) -> Self {
-        let gio_model = gio::ListStore::new(ObjectWrapper::static_type());
+        let gio_model = gio::ListStore::new(Account::static_type());
         let model = Self {
             model: gio_model,
             sort_order: RefCell::new(SortOrder::Desc),
@@ -49,18 +47,17 @@ impl AccountsModel {
 
     fn init(&self) {
         // fill in the accounts from the database
-        let accounts = database::get_accounts_by_provider(self.provider.clone()).unwrap();
+        /*let accounts = database::get_accounts_by_provider(self.provider.clone()).unwrap();
 
         for account in accounts.into_iter() {
             self.add_account(&account);
-        }
+        }*/
     }
 
     fn add_account(&self, account: &Account) {
-        let object = ObjectWrapper::new(Box::new(account));
         let sort_by = self.sort_by.clone();
         let sort_order = self.sort_order.clone();
-        self.model.insert_sorted(&object, move |a, b| {
+        self.model.insert_sorted(account, move |a, b| {
             Self::accounts_cmp(a, b, sort_by.borrow().clone(), sort_order.borrow().clone())
         });
     }
@@ -95,8 +92,8 @@ impl AccountsModel {
         sort_by: SortBy,
         sort_order: SortOrder,
     ) -> std::cmp::Ordering {
-        let mut account_a: Account = a.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
-        let mut account_b: Account = b.downcast_ref::<ObjectWrapper>().unwrap().deserialize();
+        let mut account_a: &Account = a.downcast_ref::<Account>().unwrap();
+        let mut account_b: &Account = b.downcast_ref::<Account>().unwrap();
 
         if sort_order == SortOrder::Desc {
             let tmp = account_a;
@@ -107,6 +104,6 @@ impl AccountsModel {
             SortBy::Name => account_a.get_title().cmp(&account_b.get_title()),
             SortBy::Date => account_a.get_created_at().cmp(&account_b.get_created_at()),
         }*/
-        account_a.username.cmp(&account_b.username)
+        account_a.name().cmp(&account_b.name())
     }
 }
