@@ -11,3 +11,5 @@ Keywords=Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;
 Icon=@icon@
 StartupNotify=true
 MimeType=x-scheme-handler/otpauth
+# Translators: Do NOT translate or transliterate this text (these are enum types)!
+X-Purism-FormFactor=Workstation;Mobile;
