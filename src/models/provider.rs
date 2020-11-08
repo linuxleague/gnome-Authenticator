@@ -368,6 +368,26 @@ impl Provider {
         }
     }
 
+    pub fn has_account(&self, account: &Account) -> Option<u32> {
+        let priv_ = ProviderPriv::from_instance(self);
+        let mut found = false;
+        let mut position = 0;
+        for pos in 0..priv_.accounts.get_n_items() {
+            let obj = priv_.accounts.get_object(pos).unwrap();
+            let a = obj.downcast_ref::<Account>().unwrap();
+            if a.id() == account.id() {
+                position = pos;
+                found = true;
+                break;
+            }
+        }
+        if found {
+            Some(position)
+        } else {
+            None
+        }
+    }
+
     pub fn has_accounts(&self) -> bool {
         let priv_ = ProviderPriv::from_instance(self);
         priv_.accounts.get_n_items() != 0
@@ -392,7 +412,13 @@ impl Provider {
         priv_.filter_model.set_filter(Some(&filter));
     }
 
-    fn remove_account(&self, account: &Account) {}
+    pub fn remove_account(&self, account: &Account, pos: u32) -> Result<()> {
+        account.delete()?;
+
+        let priv_ = ProviderPriv::from_instance(self);
+        priv_.accounts.remove(pos);
+        Ok(())
+    }
 }
 
 impl From<DiProvider> for Provider {

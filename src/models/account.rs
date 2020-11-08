@@ -206,6 +206,11 @@ impl Account {
         let priv_ = AccountPriv::from_instance(self);
         priv_.name.borrow().clone()
     }
+
+    pub fn delete(&self) -> Result<()> {
+        println!("doing remove stuff");
+        Ok(())
+    }
 }
 
 impl From<DiAccount> for Account {

@@ -4,4 +4,4 @@ mod window;
 
 pub use self::accounts::AddAccountDialog;
 pub use self::providers::ProvidersList;
-pub use self::window::{View, Window};
+pub use self::window::{View, Window, WindowPrivate};

@@ -74,6 +74,17 @@ impl ProvidersModel {
         }
     }
 
+    pub fn remove_account(&self, account: &Account) {
+        for pos in 0..self.count() {
+            let obj = self.model.get_object(pos).unwrap();
+            let p = obj.downcast_ref::<Provider>().unwrap();
+            if let Some(pos) = p.has_account(account) {
+                p.remove_account(account, pos);
+                break;
+            }
+        }
+    }
+
     pub fn count(&self) -> u32 {
         self.model.get_n_items()
     }

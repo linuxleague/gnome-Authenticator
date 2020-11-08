@@ -1,6 +1,6 @@
 use crate::config;
 use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{AddAccountDialog, Window};
+use crate::widgets::{AddAccountDialog, Window, WindowPrivate};
 use gio::prelude::*;
 use glib::subclass;
 use glib::subclass::prelude::*;
@@ -13,6 +13,7 @@ use std::{cell::RefCell, rc::Rc};
 use glib::{Receiver, Sender};
 pub enum Action {
     AccountCreated(Account, Provider),
+    AccountRemoved(Account),
     OpenAddAccountDialog,
 }
 
@@ -147,6 +148,7 @@ impl Application {
     fn do_action(&self, action: Action) -> glib::Continue {
         let self_ = ApplicationPrivate::from_instance(self);
         let active_window = self.get_active_window().unwrap();
+
         match action {
             Action::OpenAddAccountDialog => {
                 let dialog = AddAccountDialog::new(self_.model.clone(), self_.sender.clone());
@@ -155,6 +157,13 @@ impl Application {
             }
             Action::AccountCreated(account, provider) => {
                 self_.model.add_account(&account, &provider);
+            }
+            Action::AccountRemoved(account) => {
+                let win_ = active_window.downcast_ref::<Window>().unwrap();
+                let priv_ = WindowPrivate::from_instance(win_);
+
+                self_.model.remove_account(&account);
+                priv_.providers.refilter();
             }
         };
 

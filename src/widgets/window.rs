@@ -22,6 +22,7 @@ pub enum View {
 pub struct WindowPrivate {
     builder: gtk::Builder,
     settings: gio::Settings,
+    pub providers: Rc<ProvidersList>,
 }
 
 impl ObjectSubclass for WindowPrivate {
@@ -35,7 +36,12 @@ impl ObjectSubclass for WindowPrivate {
     fn new() -> Self {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/window.ui");
         let settings = gio::Settings::new(APP_ID);
-        Self { builder, settings }
+        let providers = Rc::new(ProvidersList::new());
+        Self {
+            builder,
+            settings,
+            providers,
+        }
     }
 }
 
@@ -93,6 +99,8 @@ impl Window {
 
     fn init(&self, model: Rc<ProvidersModel>, sender: Sender<Action>) {
         let self_ = WindowPrivate::from_instance(self);
+        self_.providers.set_model(model.clone());
+        self_.providers.init(sender.clone());
         // load latest window state
         window_state::load(&self, &self_.settings);
         // save window state on delete event
@@ -107,9 +115,8 @@ impl Window {
         get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.set_help_overlay(Some(&shortcuts));
 
-        let providers_list = ProvidersList::new(model, sender.clone());
         get_widget!(self_.builder, gtk::Box, container);
-        container.append(&providers_list.widget);
+        container.append(&self_.providers.widget);
 
         get_widget!(self_.builder, gtk::SearchBar, search_bar);
         get_widget!(self_.builder, gtk::ToggleButton, search_btn);
@@ -119,10 +126,12 @@ impl Window {
             .build();
         get_widget!(self_.builder, gtk::SearchEntry, search_entry);
 
-        search_entry.connect_search_changed(move |entry| {
-            let text = entry.get_text().unwrap().to_string();
-            providers_list.search(text);
-        });
+        search_entry.connect_search_changed(
+            clone!(@weak self_.providers as providers => move |entry| {
+                let text = entry.get_text().unwrap().to_string();
+                providers.search(text);
+            }),
+        );
 
         search_entry.connect_stop_search(clone!(@strong search_btn => move |entry| {
             entry.set_text("");
