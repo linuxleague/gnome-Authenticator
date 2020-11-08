@@ -5,6 +5,7 @@ use crate::schema::providers;
 use anyhow::Result;
 use diesel::QueryDsl;
 use diesel::RunQueryDsl;
+use gio::prelude::*;
 use gio::FileExt;
 use glib::subclass;
 use glib::subclass::prelude::*;
@@ -47,7 +48,7 @@ pub struct ProviderPriv {
     pub website: RefCell<Option<String>>,
     pub help_url: RefCell<Option<String>>,
     pub image_uri: RefCell<Option<String>>,
-    pub accounts: RefCell<Vec<Account>>,
+    pub accounts: gio::ListStore,
 }
 
 static PROPERTIES: [subclass::Property; 8] = [
@@ -58,17 +59,11 @@ static PROPERTIES: [subclass::Property; 8] = [
         glib::ParamSpec::string(name, "name", "Name", None, glib::ParamFlags::READWRITE)
     }),
     subclass::Property("accounts", |name| {
-        glib::ParamSpec::value_array(
+        glib::ParamSpec::object(
             name,
             "accounts",
             "accounts",
-            &glib::ParamSpec::object(
-                "account",
-                "account",
-                "account",
-                Account::static_type(),
-                glib::ParamFlags::READWRITE,
-            ),
+            gio::ListModel::static_type(),
             glib::ParamFlags::READWRITE,
         )
     }),
@@ -142,7 +137,7 @@ impl ObjectSubclass for ProviderPriv {
             image_uri: RefCell::new(None),
             algorithm: RefCell::new(Algorithm::OTP.to_string()),
             period: Cell::new(30),
-            accounts: RefCell::new(Vec::new()),
+            accounts: gio::ListStore::new(Account::static_type()),
         }
     }
 }
@@ -272,7 +267,7 @@ impl Provider {
             .map(From::from)
             .map(|p: Provider| {
                 let accounts = Account::load(&p).unwrap();
-                p.set_accounts(accounts);
+                accounts.iter().for_each(|a| p.add_account(a));
                 p
             })
             .collect::<Vec<Provider>>();
@@ -375,13 +370,20 @@ impl Provider {
 
     pub fn has_accounts(&self) -> bool {
         let priv_ = ProviderPriv::from_instance(self);
-        !priv_.accounts.borrow().is_empty()
+        priv_.accounts.get_n_items() != 0
     }
 
-    fn set_accounts(&self, accounts: Vec<Account>) {
+    pub fn add_account(&self, account: &Account) {
         let priv_ = ProviderPriv::from_instance(self);
-        priv_.accounts.borrow_mut().clone_from(&accounts);
+        priv_.accounts.append(account);
     }
+
+    pub fn accounts(&self) -> &gio::ListStore {
+        let priv_ = ProviderPriv::from_instance(self);
+        &priv_.accounts
+    }
+
+    fn remove_account(&self, account: &Account) {}
 }
 
 impl From<DiProvider> for Provider {

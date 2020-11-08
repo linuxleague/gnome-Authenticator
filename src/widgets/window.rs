@@ -11,6 +11,7 @@ use glib::{signal::Inhibit, Sender};
 use gtk::prelude::*;
 use gtk::subclass::prelude::{WidgetImpl, WindowImpl};
 use libhandy::prelude::*;
+use std::rc::Rc;
 
 #[derive(PartialEq, Debug)]
 pub enum View {
@@ -34,7 +35,6 @@ impl ObjectSubclass for WindowPrivate {
     fn new() -> Self {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/window.ui");
         let settings = gio::Settings::new(APP_ID);
-
         Self { builder, settings }
     }
 }
@@ -61,7 +61,7 @@ glib_wrapper! {
 }
 
 impl Window {
-    pub fn new(sender: Sender<Action>, app: &Application) -> Self {
+    pub fn new(model: Rc<ProvidersModel>, sender: Sender<Action>, app: &Application) -> Self {
         let window = glib::Object::new(Window::static_type(), &[("application", app)])
             .unwrap()
             .downcast::<Window>()
@@ -71,7 +71,7 @@ impl Window {
         if PROFILE == "Devel" {
             window.get_style_context().add_class("devel");
         }
-        window.init(sender.clone());
+        window.init(model, sender.clone());
         window.setup_actions(sender.clone());
         window.set_view(View::Accounts); // Start by default in an empty state
         window
@@ -91,7 +91,7 @@ impl Window {
         }
     }
 
-    fn init(&self, sender: Sender<Action>) {
+    fn init(&self, model: Rc<ProvidersModel>, sender: Sender<Action>) {
         let self_ = WindowPrivate::from_instance(self);
         // load latest window state
         window_state::load(&self, &self_.settings);
@@ -105,19 +105,18 @@ impl Window {
         get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.set_help_overlay(Some(&shortcuts));
 
-        let providers_model = ProvidersModel::new();
-
-        get_widget!(self_.builder, libhandy::Leaflet, deck);
-        let providers_list = ProvidersList::new(&providers_model, sender.clone());
+        let providers_list = ProvidersList::new(&model, sender.clone());
         get_widget!(self_.builder, gtk::Box, container);
         container.append(&providers_list.widget);
-        /*get_widget!(self.builder, gtk::Box, providers_container);
 
-        providers_container.append(&providers_list.widget);
-        if providers_list.model.borrow().get_count() != 0 {
-            send!(self.sender, Action::ViewAccounts);
-        }*/
+        get_widget!(self_.builder, gtk::SearchBar, search_bar);
+        get_widget!(self_.builder, gtk::ToggleButton, search_btn);
+        search_btn
+            .bind_property("active", &search_bar, "search-mode-enabled")
+            .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
+            .build();
 
+        get_widget!(self_.builder, libhandy::Leaflet, deck);
         libhandy::ApplicationWindowExt::set_child(self, Some(&deck));
     }
 

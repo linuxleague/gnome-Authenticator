@@ -1,8 +1,8 @@
+use crate::application::Action;
+use crate::models::{Account, Provider, ProvidersModel};
+use crate::widgets::accounts::AccountRow;
 use glib::Sender;
 use gtk::prelude::*;
-
-use crate::application::Action;
-use crate::models::{Provider, ProvidersModel};
 
 pub struct ProvidersList {
     pub widget: gtk::Box,
@@ -36,11 +36,13 @@ impl ProvidersList {
 
         providers_list.bind_model(
             Some(&providers_model),
-            Some(Box::new(move |obj| {
-                let provider = obj.downcast_ref::<Provider>().unwrap();
-                let row = ProviderRow::new(provider);
-                row.widget.upcast::<gtk::Widget>()
-            })),
+            Some(Box::new(
+                clone!(@strong self.sender as sender => move |obj| {
+                    let provider = obj.downcast_ref::<Provider>().unwrap();
+                    let row = ProviderRow::new(provider, sender.clone());
+                    row.widget.upcast::<gtk::Widget>()
+                }),
+            )),
         );
     }
 }
@@ -49,16 +51,18 @@ pub struct ProviderRow<'a> {
     pub widget: gtk::ListBoxRow,
     provider: &'a Provider,
     builder: gtk::Builder,
+    sender: Sender<Action>,
 }
 
 impl<'a> ProviderRow<'a> {
-    pub fn new(provider: &'a Provider) -> Self {
+    pub fn new(provider: &'a Provider, sender: Sender<Action>) -> Self {
         let builder =
             gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/provider_row.ui");
         get_widget!(builder, gtk::ListBoxRow, provider_row);
         let row = Self {
             widget: provider_row,
             builder,
+            sender,
             provider,
         };
         row.init();
@@ -72,5 +76,23 @@ impl<'a> ProviderRow<'a> {
             .bind_property("name", &name, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
+
+        get_widget!(self.builder, gtk::ListBox, accounts_list);
+        accounts_list.bind_model(
+            Some(self.provider.accounts()),
+            Some(Box::new(
+                clone!(@strong self.sender as sender => move |account: &glib::Object| {
+                    let account: &Account = account
+                        .downcast_ref::<Account>()
+                        .unwrap();
+                    let row = AccountRow::new(account, sender.clone());
+                    /*row.set_on_click_callback(move |_, _| {
+                        // sender.send(Action::LoadChapter(chapter.clone())).unwrap();
+                        Inhibit(false)
+                    });*/
+                    row.widget.upcast::<gtk::Widget>()
+                }),
+            )),
+        );
     }
 }

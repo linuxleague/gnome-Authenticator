@@ -1,33 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkPopoverMenu" id="more_actions_popover">
-    <child>
-      <object class="GtkBox">
-        <property name="valign">center</property>
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkModelButton" id="edit_btn">
-            <property name="receives_default">False</property>
-            <property name="margin-left">6</property>
-            <property name="margin-right">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
-            <property name="text" translatable="yes">Edit</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkModelButton" id="delete_btn">
-            <property name="receives_default">False</property>
-            <property name="margin-left">6</property>
-            <property name="margin-right">6</property>
-            <property name="margin-top">6</property>
-            <property name="margin-bottom">6</property>
-            <property name="text" translatable="yes">Delete</property>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
+  <menu id="account-menu">
+    <item>
+      <attribute name="label">Edit</attribute>
+      <attribute name="action">account.edit</attribute>
+    </item>
+    <item>
+      <attribute name="label">Delete</attribute>
+      <attribute name="action">account.delete</attribute>
+    </item>
+  </menu>
   <object class="GtkListBoxRow" id="account_row">
     <property name="can_focus">True</property>
     <property name="valign">center</property>
@@ -35,46 +17,10 @@
     <child>
       <object class="GtkBox">
         <child>
-          <object class="GtkMenuButton" id="more_actions_btn">
-            <property name="receives_default">False</property>
+          <object class="GtkLabel" id="username_label">
+            <property name="halign">start</property>
             <property name="valign">center</property>
-            <property name="popover">more_actions_popover</property>
-            <child>
-              <object class="GtkImage" id="more_actions_img">
-                <property name="icon-name">view-more-symbolic</property>
-              </object>
-            </child>
-            <style>
-              <class name="image-button"/>
-              <class name="flat"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="copy_btn">
-            <property name="receives_default">True</property>
-            <property name="tooltip_text" translatable="yes">Copy PIN to clipboard</property>
-            <property name="valign">center</property>
-            <property name="relief">none</property>
-            <child>
-              <object class="GtkStack" id="copy_btn_stack">
-                <property name="halign">center</property>
-                <property name="valign">center</property>
-                <child>
-                  <object class="GtkImage" id="copy_img">
-                    <property name="icon-name">edit-copy-symbolic</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkImage" id="ok_image">
-                    <property name="icon-name">emblem-ok-symbolic</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <style>
-              <class name="flat"/>
-            </style>
+            <property name="ellipsize">end</property>
           </object>
         </child>
         <child>
@@ -87,10 +33,46 @@
           </object>
         </child>
         <child>
-          <object class="GtkLabel" id="username_label">
-            <property name="halign">start</property>
-            <property name="valign">center</property>
-            <property name="ellipsize">end</property>
+          <object class="GtkBox">
+            <property name="hexpand">True</property>
+            <property name="halign">end</property>
+            <child>
+              <object class="GtkButton" id="copy_btn">
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Copy PIN to clipboard</property>
+                <property name="valign">center</property>
+                <child>
+                  <object class="GtkStack" id="copy_btn_stack">
+                    <property name="halign">center</property>
+                    <property name="valign">center</property>
+                    <child>
+                      <object class="GtkImage" id="copy_img">
+                        <property name="icon-name">edit-copy-symbolic</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImage" id="ok_image">
+                        <property name="icon-name">emblem-ok-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <style>
+                  <class name="image-button" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuButton">
+                <property name="receives_default">False</property>
+                <property name="valign">center</property>
+                <property name="menu-model">account-menu</property>
+                <property name="icon-name">view-more-symbolic</property>
+              </object>
+            </child>
+            <style>
+              <class name="linked" />
+            </style>
           </object>
         </child>
       </object>

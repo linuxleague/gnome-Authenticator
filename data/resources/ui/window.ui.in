@@ -54,6 +54,16 @@
             <child>
               <object class="GtkBox" id="container">
                 <property name="vexpand">True</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkSearchBar" id="search_bar">
+                    <child>
+                      <object class="GtkSearchEntry" id="search_entry">
+
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

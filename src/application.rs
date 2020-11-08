@@ -1,5 +1,5 @@
 use crate::config;
-use crate::models::Account;
+use crate::models::{Account, Provider, ProvidersModel};
 use crate::widgets::{AddAccountDialog, View, Window};
 use gio::prelude::*;
 use glib::subclass;
@@ -7,18 +7,19 @@ use glib::subclass::prelude::*;
 use glib::translate::*;
 use gtk::prelude::*;
 use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplicationImpl};
-use std::cell::RefCell;
 use std::env;
+use std::{cell::RefCell, rc::Rc};
 
 use glib::{Receiver, Sender};
 pub enum Action {
     ViewAccounts,
-    AccountCreated(Account),
+    AccountCreated(Account, Provider),
     OpenAddAccountDialog,
 }
 
 pub struct ApplicationPrivate {
     window: RefCell<Option<Window>>,
+    model: Rc<ProvidersModel>,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
 }
@@ -34,11 +35,13 @@ impl ObjectSubclass for ApplicationPrivate {
     fn new() -> Self {
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         let receiver = RefCell::new(Some(r));
+        let model = Rc::new(ProvidersModel::new());
 
         Self {
             window: RefCell::new(None),
             sender,
             receiver,
+            model,
         }
     }
 }
@@ -134,7 +137,7 @@ impl Application {
 
     fn create_window(&self) -> Window {
         let self_ = ApplicationPrivate::from_instance(self);
-        let window = Window::new(self_.sender.clone(), &self.clone());
+        let window = Window::new(self_.model.clone(), self_.sender.clone(), &self.clone());
 
         window
     }
@@ -143,12 +146,13 @@ impl Application {
         let self_ = ApplicationPrivate::from_instance(self);
         match action {
             Action::OpenAddAccountDialog => {
-                let dialog = AddAccountDialog::new(self_.sender.clone());
+                let dialog = AddAccountDialog::new(self_.model.clone(), self_.sender.clone());
                 //dialog.widget.set_transient_for(Some(&self_.window));
                 dialog.widget.show();
             }
             Action::ViewAccounts => (), //self.set_view(View::Accounts),
-            Action::AccountCreated(account) => {
+            Action::AccountCreated(account, provider) => {
+                self_.model.add_account(&account, &provider);
                 println!("{:#?}", account);
             }
         };

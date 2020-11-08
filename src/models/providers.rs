@@ -1,3 +1,4 @@
+use super::account::Account;
 use super::provider::Provider;
 use gio::prelude::*;
 use glib::StaticType;
@@ -53,8 +54,24 @@ impl ProvidersModel {
     }
 
     pub fn add_provider(&self, provider: &Provider) {
-        //let accounts_model = AccountsModel::from_provider(&provider);
         self.model.append(provider);
+    }
+
+    pub fn add_account(&self, account: &Account, provider: &Provider) {
+        let mut found = false;
+        for pos in 0..self.count() {
+            let obj = self.model.get_object(pos).unwrap();
+            let p = obj.downcast_ref::<Provider>().unwrap();
+            if p.id() == provider.id() {
+                found = true;
+                p.add_account(account);
+                break;
+            }
+        }
+        if !found {
+            provider.add_account(account);
+            self.add_provider(provider);
+        }
     }
 
     pub fn count(&self) -> u32 {

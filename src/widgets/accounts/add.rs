@@ -29,7 +29,7 @@ pub struct AddAccountDialog {
 }
 
 impl AddAccountDialog {
-    pub fn new(global_sender: Sender<Action>) -> Rc<Self> {
+    pub fn new(model: Rc<ProvidersModel>, global_sender: Sender<Action>) -> Rc<Self> {
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/add_account.ui");
         get_widget!(builder, libhandy::Window, add_dialog);
 
@@ -44,7 +44,7 @@ impl AddAccountDialog {
             sender,
             receiver,
             actions,
-            model: Rc::new(ProvidersModel::new()),
+            model,
             selected_provider: Rc::new(RefCell::new(None)),
         });
 
@@ -71,7 +71,7 @@ impl AddAccountDialog {
         token_entry.connect_changed(validate_entries);
     }
 
-    fn scan_qr(&self) {
+    fn scan_qr(&self) -> Result<()> {
         qrcode::screenshot_area(
             clone!(@strong self.builder as builder, @strong self.model as model,
                 @strong self.sender as sender => move |screenshot| {
@@ -86,8 +86,8 @@ impl AddAccountDialog {
                     }
                 }
             }),
-        )
-        .unwrap();
+        )?;
+        Ok(())
     }
 
     fn save(&self) -> Result<()> {
@@ -123,7 +123,10 @@ impl AddAccountDialog {
             .unwrap();
 
         let account = Account::create(&username, &token, provider.id())?;
-        send!(self.global_sender, Action::AccountCreated(account));
+        send!(
+            self.global_sender,
+            Action::AccountCreated(account, provider)
+        );
         Ok(())
     }
 
@@ -235,9 +238,13 @@ impl AddAccountDialog {
             }
             AddAccountAction::SetProvider(p) => self.set_provider(p),
             AddAccountAction::Save => {
-                self.save().unwrap();
+                if self.save().is_ok() {
+                    self.widget.close();
+                }
             }
-            AddAccountAction::ScanQR => self.scan_qr(),
+            AddAccountAction::ScanQR => {
+                self.scan_qr();
+            }
         };
         glib::Continue(true)
     }

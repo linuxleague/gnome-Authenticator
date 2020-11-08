@@ -1,3 +1,24 @@
 .providers-list {
-    background-color: @theme_base_bg;
+  background-color: @theme_base_bg;
+  margin-top: 20px;
+}
+
+.provider-row {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.provider-row:hover {
+  background-color: @theme_base_bg;
+}
+
+.provider-row:active {
+  background: @theme_base_bg;
+  box-shadow: none;
+}
+.provider-row .title-2 {
+  margin-bottom: 8px;
+}
+
+.account-row {
+  padding: 12px;
 }
