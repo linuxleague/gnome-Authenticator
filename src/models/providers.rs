@@ -19,7 +19,7 @@ impl ProvidersModel {
 
     pub fn find_by_name(&self, name: &str) -> Option<Provider> {
         for pos in 0..self.count() {
-            let obj = self.model.get_object(pos).unwrap();
+            let obj = self.model.get_object(pos)?;
             let provider = obj.downcast::<Provider>().unwrap();
             if provider.name() == name {
                 return Some(provider);
@@ -30,7 +30,7 @@ impl ProvidersModel {
 
     pub fn find_by_id(&self, id: i32) -> Option<Provider> {
         for pos in 0..self.count() {
-            let obj = self.model.get_object(pos).unwrap();
+            let obj = self.model.get_object(pos)?;
             let provider = obj.downcast::<Provider>().unwrap();
             if provider.id() == id {
                 return Some(provider);

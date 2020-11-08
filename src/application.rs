@@ -1,6 +1,6 @@
 use crate::config;
 use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{AddAccountDialog, View, Window};
+use crate::widgets::{AddAccountDialog, Window};
 use gio::prelude::*;
 use glib::subclass;
 use glib::subclass::prelude::*;
@@ -12,7 +12,6 @@ use std::{cell::RefCell, rc::Rc};
 
 use glib::{Receiver, Sender};
 pub enum Action {
-    ViewAccounts,
     AccountCreated(Account, Provider),
     OpenAddAccountDialog,
 }
@@ -81,10 +80,6 @@ impl ApplicationImpl for ApplicationPrivate {
                 about_dialog.show();
             })
         );
-        app_.set_accels_for_action("app.quit", &["<primary>q"]);
-        app_.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
-        app_.set_accels_for_action("win.search", &["<primary>f"]);
-        app_.set_accels_for_action("win.add-account", &["<primary>n"]);
     }
 
     fn activate(&self, _app: &gio::Application) {
@@ -99,6 +94,11 @@ impl ApplicationImpl for ApplicationPrivate {
         let window = app.create_window();
         window.present();
         self.window.replace(Some(window));
+
+        app.set_accels_for_action("app.quit", &["<primary>q"]);
+        app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
+        app.set_accels_for_action("win.search", &["<primary>f"]);
+        app.set_accels_for_action("win.add-account", &["<primary>n"]);
 
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(None, move |action| app.do_action(action));
@@ -146,16 +146,15 @@ impl Application {
 
     fn do_action(&self, action: Action) -> glib::Continue {
         let self_ = ApplicationPrivate::from_instance(self);
+        let active_window = self.get_active_window().unwrap();
         match action {
             Action::OpenAddAccountDialog => {
                 let dialog = AddAccountDialog::new(self_.model.clone(), self_.sender.clone());
-                //dialog.widget.set_transient_for(Some(&self_.window));
+                dialog.widget.set_transient_for(Some(&active_window));
                 dialog.widget.show();
             }
-            Action::ViewAccounts => (), //self.set_view(View::Accounts),
             Action::AccountCreated(account, provider) => {
                 self_.model.add_account(&account, &provider);
-                println!("{:#?}", account);
             }
         };
 

@@ -1,9 +1,8 @@
 use crate::application::Action;
-use crate::models::{Account, Provider, ProvidersModel};
+use crate::models::{Account, Provider};
 use crate::widgets::accounts::AccountRow;
 use glib::Sender;
 use gtk::prelude::*;
-use std::rc::Rc;
 
 pub struct ProviderRow<'a> {
     pub widget: gtk::ListBoxRow,

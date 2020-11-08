@@ -1,6 +1,6 @@
 use crate::application::Action;
-use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{accounts::AccountRow, providers::ProviderRow};
+use crate::models::{Provider, ProvidersModel};
+use crate::widgets::providers::ProviderRow;
 use gio::ListModelExt;
 use glib::Sender;
 use gtk::prelude::*;

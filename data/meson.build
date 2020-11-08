@@ -19,7 +19,7 @@ endforeach
 
 resources = gnome.compile_resources(
   application_id,
-  'com.belmoussaoui.Authenticator.gresource.xml',
+  'resources.gresource.xml',
   gresource_bundle: true,
   dependencies: ui_dependencies
 )

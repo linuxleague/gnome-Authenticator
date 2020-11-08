@@ -97,7 +97,9 @@ impl Window {
         window_state::load(&self, &self_.settings);
         // save window state on delete event
         self.connect_close_request(clone!(@strong self_.settings as settings => move |window| {
-            window_state::save(&window, &settings);
+            if let Err(err) = window_state::save(&window, &settings) {
+                warn!("Failed to save window state {:#?}", err);
+            }
             Inhibit(false)
         }));
 
@@ -133,8 +135,8 @@ impl Window {
 
     fn setup_actions(&self, sender: Sender<Action>) {
         let self_ = WindowPrivate::from_instance(self);
-
         action!(
+            self,
             "search",
             clone!(@strong self_.builder as builder => move |_,_| {
                 get_widget!(builder, gtk::ToggleButton, search_btn);

@@ -40,23 +40,3 @@ fn init_pool() -> Result<Pool> {
     info!("Database pool initialized.");
     Ok(pool)
 }
-/*
-pub fn get_accounts_by_provider(provider_model: Provider) -> Result<Vec<Account>> {
-    use crate::schema::accounts::dsl::*;
-    let db = connection();
-    let conn = db.get()?;
-
-    accounts
-        .filter(provider_id.eq(provider_model.id()))
-        .load::<Account>(&conn)
-        .map_err(From::from)
-}
-
-pub fn get_accounts() -> Result<Vec<Account>> {
-    use crate::schema::accounts::dsl::*;
-    let db = connection();
-    let conn = db.get()?;
-
-    accounts.load::<Account>(&conn).map_err(From::from)
-}
-*/

@@ -1,12 +1,12 @@
 .providers-list {
   background-color: @theme_base_bg;
-  margin-top: 20px;
 }
 
 .provider-row {
   margin-top: 12px;
   margin-bottom: 12px;
 }
+
 .provider-row:hover {
   background-color: @theme_base_bg;
 }
@@ -17,6 +17,7 @@
 }
 .provider-row .title-2 {
   margin-bottom: 8px;
+  margin-left: 2px;
 }
 
 .account-row {

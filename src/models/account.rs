@@ -2,13 +2,10 @@ use super::provider::{DiProvider, Provider};
 use crate::models::database;
 use crate::schema::accounts;
 use anyhow::Result;
-use diesel::RunQueryDsl;
-use diesel::{ExpressionMethods, QueryDsl};
-use glib::subclass;
-use glib::subclass::prelude::*;
+use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
+use glib::subclass::{self, prelude::*};
 use glib::translate::*;
-use glib::Cast;
-use glib::{StaticType, ToValue};
+use glib::{Cast, StaticType, ToValue};
 use std::cell::{Cell, RefCell};
 
 #[derive(Insertable)]
@@ -165,13 +162,11 @@ impl Account {
     }
 
     pub fn load(p: &Provider) -> Result<Vec<Self>> {
-        use crate::schema::accounts::dsl::accounts;
-        use crate::schema::accounts::provider_id;
         let db = database::connection();
         let conn = db.get()?;
 
-        let results = accounts
-            .filter(provider_id.eq(p.id()))
+        let dip: DiProvider = p.into();
+        let results = DiAccount::belonging_to(&dip)
             .load::<DiAccount>(&conn)?
             .into_iter()
             .map(From::from)

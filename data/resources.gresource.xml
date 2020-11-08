@@ -4,7 +4,9 @@
     <file alias="style.css">resources/style.css</file>
 
     <!-- Accounts -->
-    <file compressed="true" preprocess="xml-stripblanks" alias="add_account.ui">resources/ui/add_account.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="account_add.ui">resources/ui/account_add.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="account_edit.ui">resources/ui/account_edit.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="account_row.ui">resources/ui/account_row.ui</file>
 
     <!-- Providers -->
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_row.ui">resources/ui/provider_row.ui</file>
@@ -13,14 +15,11 @@
     <!-- UI Files -->
     <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="about_dialog.ui">about_dialog.ui</file>
-
-    <file compressed="true" preprocess="xml-stripblanks" alias="account_edit.ui">resources/ui/account_edit.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="account_row.ui">resources/ui/account_row.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="accounts_widget.ui">resources/ui/accounts_widget.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="password_widget.ui">resources/ui/password_widget.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">window.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">settings.ui</file>
+
+    <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="password_widget.ui">resources/ui/password_widget.ui</file>
   </gresource>
   <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions">
     <file alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>

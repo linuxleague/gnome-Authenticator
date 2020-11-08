@@ -22,7 +22,7 @@
     <property name="can-unfold">False</property>
     <child>
       <object class="HdyLeafletPage">
-        <property name="name">empty</property>
+        <property name="name">accounts</property>
         <property name="child">
           <object class="GtkBox">
             <property name="orientation">vertical</property>
@@ -49,6 +49,9 @@
                     <property name="icon-name">system-search-symbolic</property>
                   </object>
                 </child>
+                <style>
+                  <class name="titlebar"/>
+                </style>
               </object>
             </child>
             <child>

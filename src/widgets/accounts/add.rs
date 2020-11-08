@@ -30,7 +30,7 @@ pub struct AddAccountDialog {
 
 impl AddAccountDialog {
     pub fn new(model: Rc<ProvidersModel>, global_sender: Sender<Action>) -> Rc<Self> {
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/add_account.ui");
+        let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/account_add.ui");
         get_widget!(builder, libhandy::Window, add_dialog);
 
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);

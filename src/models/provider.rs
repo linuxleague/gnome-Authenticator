@@ -196,13 +196,6 @@ impl ObjectImpl for ProviderPriv {
                     .expect("type conformity checked by `Object::set_property`");
                 self.image_uri.replace(image_uri);
             }
-            /*subclass::Property("accounts", ..) => {
-                let accounts = value
-                    .get()
-                    .expect("type conformity checked by `Object::set_property`")
-                    .unwrap();
-                self.accounts.replace(accounts);
-            }*/
             _ => unimplemented!(),
         }
     }
@@ -218,7 +211,6 @@ impl ObjectImpl for ProviderPriv {
             subclass::Property("website", ..) => Ok(self.website.borrow().to_value()),
             subclass::Property("help-url", ..) => Ok(self.help_url.borrow().to_value()),
             subclass::Property("image-uri", ..) => Ok(self.image_uri.borrow().to_value()),
-            //subclass::Property("accounts", ..) => Ok(self.accounts.borrow().to_value()),
             _ => unimplemented!(),
         }
     }
@@ -410,5 +402,19 @@ impl From<DiProvider> for Provider {
             p.help_url,
             p.image_uri,
         )
+    }
+}
+
+impl From<&Provider> for DiProvider {
+    fn from(p: &Provider) -> Self {
+        Self {
+            id: p.id(),
+            name: p.name(),
+            period: p.period(),
+            algorithm: p.algorithm().to_string(),
+            website: p.website(),
+            help_url: p.help_url(),
+            image_uri: p.image_uri(),
+        }
     }
 }

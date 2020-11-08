@@ -2,8 +2,8 @@
 <interface>
   <object class="HdyWindow" id="add_dialog">
     <property name="modal">True</property>
-    <property name="default_width">560</property>
-    <property name="default_height">720</property>
+    <property name="default_width">360</property>
+    <property name="default_height">600</property>
     <property name="title">Add a new account</property>
     <property name="destroy_with_parent">True</property>
     <child>
@@ -57,6 +57,8 @@
                       <object class="GtkBox" id="main_container">
                         <property name="orientation">vertical</property>
                         <property name="spacing">42</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">6</property>
                         <child>
                           <object class="GtkStack" id="image_stack">
                             <property name="transition-type">crossfade</property>

@@ -14,6 +14,8 @@
               <object class="GtkListBox" id="providers_list">
                 <property name="selection-mode">none</property>
                 <property name="margin-start">6</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
                 <property name="margin-end">6</property>
                 <child type="placeholder">
                   <object class="GtkBox">
