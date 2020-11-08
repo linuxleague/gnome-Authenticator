@@ -1,6 +1,6 @@
 use crate::config;
 use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{AddAccountDialog, Window, WindowPrivate};
+use crate::widgets::{AddAccountDialog, PreferencesWindow, Window, WindowPrivate};
 use gio::prelude::*;
 use glib::subclass;
 use glib::subclass::prelude::*;
@@ -69,6 +69,18 @@ impl ApplicationImpl for ApplicationPrivate {
             "quit",
             clone!(@strong application as app => move |_, _| app.quit())
         );
+
+        action!(
+            application,
+            "preferences",
+            clone!(@strong app_ => move |_,_| {
+                let window = app_.get_active_window().unwrap();
+                let preferences = PreferencesWindow::new();
+                preferences.widget.set_transient_for(Some(&window));
+                preferences.widget.show();
+            })
+        );
+
         // About
         action!(
             application,

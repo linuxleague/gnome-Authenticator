@@ -140,6 +140,14 @@ impl Window {
 
         get_widget!(self_.builder, libhandy::Leaflet, deck);
         libhandy::ApplicationWindowExt::set_child(self, Some(&deck));
+
+        let gtk_settings = gtk::Settings::get_default().unwrap();
+        self_.settings.bind(
+            "dark-theme",
+            &gtk_settings,
+            "gtk-application-prefer-dark-theme",
+            gio::SettingsBindFlags::DEFAULT,
+        );
     }
 
     fn setup_actions(&self, sender: Sender<Action>) {

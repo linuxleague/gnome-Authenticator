@@ -16,13 +16,14 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="about_dialog.ui">about_dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">window.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="settings.ui">settings.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="preferences.ui">preferences.ui</file>
 
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="password_widget.ui">resources/ui/password_widget.ui</file>
   </gresource>
   <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions/">
     <file alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>
+    <file alias="general-properties-symbolic.svg">resources/icons/general-properties-symbolic.svg</file>
+    <file alias="eye-not-looking-symbolic.svg">resources/icons/eye-not-looking-symbolic.svg</file>
   </gresource>
 
 </gresources>
