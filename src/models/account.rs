@@ -2,6 +2,7 @@ use super::provider::{DiProvider, Provider};
 use crate::models::database;
 use crate::schema::accounts;
 use anyhow::Result;
+use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::subclass::{self, prelude::*};
 use glib::translate::*;
@@ -172,6 +173,13 @@ impl Account {
             .map(From::from)
             .collect::<Vec<Account>>();
         Ok(results)
+    }
+
+    pub fn compare(obj1: &glib::Object, obj2: &glib::Object) -> Ordering {
+        let account1 = obj1.downcast_ref::<Account>().unwrap();
+        let account2 = obj2.downcast_ref::<Account>().unwrap();
+
+        account1.name().cmp(&account2.name())
     }
 
     pub fn new(id: i32, name: &str, token_id: &str, provider_id: i32) -> Account {

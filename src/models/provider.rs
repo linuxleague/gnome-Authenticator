@@ -1,17 +1,14 @@
 use super::algorithm::Algorithm;
-use crate::models::database;
-use crate::models::{Account, FaviconError, FaviconScrapper};
+use crate::models::{database, Account, FaviconError, FaviconScrapper};
 use crate::schema::providers;
 use anyhow::Result;
-use diesel::QueryDsl;
-use diesel::RunQueryDsl;
+use core::cmp::Ordering;
+use diesel::{QueryDsl, RunQueryDsl};
 use gio::prelude::*;
 use gio::FileExt;
-use glib::subclass;
-use glib::subclass::prelude::*;
+use glib::subclass::{self, prelude::*};
 use glib::translate::*;
-use glib::Cast;
-use glib::{StaticType, ToValue};
+use glib::{Cast, StaticType, ToValue};
 use gtk::FilterListModelExt;
 use std::cell::{Cell, RefCell};
 use std::str::FromStr;
@@ -252,6 +249,13 @@ impl Provider {
             .map(From::from)
     }
 
+    pub fn compare(obj1: &glib::Object, obj2: &glib::Object) -> Ordering {
+        let provider1 = obj1.downcast_ref::<Provider>().unwrap();
+        let provider2 = obj2.downcast_ref::<Provider>().unwrap();
+
+        provider1.name().cmp(&provider2.name())
+    }
+
     pub fn load() -> Result<Vec<Self>> {
         use crate::schema::providers::dsl::*;
         let db = database::connection();
@@ -371,7 +375,7 @@ impl Provider {
 
     pub fn add_account(&self, account: &Account) {
         let priv_ = ProviderPriv::from_instance(self);
-        priv_.accounts.append(account);
+        priv_.accounts.insert_sorted(account, Account::compare);
     }
 
     pub fn accounts(&self) -> &gtk::FilterListModel {

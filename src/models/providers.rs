@@ -54,7 +54,7 @@ impl ProvidersModel {
     }
 
     pub fn add_provider(&self, provider: &Provider) {
-        self.model.append(provider);
+        self.model.insert_sorted(provider, Provider::compare);
     }
 
     pub fn add_account(&self, account: &Account, provider: &Provider) {
