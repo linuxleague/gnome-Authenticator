@@ -105,7 +105,7 @@ impl Window {
         get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.set_help_overlay(Some(&shortcuts));
 
-        let providers_list = ProvidersList::new(&model, sender.clone());
+        let providers_list = ProvidersList::new(model, sender.clone());
         get_widget!(self_.builder, gtk::Box, container);
         container.append(&providers_list.widget);
 
@@ -115,12 +115,33 @@ impl Window {
             .bind_property("active", &search_bar, "search-mode-enabled")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
+        get_widget!(self_.builder, gtk::SearchEntry, search_entry);
+
+        search_entry.connect_search_changed(move |entry| {
+            let text = entry.get_text().unwrap().to_string();
+            providers_list.search(text);
+        });
+
+        search_entry.connect_stop_search(clone!(@strong search_btn => move |entry| {
+            entry.set_text("");
+            search_btn.set_active(false);
+        }));
 
         get_widget!(self_.builder, libhandy::Leaflet, deck);
         libhandy::ApplicationWindowExt::set_child(self, Some(&deck));
     }
 
     fn setup_actions(&self, sender: Sender<Action>) {
+        let self_ = WindowPrivate::from_instance(self);
+
+        action!(
+            "search",
+            clone!(@strong self_.builder as builder => move |_,_| {
+                get_widget!(builder, gtk::ToggleButton, search_btn);
+                search_btn.set_active(!search_btn.get_active());
+            })
+        );
+
         action!(
             self,
             "add-account",

@@ -83,6 +83,8 @@ impl ApplicationImpl for ApplicationPrivate {
         );
         app_.set_accels_for_action("app.quit", &["<primary>q"]);
         app_.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
+        app_.set_accels_for_action("win.search", &["<primary>f"]);
+        app_.set_accels_for_action("win.add-account", &["<primary>n"]);
     }
 
     fn activate(&self, _app: &gio::Application) {

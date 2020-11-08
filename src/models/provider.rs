@@ -12,6 +12,7 @@ use glib::subclass::prelude::*;
 use glib::translate::*;
 use glib::Cast;
 use glib::{StaticType, ToValue};
+use gtk::FilterListModelExt;
 use std::cell::{Cell, RefCell};
 use std::str::FromStr;
 use std::string::ToString;
@@ -49,6 +50,7 @@ pub struct ProviderPriv {
     pub help_url: RefCell<Option<String>>,
     pub image_uri: RefCell<Option<String>>,
     pub accounts: gio::ListStore,
+    pub filter_model: gtk::FilterListModel,
 }
 
 static PROPERTIES: [subclass::Property; 8] = [
@@ -129,6 +131,7 @@ impl ObjectSubclass for ProviderPriv {
     }
 
     fn new() -> Self {
+        let model = gio::ListStore::new(Account::static_type());
         Self {
             id: Cell::new(0),
             name: RefCell::new("".to_string()),
@@ -137,7 +140,8 @@ impl ObjectSubclass for ProviderPriv {
             image_uri: RefCell::new(None),
             algorithm: RefCell::new(Algorithm::OTP.to_string()),
             period: Cell::new(30),
-            accounts: gio::ListStore::new(Account::static_type()),
+            filter_model: gtk::FilterListModel::new(Some(&model), gtk::NONE_FILTER),
+            accounts: model,
         }
     }
 }
@@ -378,9 +382,18 @@ impl Provider {
         priv_.accounts.append(account);
     }
 
-    pub fn accounts(&self) -> &gio::ListStore {
+    pub fn accounts(&self) -> &gtk::FilterListModel {
         let priv_ = ProviderPriv::from_instance(self);
-        &priv_.accounts
+        &priv_.filter_model
+    }
+
+    pub fn search_accounts(&self, text: String) {
+        let priv_ = ProviderPriv::from_instance(self);
+        let filter = gtk::CustomFilter::new(Some(Box::new(move |obj| {
+            let account = obj.downcast_ref::<Account>().unwrap();
+            account.name().contains(&text)
+        })));
+        priv_.filter_model.set_filter(Some(&filter));
     }
 
     fn remove_account(&self, account: &Account) {}

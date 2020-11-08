@@ -1,95 +1,62 @@
 use crate::application::Action;
 use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::accounts::AccountRow;
+use crate::widgets::{accounts::AccountRow, providers::ProviderRow};
+use gio::ListModelExt;
 use glib::Sender;
 use gtk::prelude::*;
+use std::rc::Rc;
 
 pub struct ProvidersList {
     pub widget: gtk::Box,
     builder: gtk::Builder,
     sender: Sender<Action>,
+    model: Rc<ProvidersModel>,
+    filter_model: gtk::FilterListModel,
 }
 
 impl ProvidersList {
-    pub fn new(model: &ProvidersModel, sender: Sender<Action>) -> Self {
+    pub fn new(model: Rc<ProvidersModel>, sender: Sender<Action>) -> Self {
         let builder =
             gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/providers_list.ui");
         get_widget!(builder, gtk::Box, providers_box);
-
+        let filter_model = gtk::FilterListModel::new(Some(&model.model), gtk::NONE_FILTER);
         let list = Self {
             widget: providers_box,
             builder,
             sender,
+            model,
+            filter_model,
         };
-        list.init(model);
+        list.init();
         list
     }
 
-    fn init(&self, model: &ProvidersModel) {
+    pub fn search(&self, text: String) {
+        get_widget!(self.builder, gtk::ListBox, providers_list);
+
+        let accounts_filter = gtk::CustomFilter::new(Some(Box::new(move |object| {
+            let provider = object.downcast_ref::<Provider>().unwrap();
+            provider.search_accounts(text.clone());
+            provider.accounts().get_n_items() != 0
+        })));
+        self.filter_model.set_filter(Some(&accounts_filter));
+    }
+
+    fn init(&self) {
         get_widget!(self.builder, gtk::ListBox, providers_list);
 
         let accounts_filter = gtk::CustomFilter::new(Some(Box::new(|object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.has_accounts()
         })));
-        let providers_model = gtk::FilterListModel::new(Some(&model.model), Some(&accounts_filter));
+        self.filter_model.set_filter(Some(&accounts_filter));
 
         providers_list.bind_model(
-            Some(&providers_model),
+            Some(&self.filter_model),
             Some(Box::new(
                 clone!(@strong self.sender as sender => move |obj| {
                     let provider = obj.downcast_ref::<Provider>().unwrap();
                     let row = ProviderRow::new(provider, sender.clone());
-                    row.widget.upcast::<gtk::Widget>()
-                }),
-            )),
-        );
-    }
-}
-
-pub struct ProviderRow<'a> {
-    pub widget: gtk::ListBoxRow,
-    provider: &'a Provider,
-    builder: gtk::Builder,
-    sender: Sender<Action>,
-}
-
-impl<'a> ProviderRow<'a> {
-    pub fn new(provider: &'a Provider, sender: Sender<Action>) -> Self {
-        let builder =
-            gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/provider_row.ui");
-        get_widget!(builder, gtk::ListBoxRow, provider_row);
-        let row = Self {
-            widget: provider_row,
-            builder,
-            sender,
-            provider,
-        };
-        row.init();
-        row
-    }
-
-    fn init(&self) {
-        get_widget!(self.builder, gtk::Label, name);
-
-        self.provider
-            .bind_property("name", &name, "label")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-            .build();
-
-        get_widget!(self.builder, gtk::ListBox, accounts_list);
-        accounts_list.bind_model(
-            Some(self.provider.accounts()),
-            Some(Box::new(
-                clone!(@strong self.sender as sender => move |account: &glib::Object| {
-                    let account: &Account = account
-                        .downcast_ref::<Account>()
-                        .unwrap();
-                    let row = AccountRow::new(account, sender.clone());
-                    /*row.set_on_click_callback(move |_, _| {
-                        // sender.send(Action::LoadChapter(chapter.clone())).unwrap();
-                        Inhibit(false)
-                    });*/
                     row.widget.upcast::<gtk::Widget>()
                 }),
             )),
