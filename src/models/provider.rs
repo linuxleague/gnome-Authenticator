@@ -1,8 +1,9 @@
 use super::algorithm::Algorithm;
 use crate::models::database;
-use crate::models::{FaviconError, FaviconScrapper};
+use crate::models::{Account, FaviconError, FaviconScrapper};
 use crate::schema::providers;
 use anyhow::Result;
+use diesel::QueryDsl;
 use diesel::RunQueryDsl;
 use gio::FileExt;
 use glib::subclass;
@@ -26,8 +27,9 @@ struct NewProvider {
     pub image_uri: Option<String>,
 }
 
-#[derive(Queryable, Hash, PartialEq, Eq, Debug, Clone)]
-struct DiProvider {
+#[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
+#[table_name = "providers"]
+pub struct DiProvider {
     pub id: i32,
     pub name: String,
     pub period: i32,
@@ -45,14 +47,30 @@ pub struct ProviderPriv {
     pub website: RefCell<Option<String>>,
     pub help_url: RefCell<Option<String>>,
     pub image_uri: RefCell<Option<String>>,
+    pub accounts: RefCell<Vec<Account>>,
 }
 
-static PROPERTIES: [subclass::Property; 7] = [
+static PROPERTIES: [subclass::Property; 8] = [
     subclass::Property("id", |name| {
         glib::ParamSpec::int(name, "id", "Id", 0, 1000, 0, glib::ParamFlags::READWRITE)
     }),
     subclass::Property("name", |name| {
         glib::ParamSpec::string(name, "name", "Name", None, glib::ParamFlags::READWRITE)
+    }),
+    subclass::Property("accounts", |name| {
+        glib::ParamSpec::value_array(
+            name,
+            "accounts",
+            "accounts",
+            &glib::ParamSpec::object(
+                "account",
+                "account",
+                "account",
+                Account::static_type(),
+                glib::ParamFlags::READWRITE,
+            ),
+            glib::ParamFlags::READWRITE,
+        )
     }),
     subclass::Property("period", |name| {
         glib::ParamSpec::int(
@@ -124,6 +142,7 @@ impl ObjectSubclass for ProviderPriv {
             image_uri: RefCell::new(None),
             algorithm: RefCell::new(Algorithm::OTP.to_string()),
             period: Cell::new(30),
+            accounts: RefCell::new(Vec::new()),
         }
     }
 }
@@ -178,6 +197,13 @@ impl ObjectImpl for ProviderPriv {
                     .expect("type conformity checked by `Object::set_property`");
                 self.image_uri.replace(image_uri);
             }
+            /*subclass::Property("accounts", ..) => {
+                let accounts = value
+                    .get()
+                    .expect("type conformity checked by `Object::set_property`")
+                    .unwrap();
+                self.accounts.replace(accounts);
+            }*/
             _ => unimplemented!(),
         }
     }
@@ -193,12 +219,13 @@ impl ObjectImpl for ProviderPriv {
             subclass::Property("website", ..) => Ok(self.website.borrow().to_value()),
             subclass::Property("help-url", ..) => Ok(self.help_url.borrow().to_value()),
             subclass::Property("image-uri", ..) => Ok(self.image_uri.borrow().to_value()),
+            //subclass::Property("accounts", ..) => Ok(self.accounts.borrow().to_value()),
             _ => unimplemented!(),
         }
     }
 }
 glib_wrapper! {
-    pub struct Provider(Object<subclass::simple::InstanceStruct<ProviderPriv>, subclass::simple::ClassStruct<ProviderPriv>, ProviderClass>);
+    pub struct Provider(Object<subclass::simple::InstanceStruct<ProviderPriv>, subclass::simple::ClassStruct<ProviderPriv>>);
 
     match fn {
         get_type => || ProviderPriv::get_type().to_glib(),
@@ -212,7 +239,7 @@ impl Provider {
         algorithm: Algorithm,
         website: Option<String>,
     ) -> Result<Self> {
-        use crate::diesel::{ExpressionMethods, QueryDsl};
+        use crate::diesel::ExpressionMethods;
         let db = database::connection();
         let conn = db.get()?;
 
@@ -243,7 +270,13 @@ impl Provider {
             .load::<DiProvider>(&conn)?
             .into_iter()
             .map(From::from)
+            .map(|p: Provider| {
+                let accounts = Account::load(&p).unwrap();
+                p.set_accounts(accounts);
+                p
+            })
             .collect::<Vec<Provider>>();
+
         Ok(results)
     }
 
@@ -293,7 +326,7 @@ impl Provider {
                 false,
                 gio::FileCreateFlags::REPLACE_DESTINATION,
                 gio::NONE_CANCELLABLE,
-            );
+            )?;
             return Ok(dest);
         }
         Err(FaviconError::NoResults)
@@ -332,6 +365,22 @@ impl Provider {
     pub fn image_uri(&self) -> Option<String> {
         let priv_ = ProviderPriv::from_instance(self);
         priv_.image_uri.borrow().clone()
+    }
+
+    pub fn open_help(&self) {
+        if let Some(ref url) = self.help_url() {
+            gio::AppInfo::launch_default_for_uri(url, None::<&gio::AppLaunchContext>).unwrap();
+        }
+    }
+
+    pub fn has_accounts(&self) -> bool {
+        let priv_ = ProviderPriv::from_instance(self);
+        !priv_.accounts.borrow().is_empty()
+    }
+
+    fn set_accounts(&self, accounts: Vec<Account>) {
+        let priv_ = ProviderPriv::from_instance(self);
+        priv_.accounts.borrow_mut().clone_from(&accounts);
     }
 }
 

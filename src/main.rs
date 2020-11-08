@@ -26,9 +26,7 @@ use config::{GETTEXT_PACKAGE, LOCALEDIR};
 
 fn main() {
     pretty_env_logger::init();
-
-    gtk::init().expect("Unable to start GTK3");
-    libhandy::functions::init();
+    gtk::init().expect("failed to init gtk4 ");
     // Prepare i18n
     setlocale(LocaleCategory::LcAll, "");
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
@@ -39,6 +37,5 @@ fn main() {
 
     static_resources::init().expect("Failed to initialize the resource file.");
 
-    let app = Application::new();
-    app.run(app.clone());
+    Application::run();
 }

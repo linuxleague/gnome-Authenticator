@@ -12,6 +12,7 @@ use std::rc::Rc;
 
 pub enum AddAccountAction {
     SetIcon(gio::File),
+    SetProvider(Provider),
     Save,
     ScanQR,
 }
@@ -72,7 +73,8 @@ impl AddAccountDialog {
 
     fn scan_qr(&self) {
         qrcode::screenshot_area(
-            clone!(@strong self.builder as builder, @strong self.model as model => move |screenshot| {
+            clone!(@strong self.builder as builder, @strong self.model as model,
+                @strong self.sender as sender => move |screenshot| {
                 if let Ok(otpauth) = qrcode::scan(&gio::File::new_for_uri(&screenshot)) {
                     get_widget!(builder, gtk::Entry, @token_entry).set_text(&otpauth.token);
                     if let Some(ref username) = otpauth.account {
@@ -80,11 +82,12 @@ impl AddAccountDialog {
                     }
                     if let Some(ref provider) = otpauth.issuer {
                         let provider = model.find_by_name(provider).unwrap();
-                        //dialog.set_provider(provider);
+                        send!(sender, AddAccountAction::SetProvider(provider));
                     }
                 }
             }),
-        );
+        )
+        .unwrap();
     }
 
     fn save(&self) -> Result<()> {
@@ -215,7 +218,7 @@ impl AddAccountDialog {
         token_entry.connect_icon_press(clone!(@strong dialog => move |_, pos| {
             if pos == gtk::EntryIconPosition::Secondary {
                 if let Some(ref provider) = dialog.selected_provider.borrow().clone() {
-                   gio::AppInfo::launch_default_for_uri(&provider.help_url().unwrap(),  None::<&gio::AppLaunchContext>);
+                   provider.open_help();
                 }
             }
         }));
@@ -230,6 +233,7 @@ impl AddAccountDialog {
                 get_widget!(self.builder, gtk::Spinner, @spinner).stop();
                 get_widget!(self.builder, gtk::Stack, @image_stack).set_visible_child_name("image");
             }
+            AddAccountAction::SetProvider(p) => self.set_provider(p),
             AddAccountAction::Save => {
                 self.save().unwrap();
             }

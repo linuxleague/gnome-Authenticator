@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="ProviderImage" parent="GtkStack">
-    <property name="visible">True</property>
     <property name="can_focus">True</property>
     <property name="receives_default">True</property>
     <property name="halign">start</property>

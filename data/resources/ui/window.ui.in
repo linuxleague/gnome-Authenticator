@@ -18,142 +18,46 @@
       <attribute name="action">app.about</attribute>
     </item>
   </menu>
-  <object class="HdyApplicationWindow" id="window">
-    <property name="default_width">360</property>
-    <property name="default_height">550</property>
-    <property name="icon-name">@app-id@</property>
+  <object class="HdyLeaflet" id="deck">
+    <property name="can-unfold">False</property>
     <child>
-      <object class="HdyLeaflet">
-        <child>
-          <object class="HdyLeafletPage">
-            <property name="child">
-              <object class="GtkBox">
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkHeaderBar">
-                    <property name="show-title-buttons">True</property>
-                    <child type="start">
-                      <object class="GtkButton" id="add_btn">
-                        <property name="receives_default">True</property>
-                        <property name="action_name">win.add-account</property>
-                        <property name="icon-name">list-add-symbolic</property>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkMenuButton">
-                        <property name="receives_default">True</property>
-                        <property name="menu-model">menu</property>
-                        <property name="icon-name">open-menu-symbolic</property>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkToggleButton" id="search_btn">
-                        <property name="receives_default">True</property>
-                        <property name="icon-name">system-search-symbolic</property>
-                      </object>
-                    </child>
+      <object class="HdyLeafletPage">
+        <property name="name">empty</property>
+        <property name="child">
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkHeaderBar">
+                <property name="show-title-buttons">True</property>
+                <child type="start">
+                  <object class="GtkButton" id="add_btn">
+                    <property name="receives_default">True</property>
+                    <property name="action_name">win.add-account</property>
+                    <property name="icon-name">list-add-symbolic</property>
                   </object>
                 </child>
-                <child>
-                  <object class="GtkBox">
-                    <property name="halign">center</property>
-                    <property name="valign">center</property>
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkImage">
-                        <property name="halign">center</property>
-                        <property name="valign">start</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="pixel_size">128</property>
-                        <property name="icon-name">@app-id@</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkLabel">
-                        <property name="halign">center</property>
-                        <property name="valign">start</property>
-                        <property name="margin-top">12</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="label" translatable="yes">There are no accounts yet…</property>
-                        <property name="wrap">True</property>
-                        <property name="ellipsize">end</property>
-                        <style>
-                          <class name="title-2"/>
-                        </style>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="halign">center</property>
-                        <property name="valign">start</property>
-                        <property name="margin-top">16</property>
-                        <property name="spacing">8</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">horizontal</property>
-                            <property name="spacing">8</property>
-                            <child>
-                              <object class="GtkImage" id="add_image_label">
-                                <property name="icon-name">list-add-symbolic</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="halign">start</property>
-                                <property name="label" translatable="yes">Add a new account from the menu</property>
-                                <property name="wrap">True</property>
-                                <property name="ellipsize">end</property>
-                                <style>
-                                  <class name="body"/>
-                                  <class name="dim-label"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">horizontal</property>
-                            <property name="spacing">8</property>
-                            <child>
-                              <object class="GtkImage" id="qr_scanner_image">
-                                <property name="icon-name">qrscanner-symbolic</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="halign">start</property>
-                                <property name="label" translatable="yes">Scan a QR Code</property>
-                                <property name="wrap">True</property>
-                                <property name="ellipsize">end</property>
-                                <style>
-                                  <class name="dim-label"/>
-                                </style>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
+                <child type="end">
+                  <object class="GtkMenuButton">
+                    <property name="receives_default">True</property>
+                    <property name="menu-model">menu</property>
+                    <property name="icon-name">open-menu-symbolic</property>
+                  </object>
+                </child>
+                <child type="end">
+                  <object class="GtkToggleButton" id="search_btn">
+                    <property name="receives_default">True</property>
+                    <property name="icon-name">system-search-symbolic</property>
                   </object>
                 </child>
               </object>
-            </property>
+            </child>
+            <child>
+              <object class="GtkBox" id="container">
+                <property name="vexpand">True</property>
+              </object>
+            </child>
           </object>
-        </child>
+        </property>
       </object>
     </child>
   </object>

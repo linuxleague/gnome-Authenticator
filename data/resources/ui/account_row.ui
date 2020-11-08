@@ -29,8 +29,6 @@
     </child>
   </object>
   <object class="GtkListBoxRow" id="account_row">
-    <property name="name">account_row</property>
-    <property name="visible">True</property>
     <property name="can_focus">True</property>
     <property name="valign">center</property>
     <property name="selectable">False</property>

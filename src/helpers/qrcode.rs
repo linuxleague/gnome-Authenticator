@@ -73,6 +73,6 @@ pub(crate) fn screenshot_area<F: FnOnce(String)>(callback: F) -> Result<()> {
         if let Ok(screenshot) = response {
             callback(screenshot.uri);
         }
-    });
+    })?;
     Ok(())
 }

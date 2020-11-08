@@ -8,7 +8,8 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="accounts_list.ui">resources/ui/accounts_list.ui</file>
 
     <!-- Providers -->
-    <file compressed="true" preprocess="xml-stripblanks" alias="providers_list.ui">resources/ui/providers_list.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="provider_row.ui">resources/ui/provider_row.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="providers_list.ui">providers_list.ui</file>
 
     <!-- UI Files -->
     <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>

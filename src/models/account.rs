@@ -1,7 +1,9 @@
+use super::provider::{DiProvider, Provider};
 use crate::models::database;
 use crate::schema::accounts;
 use anyhow::Result;
 use diesel::RunQueryDsl;
+use diesel::{ExpressionMethods, QueryDsl};
 use glib::subclass;
 use glib::subclass::prelude::*;
 use glib::translate::*;
@@ -17,8 +19,10 @@ struct NewAccount {
     pub provider_id: i32,
 }
 
-#[derive(Queryable, Hash, PartialEq, Eq, Debug, Clone)]
-struct DiAccount {
+#[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
+#[belongs_to(DiProvider, foreign_key = "provider_id")]
+#[table_name = "accounts"]
+pub struct DiAccount {
     pub id: i32,
     pub name: String,
     pub token_id: String,
@@ -133,7 +137,7 @@ impl ObjectImpl for AccountPriv {
     }
 }
 glib_wrapper! {
-    pub struct Account(Object<subclass::simple::InstanceStruct<AccountPriv>, subclass::simple::ClassStruct<AccountPriv>, AccountClass>);
+    pub struct Account(Object<subclass::simple::InstanceStruct<AccountPriv>, subclass::simple::ClassStruct<AccountPriv>>);
 
     match fn {
         get_type => || AccountPriv::get_type().to_glib(),
@@ -142,7 +146,6 @@ glib_wrapper! {
 
 impl Account {
     pub fn create(name: &str, token_id: &str, provider_id: i32) -> Result<Account> {
-        use diesel::{ExpressionMethods, QueryDsl};
         let db = database::connection();
         let conn = db.get()?;
 
@@ -161,12 +164,14 @@ impl Account {
             .map(From::from)
     }
 
-    pub fn load() -> Result<Vec<Self>> {
-        use crate::schema::accounts::dsl::*;
+    pub fn load(p: &Provider) -> Result<Vec<Self>> {
+        use crate::schema::accounts::dsl::accounts;
+        use crate::schema::accounts::provider_id;
         let db = database::connection();
         let conn = db.get()?;
 
         let results = accounts
+            .filter(provider_id.eq(p.id()))
             .load::<DiAccount>(&conn)?
             .into_iter()
             .map(From::from)

@@ -1,7 +1,9 @@
+use crate::widgets::Window;
+use anyhow::Result;
 use gio::prelude::SettingsExt;
 use gtk::prelude::GtkWindowExt;
 
-pub fn load(window: &libhandy::ApplicationWindow, settings: &gio::Settings) {
+pub fn load(window: &Window, settings: &gio::Settings) {
     let width = settings.get_int("window-width");
     let height = settings.get_int("window-height");
 
@@ -15,10 +17,11 @@ pub fn load(window: &libhandy::ApplicationWindow, settings: &gio::Settings) {
     }
 }
 
-pub fn save(window: &libhandy::ApplicationWindow, settings: &gio::Settings) {
+pub fn save(window: &Window, settings: &gio::Settings) -> Result<()> {
     let size = window.get_size();
-    settings.set_int("window-width", size.0);
-    settings.set_int("window-height", size.1);
+    settings.set_int("window-width", size.0)?;
+    settings.set_int("window-height", size.1)?;
 
-    settings.set_boolean("is-maximized", window.is_maximized());
+    settings.set_boolean("is-maximized", window.is_maximized())?;
+    Ok(())
 }

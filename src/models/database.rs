@@ -40,12 +40,6 @@ fn init_pool() -> Result<Pool> {
     info!("Database pool initialized.");
     Ok(pool)
 }
-
-pub trait Insert<T> {
-    type Error;
-
-    fn insert(&self) -> Result<T, Self::Error>;
-}
 /*
 pub fn get_accounts_by_provider(provider_model: Provider) -> Result<Vec<Account>> {
     use crate::schema::accounts::dsl::*;

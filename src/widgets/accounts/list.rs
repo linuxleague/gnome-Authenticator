@@ -58,7 +58,7 @@ impl<'a> AccountsList<'a> {
 
         listbox.set_header_func(Some(Box::new(
             move |row1: &gtk::ListBoxRow, row2: Option<&gtk::ListBoxRow>| {
-                if let Some(row_before) = row2 {
+                if row2.is_some() {
                     let separator = gtk::Separator::new(gtk::Orientation::Horizontal);
                     row1.set_header(Some(&separator));
                 }

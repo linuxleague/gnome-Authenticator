@@ -15,12 +15,19 @@ const SUPPORTED_RELS: [&[u8]; 7] = [
 pub enum FaviconError {
     Surf(surf::Error),
     Url(url::ParseError),
+    GLib(glib::Error),
     NoResults,
 }
 
 impl From<surf::Error> for FaviconError {
     fn from(e: surf::Error) -> Self {
         Self::Surf(e)
+    }
+}
+
+impl From<glib::Error> for FaviconError {
+    fn from(e: glib::Error) -> Self {
+        Self::GLib(e)
     }
 }
 
@@ -87,19 +94,16 @@ impl FaviconScrapper {
                         Err(url::ParseError::RelativeUrlWithoutBase) => base_url.join(&href).ok(),
                         Err(_) => None,
                     };
-                    if has_proper_rel {
-                        break;
-                    }
                 }
                 Ok(Attribute { key: b"rel", value }) => {
                     if SUPPORTED_RELS.contains(&value.into_owned().as_slice()) {
                         has_proper_rel = true;
-                        if url.is_some() {
-                            break;
-                        }
                     }
                 }
                 _ => (),
+            }
+            if has_proper_rel && url.is_some() {
+                break;
             }
         }
         if has_proper_rel {

@@ -1,4 +1,3 @@
-use glib::StaticType;
 use std::str::FromStr;
 use std::string::ToString;
 

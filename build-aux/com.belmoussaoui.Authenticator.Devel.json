@@ -10,7 +10,8 @@
         "--share=ipc",
         "--device=dri",
         "--socket=fallback-x11",
-        "--socket=wayland"
+        "--socket=wayland",
+        "--talk-name=org.a11y.Bus"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
