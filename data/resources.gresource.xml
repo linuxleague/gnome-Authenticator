@@ -21,7 +21,7 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="password_widget.ui">resources/ui/password_widget.ui</file>
   </gresource>
-  <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions">
+  <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions/">
     <file alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>
   </gresource>
 

@@ -60,8 +60,9 @@ impl ApplicationImpl for ApplicationPrivate {
             let p = gtk::CssProvider::new();
             gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/Authenticator/style.css");
             gtk::StyleContext::add_provider_for_display(display, &p, 500);
+            let theme = gtk::IconTheme::get_for_display(display).unwrap();
+            theme.add_resource_path("/com/belmoussaoui/Authenticator/icons/");
         }
-        application.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
 
         action!(
             application,
@@ -96,6 +97,7 @@ impl ApplicationImpl for ApplicationPrivate {
         window.present();
         self.window.replace(Some(window));
 
+        app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
         app.set_accels_for_action("app.quit", &["<primary>q"]);
         app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         app.set_accels_for_action("win.search", &["<primary>f"]);

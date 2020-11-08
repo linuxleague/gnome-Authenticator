@@ -33,7 +33,7 @@ fn main() {
     textdomain(GETTEXT_PACKAGE);
 
     glib::set_application_name("Authenticator");
-    glib::set_prgname(Some("authenticator"));
+    glib::set_prgname(Some(config::APP_ID));
 
     static_resources::init().expect("Failed to initialize the resource file.");
 
