@@ -83,18 +83,18 @@
                 <property name="title" translatable="yes">Auto Lock the application</property>
                 <property name="subtitle" translatable="yes">Whether to automatically lock the application.</property>
                 <child>
-                  <object class="GtkSwitch">
+                  <object class="GtkSwitch" id="auto_lock_switch">
                     <property name="valign">center</property>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow" id="lock_timeout_row">
+              <object class="HdyActionRow">
                 <property name="title" translatable="yes">Auto lock timeout</property>
                 <property name="subtitle" translatable="yes">The time in minutes.</property>
                 <child>
-                  <object class="GtkSpinButton" id="lock_timeout_spinbtn">
+                  <object class="GtkSpinButton" id="lock_timeout_spin_btn">
                     <property name="valign">center</property>
                     <property name="halign">center</property>
                     <property name="adjustment">auto_lock_adjustment</property>

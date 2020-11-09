@@ -31,5 +31,19 @@ impl PreferencesWindow {
             "active",
             gio::SettingsBindFlags::DEFAULT,
         );
+
+        get_widget!(self.builder, gtk::Switch, auto_lock_switch);
+        self.settings.bind(
+            "auto-lock",
+            &auto_lock_switch,
+            "active",
+            gio::SettingsBindFlags::DEFAULT,
+        );
+
+        get_widget!(self.builder, gtk::SpinButton, lock_timeout_spin_btn);
+        auto_lock_switch
+            .bind_property("active", &lock_timeout_spin_btn, "sensitive")
+            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
     }
 }
