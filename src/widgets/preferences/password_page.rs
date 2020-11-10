@@ -1,11 +1,14 @@
 use crate::helpers::Keyring;
 use gio::{ActionExt, ActionMapExt};
 use gtk::prelude::*;
+use std::cell::Cell;
 use std::rc::Rc;
+
 pub struct PasswordPage {
     pub widget: gtk::Box,
     builder: gtk::Builder,
     actions: gio::SimpleActionGroup,
+    has_set_password: Cell<bool>,
 }
 
 impl PasswordPage {
@@ -14,13 +17,35 @@ impl PasswordPage {
             "/com/belmoussaoui/Authenticator/preferences_password_page.ui",
         );
         get_widget!(builder, gtk::Box, password_page);
+
+        let has_set_password = Keyring::has_set_password().unwrap_or_else(|_| false);
+
         let page = Rc::new(Self {
             widget: password_page,
             builder,
             actions,
+            has_set_password: Cell::new(has_set_password),
         });
         page.init(page.clone());
         page
+    }
+
+    fn validate(&self) {
+        get_widget!(self.builder, gtk::PasswordEntry, current_password_entry);
+        get_widget!(self.builder, gtk::PasswordEntry, password_entry);
+        get_widget!(self.builder, gtk::PasswordEntry, confirm_password_entry);
+
+        let current_password = current_password_entry.get_text().unwrap();
+        let password = password_entry.get_text().unwrap();
+        let password_repeat = confirm_password_entry.get_text().unwrap();
+
+        let is_valid = if self.has_set_password.get() {
+            password_repeat == password && current_password != password && password != ""
+        } else {
+            password_repeat == password && password != ""
+        };
+
+        get_action!(self.actions, @save_password).set_enabled(is_valid);
     }
 
     fn init(&self, page: Rc<Self>) {
@@ -29,35 +54,14 @@ impl PasswordPage {
         get_widget!(self.builder, gtk::PasswordEntry, confirm_password_entry);
         get_widget!(self.builder, libhandy::ActionRow, current_password_row);
 
-        let has_set_password = Keyring::has_set_password().unwrap_or_else(|_| false);
+        password_entry.connect_changed(clone!(@strong page => move |_| page.validate()));
+        confirm_password_entry.connect_changed(clone!(@strong page => move |_| page.validate()));
 
-        let validate = clone!(@strong self.builder as builder,
-            @weak current_password_entry,
-            @weak password_entry,
-            @weak self.actions as actions,
-            @weak confirm_password_entry => move |_: &gtk::PasswordEntry| {
-
-            let current_password = current_password_entry.get_text().unwrap();
-            let password = password_entry.get_text().unwrap();
-            let password_repeat = confirm_password_entry.get_text().unwrap();
-
-            let is_valid = if has_set_password {
-                password_repeat == password && current_password != password
-                && password != ""
-            } else {
-                password_repeat == password && password != ""
-            };
-
-            get_action!(actions, @save_password).set_enabled(is_valid);
-        });
-
-        password_entry.connect_changed(validate.clone());
-        confirm_password_entry.connect_changed(validate.clone());
-
-        if !has_set_password {
+        if !self.has_set_password.get() {
             current_password_row.hide();
         } else {
-            current_password_entry.connect_changed(validate.clone());
+            current_password_entry
+                .connect_changed(clone!(@strong page => move |_| page.validate()));
         }
 
         action!(
@@ -67,7 +71,27 @@ impl PasswordPage {
                 page.save();
             })
         );
+
+        action!(
+            self.actions,
+            "reset_password",
+            clone!(@strong page => move |_,_| {
+                page.reset();
+            })
+        );
+
         get_action!(self.actions, @save_password).set_enabled(false);
+        get_action!(self.actions, @reset_password).set_enabled(self.has_set_password.get());
+    }
+
+    fn reset(&self) {
+        if Keyring::reset_password().is_ok() {
+            get_action!(self.actions, @close_page).activate(None);
+            get_action!(self.actions, @save_password).set_enabled(false);
+            get_action!(self.actions, @reset_password).set_enabled(false);
+            get_widget!(self.builder, libhandy::ActionRow, @current_password_row).hide();
+            self.has_set_password.set(false);
+        }
     }
 
     fn save(&self) {
@@ -90,7 +114,9 @@ impl PasswordPage {
             password_entry.set_text("");
             confirm_password_entry.set_text("");
             get_action!(self.actions, @save_password).set_enabled(false);
+            get_action!(self.actions, @reset_password).set_enabled(true);
             get_action!(self.actions, @close_page).activate(None);
+            self.has_set_password.set(true);
         }
     }
 }

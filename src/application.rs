@@ -28,10 +28,22 @@ pub struct ApplicationPrivate {
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
     locked: Cell<bool>,
+    can_be_locked: Cell<bool>,
 }
-static PROPERTIES: [subclass::Property; 1] = [subclass::Property("locked", |name| {
-    glib::ParamSpec::boolean(name, "locked", "locked", false, glib::ParamFlags::READWRITE)
-})];
+static PROPERTIES: [subclass::Property; 2] = [
+    subclass::Property("locked", |name| {
+        glib::ParamSpec::boolean(name, "locked", "locked", false, glib::ParamFlags::READWRITE)
+    }),
+    subclass::Property("can-be-locked", |name| {
+        glib::ParamSpec::boolean(
+            name,
+            "can_be_locked",
+            "can be locked",
+            false,
+            glib::ParamFlags::READWRITE,
+        )
+    }),
+];
 impl ObjectSubclass for ApplicationPrivate {
     const NAME: &'static str = "Application";
     type ParentType = gtk::Application;
@@ -54,6 +66,7 @@ impl ObjectSubclass for ApplicationPrivate {
             sender,
             receiver,
             model,
+            can_be_locked: Cell::new(false),
             locked: Cell::new(false),
         }
     }
@@ -71,6 +84,13 @@ impl ObjectImpl for ApplicationPrivate {
                     .unwrap();
                 self.locked.set(locked);
             }
+            subclass::Property("can-be-locked", ..) => {
+                let can_be_locked = value
+                    .get()
+                    .expect("type conformity checked by `Object::set_property`")
+                    .unwrap();
+                self.can_be_locked.set(can_be_locked);
+            }
             _ => unimplemented!(),
         }
     }
@@ -80,6 +100,7 @@ impl ObjectImpl for ApplicationPrivate {
 
         match *prop {
             subclass::Property("locked", ..) => Ok(self.locked.get().to_value()),
+            subclass::Property("can-be-locked", ..) => Ok(self.can_be_locked.get().to_value()),
             _ => unimplemented!(),
         }
     }
@@ -140,6 +161,10 @@ impl ApplicationImpl for ApplicationPrivate {
                 app_.set_locked(true);
             })
         );
+        application
+            .bind_property("can-be-locked", &get_action!(application, @lock), "enabled")
+            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
     }
 
     fn activate(&self, _app: &gio::Application) {
@@ -154,16 +179,16 @@ impl ApplicationImpl for ApplicationPrivate {
         let window = app.create_window();
         window.present();
         self.window.replace(Some(window));
+        let has_set_password = Keyring::has_set_password().unwrap_or_else(|_| false);
 
         app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
         app.set_accels_for_action("app.quit", &["<primary>q"]);
+        app.set_accels_for_action("app.lock", &["<primary>l"]);
         app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         app.set_accels_for_action("win.search", &["<primary>f"]);
         app.set_accels_for_action("win.add-account", &["<primary>n"]);
-        app.set_property(
-            "locked",
-            &Keyring::has_set_password().unwrap_or_else(|_| false),
-        );
+        app.set_locked(has_set_password);
+        app.set_can_be_locked(has_set_password);
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(None, move |action| app.do_action(action));
     }
@@ -208,6 +233,10 @@ impl Application {
 
     pub fn set_locked(&self, state: bool) {
         self.set_property("locked", &state);
+    }
+
+    pub fn set_can_be_locked(&self, state: bool) {
+        self.set_property("can-be-locked", &state);
     }
 
     fn create_window(&self) -> Window {

@@ -40,6 +40,18 @@ impl Keyring {
         Ok(())
     }
 
+    pub fn reset_password() -> Result<(), SsError> {
+        let ss = SecretService::new(EncryptionType::Dh)?;
+        let col = Self::get_default_collection(&ss)?;
+        let items =
+            col.search_items(vec![("type", "password"), ("application", config::APP_ID)])?;
+
+        match items.get(0) {
+            Some(i) => i.delete(),
+            None => Err(SsError::NoResult),
+        }
+    }
+
     pub fn is_current_password(password: &str) -> Result<bool, SsError> {
         let ss = SecretService::new(EncryptionType::Dh)?;
         let col = Self::get_default_collection(&ss)?;
