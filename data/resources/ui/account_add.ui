@@ -57,8 +57,8 @@
                       <object class="GtkBox" id="main_container">
                         <property name="orientation">vertical</property>
                         <property name="spacing">42</property>
-                        <property name="margin-start">6</property>
-                        <property name="margin-end">6</property>
+                        <property name="margin-start">8</property>
+                        <property name="margin-end">8</property>
                         <child>
                           <object class="GtkStack" id="image_stack">
                             <property name="transition-type">crossfade</property>

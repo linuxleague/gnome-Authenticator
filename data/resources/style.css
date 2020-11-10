@@ -1,3 +1,11 @@
+.large-button {
+	padding: 6px 32px;
+}
+.pill-button {
+	border-radius: 9999px;
+	-gtk-outline-radius: 9999px;
+}
+
 .providers-list {
   background-color: @theme_base_bg;
 }

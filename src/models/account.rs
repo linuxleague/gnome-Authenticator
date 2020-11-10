@@ -208,7 +208,6 @@ impl Account {
     }
 
     pub fn delete(&self) -> Result<()> {
-        println!("doing remove stuff");
         Ok(())
     }
 }

@@ -1,6 +1,7 @@
 use crate::config;
+use crate::helpers::Keyring;
 use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{AddAccountDialog, PreferencesWindow, Window, WindowPrivate};
+use crate::widgets::{AddAccountDialog, PreferencesWindow, View, Window, WindowPrivate};
 use gio::prelude::*;
 use glib::subclass;
 use glib::subclass::prelude::*;
@@ -8,13 +9,17 @@ use glib::translate::*;
 use gtk::prelude::*;
 use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplicationImpl};
 use std::env;
-use std::{cell::RefCell, rc::Rc};
+use std::{
+    cell::{Cell, RefCell},
+    rc::Rc,
+};
 
 use glib::{Receiver, Sender};
 pub enum Action {
     AccountCreated(Account, Provider),
     AccountRemoved(Account),
     OpenAddAccountDialog,
+    SetView(View),
 }
 
 pub struct ApplicationPrivate {
@@ -22,8 +27,11 @@ pub struct ApplicationPrivate {
     model: Rc<ProvidersModel>,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
+    locked: Cell<bool>,
 }
-
+static PROPERTIES: [subclass::Property; 1] = [subclass::Property("locked", |name| {
+    glib::ParamSpec::boolean(name, "locked", "locked", false, glib::ParamFlags::READWRITE)
+})];
 impl ObjectSubclass for ApplicationPrivate {
     const NAME: &'static str = "Application";
     type ParentType = gtk::Application;
@@ -31,6 +39,10 @@ impl ObjectSubclass for ApplicationPrivate {
     type Class = subclass::simple::ClassStruct<Self>;
 
     glib_object_subclass!();
+
+    fn class_init(klass: &mut Self::Class) {
+        klass.install_properties(&PROPERTIES);
+    }
 
     fn new() -> Self {
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
@@ -42,11 +54,37 @@ impl ObjectSubclass for ApplicationPrivate {
             sender,
             receiver,
             model,
+            locked: Cell::new(false),
         }
     }
 }
 
-impl ObjectImpl for ApplicationPrivate {}
+impl ObjectImpl for ApplicationPrivate {
+    fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+        let prop = &PROPERTIES[id];
+
+        match *prop {
+            subclass::Property("locked", ..) => {
+                let locked = value
+                    .get()
+                    .expect("type conformity checked by `Object::set_property`")
+                    .unwrap();
+                self.locked.set(locked);
+            }
+            _ => unimplemented!(),
+        }
+    }
+
+    fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+        let prop = &PROPERTIES[id];
+
+        match *prop {
+            subclass::Property("locked", ..) => Ok(self.locked.get().to_value()),
+            _ => unimplemented!(),
+        }
+    }
+}
+
 impl GtkApplicationImpl for ApplicationPrivate {}
 impl ApplicationImpl for ApplicationPrivate {
     fn startup(&self, application: &gio::Application) {
@@ -94,6 +132,14 @@ impl ApplicationImpl for ApplicationPrivate {
                 about_dialog.show();
             })
         );
+
+        action!(
+            application,
+            "lock",
+            clone!(@strong app_ => move |_, _| {
+                app_.set_locked(true);
+            })
+        );
     }
 
     fn activate(&self, _app: &gio::Application) {
@@ -114,7 +160,10 @@ impl ApplicationImpl for ApplicationPrivate {
         app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         app.set_accels_for_action("win.search", &["<primary>f"]);
         app.set_accels_for_action("win.add-account", &["<primary>n"]);
-
+        app.set_property(
+            "locked",
+            &Keyring::has_set_password().unwrap_or_else(|_| false),
+        );
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(None, move |action| app.do_action(action));
     }
@@ -152,6 +201,15 @@ impl Application {
         ApplicationExtManual::run(&app, &args);
     }
 
+    pub fn locked(&self) -> bool {
+        let self_ = ApplicationPrivate::from_instance(self);
+        return self_.locked.get();
+    }
+
+    pub fn set_locked(&self, state: bool) {
+        self.set_property("locked", &state);
+    }
+
     fn create_window(&self) -> Window {
         let self_ = ApplicationPrivate::from_instance(self);
         let window = Window::new(self_.model.clone(), self_.sender.clone(), &self.clone());
@@ -178,6 +236,10 @@ impl Application {
 
                 self_.model.remove_account(&account);
                 priv_.providers.refilter();
+            }
+            Action::SetView(view) => {
+                let win_ = active_window.downcast_ref::<Window>().unwrap();
+                win_.set_view(view);
             }
         };
 

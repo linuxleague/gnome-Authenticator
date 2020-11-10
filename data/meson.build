@@ -6,6 +6,7 @@ ui_preconfigured_files = files(
   'resources/ui/about_dialog.ui.in',
   'resources/ui/providers_list.ui.in',
   'resources/ui/preferences.ui.in',
+  'resources/ui/preferences_password_page.ui.in',
   'resources/ui/window.ui.in',
 )
 ui_dependencies = []

@@ -9,6 +9,7 @@
   <object class="HdyPreferencesWindow" id="preferences_window">
     <property name="default_width">360</property>
     <property name="default_height">600</property>
+    <property name="search-enabled">False</property>
     <child>
       <object class="HdyPreferencesPage">
         <property name="icon-name">general-properties-symbolic</property>
@@ -19,10 +20,58 @@
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Dark Theme</property>
+                <property name="activatable_widget">dark_theme_switch</property>
                 <property name="subtitle" translatable="yes">Whether the application should use a dark theme.</property>
                 <child>
                   <object class="GtkSwitch" id="dark_theme_switch">
                     <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="title">Privacy</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Password</property>
+                <property name="subtitle" translatable="yes">Setup a password to lock the application with.</property>
+                <property name="activatable">True</property>
+                <property name="action-name">preferences.show_password_page</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon_name">go-next-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Auto Lock the application</property>
+                <property name="activatable_widget">auto_lock_switch</property>
+                <property name="subtitle" translatable="yes">Whether to automatically lock the application.</property>
+                <child>
+                  <object class="GtkSwitch" id="auto_lock_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Auto lock timeout</property>
+                <property name="subtitle" translatable="yes">The time in minutes.</property>
+                <property name="activatable_widget">lock_timeout_spin_btn</property>
+                <child>
+                  <object class="GtkSpinButton" id="lock_timeout_spin_btn">
+                    <property name="valign">center</property>
+                    <property name="halign">center</property>
+                    <property name="adjustment">auto_lock_adjustment</property>
+                    <property name="climb_rate">1</property>
+                    <property name="numeric">True</property>
+                    <property name="update_policy">if-valid</property>
                   </object>
                 </child>
               </object>
@@ -41,11 +90,13 @@
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Into Aegis compatible file</property>
+                <property name="activatable">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Into FreeOTP+ compatible file</property>
+                <property name="activatable">True</property>
               </object>
             </child>
           </object>
@@ -56,16 +107,19 @@
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Form Aegis</property>
+                <property name="activatable">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Form FreeOTP+</property>
+                <property name="activatable">True</property>
               </object>
             </child>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">From an old Authenticator</property>
+                <property name="activatable">True</property>
               </object>
             </child>
           </object>
@@ -75,91 +129,16 @@
     <child>
       <object class="HdyPreferencesPage">
         <property name="icon-name">eye-not-looking-symbolic</property>
-        <property name="title">Privacy</property>
+        <property name="title">Providers</property>
         <child>
-          <object class="HdyPreferencesGroup">
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Auto Lock the application</property>
-                <property name="subtitle" translatable="yes">Whether to automatically lock the application.</property>
-                <child>
-                  <object class="GtkSwitch" id="auto_lock_switch">
-                    <property name="valign">center</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Auto lock timeout</property>
-                <property name="subtitle" translatable="yes">The time in minutes.</property>
-                <child>
-                  <object class="GtkSpinButton" id="lock_timeout_spin_btn">
-                    <property name="valign">center</property>
-                    <property name="halign">center</property>
-                    <property name="adjustment">auto_lock_adjustment</property>
-                    <property name="climb_rate">1</property>
-                    <property name="numeric">True</property>
-                    <property name="update_policy">if-valid</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="HdyPreferencesGroup">
-            <property name="title" translatable="yes">Password</property>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Current Password</property>
-                <child>
-                  <object class="GtkEntry" id="current_password_entry">
-                    <property name="halign">end</property>
-                    <property name="valign">center</property>
-                    <property name="visibility">False</property>
-                    <property name="input_purpose">password</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">New Password</property>
-                <child>
-                  <object class="GtkEntry" id="password_entry">
-                    <property name="halign">end</property>
-                    <property name="valign">center</property>
-                    <property name="visibility">False</property>
-                    <property name="input_purpose">password</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Confirm New Password</property>
-                <child>
-                  <object class="GtkEntry" id="confirm_password_entry">
-                    <property name="halign">end</property>
-                    <property name="valign">center</property>
-                    <property name="visibility">False</property>
-                    <property name="input_purpose">password</property>
-                  </object>
-                </child>
-              </object>
-            </child>
+          <object class="GtkListBox">
+            <style>
+              <class name="content" />
+            </style>
           </object>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkSizeGroup">
-    <widgets>
-      <widget name="current_password_entry"/>
-      <widget name="password_entry"/>
-      <widget name="confirm_password_entry"/>
-    </widgets>
   </object>
 </interface>
 

@@ -1,5 +1,6 @@
 use crate::application::{Action, Application};
 use crate::config::{APP_ID, PROFILE};
+use crate::helpers::Keyring;
 use crate::models::ProvidersModel;
 use crate::widgets::providers::ProvidersList;
 use crate::window_state;
@@ -15,7 +16,7 @@ use std::rc::Rc;
 
 #[derive(PartialEq, Debug)]
 pub enum View {
-    Locked,
+    Login,
     Accounts,
 }
 
@@ -78,8 +79,9 @@ impl Window {
             window.get_style_context().add_class("devel");
         }
         window.init(model, sender.clone());
-        window.setup_actions(sender.clone());
-        window.set_view(View::Accounts); // Start by default in an empty state
+        window.setup_actions(app, sender.clone());
+        window.set_view(View::Login); // Start by default in an empty state
+        window.setup_signals(app, sender);
         window
     }
 
@@ -87,9 +89,8 @@ impl Window {
         let self_ = WindowPrivate::from_instance(self);
         get_widget!(self_.builder, libhandy::Leaflet, deck);
         match view {
-            View::Locked => {
-                //main_stack.set_visible_child_name("locked_state");
-                //headerbar_stack.set_visible_child_name("locked_headerbar");
+            View::Login => {
+                deck.set_visible_child_name("login");
             }
             View::Accounts => {
                 deck.set_visible_child_name("accounts");
@@ -151,7 +152,7 @@ impl Window {
         self.set_default_size(360, 600);
     }
 
-    fn setup_actions(&self, sender: Sender<Action>) {
+    fn setup_actions(&self, app: &Application, sender: Sender<Action>) {
         let self_ = WindowPrivate::from_instance(self);
         action!(
             self,
@@ -168,6 +169,36 @@ impl Window {
             clone!(@strong sender => move |_,_| {
                 send!(sender, Action::OpenAddAccountDialog);
             })
+        );
+
+        action!(
+            self,
+            "unlock",
+            clone!(@strong sender, @strong self_.builder as builder, @strong app => move |_, _| {
+                get_widget!(builder, gtk::PasswordEntry, password_entry);
+                let password = password_entry.get_text().unwrap();
+                if Keyring::is_current_password(&password).unwrap() {
+                    password_entry.set_text("");
+                    app.set_locked(false);
+                    send!(sender, Action::SetView(View::Accounts));
+                }
+            })
+        );
+    }
+
+    fn setup_signals(&self, app: &Application, sender: Sender<Action>) {
+        let self_ = WindowPrivate::from_instance(self);
+        app.connect_local(
+            "notify::locked",
+            false,
+            clone!(@strong app => move |val| {
+                if app.locked(){
+                    send!(sender, Action::SetView(View::Login));
+                } else {
+                    send!(sender, Action::SetView(View::Accounts));
+                };
+                None
+            }),
         );
     }
 }

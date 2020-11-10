@@ -10,13 +10,14 @@
 
     <!-- Providers -->
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_row.ui">resources/ui/provider_row.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="providers_list.ui">providers_list.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">providers_list.ui</file>
 
     <!-- UI Files -->
     <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="about_dialog.ui">about_dialog.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">window.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="preferences.ui">preferences.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">about_dialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">preferences.ui</file>
+    <file>preferences_password_page.ui</file>
 
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
   </gresource>
@@ -25,5 +26,4 @@
     <file alias="general-properties-symbolic.svg">resources/icons/general-properties-symbolic.svg</file>
     <file alias="eye-not-looking-symbolic.svg">resources/icons/eye-not-looking-symbolic.svg</file>
   </gresource>
-
 </gresources>

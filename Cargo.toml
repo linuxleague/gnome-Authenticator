@@ -19,6 +19,7 @@ quick-xml = "0.20"
 surf = "2.1"
 url = "2.1"
 zbar-rust = "0.0"
+secret-service = "1.1"
 
 [dependencies.gtk]
 git = "https://github.com/gtk-rs/gtk4-rs"
