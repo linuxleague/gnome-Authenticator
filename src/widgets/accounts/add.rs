@@ -69,6 +69,15 @@ impl AddAccountDialog {
 
         username_entry.connect_changed(validate_entries.clone());
         token_entry.connect_changed(validate_entries);
+
+        let event_controller = gtk::EventControllerKey::new();
+        event_controller.connect_key_pressed(clone!(@weak self.widget as widget => @default-return Inhibit(false), move |e, k, u, m| {
+            if k == 65307 {
+                widget.close();
+            }
+            Inhibit(false)
+        }));
+        self.widget.add_controller(&event_controller);
     }
 
     fn scan_qr(&self) -> Result<()> {
