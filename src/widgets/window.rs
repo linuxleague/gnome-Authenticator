@@ -191,7 +191,7 @@ impl Window {
         app.connect_local(
             "notify::locked",
             false,
-            clone!(@strong app => move |val| {
+            clone!(@strong app => move |_| {
                 if app.locked(){
                     send!(sender, Action::SetView(View::Login));
                 } else {

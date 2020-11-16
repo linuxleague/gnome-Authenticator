@@ -3,9 +3,9 @@ use crate::helpers::Keyring;
 use crate::models::{Account, Provider, ProvidersModel};
 use crate::widgets::{AddAccountDialog, PreferencesWindow, View, Window, WindowPrivate};
 use gio::prelude::*;
-use glib::subclass;
 use glib::subclass::prelude::*;
 use glib::translate::*;
+use glib::{subclass, WeakRef};
 use gtk::prelude::*;
 use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplicationImpl};
 use std::env;
@@ -23,7 +23,7 @@ pub enum Action {
 }
 
 pub struct ApplicationPrivate {
-    window: RefCell<Option<Window>>,
+    window: RefCell<Option<WeakRef<Window>>>,
     model: Rc<ProvidersModel>,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
@@ -169,7 +169,8 @@ impl ApplicationImpl for ApplicationPrivate {
 
     fn activate(&self, _app: &gio::Application) {
         if let Some(ref win) = *self.window.borrow() {
-            win.present();
+            let window = win.upgrade().unwrap();
+            window.present();
             return;
         }
 
@@ -178,12 +179,13 @@ impl ApplicationImpl for ApplicationPrivate {
             .unwrap();
         let window = app.create_window();
         window.present();
-        self.window.replace(Some(window));
+        self.window.replace(Some(window.downgrade()));
         let has_set_password = Keyring::has_set_password().unwrap_or_else(|_| false);
 
         app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
         app.set_accels_for_action("app.quit", &["<primary>q"]);
         app.set_accels_for_action("app.lock", &["<primary>l"]);
+        app.set_accels_for_action("app.preferences", &["<primary>comma"]);
         app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         app.set_accels_for_action("win.search", &["<primary>f"]);
         app.set_accels_for_action("win.add-account", &["<primary>n"]);
@@ -232,11 +234,13 @@ impl Application {
     }
 
     pub fn set_locked(&self, state: bool) {
-        self.set_property("locked", &state);
+        self.set_property("locked", &state)
+            .expect("Failed to set locked property");
     }
 
     pub fn set_can_be_locked(&self, state: bool) {
-        self.set_property("can-be-locked", &state);
+        self.set_property("can-be-locked", &state)
+            .expect("Failed to set can-be-locked property");
     }
 
     fn create_window(&self) -> Window {
@@ -257,7 +261,11 @@ impl Application {
                 dialog.widget.show();
             }
             Action::AccountCreated(account, provider) => {
+                let win_ = active_window.downcast_ref::<Window>().unwrap();
+                let priv_ = WindowPrivate::from_instance(win_);
+
                 self_.model.add_account(&account, &provider);
+                priv_.providers.refilter();
             }
             Action::AccountRemoved(account) => {
                 let win_ = active_window.downcast_ref::<Window>().unwrap();

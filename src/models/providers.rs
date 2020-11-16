@@ -1,5 +1,6 @@
 use super::account::Account;
 use super::provider::Provider;
+use anyhow::Result;
 use gio::prelude::*;
 use glib::StaticType;
 use gtk::prelude::*;
@@ -57,7 +58,7 @@ impl ProvidersModel {
         self.model.insert_sorted(provider, Provider::compare);
     }
 
-    pub fn add_account(&self, account: &Account, provider: &Provider) {
+    pub fn add_account(&self, account: &Account, provider: &Provider) -> Result<()> {
         let mut found = false;
         for pos in 0..self.count() {
             let obj = self.model.get_object(pos).unwrap();
@@ -72,17 +73,19 @@ impl ProvidersModel {
             provider.add_account(account);
             self.add_provider(provider);
         }
+        Ok(())
     }
 
-    pub fn remove_account(&self, account: &Account) {
+    pub fn remove_account(&self, account: &Account) -> Result<()> {
         for pos in 0..self.count() {
             let obj = self.model.get_object(pos).unwrap();
             let p = obj.downcast_ref::<Provider>().unwrap();
             if let Some(pos) = p.has_account(account) {
-                p.remove_account(account, pos);
+                p.remove_account(account, pos)?;
                 break;
             }
         }
+        Ok(())
     }
 
     pub fn count(&self) -> u32 {

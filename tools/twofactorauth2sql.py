@@ -38,10 +38,7 @@ if path.exists(OUTPUT_DIR):
 
 
 def is_valid(provider):
-    if set(["tfa", "software"]).issubset(provider.keys()):
-        return provider["tfa"] and provider["software"]
-    else:
-        return False
+    return "totp" in provider.get("tfa", [])
 
 
 output = {}
@@ -54,12 +51,14 @@ up_query = ""
 for db_file in glob(DATA_DIR + "/*.yml"):
     with open(db_file, 'r', encoding='utf8') as file_data:
         try:
-            providers = yaml.load(file_data)["websites"]
+            providers = yaml.load(file_data, Loader=yaml.SafeLoader)["websites"]
             for provider in providers:
                 if is_valid(provider):
-                	up_query += "INSERT INTO `providers` (`name`, `website`, `help_url`, `image_uri`) VALUES (`{}`, `{}`, `{}`, `{}`);\n".format(
-                				html_parser.unescape(provider.get("name")), provider.get("url"), provider.get("doc", ""), '')
-                	down_query += "DELETE FROM `providers` WHERE `name`=`{}`\n".format(html_parser.unescape(provider.get("name")));
+                    name = provider.get("name").replace("&amp;", "&")
+                    website = provider.get("url", "")
+                    help_url = provider.get("doc", "")
+                    up_query += f"INSERT INTO `providers` (`name`, `website`, `help_url`) VALUES (`{name}`, `{website}`, `{help_url}`);\n"
+                    down_query += f"DELETE FROM `providers` WHERE `name`=`{name}`;\n"
         except (yaml.YAMLError, TypeError, KeyError) as error:
             pass
 

@@ -3,7 +3,6 @@
 }
 .pill-button {
 	border-radius: 9999px;
-	-gtk-outline-radius: 9999px;
 }
 
 .providers-list {
