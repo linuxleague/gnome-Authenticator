@@ -1,3 +1,4 @@
+use gettextrs::gettext;
 use std::str::FromStr;
 use std::string::ToString;
 
@@ -11,6 +12,16 @@ pub enum Algorithm {
     HOTP = 1,
     #[genum(name = "Steam")]
     Steam = 2,
+}
+
+impl Algorithm {
+    pub fn to_locale_string(&self) -> String {
+        match *self {
+            Algorithm::HOTP => gettext("HOTP"),
+            Algorithm::OTP => gettext("One-Time-Password"),
+            Algorithm::Steam => gettext("Steam"),
+        }
+    }
 }
 
 impl FromStr for Algorithm {

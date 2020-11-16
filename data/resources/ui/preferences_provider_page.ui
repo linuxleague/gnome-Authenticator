@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkAdjustment" id="period_adjustment">
+    <property name="upper">60</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkSizeGroup">
+    <widgets>
+      <widget name="period_spinbutton"/>
+      <widget name="provider_website_entry"/>
+      <widget name="name_entry"/>
+    </widgets>
+  </object>
+  <object class="GtkBox" id="provider_page">
+    <property name="orientation">vertical</property>
+    <property name="hexpand">True</property>
+    <child>
+      <object class="GtkHeaderBar">
+        <property name="show-title-buttons">False</property>
+        <property name="title-widget">
+          <object class="GtkLabel" id="title">
+            <style>
+              <class name="title" />
+            </style>
+          </object>
+        </property>
+        <child type="start">
+          <object class="GtkButton" id="back_btn">
+            <property name="receives_default">True</property>
+            <property name="action_name">preferences.close_page</property>
+            <property name="icon-name">go-previous-symbolic</property>
+          </object>
+        </child>
+        <child type="end">
+          <object class="GtkButton" id="save_btn">
+            <property name="label" translatable="yes">Save</property>
+            <property name="sensitive">False</property>
+            <property name="receives_default">True</property>
+            <property name="action_name">provider.save</property>
+            <style>
+              <class name="suggested-action"/>
+            </style>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="HdyClamp">
+        <property name="valign">center</property>
+        <property name="margin-top">12</property>
+        <property name="margin-bottom">12</property>
+        <property name="vexpand">True</property>
+        <property name="maximum-size">400</property>
+        <property name="tightening-threshold">400</property>
+        <child>
+          <object class="GtkBox" id="main_container">
+            <property name="orientation">vertical</property>
+            <property name="spacing">42</property>
+            <property name="margin-start">8</property>
+            <property name="margin-end">8</property>
+            <child>
+              <object class="GtkStack" id="image_stack">
+                <property name="transition-type">crossfade</property>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">image</property>
+                    <property name="child">
+                      <object class="GtkImage" id="image">
+                        <property name="icon-name">image-missing</property>
+                        <property name="pixel-size">96</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">loading</property>
+                    <property name="child">
+                      <object class="GtkSpinner" id="spinner">
+                        <property name="valign">center</property>
+                        <property name="halign">center</property>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkListBox">
+                <property name="selection_mode">none</property>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="activatable_widget">name_entry</property>
+                    <property name="title" translatable="yes">Name</property>
+                    <child>
+                      <object class="GtkEntry" id="name_entry">
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="enable_emoji_completion">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="activatable_widget">provider_website_entry</property>
+                    <property name="title" translatable="yes">Website</property>
+                    <child>
+                      <object class="GtkEntry" id="provider_website_entry">
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="input_purpose">url</property>
+                        <property name="enable_emoji_completion">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="activatable_widget">period_spinbutton</property>
+                    <property name="title" translatable="yes">Period</property>
+                    <child>
+                      <object class="GtkSpinButton" id="period_spinbutton">
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="text" translatable="yes">0</property>
+                        <property name="adjustment">period_adjustment</property>
+                        <property name="numeric">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyComboRow" id="algorithm_comborow">
+                    <property name="title" translatable="yes">Algorithm</property>
+                    <property name="expression">
+                      <lookup type="HdyEnumValueObject" name="name"/>
+                    </property>
+                  </object>
+                </child>
+                <style>
+                  <class name="content"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

@@ -1,12 +1,11 @@
 use crate::application::Action;
 use crate::helpers::qrcode;
-use crate::models::{Account, Algorithm, Provider, ProvidersModel};
+use crate::models::{Account, Provider, ProvidersModel};
 use anyhow::Result;
 use gio::prelude::*;
-use glib::StaticType;
 use glib::{signal::Inhibit, Receiver, Sender};
 use gtk::prelude::*;
-use libhandy::ComboRowExt;
+use libhandy::ActionRowExt;
 use std::cell::RefCell;
 use std::rc::Rc;
 
@@ -71,7 +70,7 @@ impl AddAccountDialog {
         token_entry.connect_changed(validate_entries);
 
         let event_controller = gtk::EventControllerKey::new();
-        event_controller.connect_key_pressed(clone!(@weak self.widget as widget => @default-return Inhibit(false), move |e, k, u, m| {
+        event_controller.connect_key_pressed(clone!(@weak self.widget as widget => @default-return Inhibit(false), move |_, k, _, _| {
             if k == 65307 {
                 widget.close();
             }
@@ -100,63 +99,43 @@ impl AddAccountDialog {
     }
 
     fn save(&self) -> Result<()> {
-        let provider = match self.selected_provider.borrow().clone() {
-            Some(p) => p,
-            None => {
-                let provider_website =
-                    get_widget!(self.builder, gtk::Entry, @provider_website_entry).get_text();
-                let provider_name = get_widget!(self.builder, gtk::Entry, @provider_entry)
-                    .get_text()
-                    .unwrap();
-                let period = get_widget!(self.builder, gtk::SpinButton, @period_spinbutton)
-                    .get_value() as i32;
+        if let Some(provider) = self.selected_provider.borrow().clone() {
+            let username = get_widget!(self.builder, gtk::Entry, @username_entry)
+                .get_text()
+                .unwrap();
+            let token = get_widget!(self.builder, gtk::Entry, @token_entry)
+                .get_text()
+                .unwrap();
 
-                let selected_alg =
-                    get_widget!(self.builder, libhandy::ComboRow, @algorithm_comborow)
-                        .get_selected();
-                let algorithm: Algorithm = unsafe { std::mem::transmute(selected_alg) };
-                Provider::create(
-                    &provider_name,
-                    period,
-                    algorithm,
-                    provider_website.map(|w| w.to_string()),
-                )
-                .unwrap()
-            }
-        };
-        let username = get_widget!(self.builder, gtk::Entry, @username_entry)
-            .get_text()
-            .unwrap();
-        let token = get_widget!(self.builder, gtk::Entry, @token_entry)
-            .get_text()
-            .unwrap();
-
-        let account = Account::create(&username, &token, provider.id())?;
-        send!(
-            self.global_sender,
-            Action::AccountCreated(account, provider)
-        );
+            let account = Account::create(&username, &token, provider.id())?;
+            send!(
+                self.global_sender,
+                Action::AccountCreated(account, provider)
+            );
+        }
         Ok(())
     }
 
     fn set_provider(&self, provider: Provider) {
+        get_widget!(self.builder, gtk::ListBox, @more_list).show();
         get_widget!(self.builder, gtk::Entry, @provider_entry).set_text(&provider.name());
-        get_widget!(self.builder, gtk::SpinButton, @period_spinbutton)
-            .set_value(provider.period() as f64);
+        get_widget!(self.builder, gtk::Label, @period_label)
+            .set_text(&format!("{} seconds", provider.period()));
+        get_widget!(self.builder, gtk::Label, @algorithm_label)
+            .set_text(&provider.algorithm().to_locale_string());
 
         if let Some(ref website) = provider.website() {
-            get_widget!(self.builder, gtk::Entry, @provider_website_entry).set_text(website);
+            get_widget!(self.builder, libhandy::ActionRow, provider_website_row);
+            provider_website_row.set_subtitle(Some(website));
+        }
+        if let Some(ref help_url) = provider.help_url() {
+            get_widget!(self.builder, libhandy::ActionRow, provider_help_row);
+            provider_help_row.set_subtitle(Some(help_url));
         }
 
         get_widget!(self.builder, gtk::Stack, @image_stack).set_visible_child_name("loading");
         get_widget!(self.builder, gtk::Spinner, @spinner).start();
 
-        unsafe {
-            // This is safe because of the repr(u32)
-            let selected_position: u32 = std::mem::transmute(provider.algorithm());
-            get_widget!(self.builder, libhandy::ComboRow, @algorithm_comborow)
-                .set_selected(selected_position);
-        }
         let p = provider.clone();
         let sender = self.sender.clone();
         spawn!(async move {
@@ -164,9 +143,6 @@ impl AddAccountDialog {
                 send!(sender, AddAccountAction::SetIcon(file));
             }
         });
-
-        get_widget!(self.builder, gtk::Entry, @token_entry)
-            .set_property_secondary_icon_sensitive(provider.help_url().is_some());
 
         self.selected_provider.replace(Some(provider));
     }
@@ -209,12 +185,7 @@ impl AddAccountDialog {
         get_widget!(self.builder, gtk::EntryCompletion, provider_completion);
         provider_completion.set_model(Some(&self.model.completion_model()));
 
-        get_widget!(self.builder, gtk::Entry, @token_entry)
-            .set_property_secondary_icon_sensitive(false);
-
-        get_widget!(self.builder, libhandy::ComboRow, algorithm_comborow);
-        let algorithms_model = libhandy::EnumListModel::new(Algorithm::static_type());
-        algorithm_comborow.set_model(Some(&algorithms_model));
+        get_widget!(self.builder, gtk::Entry, @token_entry);
 
         provider_completion.connect_match_selected(
             clone!(@strong dialog, @strong self.model as model => move |_, store, iter| {
@@ -225,16 +196,6 @@ impl AddAccountDialog {
                 Inhibit(false)
             }),
         );
-
-        get_widget!(self.builder, gtk::Entry, token_entry);
-        token_entry.connect_icon_press(clone!(@strong dialog => move |_, pos| {
-            if pos == gtk::EntryIconPosition::Secondary {
-                if let Some(ref provider) = dialog.selected_provider.borrow().clone() {
-                   provider.open_help();
-                }
-            }
-        }));
-        get_widget!(self.builder, gtk::SpinButton, @period_spinbutton).set_value(30.0);
     }
 
     fn do_action(&self, action: AddAccountAction) -> glib::Continue {

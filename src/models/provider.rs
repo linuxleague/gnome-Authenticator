@@ -7,7 +7,6 @@ use diesel::{QueryDsl, RunQueryDsl};
 use gio::prelude::*;
 use gio::FileExt;
 use glib::subclass::{self, prelude::*};
-use glib::translate::*;
 use glib::{Cast, StaticType, ToValue};
 use gtk::FilterListModelExt;
 use std::cell::{Cell, RefCell};
@@ -117,6 +116,7 @@ static PROPERTIES: [subclass::Property; 8] = [
 
 impl ObjectSubclass for ProviderPriv {
     const NAME: &'static str = "Provider";
+    type Type = super::Provider;
     type ParentType = glib::Object;
     type Instance = subclass::simple::InstanceStruct<Self>;
     type Class = subclass::simple::ClassStruct<Self>;
@@ -144,7 +144,7 @@ impl ObjectSubclass for ProviderPriv {
 }
 
 impl ObjectImpl for ProviderPriv {
-    fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+    fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
         let prop = &PROPERTIES[id];
 
         match *prop {
@@ -197,7 +197,7 @@ impl ObjectImpl for ProviderPriv {
         }
     }
 
-    fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
         let prop = &PROPERTIES[id];
 
         match *prop {
@@ -212,12 +212,9 @@ impl ObjectImpl for ProviderPriv {
         }
     }
 }
-glib_wrapper! {
-    pub struct Provider(Object<subclass::simple::InstanceStruct<ProviderPriv>, subclass::simple::ClassStruct<ProviderPriv>>);
 
-    match fn {
-        get_type => || ProviderPriv::get_type().to_glib(),
-    }
+glib_wrapper! {
+    pub struct Provider(ObjectSubclass<ProviderPriv>);
 }
 
 impl Provider {

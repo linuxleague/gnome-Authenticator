@@ -57,6 +57,8 @@ sources = files(
   'widgets/providers/row.rs',
   'widgets/preferences/mod.rs',
   'widgets/preferences/password_page.rs',
+  'widgets/preferences/provider_page.rs',
+  'widgets/preferences/providers_page.rs',
   'widgets/preferences/window.rs',
 	'widgets/mod.rs',
 	'widgets/window.rs',

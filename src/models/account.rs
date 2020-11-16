@@ -5,7 +5,6 @@ use anyhow::Result;
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::subclass::{self, prelude::*};
-use glib::translate::*;
 use glib::{Cast, ObjectExt, StaticType, ToValue};
 use std::cell::{Cell, RefCell};
 
@@ -65,6 +64,7 @@ static PROPERTIES: [subclass::Property; 4] = [
 
 impl ObjectSubclass for AccountPriv {
     const NAME: &'static str = "Account";
+    type Type = super::Account;
     type ParentType = glib::Object;
     type Instance = subclass::simple::InstanceStruct<Self>;
     type Class = subclass::simple::ClassStruct<Self>;
@@ -86,7 +86,7 @@ impl ObjectSubclass for AccountPriv {
 }
 
 impl ObjectImpl for AccountPriv {
-    fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+    fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
         let prop = &PROPERTIES[id];
 
         match *prop {
@@ -122,7 +122,7 @@ impl ObjectImpl for AccountPriv {
         }
     }
 
-    fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
         let prop = &PROPERTIES[id];
 
         match *prop {
@@ -134,12 +134,9 @@ impl ObjectImpl for AccountPriv {
         }
     }
 }
-glib_wrapper! {
-    pub struct Account(Object<subclass::simple::InstanceStruct<AccountPriv>, subclass::simple::ClassStruct<AccountPriv>>);
 
-    match fn {
-        get_type => || AccountPriv::get_type().to_glib(),
-    }
+glib_wrapper! {
+    pub struct Account(ObjectSubclass<AccountPriv>);
 }
 
 impl Account {

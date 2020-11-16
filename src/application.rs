@@ -4,7 +4,6 @@ use crate::models::{Account, Provider, ProvidersModel};
 use crate::widgets::{AddAccountDialog, PreferencesWindow, View, Window, WindowPrivate};
 use gio::prelude::*;
 use glib::subclass::prelude::*;
-use glib::translate::*;
 use glib::{subclass, WeakRef};
 use gtk::prelude::*;
 use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplicationImpl};
@@ -47,6 +46,7 @@ static PROPERTIES: [subclass::Property; 2] = [
 impl ObjectSubclass for ApplicationPrivate {
     const NAME: &'static str = "Application";
     type ParentType = gtk::Application;
+    type Type = super::Application;
     type Instance = subclass::simple::InstanceStruct<Self>;
     type Class = subclass::simple::ClassStruct<Self>;
 
@@ -73,7 +73,7 @@ impl ObjectSubclass for ApplicationPrivate {
 }
 
 impl ObjectImpl for ApplicationPrivate {
-    fn set_property(&self, _obj: &glib::Object, id: usize, value: &glib::Value) {
+    fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
         let prop = &PROPERTIES[id];
 
         match *prop {
@@ -95,7 +95,7 @@ impl ObjectImpl for ApplicationPrivate {
         }
     }
 
-    fn get_property(&self, _obj: &glib::Object, id: usize) -> Result<glib::Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
         let prop = &PROPERTIES[id];
 
         match *prop {
@@ -108,13 +108,12 @@ impl ObjectImpl for ApplicationPrivate {
 
 impl GtkApplicationImpl for ApplicationPrivate {}
 impl ApplicationImpl for ApplicationPrivate {
-    fn startup(&self, application: &gio::Application) {
-        self.parent_startup(application);
-        let app_ = ObjectSubclass::get_instance(self)
-            .downcast::<Application>()
-            .unwrap();
+    fn startup(&self, app: &Self::Type) {
+        self.parent_startup(app);
+
         libhandy::functions::init();
 
+        let app = app.downcast_ref::<Application>().unwrap();
         if let Some(ref display) = gdk::Display::get_default() {
             let p = gtk::CssProvider::new();
             gtk::CssProvider::load_from_resource(&p, "/com/belmoussaoui/Authenticator/style.css");
@@ -123,18 +122,14 @@ impl ApplicationImpl for ApplicationPrivate {
             theme.add_resource_path("/com/belmoussaoui/Authenticator/icons/");
         }
 
-        action!(
-            application,
-            "quit",
-            clone!(@strong application as app => move |_, _| app.quit())
-        );
+        action!(app, "quit", clone!(@strong app => move |_, _| app.quit()));
 
         action!(
-            application,
+            app,
             "preferences",
-            clone!(@strong app_ => move |_,_| {
-                let window = app_.get_active_window().unwrap();
-                let preferences = PreferencesWindow::new();
+            clone!(@strong app, @weak self.model as model => move |_,_| {
+                let window = app.get_active_window().unwrap();
+                let preferences = PreferencesWindow::new(model);
                 preferences.widget.set_transient_for(Some(&window));
                 preferences.widget.show();
             })
@@ -142,10 +137,10 @@ impl ApplicationImpl for ApplicationPrivate {
 
         // About
         action!(
-            application,
+            app,
             "about",
-            clone!(@strong app_ => move |_, _| {
-                let window = app_.get_active_window().unwrap();
+            clone!(@strong app => move |_, _| {
+                let window = app.get_active_window().unwrap();
 
                 let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/about_dialog.ui");
                 get_widget!(builder, gtk::AboutDialog, about_dialog);
@@ -155,33 +150,29 @@ impl ApplicationImpl for ApplicationPrivate {
         );
 
         action!(
-            application,
+            app,
             "lock",
-            clone!(@strong app_ => move |_, _| {
-                app_.set_locked(true);
+            clone!(@strong app => move |_, _| {
+                app.set_locked(true);
             })
         );
-        application
-            .bind_property("can-be-locked", &get_action!(application, @lock), "enabled")
+        app.bind_property("can-be-locked", &get_action!(app, @lock), "enabled")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        application
-            .bind_property("locked", &get_action!(application, @preferences), "enabled")
+        app.bind_property("locked", &get_action!(app, @preferences), "enabled")
             .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
             .build();
     }
 
-    fn activate(&self, _app: &gio::Application) {
+    fn activate(&self, app: &Self::Type) {
         if let Some(ref win) = *self.window.borrow() {
             let window = win.upgrade().unwrap();
             window.present();
             return;
         }
 
-        let app = ObjectSubclass::get_instance(self)
-            .downcast::<Application>()
-            .unwrap();
+        let app = app.downcast_ref::<Application>().unwrap();
         let window = app.create_window();
         window.present();
         self.window.replace(Some(window.downgrade()));
@@ -197,19 +188,16 @@ impl ApplicationImpl for ApplicationPrivate {
         app.set_locked(has_set_password);
         app.set_can_be_locked(has_set_password);
         let receiver = self.receiver.borrow_mut().take().unwrap();
-        receiver.attach(None, move |action| app.do_action(action));
+        receiver.attach(
+            None,
+            clone!(@strong app => move |action| app.do_action(action)),
+        );
     }
 }
 
 glib_wrapper! {
-    pub struct Application(
-        Object<subclass::simple::InstanceStruct<ApplicationPrivate>,
-        subclass::simple::ClassStruct<ApplicationPrivate>>)
+    pub struct Application(ObjectSubclass<ApplicationPrivate>)
         @extends gio::Application, gtk::Application, gio::ActionMap;
-
-    match fn {
-        get_type => || ApplicationPrivate::get_type().to_glib(),
-    }
 }
 
 impl Application {

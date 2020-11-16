@@ -7,7 +7,6 @@ use crate::window_state;
 use gio::prelude::*;
 use glib::subclass;
 use glib::subclass::prelude::*;
-use glib::translate::*;
 use glib::{signal::Inhibit, Sender};
 use gtk::prelude::*;
 use gtk::subclass::prelude::{WidgetImpl, WindowImpl};
@@ -28,6 +27,7 @@ pub struct WindowPrivate {
 
 impl ObjectSubclass for WindowPrivate {
     const NAME: &'static str = "Window";
+    type Type = super::Window;
     type ParentType = libhandy::ApplicationWindow;
     type Instance = subclass::simple::InstanceStruct<Self>;
     type Class = subclass::simple::ClassStruct<Self>;
@@ -57,14 +57,8 @@ impl gtk::subclass::prelude::ApplicationWindowImpl for WindowPrivate {}
 impl libhandy::subclass::prelude::ApplicationWindowImpl for WindowPrivate {}
 
 glib_wrapper! {
-    pub struct Window(
-        Object<subclass::simple::InstanceStruct<WindowPrivate>,
-        subclass::simple::ClassStruct<WindowPrivate>>)
+    pub struct Window(ObjectSubclass<WindowPrivate>)
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, libhandy::ApplicationWindow, gio::ActionMap;
-
-    match fn {
-        get_type => || WindowPrivate::get_type().to_glib(),
-    }
 }
 
 impl Window {
@@ -187,7 +181,6 @@ impl Window {
     }
 
     fn setup_signals(&self, app: &Application, sender: Sender<Action>) {
-        let self_ = WindowPrivate::from_instance(self);
         app.connect_local(
             "notify::locked",
             false,

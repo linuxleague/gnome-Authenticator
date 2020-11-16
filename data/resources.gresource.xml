@@ -17,13 +17,17 @@
     <file compressed="true" preprocess="xml-stripblanks">about_dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">window.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">preferences.ui</file>
-    <file>preferences_password_page.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">preferences_password_page.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="preferences_provider_page.ui">resources/ui/preferences_provider_page.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="preferences_providers_page.ui">resources/ui/preferences_providers_page.ui</file>
 
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
   </gresource>
   <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions/">
     <file alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>
     <file alias="general-properties-symbolic.svg">resources/icons/general-properties-symbolic.svg</file>
-    <file alias="eye-not-looking-symbolic.svg">resources/icons/eye-not-looking-symbolic.svg</file>
+    <file alias="package-x-generic-symbolic.svg">resources/icons/package-x-generic-symbolic.svg</file>
+    <file alias="link-symbolic.svg">resources/icons/link-symbolic.svg</file>
+    <file alias="help-page-symbolic.svg">resources/icons/help-page-symbolic.svg</file>
   </gresource>
 </gresources>
