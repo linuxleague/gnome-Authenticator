@@ -6,7 +6,7 @@ use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::subclass::{self, prelude::*};
 use glib::translate::*;
-use glib::{Cast, StaticType, ToValue};
+use glib::{Cast, ObjectExt, StaticType, ToValue};
 use std::cell::{Cell, RefCell};
 
 #[derive(Insertable)]
@@ -205,6 +205,11 @@ impl Account {
     pub fn name(&self) -> String {
         let priv_ = AccountPriv::from_instance(self);
         priv_.name.borrow().clone()
+    }
+
+    pub fn set_name(&self, name: &str) {
+        self.set_property("name", &name)
+            .expect("Failed to set `name` property");
     }
 
     pub fn delete(&self) -> Result<()> {

@@ -15,64 +15,102 @@
     <property name="valign">center</property>
     <property name="selectable">False</property>
     <child>
-      <object class="GtkBox">
+      <object class="GtkStack" id="edit_stack">
+        <property name="transition-type">crossfade</property>
         <child>
-          <object class="GtkLabel" id="username_label">
-            <property name="halign">start</property>
-            <property name="valign">center</property>
-            <property name="ellipsize">end</property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel" id="pin_label">
-            <property name="halign">start</property>
-            <property name="valign">center</property>
-            <style>
-              <class name="account-pin"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="hexpand">True</property>
-            <property name="halign">end</property>
-            <child>
-              <object class="GtkButton" id="copy_btn">
-                <property name="receives_default">True</property>
-                <property name="tooltip_text" translatable="yes">Copy PIN to clipboard</property>
-                <property name="valign">center</property>
+          <object class="GtkStackPage">
+            <property name="name">display</property>
+            <property name="child">
+              <object class="GtkBox">
                 <child>
-                  <object class="GtkStack" id="copy_btn_stack">
-                    <property name="halign">center</property>
+                  <object class="GtkLabel" id="name_label">
+                    <property name="halign">start</property>
                     <property name="valign">center</property>
-                    <child>
-                      <object class="GtkImage" id="copy_img">
-                        <property name="icon-name">edit-copy-symbolic</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkImage" id="ok_image">
-                        <property name="icon-name">emblem-ok-symbolic</property>
-                      </object>
-                    </child>
+                    <property name="ellipsize">end</property>
                   </object>
                 </child>
-                <style>
-                  <class name="image-button" />
-                </style>
+                <child>
+                  <object class="GtkLabel" id="pin_label">
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
+                    <style>
+                      <class name="account-pin"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="hexpand">True</property>
+                    <property name="halign">end</property>
+                    <child>
+                      <object class="GtkButton" id="copy_btn">
+                        <property name="receives_default">True</property>
+                        <property name="tooltip_text" translatable="yes">Copy PIN to clipboard</property>
+                        <property name="valign">center</property>
+                        <child>
+                          <object class="GtkStack" id="copy_btn_stack">
+                            <property name="halign">center</property>
+                            <property name="valign">center</property>
+                            <child>
+                              <object class="GtkImage" id="copy_img">
+                                <property name="icon-name">edit-copy-symbolic</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkImage" id="ok_image">
+                                <property name="icon-name">emblem-ok-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="image-button" />
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkMenuButton">
+                        <property name="receives_default">False</property>
+                        <property name="valign">center</property>
+                        <property name="menu-model">account-menu</property>
+                        <property name="icon-name">view-more-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="linked" />
+                    </style>
+                  </object>
+                </child>
               </object>
-            </child>
-            <child>
-              <object class="GtkMenuButton">
-                <property name="receives_default">False</property>
-                <property name="valign">center</property>
-                <property name="menu-model">account-menu</property>
-                <property name="icon-name">view-more-symbolic</property>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">edit</property>
+            <property name="child">
+              <object class="GtkBox">
+                <child>
+                  <object class="GtkEntry" id="name_entry">
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="receives_default">True</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <property name="action-name">account.save</property>
+                    <property name="label" translatable="yes">Save</property>
+                    <style>
+                      <class name="suggested-action" />
+                    </style>
+                  </object>
+                </child>
               </object>
-            </child>
-            <style>
-              <class name="linked" />
-            </style>
+            </property>
           </object>
         </child>
       </object>
