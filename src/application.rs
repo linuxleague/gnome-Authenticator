@@ -165,6 +165,11 @@ impl ApplicationImpl for ApplicationPrivate {
             .bind_property("can-be-locked", &get_action!(application, @lock), "enabled")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
+
+        application
+            .bind_property("locked", &get_action!(application, @preferences), "enabled")
+            .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
+            .build();
     }
 
     fn activate(&self, _app: &gio::Application) {
