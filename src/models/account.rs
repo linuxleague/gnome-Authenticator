@@ -122,14 +122,14 @@ impl ObjectImpl for AccountPriv {
         }
     }
 
-    fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
         let prop = &PROPERTIES[id];
 
         match *prop {
-            subclass::Property("id", ..) => Ok(self.id.get().to_value()),
-            subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
-            subclass::Property("token-id", ..) => Ok(self.token_id.borrow().to_value()),
-            subclass::Property("provider-id", ..) => Ok(self.provider_id.get().to_value()),
+            subclass::Property("id", ..) => self.id.get().to_value(),
+            subclass::Property("name", ..) => self.name.borrow().to_value(),
+            subclass::Property("token-id", ..) => self.token_id.borrow().to_value(),
+            subclass::Property("provider-id", ..) => self.provider_id.get().to_value(),
             _ => unimplemented!(),
         }
     }

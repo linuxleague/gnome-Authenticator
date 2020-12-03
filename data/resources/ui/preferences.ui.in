@@ -6,7 +6,7 @@
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>
-  <object class="HdyPreferencesWindow" id="preferences_window">
+  <template class="PreferencesWindow" parent="HdyPreferencesWindow">
     <property name="default_width">360</property>
     <property name="default_height">600</property>
     <property name="search-enabled">False</property>
@@ -126,6 +126,6 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>
 

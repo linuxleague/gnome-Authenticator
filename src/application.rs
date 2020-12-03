@@ -1,7 +1,7 @@
 use crate::config;
 use crate::helpers::Keyring;
 use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{AddAccountDialog, PreferencesWindow, View, Window, WindowPrivate};
+use crate::widgets::{AccountAddDialog, PreferencesWindow, View, Window};
 use gio::prelude::*;
 use glib::subclass::prelude::*;
 use glib::{subclass, WeakRef};
@@ -95,12 +95,12 @@ impl ObjectImpl for ApplicationPrivate {
         }
     }
 
-    fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
         let prop = &PROPERTIES[id];
 
         match *prop {
-            subclass::Property("locked", ..) => Ok(self.locked.get().to_value()),
-            subclass::Property("can-be-locked", ..) => Ok(self.can_be_locked.get().to_value()),
+            subclass::Property("locked", ..) => self.locked.get().to_value(),
+            subclass::Property("can-be-locked", ..) => self.can_be_locked.get().to_value(),
             _ => unimplemented!(),
         }
     }
@@ -127,11 +127,11 @@ impl ApplicationImpl for ApplicationPrivate {
         action!(
             app,
             "preferences",
-            clone!(@strong app, @weak self.model as model => move |_,_| {
+            clone!(@strong app => move |_,_| {
                 let window = app.get_active_window().unwrap();
-                let preferences = PreferencesWindow::new(model);
-                preferences.widget.set_transient_for(Some(&window));
-                preferences.widget.show();
+                let preferences = PreferencesWindow::new();
+                preferences.set_transient_for(Some(&window));
+                preferences.show();
             })
         );
 
@@ -249,23 +249,21 @@ impl Application {
 
         match action {
             Action::OpenAddAccountDialog => {
-                let dialog = AddAccountDialog::new(self_.model.clone(), self_.sender.clone());
-                dialog.widget.set_transient_for(Some(&active_window));
-                dialog.widget.show();
+                let dialog = AccountAddDialog::new(self_.model.clone(), self_.sender.clone());
+                dialog.set_transient_for(Some(&active_window));
+                dialog.show();
             }
             Action::AccountCreated(account, provider) => {
-                let win_ = active_window.downcast_ref::<Window>().unwrap();
-                let priv_ = WindowPrivate::from_instance(win_);
+                let win = active_window.downcast_ref::<Window>().unwrap();
 
                 self_.model.add_account(&account, &provider);
-                priv_.providers.refilter();
+                win.providers().refilter();
             }
             Action::AccountRemoved(account) => {
-                let win_ = active_window.downcast_ref::<Window>().unwrap();
-                let priv_ = WindowPrivate::from_instance(win_);
+                let win = active_window.downcast_ref::<Window>().unwrap();
 
                 self_.model.remove_account(&account);
-                priv_.providers.refilter();
+                win.providers().refilter();
             }
             Action::SetView(view) => {
                 let win_ = active_window.downcast_ref::<Window>().unwrap();

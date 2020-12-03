@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkBox" id="providers_box">
+  <template parent="GtkBox" class="ProvidersList">
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="orientation">vertical</property>
@@ -123,5 +123,5 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

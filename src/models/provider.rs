@@ -197,17 +197,17 @@ impl ObjectImpl for ProviderPriv {
         }
     }
 
-    fn get_property(&self, _obj: &Self::Type, id: usize) -> Result<glib::Value, ()> {
+    fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
         let prop = &PROPERTIES[id];
 
         match *prop {
-            subclass::Property("id", ..) => Ok(self.id.get().to_value()),
-            subclass::Property("name", ..) => Ok(self.name.borrow().to_value()),
-            subclass::Property("period", ..) => Ok(self.period.get().to_value()),
-            subclass::Property("algorithm", ..) => Ok(self.algorithm.borrow().to_value()),
-            subclass::Property("website", ..) => Ok(self.website.borrow().to_value()),
-            subclass::Property("help-url", ..) => Ok(self.help_url.borrow().to_value()),
-            subclass::Property("image-uri", ..) => Ok(self.image_uri.borrow().to_value()),
+            subclass::Property("id", ..) => self.id.get().to_value(),
+            subclass::Property("name", ..) => self.name.borrow().to_value(),
+            subclass::Property("period", ..) => self.period.get().to_value(),
+            subclass::Property("algorithm", ..) => self.algorithm.borrow().to_value(),
+            subclass::Property("website", ..) => self.website.borrow().to_value(),
+            subclass::Property("help-url", ..) => self.help_url.borrow().to_value(),
+            subclass::Property("image-uri", ..) => self.image_uri.borrow().to_value(),
             _ => unimplemented!(),
         }
     }

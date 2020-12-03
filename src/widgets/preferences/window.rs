@@ -1,118 +1,131 @@
 use super::password_page::PasswordPage;
-use super::provider_page::ProviderPage;
-use super::providers_page::ProvidersPage;
 use crate::config;
-use crate::models::{Provider, ProvidersModel};
+use gio::prelude::*;
 use gio::ActionMapExt;
-use gio::SettingsExt;
-use glib::{Receiver, Sender};
-use gtk::prelude::*;
+use gio::{subclass::ObjectSubclass, SettingsExt};
+use glib::subclass::prelude::*;
+use glib::{glib_object_subclass, glib_wrapper};
+use gtk::{prelude::*, CompositeTemplate};
 use libhandy::PreferencesWindowExt;
-use std::cell::RefCell;
-use std::rc::Rc;
 
-pub enum PreferencesAction {
-    EditProvider(Provider),
+mod imp {
+    use super::*;
+    use glib::subclass;
+    use gtk::subclass::prelude::*;
+    use libhandy::subclass::{
+        preferences_window::PreferencesWindowImpl, window::WindowImpl as HdyWindowImpl,
+    };
+
+    #[derive(CompositeTemplate)]
+    pub struct PreferencesWindow {
+        pub settings: gio::Settings,
+        pub actions: gio::SimpleActionGroup,
+        pub password_page: PasswordPage,
+        #[template_child(id = "auto_lock_switch")]
+        pub auto_lock: TemplateChild<gtk::Switch>,
+        #[template_child(id = "dark_theme_switch")]
+        pub dark_theme: TemplateChild<gtk::Switch>,
+        #[template_child(id = "lock_timeout_spin_btn")]
+        pub lock_timeout: TemplateChild<gtk::SpinButton>,
+    }
+
+    impl ObjectSubclass for PreferencesWindow {
+        const NAME: &'static str = "PreferencesWindow";
+        type Type = super::PreferencesWindow;
+        type ParentType = libhandy::PreferencesWindow;
+        type Instance = subclass::simple::InstanceStruct<Self>;
+        type Class = subclass::simple::ClassStruct<Self>;
+
+        glib_object_subclass!();
+
+        fn new() -> Self {
+            let settings = gio::Settings::new(config::APP_ID);
+            let actions = gio::SimpleActionGroup::new();
+
+            Self {
+                settings,
+                actions,
+                password_page: PasswordPage::new(),
+                auto_lock: TemplateChild::default(),
+                dark_theme: TemplateChild::default(),
+                lock_timeout: TemplateChild::default(),
+            }
+        }
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/preferences.ui");
+            Self::bind_template_children(klass);
+        }
+    }
+
+    impl ObjectImpl for PreferencesWindow {
+        fn constructed(&self, obj: &Self::Type) {
+            obj.init_template();
+            obj.setup_widgets();
+            obj.setup_actions();
+            self.parent_constructed(obj);
+        }
+    }
+    impl WidgetImpl for PreferencesWindow {}
+    impl WindowImpl for PreferencesWindow {}
+    impl HdyWindowImpl for PreferencesWindow {}
+    impl PreferencesWindowImpl for PreferencesWindow {}
 }
 
-pub struct PreferencesWindow {
-    pub widget: libhandy::PreferencesWindow,
-    builder: gtk::Builder,
-    settings: gio::Settings,
-    providers_model: Rc<ProvidersModel>,
-    password_page: Rc<PasswordPage>,
-    providers_page: Rc<ProvidersPage>,
-    provider_page: Rc<ProviderPage>,
-    actions: gio::SimpleActionGroup,
-    sender: Sender<PreferencesAction>,
-    receiver: RefCell<Option<Receiver<PreferencesAction>>>,
+glib_wrapper! {
+    pub struct PreferencesWindow(ObjectSubclass<imp::PreferencesWindow>)
+        @extends gtk::Widget, gtk::Window, libhandy::Window, libhandy::PreferencesWindow;
 }
 
 impl PreferencesWindow {
-    pub fn new(providers_model: Rc<ProvidersModel>) -> Rc<Self> {
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/preferences.ui");
-        get_widget!(builder, libhandy::PreferencesWindow, preferences_window);
-        let settings = gio::Settings::new(config::APP_ID);
-        let actions = gio::SimpleActionGroup::new();
-        let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
-        let receiver = RefCell::new(Some(r));
-
-        let preferences = Rc::new(Self {
-            widget: preferences_window,
-            builder,
-            settings,
-            providers_page: ProvidersPage::new(providers_model.clone(), sender.clone()),
-            provider_page: ProviderPage::new(sender.clone()),
-            password_page: PasswordPage::new(actions.clone()),
-
-            providers_model,
-            actions,
-            sender,
-            receiver,
-        });
-        preferences.init(preferences.clone());
-        preferences.setup_actions();
-        preferences
+    pub fn new() -> Self {
+        glib::Object::new(Self::static_type(), &[])
+            .expect("Failed to create PreferencesWindow")
+            .downcast::<PreferencesWindow>()
+            .expect("Created object is of wrong type")
     }
 
-    fn init(&self, preferences: Rc<Self>) {
-        get_widget!(self.builder, gtk::Switch, dark_theme_switch);
-        self.settings.bind(
+    fn setup_widgets(&self) {
+        let self_ = imp::PreferencesWindow::from_instance(self);
+
+        self_.settings.bind(
             "dark-theme",
-            &dark_theme_switch,
+            &self_.dark_theme.get(),
             "active",
             gio::SettingsBindFlags::DEFAULT,
         );
-
-        get_widget!(self.builder, gtk::Switch, auto_lock_switch);
-        self.settings.bind(
+        self_.settings.bind(
             "auto-lock",
-            &auto_lock_switch,
+            &self_.auto_lock.get(),
             "active",
             gio::SettingsBindFlags::DEFAULT,
         );
 
-        get_widget!(self.builder, gtk::SpinButton, lock_timeout_spin_btn);
-        auto_lock_switch
-            .bind_property("active", &lock_timeout_spin_btn, "sensitive")
+        self_
+            .auto_lock
+            .get()
+            .bind_property("active", &self_.lock_timeout.get(), "sensitive")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
-
-        self.widget.add(&self.providers_page.widget);
-
-        let receiver = self.receiver.borrow_mut().take().unwrap();
-        receiver.attach(None, move |action| preferences.do_action(action));
-    }
-
-    fn do_action(&self, action: PreferencesAction) -> glib::Continue {
-        match action {
-            PreferencesAction::EditProvider(provider) => {
-                self.provider_page.set_provider(provider);
-                self.widget.present_subpage(&self.provider_page.widget)
-            }
-        }
-        glib::Continue(true)
     }
 
     fn setup_actions(&self) {
+        let self_ = imp::PreferencesWindow::from_instance(self);
+
         action!(
-            self.actions,
+            self_.actions,
             "show_password_page",
-            clone!(@strong self.builder as builder,
-                @strong self.password_page.widget as password_page,
-                @strong self.widget as widget => move |_, _| {
-                widget.present_subpage(&password_page);
+            clone!(@weak self as win, @weak self_.password_page as password_page => move |_, _| {
+                win.present_subpage(&password_page);
             })
         );
         action!(
-            self.actions,
+            self_.actions,
             "close_page",
-            clone!(@strong self.builder as builder,
-                @strong self.widget as widget => move |_, _| {
-                widget.close_subpage();
+            clone!(@weak self as win => move |_, _| {
+                win.close_subpage();
             })
         );
-        self.widget
-            .insert_action_group("preferences", Some(&self.actions));
+        self.insert_action_group("preferences", Some(&self_.actions));
     }
 }

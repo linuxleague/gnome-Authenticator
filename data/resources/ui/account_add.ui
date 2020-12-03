@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="HdyWindow" id="add_dialog">
+  <template parent="HdyWindow" class="AccountAddDialog">
     <property name="modal">True</property>
     <property name="default_width">360</property>
     <property name="default_height">600</property>
     <property name="title">Add a new account</property>
-    <property name="destroy_with_parent">True</property>
     <child>
       <object class="HdyLeaflet">
         <child>
@@ -143,8 +142,7 @@
                         </child>
                         <child>
                           <object class="GtkListBox" id="more_list">
-                                                          <property name="visible">False</property>
-
+                            <property name="visible">False</property>
                             <property name="selection_mode">none</property>
                             <child>
                               <object class="HdyActionRow" id="provider_website_row">
@@ -211,7 +209,7 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
   <object class="GtkEntryCompletion" id="provider_completion">
     <property name="minimum_key_length">2</property>
     <property name="text_column">1</property>

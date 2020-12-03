@@ -10,7 +10,7 @@
       <attribute name="action">account.delete</attribute>
     </item>
   </menu>
-  <object class="GtkListBoxRow" id="account_row">
+  <template parent="GtkListBoxRow" class="AccountRow">
     <property name="can_focus">True</property>
     <property name="valign">center</property>
     <property name="selectable">False</property>
@@ -118,5 +118,5 @@
     <style>
       <class name="account-row"/>
     </style>
-  </object>
+  </template>
 </interface>

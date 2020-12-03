@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkListBoxRow" id="provider_row">
+  <template parent="GtkListBoxRow" class="ProviderRow">
     <property name="can_focus">True</property>
     <property name="valign">center</property>
     <property name="selectable">False</property>
@@ -9,7 +9,7 @@
         <property name="orientation">vertical</property>
         <property name="vexpand">True</property>
         <child>
-          <object class="GtkLabel" id="name">
+          <object class="GtkLabel" id="name_label">
             <property name="halign">start</property>
             <style>
               <class name="title-2" />
@@ -29,5 +29,5 @@
     <style>
       <class name="provider-row"/>
     </style>
-  </object>
+  </template>
 </interface>

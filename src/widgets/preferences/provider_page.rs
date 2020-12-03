@@ -1,20 +1,17 @@
-use super::window::PreferencesAction;
 use crate::models::{Algorithm, Provider};
 use glib::translate::ToGlib;
-use glib::Sender;
 use gtk::prelude::*;
-use libhandy::ComboRowExt;
+use libhandy::{ComboRowExt, EnumListModelExt};
 use std::rc::Rc;
 
 pub struct ProviderPage {
     pub widget: gtk::Box,
     builder: gtk::Builder,
-    sender: Sender<PreferencesAction>,
     algorithms_model: libhandy::EnumListModel,
 }
 
 impl ProviderPage {
-    pub fn new(sender: Sender<PreferencesAction>) -> Rc<Self> {
+    pub fn new() -> Rc<Self> {
         let builder = gtk::Builder::from_resource(
             "/com/belmoussaoui/Authenticator/preferences_provider_page.ui",
         );
@@ -23,7 +20,6 @@ impl ProviderPage {
 
         let page = Rc::new(Self {
             widget: provider_page,
-            sender,
             builder,
             algorithms_model,
         });
@@ -49,7 +45,6 @@ impl ProviderPage {
                 .find_position(provider.algorithm().to_glib()),
         );
 
-        let p = provider.clone();
         /*let sender = self.sender.clone();
         spawn!(async move {
             if let Ok(file) = p.favicon().await {

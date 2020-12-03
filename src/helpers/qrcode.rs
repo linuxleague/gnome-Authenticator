@@ -46,7 +46,7 @@ pub(crate) fn scan(screenshot: &gio::File) -> Result<OtpAuth> {
     let img = image::load_from_memory(&data)?;
 
     let (width, height) = img.dimensions();
-    let img_data: Vec<u8> = img.to_luma().to_vec();
+    let img_data: Vec<u8> = img.to_luma8().to_vec();
 
     let mut scanner = ZBarImageScanner::new();
 

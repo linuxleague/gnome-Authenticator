@@ -1,69 +1,107 @@
-use crate::application::Action;
 use crate::models::{Provider, ProvidersModel};
 use crate::widgets::providers::ProviderRow;
-use gio::ListModelExt;
-use glib::Sender;
-use gtk::prelude::*;
+use gio::{subclass::ObjectSubclass, ListModelExt};
+use glib::subclass::prelude::*;
+use glib::{glib_object_subclass, glib_wrapper};
+use gtk::{prelude::*, CompositeTemplate};
 use std::rc::Rc;
 
-pub struct ProvidersList {
-    pub widget: gtk::Box,
-    builder: gtk::Builder,
-    pub filter_model: gtk::FilterListModel,
+mod imp {
+    use super::*;
+    use glib::subclass;
+    use gtk::subclass::prelude::*;
+
+    #[derive(Debug, CompositeTemplate)]
+    pub struct ProvidersList {
+        #[template_child(id = "providers_list")]
+        pub providers_list: TemplateChild<gtk::ListBox>,
+        pub filter_model: gtk::FilterListModel,
+    }
+
+    impl ObjectSubclass for ProvidersList {
+        const NAME: &'static str = "ProvidersList";
+        type Type = super::ProvidersList;
+        type ParentType = gtk::Box;
+        type Instance = subclass::simple::InstanceStruct<Self>;
+        type Class = subclass::simple::ClassStruct<Self>;
+
+        glib_object_subclass!();
+
+        fn new() -> Self {
+            let filter_model =
+                gtk::FilterListModel::new(gtk::NONE_FILTER_LIST_MODEL, gtk::NONE_FILTER);
+            Self {
+                providers_list: TemplateChild::default(),
+                filter_model,
+            }
+        }
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_list.ui");
+            Self::bind_template_children(klass);
+        }
+    }
+
+    impl ObjectImpl for ProvidersList {
+        fn constructed(&self, obj: &Self::Type) {
+            obj.init_template();
+            obj.setup_widgets();
+            self.parent_constructed(obj);
+        }
+    }
+    impl WidgetImpl for ProvidersList {}
+    impl BoxImpl for ProvidersList {}
 }
 
+glib_wrapper! {
+    pub struct ProvidersList(ObjectSubclass<imp::ProvidersList>) @extends gtk::Widget, gtk::Box;
+}
 impl ProvidersList {
     pub fn new() -> Self {
-        let builder =
-            gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/providers_list.ui");
-        get_widget!(builder, gtk::Box, providers_box);
-
-        let filter_model = gtk::FilterListModel::new(gtk::NONE_FILTER_LIST_MODEL, gtk::NONE_FILTER);
-
-        let list = Self {
-            widget: providers_box,
-            builder,
-            filter_model,
-        };
-        list
+        glib::Object::new(Self::static_type(), &[])
+            .expect("Failed to create ProvidersList")
+            .downcast::<ProvidersList>()
+            .expect("Created object is of wrong type")
     }
 
     pub fn set_model(&self, model: Rc<ProvidersModel>) {
+        let self_ = imp::ProvidersList::from_instance(self);
         let accounts_filter = gtk::CustomFilter::new(Some(Box::new(|object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.has_accounts()
         })));
-        self.filter_model.set_filter(Some(&accounts_filter));
-        self.filter_model.set_model(Some(&model.model));
+        self_.filter_model.set_filter(Some(&accounts_filter));
+        self_.filter_model.set_model(Some(&model.model));
     }
 
     pub fn refilter(&self) {
-        if let Some(filter) = self.filter_model.get_filter() {
+        let self_ = imp::ProvidersList::from_instance(self);
+
+        if let Some(filter) = self_.filter_model.get_filter() {
             filter.changed(gtk::FilterChange::Different);
         }
     }
 
     pub fn search(&self, text: String) {
-        get_widget!(self.builder, gtk::ListBox, providers_list);
+        let self_ = imp::ProvidersList::from_instance(self);
 
         let accounts_filter = gtk::CustomFilter::new(Some(Box::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.search_accounts(text.clone());
             provider.accounts().get_n_items() != 0
         })));
-        self.filter_model.set_filter(Some(&accounts_filter));
+        self_.filter_model.set_filter(Some(&accounts_filter));
     }
 
-    pub fn init(&self, sender: Sender<Action>) {
-        get_widget!(self.builder, gtk::ListBox, providers_list);
+    fn setup_widgets(&self) {
+        let self_ = imp::ProvidersList::from_instance(self);
 
-        providers_list.bind_model(
-            Some(&self.filter_model),
-            Some(Box::new(clone!(@strong sender => move |obj| {
-                let provider = obj.downcast_ref::<Provider>().unwrap();
-                let row = ProviderRow::new(provider, sender.clone());
-                row.widget.upcast::<gtk::Widget>()
-            }))),
+        self_.providers_list.get().bind_model(
+            Some(&self_.filter_model),
+            Some(Box::new(move |obj| {
+                let provider = obj.clone().downcast::<Provider>().unwrap();
+                ProviderRow::new(provider).upcast::<gtk::Widget>()
+            })),
         );
     }
 }

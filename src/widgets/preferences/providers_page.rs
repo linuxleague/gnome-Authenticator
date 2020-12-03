@@ -1,7 +1,5 @@
-use super::window::PreferencesAction;
 use crate::models::{Provider, ProvidersModel};
 use gio::ListModelExt;
-use glib::Sender;
 use gtk::prelude::*;
 use std::rc::Rc;
 
@@ -9,11 +7,10 @@ pub struct ProvidersPage {
     pub widget: libhandy::PreferencesPage,
     builder: gtk::Builder,
     model: Rc<ProvidersModel>,
-    sender: Sender<PreferencesAction>,
 }
 
 impl ProvidersPage {
-    pub fn new(model: Rc<ProvidersModel>, sender: Sender<PreferencesAction>) -> Rc<Self> {
+    pub fn new(model: Rc<ProvidersModel>) -> Rc<Self> {
         let builder = gtk::Builder::from_resource(
             "/com/belmoussaoui/Authenticator/preferences_providers_page.ui",
         );
@@ -23,7 +20,6 @@ impl ProvidersPage {
             widget: providers_page,
             builder,
             model,
-            sender,
         });
         page.init();
         page
@@ -44,13 +40,15 @@ impl ProvidersPage {
         let selection_model = gtk::NoSelection::new(Some(&self.model.model));
         providers_list.set_model(Some(&selection_model));
 
-        providers_list.connect_activate(
-            clone!(@strong self.sender as sender => move|listview, pos|{
-                let model = listview.get_model().unwrap();
-                let provider = model.get_object(pos).unwrap().downcast::<Provider>().unwrap();
-                send!(sender, PreferencesAction::EditProvider(provider));
-            }),
-        );
+        providers_list.connect_activate(move |listview, pos| {
+            let model = listview.get_model().unwrap();
+            let provider = model
+                .get_object(pos)
+                .unwrap()
+                .downcast::<Provider>()
+                .unwrap();
+            // send!(sender, PreferencesAction::EditProvider(provider));
+        });
     }
 }
 
