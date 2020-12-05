@@ -2,8 +2,14 @@ include:
   - project: "gnome/citemplates"
     file: "flatpak/flatpak_ci_initiative.yml"
 
+stages:
+  - check
+  - test
+  - deploy
+
 flatpak:
   image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
+  stage: test
   variables:
     BUNDLE: "authenticator-nightly.flatpak"
     MANIFEST_PATH: "build-aux/com.belmoussaoui.Authenticator.Devel.json"
@@ -14,6 +20,7 @@ flatpak:
 
 rustfmt:
   image: "rust:slim"
+  stage: check
   script:
     - rustup component add rustfmt
     - echo -e "" >> src/config.rs
@@ -21,3 +28,19 @@ rustfmt:
     - rustc -Vv && cargo -Vv
     - cargo fmt --version
     - cargo fmt --all -- --color=always --check
+
+docs:
+    image: "$FLATPAK_IMAGE"
+    stage: deploy
+    tags:
+        - flatpak
+    script:
+        - flatpak-builder --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} --force-clean app ${MANIFEST_PATH}
+        - flatpak-builder --run app ${MANIFEST_PATH} cargo doc -p authenticator --no-deps --all-features
+        - rm -rf public
+        - mv _build/target/doc/ public
+    artifacts:
+        paths:
+          - public
+    only:
+        - master
