@@ -134,7 +134,8 @@ impl ProvidersModel {
             let obj = self.get_object(pos).unwrap();
             let p = obj.downcast_ref::<Provider>().unwrap();
             if let Some(pos) = p.has_account(account) {
-                p.remove_account(account, pos)?;
+                account.delete()?;
+                p.remove_account(pos);
                 break;
             }
         }
@@ -143,10 +144,10 @@ impl ProvidersModel {
 
     fn init(&self) {
         // fill in the providers from the database
-        let providers = Provider::load().unwrap();
-
-        for provider in providers.iter() {
-            self.add_provider(provider);
-        }
+        Provider::load()
+            .expect("Failed to load providers from the database")
+            .for_each(|provider| {
+                self.add_provider(&provider);
+            });
     }
 }

@@ -1,5 +1,5 @@
 use super::algorithm::Algorithm;
-use crate::models::{database, Account, FaviconError, FaviconScrapper};
+use crate::models::{database, Account, AccountsModel, FaviconError, FaviconScrapper};
 use crate::schema::providers;
 use anyhow::Result;
 use core::cmp::Ordering;
@@ -46,7 +46,7 @@ pub struct ProviderPriv {
     pub website: RefCell<Option<String>>,
     pub help_url: RefCell<Option<String>>,
     pub image_uri: RefCell<Option<String>>,
-    pub accounts: gio::ListStore,
+    pub accounts: AccountsModel,
     pub filter_model: gtk::FilterListModel,
 }
 
@@ -70,7 +70,7 @@ static PROPERTIES: [subclass::Property; 8] = [
             name,
             "accounts",
             "accounts",
-            gio::ListModel::static_type(),
+            AccountsModel::static_type(),
             glib::ParamFlags::READWRITE,
         )
     }),
@@ -137,7 +137,7 @@ impl ObjectSubclass for ProviderPriv {
     }
 
     fn new() -> Self {
-        let model = gio::ListStore::new(Account::static_type());
+        let model = AccountsModel::new();
         Self {
             id: Cell::new(0),
             name: RefCell::new("".to_string()),
@@ -262,7 +262,7 @@ impl Provider {
         UniCase::new(provider1.name()).cmp(&UniCase::new(provider2.name()))
     }
 
-    pub fn load() -> Result<Vec<Self>> {
+    pub fn load() -> Result<impl Iterator<Item = Self>> {
         use crate::schema::providers::dsl::*;
         let db = database::connection();
         let conn = db.get()?;
@@ -275,8 +275,7 @@ impl Provider {
                 let accounts = Account::load(&p).unwrap();
                 accounts.iter().for_each(|a| p.add_account(a));
                 p
-            })
-            .collect::<Vec<Provider>>();
+            });
 
         Ok(results)
     }
@@ -376,22 +375,7 @@ impl Provider {
 
     pub fn has_account(&self, account: &Account) -> Option<u32> {
         let priv_ = ProviderPriv::from_instance(self);
-        let mut found = false;
-        let mut position = 0;
-        for pos in 0..priv_.accounts.get_n_items() {
-            let obj = priv_.accounts.get_object(pos).unwrap();
-            let a = obj.downcast_ref::<Account>().unwrap();
-            if a.id() == account.id() {
-                position = pos;
-                found = true;
-                break;
-            }
-        }
-        if found {
-            Some(position)
-        } else {
-            None
-        }
+        priv_.accounts.find_by_id(account.id())
     }
 
     pub fn has_accounts(&self) -> bool {
@@ -401,7 +385,7 @@ impl Provider {
 
     pub fn add_account(&self, account: &Account) {
         let priv_ = ProviderPriv::from_instance(self);
-        priv_.accounts.insert_sorted(account, Account::compare);
+        priv_.accounts.insert(account);
     }
 
     pub fn accounts(&self) -> &gtk::FilterListModel {
@@ -418,12 +402,9 @@ impl Provider {
         priv_.filter_model.set_filter(Some(&filter));
     }
 
-    pub fn remove_account(&self, account: &Account, pos: u32) -> Result<()> {
-        account.delete()?;
-
+    pub fn remove_account(&self, pos: u32) {
         let priv_ = ProviderPriv::from_instance(self);
         priv_.accounts.remove(pos);
-        Ok(())
     }
 }
 

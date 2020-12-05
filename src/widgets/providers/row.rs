@@ -1,4 +1,4 @@
-use crate::models::{Account, Provider};
+use crate::models::{Account, AccountSorter, Provider};
 use crate::widgets::accounts::AccountRow;
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
@@ -112,8 +112,11 @@ impl ProviderRow {
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
+        let sorter = AccountSorter::new();
+        let sort_model = gtk::SortListModel::new(Some(self.provider().accounts()), Some(&sorter));
+
         self_.accounts_list.get().bind_model(
-            Some(self.provider().accounts()),
+            Some(&sort_model),
             Some(Box::new(move |account: &glib::Object| {
                 let account = account.clone().downcast::<Account>().unwrap();
                 AccountRow::new(account).upcast::<gtk::Widget>()
