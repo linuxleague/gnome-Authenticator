@@ -1,12 +1,4 @@
-variables:
-    BUNDLE: "authenticator-nightly.flatpak"
-    MANIFEST_PATH: "build-aux/com.belmoussaoui.Authenticator.Devel.json"
-    FLATPAK_MODULE: "authenticator"
-    APP_ID: "com.belmoussaoui.Authenticator.Devel"
-    RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
-
 stages:
-  - deploy
   - check
   - test
 
@@ -15,6 +7,12 @@ flatpak:
   stage: test
   tags:
     - flatpak
+  variables:
+    BUNDLE: "authenticator-nightly.flatpak"
+    MANIFEST_PATH: "build-aux/com.belmoussaoui.Authenticator.Devel.json"
+    FLATPAK_MODULE: "authenticator"
+    APP_ID: "com.belmoussaoui.Authenticator.Devel"
+    RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
   script:
     - >
       xvfb-run -a -s "-screen 0 1024x768x24"
@@ -41,18 +39,3 @@ rustfmt:
     - cargo fmt --version
     - cargo fmt --all -- --color=always --check
 
-docs:
-    image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
-    stage: deploy
-    tags:
-        - flatpak
-    script:
-        - flatpak-builder --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} --force-clean flatpak_app ${MANIFEST_PATH}
-        - flatpak-builder --run flatpak_app ${MANIFEST_PATH} cargo doc -p authenticator --no-deps --all-features
-        - rm -rf public
-        - mv _build/target/doc/ public
-    artifacts:
-        paths:
-          - public
-    only:
-        - master
