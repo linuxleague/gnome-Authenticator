@@ -30,7 +30,7 @@ rustfmt:
     - cargo fmt --all -- --color=always --check
 
 docs:
-    image: "$FLATPAK_IMAGE"
+    image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
     stage: deploy
     tags:
         - flatpak
