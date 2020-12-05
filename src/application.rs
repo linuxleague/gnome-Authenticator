@@ -7,11 +7,8 @@ use glib::subclass::prelude::*;
 use glib::{subclass, WeakRef};
 use gtk::prelude::*;
 use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplicationImpl};
+use std::cell::{Cell, RefCell};
 use std::env;
-use std::{
-    cell::{Cell, RefCell},
-    rc::Rc,
-};
 
 use glib::{Receiver, Sender};
 pub enum Action {
@@ -23,7 +20,7 @@ pub enum Action {
 
 pub struct ApplicationPrivate {
     window: RefCell<Option<WeakRef<Window>>>,
-    model: Rc<ProvidersModel>,
+    model: ProvidersModel,
     sender: Sender<Action>,
     receiver: RefCell<Option<Receiver<Action>>>,
     locked: Cell<bool>,
@@ -59,7 +56,7 @@ impl ObjectSubclass for ApplicationPrivate {
     fn new() -> Self {
         let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
         let receiver = RefCell::new(Some(r));
-        let model = Rc::new(ProvidersModel::new());
+        let model = ProvidersModel::new();
 
         Self {
             window: RefCell::new(None),

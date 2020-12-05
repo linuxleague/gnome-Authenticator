@@ -1,5 +1,5 @@
 use super::{ProviderPage, ProviderPageMode};
-use crate::models::{Provider, ProvidersModel};
+use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use gio::ListModelExt;
@@ -8,7 +8,6 @@ use glib::{glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
 use libhandy::{LeafletExt, LeafletPageExt};
 use row::ProviderActionRow;
-use std::rc::Rc;
 
 mod imp {
     use super::*;
@@ -78,7 +77,7 @@ glib_wrapper! {
 }
 
 impl ProvidersDialog {
-    pub fn new(model: Rc<ProvidersModel>) -> Self {
+    pub fn new(model: ProvidersModel) -> Self {
         let dialog = glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create ProvidersDialog")
             .downcast::<ProvidersDialog>()
@@ -89,10 +88,10 @@ impl ProvidersDialog {
         dialog
     }
 
-    fn setup_widgets(&self, model: Rc<ProvidersModel>) {
+    fn setup_widgets(&self, model: ProvidersModel) {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
-        self_.filter_model.set_model(Some(&model.model));
+        self_.filter_model.set_model(Some(&model));
         self_
             .search_bar
             .get()
@@ -131,8 +130,10 @@ impl ProvidersDialog {
         });
 
         self_.providers_list.get().set_factory(Some(&factory));
+        let sorter = ProviderSorter::new();
+        let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&sorter));
 
-        let selection_model = gtk::NoSelection::new(Some(&self_.filter_model));
+        let selection_model = gtk::NoSelection::new(Some(&sort_model));
         self_.providers_list.get().set_model(Some(&selection_model));
 
         self_.providers_list.get().connect_activate(

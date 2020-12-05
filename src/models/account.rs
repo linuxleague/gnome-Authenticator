@@ -35,7 +35,15 @@ pub struct AccountPriv {
 
 static PROPERTIES: [subclass::Property; 4] = [
     subclass::Property("id", |name| {
-        glib::ParamSpec::int(name, "id", "Id", 0, 1000, 0, glib::ParamFlags::READWRITE)
+        glib::ParamSpec::int(
+            name,
+            "id",
+            "Id",
+            0,
+            i32::MAX,
+            0,
+            glib::ParamFlags::READWRITE,
+        )
     }),
     subclass::Property("name", |name| {
         glib::ParamSpec::string(name, "name", "Name", None, glib::ParamFlags::READWRITE)

@@ -1,10 +1,9 @@
-use crate::models::{Provider, ProvidersModel};
+use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use crate::widgets::providers::ProviderRow;
 use gio::{subclass::ObjectSubclass, ListModelExt};
 use glib::subclass::prelude::*;
 use glib::{glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
-use std::rc::Rc;
 
 mod imp {
     use super::*;
@@ -64,14 +63,14 @@ impl ProvidersList {
             .expect("Created object is of wrong type")
     }
 
-    pub fn set_model(&self, model: Rc<ProvidersModel>) {
+    pub fn set_model(&self, model: ProvidersModel) {
         let self_ = imp::ProvidersList::from_instance(self);
         let accounts_filter = gtk::CustomFilter::new(Some(Box::new(|object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.has_accounts()
         })));
         self_.filter_model.set_filter(Some(&accounts_filter));
-        self_.filter_model.set_model(Some(&model.model));
+        self_.filter_model.set_model(Some(&model));
     }
 
     pub fn refilter(&self) {
@@ -95,9 +94,10 @@ impl ProvidersList {
 
     fn setup_widgets(&self) {
         let self_ = imp::ProvidersList::from_instance(self);
-
+        let sorter = ProviderSorter::new();
+        let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&sorter));
         self_.providers_list.get().bind_model(
-            Some(&self_.filter_model),
+            Some(&sort_model),
             Some(Box::new(move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
                 ProviderRow::new(provider).upcast::<gtk::Widget>()

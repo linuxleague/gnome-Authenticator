@@ -11,7 +11,6 @@ use gtk::{prelude::*, CompositeTemplate};
 use libhandy::ActionRowExt;
 use once_cell::sync::OnceCell;
 use std::cell::RefCell;
-use std::rc::Rc;
 
 pub enum AccountAddAction {
     SetIcon(gio::File),
@@ -30,7 +29,7 @@ mod imp {
         pub global_sender: OnceCell<Sender<Action>>,
         pub sender: Sender<AccountAddAction>,
         pub receiver: RefCell<Option<Receiver<AccountAddAction>>>,
-        pub model: OnceCell<Rc<ProvidersModel>>,
+        pub model: OnceCell<ProvidersModel>,
         pub selected_provider: OnceCell<Provider>,
         pub actions: gio::SimpleActionGroup,
 
@@ -129,7 +128,7 @@ glib_wrapper! {
 }
 
 impl AccountAddDialog {
-    pub fn new(model: Rc<ProvidersModel>, global_sender: Sender<Action>) -> Self {
+    pub fn new(model: ProvidersModel, global_sender: Sender<Action>) -> Self {
         let dialog = glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create AccountAddDialog")
             .downcast::<AccountAddDialog>()

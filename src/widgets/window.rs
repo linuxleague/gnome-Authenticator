@@ -11,7 +11,6 @@ use glib::{glib_object_subclass, glib_wrapper};
 use glib::{signal::Inhibit, Sender};
 use gtk::{prelude::*, CompositeTemplate};
 use libhandy::prelude::*;
-use std::rc::Rc;
 
 #[derive(PartialEq, Debug)]
 pub enum View {
@@ -92,7 +91,7 @@ glib_wrapper! {
 }
 
 impl Window {
-    pub fn new(model: Rc<ProvidersModel>, sender: Sender<Action>, app: &Application) -> Self {
+    pub fn new(model: ProvidersModel, sender: Sender<Action>, app: &Application) -> Self {
         let window = glib::Object::new(Window::static_type(), &[("application", app)])
             .unwrap()
             .downcast::<Window>()
@@ -126,7 +125,7 @@ impl Window {
         self_.providers.clone()
     }
 
-    fn init(&self, model: Rc<ProvidersModel>) {
+    fn init(&self, model: ProvidersModel) {
         let self_ = imp::Window::from_instance(self);
         self_.providers.set_model(model.clone());
         // load latest window state
