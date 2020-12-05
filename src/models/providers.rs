@@ -5,6 +5,7 @@ use gio::prelude::*;
 use glib::StaticType;
 use gtk::prelude::*;
 
+#[derive(Debug)]
 pub struct ProvidersModel {
     pub model: gio::ListStore,
 }

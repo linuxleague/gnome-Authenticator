@@ -35,21 +35,24 @@
                     </style>
                   </object>
                 </child>
+
                 <child>
-                  <object class="GtkScrolledWindow">
-                    <property name="min-content-width">340</property>
-                    <property name="min-content-height">400</property>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
+                      <object class="GtkSearchBar" id="search_bar">
                         <child>
-                          <object class="GtkSearchBar" id="search_bar">
-                            <child>
-                              <object class="GtkSearchEntry" id="search_entry">
-                              </object>
-                            </child>
+                          <object class="GtkSearchEntry" id="search_entry">
                           </object>
                         </child>
+                      </object>
+                    </child>
+
+                    <child>
+                      <object class="GtkScrolledWindow">
+                        <property name="min-content-width">340</property>
+                        <property name="min-content-height">400</property>
+
                         <child>
                           <object class="HdyClampScrollable">
                             <property name="vexpand">True</property>

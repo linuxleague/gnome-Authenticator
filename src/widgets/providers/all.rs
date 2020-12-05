@@ -115,12 +115,21 @@ impl ProvidersDialog {
             .build();
 
         let factory = gtk::SignalListItemFactory::new();
-        factory.connect_bind(|_, list_item| {
-            let item = list_item.get_item().unwrap();
-            let provider = item.clone().downcast::<Provider>().unwrap();
-            let row = ProviderActionRow::new(provider);
+        factory.connect_setup(|_, list_item| {
+            let row = ProviderActionRow::new();
             list_item.set_child(Some(&row));
         });
+        factory.connect_bind(|_, list_item| {
+            let row = list_item
+                .get_child()
+                .unwrap()
+                .downcast::<ProviderActionRow>()
+                .unwrap();
+            let item = list_item.get_item().unwrap();
+            let provider = item.clone().downcast::<Provider>().unwrap();
+            row.set_provider(provider);
+        });
+
         self_.providers_list.get().set_factory(Some(&factory));
 
         let selection_model = gtk::NoSelection::new(Some(&self_.filter_model));
@@ -214,19 +223,20 @@ mod row {
                 "Provider",
                 "The Provider",
                 Provider::static_type(),
-                glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
+                glib::ParamFlags::READWRITE,
             )
         })];
 
         pub struct ProviderActionRow {
             pub provider: RefCell<Option<Provider>>,
             pub actions: gio::SimpleActionGroup,
+            pub title_label: gtk::Label,
         }
 
         impl ObjectSubclass for ProviderActionRow {
             const NAME: &'static str = "ProviderActionRow";
             type Type = super::ProviderActionRow;
-            type ParentType = libhandy::ActionRow;
+            type ParentType = gtk::ListBoxRow;
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
@@ -234,9 +244,11 @@ mod row {
 
             fn new() -> Self {
                 let actions = gio::SimpleActionGroup::new();
+                let title_label = gtk::Label::new(None);
 
                 Self {
                     actions,
+                    title_label,
                     provider: RefCell::new(None),
                 }
             }
@@ -270,38 +282,51 @@ mod row {
             }
 
             fn constructed(&self, obj: &Self::Type) {
-                obj.init_template();
                 obj.setup_widgets();
                 self.parent_constructed(obj);
             }
         }
         impl WidgetImpl for ProviderActionRow {}
         impl ListBoxRowImpl for ProviderActionRow {}
-        impl libhandy::subclass::action_row::ActionRowImpl for ProviderActionRow {}
     }
 
     glib_wrapper! {
-        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, gtk::ListBoxRow, libhandy::ActionRow;
+        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, gtk::ListBoxRow;
     }
 
     impl ProviderActionRow {
-        pub fn new(provider: Provider) -> Self {
-            glib::Object::new(Self::static_type(), &[("provider", &provider)])
+        pub fn new() -> Self {
+            glib::Object::new(Self::static_type(), &[])
                 .expect("Failed to create ProviderActionRow")
                 .downcast::<ProviderActionRow>()
                 .expect("Created object is of wrong type")
         }
 
-        fn provider(&self) -> Provider {
-            let provider = self.get_property("provider").unwrap();
-            provider.get::<Provider>().unwrap().unwrap()
+        fn setup_widgets(&self) {
+            let self_ = imp::ProviderActionRow::from_instance(self);
+            let hbox = gtk::BoxBuilder::new()
+                .orientation(gtk::Orientation::Horizontal)
+                .margin_bottom(16)
+                .margin_end(16)
+                .margin_top(16)
+                .margin_start(16)
+                .build();
+            self_.title_label.set_valign(gtk::Align::Center);
+            self_.title_label.set_halign(gtk::Align::Start);
+            hbox.append(&self_.title_label);
+            self.set_child(Some(&hbox));
         }
 
-        fn setup_widgets(&self) {
-            self.provider()
-                .bind_property("name", self, "title")
-                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-                .build();
+        pub fn set_provider(&self, provider: Provider) {
+            let self_ = imp::ProviderActionRow::from_instance(self);
+
+            self.set_property("provider", &provider).unwrap();
+            self_.title_label.set_text(&provider.name());
+        }
+
+        pub fn provider(&self) -> Option<Provider> {
+            let provider = self.get_property("provider").unwrap();
+            provider.get::<Provider>().unwrap()
         }
     }
 }
