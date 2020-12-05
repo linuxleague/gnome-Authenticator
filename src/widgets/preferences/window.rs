@@ -44,8 +44,8 @@ mod imp {
 
             Self {
                 settings,
+                password_page: PasswordPage::new(actions.clone()),
                 actions,
-                password_page: PasswordPage::new(),
                 auto_lock: TemplateChild::default(),
                 dark_theme: TemplateChild::default(),
                 lock_timeout: TemplateChild::default(),

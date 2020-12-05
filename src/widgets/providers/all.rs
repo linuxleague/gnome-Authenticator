@@ -107,8 +107,6 @@ impl ProvidersDialog {
             }),
         );
 
-        let search_btn = self_.search_btn.get();
-
         self_
             .search_btn
             .get()
@@ -300,8 +298,6 @@ mod row {
         }
 
         fn setup_widgets(&self) {
-            let self_ = imp::ProviderActionRow::from_instance(self);
-
             self.provider()
                 .bind_property("name", self, "title")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)

@@ -6,6 +6,7 @@ use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
 use glib::{glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
+use once_cell::sync::OnceCell;
 
 mod imp {
 
@@ -14,7 +15,6 @@ mod imp {
     use gtk::subclass::prelude::*;
     #[derive(CompositeTemplate)]
     pub struct PasswordPage {
-        // actions: gio::SimpleActionGroup,
         pub has_set_password: Cell<bool>,
 
         #[template_child(id = "current_password_entry")]
@@ -28,6 +28,8 @@ mod imp {
 
         #[template_child(id = "current_password_row")]
         pub current_password_row: TemplateChild<libhandy::ActionRow>,
+
+        pub actions: OnceCell<gio::SimpleActionGroup>,
     }
 
     impl ObjectSubclass for PasswordPage {
@@ -48,6 +50,7 @@ mod imp {
                 password_entry: TemplateChild::default(),
                 confirm_password_entry: TemplateChild::default(),
                 current_password_row: TemplateChild::default(),
+                actions: OnceCell::new(),
             }
         }
 
@@ -62,8 +65,6 @@ mod imp {
     impl ObjectImpl for PasswordPage {
         fn constructed(&self, obj: &Self::Type) {
             obj.init_template();
-            obj.setup_widgets();
-            obj.setup_actions();
             self.parent_constructed(obj);
         }
     }
@@ -77,11 +78,16 @@ glib_wrapper! {
 }
 
 impl PasswordPage {
-    pub fn new() -> Self {
-        glib::Object::new(Self::static_type(), &[])
+    pub fn new(actions: gio::SimpleActionGroup) -> Self {
+        let page = glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create PasswordPage")
             .downcast::<PasswordPage>()
-            .expect("Created object is of wrong type")
+            .expect("Created object is of wrong type");
+        let self_ = imp::PasswordPage::from_instance(&page);
+        self_.actions.set(actions).unwrap();
+        page.setup_widgets();
+        page.setup_actions();
+        page
     }
 
     fn validate(&self) {
@@ -97,7 +103,7 @@ impl PasswordPage {
             password_repeat == password && password != ""
         };
 
-        // get_action!(self.actions, @save_password).set_enabled(is_valid);
+        get_action!(self_.actions.get().unwrap(), @save_password).set_enabled(is_valid);
     }
 
     fn setup_widgets(&self) {
@@ -125,32 +131,34 @@ impl PasswordPage {
     fn setup_actions(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        /*action!(
-            self.actions,
+        let actions = self_.actions.get().unwrap();
+        action!(
+            actions,
             "save_password",
-            clone!(@strong page => move |_, _| {
+            clone!(@weak self as page => move |_, _| {
                 page.save();
             })
         );
 
         action!(
-            self.actions,
+            actions,
             "reset_password",
-            clone!(@strong page => move |_,_| {
+            clone!(@weak self as page => move |_,_| {
                 page.reset();
             })
         );
-        get_action!(self.actions, @save_password).set_enabled(false);
-        get_action!(self.actions, @reset_password).set_enabled(self.has_set_password.get());*/
+        get_action!(actions, @save_password).set_enabled(false);
+        get_action!(actions, @reset_password).set_enabled(self_.has_set_password.get());
     }
 
     fn reset(&self) {
         if Keyring::reset_password().is_ok() {
             let self_ = imp::PasswordPage::from_instance(self);
+            let actions = self_.actions.get().unwrap();
 
-            // get_action!(self.actions, @close_page).activate(None);
-            // get_action!(self.actions, @save_password).set_enabled(false);
-            // get_action!(self.actions, @reset_password).set_enabled(false);
+            get_action!(actions, @close_page).activate(None);
+            get_action!(actions, @save_password).set_enabled(false);
+            get_action!(actions, @reset_password).set_enabled(false);
             self_.current_password_row.get().hide();
             self_.has_set_password.set(false);
         }
@@ -158,6 +166,7 @@ impl PasswordPage {
 
     fn save(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
+        let actions = self_.actions.get().unwrap();
 
         let current_password = self_.current_password_entry.get().get_text().unwrap();
         let password = self_.password_entry.get().get_text().unwrap();
@@ -173,9 +182,9 @@ impl PasswordPage {
             self_.current_password_entry.get().set_text("");
             self_.password_entry.get().set_text("");
             self_.confirm_password_entry.get().set_text("");
-            // get_action!(self.actions, @save_password).set_enabled(false);
-            // get_action!(self.actions, @reset_password).set_enabled(true);
-            // get_action!(self.actions, @close_page).activate(None);
+            get_action!(actions, @save_password).set_enabled(false);
+            get_action!(actions, @reset_password).set_enabled(true);
+            get_action!(actions, @close_page).activate(None);
             self_.has_set_password.set(true);
         }
     }

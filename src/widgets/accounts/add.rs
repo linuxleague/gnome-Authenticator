@@ -136,8 +136,8 @@ impl AccountAddDialog {
             .expect("Created object is of wrong type");
 
         let self_ = imp::AccountAddDialog::from_instance(&dialog);
-        self_.model.set(model);
-        self_.global_sender.set(global_sender);
+        self_.model.set(model).unwrap();
+        self_.global_sender.set(global_sender).unwrap();
 
         dialog.setup_actions();
         dialog.setup_signals();
