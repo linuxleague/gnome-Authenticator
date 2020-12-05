@@ -10,3 +10,5 @@ src/static_resources.rs
 *.*~
 builddir/
 .flatpak/
+.flatpak-builder/
+app/

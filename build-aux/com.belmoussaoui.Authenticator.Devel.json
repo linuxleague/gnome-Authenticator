@@ -17,6 +17,10 @@
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
         "build-args": ["--share=network"],
+        "test-args": [
+            "--socket=x11",
+            "--share=network"
+        ],
         "env": {
             "CARGO_HOME": "/run/build/authenticator/cargo",
             "RUST_BACKTRACE": "1",
@@ -74,6 +78,7 @@
         {
             "name": "authenticator",
             "buildsystem": "meson",
+            "run-tests": true,
             "config-opts": ["-Dprofile=development"],
             "sources": [
                 {
