@@ -13,6 +13,8 @@ stages:
 flatpak:
   image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
   stage: test
+  tags:
+    - flatpak
   script:
     - >
       xvfb-run -a -s "-screen 0 1024x768x24"
