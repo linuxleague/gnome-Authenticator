@@ -47,10 +47,8 @@ docs:
     tags:
         - flatpak
     script:
-        - /usr/lib/sdk/rust-stable/enable.sh
-        - meson _build/
-        - ninja -C _build/
-        - cargo doc -p authenticator --no-deps --all-features
+        - flatpak-builder --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} --force-clean flatpak_app ${MANIFEST_PATH}
+        - flatpak build --with-appdir --share=network --env=PATH="$PATH:/usr/lib/sdk/rust-stable/bin" flatpak_app cargo doc -p authenticator --no-deps --all-features
         - rm -rf public
         - mv _build/target/doc/ public
     artifacts:
