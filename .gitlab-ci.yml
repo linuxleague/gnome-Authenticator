@@ -6,9 +6,9 @@ variables:
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
 
 stages:
+  - deploy
   - check
   - test
-  - deploy
 
 flatpak:
   image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
@@ -48,7 +48,7 @@ docs:
         - flatpak
     script:
         - flatpak-builder --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} --force-clean flatpak_app ${MANIFEST_PATH}
-        - flatpak build --env=PATH="$PATH:/usr/lib/sdk/rust-stable/bin" flatpak_app cargo doc -p authenticator --no-deps --all-features
+        - flatpak build --share=network --env=PATH="$PATH:/usr/lib/sdk/rust-stable/bin" flatpak_app cargo doc -p authenticator --no-deps --all-features
         - rm -rf public
         - mv _build/target/doc/ public
     artifacts:
