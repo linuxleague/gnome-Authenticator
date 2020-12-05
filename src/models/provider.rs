@@ -12,6 +12,7 @@ use gtk::FilterListModelExt;
 use std::cell::{Cell, RefCell};
 use std::str::FromStr;
 use std::string::ToString;
+use unicase::UniCase;
 use url::Url;
 
 #[derive(Insertable)]
@@ -250,7 +251,7 @@ impl Provider {
         let provider1 = obj1.downcast_ref::<Provider>().unwrap();
         let provider2 = obj2.downcast_ref::<Provider>().unwrap();
 
-        provider1.name().cmp(&provider2.name())
+        UniCase::new(provider1.name()).cmp(&UniCase::new(provider2.name()))
     }
 
     pub fn load() -> Result<Vec<Self>> {

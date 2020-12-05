@@ -9,10 +9,11 @@
     <widgets>
       <widget name="period_spinbutton"/>
       <widget name="provider_website_entry"/>
+      <widget name="provider_help_entry"/>
       <widget name="name_entry"/>
     </widgets>
   </object>
-  <object class="GtkBox" id="provider_page">
+  <template parent="GtkBox" class="ProviderPage">
     <property name="orientation">vertical</property>
     <property name="hexpand">True</property>
     <child>
@@ -20,6 +21,8 @@
         <property name="show-title-buttons">False</property>
         <property name="title-widget">
           <object class="GtkLabel" id="title">
+            <property name="wrap">True</property>
+            <property name="ellipsize">end</property>
             <style>
               <class name="title" />
             </style>
@@ -28,7 +31,7 @@
         <child type="start">
           <object class="GtkButton" id="back_btn">
             <property name="receives_default">True</property>
-            <property name="action_name">preferences.close_page</property>
+            <property name="action_name">providers.back</property>
             <property name="icon-name">go-previous-symbolic</property>
           </object>
         </child>
@@ -37,7 +40,7 @@
             <property name="label" translatable="yes">Save</property>
             <property name="sensitive">False</property>
             <property name="receives_default">True</property>
-            <property name="action_name">provider.save</property>
+            <property name="action_name">providers.save</property>
             <style>
               <class name="suggested-action"/>
             </style>
@@ -51,8 +54,6 @@
         <property name="margin-top">12</property>
         <property name="margin-bottom">12</property>
         <property name="vexpand">True</property>
-        <property name="maximum-size">400</property>
-        <property name="tightening-threshold">400</property>
         <child>
           <object class="GtkBox" id="main_container">
             <property name="orientation">vertical</property>
@@ -113,7 +114,21 @@
                         <property name="valign">center</property>
                         <property name="hexpand">True</property>
                         <property name="input_purpose">url</property>
-                        <property name="enable_emoji_completion">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="activatable_widget">provider_help_entry</property>
+                    <property name="title" translatable="yes">Help URL</property>
+                    <property name="subtitle" translatable="yes">How to setup Two-Factor Authentication</property>
+                    <child>
+                      <object class="GtkEntry" id="provider_help_entry">
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="input_purpose">url</property>
                       </object>
                     </child>
                   </object>
@@ -151,5 +166,5 @@
         </child>
       </object>
     </child>
-  </object>
+  </template>
 </interface>

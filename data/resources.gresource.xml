@@ -9,7 +9,9 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="account_row.ui">resources/ui/account_row.ui</file>
 
     <!-- Providers -->
+    <file compressed="true" preprocess="xml-stripblanks" alias="provider_page.ui">resources/ui/provider_page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_row.ui">resources/ui/provider_row.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="providers_all.ui">resources/ui/providers_all.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">providers_list.ui</file>
 
     <!-- UI Files -->
@@ -18,8 +20,6 @@
     <file>window.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">preferences.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">preferences_password_page.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="preferences_provider_page.ui">resources/ui/preferences_provider_page.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="preferences_providers_page.ui">resources/ui/preferences_providers_page.ui</file>
 
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
   </gresource>

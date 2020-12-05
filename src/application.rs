@@ -1,7 +1,7 @@
 use crate::config;
 use crate::helpers::Keyring;
 use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{AccountAddDialog, PreferencesWindow, View, Window};
+use crate::widgets::{AccountAddDialog, PreferencesWindow, ProvidersDialog, View, Window};
 use gio::prelude::*;
 use glib::subclass::prelude::*;
 use glib::{subclass, WeakRef};
@@ -151,6 +151,17 @@ impl ApplicationImpl for ApplicationPrivate {
 
         action!(
             app,
+            "providers",
+            clone!(@strong app, @weak self.model as model => move |_, _| {
+                let window = app.get_active_window().unwrap();
+                let providers = ProvidersDialog::new(model);
+                providers.set_transient_for(Some(&window));
+                providers.show();
+            })
+        );
+
+        action!(
+            app,
             "lock",
             clone!(@strong app => move |_, _| {
                 app.set_locked(true);
@@ -159,8 +170,10 @@ impl ApplicationImpl for ApplicationPrivate {
         app.bind_property("can-be-locked", &get_action!(app, @lock), "enabled")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
-
         app.bind_property("locked", &get_action!(app, @preferences), "enabled")
+            .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
+            .build();
+        app.bind_property("locked", &get_action!(app, @providers), "enabled")
             .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
             .build();
     }
@@ -181,10 +194,12 @@ impl ApplicationImpl for ApplicationPrivate {
         app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
         app.set_accels_for_action("app.quit", &["<primary>q"]);
         app.set_accels_for_action("app.lock", &["<primary>l"]);
+        app.set_accels_for_action("app.providers", &["<primary>p"]);
         app.set_accels_for_action("app.preferences", &["<primary>comma"]);
         app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         app.set_accels_for_action("win.search", &["<primary>f"]);
         app.set_accels_for_action("win.add-account", &["<primary>n"]);
+
         app.set_locked(has_set_password);
         app.set_can_be_locked(has_set_password);
         let receiver = self.receiver.borrow_mut().take().unwrap();

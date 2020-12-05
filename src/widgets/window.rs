@@ -175,7 +175,6 @@ impl Window {
             "gtk-application-prefer-dark-theme",
             gio::SettingsBindFlags::DEFAULT,
         );
-        self.set_default_size(360, 600);
     }
 
     fn setup_actions(&self, app: &Application, sender: Sender<Action>) {

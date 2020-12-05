@@ -2,6 +2,10 @@
 <interface>
   <menu id="menu">
     <item>
+      <attribute name="label">_Providers</attribute>
+      <attribute name="action">app.providers</attribute>
+    </item>
+    <item>
       <attribute name="label">_Lock the application</attribute>
       <attribute name="action">app.lock</attribute>
     </item>

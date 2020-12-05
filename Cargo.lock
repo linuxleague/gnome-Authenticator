@@ -282,6 +282,7 @@ dependencies = [
  "quick-xml",
  "secret-service",
  "surf",
+ "unicase",
  "url",
  "zbar-rust",
 ]

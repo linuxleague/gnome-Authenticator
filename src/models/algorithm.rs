@@ -10,7 +10,6 @@ pub enum Algorithm {
     OTP = 0,
     #[genum(name = "HOTP")]
     HOTP = 1,
-    #[genum(name = "Steam")]
     Steam = 2,
 }
 
