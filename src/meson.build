@@ -45,7 +45,7 @@ sources = files(
   'helpers/qrcode.rs',
   'models/account_sorter.rs',
   'models/account.rs',
-  'models/accounts.rs'
+  'models/accounts.rs',
   'models/algorithm.rs',
   'models/database.rs',
   'models/favicon.rs',
