@@ -118,12 +118,12 @@ impl ApplicationImpl for ApplicationPrivate {
             theme.add_resource_path("/com/belmoussaoui/Authenticator/icons/");
         }
 
-        action!(app, "quit", clone!(@strong app => move |_, _| app.quit()));
+        action!(app, "quit", clone!(@weak app => move |_, _| app.quit()));
 
         action!(
             app,
             "preferences",
-            clone!(@strong app => move |_,_| {
+            clone!(@weak app => move |_,_| {
                 let window = app.get_active_window().unwrap();
                 let preferences = PreferencesWindow::new();
                 preferences.set_transient_for(Some(&window));
@@ -135,7 +135,7 @@ impl ApplicationImpl for ApplicationPrivate {
         action!(
             app,
             "about",
-            clone!(@strong app => move |_, _| {
+            clone!(@weak app => move |_, _| {
                 let window = app.get_active_window().unwrap();
 
                 let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/about_dialog.ui");
@@ -148,7 +148,7 @@ impl ApplicationImpl for ApplicationPrivate {
         action!(
             app,
             "providers",
-            clone!(@strong app, @weak self.model as model => move |_, _| {
+            clone!(@weak app, @weak self.model as model => move |_, _| {
                 let window = app.get_active_window().unwrap();
                 let providers = ProvidersDialog::new(model);
                 providers.set_transient_for(Some(&window));
@@ -159,7 +159,7 @@ impl ApplicationImpl for ApplicationPrivate {
         action!(
             app,
             "lock",
-            clone!(@strong app => move |_, _| {
+            clone!(@weak app => move |_, _| {
                 app.set_locked(true);
             })
         );
@@ -195,13 +195,14 @@ impl ApplicationImpl for ApplicationPrivate {
         app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
         app.set_accels_for_action("win.search", &["<primary>f"]);
         app.set_accels_for_action("win.add-account", &["<primary>n"]);
+        app.set_accels_for_action("add.scan-qr", &["<primary>t"]);
 
         app.set_locked(has_set_password);
         app.set_can_be_locked(has_set_password);
         let receiver = self.receiver.borrow_mut().take().unwrap();
         receiver.attach(
             None,
-            clone!(@strong app => move |action| app.do_action(action)),
+            clone!(@weak app => move |action| app.do_action(action)),
         );
     }
 }

@@ -163,7 +163,7 @@ impl AccountAddDialog {
         let username_entry = self_.username_entry.get();
         let token_entry = self_.token_entry.get();
 
-        let validate_entries = clone!(@weak username_entry, @weak token_entry, @strong self_.actions as actions => move |_: &gtk::Entry| {
+        let validate_entries = clone!(@weak username_entry, @weak token_entry, @weak self_.actions as actions => move |_: &gtk::Entry| {
             let username = username_entry.get_text().unwrap();
             let token = token_entry.get_text().unwrap();
 
@@ -306,7 +306,7 @@ impl AccountAddDialog {
         action!(
             self_.actions,
             "scan-qr",
-            clone!(@strong self as dialog => move |_, _| {
+            clone!(@weak self as dialog => move |_, _| {
                 dialog.scan_qr();
             })
         );
@@ -327,7 +327,7 @@ impl AccountAddDialog {
             .set_model(Some(&self_.model.get().unwrap().completion_model()));
 
         self_.provider_completion.get().connect_match_selected(
-            clone!(@strong self as dialog, @strong self_.model as model => move |_, store, iter| {
+            clone!(@weak self as dialog, @strong self_.model as model => move |_, store, iter| {
                 let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();
                 let provider = model.get().unwrap().find_by_id(provider_id).unwrap();
                 dialog.set_provider(provider);

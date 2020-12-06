@@ -131,7 +131,7 @@ impl Window {
         // load latest window state
         window_state::load(&self, &self_.settings);
         // save window state on delete event
-        self.connect_close_request(clone!(@strong self_.settings as settings => move |window| {
+        self.connect_close_request(clone!(@weak self_.settings as settings => move |window| {
             if let Err(err) = window_state::save(&window, &settings) {
                 warn!("Failed to save window state {:#?}", err);
             }
@@ -199,7 +199,7 @@ impl Window {
         action!(
             self,
             "unlock",
-            clone!(@strong sender, @weak password_entry, @strong app => move |_, _| {
+            clone!(@strong sender, @weak password_entry, @weak app => move |_, _| {
                 let password = password_entry.get_text().unwrap();
                 if Keyring::is_current_password(&password).unwrap() {
                     password_entry.set_text("");
@@ -214,7 +214,7 @@ impl Window {
         app.connect_local(
             "notify::locked",
             false,
-            clone!(@strong app => move |_| {
+            clone!(@weak app => move |_| {
                 if app.locked(){
                     send!(sender, Action::SetView(View::Login));
                 } else {

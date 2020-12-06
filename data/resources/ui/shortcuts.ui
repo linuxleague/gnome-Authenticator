@@ -17,6 +17,12 @@
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Lock</property>
+                <property name="accelerator">&lt;Primary&gt;L</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Preferences</property>
                 <property name="accelerator">&lt;Primary&gt;comma</property>
               </object>
@@ -44,9 +50,18 @@
                 <property name="accelerator">&lt;Primary&gt;F</property>
               </object>
             </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Scan QR</property>
+                <property name="accelerator">T</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>
     </child>
   </object>
 </interface>
+
+
+

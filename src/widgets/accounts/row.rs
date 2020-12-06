@@ -136,7 +136,7 @@ impl AccountRow {
             .build();
 
         self_.name_entry.get().connect_changed(
-            clone!(@strong self_.actions as actions => move |entry| {
+            clone!(@weak self_.actions as actions => move |entry| {
                 let name = entry.get_text().unwrap();
                 get_action!(actions, @save).set_enabled(!name.is_empty());
             }),
