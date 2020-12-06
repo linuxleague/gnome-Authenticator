@@ -180,9 +180,10 @@ impl AccountAddDialog {
         let username_entry = self_.username_entry.get();
 
         qrcode::screenshot_area(
+            self.downcast::<gtk::Window>().unwrap(),
             clone!(@weak token_entry, @weak username_entry, @strong self_.model as model,
                 @strong self_.sender as sender => move |screenshot| {
-                if let Ok(otpauth) = qrcode::scan(&gio::File::new_for_uri(&screenshot)) {
+                if let Ok(otpauth) = qrcode::scan(&screenshot) {
                     token_entry.set_text(&otpauth.token);
                     if let Some(ref username) = otpauth.account {
                         username_entry.set_text(&username);

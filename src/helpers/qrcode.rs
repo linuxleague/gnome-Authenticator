@@ -61,17 +61,20 @@ pub(crate) fn scan(screenshot: &gio::File) -> Result<OtpAuth> {
     anyhow::bail!("Invalid QR code")
 }
 
-pub(crate) fn screenshot_area<F: FnOnce(String)>(callback: F) -> Result<()> {
+pub(crate) fn screenshot_area<F: FnOnce(gio::File)>(
+    window: gtk::Window,
+    callback: F,
+) -> Result<()> {
     let connection = zbus::Connection::new_session()?;
     let proxy = ScreenshotProxy::new(&connection)?;
     let handle = proxy.screenshot(
-        WindowIdentifier::default(),
+        WindowIdentifier::from(window),
         ScreenshotOptions::default().interactive(true).modal(true),
     )?;
     let request = RequestProxy::new(&connection, &handle)?;
     request.on_response(move |response: Response<Screenshot>| {
         if let Ok(screenshot) = response {
-            callback(screenshot.uri);
+            callback(gio::File::new_for_uri(&screenshot.uri));
         }
     })?;
     Ok(())

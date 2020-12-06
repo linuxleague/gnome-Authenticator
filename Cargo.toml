@@ -5,7 +5,7 @@ version = "0.1.0"
 
 [dependencies]
 anyhow = "1.0"
-ashpd = "0.1"
+ashpd =  { git = "https://github.com/bilelmoussaoui/ashpd", features=["feature_gtk4"] }
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "1.4", features = ["sqlite"]}
 futures = "0.3"
