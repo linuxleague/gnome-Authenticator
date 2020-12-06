@@ -156,9 +156,9 @@ impl AccountRow {
         action!(
             self_.actions,
             "save",
-            clone!(@weak edit_stack, @weak name_entry => move |_, _| {
+            clone!(@weak self as row, @weak edit_stack, @weak name_entry => move |_, _| {
                 let new_name = name_entry.get_text().unwrap();
-
+                row.account().set_name(&new_name);
                 edit_stack.set_visible_child_name("display");
             })
         );

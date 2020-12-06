@@ -125,6 +125,7 @@ impl ProviderRow {
                 "removed",
                 false,
                 clone!(@weak provider, @weak account, @weak provider_row => move |_| {
+                    account.delete().unwrap();
                     provider.remove_account(account);
                     provider_row.emit("changed", &[]).unwrap();
                     None

@@ -214,12 +214,30 @@ impl Account {
         priv_.name.borrow().clone()
     }
 
-    pub fn set_name(&self, name: &str) {
-        self.set_property("name", &name)
-            .expect("Failed to set `name` property");
+    pub fn token_id(&self) -> String {
+        let priv_ = AccountPriv::from_instance(self);
+        priv_.token_id.borrow().clone()
+    }
+
+    pub fn set_name(&self, name: &str) -> Result<()> {
+        let db = database::connection();
+        let conn = db.get()?;
+
+        let target = accounts::table.filter(accounts::columns::id.eq(self.id()));
+        diesel::update(target)
+            .set(accounts::columns::name.eq(name))
+            .execute(&conn)?;
+
+        self.set_property("name", &name)?;
+        Ok(())
     }
 
     pub fn delete(&self) -> Result<()> {
+        Keyring::remove_token(&self.token_id());
+        let db = database::connection();
+        let conn = db.get()?;
+        diesel::delete(accounts::table.filter(accounts::columns::id.eq(&self.id())))
+            .execute(&conn)?;
         Ok(())
     }
 }

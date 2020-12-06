@@ -14,9 +14,6 @@ use std::cell::RefCell;
 
 pub enum AccountAddAction {
     SetIcon(gio::File),
-    SetProvider(Provider),
-    Save,
-    ScanQR,
 }
 
 mod imp {
@@ -181,7 +178,7 @@ impl AccountAddDialog {
 
         qrcode::screenshot_area(
             self.clone().upcast::<gtk::Window>(),
-            clone!(@weak token_entry, @weak username_entry, @strong self_.model as model,
+            clone!(@weak self as dialog, @weak token_entry, @weak username_entry, @strong self_.model as model,
                 @strong self_.sender as sender => move |screenshot| {
                 if let Ok(otpauth) = qrcode::scan(&screenshot) {
                     token_entry.set_text(&otpauth.token);
@@ -190,7 +187,7 @@ impl AccountAddDialog {
                     }
                     if let Some(ref provider) = otpauth.issuer {
                         let provider = model.get().unwrap().find_by_name(provider).unwrap();
-                        send!(sender, AccountAddAction::SetProvider(provider));
+                        dialog.set_provider(provider);
                     }
                 }
             }),
@@ -265,16 +262,18 @@ impl AccountAddDialog {
         action!(
             self_.actions,
             "save",
-            clone!(@strong self_.sender as sender => move |_, _| {
-                send!(sender, AccountAddAction::Save);
+            clone!(@weak self as dialog => move |_, _| {
+                if dialog.save().is_ok() {
+                    dialog.close();
+                }
             })
         );
 
         action!(
             self_.actions,
             "scan-qr",
-            clone!(@strong self_.sender as sender => move |_, _| {
-                send!(sender, AccountAddAction::ScanQR);
+            clone!(@strong self as dialog => move |_, _| {
+                dialog.scan_qr();
             })
         );
         self.insert_action_group("add", Some(&self_.actions));
@@ -310,15 +309,6 @@ impl AccountAddDialog {
                 self_.image.get().set_from_file(file.get_path().unwrap());
                 self_.spinner.get().stop();
                 self_.image_stack.get().set_visible_child_name("image");
-            }
-            AccountAddAction::SetProvider(p) => self.set_provider(p),
-            AccountAddAction::Save => {
-                if self.save().is_ok() {
-                    self.close();
-                }
-            }
-            AccountAddAction::ScanQR => {
-                self.scan_qr();
             }
         };
         glib::Continue(true)

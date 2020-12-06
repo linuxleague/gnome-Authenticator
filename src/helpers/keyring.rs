@@ -2,7 +2,7 @@ use crate::config;
 use secret_service::{Collection, EncryptionType, SecretService, SsError};
 use sha2::{Digest, Sha512};
 
-pub struct Keyring {}
+pub struct Keyring;
 
 impl Keyring {
     pub fn get_default_collection(ss: &SecretService) -> Result<Collection, SsError> {
@@ -42,6 +42,20 @@ impl Keyring {
             Some(e) => Some(String::from_utf8(e.get_secret()?).unwrap()),
             _ => None,
         })
+    }
+
+    pub fn remove_token(token_id: &str) -> Result<(), SsError> {
+        let ss = SecretService::new(EncryptionType::Dh)?;
+        let col = Self::get_default_collection(&ss)?;
+        let items = col.search_items(vec![
+            ("type", "token"),
+            ("token_id", token_id),
+            ("application", config::APP_ID),
+        ])?;
+        match items.get(0) {
+            Some(e) => e.delete(),
+            _ => Err(SsError::NoResult),
+        }
     }
 
     pub fn has_set_password() -> Result<bool, SsError> {
