@@ -24,6 +24,14 @@
             </style>
           </object>
         </child>
+        <child>
+          <object class="GtkProgressBar" id="progress">
+            <property name="pulse-step">0.0001</property>
+            <style>
+                <class name="totp-progress" />
+            </style>
+          </object>
+        </child>
       </object>
     </child>
     <style>

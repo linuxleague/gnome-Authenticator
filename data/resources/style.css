@@ -26,14 +26,27 @@
   margin-bottom: 8px;
   margin-left: 2px;
 }
+.totp-progress,
+.totp-progress trough progress,
+.totp-progress trough {
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-right-radius:8px;
+  border-bottom-left-radius:8px;
+}
+
+.content row.account-row:last-child {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
 
 .account-row {
   padding: 12px;
 }
 .account-otp {
-    margin-right: 8px;
-    font-weight: 500;
-    font-feature-settings: "tnum" 1;
+  margin-right: 8px;
+  font-weight: 500;
+  font-feature-settings: "tnum" 1;
 }
 
 listview.content.small > row {

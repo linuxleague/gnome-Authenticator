@@ -1,4 +1,4 @@
-use crate::models::{Account, AccountSorter, Provider};
+use crate::models::{Account, AccountSorter, Algorithm, Provider};
 use crate::widgets::accounts::AccountRow;
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
@@ -28,6 +28,8 @@ mod imp {
         pub name_label: TemplateChild<gtk::Label>,
         #[template_child(id = "accounts_list")]
         pub accounts_list: TemplateChild<gtk::ListBox>,
+        #[template_child(id = "progress")]
+        pub progress: TemplateChild<gtk::ProgressBar>,
     }
 
     impl ObjectSubclass for ProviderRow {
@@ -43,6 +45,7 @@ mod imp {
             Self {
                 name_label: TemplateChild::default(),
                 accounts_list: TemplateChild::default(),
+                progress: TemplateChild::default(),
                 provider: RefCell::new(None),
             }
         }
@@ -108,6 +111,25 @@ impl ProviderRow {
     fn setup_widgets(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
 
+        let progress_bar = self_.progress.get();
+        if self.provider().algorithm() == Algorithm::TOTP {
+            progress_bar.set_fraction(1_f64);
+            let max = self.provider().period() as f64;
+            glib::timeout_add_local(
+                std::time::Duration::from_millis(50),
+                clone!(@weak progress_bar => @default-return glib::Continue(false), move || {
+                    let mut new_value = progress_bar.get_fraction() - (0.05/max);
+                    if new_value <= 0.0 {
+                        new_value = 1.0;
+                    }
+                    progress_bar.set_fraction(new_value);
+                    glib::Continue(true)
+                }),
+            );
+        } else {
+            progress_bar.hide();
+        }
+
         self.provider()
             .bind_property("name", &self_.name_label.get(), "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
@@ -118,7 +140,7 @@ impl ProviderRow {
 
         let provider = self.provider();
 
-        let create_callback = clone!(@weak self as provider_row, @weak sorter => move |account: &glib::Object| {
+        let create_callback = clone!(@weak self as provider_row, @weak sorter, @weak provider => move |account: &glib::Object| {
             let account = account.clone().downcast::<Account>().unwrap();
             let row = AccountRow::new(account.clone());
             row.connect_local(

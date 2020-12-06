@@ -203,7 +203,7 @@ impl AccountAddDialog {
             let token = self_.token_entry.get().get_text().unwrap();
 
             if let Ok(token_id) = Keyring::store(&username, &token) {
-                let account = Account::create(&username, &token_id, provider.id())?;
+                let account = Account::create(&username, &token_id, provider)?;
                 send!(
                     self_.global_sender.get().unwrap(),
                     Action::AccountCreated(account, provider.clone())

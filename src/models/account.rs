@@ -1,3 +1,4 @@
+use super::algorithm::Algorithm;
 use super::provider::{DiProvider, Provider};
 use crate::helpers::Keyring;
 use crate::models::database;
@@ -34,7 +35,7 @@ pub struct AccountPriv {
     pub otp: RefCell<String>,
     pub name: RefCell<String>,
     pub token_id: RefCell<String>,
-    pub provider_id: Cell<i32>,
+    pub provider: RefCell<Option<Provider>>,
 }
 
 static PROPERTIES: [subclass::Property; 5] = [
@@ -70,14 +71,12 @@ static PROPERTIES: [subclass::Property; 5] = [
             glib::ParamFlags::READWRITE,
         )
     }),
-    subclass::Property("provider-id", |name| {
-        glib::ParamSpec::int(
+    subclass::Property("provider", |name| {
+        glib::ParamSpec::object(
             name,
-            "provider-id",
-            "Provider Id",
-            0,
-            1000,
-            0,
+            "provider",
+            "The account provider",
+            Provider::static_type(),
             glib::ParamFlags::READWRITE,
         )
     }),
@@ -102,7 +101,7 @@ impl ObjectSubclass for AccountPriv {
             name: RefCell::new("".to_string()),
             otp: RefCell::new("".to_string()),
             token_id: RefCell::new("".to_string()),
-            provider_id: Cell::new(0),
+            provider: RefCell::new(None),
         }
     }
 }
@@ -140,12 +139,11 @@ impl ObjectImpl for AccountPriv {
                     .unwrap();
                 self.token_id.replace(token_id);
             }
-            subclass::Property("provider-id", ..) => {
-                let provider_id = value
+            subclass::Property("provider", ..) => {
+                let provider = value
                     .get()
-                    .expect("type conformity checked by `Object::set_property`")
-                    .unwrap();
-                self.provider_id.replace(provider_id);
+                    .expect("type conformity checked by `Object::set_property`");
+                self.provider.replace(provider);
             }
             _ => unimplemented!(),
         }
@@ -159,7 +157,7 @@ impl ObjectImpl for AccountPriv {
             subclass::Property("name", ..) => self.name.borrow().to_value(),
             subclass::Property("otp", ..) => self.otp.borrow().to_value(),
             subclass::Property("token-id", ..) => self.token_id.borrow().to_value(),
-            subclass::Property("provider-id", ..) => self.provider_id.get().to_value(),
+            subclass::Property("provider", ..) => self.provider.borrow().to_value(),
             _ => unimplemented!(),
         }
     }
@@ -170,7 +168,7 @@ glib_wrapper! {
 }
 
 impl Account {
-    pub fn create(name: &str, token_id: &str, provider_id: i32) -> Result<Account> {
+    pub fn create(name: &str, token_id: &str, provider: &Provider) -> Result<Account> {
         let db = database::connection();
         let conn = db.get()?;
 
@@ -178,7 +176,7 @@ impl Account {
             .values(NewAccount {
                 name: name.to_string(),
                 token_id: token_id.to_string(),
-                provider_id,
+                provider_id: provider.id(),
             })
             .execute(&conn)?;
 
@@ -186,7 +184,14 @@ impl Account {
             .order(accounts::columns::id.desc())
             .first::<DiAccount>(&conn)
             .map_err(From::from)
-            .map(From::from)
+            .map(|account| {
+                Self::new(
+                    account.id,
+                    &account.name,
+                    &account.token_id,
+                    provider.clone(),
+                )
+            })
     }
 
     pub fn load(p: &Provider) -> Result<Vec<Self>> {
@@ -197,7 +202,7 @@ impl Account {
         let results = DiAccount::belonging_to(&dip)
             .load::<DiAccount>(&conn)?
             .into_iter()
-            .map(From::from)
+            .map(|account| Self::new(account.id, &account.name, &account.token_id, p.clone()))
             .collect::<Vec<Account>>();
         Ok(results)
     }
@@ -209,14 +214,14 @@ impl Account {
         account1.name().cmp(&account2.name())
     }
 
-    pub fn new(id: i32, name: &str, token_id: &str, provider_id: i32) -> Account {
+    pub fn new(id: i32, name: &str, token_id: &str, provider: Provider) -> Account {
         let account = glib::Object::new(
             Account::static_type(),
             &[
                 ("id", &id),
                 ("name", &name),
                 ("token-id", &token_id),
-                ("provider-id", &provider_id),
+                ("provider", &provider),
             ],
         )
         .expect("Failed to create account")
@@ -228,27 +233,37 @@ impl Account {
 
     fn init(&self) {
         self.generate_otp();
-        glib::source::timeout_add_seconds_local(
-            30,
-            clone!(@weak self as account => @default-return glib::Continue(false), move || {
-                account.generate_otp();
+        // Only trigger time-based callback after duration if it's a TOTP
+        if self.provider().algorithm() == Algorithm::TOTP {
+            glib::source::timeout_add_seconds_local(
+                self.provider().period() as u32,
+                clone!(@weak self as account => @default-return glib::Continue(false), move || {
+                    account.generate_otp();
 
-                glib::Continue(true)
-            }),
-        );
+                    glib::Continue(true)
+                }),
+            );
+        }
     }
 
     fn generate_otp(&self) {
         let token = Keyring::token(&self.token_id()).unwrap().unwrap();
-        let totp = TOTP::new(token);
+        let provider = self.provider();
+        match provider.algorithm() {
+            Algorithm::TOTP => {
+                let totp = TOTP::new(token);
 
-        let timestamp = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_secs();
-        let code = totp.generate(30, timestamp);
+                let timestamp = SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_secs();
+                let code = totp.generate(provider.period() as u64, timestamp);
 
-        self.set_property("otp", &code.to_string()).unwrap();
+                self.set_property("otp", &code.to_string()).unwrap();
+            }
+            Algorithm::HOTP => {}
+            Algorithm::Steam => {}
+        }
     }
 
     pub fn copy_otp(&self) {
@@ -261,6 +276,11 @@ impl Account {
     pub fn id(&self) -> i32 {
         let priv_ = AccountPriv::from_instance(self);
         priv_.id.get()
+    }
+
+    pub fn provider(&self) -> Provider {
+        let provider = self.get_property("provider").unwrap();
+        provider.get::<Provider>().unwrap().unwrap()
     }
 
     pub fn name(&self) -> String {
@@ -293,16 +313,5 @@ impl Account {
         diesel::delete(accounts::table.filter(accounts::columns::id.eq(&self.id())))
             .execute(&conn)?;
         Ok(())
-    }
-}
-
-impl From<DiAccount> for Account {
-    fn from(account: DiAccount) -> Self {
-        Self::new(
-            account.id,
-            &account.name,
-            &account.token_id,
-            account.provider_id,
-        )
     }
 }
