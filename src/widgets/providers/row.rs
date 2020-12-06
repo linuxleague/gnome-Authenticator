@@ -1,5 +1,5 @@
 use crate::models::{Account, AccountSorter, Algorithm, Provider};
-use crate::widgets::accounts::AccountRow;
+use crate::widgets::{accounts::AccountRow, ProviderImage, ProviderImageSize};
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
@@ -23,6 +23,7 @@ mod imp {
 
     #[derive(CompositeTemplate)]
     pub struct ProviderRow {
+        pub image: ProviderImage,
         pub provider: RefCell<Option<Provider>>,
         #[template_child(id = "name_label")]
         pub name_label: TemplateChild<gtk::Label>,
@@ -30,6 +31,8 @@ mod imp {
         pub accounts_list: TemplateChild<gtk::ListBox>,
         #[template_child(id = "progress")]
         pub progress: TemplateChild<gtk::ProgressBar>,
+        #[template_child(id = "header")]
+        pub header: TemplateChild<gtk::Box>,
     }
 
     impl ObjectSubclass for ProviderRow {
@@ -43,9 +46,11 @@ mod imp {
 
         fn new() -> Self {
             Self {
+                image: ProviderImage::new(ProviderImageSize::Small),
                 name_label: TemplateChild::default(),
                 accounts_list: TemplateChild::default(),
                 progress: TemplateChild::default(),
+                header: TemplateChild::default(),
                 provider: RefCell::new(None),
             }
         }
@@ -110,6 +115,9 @@ impl ProviderRow {
 
     fn setup_widgets(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
+
+        self_.header.get().prepend(&self_.image);
+        self_.image.set_provider(&self.provider());
 
         let progress_bar = self_.progress.get();
         if self.provider().algorithm() == Algorithm::TOTP {

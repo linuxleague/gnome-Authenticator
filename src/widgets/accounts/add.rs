@@ -1,20 +1,16 @@
 use crate::application::Action;
 use crate::helpers::{qrcode, Keyring};
 use crate::models::{Account, Algorithm, Provider, ProvidersModel};
+use crate::widgets::{ProviderImage, ProviderImageSize};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::{subclass::ObjectSubclass, ActionMapExt};
 use glib::subclass::prelude::*;
 use glib::{glib_object_subclass, glib_wrapper};
-use glib::{signal::Inhibit, Receiver, Sender};
+use glib::{signal::Inhibit, Sender};
 use gtk::{prelude::*, CompositeTemplate};
 use libhandy::ActionRowExt;
 use once_cell::sync::OnceCell;
-use std::cell::RefCell;
-
-pub enum AccountAddAction {
-    SetIcon(gio::File),
-}
 
 mod imp {
     use super::*;
@@ -24,11 +20,13 @@ mod imp {
     #[derive(CompositeTemplate)]
     pub struct AccountAddDialog {
         pub global_sender: OnceCell<Sender<Action>>,
-        pub sender: Sender<AccountAddAction>,
-        pub receiver: RefCell<Option<Receiver<AccountAddAction>>>,
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: OnceCell<Provider>,
         pub actions: gio::SimpleActionGroup,
+        pub image: ProviderImage,
+
+        #[template_child(id = "main_container")]
+        pub main_container: TemplateChild<gtk::Box>,
 
         #[template_child(id = "username_entry")]
         pub username_entry: TemplateChild<gtk::Entry>,
@@ -68,15 +66,6 @@ mod imp {
 
         #[template_child(id = "provider_completion")]
         pub provider_completion: TemplateChild<gtk::EntryCompletion>,
-
-        #[template_child(id = "image")]
-        pub image: TemplateChild<gtk::Image>,
-
-        #[template_child(id = "spinner")]
-        pub spinner: TemplateChild<gtk::Spinner>,
-
-        #[template_child(id = "image_stack")]
-        pub image_stack: TemplateChild<gtk::Stack>,
     }
 
     impl ObjectSubclass for AccountAddDialog {
@@ -89,18 +78,15 @@ mod imp {
         glib_object_subclass!();
 
         fn new() -> Self {
-            let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
-            let receiver = RefCell::new(Some(r));
-
             let actions = gio::SimpleActionGroup::new();
 
             Self {
                 global_sender: OnceCell::new(),
-                sender,
-                receiver,
                 actions,
+                image: ProviderImage::new(ProviderImageSize::Large),
                 model: OnceCell::new(),
                 selected_provider: OnceCell::new(),
+                main_container: TemplateChild::default(),
                 token_entry: TemplateChild::default(),
                 username_entry: TemplateChild::default(),
                 more_list: TemplateChild::default(),
@@ -114,9 +100,6 @@ mod imp {
                 hmac_algorithm_row: TemplateChild::default(),
                 counter_row: TemplateChild::default(),
                 period_row: TemplateChild::default(),
-                image: TemplateChild::default(),
-                spinner: TemplateChild::default(),
-                image_stack: TemplateChild::default(),
             }
         }
 
@@ -194,8 +177,7 @@ impl AccountAddDialog {
 
         qrcode::screenshot_area(
             self.clone().upcast::<gtk::Window>(),
-            clone!(@weak self as dialog, @weak token_entry, @weak username_entry, @strong self_.model as model,
-                @strong self_.sender as sender => move |screenshot| {
+            clone!(@weak self as dialog, @weak token_entry, @weak username_entry, @strong self_.model as model => move |screenshot| {
                 if let Ok(otpauth) = qrcode::scan(&screenshot) {
                     token_entry.set_text(&otpauth.token);
                     if let Some(ref username) = otpauth.account {
@@ -232,14 +214,15 @@ impl AccountAddDialog {
 
     fn set_provider(&self, provider: Provider) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-
         self_.more_list.get().show();
-
         self_.provider_entry.get().set_text(&provider.name());
         self_
             .period_label
             .get()
             .set_text(&provider.period().to_string());
+
+        self_.image.set_provider(&provider);
+
         self_
             .algorithm_label
             .get()
@@ -249,6 +232,7 @@ impl AccountAddDialog {
             .digits_label
             .get()
             .set_text(&provider.digits().to_string());
+
         match provider.algorithm() {
             Algorithm::TOTP => {
                 self_.hmac_algorithm_row.get().hide();
@@ -269,18 +253,6 @@ impl AccountAddDialog {
         if let Some(ref help_url) = provider.help_url() {
             self_.provider_help_row.get().set_subtitle(Some(help_url));
         }
-
-        self_.image_stack.get().set_visible_child_name("loading");
-        self_.spinner.get().start();
-
-        let p = provider.clone();
-        let sender = self_.sender.clone();
-        spawn!(async move {
-            if let Ok(file) = p.favicon().await {
-                send!(sender, AccountAddAction::SetIcon(file));
-            }
-        });
-
         self_.selected_provider.set(provider);
     }
 
@@ -316,15 +288,12 @@ impl AccountAddDialog {
 
     fn setup_widgets(&self) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-        let receiver = self_.receiver.borrow_mut().take().unwrap();
-        receiver.attach(
-            None,
-            clone!(@weak self as dialog => move |action| dialog.do_action(action)),
-        );
         self_
             .provider_completion
             .get()
             .set_model(Some(&self_.model.get().unwrap().completion_model()));
+
+        self_.main_container.get().prepend(&self_.image);
 
         self_.provider_completion.get().connect_match_selected(
             clone!(@weak self as dialog, @strong self_.model as model => move |_, store, iter| {
@@ -335,17 +304,5 @@ impl AccountAddDialog {
                 Inhibit(false)
             }),
         );
-    }
-
-    fn do_action(&self, action: AccountAddAction) -> glib::Continue {
-        match action {
-            AccountAddAction::SetIcon(file) => {
-                let self_ = imp::AccountAddDialog::from_instance(self);
-                self_.image.get().set_from_file(file.get_path().unwrap());
-                self_.spinner.get().stop();
-                self_.image_stack.get().set_visible_child_name("image");
-            }
-        };
-        glib::Continue(true)
     }
 }

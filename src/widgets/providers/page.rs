@@ -1,4 +1,5 @@
 use crate::models::{Algorithm, HOTPAlgorithm, Provider};
+use crate::widgets::{ProviderImage, ProviderImageSize};
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
 use glib::translate::ToGlib;
@@ -18,6 +19,9 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     pub struct ProviderPage {
+        pub image: ProviderImage,
+        #[template_child(id = "main_container")]
+        pub main_container: TemplateChild<gtk::Box>,
         #[template_child(id = "name_entry")]
         pub name_entry: TemplateChild<gtk::Entry>,
         #[template_child(id = "period_spinbutton")]
@@ -30,10 +34,6 @@ mod imp {
         pub provider_website_entry: TemplateChild<gtk::Entry>,
         #[template_child(id = "provider_help_entry")]
         pub provider_help_entry: TemplateChild<gtk::Entry>,
-        #[template_child(id = "image_stack")]
-        pub image_stack: TemplateChild<gtk::Stack>,
-        #[template_child(id = "spinner")]
-        pub spinner: TemplateChild<gtk::Spinner>,
         #[template_child(id = "algorithm_comborow")]
         pub algorithm_comborow: TemplateChild<libhandy::ComboRow>,
         #[template_child(id = "hmac_algorithm_comborow")]
@@ -64,14 +64,14 @@ mod imp {
             let hmac_algorithms_model = libhandy::EnumListModel::new(HOTPAlgorithm::static_type());
 
             Self {
+                image: ProviderImage::new(ProviderImageSize::Large),
+                main_container: TemplateChild::default(),
                 name_entry: TemplateChild::default(),
                 period_spinbutton: TemplateChild::default(),
                 digits_spinbutton: TemplateChild::default(),
                 default_counter_spinbutton: TemplateChild::default(),
                 provider_website_entry: TemplateChild::default(),
                 provider_help_entry: TemplateChild::default(),
-                image_stack: TemplateChild::default(),
-                spinner: TemplateChild::default(),
                 algorithm_comborow: TemplateChild::default(),
                 hmac_algorithm_comborow: TemplateChild::default(),
                 period_row: TemplateChild::default(),
@@ -127,9 +127,6 @@ impl ProviderPage {
             self_.provider_help_entry.get().set_text(website);
         }
 
-        self_.image_stack.get().set_visible_child_name("loading");
-        self_.spinner.get().start();
-
         self_.algorithm_comborow.get().set_selected(
             self_
                 .algorithms_model
@@ -151,14 +148,7 @@ impl ProviderPage {
                 .hmac_algorithms_model
                 .find_position(provider.hmac_algorithm().to_glib()),
         );
-
-        /*let sender = self.sender.clone();
-        spawn!(async move {
-            if let Ok(file) = p.favicon().await {
-                send!(sender, AddAccountAction::SetIcon(file));
-            }
-        });*/
-
+        self_.image.set_provider(&provider);
         self_
             .title
             .get()
@@ -171,6 +161,8 @@ impl ProviderPage {
             .algorithm_comborow
             .get()
             .set_model(Some(&self_.algorithms_model));
+
+        self_.main_container.get().prepend(&self_.image);
 
         self_
             .algorithm_comborow
@@ -213,8 +205,6 @@ impl ProviderPage {
                 self_.provider_website_entry.get().set_text("");
                 self_.provider_help_entry.get().set_text("");
 
-                self_.image_stack.get().set_visible_child_name("image");
-                self_.spinner.get().stop();
                 self_.algorithm_comborow.get().set_selected(0);
             }
             ProviderPageMode::Edit => {}

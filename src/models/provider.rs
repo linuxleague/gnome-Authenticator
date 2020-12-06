@@ -1,4 +1,5 @@
 use super::algorithm::{Algorithm, HOTPAlgorithm};
+use crate::diesel::ExpressionMethods;
 use crate::models::{database, Account, AccountsModel, FaviconError, FaviconScrapper};
 use crate::schema::providers;
 use anyhow::Result;
@@ -301,7 +302,6 @@ impl Provider {
         digits: i32,
         default_counter: i32,
     ) -> Result<Self> {
-        use crate::diesel::ExpressionMethods;
         let db = database::connection();
         let conn = db.get()?;
 
@@ -452,6 +452,19 @@ impl Provider {
     pub fn help_url(&self) -> Option<String> {
         let priv_ = ProviderPriv::from_instance(self);
         priv_.help_url.borrow().clone()
+    }
+
+    pub fn set_image_uri(&self, uri: &str) -> Result<()> {
+        let db = database::connection();
+        let conn = db.get()?;
+
+        let target = providers::table.filter(providers::columns::id.eq(self.id()));
+        diesel::update(target)
+            .set(providers::columns::image_uri.eq(uri))
+            .execute(&conn)?;
+
+        self.set_property("image-uri", &uri)?;
+        Ok(())
     }
 
     pub fn image_uri(&self) -> Option<String> {

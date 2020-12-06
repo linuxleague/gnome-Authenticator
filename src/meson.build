@@ -60,6 +60,7 @@ sources = files(
   'widgets/preferences/password_page.rs',
   'widgets/preferences/window.rs',
   'widgets/providers/all.rs',
+  'widgets/providers/image.rs',
   'widgets/providers/list.rs',
   'widgets/providers/mod.rs',
   'widgets/providers/page.rs',
