@@ -118,7 +118,7 @@ impl ProviderRow {
 
         let provider = self.provider();
 
-        let create_callback = clone!(@weak self as provider_row => move |account: &glib::Object| {
+        let create_callback = clone!(@weak self as provider_row, @weak sorter => move |account: &glib::Object| {
             let account = account.clone().downcast::<Account>().unwrap();
             let row = AccountRow::new(account.clone());
             row.connect_local(
@@ -127,6 +127,15 @@ impl ProviderRow {
                 clone!(@weak provider, @weak account, @weak provider_row => move |_| {
                     account.delete().unwrap();
                     provider.remove_account(account);
+                    provider_row.emit("changed", &[]).unwrap();
+                    None
+                }),
+            ).unwrap();
+            account.connect_local("notify::name",
+                false,
+                clone!(@weak provider_row, @weak sorter => move |_| {
+                    // Re-sort in case the name was updated
+                    sorter.changed(gtk::SorterChange::Different);
                     provider_row.emit("changed", &[]).unwrap();
                     None
                 }),

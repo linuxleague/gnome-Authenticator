@@ -15,6 +15,7 @@ mod imp {
         #[template_child(id = "providers_list")]
         pub providers_list: TemplateChild<gtk::ListBox>,
         pub filter_model: gtk::FilterListModel,
+        pub sorter: ProviderSorter,
     }
 
     impl ObjectSubclass for ProvidersList {
@@ -31,6 +32,7 @@ mod imp {
                 gtk::FilterListModel::new(gtk::NONE_FILTER_LIST_MODEL, gtk::NONE_FILTER);
             Self {
                 providers_list: TemplateChild::default(),
+                sorter: ProviderSorter::new(),
                 filter_model,
             }
         }
@@ -79,6 +81,7 @@ impl ProvidersList {
         if let Some(filter) = self_.filter_model.get_filter() {
             filter.changed(gtk::FilterChange::Different);
         }
+        self_.sorter.changed(gtk::SorterChange::Different);
     }
 
     pub fn search(&self, text: String) {
@@ -94,8 +97,7 @@ impl ProvidersList {
 
     fn setup_widgets(&self) {
         let self_ = imp::ProvidersList::from_instance(self);
-        let sorter = ProviderSorter::new();
-        let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&sorter));
+        let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&self_.sorter));
         self_.providers_list.get().bind_model(
             Some(&sort_model),
             Some(Box::new(clone!(@weak self as list => move |obj| {
@@ -104,7 +106,7 @@ impl ProvidersList {
                 row.connect_local("changed", false, clone!(@weak list =>  move |_| {
                     list.refilter();
                     None
-                }));
+                })).unwrap();
 
                 row.upcast::<gtk::Widget>()
             }))),

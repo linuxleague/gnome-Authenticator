@@ -222,6 +222,7 @@ impl Window {
                 };
                 None
             }),
-        );
+        )
+        .unwrap();
     }
 }
