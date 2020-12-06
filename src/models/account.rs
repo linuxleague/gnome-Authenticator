@@ -4,11 +4,12 @@ use crate::helpers::Keyring;
 use crate::models::database;
 use crate::schema::accounts;
 use anyhow::Result;
+use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::subclass::{self, prelude::*};
 use glib::{Cast, ObjectExt, StaticType, ToValue};
-use otpauth::TOTP;
+use ring::hmac;
 use std::cell::{Cell, RefCell};
 use std::time::{SystemTime, UNIX_EPOCH};
 
@@ -283,21 +284,51 @@ impl Account {
     fn generate_otp(&self) {
         let token = Keyring::token(&self.token_id()).unwrap().unwrap();
         let provider = self.provider();
-        match provider.algorithm() {
-            Algorithm::TOTP => {
-                let totp = TOTP::new(token);
 
+        let counter = match provider.algorithm() {
+            Algorithm::TOTP => {
                 let timestamp = SystemTime::now()
                     .duration_since(UNIX_EPOCH)
                     .unwrap()
                     .as_secs();
-                let code = totp.generate(provider.period() as u64, timestamp);
-
-                self.set_property("otp", &code.to_string()).unwrap();
+                timestamp / (provider.period() as u64)
             }
-            Algorithm::HOTP => {}
-            Algorithm::Steam => {}
-        }
+            Algorithm::HOTP => {
+                let old_counter = self.counter();
+                self.increment_counter();
+                old_counter as u64
+            }
+            Algorithm::Steam => 1,
+        };
+
+        // Modified version of an implementation from otpauth crate
+        let key = hmac::Key::new(provider.hmac_algorithm().into(), token.as_bytes());
+        let wtr = counter.to_be_bytes().to_vec();
+        let result = hmac::sign(&key, &wtr);
+        let digest = result.as_ref();
+        let ob = digest[19];
+        let pos = (ob & 15) as usize;
+        let mut rdr = std::io::Cursor::new(digest[pos..pos + 4].to_vec());
+        let base = rdr.read_u32::<BigEndian>().unwrap() & 0x7fff_ffff;
+        let otp = base % 10_u32.pow(provider.digits() as u32);
+
+        self.set_property("otp", &otp.to_string()).unwrap();
+    }
+
+    fn increment_counter(&self) -> Result<()> {
+        // For security reasons, never re-use the same counter for HOTP
+        let priv_ = AccountPriv::from_instance(self);
+        let new_value = self.counter() + 1;
+        priv_.counter.set(new_value);
+
+        let db = database::connection();
+        let conn = db.get()?;
+
+        let target = accounts::table.filter(accounts::columns::id.eq(self.id()));
+        diesel::update(target)
+            .set(accounts::columns::counter.eq(new_value))
+            .execute(&conn)?;
+        Ok(())
     }
 
     pub fn copy_otp(&self) {
@@ -315,6 +346,10 @@ impl Account {
     pub fn provider(&self) -> Provider {
         let provider = self.get_property("provider").unwrap();
         provider.get::<Provider>().unwrap().unwrap()
+    }
+    pub fn counter(&self) -> i32 {
+        let priv_ = AccountPriv::from_instance(self);
+        priv_.counter.get()
     }
 
     pub fn name(&self) -> String {

@@ -1,6 +1,8 @@
 use gettextrs::gettext;
+use ring::hmac;
 use std::str::FromStr;
 use std::string::ToString;
+
 #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
 #[repr(u32)]
 #[genum(type_name = "ProviderAlgorithm")]
@@ -109,5 +111,15 @@ impl ToString for HOTPAlgorithm {
             HOTPAlgorithm::SHA512 => "sha512",
         }
         .to_string()
+    }
+}
+
+impl From<HOTPAlgorithm> for hmac::Algorithm {
+    fn from(h: HOTPAlgorithm) -> Self {
+        match h {
+            HOTPAlgorithm::SHA1 => hmac::HMAC_SHA1_FOR_LEGACY_USE_ONLY,
+            HOTPAlgorithm::SHA256 => hmac::HMAC_SHA256,
+            HOTPAlgorithm::SHA512 => hmac::HMAC_SHA512,
+        }
     }
 }

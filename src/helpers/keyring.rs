@@ -26,7 +26,8 @@ impl Keyring {
             ("type", "token"),
             ("token_id", &token_id),
         ];
-        col.create_item(label, attributes, token, true, "plain")?;
+        let base64_token = hex::encode(token);
+        col.create_item(label, attributes, base64_token.as_bytes(), true, "plain")?;
         Ok(token_id)
     }
 
@@ -39,7 +40,7 @@ impl Keyring {
             ("application", config::APP_ID),
         ])?;
         Ok(match items.get(0) {
-            Some(e) => Some(String::from_utf8(e.get_secret()?).unwrap()),
+            Some(e) => Some(String::from_utf8(hex::decode(e.get_secret()?).unwrap()).unwrap()),
             _ => None,
         })
     }

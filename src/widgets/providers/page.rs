@@ -172,10 +172,6 @@ impl ProviderPage {
             .get()
             .set_model(Some(&self_.algorithms_model));
 
-        let default_counter_row = self_.default_counter_row.get();
-        let hmac_algorithm_comborow = self_.hmac_algorithm_comborow.get();
-        let period_row = self_.period_row.get();
-
         self_
             .algorithm_comborow
             .get()
