@@ -98,10 +98,16 @@ impl ProvidersList {
         let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&sorter));
         self_.providers_list.get().bind_model(
             Some(&sort_model),
-            Some(Box::new(move |obj| {
+            Some(Box::new(clone!(@weak self as list => move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
-                ProviderRow::new(provider).upcast::<gtk::Widget>()
-            })),
+                let row = ProviderRow::new(provider);
+                row.connect_local("changed", false, clone!(@weak list =>  move |_| {
+                    list.refilter();
+                    None
+                }));
+
+                row.upcast::<gtk::Widget>()
+            }))),
         );
     }
 }

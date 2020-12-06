@@ -13,7 +13,6 @@ use std::env;
 use glib::{Receiver, Sender};
 pub enum Action {
     AccountCreated(Account, Provider),
-    AccountRemoved(Account),
     OpenAddAccountDialog,
     SetView(View),
 }
@@ -269,12 +268,6 @@ impl Application {
                 let win = active_window.downcast_ref::<Window>().unwrap();
 
                 self_.model.add_account(&account, &provider);
-                win.providers().refilter();
-            }
-            Action::AccountRemoved(account) => {
-                let win = active_window.downcast_ref::<Window>().unwrap();
-
-                self_.model.remove_account(&account);
                 win.providers().refilter();
             }
             Action::SetView(view) => {

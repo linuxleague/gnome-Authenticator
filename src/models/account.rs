@@ -1,4 +1,5 @@
 use super::provider::{DiProvider, Provider};
+use crate::helpers::Keyring;
 use crate::models::database;
 use crate::schema::accounts;
 use anyhow::Result;
@@ -188,6 +189,7 @@ impl Account {
     }
 
     pub fn new(id: i32, name: &str, token_id: &str, provider_id: i32) -> Account {
+        println!("{:#?}", Keyring::token(token_id));
         glib::Object::new(
             Account::static_type(),
             &[

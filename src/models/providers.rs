@@ -129,19 +129,6 @@ impl ProvidersModel {
         Ok(())
     }
 
-    pub fn remove_account(&self, account: &Account) -> Result<()> {
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos).unwrap();
-            let p = obj.downcast_ref::<Provider>().unwrap();
-            if let Some(pos) = p.has_account(account) {
-                account.delete()?;
-                p.remove_account(pos);
-                break;
-            }
-        }
-        Ok(())
-    }
-
     fn init(&self) {
         // fill in the providers from the database
         Provider::load()

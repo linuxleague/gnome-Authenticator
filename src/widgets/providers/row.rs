@@ -51,6 +51,7 @@ mod imp {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/provider_row.ui");
             Self::bind_template_children(klass);
             klass.install_properties(&PROPERTIES);
+            klass.add_signal("changed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
         }
     }
 
@@ -115,12 +116,27 @@ impl ProviderRow {
         let sorter = AccountSorter::new();
         let sort_model = gtk::SortListModel::new(Some(self.provider().accounts()), Some(&sorter));
 
-        self_.accounts_list.get().bind_model(
-            Some(&sort_model),
-            Some(Box::new(move |account: &glib::Object| {
-                let account = account.clone().downcast::<Account>().unwrap();
-                AccountRow::new(account).upcast::<gtk::Widget>()
-            })),
-        );
+        let provider = self.provider();
+
+        let create_callback = clone!(@weak self as provider_row => move |account: &glib::Object| {
+            let account = account.clone().downcast::<Account>().unwrap();
+            let row = AccountRow::new(account.clone());
+            row.connect_local(
+                "removed",
+                false,
+                clone!(@weak provider, @weak account, @weak provider_row => move |_| {
+                    provider.remove_account(account);
+                    provider_row.emit("changed", &[]).unwrap();
+                    None
+                }),
+            )
+            .unwrap();
+            row.upcast::<gtk::Widget>()
+        });
+
+        self_
+            .accounts_list
+            .get()
+            .bind_model(Some(&sort_model), Some(Box::new(create_callback)));
     }
 }

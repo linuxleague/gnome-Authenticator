@@ -1,5 +1,5 @@
 use crate::application::Action;
-use crate::helpers::qrcode;
+use crate::helpers::{qrcode, Keyring};
 use crate::models::{Account, Provider, ProvidersModel};
 use anyhow::Result;
 use gio::prelude::*;
@@ -180,7 +180,7 @@ impl AccountAddDialog {
         let username_entry = self_.username_entry.get();
 
         qrcode::screenshot_area(
-            self.downcast::<gtk::Window>().unwrap(),
+            self.clone().upcast::<gtk::Window>(),
             clone!(@weak token_entry, @weak username_entry, @strong self_.model as model,
                 @strong self_.sender as sender => move |screenshot| {
                 if let Ok(otpauth) = qrcode::scan(&screenshot) {
@@ -205,11 +205,14 @@ impl AccountAddDialog {
             let username = self_.username_entry.get().get_text().unwrap();
             let token = self_.token_entry.get().get_text().unwrap();
 
-            let account = Account::create(&username, &token, provider.id())?;
-            send!(
-                self_.global_sender.get().unwrap(),
-                Action::AccountCreated(account, provider.clone())
-            );
+            if let Ok(token_id) = Keyring::store(&username, &token) {
+                let account = Account::create(&username, &token_id, provider.id())?;
+                send!(
+                    self_.global_sender.get().unwrap(),
+                    Action::AccountCreated(account, provider.clone())
+                );
+            }
+            // TODO: display an error message saying there was an error form keyring
         }
         Ok(())
     }

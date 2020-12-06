@@ -402,9 +402,11 @@ impl Provider {
         priv_.filter_model.set_filter(Some(&filter));
     }
 
-    pub fn remove_account(&self, pos: u32) {
+    pub fn remove_account(&self, account: Account) {
         let priv_ = ProviderPriv::from_instance(self);
-        priv_.accounts.remove(pos);
+        if let Some(pos) = priv_.accounts.find_by_id(account.id()) {
+            priv_.accounts.remove(pos);
+        }
     }
 }
 

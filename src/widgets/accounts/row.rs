@@ -57,6 +57,7 @@ mod imp {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/account_row.ui");
             Self::bind_template_children(klass);
             klass.install_properties(&PROPERTIES);
+            klass.add_signal("removed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
         }
     }
 
@@ -134,9 +135,13 @@ impl AccountRow {
     fn setup_actions(&self) {
         let self_ = imp::AccountRow::from_instance(self);
         self.insert_action_group("account", Some(&self_.actions));
-        action!(self_.actions, "delete", move |_, _| {
-            //send!(sender, Action::AccountRemoved(account.clone()));
-        });
+        action!(
+            self_.actions,
+            "delete",
+            clone!(@weak self as row => move |_, _| {
+                row.emit("removed", &[]).unwrap();
+            })
+        );
 
         let edit_stack = self_.edit_stack.get();
         action!(
