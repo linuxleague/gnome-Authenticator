@@ -30,6 +30,10 @@ mod imp {
         pub name_entry: TemplateChild<gtk::Entry>,
         #[template_child(id = "edit_stack")]
         pub edit_stack: TemplateChild<gtk::Stack>,
+        #[template_child(id = "copy_btn_stack")]
+        pub copy_btn_stack: TemplateChild<gtk::Stack>,
+        #[template_child(id = "otp_label")]
+        pub otp_label: TemplateChild<gtk::Label>,
     }
 
     impl ObjectSubclass for AccountRow {
@@ -49,6 +53,8 @@ mod imp {
                 name_label: TemplateChild::default(),
                 name_entry: TemplateChild::default(),
                 edit_stack: TemplateChild::default(),
+                otp_label: TemplateChild::default(),
+                copy_btn_stack: TemplateChild::default(),
                 account: RefCell::new(None),
             }
         }
@@ -124,6 +130,11 @@ impl AccountRow {
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
+        self.account()
+            .bind_property("otp", &self_.otp_label.get(), "label")
+            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
+
         self_.name_entry.get().connect_changed(
             clone!(@strong self_.actions as actions => move |entry| {
                 let name = entry.get_text().unwrap();
@@ -135,6 +146,19 @@ impl AccountRow {
     fn setup_actions(&self) {
         let self_ = imp::AccountRow::from_instance(self);
         self.insert_action_group("account", Some(&self_.actions));
+        let copy_btn_stack = self_.copy_btn_stack.get();
+        action!(
+            self_.actions,
+            "copy-otp",
+            clone!(@weak self as row, @weak copy_btn_stack => move |_, _| {
+                copy_btn_stack.set_visible_child_name("ok");
+                row.account().copy_otp();
+                glib::source::timeout_add_seconds_local(1, clone!(@weak copy_btn_stack => move || {
+                    copy_btn_stack.set_visible_child_name("copy");
+                    glib::Continue(false)
+                }));
+            })
+        );
         action!(
             self_.actions,
             "delete",

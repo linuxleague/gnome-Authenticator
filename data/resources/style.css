@@ -1,8 +1,8 @@
 .large-button {
-	padding: 6px 32px;
+  padding: 6px 32px;
 }
 .pill-button {
-	border-radius: 9999px;
+  border-radius: 9999px;
 }
 
 .providers-list {
@@ -30,31 +30,36 @@
 .account-row {
   padding: 12px;
 }
+.account-otp {
+    margin-right: 8px;
+    font-weight: 500;
+    font-feature-settings: "tnum" 1;
+}
 
 listview.content.small > row {
-	margin: 0px;
-	border-radius: 0px;
-	border-left-width: 0px;
-	border-right-width: 0px;
+  margin: 0px;
+  border-radius: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
 }
 
 listview.content.small > row:first-child {
-	border-top-width: 0px;
+  border-top-width: 0px;
 }
 
 listview.content.small > row:last-child {
-	border-bottom-width: 0px;
+  border-bottom-width: 0px;
 }
 
 listview > row:first-child {
-	margin-top: 12px;
+  margin-top: 12px;
 }
 
 listview > row:last-child {
-	margin-bottom: 12px;
+  margin-bottom: 12px;
 }
 
 listview > row {
-	margin-left: 12px;
-	margin-right: 12px;
+  margin-left: 12px;
+  margin-right: 12px;
 }

@@ -7,7 +7,9 @@ use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::subclass::{self, prelude::*};
 use glib::{Cast, ObjectExt, StaticType, ToValue};
+use otpauth::TOTP;
 use std::cell::{Cell, RefCell};
+use std::time::{SystemTime, UNIX_EPOCH};
 
 #[derive(Insertable)]
 #[table_name = "accounts"]
@@ -29,12 +31,13 @@ pub struct DiAccount {
 
 pub struct AccountPriv {
     pub id: Cell<i32>,
+    pub otp: RefCell<String>,
     pub name: RefCell<String>,
     pub token_id: RefCell<String>,
     pub provider_id: Cell<i32>,
 }
 
-static PROPERTIES: [subclass::Property; 4] = [
+static PROPERTIES: [subclass::Property; 5] = [
     subclass::Property("id", |name| {
         glib::ParamSpec::int(
             name,
@@ -54,6 +57,15 @@ static PROPERTIES: [subclass::Property; 4] = [
             name,
             "token-id",
             "token id",
+            None,
+            glib::ParamFlags::READWRITE,
+        )
+    }),
+    subclass::Property("otp", |name| {
+        glib::ParamSpec::string(
+            name,
+            "otp",
+            "The One Time Password",
             None,
             glib::ParamFlags::READWRITE,
         )
@@ -88,6 +100,7 @@ impl ObjectSubclass for AccountPriv {
         Self {
             id: Cell::new(0),
             name: RefCell::new("".to_string()),
+            otp: RefCell::new("".to_string()),
             token_id: RefCell::new("".to_string()),
             provider_id: Cell::new(0),
         }
@@ -113,6 +126,13 @@ impl ObjectImpl for AccountPriv {
                     .unwrap();
                 self.name.replace(name);
             }
+            subclass::Property("otp", ..) => {
+                let otp = value
+                    .get()
+                    .expect("type conformity checked by `Object::set_property`")
+                    .unwrap();
+                self.otp.replace(otp);
+            }
             subclass::Property("token-id", ..) => {
                 let token_id = value
                     .get()
@@ -137,6 +157,7 @@ impl ObjectImpl for AccountPriv {
         match *prop {
             subclass::Property("id", ..) => self.id.get().to_value(),
             subclass::Property("name", ..) => self.name.borrow().to_value(),
+            subclass::Property("otp", ..) => self.otp.borrow().to_value(),
             subclass::Property("token-id", ..) => self.token_id.borrow().to_value(),
             subclass::Property("provider-id", ..) => self.provider_id.get().to_value(),
             _ => unimplemented!(),
@@ -189,8 +210,7 @@ impl Account {
     }
 
     pub fn new(id: i32, name: &str, token_id: &str, provider_id: i32) -> Account {
-        println!("{:#?}", Keyring::token(token_id));
-        glib::Object::new(
+        let account = glib::Object::new(
             Account::static_type(),
             &[
                 ("id", &id),
@@ -200,8 +220,42 @@ impl Account {
             ],
         )
         .expect("Failed to create account")
-        .downcast()
-        .expect("Created account is of wrong type")
+        .downcast::<Account>()
+        .expect("Created account is of wrong type");
+        account.init();
+        account
+    }
+
+    fn init(&self) {
+        self.generate_otp();
+        glib::source::timeout_add_seconds_local(
+            30,
+            clone!(@weak self as account => @default-return glib::Continue(false), move || {
+                account.generate_otp();
+
+                glib::Continue(true)
+            }),
+        );
+    }
+
+    fn generate_otp(&self) {
+        let token = Keyring::token(&self.token_id()).unwrap().unwrap();
+        let totp = TOTP::new(token);
+
+        let timestamp = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_secs();
+        let code = totp.generate(30, timestamp);
+
+        self.set_property("otp", &code.to_string()).unwrap();
+    }
+
+    pub fn copy_otp(&self) {
+        let display = gdk::Display::get_default().unwrap();
+        let clipboard = display.get_clipboard();
+        let priv_ = AccountPriv::from_instance(self);
+        clipboard.set_text(&priv_.otp.borrow());
     }
 
     pub fn id(&self) -> i32 {
