@@ -90,7 +90,7 @@ static PROPERTIES: [subclass::Property; 8] = [
             name,
             "algorithm",
             "Algorithm",
-            Some(&Algorithm::OTP.to_string()),
+            Some(&Algorithm::TOTP.to_string()),
             glib::ParamFlags::READWRITE,
         )
     }),
@@ -144,7 +144,7 @@ impl ObjectSubclass for ProviderPriv {
             website: RefCell::new(None),
             help_url: RefCell::new(None),
             image_uri: RefCell::new(None),
-            algorithm: RefCell::new(Algorithm::OTP.to_string()),
+            algorithm: RefCell::new(Algorithm::TOTP.to_string()),
             period: Cell::new(30),
             filter_model: gtk::FilterListModel::new(Some(&model), gtk::NONE_FILTER),
             accounts: model,

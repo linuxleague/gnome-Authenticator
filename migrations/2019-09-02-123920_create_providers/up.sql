@@ -6,5 +6,5 @@ CREATE TABLE "providers" (
   "help_url" VARCHAR NULL,
   "image_uri" VARCHAR NULL,
   "period" INTEGER NULL DEFAULT 30,
-  "algorithm" VARCHAR DEFAULT "OTP"
+  "algorithm" VARCHAR DEFAULT "TOTP"
 );
