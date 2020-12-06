@@ -1,5 +1,5 @@
 use crate::application::{Action, Application};
-use crate::config::{APP_ID, PROFILE};
+use crate::config;
 use crate::helpers::Keyring;
 use crate::models::ProvidersModel;
 use crate::widgets::providers::ProvidersList;
@@ -40,6 +40,8 @@ mod imp {
         pub search_btn: TemplateChild<gtk::ToggleButton>,
         #[template_child(id = "password_entry")]
         pub password_entry: TemplateChild<gtk::PasswordEntry>,
+        #[template_child(id = "locked_img")]
+        pub locked_img: TemplateChild<gtk::Image>,
     }
 
     impl ObjectSubclass for Window {
@@ -52,7 +54,7 @@ mod imp {
         glib_object_subclass!();
 
         fn new() -> Self {
-            let settings = gio::Settings::new(APP_ID);
+            let settings = gio::Settings::new(config::APP_ID);
             let providers = ProvidersList::new();
             Self {
                 settings,
@@ -63,6 +65,7 @@ mod imp {
                 search_bar: TemplateChild::default(),
                 search_btn: TemplateChild::default(),
                 password_entry: TemplateChild::default(),
+                locked_img: TemplateChild::default(),
             }
         }
         fn class_init(klass: &mut Self::Class) {
@@ -98,7 +101,7 @@ impl Window {
             .unwrap();
         app.add_window(&window);
 
-        if PROFILE == "Devel" {
+        if config::PROFILE == "Devel" {
             window.get_style_context().add_class("devel");
         }
         window.init(model);
@@ -128,6 +131,13 @@ impl Window {
     fn init(&self, model: ProvidersModel) {
         let self_ = imp::Window::from_instance(self);
         self_.providers.set_model(model.clone());
+
+        self.set_icon_name(Some(config::APP_ID));
+        self_
+            .locked_img
+            .get()
+            .set_from_icon_name(Some(config::APP_ID));
+
         // load latest window state
         window_state::load(&self, &self_.settings);
         // save window state on delete event

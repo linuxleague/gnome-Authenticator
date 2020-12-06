@@ -1,3 +1,4 @@
+use crate::config;
 use crate::helpers::Keyring;
 use std::cell::Cell;
 
@@ -29,6 +30,9 @@ mod imp {
         #[template_child(id = "current_password_row")]
         pub current_password_row: TemplateChild<libhandy::ActionRow>,
 
+        #[template_child(id = "password_img")]
+        pub password_img: TemplateChild<gtk::Image>,
+
         pub actions: OnceCell<gio::SimpleActionGroup>,
     }
 
@@ -50,6 +54,7 @@ mod imp {
                 password_entry: TemplateChild::default(),
                 confirm_password_entry: TemplateChild::default(),
                 current_password_row: TemplateChild::default(),
+                password_img: TemplateChild::default(),
                 actions: OnceCell::new(),
             }
         }
@@ -108,6 +113,11 @@ impl PasswordPage {
 
     fn setup_widgets(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
+
+        self_
+            .password_img
+            .get()
+            .set_from_icon_name(Some(config::APP_ID));
 
         self_
             .password_entry

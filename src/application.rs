@@ -2,6 +2,7 @@ use crate::config;
 use crate::helpers::Keyring;
 use crate::models::{Account, Provider, ProvidersModel};
 use crate::widgets::{AccountAddDialog, PreferencesWindow, ProvidersDialog, View, Window};
+use gettextrs::gettext;
 use gio::prelude::*;
 use glib::subclass::prelude::*;
 use glib::{subclass, WeakRef};
@@ -137,14 +138,22 @@ impl ApplicationImpl for ApplicationPrivate {
             "about",
             clone!(@weak app => move |_, _| {
                 let window = app.get_active_window().unwrap();
+                let about_dialog = gtk::AboutDialogBuilder::new()
+                    .program_name(&gettext("Authenticator"))
+                    .modal(true)
+                    .version(config::VERSION)
+                    .comments(&gettext("A Two-Factor Authentication application"))
+                    .website("https://gitlab.gnome.org/World/Authenticator")
+                    .authors(vec!["Bilal Elmoussaoui".to_string()])
+                    .artists(vec!["Alexandros Felekidis".to_string(), "Tobias Bernard".to_string()])
+                    .logo_icon_name(config::APP_ID)
+                    .license_type(gtk::License::Gpl30)
+                    .transient_for(&window)
+                    .build();
 
-                let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/about_dialog.ui");
-                get_widget!(builder, gtk::AboutDialog, about_dialog);
-                about_dialog.set_transient_for(Some(&window));
                 about_dialog.show();
             })
         );
-
         action!(
             app,
             "providers",

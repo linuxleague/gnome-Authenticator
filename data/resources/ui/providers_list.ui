@@ -26,13 +26,12 @@
                     <property name="vexpand">True</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkImage">
+                      <object class="GtkImage" id="empty_img">
                         <property name="halign">center</property>
                         <property name="valign">start</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="pixel_size">128</property>
-                        <property name="icon-name">@app-id@</property>
                       </object>
                     </child>
                     <child>
