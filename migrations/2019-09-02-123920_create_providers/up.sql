@@ -5,6 +5,9 @@ CREATE TABLE "providers" (
   "website" VARCHAR NULL,
   "help_url" VARCHAR NULL,
   "image_uri" VARCHAR NULL,
+  "digits" INTEGER NULL DEFAULT 6,
   "period" INTEGER NULL DEFAULT 30,
+  "default_counter" INTEGER NULL DEFAULT 1,
+  "hmac_algorithm" VARCHAR NULL DEFAULT "SHA1",
   "algorithm" VARCHAR DEFAULT "TOTP"
 );

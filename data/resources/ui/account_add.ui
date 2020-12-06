@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkAdjustment" id="counter_adjustment">
+    <property name="upper">60</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <template parent="HdyWindow" class="AccountAddDialog">
     <property name="modal">True</property>
     <property name="default_width">360</property>
@@ -45,156 +50,202 @@
                   </object>
                 </child>
                 <child>
-                  <object class="HdyClamp">
-                    <property name="valign">center</property>
-                    <property name="margin-top">12</property>
-                    <property name="margin-bottom">12</property>
-                    <property name="vexpand">True</property>
+                  <object class="GtkScrolledWindow">
                     <child>
-                      <object class="GtkBox" id="main_container">
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">42</property>
-                        <property name="margin-start">8</property>
-                        <property name="margin-end">8</property>
+
+                      <object class="HdyClamp">
+                        <property name="valign">center</property>
+                        <property name="margin-top">12</property>
+                        <property name="margin-bottom">12</property>
+                        <property name="vexpand">True</property>
                         <child>
-                          <object class="GtkStack" id="image_stack">
-                            <property name="transition-type">crossfade</property>
+                          <object class="GtkBox" id="main_container">
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">42</property>
+                            <property name="margin-start">8</property>
+                            <property name="margin-end">8</property>
                             <child>
-                              <object class="GtkStackPage">
-                                <property name="name">image</property>
-                                <property name="child">
-                                  <object class="GtkImage" id="image">
-                                    <property name="icon-name">image-missing</property>
-                                    <property name="pixel-size">96</property>
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkStackPage">
-                                <property name="name">loading</property>
-                                <property name="child">
-                                  <object class="GtkSpinner" id="spinner">
-                                    <property name="valign">center</property>
-                                    <property name="halign">center</property>
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkListBox" id="basic_list">
-                            <property name="selection_mode">none</property>
-                            <child>
-                              <object class="HdyActionRow">
-                                <property name="activatable_widget">provider_entry</property>
-                                <property name="title" translatable="yes">Provider</property>
+                              <object class="GtkStack" id="image_stack">
+                                <property name="transition-type">crossfade</property>
                                 <child>
-                                  <object class="GtkEntry" id="provider_entry">
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="completion">provider_completion</property>
-                                    <property name="enable_emoji_completion">True</property>
+                                  <object class="GtkStackPage">
+                                    <property name="name">image</property>
+                                    <property name="child">
+                                      <object class="GtkImage" id="image">
+                                        <property name="icon-name">image-missing</property>
+                                        <property name="pixel-size">96</property>
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">loading</property>
+                                    <property name="child">
+                                      <object class="GtkSpinner" id="spinner">
+                                        <property name="valign">center</property>
+                                        <property name="halign">center</property>
+                                      </object>
+                                    </property>
                                   </object>
                                 </child>
                               </object>
                             </child>
                             <child>
-                              <object class="HdyActionRow">
-                                <property name="activatable_widget">username_entry</property>
-                                <property name="title" translatable="yes">Account</property>
+                              <object class="GtkListBox" id="basic_list">
+                                <property name="selection_mode">none</property>
                                 <child>
-                                  <object class="GtkEntry" id="username_entry">
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="enable_emoji_completion">True</property>
+                                  <object class="HdyActionRow">
+                                    <property name="activatable_widget">provider_entry</property>
+                                    <property name="title" translatable="yes">Provider</property>
+                                    <child>
+                                      <object class="GtkEntry" id="provider_entry">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="completion">provider_completion</property>
+                                        <property name="enable_emoji_completion">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
+                                <child>
+                                  <object class="HdyActionRow">
+                                    <property name="activatable_widget">username_entry</property>
+                                    <property name="title" translatable="yes">Account</property>
+                                    <child>
+                                      <object class="GtkEntry" id="username_entry">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="enable_emoji_completion">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow" id="token_row">
+                                    <property name="activatable_widget">token_entry</property>
+                                    <property name="title" translatable="yes">Token</property>
+                                    <child>
+                                      <object class="GtkEntry" id="token_entry">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="visibility">False</property>
+                                        <property name="secondary_icon_name">dialog-information-symbolic</property>
+                                        <property name="secondary_icon_tooltip_text" translatable="yes">Enable 2FA for this account</property>
+                                        <property name="secondary_icon_tooltip_markup" translatable="yes">Enable 2FA for this account</property>
+                                        <property name="input_purpose">pin</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="HdyActionRow" id="counter_row">
+                                    <property name="activatable_widget">counter_spinbutton</property>
+                                    <property name="title" translatable="yes">Counter</property>
+                                    <property name="visible">False</property>
+                                    <child>
+                                      <object class="GtkSpinButton" id="counter_spinbutton">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="text" translatable="yes">0</property>
+                                        <property name="adjustment">counter_adjustment</property>
+                                        <property name="numeric">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <style>
+                                  <class name="content"/>
+                                </style>
                               </object>
                             </child>
                             <child>
-                              <object class="HdyActionRow" id="token_row">
-                                <property name="activatable_widget">token_entry</property>
-                                <property name="title" translatable="yes">Token</property>
+                              <object class="GtkListBox" id="more_list">
+                                <property name="visible">False</property>
+                                <property name="selection_mode">none</property>
                                 <child>
-                                  <object class="GtkEntry" id="token_entry">
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="visibility">False</property>
-                                    <property name="secondary_icon_name">dialog-information-symbolic</property>
-                                    <property name="secondary_icon_tooltip_text" translatable="yes">Enable 2FA for this account</property>
-                                    <property name="secondary_icon_tooltip_markup" translatable="yes">Enable 2FA for this account</property>
-                                    <property name="input_purpose">pin</property>
+                                  <object class="HdyActionRow" id="provider_website_row">
+                                    <property name="title" translatable="yes">Website</property>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="icon-name">link-symbolic</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
-                              </object>
-                            </child>
-                            <style>
-                              <class name="content"/>
-                            </style>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkListBox" id="more_list">
-                            <property name="visible">False</property>
-                            <property name="selection_mode">none</property>
-                            <child>
-                              <object class="HdyActionRow" id="provider_website_row">
-                                <property name="title" translatable="yes">Website</property>
                                 <child>
-                                  <object class="GtkImage">
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="icon-name">link-symbolic</property>
+                                  <object class="HdyActionRow" id="provider_help_row">
+                                    <property name="title" translatable="yes">How to setup</property>
+                                    <child>
+                                      <object class="GtkImage">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="icon-name">help-page-symbolic</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="HdyActionRow" id="provider_help_row">
-                                <property name="title" translatable="yes">How to setup</property>
                                 <child>
-                                  <object class="GtkImage">
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="icon-name">help-page-symbolic</property>
+                                  <object class="HdyActionRow" id="digits_row">
+                                    <property name="title" translatable="yes">Digits</property>
+                                    <child>
+                                      <object class="GtkLabel" id="digits_label">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="HdyActionRow">
-                                <property name="title" translatable="yes">Period</property>
                                 <child>
-                                  <object class="GtkLabel" id="period_label">
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
+                                  <object class="HdyActionRow" id="hmac_algorithm_row">
+                                    <property name="title" translatable="yes">HMAC Algorithm</property>
+                                    <child>
+                                      <object class="GtkLabel" id="hmac_algorithm_label">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="HdyActionRow" id="algorithm_row">
-                                <property name="title" translatable="yes">Algorithm</property>
                                 <child>
-                                  <object class="GtkLabel" id="algorithm_label">
-                                    <property name="halign">end</property>
-                                    <property name="valign">center</property>
-                                    <property name="hexpand">True</property>
+                                  <object class="HdyActionRow" id="period_row">
+                                    <property name="title" translatable="yes">Period</property>
+                                    <child>
+                                      <object class="GtkLabel" id="period_label">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
+                                <child>
+                                  <object class="HdyActionRow" id="algorithm_row">
+                                    <property name="title" translatable="yes">Algorithm</property>
+                                    <child>
+                                      <object class="GtkLabel" id="algorithm_label">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </child>
+                                <style>
+                                  <class name="content"/>
+                                </style>
                               </object>
                             </child>
-                            <style>
-                              <class name="content"/>
-                            </style>
                           </object>
                         </child>
                       </object>
@@ -224,6 +275,7 @@
       <widget name="provider_entry"/>
       <widget name="username_entry"/>
       <widget name="token_entry"/>
+      <widget name="counter_spinbutton"/>
     </widgets>
   </object>
 </interface>

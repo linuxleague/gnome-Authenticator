@@ -57,8 +57,8 @@ for db_file in glob(DATA_DIR + "/*.yml"):
                     name = provider.get("name").replace("&amp;", "&")
                     website = provider.get("url", "")
                     help_url = provider.get("doc", "")
-                    up_query += f"INSERT INTO `providers` (`name`, `website`, `help_url`) VALUES (`{name}`, `{website}`, `{help_url}`);\n"
-                    down_query += f"DELETE FROM `providers` WHERE `name`=`{name}`;\n"
+                    up_query += f'INSERT INTO "providers" ("name", "website", "help_url") VALUES ("{name}", "{website}", "{help_url}");\n'
+                    down_query += f'DELETE FROM "providers" WHERE "name"="{name}";\n'
         except (yaml.YAMLError, TypeError, KeyError) as error:
             pass
 

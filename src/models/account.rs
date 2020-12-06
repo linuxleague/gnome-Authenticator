@@ -18,6 +18,7 @@ struct NewAccount {
     pub name: String,
     pub token_id: String,
     pub provider_id: i32,
+    pub counter: i32,
 }
 
 #[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
@@ -26,6 +27,7 @@ struct NewAccount {
 pub struct DiAccount {
     pub id: i32,
     pub name: String,
+    pub counter: i32,
     pub token_id: String,
     pub provider_id: i32,
 }
@@ -34,16 +36,28 @@ pub struct AccountPriv {
     pub id: Cell<i32>,
     pub otp: RefCell<String>,
     pub name: RefCell<String>,
+    pub counter: Cell<i32>,
     pub token_id: RefCell<String>,
     pub provider: RefCell<Option<Provider>>,
 }
 
-static PROPERTIES: [subclass::Property; 5] = [
+static PROPERTIES: [subclass::Property; 6] = [
     subclass::Property("id", |name| {
         glib::ParamSpec::int(
             name,
             "id",
             "Id",
+            0,
+            i32::MAX,
+            0,
+            glib::ParamFlags::READWRITE,
+        )
+    }),
+    subclass::Property("counter", |name| {
+        glib::ParamSpec::int(
+            name,
+            "counter",
+            "Counter",
             0,
             i32::MAX,
             0,
@@ -98,6 +112,7 @@ impl ObjectSubclass for AccountPriv {
     fn new() -> Self {
         Self {
             id: Cell::new(0),
+            counter: Cell::new(1),
             name: RefCell::new("".to_string()),
             otp: RefCell::new("".to_string()),
             token_id: RefCell::new("".to_string()),
@@ -124,6 +139,13 @@ impl ObjectImpl for AccountPriv {
                     .expect("type conformity checked by `Object::set_property`")
                     .unwrap();
                 self.name.replace(name);
+            }
+            subclass::Property("counter", ..) => {
+                let counter = value
+                    .get()
+                    .expect("type conformity checked by `Object::set_property`")
+                    .unwrap();
+                self.counter.replace(counter);
             }
             subclass::Property("otp", ..) => {
                 let otp = value
@@ -155,6 +177,7 @@ impl ObjectImpl for AccountPriv {
         match *prop {
             subclass::Property("id", ..) => self.id.get().to_value(),
             subclass::Property("name", ..) => self.name.borrow().to_value(),
+            subclass::Property("counter", ..) => self.counter.get().to_value(),
             subclass::Property("otp", ..) => self.otp.borrow().to_value(),
             subclass::Property("token-id", ..) => self.token_id.borrow().to_value(),
             subclass::Property("provider", ..) => self.provider.borrow().to_value(),
@@ -177,6 +200,7 @@ impl Account {
                 name: name.to_string(),
                 token_id: token_id.to_string(),
                 provider_id: provider.id(),
+                counter: provider.default_counter(),
             })
             .execute(&conn)?;
 
@@ -189,6 +213,7 @@ impl Account {
                     account.id,
                     &account.name,
                     &account.token_id,
+                    account.counter,
                     provider.clone(),
                 )
             })
@@ -202,7 +227,15 @@ impl Account {
         let results = DiAccount::belonging_to(&dip)
             .load::<DiAccount>(&conn)?
             .into_iter()
-            .map(|account| Self::new(account.id, &account.name, &account.token_id, p.clone()))
+            .map(|account| {
+                Self::new(
+                    account.id,
+                    &account.name,
+                    &account.token_id,
+                    account.counter,
+                    p.clone(),
+                )
+            })
             .collect::<Vec<Account>>();
         Ok(results)
     }
@@ -214,7 +247,7 @@ impl Account {
         account1.name().cmp(&account2.name())
     }
 
-    pub fn new(id: i32, name: &str, token_id: &str, provider: Provider) -> Account {
+    pub fn new(id: i32, name: &str, token_id: &str, counter: i32, provider: Provider) -> Account {
         let account = glib::Object::new(
             Account::static_type(),
             &[
@@ -222,6 +255,7 @@ impl Account {
                 ("name", &name),
                 ("token-id", &token_id),
                 ("provider", &provider),
+                ("counter", &counter),
             ],
         )
         .expect("Failed to create account")

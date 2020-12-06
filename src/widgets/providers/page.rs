@@ -1,4 +1,4 @@
-use crate::models::{Algorithm, Provider};
+use crate::models::{Algorithm, HOTPAlgorithm, Provider};
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
 use glib::translate::ToGlib;
@@ -22,6 +22,10 @@ mod imp {
         pub name_entry: TemplateChild<gtk::Entry>,
         #[template_child(id = "period_spinbutton")]
         pub period_spinbutton: TemplateChild<gtk::SpinButton>,
+        #[template_child(id = "digits_spinbutton")]
+        pub digits_spinbutton: TemplateChild<gtk::SpinButton>,
+        #[template_child(id = "default_counter_spinbutton")]
+        pub default_counter_spinbutton: TemplateChild<gtk::SpinButton>,
         #[template_child(id = "provider_website_entry")]
         pub provider_website_entry: TemplateChild<gtk::Entry>,
         #[template_child(id = "provider_help_entry")]
@@ -32,9 +36,18 @@ mod imp {
         pub spinner: TemplateChild<gtk::Spinner>,
         #[template_child(id = "algorithm_comborow")]
         pub algorithm_comborow: TemplateChild<libhandy::ComboRow>,
+        #[template_child(id = "hmac_algorithm_comborow")]
+        pub hmac_algorithm_comborow: TemplateChild<libhandy::ComboRow>,
+        #[template_child(id = "period_row")]
+        pub period_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child(id = "digits_row")]
+        pub digits_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child(id = "default_counter_row")]
+        pub default_counter_row: TemplateChild<libhandy::ActionRow>,
         #[template_child(id = "title")]
         pub title: TemplateChild<gtk::Label>,
         pub algorithms_model: libhandy::EnumListModel,
+        pub hmac_algorithms_model: libhandy::EnumListModel,
     }
 
     impl ObjectSubclass for ProviderPage {
@@ -48,17 +61,25 @@ mod imp {
 
         fn new() -> Self {
             let algorithms_model = libhandy::EnumListModel::new(Algorithm::static_type());
+            let hmac_algorithms_model = libhandy::EnumListModel::new(HOTPAlgorithm::static_type());
 
             Self {
                 name_entry: TemplateChild::default(),
                 period_spinbutton: TemplateChild::default(),
+                digits_spinbutton: TemplateChild::default(),
+                default_counter_spinbutton: TemplateChild::default(),
                 provider_website_entry: TemplateChild::default(),
                 provider_help_entry: TemplateChild::default(),
                 image_stack: TemplateChild::default(),
                 spinner: TemplateChild::default(),
                 algorithm_comborow: TemplateChild::default(),
+                hmac_algorithm_comborow: TemplateChild::default(),
+                period_row: TemplateChild::default(),
+                digits_row: TemplateChild::default(),
+                default_counter_row: TemplateChild::default(),
                 title: TemplateChild::default(),
                 algorithms_model,
+                hmac_algorithms_model,
             }
         }
 
@@ -114,6 +135,22 @@ impl ProviderPage {
                 .algorithms_model
                 .find_position(provider.algorithm().to_glib()),
         );
+        self.on_algorithm_changed();
+
+        self_
+            .default_counter_spinbutton
+            .get()
+            .set_value(provider.default_counter() as f64);
+        self_
+            .digits_spinbutton
+            .get()
+            .set_value(provider.digits() as f64);
+
+        self_.hmac_algorithm_comborow.get().set_selected(
+            self_
+                .hmac_algorithms_model
+                .find_position(provider.hmac_algorithm().to_glib()),
+        );
 
         /*let sender = self.sender.clone();
         spawn!(async move {
@@ -134,6 +171,40 @@ impl ProviderPage {
             .algorithm_comborow
             .get()
             .set_model(Some(&self_.algorithms_model));
+
+        let default_counter_row = self_.default_counter_row.get();
+        let hmac_algorithm_comborow = self_.hmac_algorithm_comborow.get();
+        let period_row = self_.period_row.get();
+
+        self_
+            .algorithm_comborow
+            .get()
+            .connect_property_selected_item_notify(clone!(@weak self as page => move |_| {
+                page.on_algorithm_changed();
+            }));
+        self_
+            .hmac_algorithm_comborow
+            .get()
+            .set_model(Some(&self_.hmac_algorithms_model));
+    }
+
+    fn on_algorithm_changed(&self) {
+        let self_ = imp::ProviderPage::from_instance(self);
+
+        let selected = Algorithm::from(self_.algorithm_comborow.get().get_selected());
+        match selected {
+            Algorithm::TOTP => {
+                self_.default_counter_row.get().hide();
+                self_.hmac_algorithm_comborow.get().hide();
+                self_.period_row.get().show();
+            }
+            Algorithm::HOTP => {
+                self_.default_counter_row.get().show();
+                self_.hmac_algorithm_comborow.get().show();
+                self_.period_row.get().hide();
+            }
+            Algorithm::Steam => {}
+        }
     }
 
     pub fn set_mode(&self, mode: ProviderPageMode) {

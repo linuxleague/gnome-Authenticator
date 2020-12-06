@@ -1,6 +1,6 @@
 use crate::application::Action;
 use crate::helpers::{qrcode, Keyring};
-use crate::models::{Account, Provider, ProvidersModel};
+use crate::models::{Account, Algorithm, Provider, ProvidersModel};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::{subclass::ObjectSubclass, ActionMapExt};
@@ -42,6 +42,9 @@ mod imp {
         #[template_child(id = "period_label")]
         pub period_label: TemplateChild<gtk::Label>,
 
+        #[template_child(id = "digits_label")]
+        pub digits_label: TemplateChild<gtk::Label>,
+
         #[template_child(id = "provider_entry")]
         pub provider_entry: TemplateChild<gtk::Entry>,
 
@@ -53,6 +56,15 @@ mod imp {
 
         #[template_child(id = "provider_help_row")]
         pub provider_help_row: TemplateChild<libhandy::ActionRow>,
+
+        #[template_child(id = "hmac_algorithm_row")]
+        pub hmac_algorithm_row: TemplateChild<libhandy::ActionRow>,
+
+        #[template_child(id = "counter_row")]
+        pub counter_row: TemplateChild<libhandy::ActionRow>,
+
+        #[template_child(id = "period_row")]
+        pub period_row: TemplateChild<libhandy::ActionRow>,
 
         #[template_child(id = "provider_completion")]
         pub provider_completion: TemplateChild<gtk::EntryCompletion>,
@@ -93,11 +105,15 @@ mod imp {
                 username_entry: TemplateChild::default(),
                 more_list: TemplateChild::default(),
                 period_label: TemplateChild::default(),
+                digits_label: TemplateChild::default(),
                 provider_entry: TemplateChild::default(),
                 algorithm_label: TemplateChild::default(),
                 provider_website_row: TemplateChild::default(),
                 provider_help_row: TemplateChild::default(),
                 provider_completion: TemplateChild::default(),
+                hmac_algorithm_row: TemplateChild::default(),
+                counter_row: TemplateChild::default(),
+                period_row: TemplateChild::default(),
                 image: TemplateChild::default(),
                 spinner: TemplateChild::default(),
                 image_stack: TemplateChild::default(),
@@ -229,6 +245,24 @@ impl AccountAddDialog {
             .get()
             .set_text(&provider.algorithm().to_locale_string());
 
+        self_
+            .digits_label
+            .get()
+            .set_text(&provider.digits().to_string());
+        match provider.algorithm() {
+            Algorithm::TOTP => {
+                self_.hmac_algorithm_row.get().hide();
+                self_.counter_row.get().hide();
+                self_.period_row.get().show();
+            }
+            Algorithm::HOTP => {
+                self_.hmac_algorithm_row.get().show();
+                self_.counter_row.get().show();
+                self_.period_row.get().hide();
+            }
+            Algorithm::Steam => {}
+        };
+
         if let Some(ref website) = provider.website() {
             self_.provider_website_row.get().set_subtitle(Some(website));
         }
@@ -291,6 +325,7 @@ impl AccountAddDialog {
             .provider_completion
             .get()
             .set_model(Some(&self_.model.get().unwrap().completion_model()));
+
         self_.provider_completion.get().connect_match_selected(
             clone!(@strong self as dialog, @strong self_.model as model => move |_, store, iter| {
                 let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();

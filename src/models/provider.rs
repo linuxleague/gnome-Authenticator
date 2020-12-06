@@ -1,4 +1,4 @@
-use super::algorithm::Algorithm;
+use super::algorithm::{Algorithm, HOTPAlgorithm};
 use crate::models::{database, Account, AccountsModel, FaviconError, FaviconScrapper};
 use crate::schema::providers;
 use anyhow::Result;
@@ -19,11 +19,14 @@ use url::Url;
 #[table_name = "providers"]
 struct NewProvider {
     pub name: String,
-    pub period: i32,
-    pub algorithm: String,
     pub website: Option<String>,
     pub help_url: Option<String>,
     pub image_uri: Option<String>,
+    pub period: i32,
+    pub digits: i32,
+    pub default_counter: i32,
+    pub hmac_algorithm: String,
+    pub algorithm: String,
 }
 
 #[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
@@ -31,11 +34,14 @@ struct NewProvider {
 pub struct DiProvider {
     pub id: i32,
     pub name: String,
-    pub period: i32,
-    pub algorithm: String,
     pub website: Option<String>,
     pub help_url: Option<String>,
     pub image_uri: Option<String>,
+    pub period: i32,
+    pub digits: i32,
+    pub default_counter: i32,
+    pub hmac_algorithm: String,
+    pub algorithm: String,
 }
 
 pub struct ProviderPriv {
@@ -43,6 +49,9 @@ pub struct ProviderPriv {
     pub name: RefCell<String>,
     pub period: Cell<i32>,
     pub algorithm: RefCell<String>,
+    pub default_counter: Cell<i32>,
+    pub hmac_algorithm: RefCell<String>,
+    pub digits: Cell<i32>,
     pub website: RefCell<Option<String>>,
     pub help_url: RefCell<Option<String>>,
     pub image_uri: RefCell<Option<String>>,
@@ -50,7 +59,7 @@ pub struct ProviderPriv {
     pub filter_model: gtk::FilterListModel,
 }
 
-static PROPERTIES: [subclass::Property; 8] = [
+static PROPERTIES: [subclass::Property; 11] = [
     subclass::Property("id", |name| {
         glib::ParamSpec::int(
             name,
@@ -85,12 +94,43 @@ static PROPERTIES: [subclass::Property; 8] = [
             glib::ParamFlags::READWRITE,
         )
     }),
+    subclass::Property("digits", |name| {
+        glib::ParamSpec::int(
+            name,
+            "digits",
+            "Digits",
+            0,
+            1000,
+            6,
+            glib::ParamFlags::READWRITE,
+        )
+    }),
+    subclass::Property("default-counter", |name| {
+        glib::ParamSpec::int(
+            name,
+            "default_counter",
+            "default_counter",
+            0,
+            1000,
+            1,
+            glib::ParamFlags::READWRITE,
+        )
+    }),
+    subclass::Property("hmac-algorithm", |name| {
+        glib::ParamSpec::string(
+            name,
+            "hmac_algorithm",
+            "HMAC algorithm",
+            Some(&HOTPAlgorithm::default().to_string()),
+            glib::ParamFlags::READWRITE,
+        )
+    }),
     subclass::Property("algorithm", |name| {
         glib::ParamSpec::string(
             name,
             "algorithm",
             "Algorithm",
-            Some(&Algorithm::TOTP.to_string()),
+            Some(&Algorithm::default().to_string()),
             glib::ParamFlags::READWRITE,
         )
     }),
@@ -140,11 +180,14 @@ impl ObjectSubclass for ProviderPriv {
         let model = AccountsModel::new();
         Self {
             id: Cell::new(0),
+            default_counter: Cell::new(1),
+            hmac_algorithm: RefCell::new(HOTPAlgorithm::default().to_string()),
+            digits: Cell::new(6),
             name: RefCell::new("".to_string()),
             website: RefCell::new(None),
             help_url: RefCell::new(None),
             image_uri: RefCell::new(None),
-            algorithm: RefCell::new(Algorithm::TOTP.to_string()),
+            algorithm: RefCell::new(Algorithm::default().to_string()),
             period: Cell::new(30),
             filter_model: gtk::FilterListModel::new(Some(&model), gtk::NONE_FILTER),
             accounts: model,
@@ -184,6 +227,25 @@ impl ObjectImpl for ProviderPriv {
                     .unwrap();
                 self.algorithm.replace(algorithm);
             }
+            subclass::Property("digits", ..) => {
+                let digits = value
+                    .get_some()
+                    .expect("type conformity checked by `Object::set_property`");
+                self.digits.replace(digits);
+            }
+            subclass::Property("hmac-algorithm", ..) => {
+                let hmac_algorithm = value
+                    .get()
+                    .expect("type conformity checked by `Object::set_property`")
+                    .unwrap();
+                self.hmac_algorithm.replace(hmac_algorithm);
+            }
+            subclass::Property("default-counter", ..) => {
+                let default_counter = value
+                    .get_some()
+                    .expect("type conformity checked by `Object::set_property`");
+                self.default_counter.replace(default_counter);
+            }
             subclass::Property("website", ..) => {
                 let website = value
                     .get()
@@ -214,6 +276,9 @@ impl ObjectImpl for ProviderPriv {
             subclass::Property("name", ..) => self.name.borrow().to_value(),
             subclass::Property("period", ..) => self.period.get().to_value(),
             subclass::Property("algorithm", ..) => self.algorithm.borrow().to_value(),
+            subclass::Property("digits", ..) => self.digits.get().to_value(),
+            subclass::Property("hmac-algorithm", ..) => self.hmac_algorithm.borrow().to_value(),
+            subclass::Property("default-counter", ..) => self.default_counter.get().to_value(),
             subclass::Property("website", ..) => self.website.borrow().to_value(),
             subclass::Property("help-url", ..) => self.help_url.borrow().to_value(),
             subclass::Property("image-uri", ..) => self.image_uri.borrow().to_value(),
@@ -232,6 +297,9 @@ impl Provider {
         period: i32,
         algorithm: Algorithm,
         website: Option<String>,
+        hmac_algorithm: HOTPAlgorithm,
+        digits: i32,
+        default_counter: i32,
     ) -> Result<Self> {
         use crate::diesel::ExpressionMethods;
         let db = database::connection();
@@ -243,6 +311,9 @@ impl Provider {
                 period,
                 algorithm: algorithm.to_string(),
                 website,
+                hmac_algorithm: hmac_algorithm.to_string(),
+                digits,
+                default_counter,
                 help_url: None,
                 image_uri: None,
             })
@@ -285,6 +356,9 @@ impl Provider {
         name: &str,
         period: i32,
         algorithm: Algorithm,
+        hmac_algorithm: HOTPAlgorithm,
+        digits: i32,
+        default_counter: i32,
         website: Option<String>,
         help_url: Option<String>,
         image_uri: Option<String>,
@@ -299,6 +373,9 @@ impl Provider {
                 ("image-uri", &image_uri),
                 ("period", &period),
                 ("algorithm", &algorithm.to_string()),
+                ("hmac-algorithm", &hmac_algorithm.to_string()),
+                ("digits", &digits),
+                ("default-counter", &default_counter),
             ],
         )
         .expect("Failed to create provider")
@@ -342,9 +419,24 @@ impl Provider {
         priv_.name.borrow().clone()
     }
 
+    pub fn digits(&self) -> i32 {
+        let priv_ = ProviderPriv::from_instance(self);
+        priv_.digits.get()
+    }
+
+    pub fn default_counter(&self) -> i32 {
+        let priv_ = ProviderPriv::from_instance(self);
+        priv_.default_counter.get()
+    }
+
     pub fn period(&self) -> i32 {
         let priv_ = ProviderPriv::from_instance(self);
         priv_.period.get()
+    }
+
+    pub fn hmac_algorithm(&self) -> HOTPAlgorithm {
+        let priv_ = ProviderPriv::from_instance(self);
+        HOTPAlgorithm::from_str(&priv_.hmac_algorithm.borrow().clone()).unwrap()
     }
 
     pub fn algorithm(&self) -> Algorithm {
@@ -417,6 +509,9 @@ impl From<DiProvider> for Provider {
             &p.name,
             p.period,
             Algorithm::from_str(&p.algorithm).unwrap(),
+            HOTPAlgorithm::from_str(&p.hmac_algorithm).unwrap(),
+            p.digits,
+            p.default_counter,
             p.website,
             p.help_url,
             p.image_uri,
@@ -431,6 +526,9 @@ impl From<&Provider> for DiProvider {
             name: p.name(),
             period: p.period(),
             algorithm: p.algorithm().to_string(),
+            hmac_algorithm: p.hmac_algorithm().to_string(),
+            digits: p.digits(),
+            default_counter: p.default_counter(),
             website: p.website(),
             help_url: p.help_url(),
             image_uri: p.image_uri(),

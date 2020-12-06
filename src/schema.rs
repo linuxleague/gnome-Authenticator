@@ -2,6 +2,7 @@ table! {
     accounts (id) {
         id -> Integer,
         name -> Text,
+        counter -> Integer,
         token_id -> Text,
         provider_id -> Integer,
     }
@@ -11,11 +12,14 @@ table! {
     providers (id) {
         id -> Integer,
         name -> Text,
-        period -> Integer,
-        algorithm -> Text,
         website -> Nullable<Text>,
         help_url -> Nullable<Text>,
         image_uri -> Nullable<Text>,
+        period -> Integer,
+        digits -> Integer,
+        default_counter -> Integer,
+        hmac_algorithm -> Text,
+        algorithm -> Text,
     }
 }
 
