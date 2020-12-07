@@ -89,7 +89,7 @@ impl ProvidersList {
 
         let accounts_filter = gtk::CustomFilter::new(Some(Box::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
-            provider.search_accounts(text.clone());
+            provider.filter(text.clone());
             provider.accounts().get_n_items() != 0
         })));
         self_.filter_model.set_filter(Some(&accounts_filter));

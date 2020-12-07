@@ -1,5 +1,5 @@
 use crate::application::Action;
-use crate::helpers::{qrcode, Keyring};
+use crate::helpers::qrcode;
 use crate::models::{Account, Algorithm, Provider, ProvidersModel};
 use crate::widgets::{ProviderImage, ProviderImageSize};
 use anyhow::Result;
@@ -200,13 +200,11 @@ impl AccountAddDialog {
             let username = self_.username_entry.get().get_text().unwrap();
             let token = self_.token_entry.get().get_text().unwrap();
 
-            if let Ok(token_id) = Keyring::store(&username, &token) {
-                let account = Account::create(&username, &token_id, provider)?;
-                send!(
-                    self_.global_sender.get().unwrap(),
-                    Action::AccountCreated(account, provider.clone())
-                );
-            }
+            let account = Account::create(&username, &token, provider)?;
+            send!(
+                self_.global_sender.get().unwrap(),
+                Action::AccountCreated(account, provider.clone())
+            );
             // TODO: display an error message saying there was an error form keyring
         }
         Ok(())

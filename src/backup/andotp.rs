@@ -1,5 +1,4 @@
 use super::{Backupable, Restorable};
-use crate::helpers::Keyring;
 use crate::models::{Account, Algorithm, HOTPAlgorithm, Provider, ProvidersModel};
 use anyhow::Result;
 use gio::{FileExt, ListModelExt};
@@ -123,15 +122,9 @@ impl Restorable for AndOTP {
                 }
             };
 
-            match Keyring::store(&item.label, &item.secret) {
-                Ok(token_id) => {
-                    let account = Account::create(&item.label, &token_id, &provider).unwrap();
-                    provider.add_account(&account);
-                }
-                Err(e) => {
-                    warn!("Failed to restore account {}", e);
-                }
-            };
+            if let Ok(account) = Account::create(&item.label, &item.secret, &provider) {
+                provider.add_account(&account);
+            }
         });
         Ok(())
     }

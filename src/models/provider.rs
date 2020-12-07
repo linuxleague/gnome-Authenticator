@@ -112,7 +112,7 @@ static PROPERTIES: [subclass::Property; 11] = [
             "default_counter",
             "default_counter",
             0,
-            1000,
+            i32::MAX,
             1,
             glib::ParamFlags::READWRITE,
         )
@@ -505,7 +505,7 @@ impl Provider {
         &priv_.filter_model
     }
 
-    pub fn search_accounts(&self, text: String) {
+    pub fn filter(&self, text: String) {
         let priv_ = ProviderPriv::from_instance(self);
         let filter = gtk::CustomFilter::new(Some(Box::new(move |obj| {
             let account = obj.downcast_ref::<Account>().unwrap();

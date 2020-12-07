@@ -195,9 +195,12 @@ glib_wrapper! {
 }
 
 impl Account {
-    pub fn create(name: &str, token_id: &str, provider: &Provider) -> Result<Account> {
+    pub fn create(name: &str, token: &str, provider: &Provider) -> Result<Account> {
         let db = database::connection();
         let conn = db.get()?;
+
+        let token_id = Keyring::store(&format!("{} - {}", provider.name(), name), &token)
+            .expect("Failed to save token");
 
         diesel::insert_into(accounts::table)
             .values(NewAccount {
@@ -308,17 +311,12 @@ impl Account {
             Algorithm::Steam => 1,
         };
 
-        // Modified version of an implementation from otpauth crate
-        let key = hmac::Key::new(provider.hmac_algorithm().into(), self.token().as_bytes());
-        let wtr = counter.to_be_bytes().to_vec();
-        let result = hmac::sign(&key, &wtr);
-        let digest = result.as_ref();
-        let ob = digest[19];
-        let pos = (ob & 15) as usize;
-        let mut rdr = std::io::Cursor::new(digest[pos..pos + 4].to_vec());
-        let base = rdr.read_u32::<BigEndian>().unwrap() & 0x7fff_ffff;
-        let otp = base % 10_u32.pow(provider.digits() as u32);
-
+        let otp = generate_otp(
+            &self.token(),
+            counter,
+            provider.hmac_algorithm().into(),
+            provider.digits() as u32,
+        );
         self.set_property("otp", &otp.to_string()).unwrap();
     }
 
@@ -343,6 +341,11 @@ impl Account {
         let clipboard = display.get_clipboard();
         let priv_ = AccountPriv::from_instance(self);
         clipboard.set_text(&priv_.otp.borrow());
+
+        // Indirectly increment the counter once the token was copied
+        if self.provider().algorithm() == Algorithm::HOTP {
+            self.generate_otp();
+        }
     }
 
     pub fn id(&self) -> i32 {
@@ -354,6 +357,7 @@ impl Account {
         let provider = self.get_property("provider").unwrap();
         provider.get::<Provider>().unwrap().unwrap()
     }
+
     pub fn counter(&self) -> i32 {
         let priv_ = AccountPriv::from_instance(self);
         priv_.counter.get()
@@ -395,4 +399,23 @@ impl Account {
             .execute(&conn)?;
         Ok(())
     }
+}
+
+pub(crate) fn generate_otp(
+    token: &str,
+    counter: u64,
+    algorithm: hmac::Algorithm,
+    digits: u32,
+) -> u32 {
+    // Modified version of an implementation from otpauth crate
+    let key = hmac::Key::new(algorithm, token.as_bytes());
+    let wtr = counter.to_be_bytes().to_vec();
+    let result = hmac::sign(&key, &wtr);
+    let digest = result.as_ref();
+    let ob = digest[19];
+    let pos = (ob & 15) as usize;
+    let mut rdr = std::io::Cursor::new(digest[pos..pos + 4].to_vec());
+    let base = rdr.read_u32::<BigEndian>().unwrap() & 0x7fff_ffff;
+
+    base % 10_u32.pow(digits)
 }
