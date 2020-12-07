@@ -51,10 +51,11 @@
                 </child>
                 <child>
                   <object class="GtkScrolledWindow">
+                    <property name="min-content-width">340</property>
+                    <property name="min-content-height">400</property>
                     <child>
                       <object class="HdyClamp">
-                        <property name="valign">center</property>
-                        <property name="margin-top">12</property>
+                        <property name="margin-top">36</property>
                         <property name="margin-bottom">12</property>
                         <property name="vexpand">True</property>
                         <child>
@@ -105,9 +106,6 @@
                                         <property name="valign">center</property>
                                         <property name="hexpand">True</property>
                                         <property name="visibility">False</property>
-                                        <property name="secondary_icon_name">dialog-information-symbolic</property>
-                                        <property name="secondary_icon_tooltip_text" translatable="yes">Enable 2FA for this account</property>
-                                        <property name="secondary_icon_tooltip_markup" translatable="yes">Enable 2FA for this account</property>
                                         <property name="input_purpose">pin</property>
                                       </object>
                                     </child>

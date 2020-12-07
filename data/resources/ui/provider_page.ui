@@ -61,131 +61,144 @@
       </object>
     </child>
     <child>
-      <object class="HdyClamp">
-        <property name="valign">center</property>
-        <property name="margin-top">12</property>
-        <property name="margin-bottom">12</property>
-        <property name="vexpand">True</property>
+      <object class="GtkScrolledWindow">
+        <property name="min-content-width">340</property>
+        <property name="min-content-height">400</property>
         <child>
-          <object class="GtkBox" id="main_container">
-            <property name="orientation">vertical</property>
-            <property name="spacing">42</property>
-            <property name="margin-start">8</property>
-            <property name="margin-end">8</property>
+          <object class="HdyClamp">
+            <property name="margin-top">36</property>
+            <property name="margin-bottom">12</property>
+            <property name="vexpand">True</property>
             <child>
-              <object class="GtkListBox">
-                <property name="selection_mode">none</property>
+              <object class="GtkBox" id="main_container">
+                <property name="orientation">vertical</property>
+                <property name="spacing">42</property>
+                <property name="margin-start">8</property>
+                <property name="margin-end">8</property>
                 <child>
-                  <object class="HdyActionRow">
-                    <property name="activatable_widget">name_entry</property>
-                    <property name="title" translatable="yes">Name</property>
+                  <object class="GtkListBox">
+                    <property name="selection_mode">none</property>
                     <child>
-                      <object class="GtkEntry" id="name_entry">
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                        <property name="hexpand">True</property>
-                        <property name="enable_emoji_completion">True</property>
+                      <object class="HdyActionRow">
+                        <property name="activatable_widget">name_entry</property>
+                        <property name="title" translatable="yes">Name</property>
+                        <child>
+                          <object class="GtkEntry" id="name_entry">
+                            <property name="halign">end</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="enable_emoji_completion">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyActionRow">
+                        <property name="activatable_widget">provider_website_entry</property>
+                        <property name="title" translatable="yes">Website</property>
+                        <child>
+                          <object class="GtkEntry" id="provider_website_entry">
+                            <property name="halign">end</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="input_purpose">url</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyActionRow">
+                        <property name="activatable_widget">provider_help_entry</property>
+                        <property name="title" translatable="yes">Help URL</property>
+                        <property name="subtitle" translatable="yes">How to setup Two-Factor Authentication</property>
+                        <child>
+                          <object class="GtkEntry" id="provider_help_entry">
+                            <property name="halign">end</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="input_purpose">url</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyComboRow" id="algorithm_comborow">
+                        <property name="title" translatable="yes">Algorithm</property>
+                        <property name="expression">
+                          <lookup type="HdyEnumValueObject" name="name"/>
+                        </property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="content"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkListBox">
+                    <property name="selection_mode">none</property>
+                    <style>
+                      <class name="content"/>
+                    </style>
+                    <child>
+                      <object class="HdyActionRow" id="period_row">
+                        <property name="activatable_widget">period_spinbutton</property>
+                        <property name="title" translatable="yes">Period</property>
+                        <child>
+                          <object class="GtkSpinButton" id="period_spinbutton">
+                            <property name="halign">end</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="text" translatable="yes">0</property>
+                            <property name="adjustment">period_adjustment</property>
+                            <property name="numeric">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyComboRow" id="hmac_algorithm_comborow">
+                        <property name="title" translatable="yes">HMAC Algorithm</property>
+                        <property name="expression">
+                          <lookup type="HdyEnumValueObject" name="name"/>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyActionRow" id="default_counter_row">
+                        <property name="activatable_widget">default_counter_spinbutton</property>
+                        <property name="title" translatable="yes">Default Counter</property>
+                        <child>
+                          <object class="GtkSpinButton" id="default_counter_spinbutton">
+                            <property name="halign">end</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="text" translatable="yes">0</property>
+                            <property name="adjustment">default_counter_adjustment</property>
+                            <property name="numeric">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyActionRow" id="digits_row">
+                        <property name="activatable_widget">digits_spinbutton</property>
+                        <property name="title" translatable="yes">Digits</property>
+                        <property name="subtitle" translatable="yes">Defaults to 6</property>
+                        <child>
+                          <object class="GtkSpinButton" id="digits_spinbutton">
+                            <property name="halign">end</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="text" translatable="yes">0</property>
+                            <property name="adjustment">digits_adjustment</property>
+                            <property name="numeric">True</property>
+                          </object>
+                        </child>
                       </object>
                     </child>
                   </object>
                 </child>
-                <child>
-                  <object class="HdyActionRow">
-                    <property name="activatable_widget">provider_website_entry</property>
-                    <property name="title" translatable="yes">Website</property>
-                    <child>
-                      <object class="GtkEntry" id="provider_website_entry">
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                        <property name="hexpand">True</property>
-                        <property name="input_purpose">url</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="HdyActionRow">
-                    <property name="activatable_widget">provider_help_entry</property>
-                    <property name="title" translatable="yes">Help URL</property>
-                    <property name="subtitle" translatable="yes">How to setup Two-Factor Authentication</property>
-                    <child>
-                      <object class="GtkEntry" id="provider_help_entry">
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                        <property name="hexpand">True</property>
-                        <property name="input_purpose">url</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="HdyComboRow" id="algorithm_comborow">
-                    <property name="title" translatable="yes">Algorithm</property>
-                    <property name="expression">
-                      <lookup type="HdyEnumValueObject" name="name"/>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="HdyActionRow" id="period_row">
-                    <property name="activatable_widget">period_spinbutton</property>
-                    <property name="title" translatable="yes">Period</property>
-                    <child>
-                      <object class="GtkSpinButton" id="period_spinbutton">
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                        <property name="hexpand">True</property>
-                        <property name="text" translatable="yes">0</property>
-                        <property name="adjustment">period_adjustment</property>
-                        <property name="numeric">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="HdyComboRow" id="hmac_algorithm_comborow">
-                    <property name="title" translatable="yes">HMAC Algorithm</property>
-                    <property name="expression">
-                      <lookup type="HdyEnumValueObject" name="name"/>
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="HdyActionRow" id="default_counter_row">
-                    <property name="activatable_widget">default_counter_spinbutton</property>
-                    <property name="title" translatable="yes">Default Counter</property>
-                    <child>
-                      <object class="GtkSpinButton" id="default_counter_spinbutton">
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                        <property name="hexpand">True</property>
-                        <property name="text" translatable="yes">0</property>
-                        <property name="adjustment">default_counter_adjustment</property>
-                        <property name="numeric">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="HdyActionRow" id="digits_row">
-                    <property name="activatable_widget">digits_spinbutton</property>
-                    <property name="title" translatable="yes">Digits</property>
-                    <property name="subtitle" translatable="yes">Defaults to 6</property>
-                    <child>
-                      <object class="GtkSpinButton" id="digits_spinbutton">
-                        <property name="halign">end</property>
-                        <property name="valign">center</property>
-                        <property name="hexpand">True</property>
-                        <property name="text" translatable="yes">0</property>
-                        <property name="adjustment">digits_adjustment</property>
-                        <property name="numeric">True</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <style>
-                  <class name="content"/>
-                </style>
               </object>
             </child>
           </object>

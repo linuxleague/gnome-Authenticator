@@ -135,7 +135,7 @@ impl ProviderImage {
                     self_
                         .image
                         .get()
-                        .set_from_icon_name(Some("image-icon-missing"));
+                        .set_from_icon_name(Some("image-missing-symbolic"));
                     self_.stack.get().set_visible_child_name("image");
                     return;
                 }
