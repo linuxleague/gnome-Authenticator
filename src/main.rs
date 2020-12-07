@@ -13,6 +13,7 @@ extern crate gtk_macros;
 
 use gettextrs::*;
 mod application;
+mod backup;
 mod config;
 mod helpers;
 mod models;

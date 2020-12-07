@@ -39,6 +39,11 @@ run_command(
 
 
 sources = files(
+  'backup/andotp.rs',
+  'backup/bitwarden.rs',
+  'backup/freeotp.rs',
+  'backup/legacy.rs',
+  'backup/mod.rs',
   'helpers/database.rs',
   'helpers/keyring.rs',
   'helpers/mod.rs',

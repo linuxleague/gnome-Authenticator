@@ -384,27 +384,29 @@ impl Provider {
     }
 
     pub async fn favicon(&self) -> Result<gio::File, FaviconError> {
-        let website_url = Url::parse(&self.website().unwrap())?;
-        let favicons = FaviconScrapper::from_url(website_url).await?;
+        if let Some(ref website) = self.website() {
+            let website_url = Url::parse(website)?;
+            let favicons = FaviconScrapper::from_url(website_url).await?;
 
-        let icon_name = format!("{}_{}", self.id(), self.name().replace(' ', "_"));
-        let cache_path = glib::get_user_cache_dir()
-            .join("authenticator")
-            .join("favicons")
-            .join(icon_name);
-        let dest = gio::File::new_for_path(cache_path);
+            let icon_name = format!("{}_{}", self.id(), self.name().replace(' ', "_"));
+            let cache_path = glib::get_user_cache_dir()
+                .join("authenticator")
+                .join("favicons")
+                .join(icon_name);
+            let dest = gio::File::new_for_path(cache_path);
 
-        if let Some(favicon) = favicons.get(0) {
-            let mut res = surf::get(favicon).await?;
-            let body = res.body_bytes().await?;
-            dest.replace_contents(
-                &body,
-                None,
-                false,
-                gio::FileCreateFlags::REPLACE_DESTINATION,
-                gio::NONE_CANCELLABLE,
-            )?;
-            return Ok(dest);
+            if let Some(favicon) = favicons.get(0) {
+                let mut res = surf::get(favicon).await?;
+                let body = res.body_bytes().await?;
+                dest.replace_contents(
+                    &body,
+                    None,
+                    false,
+                    gio::FileCreateFlags::REPLACE_DESTINATION,
+                    gio::NONE_CANCELLABLE,
+                )?;
+                return Ok(dest);
+            }
         }
         Err(FaviconError::NoResults)
     }
@@ -491,6 +493,11 @@ impl Provider {
     pub fn add_account(&self, account: &Account) {
         let priv_ = ProviderPriv::from_instance(self);
         priv_.accounts.insert(account);
+    }
+
+    pub fn accounts_model(&self) -> &AccountsModel {
+        let priv_ = ProviderPriv::from_instance(self);
+        &priv_.accounts
     }
 
     pub fn accounts(&self) -> &gtk::FilterListModel {

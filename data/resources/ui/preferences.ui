@@ -85,43 +85,13 @@
         <property name="icon-name">document-save-as-symbolic</property>
         <property name="title">Backup/Restore</property>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="HdyPreferencesGroup" id="backup_group">
             <property name="title" translatable="yes">Backup</property>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Into Aegis compatible file</property>
-                <property name="activatable">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Into FreeOTP+ compatible file</property>
-                <property name="activatable">True</property>
-              </object>
-            </child>
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="HdyPreferencesGroup" id="restore_group">
             <property name="title" translatable="yes">Restore</property>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Form Aegis</property>
-                <property name="activatable">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">Form FreeOTP+</property>
-                <property name="activatable">True</property>
-              </object>
-            </child>
-            <child>
-              <object class="HdyActionRow">
-                <property name="title" translatable="yes">From an old Authenticator</property>
-                <property name="activatable">True</property>
-              </object>
-            </child>
           </object>
         </child>
       </object>

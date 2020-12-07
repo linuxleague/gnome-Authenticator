@@ -1,5 +1,6 @@
 use gettextrs::gettext;
 use ring::hmac;
+use serde::{de::Deserializer, ser::Serializer, Deserialize, Serialize};
 use std::str::FromStr;
 use std::string::ToString;
 
@@ -17,6 +18,24 @@ pub enum Algorithm {
 impl Default for Algorithm {
     fn default() -> Self {
         Self::TOTP
+    }
+}
+
+impl Serialize for Algorithm {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl<'de> Deserialize<'de> for Algorithm {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        Ok(Algorithm::from_str(&String::deserialize(deserializer)?).unwrap())
     }
 }
 
@@ -78,6 +97,24 @@ pub enum HOTPAlgorithm {
 impl Default for HOTPAlgorithm {
     fn default() -> Self {
         Self::SHA1
+    }
+}
+
+impl Serialize for HOTPAlgorithm {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_str(&self.to_string())
+    }
+}
+
+impl<'de> Deserialize<'de> for HOTPAlgorithm {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        Ok(HOTPAlgorithm::from_str(&String::deserialize(deserializer)?).unwrap())
     }
 }
 

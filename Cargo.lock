@@ -287,6 +287,8 @@ dependencies = [
  "quick-xml",
  "ring",
  "secret-service",
+ "serde",
+ "serde_json",
  "sha2",
  "surf",
  "unicase",

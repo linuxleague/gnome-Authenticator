@@ -124,10 +124,16 @@ impl ApplicationImpl for ApplicationPrivate {
         action!(
             app,
             "preferences",
-            clone!(@weak app => move |_,_| {
-                let window = app.get_active_window().unwrap();
-                let preferences = PreferencesWindow::new();
-                preferences.set_transient_for(Some(&window));
+            clone!(@weak app, @weak self.model as model  => move |_,_| {
+                let active_window = app.get_active_window().unwrap();
+                let win = active_window.downcast_ref::<Window>().unwrap();
+
+                let preferences = PreferencesWindow::new(model);
+                preferences.connect_local("restore-completed", false, clone!(@weak win => move |_| {
+                    win.providers().refilter();
+                    None
+                }));
+                preferences.set_transient_for(Some(&active_window));
                 preferences.show();
             })
         );

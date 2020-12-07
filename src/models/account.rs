@@ -9,6 +9,7 @@ use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::subclass::{self, prelude::*};
 use glib::{Cast, ObjectExt, StaticType, ToValue};
+use once_cell::sync::OnceCell;
 use ring::hmac;
 use std::cell::{Cell, RefCell};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -38,6 +39,7 @@ pub struct AccountPriv {
     pub otp: RefCell<String>,
     pub name: RefCell<String>,
     pub counter: Cell<i32>,
+    pub token: OnceCell<String>,
     pub token_id: RefCell<String>,
     pub provider: RefCell<Option<Provider>>,
 }
@@ -118,6 +120,7 @@ impl ObjectSubclass for AccountPriv {
             otp: RefCell::new("".to_string()),
             token_id: RefCell::new("".to_string()),
             provider: RefCell::new(None),
+            token: OnceCell::new(),
         }
     }
 }
@@ -262,6 +265,11 @@ impl Account {
         .expect("Failed to create account")
         .downcast::<Account>()
         .expect("Created account is of wrong type");
+
+        let token = Keyring::token(token_id).unwrap().unwrap();
+        let priv_ = AccountPriv::from_instance(&account);
+        priv_.token.set(token);
+
         account.init();
         account
     }
@@ -282,7 +290,6 @@ impl Account {
     }
 
     fn generate_otp(&self) {
-        let token = Keyring::token(&self.token_id()).unwrap().unwrap();
         let provider = self.provider();
 
         let counter = match provider.algorithm() {
@@ -302,7 +309,7 @@ impl Account {
         };
 
         // Modified version of an implementation from otpauth crate
-        let key = hmac::Key::new(provider.hmac_algorithm().into(), token.as_bytes());
+        let key = hmac::Key::new(provider.hmac_algorithm().into(), self.token().as_bytes());
         let wtr = counter.to_be_bytes().to_vec();
         let result = hmac::sign(&key, &wtr);
         let digest = result.as_ref();
@@ -355,6 +362,11 @@ impl Account {
     pub fn name(&self) -> String {
         let priv_ = AccountPriv::from_instance(self);
         priv_.name.borrow().clone()
+    }
+
+    pub fn token(&self) -> String {
+        let priv_ = AccountPriv::from_instance(self);
+        priv_.token.get().unwrap().clone()
     }
 
     pub fn token_id(&self) -> String {
