@@ -40,8 +40,8 @@
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
-
-.content row.account-row:last-child {
+/* Only for TOTP accounts */
+row.totp .content row.account-row:last-child {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }

@@ -116,6 +116,8 @@ impl ProviderRow {
     fn setup_widgets(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
 
+        self.add_css_class(&self.provider().algorithm().to_string());
+
         self_.header.get().prepend(&self_.image);
         self_.image.set_provider(&self.provider());
 
