@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the Authenticator package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Rodrigo Lledó <rodhos92@gmail.com>, 2019.
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2019.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2019-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-07-02 16:11+0000\n"
-"PO-Revision-Date: 2019-08-21 10:30+0200\n"
+"POT-Creation-Date: 2020-02-27 23:13+0000\n"
+"PO-Revision-Date: 2020-03-04 16:43+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.1\n"
+"X-Generator: Gtranslator 3.34.0\n"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
@@ -29,7 +29,6 @@ msgstr "Authenticator"
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
 #: data/resources/gtk/ui/about_dialog.ui.in:10
-#| msgid "Two-factor authentication"
 msgid "A Two-Factor Authentication application"
 msgstr "Una aplicación de autenticación de doble factor"
 
@@ -64,8 +63,9 @@ msgstr ""
 "contraseña"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services using their favicon"
-msgstr "Obtener automáticamente una imagen para servicios que usan el favicon"
+#| msgid "Automatically fetch an image for services using their favicon"
+msgid "Automatically fetch an image for services"
+msgstr "Obtener automáticamente una imagen para servicios"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
 msgid "The possibility to add new services"
@@ -80,7 +80,6 @@ msgid "Main Window - empty state"
 msgstr "Ventana principal - estado vacío"
 
 #: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-#: data/resources/gtk/ui/account_add.ui:15
 msgid "Add a new account"
 msgstr "Añadir una cuenta nueva"
 
@@ -92,18 +91,17 @@ msgstr "Ventana principal - Lista de cuentas"
 msgid "Settings Window"
 msgstr "Ventana de configuración"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:160
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-#| msgid "Two-factor authentication"
 msgid "Two-factor Authentication"
 msgstr "Autenticación de doble factor"
 
 #: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
-msgstr "Gnome;GTK;Autenticación;Verificación;2FA;Factores;Pasos;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+msgstr "Gnome;GTK;verificación;2FA;autenticación;OTP;doble;factor;"
 
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
@@ -152,50 +150,42 @@ msgstr ""
 "advocatux <advocatux@airpost.net>, 2018\n"
 "Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2018"
 
-#: data/resources/gtk/ui/account_add.ui:33
-msgid "Add"
-msgstr "Añadir"
-
-#: data/resources/gtk/ui/account_add.ui:53
-msgid "Scan QR Code"
-msgstr "Escanear código QR"
-
-#: data/resources/gtk/ui/account_config.ui:56
-msgid "Account Name"
-msgstr "Nombre de la cuenta"
-
-#: data/resources/gtk/ui/account_config.ui:78
+#: data/resources/gtk/ui/account_config.ui:57
 msgid "Provider"
 msgstr "Proveedor"
 
-#: data/resources/gtk/ui/account_config.ui:95
-#: data/resources/gtk/ui/account_config.ui:96
+#: data/resources/gtk/ui/account_config.ui:85
+#| msgid "Provider Website"
+msgid "Website"
+msgstr "Página web"
+
+#: data/resources/gtk/ui/account_config.ui:105
+#| msgctxt "shortcut window"
+#| msgid "Accounts"
+msgid "Account"
+msgstr "Cuenta"
+
+#: data/resources/gtk/ui/account_config.ui:124
+#| msgid "2FA Token"
+msgid "Token"
+msgstr "Testigo"
+
+#: data/resources/gtk/ui/account_config.ui:134
+#: data/resources/gtk/ui/account_config.ui:135
 msgid "Enable 2FA for this account"
 msgstr "Activar 2FA en esta cuenta"
 
-#: data/resources/gtk/ui/account_config.ui:97
-msgid "2FA Token"
-msgstr "Testigo 2FA"
+#: data/resources/gtk/ui/account_row.ui:48
+msgid "Copy PIN to clipboard"
+msgstr "Copiar PIN al portapapeles"
 
-#: data/resources/gtk/ui/account_config.ui:111
-msgid "Provider Website"
-msgstr "Página web del proveedor"
-
-#: data/resources/gtk/ui/account_edit.ui:31
-msgid "Save"
-msgstr "Guardar"
-
-#: data/resources/gtk/ui/account_row.ui:22
+#: data/resources/gtk/ui/account_row.ui:158
 msgid "Edit"
 msgstr "Editar"
 
-#: data/resources/gtk/ui/account_row.ui:40
+#: data/resources/gtk/ui/account_row.ui:176
 msgid "Delete"
 msgstr "Eliminar"
-
-#: data/resources/gtk/ui/account_row.ui:97
-msgid "Copy PIN to clipboard"
-msgstr "Copiar PIN al portapapeles"
 
 #: data/resources/gtk/ui/password_widget.ui:46
 msgid "Current Password:"
@@ -223,7 +213,7 @@ msgid "Appearance"
 msgstr "Aspecto"
 
 #: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:106
+#: src/Authenticator/application.py.in:102
 msgid "Lock the application"
 msgstr "Bloquear la aplicación"
 
@@ -282,7 +272,7 @@ msgstr "No se encontraron resultados"
 msgid "Authenticator is locked"
 msgstr "Authenticator está bloqueado"
 
-#: data/resources/gtk/ui/window.ui.in:468
+#: data/resources/gtk/ui/window.ui.in:469
 msgid "Unlock"
 msgstr "Desbloquear"
 
@@ -290,46 +280,50 @@ msgstr "Desbloquear"
 msgid "Start in debug mode"
 msgstr "Iniciar en el modo de depuración"
 
-#: src/Authenticator/application.py.in:114
+#: src/Authenticator/application.py.in:110
 msgid "from a plain-text JSON file"
 msgstr "desde un archivo JSON de texto sencillo"
 
-#: src/Authenticator/application.py.in:115
+#: src/Authenticator/application.py.in:111
 msgid "in a plain-text JSON file"
 msgstr "en un archivo JSON de texto sencillo"
 
-#: src/Authenticator/application.py.in:117
+#: src/Authenticator/application.py.in:113
 msgid "Restore"
 msgstr "Restaurar"
 
-#: src/Authenticator/application.py.in:118
+#: src/Authenticator/application.py.in:114
 msgid "Backup"
 msgstr "Copia de seguridad"
 
 #. Night mode action
-#: src/Authenticator/application.py.in:126
+#: src/Authenticator/application.py.in:122
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/Authenticator/application.py.in:127
-msgid "Donate"
-msgstr "Donar"
-
-#: src/Authenticator/application.py.in:128
+#: src/Authenticator/application.py.in:123
 msgid "Keyboard Shortcuts"
 msgstr "Atajos de teclado"
 
-#: src/Authenticator/application.py.in:129
+#: src/Authenticator/application.py.in:124
 msgid "About Authenticator"
 msgstr "Acerca de Authenticator"
 
-#: src/Authenticator/models/account.py:84
+#: src/Authenticator/models/account.py:87
 msgid "Default"
 msgstr "Predeterminado"
 
-#: src/Authenticator/widgets/accounts/add.py:247
+#: src/Authenticator/widgets/accounts/add.py:36
+msgid "Add"
+msgstr "Añadir"
+
+#: src/Authenticator/widgets/accounts/add.py:257
 msgid "Invalid QR code"
 msgstr "Código QR no válido"
+
+#: src/Authenticator/widgets/accounts/edit.py:37
+msgid "Save"
+msgstr "Guardar"
 
 #: src/Authenticator/widgets/accounts/list.py:152
 msgid "The One-Time Passwords expire in {} seconds"
@@ -343,16 +337,16 @@ msgstr "No se pudo generar el código secreto"
 msgid "The PIN of {} was copied to the clipboard"
 msgstr "El PIN de {} se copió desde el portapapeles"
 
-#: src/Authenticator/widgets/accounts/row.py:141
+#: src/Authenticator/widgets/accounts/row.py:139
 msgid "The account was updated successfully"
 msgstr "La cuenta se actualizó correctamente"
 
 #: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:84
+#: src/Authenticator/widgets/notification.py:86
 msgid "Undo"
 msgstr "Deshacer"
 
-#: src/Authenticator/widgets/notification.py:79
+#: src/Authenticator/widgets/notification.py:81
 msgid "Close the notification"
 msgstr "Cerrar la notificación"
 
@@ -371,6 +365,15 @@ msgstr "La contraseña de autenticación refuerza la privacidad de sus cuentas."
 #: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
 msgid "JSON files"
 msgstr "Archivos JSON"
+
+#~ msgid "Scan QR Code"
+#~ msgstr "Escanear código QR"
+
+#~ msgid "Account Name"
+#~ msgstr "Nombre de la cuenta"
+
+#~ msgid "Donate"
+#~ msgstr "Donar"
 
 #~ msgid "Two-factor authentication code generator"
 #~ msgstr "Generador de códigos de autenticación de doble factor"
