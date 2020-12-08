@@ -12,7 +12,9 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--talk-name=org.a11y.Bus",
-        "--talk-name=org.freedesktop.secrets"
+        "--talk-name=org.freedesktop.secrets",
+        "--env=RUST_LOG=authenticator=debug",
+        "--env=G_MESSAGES_DEBUG=none"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
@@ -23,8 +25,7 @@
         ],
         "env": {
             "CARGO_HOME": "/run/build/authenticator/cargo",
-            "RUST_BACKTRACE": "1",
-            "RUST_LOG": "authenticator=debug"
+            "RUST_BACKTRACE": "1"
         }
     },
     "modules": [
