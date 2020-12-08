@@ -26,27 +26,6 @@ if glib_compile_schemas.found()
   )
 endif
 
-
-# GNOME Shell Search Provider Service
-search_service_provider_conf = configuration_data()
-search_service_provider_conf.set('app-id', application_id)
-configure_file(
-  configuration: search_service_provider_conf,
-  input: 'com.belmoussaoui.Authenticator.SearchProvider.service.in',
-  install_dir: get_option('datadir') / 'gnome-shell' / 'search-providers',
-  output: '@0@.SearchProvider.service'.format(application_id)
-)
-# GNOME Shell Search Provider
-search_provider_conf = configuration_data()
-search_provider_conf.set('app-id', application_id)
-search_provider_conf.set('profile', profile)
-configure_file(
-  configuration: search_provider_conf,
-  input: 'com.belmoussaoui.Authenticator.SearchProvider.ini.in',
-  install_dir: join_paths(get_option('datadir'), 'gnome-shell', 'search-providers'),
-  output: '@0@.SearchProvider.ini'.format(application_id)
-)
-
 # FreeDesktop Desktop File
 desktop_conf = configuration_data()
 desktop_conf.set('icon', application_id)

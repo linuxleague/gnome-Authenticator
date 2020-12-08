@@ -1,3 +1,0 @@
-[D-BUS Service]
-Name=@app-id@.SearchProvider
-Exec=authenticator --gapplication-service
