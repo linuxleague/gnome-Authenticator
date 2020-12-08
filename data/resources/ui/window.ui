@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="menu">
+    <item>
+      <attribute name="label">_Providers</attribute>
+      <attribute name="action">app.providers</attribute>
+    </item>
+    <item>
+      <attribute name="label">_Lock the application</attribute>
+      <attribute name="action">app.lock</attribute>
+    </item>
+    <item>
+      <attribute name="label">_Preferences</attribute>
+      <attribute name="action">app.preferences</attribute>
+    </item>
+    <item>
+      <attribute name="label">_Keyboard Shortcuts</attribute>
+      <attribute name="action">win.show-help-overlay</attribute>
+    </item>
+    <item>
+      <attribute name="label">About Authenticator</attribute>
+      <attribute name="action">app.about</attribute>
+    </item>
+  </menu>
+  <template class="Window" parent="HdyApplicationWindow">
+    <property name="icon_name">@APP_ID@</property>
+    <child>
+      <object class="HdyLeaflet" id="deck">
+        <property name="can-unfold">False</property>
+        <child>
+          <object class="HdyLeafletPage">
+            <property name="name">accounts</property>
+            <property name="child">
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkHeaderBar">
+                    <property name="show-title-buttons">True</property>
+                    <child type="start">
+                      <object class="GtkButton" id="add_btn">
+                        <property name="receives_default">True</property>
+                        <property name="action_name">win.add-account</property>
+                        <property name="icon-name">list-add-symbolic</property>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkMenuButton">
+                        <property name="receives_default">True</property>
+                        <property name="menu-model">menu</property>
+                        <property name="icon-name">open-menu-symbolic</property>
+                      </object>
+                    </child>
+                    <child type="end">
+                      <object class="GtkToggleButton" id="search_btn">
+                        <property name="receives_default">True</property>
+                        <property name="icon-name">system-search-symbolic</property>
+                      </object>
+                    </child>
+                    <style>
+                      <class name="titlebar"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="container">
+                    <property name="vexpand">True</property>
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkSearchBar" id="search_bar">
+                        <child>
+                          <object class="GtkSearchEntry" id="search_entry">
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="HdyLeafletPage">
+            <property name="name">login</property>
+            <property name="child">
+              <object class="GtkWindowHandle">
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkBox">
+                        <child>
+                          <object class="GtkWindowControls">
+                            <property name="side">start</property>
+                            <property name="halign">start</property>
+                            <property name="hexpand">true</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">6</property>
+                            <property name="margin-start">6</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkWindowControls">
+                            <property name="side">end</property>
+                            <property name="halign">end</property>
+                            <property name="hexpand">true</property>
+                            <property name="margin_top">6</property>
+                            <property name="margin_bottom">6</property>
+                            <property name="margin_end">6</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="spacing">24</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkImage" id="locked_img">
+                            <property name="halign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="pixel-size">128</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="halign">center</property>
+                            <property name="margin-top">12</property>
+                            <property name="label" translatable="yes">Authenticator is locked</property>
+                            <style>
+                              <class name="title-2"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="halign">center</property>
+                            <property name="valign">start</property>
+                            <property name="margin-top">24</property>
+                            <property name="hexpand">True</property>
+                            <property name="vexpand">True</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkPasswordEntry" id="password_entry">
+                                <property name="halign">center</property>
+                                <property name="activates-default">True</property>
+                                <property name="show-peek-icon">True</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="label" translatable="yes">Unlock</property>
+                                <property name="action-name">win.unlock</property>
+                                <property name="receives-default">True</property>
+                                <property name="halign">center</property>
+                                <property name="margin-top">16</property>
+                                <style>
+                                  <class name="suggested-action"/>
+                                  <class name="pill-button" />
+                                  <class name="large-button" />
+                                </style>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

@@ -1,0 +1,131 @@
+use super::{Backupable, Restorable};
+use crate::models::{Account, Algorithm, HOTPAlgorithm, Provider, ProvidersModel};
+use anyhow::Result;
+use gio::{FileExt, ListModelExt};
+use glib::Cast;
+use serde::{Deserialize, Serialize};
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct AndOTP {
+    pub secret: String,
+    pub issuer: String,
+    pub label: String,
+    pub digits: i32,
+    #[serde(rename = "type")]
+    pub type_field: Algorithm,
+    pub algorithm: HOTPAlgorithm,
+    pub thumbnail: String,
+    pub last_used: i64,
+    pub used_frequency: i32,
+    pub counter: Option<i32>,
+    pub tags: Vec<String>,
+    pub period: Option<i32>,
+}
+
+impl Backupable for AndOTP {
+    fn identifier() -> String {
+        "andotp".to_string()
+    }
+
+    fn title() -> String {
+        "andOTP".to_string()
+    }
+
+    fn subtitle() -> String {
+        "Into a plain-text JSON file".to_string()
+    }
+
+    fn backup(model: ProvidersModel, into: gio::File) -> Result<()> {
+        let mut items = Vec::new();
+
+        for i in 0..model.get_n_items() {
+            let provider = model.get_object(i).unwrap().downcast::<Provider>().unwrap();
+            let accounts = provider.accounts_model();
+
+            for j in 0..accounts.get_n_items() {
+                let account = accounts
+                    .get_object(j)
+                    .unwrap()
+                    .downcast::<Account>()
+                    .unwrap();
+
+                let otp_item = AndOTP {
+                    secret: account.token(),
+                    issuer: provider.name(),
+                    label: account.name(),
+                    digits: provider.digits(),
+                    type_field: provider.algorithm(),
+                    algorithm: provider.hmac_algorithm(),
+                    thumbnail: "".to_string(),
+                    last_used: 0,
+                    used_frequency: 0,
+                    counter: Some(account.counter()),
+                    tags: vec![],
+                    period: Some(provider.period()),
+                };
+                items.push(otp_item);
+            }
+        }
+
+        let content = serde_json::ser::to_string_pretty(&items)?;
+
+        into.replace_contents(
+            content.as_bytes(),
+            None,
+            false,
+            gio::FileCreateFlags::REPLACE_DESTINATION,
+            gio::NONE_CANCELLABLE,
+        )?;
+
+        Ok(())
+    }
+}
+
+impl Restorable for AndOTP {
+    fn identifier() -> String {
+        "andotp".to_string()
+    }
+
+    fn title() -> String {
+        "andOTP".to_string()
+    }
+
+    fn subtitle() -> String {
+        "From a plain-text JSON file".to_string()
+    }
+
+    fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {
+        let (data, _) = from.load_contents(gio::NONE_CANCELLABLE)?;
+
+        let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;
+        items.iter().for_each(|item| {
+            info!(
+                "Restoring account: {} - {} from AndOTP",
+                item.issuer, item.label
+            );
+
+            let provider = match model.find_by_name(&item.issuer) {
+                Some(p) => p,
+                None => {
+                    let p = Provider::create(
+                        &item.issuer,
+                        item.period.unwrap_or_else(|| 30),
+                        item.type_field,
+                        None,
+                        item.algorithm,
+                        item.digits,
+                        item.counter.unwrap_or_else(|| 1),
+                    )
+                    .unwrap();
+                    model.add_provider(&p);
+                    p
+                }
+            };
+
+            if let Ok(account) = Account::create(&item.label, &item.secret, &provider) {
+                provider.add_account(&account);
+            }
+        });
+        Ok(())
+    }
+}

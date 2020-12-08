@@ -1,0 +1,368 @@
+# Hungarian translation for authenticator.
+# Copyright (C) 2019 Free Software Foundation, Inc.
+# This file is distributed under the same license as the authenticator package.
+#
+# Balázs Úr <ur.balazs at fsf dot hu>, 2019.
+msgid ""
+msgstr ""
+"Project-Id-Version: authenticator master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2019-07-02 16:11+0000\n"
+"PO-Revision-Date: 2019-08-24 23:07+0200\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 18.12.3\n"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
+#: src/Authenticator/application.py.in:36
+msgid "Authenticator"
+msgstr "Hitelesítő"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
+#: data/resources/gtk/ui/about_dialog.ui.in:10
+#| msgid "Two-factor authentication"
+msgid "A Two-Factor Authentication application"
+msgstr "Egy kétlépcsős hitelesítő alkalmazás"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+msgid ""
+"Simple application that generates a two-factor authentication code, created "
+"for GNOME."
+msgstr ""
+"Egyszerű alkalmazása a GNOME asztali környezethez, amely kétlépcsős "
+"hitelesítő kódot állít elő."
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
+msgid "Features:"
+msgstr "Funkciók:"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
+msgid "QR code scanner"
+msgstr "QR-kód beolvasó"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
+msgid "Beautiful UI"
+msgstr "Gyönyörű felhasználói felület"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
+msgid "Huge database of more than 560 supported services"
+msgstr "Hatalmas adatbázis több mint 560 támogatott szolgáltatással"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
+msgid "Keep your PIN tokens secure by locking the application with a password"
+msgstr ""
+"Tartsa a PIN tokenjeit biztonságban és zárolja az alkalmazást jelszóval"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
+msgid "Automatically fetch an image for services using their favicon"
+msgstr ""
+"Kép automatikus lekérése a szolgáltatásokhoz a böngészőikonjuk használatával"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
+msgid "The possibility to add new services"
+msgstr "A lehetőség új szolgáltatások hozzáadásához"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
+msgid "Dark theme and night light"
+msgstr "Sötét téma és nappali fény"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
+msgid "Main Window - empty state"
+msgstr "Főablak – üres állapot"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
+#: data/resources/gtk/ui/account_add.ui:15
+msgid "Add a new account"
+msgstr "Új fiók hozzáadása"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
+msgid "Main Window - Accounts List"
+msgstr "Főablak – Fiókok listája"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
+msgid "Settings Window"
+msgstr "Beállítások ablak"
+
+#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:160
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
+#| msgid "Two-factor authentication"
+msgid "Two-factor Authentication"
+msgstr "Kétlépcsős hitelesítés"
+
+#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgstr "GNOME;GTK;Ellenőrzés;2FA;Hitelesítés;Kétlépcsős;"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window position"
+msgstr "Alapértelmezett ablakhelyzet"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
+#: data/resources/gtk/ui/settings.ui.in:28
+msgid "Dark Theme"
+msgstr "Sötét téma"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
+#: data/resources/gtk/ui/settings.ui.in:29
+#: data/resources/gtk/ui/settings.ui.in:76
+msgid "Whether the application should use a dark theme."
+msgstr "Az alkalmazás használjon-e sötét témát."
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
+#: data/resources/gtk/ui/settings.ui.in:83
+msgid "Auto lock timeout"
+msgstr "Automatikus zárolás időtúllépése"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
+msgid "Lock the application on idle after X minutes"
+msgstr "Az alkalmazás zárolása X perc tétlenség után"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
+#: data/resources/gtk/ui/settings.ui.in:43
+msgid "Night Light"
+msgstr "Nappali fény"
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
+#: data/resources/gtk/ui/settings.ui.in:44
+#: data/resources/gtk/ui/settings.ui.in:84
+msgid "Automatically enable dark mode at night."
+msgstr "Sötét mód automatikus engedélyezése éjszaka."
+
+#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Default window maximized behaviour"
+msgstr "Alapértelmezett ablak maximalizált viselkedés"
+
+#: data/resources/gtk/ui/about_dialog.ui.in:13
+msgid "translator-credits"
+msgstr "Úr Balázs <ur.balazs@fsf.hu>, 2018, 2019."
+
+#: data/resources/gtk/ui/account_add.ui:33
+msgid "Add"
+msgstr "Hozzáadás"
+
+#: data/resources/gtk/ui/account_add.ui:53
+msgid "Scan QR Code"
+msgstr "QR-kód beolvasása"
+
+#: data/resources/gtk/ui/account_config.ui:56
+msgid "Account Name"
+msgstr "Fiók neve"
+
+#: data/resources/gtk/ui/account_config.ui:78
+msgid "Provider"
+msgstr "Szolgáltató"
+
+#: data/resources/gtk/ui/account_config.ui:95
+#: data/resources/gtk/ui/account_config.ui:96
+msgid "Enable 2FA for this account"
+msgstr "2FA engedélyezése ehhez a fiókhoz"
+
+#: data/resources/gtk/ui/account_config.ui:97
+msgid "2FA Token"
+msgstr "2FA token"
+
+#: data/resources/gtk/ui/account_config.ui:111
+msgid "Provider Website"
+msgstr "Szolgáltató weboldala"
+
+#: data/resources/gtk/ui/account_edit.ui:31
+msgid "Save"
+msgstr "Mentés"
+
+#: data/resources/gtk/ui/account_row.ui:22
+msgid "Edit"
+msgstr "Szerkesztés"
+
+#: data/resources/gtk/ui/account_row.ui:40
+msgid "Delete"
+msgstr "Törlés"
+
+#: data/resources/gtk/ui/account_row.ui:97
+msgid "Copy PIN to clipboard"
+msgstr "PIN-kód másolása a vágólapra"
+
+#: data/resources/gtk/ui/password_widget.ui:46
+msgid "Current Password:"
+msgstr "Jelenlegi jelszó:"
+
+#: data/resources/gtk/ui/password_widget.ui:91
+msgid "New Password:"
+msgstr "Új jelszó:"
+
+#: data/resources/gtk/ui/password_widget.ui:136
+msgid "Confirm New Password:"
+msgstr "Új jelszó megerősítése:"
+
+#: data/resources/gtk/ui/password_widget.ui:184
+#: src/Authenticator/widgets/settings.py:174
+msgid "Change Password"
+msgstr "Jelszó megváltoztatása"
+
+#: data/resources/gtk/ui/password_widget.ui:205
+msgid "Delete Password"
+msgstr "Jelszó törlése"
+
+#: data/resources/gtk/ui/settings.ui.in:24
+msgid "Appearance"
+msgstr "Megjelenés"
+
+#: data/resources/gtk/ui/settings.ui.in:75
+#: src/Authenticator/application.py.in:106
+msgid "Lock the application"
+msgstr "Az alkalmazás zárolása"
+
+#: data/resources/gtk/ui/shortcuts.ui:13
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Általános"
+
+#: data/resources/gtk/ui/shortcuts.ui:17
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Gyorsbillentyűk megjelenítése"
+
+#: data/resources/gtk/ui/shortcuts.ui:24
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: data/resources/gtk/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Kilépés"
+
+#: data/resources/gtk/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "Fiókok"
+
+#: data/resources/gtk/ui/shortcuts.ui:44
+msgctxt "shortcut window"
+msgid "Add"
+msgstr "Hozzáadás"
+
+#: data/resources/gtk/ui/shortcuts.ui:51
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Keresés"
+
+#: data/resources/gtk/ui/window.ui.in:189
+msgid "There are no accounts yet…"
+msgstr "Még nincsenek fiókok…"
+
+#: data/resources/gtk/ui/window.ui.in:218
+msgid "Add a new account from the menu"
+msgstr "Új fiók hozzáadása a menüből"
+
+#: data/resources/gtk/ui/window.ui.in:234
+msgid "Scan a QR Code"
+msgstr "QR-kód beolvasása"
+
+#: data/resources/gtk/ui/window.ui.in:366
+msgid "No results found"
+msgstr "Nincsenek találatok"
+
+#: data/resources/gtk/ui/window.ui.in:429
+msgid "Authenticator is locked"
+msgstr "A Hitelesítő zárolva van"
+
+#: data/resources/gtk/ui/window.ui.in:468
+msgid "Unlock"
+msgstr "Feloldás"
+
+#: src/authenticator.py.in:49
+msgid "Start in debug mode"
+msgstr "Indítás hibakeresési módban"
+
+#: src/Authenticator/application.py.in:114
+msgid "from a plain-text JSON file"
+msgstr "egyszerű szöveges JSON-fájlból"
+
+#: src/Authenticator/application.py.in:115
+msgid "in a plain-text JSON file"
+msgstr "egyszerű szöveges JSON-fájlba"
+
+#: src/Authenticator/application.py.in:117
+msgid "Restore"
+msgstr "Visszaállítás"
+
+#: src/Authenticator/application.py.in:118
+msgid "Backup"
+msgstr "Biztonsági mentés"
+
+#. Night mode action
+#: src/Authenticator/application.py.in:126
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: src/Authenticator/application.py.in:127
+msgid "Donate"
+msgstr "Adományozás"
+
+#: src/Authenticator/application.py.in:128
+msgid "Keyboard Shortcuts"
+msgstr "Gyorsbillentyűk"
+
+#: src/Authenticator/application.py.in:129
+msgid "About Authenticator"
+msgstr "A Hitelesítő névjegye"
+
+#: src/Authenticator/models/account.py:84
+msgid "Default"
+msgstr "Alapértelmezett"
+
+#: src/Authenticator/widgets/accounts/add.py:247
+msgid "Invalid QR code"
+msgstr "Érvénytelen QR-kód"
+
+#: src/Authenticator/widgets/accounts/list.py:152
+msgid "The One-Time Passwords expire in {} seconds"
+msgstr "Az egyszer használatos jelszavak {} másodperc múlva lejárnak"
+
+#: src/Authenticator/widgets/accounts/row.py:90
+msgid "Couldn't generate the secret code"
+msgstr "Nem sikerült előállítani a titkos kódot"
+
+#: src/Authenticator/widgets/accounts/row.py:100
+msgid "The PIN of {} was copied to the clipboard"
+msgstr "A(z) {} PIN-kódja a vágólapra lett másolva"
+
+#: src/Authenticator/widgets/accounts/row.py:141
+msgid "The account was updated successfully"
+msgstr "A fiók sikeresen frissítve lett"
+
+#: src/Authenticator/widgets/notification.py:53
+#: src/Authenticator/widgets/notification.py:84
+msgid "Undo"
+msgstr "Visszavonás"
+
+#: src/Authenticator/widgets/notification.py:79
+msgid "Close the notification"
+msgstr "Az értesítés bezárása"
+
+#: src/Authenticator/widgets/settings.py:170
+msgid "Save Password"
+msgstr "Jelszó mentése"
+
+#: src/Authenticator/widgets/settings.py:222
+msgid "Do you want to remove the authentication password?"
+msgstr "El szeretné távolítani a hitelesítési jelszót?"
+
+#: src/Authenticator/widgets/settings.py:223
+msgid "Authentication password enforces the privacy of your accounts."
+msgstr "A hitelesítési jelszó megerősíti a fiókjai védelmét."
+
+#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
+msgid "JSON files"
+msgstr "JSON-fájlok"

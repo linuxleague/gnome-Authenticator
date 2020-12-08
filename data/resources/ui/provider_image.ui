@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="ProviderImage" parent="GtkBox">
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="transition-type">crossfade</property>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">image</property>
+            <property name="child">
+              <object class="GtkImage" id="image">
+                <property name="icon-name">image-missing-symbolic</property>
+                <property name="pixel-size">96</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">loading</property>
+            <property name="child">
+              <object class="GtkSpinner" id="spinner">
+                <property name="valign">center</property>
+                <property name="halign">center</property>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <style>
+      <class name="provider-image" />
+    </style>
+  </template>
+</interface>
