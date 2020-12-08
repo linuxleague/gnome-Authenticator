@@ -1,6 +1,7 @@
 use super::Restorable;
 use crate::models::ProvidersModel;
 use anyhow::Result;
+use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -12,11 +13,11 @@ impl Restorable for Bitwarden {
     }
 
     fn title() -> String {
-        "Bitwarden".to_string()
+        gettext("Bitwarden")
     }
 
     fn subtitle() -> String {
-        "From a plain-text JSON file".to_string()
+        gettext("From a plain-text JSON file")
     }
 
     fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {

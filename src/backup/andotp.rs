@@ -1,6 +1,7 @@
 use super::{Backupable, Restorable};
 use crate::models::{Account, Algorithm, HOTPAlgorithm, Provider, ProvidersModel};
 use anyhow::Result;
+use gettextrs::gettext;
 use gio::{FileExt, ListModelExt};
 use glib::Cast;
 use serde::{Deserialize, Serialize};
@@ -28,11 +29,11 @@ impl Backupable for AndOTP {
     }
 
     fn title() -> String {
-        "andOTP".to_string()
+        gettext("andOTP")
     }
 
     fn subtitle() -> String {
-        "Into a plain-text JSON file".to_string()
+        gettext("Into a plain-text JSON file")
     }
 
     fn backup(model: ProvidersModel, into: gio::File) -> Result<()> {
@@ -87,11 +88,11 @@ impl Restorable for AndOTP {
     }
 
     fn title() -> String {
-        "andOTP".to_string()
+        gettext("andOTP")
     }
 
     fn subtitle() -> String {
-        "From a plain-text JSON file".to_string()
+        gettext("From a plain-text JSON file")
     }
 
     fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {

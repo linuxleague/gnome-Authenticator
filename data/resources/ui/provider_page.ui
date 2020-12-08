@@ -149,7 +149,7 @@
                             <property name="halign">end</property>
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
-                            <property name="text" translatable="yes">0</property>
+                            <property name="text">0</property>
                             <property name="adjustment">period_adjustment</property>
                             <property name="numeric">True</property>
                           </object>
@@ -173,7 +173,7 @@
                             <property name="halign">end</property>
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
-                            <property name="text" translatable="yes">0</property>
+                            <property name="text">0</property>
                             <property name="adjustment">default_counter_adjustment</property>
                             <property name="numeric">True</property>
                           </object>
@@ -190,7 +190,7 @@
                             <property name="halign">end</property>
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
-                            <property name="text" translatable="yes">0</property>
+                            <property name="text">0</property>
                             <property name="adjustment">digits_adjustment</property>
                             <property name="numeric">True</property>
                           </object>

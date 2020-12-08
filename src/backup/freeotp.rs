@@ -1,6 +1,7 @@
 use super::{Backupable, Restorable};
 use crate::models::ProvidersModel;
 use anyhow::Result;
+use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -12,11 +13,11 @@ impl Backupable for FreeOTP {
     }
 
     fn title() -> String {
-        "Authenticator".to_string()
+        gettext("Authenticator")
     }
 
     fn subtitle() -> String {
-        "Into a plain-text JSON file, compatible with FreeOTP+".to_string()
+        gettext("Into a plain-text JSON file, compatible with FreeOTP+")
     }
 
     fn backup(model: ProvidersModel, into: gio::File) -> Result<()> {
@@ -30,11 +31,11 @@ impl Restorable for FreeOTP {
     }
 
     fn title() -> String {
-        "Authenticator".to_string()
+        gettext("Authenticator")
     }
 
     fn subtitle() -> String {
-        "From a plain-text JSON file, compatible with FreeOTP+".to_string()
+        gettext("From a plain-text JSON file, compatible with FreeOTP+")
     }
 
     fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {

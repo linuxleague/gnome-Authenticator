@@ -4,6 +4,7 @@ use crate::backup::{
 };
 use crate::config;
 use crate::models::ProvidersModel;
+use gettextrs::gettext;
 use gio::prelude::*;
 use gio::ActionMapExt;
 use gio::{subclass::ObjectSubclass, SettingsExt};
@@ -213,18 +214,18 @@ impl PreferencesWindow {
 
         let native = match operation {
             Operation::Backup => gtk::FileChooserNative::new(
-                Some("Backup"),
+                Some(&gettext("Backup")),
                 gtk::NONE_WINDOW,
                 gtk::FileChooserAction::Save,
-                Some("Select"),
-                Some("Cancel"),
+                Some(&gettext("Select")),
+                Some(&gettext("Cancel")),
             ),
             Operation::Restore => gtk::FileChooserNative::new(
-                Some("Restore"),
+                Some(&gettext("Restore")),
                 gtk::NONE_WINDOW,
                 gtk::FileChooserAction::Open,
-                Some("Select"),
-                Some("Cancel"),
+                Some(&gettext("Select")),
+                Some(&gettext("Cancel")),
             ),
         };
 
