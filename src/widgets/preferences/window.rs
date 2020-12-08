@@ -138,10 +138,10 @@ impl PreferencesWindow {
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        self.register_backup::<FreeOTP>(&["application/json"]);
+        self.register_backup::<FreeOTP>(&["text/plain"]);
         self.register_backup::<AndOTP>(&["application/json"]);
 
-        self.register_restore::<FreeOTP>(&["application/json"]);
+        self.register_restore::<FreeOTP>(&["text/plain"]);
         self.register_restore::<AndOTP>(&["application/json"]);
         self.register_restore::<Bitwarden>(&["application/json"]);
         self.register_restore::<LegacyAuthenticator>(&["application/json"]);

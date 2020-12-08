@@ -55,6 +55,7 @@ sources = files(
   'models/database.rs',
   'models/favicon.rs',
   'models/mod.rs',
+  'models/otp_uri.rs',
   'models/provider_sorter.rs',
   'models/provider.rs',
   'models/providers.rs',

@@ -1,6 +1,6 @@
 use crate::application::Action;
 use crate::helpers::qrcode;
-use crate::models::{Account, Algorithm, Provider, ProvidersModel};
+use crate::models::{Account, Algorithm, OtpUri, Provider, ProvidersModel};
 use crate::widgets::{ProviderImage, ProviderImageSize};
 use anyhow::Result;
 use gio::prelude::*;
@@ -171,26 +171,39 @@ impl AccountAddDialog {
     }
 
     fn scan_qr(&self) -> Result<()> {
-        let self_ = imp::AccountAddDialog::from_instance(self);
-        let token_entry = self_.token_entry.get();
-        let username_entry = self_.username_entry.get();
-
         qrcode::screenshot_area(
             self.clone().upcast::<gtk::Window>(),
-            clone!(@weak self as dialog, @weak token_entry, @weak username_entry, @strong self_.model as model => move |screenshot| {
-                if let Ok(otpauth) = qrcode::scan(&screenshot) {
-                    token_entry.set_text(&otpauth.token);
-                    if let Some(ref username) = otpauth.account {
-                        username_entry.set_text(&username);
-                    }
-                    if let Some(ref provider) = otpauth.issuer {
-                        let provider = model.get().unwrap().find_by_name(provider).unwrap();
-                        dialog.set_provider(provider);
-                    }
+            clone!(@weak self as dialog => move |screenshot| {
+                if let Ok(otp_uri) = qrcode::scan(&screenshot) {
+                    dialog.set_from_otp_uri(otp_uri);
                 }
             }),
         )?;
         Ok(())
+    }
+
+    fn set_from_otp_uri(&self, otp_uri: OtpUri) {
+        let self_ = imp::AccountAddDialog::from_instance(self);
+
+        self_.token_entry.get().set_text(&otp_uri.secret);
+        self_.username_entry.get().set_text(&otp_uri.label);
+
+        let provider = self_
+            .model
+            .get()
+            .unwrap()
+            .find_or_create(
+                &otp_uri.issuer,
+                otp_uri.period.unwrap_or_else(|| 30),
+                otp_uri.algorithm,
+                None,
+                otp_uri.hmac_algorithm,
+                otp_uri.digits.unwrap_or_else(|| 6),
+                otp_uri.counter.unwrap_or_else(|| 1),
+            )
+            .unwrap();
+
+        self.set_provider(provider);
     }
 
     fn save(&self) -> Result<()> {

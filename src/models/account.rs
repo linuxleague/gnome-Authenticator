@@ -1,5 +1,5 @@
-use super::algorithm::Algorithm;
 use super::provider::{DiProvider, Provider};
+use super::{Algorithm, OtpUri};
 use crate::helpers::Keyring;
 use crate::models::database;
 use crate::schema::accounts;
@@ -380,39 +380,8 @@ impl Account {
         priv_.token_id.borrow().clone()
     }
 
-    pub fn otp_uri(&self) -> String {
-        let provider = self.provider();
-
-        let label = self.name();
-        let issuer = provider.name();
-        let hmac_algorithm = provider.hmac_algorithm().to_string();
-        let secret = self.token();
-        let digits = provider.digits();
-
-        match provider.algorithm() {
-            Algorithm::HOTP => {
-                format!(
-                    "otpauth://hotp/{}?secret={}&issuer={}&algorithm={}&digits={}&counter={}",
-                    label,
-                    secret,
-                    issuer,
-                    hmac_algorithm,
-                    digits,
-                    self.counter()
-                )
-            }
-            _ => {
-                format!(
-                    "otpauth://totp/{}?secret={}&issuer={}&algorithm={}&digits={}&period={}",
-                    label,
-                    secret,
-                    issuer,
-                    hmac_algorithm,
-                    digits,
-                    provider.period()
-                )
-            }
-        }
+    pub fn otp_uri(&self) -> OtpUri {
+        self.into()
     }
 
     pub fn set_name(&self, name: &str) -> Result<()> {
