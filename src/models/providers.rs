@@ -1,5 +1,4 @@
-use super::account::Account;
-use super::provider::Provider;
+use super::{Account, Algorithm, HOTPAlgorithm, Provider};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
@@ -63,6 +62,35 @@ impl ProvidersModel {
             .expect("Created Model is of wrong type");
         model.init();
         model
+    }
+
+    pub fn find_or_create(
+        &self,
+        name: &str,
+        period: i32,
+        algorithm: Algorithm,
+        website: Option<String>,
+        hmac_algorithm: HOTPAlgorithm,
+        digits: i32,
+        default_counter: i32,
+    ) -> Result<Provider> {
+        let provider = match self.find_by_name(name) {
+            Some(p) => p,
+            None => {
+                let p = Provider::create(
+                    name,
+                    period,
+                    algorithm,
+                    website,
+                    hmac_algorithm,
+                    digits,
+                    default_counter,
+                )?;
+                self.add_provider(&p);
+                p
+            }
+        };
+        Ok(provider)
     }
 
     pub fn find_by_name(&self, name: &str) -> Option<Provider> {

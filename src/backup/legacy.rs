@@ -1,11 +1,24 @@
 use super::Restorable;
-use crate::models::ProvidersModel;
+use crate::models::{Account, Algorithm, HOTPAlgorithm, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
+use gio::FileExt;
 use serde::{Deserialize, Serialize};
 
+// Same as andOTP except uses the first tag for the issuer
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct LegacyAuthenticator;
+pub struct LegacyAuthenticator {
+    pub secret: String,
+    pub label: String,
+    pub digits: i32,
+    #[serde(rename = "type")]
+    pub type_field: Algorithm,
+    pub algorithm: HOTPAlgorithm,
+    pub thumbnail: String,
+    pub last_used: i64,
+    pub tags: Vec<String>,
+    pub period: i32,
+}
 
 impl Restorable for LegacyAuthenticator {
     fn identifier() -> String {
@@ -21,6 +34,30 @@ impl Restorable for LegacyAuthenticator {
     }
 
     fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {
+        let (data, _) = from.load_contents(gio::NONE_CANCELLABLE)?;
+
+        let items: Vec<LegacyAuthenticator> = serde_json::de::from_slice(&data)?;
+
+        items.iter().try_for_each(|item| -> anyhow::Result<()> {
+            let issuer = item.tags.get(0).unwrap();
+            info!(
+                "Restoring account: {} - {} from LegacyAuthenticator",
+                issuer, item.label
+            );
+
+            let provider = model.find_or_create(
+                &issuer,
+                item.period,
+                item.type_field,
+                None,
+                item.algorithm,
+                item.digits,
+                1,
+            )?;
+            let account = Account::create(&item.label, &item.secret, &provider)?;
+            provider.add_account(&account);
+            Ok(())
+        })?;
         Ok(())
     }
 }

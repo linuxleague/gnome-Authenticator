@@ -99,33 +99,25 @@ impl Restorable for AndOTP {
         let (data, _) = from.load_contents(gio::NONE_CANCELLABLE)?;
 
         let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;
-        items.iter().for_each(|item| {
+        items.iter().try_for_each(|item| -> anyhow::Result<()> {
             info!(
                 "Restoring account: {} - {} from AndOTP",
                 item.issuer, item.label
             );
 
-            let provider = match model.find_by_name(&item.issuer) {
-                Some(p) => p,
-                None => {
-                    let p = Provider::create(
-                        &item.issuer,
-                        item.period.unwrap_or_else(|| 30),
-                        item.type_field,
-                        None,
-                        item.algorithm,
-                        item.digits,
-                        item.counter.unwrap_or_else(|| 1),
-                    )
-                    .unwrap();
-                    model.add_provider(&p);
-                    p
-                }
-            };
+            let provider = model.find_or_create(
+                &item.issuer,
+                item.period.unwrap_or_else(|| 30),
+                item.type_field,
+                None,
+                item.algorithm,
+                item.digits,
+                item.counter.unwrap_or_else(|| 1),
+            )?;
 
-            if let Ok(account) = Account::create(&item.label, &item.secret, &provider) {
-                provider.add_account(&account);
-            }
+            let account = Account::create(&item.label, &item.secret, &provider)?;
+            provider.add_account(&account);
+            Ok(())
         });
         Ok(())
     }
