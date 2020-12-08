@@ -5,7 +5,6 @@
 
     <!-- Accounts -->
     <file compressed="true" preprocess="xml-stripblanks" alias="account_add.ui">resources/ui/account_add.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="account_edit.ui">resources/ui/account_edit.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="account_row.ui">resources/ui/account_row.ui</file>
 
     <!-- Providers -->
