@@ -1,7 +1,8 @@
 use super::{Backupable, Restorable};
-use crate::models::ProvidersModel;
+use crate::models::{Account, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
+use gio::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -21,6 +22,33 @@ impl Backupable for FreeOTP {
     }
 
     fn backup(model: ProvidersModel, into: gio::File) -> Result<()> {
+        let mut items = Vec::new();
+
+        for i in 0..model.get_n_items() {
+            let provider = model.get_object(i).unwrap().downcast::<Provider>().unwrap();
+            let accounts = provider.accounts_model();
+
+            for j in 0..accounts.get_n_items() {
+                let account = accounts
+                    .get_object(j)
+                    .unwrap()
+                    .downcast::<Account>()
+                    .unwrap();
+
+                items.push(account.otp_uri());
+            }
+        }
+
+        let content = items.join("\n");
+
+        into.replace_contents(
+            content.as_bytes(),
+            None,
+            false,
+            gio::FileCreateFlags::REPLACE_DESTINATION,
+            gio::NONE_CANCELLABLE,
+        )?;
+
         Ok(())
     }
 }

@@ -273,6 +273,8 @@ impl Account {
         let priv_ = AccountPriv::from_instance(&account);
         priv_.token.set(token);
 
+        println!("{:#?}", account.otp_uri());
+
         account.init();
         account
     }
@@ -376,6 +378,41 @@ impl Account {
     pub fn token_id(&self) -> String {
         let priv_ = AccountPriv::from_instance(self);
         priv_.token_id.borrow().clone()
+    }
+
+    pub fn otp_uri(&self) -> String {
+        let provider = self.provider();
+
+        let label = self.name();
+        let issuer = provider.name();
+        let hmac_algorithm = provider.hmac_algorithm().to_string();
+        let secret = self.token();
+        let digits = provider.digits();
+
+        match provider.algorithm() {
+            Algorithm::HOTP => {
+                format!(
+                    "otpauth://hotp/{}?secret={}&issuer={}&algorithm={}&digits={}&counter={}",
+                    label,
+                    secret,
+                    issuer,
+                    hmac_algorithm,
+                    digits,
+                    self.counter()
+                )
+            }
+            _ => {
+                format!(
+                    "otpauth://totp/{}?secret={}&issuer={}&algorithm={}&digits={}&period={}",
+                    label,
+                    secret,
+                    issuer,
+                    hmac_algorithm,
+                    digits,
+                    provider.period()
+                )
+            }
+        }
     }
 
     pub fn set_name(&self, name: &str) -> Result<()> {
