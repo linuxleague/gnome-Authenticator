@@ -18,8 +18,8 @@ table! {
         period -> Integer,
         digits -> Integer,
         default_counter -> Integer,
-        hmac_algorithm -> Text,
         algorithm -> Text,
+        method -> Text,
     }
 }
 

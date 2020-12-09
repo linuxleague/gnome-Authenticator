@@ -1,4 +1,4 @@
-use crate::models::OtpUri;
+use crate::models::OTPUri;
 use anyhow::Result;
 use ashpd::desktop::screenshot::{Screenshot, ScreenshotOptions, ScreenshotProxy};
 use ashpd::{zbus, RequestProxy, Response, WindowIdentifier};
@@ -7,7 +7,7 @@ use image::GenericImageView;
 use std::str::FromStr;
 use zbar_rust::ZBarImageScanner;
 
-pub(crate) fn scan(screenshot: &gio::File) -> Result<OtpUri> {
+pub(crate) fn scan(screenshot: &gio::File) -> Result<OTPUri> {
     let (data, _) = screenshot.load_contents(gio::NONE_CANCELLABLE)?;
 
     let img = image::load_from_memory(&data)?;
@@ -23,7 +23,7 @@ pub(crate) fn scan(screenshot: &gio::File) -> Result<OtpUri> {
 
     if let Some(ref result) = results.get(0) {
         let uri = String::from_utf8(result.data.clone())?;
-        return Ok(OtpUri::from_str(&uri)?);
+        return Ok(OTPUri::from_str(&uri)?);
     }
     anyhow::bail!("Invalid QR code")
 }

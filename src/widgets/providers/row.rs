@@ -1,4 +1,4 @@
-use crate::models::{Account, AccountSorter, Algorithm, Provider};
+use crate::models::{Account, AccountSorter, OTPMethod, Provider};
 use crate::widgets::{accounts::AccountRow, ProviderImage, ProviderImageSize};
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
@@ -122,13 +122,13 @@ impl ProviderRow {
     fn setup_widgets(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
 
-        self.add_css_class(&self.provider().algorithm().to_string());
+        self.add_css_class(&self.provider().method().to_string());
 
         self_.header.get().prepend(&self_.image);
         self_.image.set_provider(&self.provider());
 
         let progress_bar = self_.progress.get();
-        if self.provider().algorithm() == Algorithm::TOTP {
+        if self.provider().method() == OTPMethod::TOTP {
             progress_bar.set_fraction(1_f64);
             let max = self.provider().period() as f64;
             glib::timeout_add_local(

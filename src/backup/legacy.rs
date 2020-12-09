@@ -1,5 +1,5 @@
 use super::Restorable;
-use crate::models::{Account, Algorithm, HOTPAlgorithm, ProvidersModel};
+use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gio::FileExt;
@@ -12,8 +12,8 @@ pub struct LegacyAuthenticator {
     pub label: String,
     pub digits: i32,
     #[serde(rename = "type")]
-    pub type_field: Algorithm,
-    pub algorithm: HOTPAlgorithm,
+    pub method: OTPMethod,
+    pub algorithm: Algorithm,
     pub thumbnail: String,
     pub last_used: i64,
     pub tags: Vec<String>,
@@ -48,7 +48,7 @@ impl Restorable for LegacyAuthenticator {
             let provider = model.find_or_create(
                 &issuer,
                 item.period,
-                item.type_field,
+                item.method,
                 None,
                 item.algorithm,
                 item.digits,

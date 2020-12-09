@@ -96,6 +96,7 @@
                       <object class="HdyActionRow">
                         <property name="activatable_widget">provider_website_entry</property>
                         <property name="title" translatable="yes">Website</property>
+                        <property name="subtitle" translatable="yes">Used to fetch the website icon if possible</property>
                         <child>
                           <object class="GtkEntry" id="provider_website_entry">
                             <property name="halign">end</property>
@@ -107,18 +108,11 @@
                       </object>
                     </child>
                     <child>
-                      <object class="HdyActionRow">
-                        <property name="activatable_widget">provider_help_entry</property>
-                        <property name="title" translatable="yes">Help URL</property>
-                        <property name="subtitle" translatable="yes">How to setup Two-Factor Authentication</property>
-                        <child>
-                          <object class="GtkEntry" id="provider_help_entry">
-                            <property name="halign">end</property>
-                            <property name="valign">center</property>
-                            <property name="hexpand">True</property>
-                            <property name="input_purpose">url</property>
-                          </object>
-                        </child>
+                      <object class="HdyComboRow" id="method_comborow">
+                        <property name="title" translatable="yes">Computing Method</property>
+                        <property name="expression">
+                          <lookup type="HdyEnumValueObject" name="name"/>
+                        </property>
                       </object>
                     </child>
                     <child>
@@ -132,18 +126,11 @@
                     <style>
                       <class name="content"/>
                     </style>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkListBox">
-                    <property name="selection_mode">none</property>
-                    <style>
-                      <class name="content"/>
-                    </style>
                     <child>
                       <object class="HdyActionRow" id="period_row">
                         <property name="activatable_widget">period_spinbutton</property>
                         <property name="title" translatable="yes">Period</property>
+                        <property name="subtitle" translatable="yes">The duration in seconds. The recommended value is 30</property>
                         <child>
                           <object class="GtkSpinButton" id="period_spinbutton">
                             <property name="halign">end</property>
@@ -157,17 +144,10 @@
                       </object>
                     </child>
                     <child>
-                      <object class="HdyComboRow" id="hmac_algorithm_comborow">
-                        <property name="title" translatable="yes">HMAC Algorithm</property>
-                        <property name="expression">
-                          <lookup type="HdyEnumValueObject" name="name"/>
-                        </property>
-                      </object>
-                    </child>
-                    <child>
                       <object class="HdyActionRow" id="default_counter_row">
                         <property name="activatable_widget">default_counter_spinbutton</property>
-                        <property name="title" translatable="yes">Default Counter</property>
+                        <property name="title" translatable="yes">Counter</property>
+                        <property name="subtitle" translatable="yes">The by default value for counter-based computing method</property>
                         <child>
                           <object class="GtkSpinButton" id="default_counter_spinbutton">
                             <property name="halign">end</property>
@@ -184,15 +164,31 @@
                       <object class="HdyActionRow" id="digits_row">
                         <property name="activatable_widget">digits_spinbutton</property>
                         <property name="title" translatable="yes">Digits</property>
-                        <property name="subtitle" translatable="yes">Defaults to 6</property>
+                        <property name="subtitle" translatable="yes">Length of the generated code, recommended value is 6</property>
                         <child>
                           <object class="GtkSpinButton" id="digits_spinbutton">
                             <property name="halign">end</property>
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
+                            <property name="value">6</property>
                             <property name="text">0</property>
                             <property name="adjustment">digits_adjustment</property>
                             <property name="numeric">True</property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="HdyActionRow">
+                        <property name="activatable_widget">provider_help_entry</property>
+                        <property name="title" translatable="yes">Help URL</property>
+                        <property name="subtitle" translatable="yes">How to setup Two-Factor Authentication</property>
+                        <child>
+                          <object class="GtkEntry" id="provider_help_entry">
+                            <property name="halign">end</property>
+                            <property name="valign">center</property>
+                            <property name="hexpand">True</property>
+                            <property name="input_purpose">url</property>
                           </object>
                         </child>
                       </object>

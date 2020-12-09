@@ -1,4 +1,4 @@
-use super::{Account, Algorithm, HOTPAlgorithm, Provider};
+use super::{Account, Algorithm, OTPMethod, Provider};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
@@ -68,9 +68,9 @@ impl ProvidersModel {
         &self,
         name: &str,
         period: i32,
-        algorithm: Algorithm,
+        method: OTPMethod,
         website: Option<String>,
-        hmac_algorithm: HOTPAlgorithm,
+        algorithm: Algorithm,
         digits: i32,
         default_counter: i32,
     ) -> Result<Provider> {
@@ -82,7 +82,7 @@ impl ProvidersModel {
                     period,
                     algorithm,
                     website,
-                    hmac_algorithm,
+                    method,
                     digits,
                     default_counter,
                 )?;

@@ -1,5 +1,5 @@
 use super::{Backupable, Restorable};
-use crate::models::{Account, OtpUri, Provider, ProvidersModel};
+use crate::models::{Account, OTPUri, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gio::prelude::*;
@@ -75,13 +75,13 @@ impl Restorable for FreeOTP {
             .into_iter()
             .try_for_each(|uri| -> Result<()> {
                 println!("{:#?}", uri);
-                let otp_uri = OtpUri::from_str(uri)?;
+                let otp_uri = OTPUri::from_str(uri)?;
                 let provider = model.find_or_create(
                     &otp_uri.issuer,
                     otp_uri.period.unwrap_or_else(|| 30),
-                    otp_uri.algorithm,
+                    otp_uri.method,
                     None,
-                    otp_uri.hmac_algorithm,
+                    otp_uri.algorithm,
                     otp_uri.digits.unwrap_or_else(|| 6),
                     otp_uri.counter.unwrap_or_else(|| 1),
                 )?;

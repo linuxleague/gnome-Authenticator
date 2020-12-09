@@ -8,6 +8,6 @@ CREATE TABLE "providers" (
   "digits" INTEGER NULL DEFAULT 6,
   "period" INTEGER NULL DEFAULT 30,
   "default_counter" INTEGER NULL DEFAULT 1,
-  "hmac_algorithm" VARCHAR NULL DEFAULT "SHA1",
-  "algorithm" VARCHAR DEFAULT "TOTP"
+  "algorithm" VARCHAR NULL DEFAULT "SHA1",
+  "method" VARCHAR DEFAULT "TOTP"
 );

@@ -1,4 +1,4 @@
-use crate::models::{Algorithm, HOTPAlgorithm, Provider};
+use crate::models::{Algorithm, OTPMethod, Provider};
 use crate::widgets::{ProviderImage, ProviderImageSize};
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
@@ -13,6 +13,8 @@ pub enum ProviderPageMode {
 }
 
 mod imp {
+    use crate::models::OTPMethod;
+
     use super::*;
     use glib::subclass;
     use gtk::subclass::prelude::*;
@@ -34,10 +36,10 @@ mod imp {
         pub provider_website_entry: TemplateChild<gtk::Entry>,
         #[template_child(id = "provider_help_entry")]
         pub provider_help_entry: TemplateChild<gtk::Entry>,
+        #[template_child(id = "method_comborow")]
+        pub method_comborow: TemplateChild<libhandy::ComboRow>,
         #[template_child(id = "algorithm_comborow")]
         pub algorithm_comborow: TemplateChild<libhandy::ComboRow>,
-        #[template_child(id = "hmac_algorithm_comborow")]
-        pub hmac_algorithm_comborow: TemplateChild<libhandy::ComboRow>,
         #[template_child(id = "period_row")]
         pub period_row: TemplateChild<libhandy::ActionRow>,
         #[template_child(id = "digits_row")]
@@ -46,8 +48,8 @@ mod imp {
         pub default_counter_row: TemplateChild<libhandy::ActionRow>,
         #[template_child(id = "title")]
         pub title: TemplateChild<gtk::Label>,
+        pub methods_model: libhandy::EnumListModel,
         pub algorithms_model: libhandy::EnumListModel,
-        pub hmac_algorithms_model: libhandy::EnumListModel,
     }
 
     impl ObjectSubclass for ProviderPage {
@@ -60,8 +62,8 @@ mod imp {
         glib_object_subclass!();
 
         fn new() -> Self {
+            let methods_model = libhandy::EnumListModel::new(OTPMethod::static_type());
             let algorithms_model = libhandy::EnumListModel::new(Algorithm::static_type());
-            let hmac_algorithms_model = libhandy::EnumListModel::new(HOTPAlgorithm::static_type());
 
             Self {
                 image: ProviderImage::new(ProviderImageSize::Large),
@@ -72,14 +74,14 @@ mod imp {
                 default_counter_spinbutton: TemplateChild::default(),
                 provider_website_entry: TemplateChild::default(),
                 provider_help_entry: TemplateChild::default(),
+                method_comborow: TemplateChild::default(),
                 algorithm_comborow: TemplateChild::default(),
-                hmac_algorithm_comborow: TemplateChild::default(),
                 period_row: TemplateChild::default(),
                 digits_row: TemplateChild::default(),
                 default_counter_row: TemplateChild::default(),
                 title: TemplateChild::default(),
+                methods_model,
                 algorithms_model,
-                hmac_algorithms_model,
             }
         }
 
@@ -143,10 +145,10 @@ impl ProviderPage {
             .get()
             .set_value(provider.digits() as f64);
 
-        self_.hmac_algorithm_comborow.get().set_selected(
+        self_.method_comborow.get().set_selected(
             self_
-                .hmac_algorithms_model
-                .find_position(provider.hmac_algorithm().to_glib()),
+                .methods_model
+                .find_position(provider.method().to_glib()),
         );
         self_.image.set_provider(&provider);
         self_
@@ -171,27 +173,25 @@ impl ProviderPage {
                 page.on_algorithm_changed();
             }));
         self_
-            .hmac_algorithm_comborow
+            .method_comborow
             .get()
-            .set_model(Some(&self_.hmac_algorithms_model));
+            .set_model(Some(&self_.methods_model));
     }
 
     fn on_algorithm_changed(&self) {
         let self_ = imp::ProviderPage::from_instance(self);
 
-        let selected = Algorithm::from(self_.algorithm_comborow.get().get_selected());
+        let selected = OTPMethod::from(self_.method_comborow.get().get_selected());
         match selected {
-            Algorithm::TOTP => {
+            OTPMethod::TOTP => {
                 self_.default_counter_row.get().hide();
-                self_.hmac_algorithm_comborow.get().hide();
                 self_.period_row.get().show();
             }
-            Algorithm::HOTP => {
+            OTPMethod::HOTP => {
                 self_.default_counter_row.get().show();
-                self_.hmac_algorithm_comborow.get().show();
                 self_.period_row.get().hide();
             }
-            Algorithm::Steam => {}
+            OTPMethod::Steam => {}
         }
     }
 
@@ -205,7 +205,7 @@ impl ProviderPage {
                 self_.provider_website_entry.get().set_text("");
                 self_.provider_help_entry.get().set_text("");
 
-                self_.algorithm_comborow.get().set_selected(0);
+                self_.method_comborow.get().set_selected(0);
             }
             ProviderPageMode::Edit => {}
         }

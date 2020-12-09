@@ -1,5 +1,7 @@
-use super::provider::{DiProvider, Provider};
-use super::{Algorithm, OtpUri};
+use super::{
+    provider::{DiProvider, Provider},
+    OTPMethod, OTPUri,
+};
 use crate::helpers::Keyring;
 use crate::models::database;
 use crate::schema::accounts;
@@ -275,8 +277,6 @@ impl Account {
         let priv_ = AccountPriv::from_instance(&account);
         priv_.token.set(token);
 
-        account.qr_code();
-
         account.init();
         account
     }
@@ -284,7 +284,7 @@ impl Account {
     fn init(&self) {
         self.generate_otp();
         // Only trigger time-based callback after duration if it's a TOTP
-        if self.provider().algorithm() == Algorithm::TOTP {
+        if self.provider().method() == OTPMethod::TOTP {
             glib::source::timeout_add_seconds_local(
                 self.provider().period() as u32,
                 clone!(@weak self as account => @default-return glib::Continue(false), move || {
@@ -299,26 +299,26 @@ impl Account {
     fn generate_otp(&self) {
         let provider = self.provider();
 
-        let counter = match provider.algorithm() {
-            Algorithm::TOTP => {
+        let counter = match provider.method() {
+            OTPMethod::TOTP => {
                 let timestamp = SystemTime::now()
                     .duration_since(UNIX_EPOCH)
                     .unwrap()
                     .as_secs();
                 timestamp / (provider.period() as u64)
             }
-            Algorithm::HOTP => {
+            OTPMethod::HOTP => {
                 let old_counter = self.counter();
                 self.increment_counter();
                 old_counter as u64
             }
-            Algorithm::Steam => 1,
+            OTPMethod::Steam => 1,
         };
 
         let otp = generate_otp(
             &self.token(),
             counter,
-            provider.hmac_algorithm().into(),
+            provider.algorithm().into(),
             provider.digits() as u32,
         );
         self.set_property("otp", &otp.to_string()).unwrap();
@@ -347,7 +347,7 @@ impl Account {
         clipboard.set_text(&priv_.otp.borrow());
 
         // Indirectly increment the counter once the token was copied
-        if self.provider().algorithm() == Algorithm::HOTP {
+        if self.provider().method() == OTPMethod::HOTP {
             self.generate_otp();
         }
     }
@@ -382,7 +382,7 @@ impl Account {
         priv_.token_id.borrow().clone()
     }
 
-    pub fn otp_uri(&self) -> OtpUri {
+    pub fn otp_uri(&self) -> OTPUri {
         self.into()
     }
 

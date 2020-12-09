@@ -1,5 +1,5 @@
 use crate::helpers::qrcode;
-use crate::models::{Account, Algorithm, OtpUri, Provider, ProvidersModel};
+use crate::models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel};
 use crate::widgets::{Action, ProviderImage, ProviderImageSize};
 use anyhow::Result;
 use gio::prelude::*;
@@ -45,8 +45,8 @@ mod imp {
         #[template_child(id = "provider_entry")]
         pub provider_entry: TemplateChild<gtk::Entry>,
 
-        #[template_child(id = "algorithm_label")]
-        pub algorithm_label: TemplateChild<gtk::Label>,
+        #[template_child(id = "method_label")]
+        pub method_label: TemplateChild<gtk::Label>,
 
         #[template_child(id = "provider_website_row")]
         pub provider_website_row: TemplateChild<libhandy::ActionRow>,
@@ -54,8 +54,8 @@ mod imp {
         #[template_child(id = "provider_help_row")]
         pub provider_help_row: TemplateChild<libhandy::ActionRow>,
 
-        #[template_child(id = "hmac_algorithm_row")]
-        pub hmac_algorithm_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child(id = "algorithm_label")]
+        pub algorithm_label: TemplateChild<gtk::Label>,
 
         #[template_child(id = "counter_row")]
         pub counter_row: TemplateChild<libhandy::ActionRow>,
@@ -92,11 +92,11 @@ mod imp {
                 period_label: TemplateChild::default(),
                 digits_label: TemplateChild::default(),
                 provider_entry: TemplateChild::default(),
-                algorithm_label: TemplateChild::default(),
+                method_label: TemplateChild::default(),
                 provider_website_row: TemplateChild::default(),
                 provider_help_row: TemplateChild::default(),
                 provider_completion: TemplateChild::default(),
-                hmac_algorithm_row: TemplateChild::default(),
+                algorithm_label: TemplateChild::default(),
                 counter_row: TemplateChild::default(),
                 period_row: TemplateChild::default(),
             }
@@ -181,7 +181,7 @@ impl AccountAddDialog {
         Ok(())
     }
 
-    fn set_from_otp_uri(&self, otp_uri: OtpUri) {
+    fn set_from_otp_uri(&self, otp_uri: OTPUri) {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
         self_.token_entry.get().set_text(&otp_uri.secret);
@@ -194,9 +194,9 @@ impl AccountAddDialog {
             .find_or_create(
                 &otp_uri.issuer,
                 otp_uri.period.unwrap_or_else(|| 30),
-                otp_uri.algorithm,
+                otp_uri.method,
                 None,
-                otp_uri.hmac_algorithm,
+                otp_uri.algorithm,
                 otp_uri.digits.unwrap_or_else(|| 6),
                 otp_uri.counter.unwrap_or_else(|| 1),
             )
@@ -234,6 +234,11 @@ impl AccountAddDialog {
         self_.image.set_provider(&provider);
 
         self_
+            .method_label
+            .get()
+            .set_text(&provider.method().to_locale_string());
+
+        self_
             .algorithm_label
             .get()
             .set_text(&provider.algorithm().to_locale_string());
@@ -243,18 +248,16 @@ impl AccountAddDialog {
             .get()
             .set_text(&provider.digits().to_string());
 
-        match provider.algorithm() {
-            Algorithm::TOTP => {
-                self_.hmac_algorithm_row.get().hide();
+        match provider.method() {
+            OTPMethod::TOTP => {
                 self_.counter_row.get().hide();
                 self_.period_row.get().show();
             }
-            Algorithm::HOTP => {
-                self_.hmac_algorithm_row.get().show();
+            OTPMethod::HOTP => {
                 self_.counter_row.get().show();
                 self_.period_row.get().hide();
             }
-            Algorithm::Steam => {}
+            OTPMethod::Steam => {}
         };
 
         if let Some(ref website) = provider.website() {

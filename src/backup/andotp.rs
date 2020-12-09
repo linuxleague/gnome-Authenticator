@@ -1,5 +1,5 @@
 use super::{Backupable, Restorable};
-use crate::models::{Account, Algorithm, HOTPAlgorithm, Provider, ProvidersModel};
+use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gio::{FileExt, ListModelExt};
@@ -13,8 +13,8 @@ pub struct AndOTP {
     pub label: String,
     pub digits: i32,
     #[serde(rename = "type")]
-    pub type_field: Algorithm,
-    pub algorithm: HOTPAlgorithm,
+    pub method: OTPMethod,
+    pub algorithm: Algorithm,
     pub thumbnail: String,
     pub last_used: i64,
     pub used_frequency: i32,
@@ -55,8 +55,8 @@ impl Backupable for AndOTP {
                     issuer: provider.name(),
                     label: account.name(),
                     digits: provider.digits(),
-                    type_field: provider.algorithm(),
-                    algorithm: provider.hmac_algorithm(),
+                    method: provider.method(),
+                    algorithm: provider.algorithm(),
                     thumbnail: "".to_string(),
                     last_used: 0,
                     used_frequency: 0,
@@ -108,7 +108,7 @@ impl Restorable for AndOTP {
             let provider = model.find_or_create(
                 &item.issuer,
                 item.period.unwrap_or_else(|| 30),
-                item.type_field,
+                item.method,
                 None,
                 item.algorithm,
                 item.digits,
