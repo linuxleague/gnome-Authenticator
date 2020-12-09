@@ -5,7 +5,7 @@ use glib::subclass::prelude::*;
 use glib::translate::ToGlib;
 use glib::{glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
-use libhandy::{ComboRowExt, EnumListModelExt};
+use libhandy::ComboRowExt;
 
 pub enum ProviderPageMode {
     Create,

@@ -10,7 +10,6 @@ use glib::subclass::prelude::*;
 use glib::{glib_object_subclass, glib_wrapper};
 use glib::{signal::Inhibit, Receiver, Sender};
 use gtk::{prelude::*, CompositeTemplate};
-use libhandy::prelude::*;
 use once_cell::sync::OnceCell;
 
 #[derive(PartialEq, Debug)]

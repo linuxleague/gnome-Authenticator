@@ -34,8 +34,7 @@ mod imp {
         glib_object_subclass!();
 
         fn new() -> Self {
-            let filter_model =
-                gtk::FilterListModel::new(gtk::NONE_FILTER_LIST_MODEL, gtk::NONE_FILTER);
+            let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
             Self {
                 providers_list: TemplateChild::default(),
                 empty_img: TemplateChild::default(),

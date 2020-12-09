@@ -6,7 +6,6 @@ use gio::ListModelExt;
 use glib::subclass::prelude::*;
 use glib::{glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
-use libhandy::{LeafletExt, LeafletPageExt};
 use row::ProviderActionRow;
 
 mod imp {
@@ -42,8 +41,7 @@ mod imp {
         glib_object_subclass!();
 
         fn new() -> Self {
-            let filter_model =
-                gtk::FilterListModel::new(gtk::NONE_FILTER_LIST_MODEL, gtk::NONE_FILTER);
+            let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
             Self {
                 deck: TemplateChild::default(),
                 providers_list: TemplateChild::default(),
