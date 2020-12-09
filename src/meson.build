@@ -1,54 +1,103 @@
-bin_conf = configuration_data()
-bin_conf.set('APP_ID', application_id)
-bin_conf.set('GETTEXT_PACKAGE', gettext_package)
-bin_conf.set('LOCALE_DIR', localedir)
-bin_conf.set('PKGDATA_DIR', pkgdatadir)
-bin_conf.set('PROFILE', profile)
-bin_conf.set('PYTHON_DIR', pythondir)
-bin_conf.set('PYTHON', python3.path())
-configure_file(
-  input: 'authenticator.py.in',
-  output: 'authenticator',
-  configuration: bin_conf,
-  install_dir: get_option('bindir')
+pkgdatadir = join_paths(get_option('prefix'), get_option('datadir'), meson.project_name())
+
+global_conf = configuration_data()
+global_conf.set_quoted('APP_ID', application_id)
+global_conf.set_quoted('PKGDATADIR', pkgdatadir)
+global_conf.set_quoted('PROFILE', profile)
+global_conf.set_quoted('VERSION', version + version_suffix)
+global_conf.set_quoted('GETTEXT_PACKAGE', gettext_package)
+global_conf.set_quoted('LOCALEDIR', localedir)
+config_output_file = configure_file(
+    input: 'config.rs.in',
+    output: 'config.rs',
+    configuration: global_conf
 )
 
-search_provider_bin_conf = configuration_data()
-search_provider_bin_conf.set('APP_ID', application_id)
-search_provider_bin_conf.set('PRFOILE_SUFFIX', profile_suffix)
-search_provider_bin_conf.set('PYTHON_DIR', pythondir)
-search_provider_bin_conf.set('PYTHON', python3.path())
-configure_file(
-  input: 'authenticator-search-provider.py.in',
-  output: 'authenticator-search-provider',
-  configuration: search_provider_bin_conf,
-  install_dir: libexecdir
+# Copy the config.rs output to the source directory.
+run_command(
+  'cp',
+  join_paths(meson.build_root(), 'src', 'config.rs'),
+  join_paths(meson.source_root(), 'src', 'config.rs'),
+  check: true
+)
+# include_bytes! only takes a string literal
+resources_conf = configuration_data()
+resources_conf.set_quoted('RESOURCEFILE', resources.full_path())
+static_resources_output_file = configure_file(
+  input: 'static_resources.rs.in',
+  output: 'static_resources.rs',
+  configuration: resources_conf
 )
 
-settings_model_conf = configuration_data()
-settings_model_conf.set('APP_ID', application_id)
-configure_file(
-  input: 'Authenticator/models/settings.py.in',
-  output: 'settings.py',
-  configuration: settings_model_conf,
-  install_dir: pythondir / 'Authenticator' / 'models'
+run_command(
+  'cp',
+  static_resources_output_file,
+  meson.current_source_dir(),
+  check: true
 )
 
-application_conf = configuration_data()
-application_conf.set('APP_ID', application_id)
-application_conf.set('NAME_SUFFIX', name_suffix)
-configure_file(
-  input: 'Authenticator/application.py.in',
-  output: 'application.py',
-  configuration: application_conf,
-  install_dir: pythondir / 'Authenticator'
+
+
+sources = files(
+  'backup/andotp.rs',
+  'backup/bitwarden.rs',
+  'backup/freeotp.rs',
+  'backup/legacy.rs',
+  'backup/mod.rs',
+  'helpers/database.rs',
+  'helpers/keyring.rs',
+  'helpers/mod.rs',
+  'helpers/qrcode.rs',
+  'models/account_sorter.rs',
+  'models/account.rs',
+  'models/accounts.rs',
+  'models/algorithm.rs',
+  'models/database.rs',
+  'models/favicon.rs',
+  'models/mod.rs',
+  'models/otp_uri.rs',
+  'models/provider_sorter.rs',
+  'models/provider.rs',
+  'models/providers.rs',
+  'widgets/accounts/add.rs',
+  'widgets/accounts/mod.rs',
+  'widgets/accounts/qrcode_page.rs',
+  'widgets/accounts/row.rs',
+  'widgets/preferences/mod.rs',
+  'widgets/preferences/password_page.rs',
+  'widgets/preferences/window.rs',
+  'widgets/providers/all.rs',
+  'widgets/providers/image.rs',
+  'widgets/providers/list.rs',
+  'widgets/providers/mod.rs',
+  'widgets/providers/page.rs',
+  'widgets/providers/row.rs',
+	'widgets/mod.rs',
+	'widgets/window.rs',
+	'application.rs',
+  'config.rs',
+  'main.rs',
+  'schema.rs',
+  'static_resources.rs',
+  'window_state.rs'
 )
 
-install_subdir(
-  'Authenticator',
-  install_dir: pythondir,
-  exclude_files: [
-    'models/settings.py.in',
-    'application.py.in'
+cargo_script = find_program(join_paths(meson.source_root(), 'build-aux/cargo.sh'))
+cargo_release = custom_target(
+  'cargo-build',
+  build_by_default: true,
+  input: sources,
+  output: meson.project_name(),
+  console: true,
+  install: true,
+  install_dir: get_option('bindir'),
+  depends: resources,
+  command: [
+    cargo_script,
+    meson.build_root(),
+    meson.source_root(),
+    '@OUTPUT@',
+    get_option('buildtype'),
+    meson.project_name(),
   ]
 )

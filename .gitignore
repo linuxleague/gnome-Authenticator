@@ -1,87 +1,14 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-.flatpak-builder/
-authenticator/
-tags
-# C extensions
-*.so
-*.po~
-test/
-.auth/
-auth/
-_build/
-*.ui#
-# Distribution / packaging
-builddir/
-.Python
-.idea/
-env/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-m4/
-autom4te.cache/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*,cover
-.hypothesis/
-
-# Translations
-*.mo
-
-# Django stuff:
-*.log
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-#Ipython Notebook
-.ipynb_checkpoints
-
-
-*.valid
-*.compiled
-*.desktop
-*.gresource
-*.ui~
 .vscode/
-*.py~
-*.md~
-*.css~
-*.in~
-*.gitignore~
-*.build~
-*.ui.in#
-*.json~
+target/
+build/
+_build/
+build-aux/app
+build-aux/.flatpak-builder/
+src/config.rs
+src/static_resources.rs
+*.*.in~
+*.*~
+builddir/
+.flatpak/
+.flatpak-builder/
+app/

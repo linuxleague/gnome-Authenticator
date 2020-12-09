@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <menu id="account-menu">
+    <section>
+      <item>
+        <attribute name="label">Share</attribute>
+        <attribute name="action">account.share</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label">Rename</attribute>
+        <attribute name="action">account.rename</attribute>
+      </item>
+      <item>
+        <attribute name="label">Delete</attribute>
+        <attribute name="action">account.delete</attribute>
+      </item>
+    </section>
+  </menu>
+  <template parent="GtkListBoxRow" class="AccountRow">
+    <property name="can_focus">True</property>
+    <property name="valign">center</property>
+    <property name="selectable">False</property>
+    <child>
+      <object class="GtkStack" id="edit_stack">
+        <property name="transition-type">crossfade</property>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">display</property>
+            <property name="child">
+              <object class="GtkBox">
+                <child>
+                  <object class="GtkLabel" id="name_label">
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
+                    <property name="ellipsize">end</property>
+                    <property name="selectable">True</property>
+                    <style>
+                      <class name="account-name"/>
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="hexpand">True</property>
+                    <property name="halign">end</property>
+                    <child>
+                      <object class="GtkLabel" id="otp_label">
+                        <property name="halign">start</property>
+                        <property name="valign">center</property>
+                        <property name="selectable">True</property>
+                        <style>
+                          <class name="account-otp"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <child>
+                          <object class="GtkButton" id="copy_btn">
+                            <property name="receives_default">True</property>
+                            <property name="action-name">account.copy-otp</property>
+                            <property name="tooltip_text" translatable="yes">Copy PIN to clipboard</property>
+                            <property name="valign">center</property>
+                            <child>
+                              <object class="GtkStack" id="copy_btn_stack">
+                                <property name="halign">center</property>
+                                <property name="valign">center</property>
+                                <property name="transition-type">crossfade</property>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">copy</property>
+                                    <property name="child">
+                                      <object class="GtkImage">
+                                        <property name="icon-name">edit-copy-symbolic</property>
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">ok</property>
+                                    <property name="child">
+                                      <object class="GtkImage">
+                                        <property name="icon-name">emblem-ok-symbolic</property>
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="image-button" />
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkMenuButton">
+                            <property name="receives_default">False</property>
+                            <property name="valign">center</property>
+                            <property name="menu-model">account-menu</property>
+                            <property name="icon-name">view-more-symbolic</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="linked" />
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">edit</property>
+            <property name="child">
+              <object class="GtkBox">
+                <child>
+                  <object class="GtkEntry" id="name_entry">
+                    <property name="halign">start</property>
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="receives_default">True</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <property name="action-name">account.save</property>
+                    <property name="label" translatable="yes">Save</property>
+                    <style>
+                      <class name="suggested-action" />
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <style>
+      <class name="account-row"/>
+    </style>
+  </template>
+</interface>

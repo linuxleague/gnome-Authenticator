@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template parent="GtkBox" class="QRCodePage">
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkHeaderBar">
+        <child type="start">
+          <object class="GtkButton">
+            <property name="icon-name">go-previous-symbolic</property>
+            <property name="action-name">win.back</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkImage" id="image">
+        <property name="halign">center</property>
+        <property name="margin-top">36</property>
+        <property name="pixel-size">200</property>
+      </object>
+    </child>
+    <child>
+      <object class="HdyClamp">
+        <property name="margin-top">36</property>
+        <property name="margin-bottom">12</property>
+        <property name="vexpand">True</property>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="spacing">42</property>
+            <property name="margin-start">8</property>
+            <property name="margin-end">8</property>
+            <child>
+              <object class="GtkListBox">
+                <property name="selection_mode">none</property>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="title" translatable="yes">Account</property>
+                    <child>
+                      <object class="GtkLabel" id="account_label">
+                        <property name="halign">end</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyActionRow">
+                    <property name="title" translatable="yes">Provider</property>
+                    <child>
+                      <object class="GtkLabel" id="provider_label">
+                        <property name="halign">end</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="HdyActionRow" id="provider_website_row">
+                    <property name="title" translatable="yes">Website</property>
+                    <child>
+                      <object class="GtkImage">
+                        <property name="halign">end</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <property name="icon-name">link-symbolic</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <style>
+                  <class name="content"/>
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

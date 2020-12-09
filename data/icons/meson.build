@@ -1,17 +1,10 @@
-icon_themes = ['hicolor']
-foreach theme : icon_themes
-  scalable_dir = join_paths(theme, 'scalable/apps/')
-  scalable_icon = join_paths(scalable_dir, meson.project_name() + '.svg')
-  dest_scalable = join_paths(get_option('prefix'), 'share/icons', scalable_dir)
-  install_data(scalable_icon,
-              install_dir: dest_scalable,
-              rename: '@0@.svg'.format(application_id))
+install_data(
+  '@0@.svg'.format(application_id),
+  install_dir: iconsdir / 'hicolor' / 'scalable' / 'apps',
+)
 
-  symbolic_dir = join_paths(theme, 'symbolic/apps/')
-  symbolic_icon = join_paths(symbolic_dir, meson.project_name() + '-symbolic.svg')
-  dest_symbolic = join_paths(get_option('prefix'), 'share/icons', symbolic_dir)
-  install_data(symbolic_icon,
-              install_dir: dest_symbolic,
-              rename: '@0@'.format(application_id) + '-symbolic.svg')
-endforeach
-
+install_data(
+  'com.belmoussaoui.Authenticator-symbolic.svg',
+  install_dir: iconsdir / 'hicolor' / 'symbolic' / 'apps',
+  rename: '@0@-symbolic.svg'.format(application_id)
+)

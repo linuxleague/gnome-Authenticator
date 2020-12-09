@@ -5,11 +5,10 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 charset = utf-8
 
-[*.{py,py.in}]
+[*.{xml,ui,ui.in,build,sql}]
+indent_size = 2
+
+[*.{json,py,rs}]
 indent_size = 4
 
-[*.build]
-indent_size = 2
 
-[*.yml]
-indent_size = 2

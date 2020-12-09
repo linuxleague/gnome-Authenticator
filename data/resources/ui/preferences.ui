@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkAdjustment" id="auto_lock_adjustment">
+    <property name="lower">1</property>
+    <property name="upper">60</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <template class="PreferencesWindow" parent="HdyPreferencesWindow">
+    <property name="default_width">360</property>
+    <property name="default_height">600</property>
+    <property name="search-enabled">False</property>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="icon-name">applications-system-symbolic</property>
+        <property name="title">General</property>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="title" translatable="yes">Appearance</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Dark Theme</property>
+                <property name="activatable_widget">dark_theme_switch</property>
+                <property name="subtitle" translatable="yes">Whether the application should use a dark theme</property>
+                <child>
+                  <object class="GtkSwitch" id="dark_theme_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup">
+            <property name="title">Privacy</property>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Password</property>
+                <property name="subtitle" translatable="yes">Setup a password to lock the application with</property>
+                <property name="activatable">True</property>
+                <property name="action-name">preferences.show_password_page</property>
+                <child>
+                  <object class="GtkImage">
+                    <property name="icon_name">go-next-symbolic</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Auto Lock the application</property>
+                <property name="activatable_widget">auto_lock_switch</property>
+                <property name="subtitle" translatable="yes">Whether to automatically lock the application</property>
+                <child>
+                  <object class="GtkSwitch" id="auto_lock_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HdyActionRow">
+                <property name="title" translatable="yes">Auto lock timeout</property>
+                <property name="subtitle" translatable="yes">The time in minutes</property>
+                <property name="activatable_widget">lock_timeout_spin_btn</property>
+                <child>
+                  <object class="GtkSpinButton" id="lock_timeout_spin_btn">
+                    <property name="valign">center</property>
+                    <property name="halign">center</property>
+                    <property name="adjustment">auto_lock_adjustment</property>
+                    <property name="climb_rate">1</property>
+                    <property name="numeric">True</property>
+                    <property name="update_policy">if-valid</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="HdyPreferencesPage">
+        <property name="icon-name">document-save-as-symbolic</property>
+        <property name="title">Backup/Restore</property>
+        <child>
+          <object class="HdyPreferencesGroup" id="backup_group">
+            <property name="title" translatable="yes">Backup</property>
+          </object>
+        </child>
+        <child>
+          <object class="HdyPreferencesGroup" id="restore_group">
+            <property name="title" translatable="yes">Restore</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>
+

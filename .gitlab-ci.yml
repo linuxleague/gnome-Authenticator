@@ -1,19 +1,41 @@
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
+stages:
+  - check
+  - test
 
 flatpak:
-  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/gnome:master'
+  image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
+  stage: test
   tags:
-    - 'flatpak'
+    - flatpak
   variables:
-    MANIFEST_PATH: 'build-aux/com.github.bilelmoussaoui.Authenticator.json'
-    FLATPAK_MODULE: 'Authenticator'
-    MESON_ARGS: '-Dprofile=development'
-    RUNTIME_REPO: 'https://sdk.gnome.org/gnome-nightly.flatpakrepo'
-    APP_ID: 'com.github.bilelmoussaoui.AuthenticatorDevel'
-    BUNDLE: 'authenticator-dev.flatpak'
-  extends: .flatpak
-
-flake8:
+    BUNDLE: "authenticator-nightly.flatpak"
+    MANIFEST_PATH: "build-aux/com.belmoussaoui.Authenticator.Devel.json"
+    FLATPAK_MODULE: "authenticator"
+    APP_ID: "com.belmoussaoui.Authenticator.Devel"
+    RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
   script:
-    - dnf install -y python3-flake8
-    - flake8 --ignore E402,W503,E501,F821 --show-source src/ --exclude __init__.py
+    - >
+      xvfb-run -a -s "-screen 0 1024x768x24"
+      flatpak-builder --keep-build-dirs --user --disable-rofiles-fuse flatpak_app --repo=repo ${BRANCH:+--default-branch=$BRANCH} ${MANIFEST_PATH}
+    - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${APP_ID} ${BRANCH}
+  artifacts:
+    name: 'Flatpak artifacts'
+    expose_as: 'Get Flatpak bundle here'
+    when: 'always'
+    paths:
+      - "${BUNDLE}"
+      - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/meson-log.txt'
+      - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/testlog.txt'
+    expire_in: 14 days
+
+rustfmt:
+  image: "rust:slim"
+  stage: check
+  script:
+    - rustup component add rustfmt
+    - echo -e "" >> src/config.rs
+    - echo -e "" >> src/static_resources.rs
+    - rustc -Vv && cargo -Vv
+    - cargo fmt --version
+    - cargo fmt --all -- --color=always --check
+
