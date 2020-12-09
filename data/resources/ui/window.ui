@@ -29,7 +29,7 @@
     </section>
   </menu>
   <template class="Window" parent="HdyApplicationWindow">
-    <property name="icon_name">@APP_ID@</property>
+
     <child>
       <object class="HdyLeaflet" id="deck">
         <property name="can-unfold">False</property>

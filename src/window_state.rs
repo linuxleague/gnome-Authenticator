@@ -1,14 +1,14 @@
 use crate::widgets::Window;
 use anyhow::Result;
 use gio::prelude::SettingsExt;
-use gtk::prelude::GtkWindowExt;
+use gtk::prelude::*;
 
 pub fn load(window: &Window, settings: &gio::Settings) {
     let width = settings.get_int("window-width");
     let height = settings.get_int("window-height");
 
     if width > -1 && height > -1 {
-        window.resize(360, 600);
+        window.set_default_size(360, 600);
     }
 
     let is_maximized = settings.get_boolean("is-maximized");
@@ -18,7 +18,7 @@ pub fn load(window: &Window, settings: &gio::Settings) {
 }
 
 pub fn save(window: &Window, settings: &gio::Settings) -> Result<()> {
-    let size = window.get_size();
+    let size = window.get_default_size();
     settings.set_int("window-width", size.0)?;
     settings.set_int("window-height", size.1)?;
 
