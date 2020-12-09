@@ -71,7 +71,9 @@ impl QRCodePage {
 
     pub fn set_account(&self, account: &Account) {
         let self_ = imp::QRCodePage::from_instance(self);
-        let is_dark = gtk::Settings::get_default().unwrap().get_property_gtk_application_prefer_dark_theme();
+        let is_dark = gtk::Settings::get_default()
+            .unwrap()
+            .get_property_gtk_application_prefer_dark_theme();
         let qr_code = account.qr_code(is_dark).unwrap();
 
         let pixbuf = gdk_pixbuf::Pixbuf::from_file(qr_code.get_path().unwrap()).unwrap();
