@@ -21,20 +21,16 @@
   </description>
   <screenshots>
       <screenshot type="default">
-        <image width="465" height="617">https://gitlab.gnome.org/World/Authenticator/raw/master/data/screenshots/screenshot1.png</image>
-        <caption>Main Window - empty state</caption>
+        <image>https://gitlab.gnome.org/World/Authenticator/raw/master/data/screenshots/screenshot1.png</image>
+        <caption>Main Window</caption>
       </screenshot>
       <screenshot>
-        <image width="464" height="612">https://gitlab.gnome.org/World/Authenticator/raw/master/data/screenshots/screenshot2.png</image>
+        <image>https://gitlab.gnome.org/World/Authenticator/raw/master/data/screenshots/screenshot2.png</image>
         <caption>Add a new account</caption>
       </screenshot>
       <screenshot>
-        <image width="463" height="609">https://gitlab.gnome.org/World/Authenticator/raw/master/data/screenshots/screenshot3.png</image>
-        <caption>Main Window - Accounts List</caption>
-      </screenshot>
-      <screenshot>
-        <image width="422" height="602">https://gitlab.gnome.org/World/Authenticator/raw/master/data/screenshots/screenshot4.png</image>
-        <caption>Settings Window</caption>
+        <image>https://gitlab.gnome.org/World/Authenticator/raw/master/data/screenshots/screenshot3.png</image>
+        <caption>Sharing an account</caption>
       </screenshot>
   </screenshots>
   <url type="homepage">https://gitlab.gnome.org/World/Authenticator</url>

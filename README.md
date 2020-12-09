@@ -9,6 +9,8 @@
 
 ## Screenshots
 
+![screenshot](data/screenshots/screenshot1.png)
+![screenshot](data/screenshots/screenshot2.png)
 ![screenshot](data/screenshots/screenshot3.png)
 
 ## Features
