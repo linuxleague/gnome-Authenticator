@@ -9,8 +9,7 @@ use anyhow::Result;
 use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
-use gio::FileExt;
-use glib::subclass::{self, prelude::*};
+use gio::{subclass::ObjectSubclass, FileExt};
 use glib::{Cast, ObjectExt, StaticType, ToValue};
 use once_cell::sync::OnceCell;
 use qrcode::QrCode;
@@ -38,164 +37,150 @@ pub struct DiAccount {
     pub provider_id: i32,
 }
 
-pub struct AccountPriv {
-    pub id: Cell<i32>,
-    pub otp: RefCell<String>,
-    pub name: RefCell<String>,
-    pub counter: Cell<i32>,
-    pub token: OnceCell<String>,
-    pub token_id: RefCell<String>,
-    pub provider: RefCell<Option<Provider>>,
-}
+mod imp {
+    use super::*;
+    use glib::subclass::{self, prelude::*};
 
-static PROPERTIES: [subclass::Property; 6] = [
-    subclass::Property("id", |name| {
-        glib::ParamSpec::int(
-            name,
-            "id",
-            "Id",
-            0,
-            i32::MAX,
-            0,
-            glib::ParamFlags::READWRITE,
-        )
-    }),
-    subclass::Property("counter", |name| {
-        glib::ParamSpec::int(
-            name,
-            "counter",
-            "Counter",
-            0,
-            i32::MAX,
-            0,
-            glib::ParamFlags::READWRITE,
-        )
-    }),
-    subclass::Property("name", |name| {
-        glib::ParamSpec::string(name, "name", "Name", None, glib::ParamFlags::READWRITE)
-    }),
-    subclass::Property("token-id", |name| {
-        glib::ParamSpec::string(
-            name,
-            "token-id",
-            "token id",
-            None,
-            glib::ParamFlags::READWRITE,
-        )
-    }),
-    subclass::Property("otp", |name| {
-        glib::ParamSpec::string(
-            name,
-            "otp",
-            "The One Time Password",
-            None,
-            glib::ParamFlags::READWRITE,
-        )
-    }),
-    subclass::Property("provider", |name| {
-        glib::ParamSpec::object(
-            name,
-            "provider",
-            "The account provider",
-            Provider::static_type(),
-            glib::ParamFlags::READWRITE,
-        )
-    }),
-];
-
-impl ObjectSubclass for AccountPriv {
-    const NAME: &'static str = "Account";
-    type Type = super::Account;
-    type ParentType = glib::Object;
-    type Instance = subclass::simple::InstanceStruct<Self>;
-    type Class = subclass::simple::ClassStruct<Self>;
-
-    glib_object_subclass!();
-
-    fn class_init(klass: &mut Self::Class) {
-        klass.install_properties(&PROPERTIES);
+    static PROPERTIES: [subclass::Property; 6] = [
+        subclass::Property("id", |name| {
+            glib::ParamSpec::int(
+                name,
+                "id",
+                "Id",
+                0,
+                i32::MAX,
+                0,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+        subclass::Property("counter", |name| {
+            glib::ParamSpec::int(
+                name,
+                "counter",
+                "Counter",
+                0,
+                i32::MAX,
+                0,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+        subclass::Property("name", |name| {
+            glib::ParamSpec::string(name, "name", "Name", None, glib::ParamFlags::READWRITE)
+        }),
+        subclass::Property("token-id", |name| {
+            glib::ParamSpec::string(
+                name,
+                "token-id",
+                "token id",
+                None,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+        subclass::Property("otp", |name| {
+            glib::ParamSpec::string(
+                name,
+                "otp",
+                "The One Time Password",
+                None,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+        subclass::Property("provider", |name| {
+            glib::ParamSpec::object(
+                name,
+                "provider",
+                "The account provider",
+                Provider::static_type(),
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+    ];
+    pub struct Account {
+        pub id: Cell<i32>,
+        pub otp: RefCell<String>,
+        pub name: RefCell<String>,
+        pub counter: Cell<i32>,
+        pub token: OnceCell<String>,
+        pub token_id: RefCell<String>,
+        pub provider: RefCell<Option<Provider>>,
     }
 
-    fn new() -> Self {
-        Self {
-            id: Cell::new(0),
-            counter: Cell::new(1),
-            name: RefCell::new("".to_string()),
-            otp: RefCell::new("".to_string()),
-            token_id: RefCell::new("".to_string()),
-            provider: RefCell::new(None),
-            token: OnceCell::new(),
+    impl ObjectSubclass for Account {
+        const NAME: &'static str = "Account";
+        type Type = super::Account;
+        type ParentType = glib::Object;
+        type Instance = subclass::simple::InstanceStruct<Self>;
+        type Class = subclass::simple::ClassStruct<Self>;
+
+        glib_object_subclass!();
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.install_properties(&PROPERTIES);
         }
-    }
-}
 
-impl ObjectImpl for AccountPriv {
-    fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-        let prop = &PROPERTIES[id];
-
-        match *prop {
-            subclass::Property("id", ..) => {
-                let id = value
-                    .get()
-                    .expect("type conformity checked by `Object::set_property`")
-                    .unwrap();
-                self.id.replace(id);
+        fn new() -> Self {
+            Self {
+                id: Cell::new(0),
+                counter: Cell::new(1),
+                name: RefCell::new("".to_string()),
+                otp: RefCell::new("".to_string()),
+                token_id: RefCell::new("".to_string()),
+                provider: RefCell::new(None),
+                token: OnceCell::new(),
             }
-            subclass::Property("name", ..) => {
-                let name = value
-                    .get()
-                    .expect("type conformity checked by `Object::set_property`")
-                    .unwrap();
-                self.name.replace(name);
-            }
-            subclass::Property("counter", ..) => {
-                let counter = value
-                    .get()
-                    .expect("type conformity checked by `Object::set_property`")
-                    .unwrap();
-                self.counter.replace(counter);
-            }
-            subclass::Property("otp", ..) => {
-                let otp = value
-                    .get()
-                    .expect("type conformity checked by `Object::set_property`")
-                    .unwrap();
-                self.otp.replace(otp);
-            }
-            subclass::Property("token-id", ..) => {
-                let token_id = value
-                    .get()
-                    .expect("type conformity checked by `Object::set_property`")
-                    .unwrap();
-                self.token_id.replace(token_id);
-            }
-            subclass::Property("provider", ..) => {
-                let provider = value
-                    .get()
-                    .expect("type conformity checked by `Object::set_property`");
-                self.provider.replace(provider);
-            }
-            _ => unimplemented!(),
         }
     }
 
-    fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-        let prop = &PROPERTIES[id];
+    impl ObjectImpl for Account {
+        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
+            let prop = &PROPERTIES[id];
 
-        match *prop {
-            subclass::Property("id", ..) => self.id.get().to_value(),
-            subclass::Property("name", ..) => self.name.borrow().to_value(),
-            subclass::Property("counter", ..) => self.counter.get().to_value(),
-            subclass::Property("otp", ..) => self.otp.borrow().to_value(),
-            subclass::Property("token-id", ..) => self.token_id.borrow().to_value(),
-            subclass::Property("provider", ..) => self.provider.borrow().to_value(),
-            _ => unimplemented!(),
+            match *prop {
+                subclass::Property("id", ..) => {
+                    let id = value.get().unwrap().unwrap();
+                    self.id.replace(id);
+                }
+                subclass::Property("name", ..) => {
+                    let name = value.get().unwrap().unwrap();
+                    self.name.replace(name);
+                }
+                subclass::Property("counter", ..) => {
+                    let counter = value.get().unwrap().unwrap();
+                    self.counter.replace(counter);
+                }
+                subclass::Property("otp", ..) => {
+                    let otp = value.get().unwrap().unwrap();
+                    self.otp.replace(otp);
+                }
+                subclass::Property("token-id", ..) => {
+                    let token_id = value.get().unwrap().unwrap();
+                    self.token_id.replace(token_id);
+                }
+                subclass::Property("provider", ..) => {
+                    let provider = value.get().unwrap();
+                    self.provider.replace(provider);
+                }
+                _ => unimplemented!(),
+            }
+        }
+
+        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
+            let prop = &PROPERTIES[id];
+
+            match *prop {
+                subclass::Property("id", ..) => self.id.get().to_value(),
+                subclass::Property("name", ..) => self.name.borrow().to_value(),
+                subclass::Property("counter", ..) => self.counter.get().to_value(),
+                subclass::Property("otp", ..) => self.otp.borrow().to_value(),
+                subclass::Property("token-id", ..) => self.token_id.borrow().to_value(),
+                subclass::Property("provider", ..) => self.provider.borrow().to_value(),
+                _ => unimplemented!(),
+            }
         }
     }
 }
-
 glib_wrapper! {
-    pub struct Account(ObjectSubclass<AccountPriv>);
+    pub struct Account(ObjectSubclass<imp::Account>);
 }
 
 impl Account {
@@ -274,8 +259,8 @@ impl Account {
         .expect("Created account is of wrong type");
 
         let token = Keyring::token(token_id).unwrap().unwrap();
-        let priv_ = AccountPriv::from_instance(&account);
-        priv_.token.set(token);
+        let self_ = imp::Account::from_instance(&account);
+        self_.token.set(token);
 
         account.init();
         account
@@ -326,9 +311,9 @@ impl Account {
 
     fn increment_counter(&self) -> Result<()> {
         // For security reasons, never re-use the same counter for HOTP
-        let priv_ = AccountPriv::from_instance(self);
+        let self_ = imp::Account::from_instance(self);
         let new_value = self.counter() + 1;
-        priv_.counter.set(new_value);
+        self_.counter.set(new_value);
 
         let db = database::connection();
         let conn = db.get()?;
@@ -343,8 +328,8 @@ impl Account {
     pub fn copy_otp(&self) {
         let display = gdk::Display::get_default().unwrap();
         let clipboard = display.get_clipboard();
-        let priv_ = AccountPriv::from_instance(self);
-        clipboard.set_text(&priv_.otp.borrow());
+        let self_ = imp::Account::from_instance(self);
+        clipboard.set_text(&self_.otp.borrow());
 
         // Indirectly increment the counter once the token was copied
         if self.provider().method() == OTPMethod::HOTP {
@@ -353,8 +338,8 @@ impl Account {
     }
 
     pub fn id(&self) -> i32 {
-        let priv_ = AccountPriv::from_instance(self);
-        priv_.id.get()
+        let self_ = imp::Account::from_instance(self);
+        self_.id.get()
     }
 
     pub fn provider(&self) -> Provider {
@@ -363,23 +348,23 @@ impl Account {
     }
 
     pub fn counter(&self) -> i32 {
-        let priv_ = AccountPriv::from_instance(self);
-        priv_.counter.get()
+        let self_ = imp::Account::from_instance(self);
+        self_.counter.get()
     }
 
     pub fn name(&self) -> String {
-        let priv_ = AccountPriv::from_instance(self);
-        priv_.name.borrow().clone()
+        let self_ = imp::Account::from_instance(self);
+        self_.name.borrow().clone()
     }
 
     pub fn token(&self) -> String {
-        let priv_ = AccountPriv::from_instance(self);
-        priv_.token.get().unwrap().clone()
+        let self_ = imp::Account::from_instance(self);
+        self_.token.get().unwrap().clone()
     }
 
     pub fn token_id(&self) -> String {
-        let priv_ = AccountPriv::from_instance(self);
-        priv_.token_id.borrow().clone()
+        let self_ = imp::Account::from_instance(self);
+        self_.token_id.borrow().clone()
     }
 
     pub fn otp_uri(&self) -> OTPUri {

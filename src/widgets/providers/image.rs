@@ -85,9 +85,7 @@ mod imp {
 
             match *prop {
                 subclass::Property("provider", ..) => {
-                    let provider = value
-                        .get()
-                        .expect("type conformity checked by `Object::set_property`");
+                    let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
                 _ => unimplemented!(),

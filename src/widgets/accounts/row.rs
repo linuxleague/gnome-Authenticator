@@ -74,9 +74,7 @@ mod imp {
 
             match *prop {
                 subclass::Property("account", ..) => {
-                    let account = value
-                        .get()
-                        .expect("type conformity checked by `Object::set_property`");
+                    let account = value.get().unwrap();
                     self.account.replace(account);
                 }
                 _ => unimplemented!(),
