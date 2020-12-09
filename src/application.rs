@@ -1,7 +1,7 @@
 use crate::config;
 use crate::helpers::Keyring;
-use crate::models::{Account, Provider, ProvidersModel};
-use crate::widgets::{AccountAddDialog, PreferencesWindow, ProvidersDialog, View, Window};
+use crate::models::ProvidersModel;
+use crate::widgets::{PreferencesWindow, ProvidersDialog, Window};
 use gettextrs::gettext;
 use gio::prelude::*;
 use glib::subclass::prelude::*;
@@ -11,18 +11,9 @@ use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplication
 use std::cell::{Cell, RefCell};
 use std::env;
 
-use glib::{Receiver, Sender};
-pub enum Action {
-    AccountCreated(Account, Provider),
-    OpenAddAccountDialog,
-    SetView(View),
-}
-
 pub struct ApplicationPrivate {
     window: RefCell<Option<WeakRef<Window>>>,
     model: ProvidersModel,
-    sender: Sender<Action>,
-    receiver: RefCell<Option<Receiver<Action>>>,
     locked: Cell<bool>,
     can_be_locked: Cell<bool>,
 }
@@ -54,14 +45,10 @@ impl ObjectSubclass for ApplicationPrivate {
     }
 
     fn new() -> Self {
-        let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
-        let receiver = RefCell::new(Some(r));
         let model = ProvidersModel::new();
 
         Self {
             window: RefCell::new(None),
-            sender,
-            receiver,
             model,
             can_be_locked: Cell::new(false),
             locked: Cell::new(false),
@@ -215,11 +202,6 @@ impl ApplicationImpl for ApplicationPrivate {
 
         app.set_locked(has_set_password);
         app.set_can_be_locked(has_set_password);
-        let receiver = self.receiver.borrow_mut().take().unwrap();
-        receiver.attach(
-            None,
-            clone!(@weak app => move |action| app.do_action(action)),
-        );
     }
 }
 
@@ -266,33 +248,8 @@ impl Application {
 
     fn create_window(&self) -> Window {
         let self_ = ApplicationPrivate::from_instance(self);
-        let window = Window::new(self_.model.clone(), self_.sender.clone(), &self.clone());
+        let window = Window::new(self_.model.clone(), &self.clone());
 
         window
-    }
-
-    fn do_action(&self, action: Action) -> glib::Continue {
-        let self_ = ApplicationPrivate::from_instance(self);
-        let active_window = self.get_active_window().unwrap();
-
-        match action {
-            Action::OpenAddAccountDialog => {
-                let dialog = AccountAddDialog::new(self_.model.clone(), self_.sender.clone());
-                dialog.set_transient_for(Some(&active_window));
-                dialog.show();
-            }
-            Action::AccountCreated(account, provider) => {
-                let win = active_window.downcast_ref::<Window>().unwrap();
-
-                self_.model.add_account(&account, &provider);
-                win.providers().refilter();
-            }
-            Action::SetView(view) => {
-                let win_ = active_window.downcast_ref::<Window>().unwrap();
-                win_.set_view(view);
-            }
-        };
-
-        glib::Continue(true)
     }
 }

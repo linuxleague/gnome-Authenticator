@@ -1,21 +1,29 @@
-use crate::application::{Action, Application};
+use crate::application::Application;
 use crate::config;
 use crate::helpers::Keyring;
-use crate::models::ProvidersModel;
-use crate::widgets::providers::ProvidersList;
+use crate::models::{Account, Provider, ProvidersModel};
+use crate::widgets::{accounts::QRCodePage, providers::ProvidersList, AccountAddDialog};
 use crate::window_state;
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
 use glib::{glib_object_subclass, glib_wrapper};
-use glib::{signal::Inhibit, Sender};
+use glib::{signal::Inhibit, Receiver, Sender};
 use gtk::{prelude::*, CompositeTemplate};
 use libhandy::prelude::*;
+use once_cell::sync::OnceCell;
 
 #[derive(PartialEq, Debug)]
 pub enum View {
     Login,
     Accounts,
+    Account(Account),
+}
+
+pub enum Action {
+    AccountCreated(Account, Provider),
+    OpenAddAccountDialog,
+    SetView(View),
 }
 
 mod imp {
@@ -23,11 +31,16 @@ mod imp {
     use glib::subclass;
     use gtk::subclass::prelude::*;
     use libhandy::subclass::application_window::ApplicationWindowImpl as HdyApplicationWindowImpl;
+    use std::cell::RefCell;
 
     #[derive(Debug, CompositeTemplate)]
     pub struct Window {
+        pub sender: Sender<Action>,
+        pub receiver: RefCell<Option<Receiver<Action>>>,
         pub settings: gio::Settings,
         pub providers: ProvidersList,
+        pub qrcode_page: QRCodePage,
+        pub model: OnceCell<ProvidersModel>,
         #[template_child(id = "search_entry")]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child(id = "deck")]
@@ -55,10 +68,16 @@ mod imp {
 
         fn new() -> Self {
             let settings = gio::Settings::new(config::APP_ID);
-            let providers = ProvidersList::new();
+            let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+            let receiver = RefCell::new(Some(r));
+            let providers = ProvidersList::new(sender.clone());
             Self {
                 settings,
                 providers,
+                sender,
+                receiver,
+                model: OnceCell::new(),
+                qrcode_page: QRCodePage::new(),
                 search_entry: TemplateChild::default(),
                 deck: TemplateChild::default(),
                 container: TemplateChild::default(),
@@ -94,7 +113,7 @@ glib_wrapper! {
 }
 
 impl Window {
-    pub fn new(model: ProvidersModel, sender: Sender<Action>, app: &Application) -> Self {
+    pub fn new(model: ProvidersModel, app: &Application) -> Self {
         let window = glib::Object::new(Window::static_type(), &[("application", app)])
             .unwrap()
             .downcast::<Window>()
@@ -105,9 +124,9 @@ impl Window {
             window.get_style_context().add_class("devel");
         }
         window.init(model);
-        window.setup_actions(app, sender.clone());
+        window.setup_actions(app);
         window.set_view(View::Login); // Start by default in an empty state
-        window.setup_signals(app, sender);
+        window.setup_signals(app);
         window
     }
 
@@ -120,7 +139,35 @@ impl Window {
             View::Accounts => {
                 self_.deck.get().set_visible_child_name("accounts");
             }
+            View::Account(account) => {
+                self_.deck.get().set_visible_child_name("account");
+                self_.qrcode_page.set_account(&account);
+            }
         }
+    }
+
+    fn do_action(&self, action: Action) -> glib::Continue {
+        let self_ = imp::Window::from_instance(self);
+
+        match action {
+            Action::OpenAddAccountDialog => {
+                let model = self_.model.get().unwrap();
+
+                let dialog = AccountAddDialog::new(model.clone(), self_.sender.clone());
+                dialog.set_transient_for(Some(self));
+                dialog.show();
+            }
+            Action::AccountCreated(account, provider) => {
+                let model = self_.model.get().unwrap();
+                model.add_account(&account, &provider);
+                self.providers().refilter();
+            }
+            Action::SetView(view) => {
+                self.set_view(view);
+            }
+        };
+
+        glib::Continue(true)
     }
 
     pub fn providers(&self) -> ProvidersList {
@@ -130,6 +177,7 @@ impl Window {
 
     fn init(&self, model: ProvidersModel) {
         let self_ = imp::Window::from_instance(self);
+        self_.model.set(model.clone());
         self_.providers.set_model(model.clone());
 
         self.set_icon_name(Some(config::APP_ID));
@@ -153,6 +201,9 @@ impl Window {
         self.set_help_overlay(Some(&shortcuts));
 
         self_.container.get().append(&self_.providers);
+
+        let page = self_.deck.get().add(&self_.qrcode_page).unwrap();
+        page.set_name("account");
 
         self_
             .search_btn
@@ -184,9 +235,15 @@ impl Window {
             "gtk-application-prefer-dark-theme",
             gio::SettingsBindFlags::DEFAULT,
         );
+
+        let receiver = self_.receiver.borrow_mut().take().unwrap();
+        receiver.attach(
+            None,
+            clone!(@weak self as win => move |action| win.do_action(action)),
+        );
     }
 
-    fn setup_actions(&self, app: &Application, sender: Sender<Action>) {
+    fn setup_actions(&self, app: &Application) {
         let self_ = imp::Window::from_instance(self);
         let search_btn = self_.search_btn.get();
         action!(
@@ -199,8 +256,17 @@ impl Window {
 
         action!(
             self,
+            "back",
+            clone!(@weak self as win => move |_, _| {
+                // Always return back to accounts list
+                win.set_view(View::Accounts);
+            })
+        );
+
+        action!(
+            self,
             "add-account",
-            clone!(@strong sender => move |_,_| {
+            clone!(@strong self_.sender as sender => move |_,_| {
                 send!(sender, Action::OpenAddAccountDialog);
             })
         );
@@ -209,7 +275,7 @@ impl Window {
         action!(
             self,
             "unlock",
-            clone!(@strong sender, @weak password_entry, @weak app => move |_, _| {
+            clone!(@strong self_.sender as sender, @weak password_entry, @weak app => move |_, _| {
                 let password = password_entry.get_text().unwrap();
                 if Keyring::is_current_password(&password).unwrap() {
                     password_entry.set_text("");
@@ -220,15 +286,15 @@ impl Window {
         );
     }
 
-    fn setup_signals(&self, app: &Application, sender: Sender<Action>) {
+    fn setup_signals(&self, app: &Application) {
         app.connect_local(
             "notify::locked",
             false,
-            clone!(@weak app => move |_| {
+            clone!(@weak app, @weak self as win => move |_| {
                 if app.locked(){
-                    send!(sender, Action::SetView(View::Login));
+                    win.set_view(View::Login);
                 } else {
-                    send!(sender, Action::SetView(View::Accounts));
+                    win.set_view(View::Accounts);
                 };
                 None
             }),

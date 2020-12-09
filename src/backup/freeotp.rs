@@ -74,6 +74,7 @@ impl Restorable for FreeOTP {
         uris.split("\n")
             .into_iter()
             .try_for_each(|uri| -> Result<()> {
+                println!("{:#?}", uri);
                 let otp_uri = OtpUri::from_str(uri)?;
                 let provider = model.find_or_create(
                     &otp_uri.issuer,
@@ -89,7 +90,7 @@ impl Restorable for FreeOTP {
                 provider.add_account(&account);
 
                 Ok(())
-            })?;
+            });
         Ok(())
     }
 }

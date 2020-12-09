@@ -28,7 +28,7 @@ impl FromStr for OtpUri {
         let mut provider_name = None;
         let mut hmac_algorithm = None;
         let mut secret = None;
-        let mut pairs = url.query_pairs();
+        let pairs = url.query_pairs();
 
         let algorithm = Algorithm::from_str(url.host_str().unwrap())?;
 

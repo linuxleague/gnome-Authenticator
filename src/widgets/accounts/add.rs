@@ -1,7 +1,6 @@
-use crate::application::Action;
 use crate::helpers::qrcode;
 use crate::models::{Account, Algorithm, OtpUri, Provider, ProvidersModel};
-use crate::widgets::{ProviderImage, ProviderImageSize};
+use crate::widgets::{Action, ProviderImage, ProviderImageSize};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::{subclass::ObjectSubclass, ActionMapExt};

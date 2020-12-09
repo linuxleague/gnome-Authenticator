@@ -5,6 +5,7 @@
 
     <!-- Accounts -->
     <file compressed="true" preprocess="xml-stripblanks" alias="account_add.ui">resources/ui/account_add.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="account_qrcode_page.ui">resources/ui/account_qrcode_page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="account_row.ui">resources/ui/account_row.ui</file>
 
     <!-- Providers -->

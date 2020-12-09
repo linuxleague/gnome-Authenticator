@@ -7,9 +7,11 @@ use anyhow::Result;
 use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
+use gio::FileExt;
 use glib::subclass::{self, prelude::*};
 use glib::{Cast, ObjectExt, StaticType, ToValue};
 use once_cell::sync::OnceCell;
+use qrcode::QrCode;
 use ring::hmac;
 use std::cell::{Cell, RefCell};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -273,7 +275,7 @@ impl Account {
         let priv_ = AccountPriv::from_instance(&account);
         priv_.token.set(token);
 
-        println!("{:#?}", account.otp_uri());
+        account.qr_code();
 
         account.init();
         account
@@ -382,6 +384,17 @@ impl Account {
 
     pub fn otp_uri(&self) -> OtpUri {
         self.into()
+    }
+
+    pub fn qr_code(&self) -> Result<gio::File> {
+        let otp: String = self.otp_uri().into();
+        let code = QrCode::new(otp.as_bytes())?;
+        let image = code.render::<image::Luma<u8>>().build();
+
+        let (file, _) = gio::File::new_tmp("qrcode_XXXXXX.png")?;
+
+        image.save(file.get_path().unwrap())?;
+        Ok(file)
     }
 
     pub fn set_name(&self, name: &str) -> Result<()> {

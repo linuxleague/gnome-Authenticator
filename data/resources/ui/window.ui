@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <menu id="menu">
-    <item>
-      <attribute name="label">_Providers</attribute>
-      <attribute name="action">app.providers</attribute>
-    </item>
+    <section>
     <item>
       <attribute name="label">_Lock the application</attribute>
       <attribute name="action">app.lock</attribute>
     </item>
-    <item>
-      <attribute name="label">_Preferences</attribute>
-      <attribute name="action">app.preferences</attribute>
-    </item>
-    <item>
-      <attribute name="label">_Keyboard Shortcuts</attribute>
-      <attribute name="action">win.show-help-overlay</attribute>
-    </item>
-    <item>
-      <attribute name="label">About Authenticator</attribute>
-      <attribute name="action">app.about</attribute>
-    </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label">_Providers</attribute>
+        <attribute name="action">app.providers</attribute>
+      </item>
+      <item>
+        <attribute name="label">_Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label">_Keyboard Shortcuts</attribute>
+        <attribute name="action">win.show-help-overlay</attribute>
+      </item>
+      <item>
+        <attribute name="label">About Authenticator</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
   </menu>
   <template class="Window" parent="HdyApplicationWindow">
     <property name="icon_name">@APP_ID@</property>

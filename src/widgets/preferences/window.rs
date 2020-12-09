@@ -193,9 +193,8 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Restore);
                 dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        if T::restore(model, d.get_file().unwrap()).is_ok() {
-                            win.emit("restore-completed", &[]).unwrap();
-                        }
+                        T::restore(model, d.get_file().unwrap()).unwrap();
+                        win.emit("restore-completed", &[]).unwrap();
                     }
                     d.destroy();
                 }));

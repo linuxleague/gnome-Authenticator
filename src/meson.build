@@ -61,6 +61,7 @@ sources = files(
   'models/providers.rs',
   'widgets/accounts/add.rs',
   'widgets/accounts/mod.rs',
+  'widgets/accounts/qrcode_page.rs',
   'widgets/accounts/row.rs',
   'widgets/preferences/mod.rs',
   'widgets/preferences/password_page.rs',

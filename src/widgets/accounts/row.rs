@@ -64,6 +64,7 @@ mod imp {
             Self::bind_template_children(klass);
             klass.install_properties(&PROPERTIES);
             klass.add_signal("removed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
+            klass.add_signal("shared", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
         }
     }
 
@@ -159,6 +160,15 @@ impl AccountRow {
                 }));
             })
         );
+
+        action!(
+            self_.actions,
+            "share",
+            clone!(@weak self as row => move |_, _| {
+                row.emit("shared", &[]).unwrap();
+            })
+        );
+
         action!(
             self_.actions,
             "delete",
@@ -170,7 +180,7 @@ impl AccountRow {
         let edit_stack = self_.edit_stack.get();
         action!(
             self_.actions,
-            "edit",
+            "rename",
             clone!(@weak edit_stack => move |_, _| {
                 edit_stack.set_visible_child_name("edit");
             })

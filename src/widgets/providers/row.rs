@@ -60,6 +60,12 @@ mod imp {
             Self::bind_template_children(klass);
             klass.install_properties(&PROPERTIES);
             klass.add_signal("changed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
+            klass.add_signal(
+                "shared",
+                glib::SignalFlags::ACTION,
+                &[Account::static_type()],
+                glib::Type::Unit,
+            );
         }
     }
 
@@ -163,6 +169,16 @@ impl ProviderRow {
                     None
                 }),
             ).unwrap();
+
+            row.connect_local(
+                "shared",
+                false,
+                clone!(@weak account, @weak provider_row => move |_| {
+                    provider_row.emit("shared", &[&account]).unwrap();
+                    None
+                }),
+            ).unwrap();
+
             account.connect_local("notify::name",
                 false,
                 clone!(@weak provider_row, @weak sorter => move |_| {
