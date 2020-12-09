@@ -386,10 +386,28 @@ impl Account {
         self.into()
     }
 
-    pub fn qr_code(&self) -> Result<gio::File> {
+    pub fn qr_code(&self, is_dark: bool) -> Result<gio::File> {
         let otp: String = self.otp_uri().into();
         let code = QrCode::new(otp.as_bytes())?;
-        let image = code.render::<image::Luma<u8>>().build();
+
+        let dark = if is_dark {
+            image::Rgba([238, 238, 236, 255])
+        } else {
+            image::Rgba([15, 17, 17, 255])
+        };
+
+        let light = if is_dark {
+            image::Rgba([53, 53, 53, 255])
+        } else {
+            image::Rgba([246, 245, 244, 255])
+        };
+
+        let image = code
+            .render::<image::Rgba<u8>>()
+            .min_dimensions(200, 200)
+            .dark_color(dark)
+            .light_color(light)
+            .build();
 
         let (file, _) = gio::File::new_tmp("qrcode_XXXXXX.png")?;
 

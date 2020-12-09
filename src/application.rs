@@ -188,6 +188,10 @@ impl ApplicationImpl for ApplicationPrivate {
         let window = app.create_window();
         window.present();
         self.window.replace(Some(window.downgrade()));
+
+        Keyring::ensure_unlocked()
+            .expect("Authenticator couldn't reach a secret service provider or unlock it");
+
         let has_set_password = Keyring::has_set_password().unwrap_or_else(|_| false);
 
         app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));

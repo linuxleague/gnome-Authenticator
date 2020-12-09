@@ -10,9 +10,16 @@ impl Keyring {
             Err(SsError::NoResult) => ss.create_collection("default", "default"),
             e => e,
         }?;
-        collection.unlock()?;
 
         Ok(collection)
+    }
+
+    pub fn ensure_unlocked() -> Result<(), SsError> {
+        let ss = secret_service::SecretService::new(secret_service::EncryptionType::Dh)?;
+        let collection = Keyring::get_default_collection(&ss)?;
+        collection.ensure_unlocked()?;
+
+        Ok(())
     }
 
     pub fn store(label: &str, token: &str) -> Result<String, SsError> {
