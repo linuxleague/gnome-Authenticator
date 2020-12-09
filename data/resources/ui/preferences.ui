@@ -12,7 +12,7 @@
     <property name="search-enabled">False</property>
     <child>
       <object class="HdyPreferencesPage">
-        <property name="icon-name">general-properties-symbolic</property>
+        <property name="icon-name">applications-system-symbolic</property>
         <property name="title">General</property>
         <child>
           <object class="HdyPreferencesGroup">
