@@ -9,7 +9,7 @@ use gio::prelude::*;
 use gio::ActionMapExt;
 use gio::{subclass::ObjectSubclass, SettingsExt};
 use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
 use libhandy::prelude::*;
 use once_cell::sync::OnceCell;
@@ -158,7 +158,7 @@ impl PreferencesWindow {
             .build();
 
         let model = self_.model.get().unwrap().clone();
-        action!(
+        gtk_macros::action!(
             self_.backup_actions,
             &T::identifier(),
             clone!(@weak self as win, @weak model => move |_, _| {
@@ -186,7 +186,7 @@ impl PreferencesWindow {
             .build();
 
         let model = self_.model.get().unwrap();
-        action!(
+        gtk_macros::action!(
             self_.restore_actions,
             &T::identifier(),
             clone!(@weak self as win, @weak model => move |_, _| {
@@ -247,14 +247,14 @@ impl PreferencesWindow {
     fn setup_actions(&self) {
         let self_ = imp::PreferencesWindow::from_instance(self);
 
-        action!(
+        gtk_macros::action!(
             self_.actions,
             "show_password_page",
             clone!(@weak self as win, @weak self_.password_page as password_page => move |_, _| {
                 win.present_subpage(&password_page);
             })
         );
-        action!(
+        gtk_macros::action!(
             self_.actions,
             "close_page",
             clone!(@weak self as win => move |_, _| {

@@ -4,7 +4,7 @@ use crate::widgets::{providers::ProviderRow, Action, View};
 use gio::{subclass::ObjectSubclass, ListModelExt};
 use glib::subclass::prelude::*;
 use glib::Sender;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
 use once_cell::sync::OnceCell;
 
@@ -127,7 +127,7 @@ impl ProvidersList {
                     })).unwrap();
                     row.connect_local("shared", false, clone!(@strong sender =>  move |args| {
                         let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
-                        send!(sender, Action::SetView(View::Account(account)));
+                        gtk_macros::send!(sender, Action::SetView(View::Account(account)));
                         None
                     })).unwrap();
 

@@ -3,7 +3,7 @@ use crate::widgets::{accounts::AccountRow, ProviderImage, ProviderImageSize};
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
 use std::cell::RefCell;
 mod imp {

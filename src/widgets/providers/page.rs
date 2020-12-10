@@ -3,7 +3,7 @@ use crate::widgets::{ProviderImage, ProviderImageSize};
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
 use glib::translate::ToGlib;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
 use libhandy::ComboRowExt;
 

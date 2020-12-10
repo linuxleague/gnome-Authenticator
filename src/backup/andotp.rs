@@ -2,7 +2,7 @@ use super::{Backupable, Restorable};
 use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
-use gio::{FileExt, ListModelExt};
+use gio::prelude::*;
 use glib::Cast;
 use serde::{Deserialize, Serialize};
 

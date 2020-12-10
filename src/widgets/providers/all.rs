@@ -4,7 +4,7 @@ use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use gio::ListModelExt;
 use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
@@ -155,14 +155,14 @@ impl ProvidersDialog {
 
         let deck = self_.deck.get();
         let search_bar = self_.search_bar.get();
-        action!(
+        gtk_macros::action!(
             self_.actions,
             "search",
             clone!(@weak search_bar => move |_,_| {
                 search_bar.set_search_mode(!search_bar.get_search_mode());
             })
         );
-        action!(
+        gtk_macros::action!(
             self_.actions,
             "back",
             clone!(@weak deck => move |_ , _| {
@@ -170,7 +170,7 @@ impl ProvidersDialog {
             })
         );
 
-        action!(
+        gtk_macros::action!(
             self_.actions,
             "add",
             clone!(@weak self as dialog => move |_, _| {

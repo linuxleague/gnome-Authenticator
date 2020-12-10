@@ -1,7 +1,7 @@
 use crate::models::Provider;
 use gio::{subclass::ObjectSubclass, FileExt};
 use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use glib::{Receiver, Sender};
 use gtk::{prelude::*, CompositeTemplate};
 
@@ -159,10 +159,10 @@ impl ProviderImage {
         self_.stack.get().set_visible_child_name("loading");
         self_.spinner.get().start();
         let p = self.provider();
-        spawn!(async move {
+        gtk_macros::spawn!(async move {
             match p.favicon().await {
-                Ok(file) => send!(sender, ImageAction::Ready(file)),
-                Err(_) => send!(sender, ImageAction::Failed),
+                Ok(file) => gtk_macros::send!(sender, ImageAction::Ready(file)),
+                Err(_) => gtk_macros::send!(sender, ImageAction::Failed),
             }
         });
     }

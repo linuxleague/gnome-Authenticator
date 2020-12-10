@@ -5,9 +5,10 @@ use anyhow::Result;
 use gio::prelude::*;
 use gio::{subclass::ObjectSubclass, ActionMapExt};
 use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use glib::{signal::Inhibit, Sender};
 use gtk::{prelude::*, CompositeTemplate};
+use gtk_macros::{action, get_action};
 use libhandy::ActionRowExt;
 use once_cell::sync::OnceCell;
 
@@ -199,7 +200,7 @@ impl AccountAddDialog {
             let token = self_.token_entry.get().get_text().unwrap();
 
             let account = Account::create(&username, &token, provider)?;
-            send!(
+            gtk_macros::send!(
                 self_.global_sender.get().unwrap(),
                 Action::AccountCreated(account, provider.clone())
             );

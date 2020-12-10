@@ -10,6 +10,7 @@ use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use gio::{subclass::ObjectSubclass, FileExt};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use glib::{Cast, ObjectExt, StaticType, ToValue};
 use once_cell::sync::OnceCell;
 use qrcode::QrCode;
@@ -215,7 +216,7 @@ impl Account {
             })
     }
 
-    pub fn load(p: &Provider) -> Result<Vec<Self>> {
+    pub fn load(p: &Provider) -> Result<impl Iterator<Item = Self>> {
         let db = database::connection();
         let conn = db.get()?;
 
@@ -223,16 +224,16 @@ impl Account {
         let results = DiAccount::belonging_to(&dip)
             .load::<DiAccount>(&conn)?
             .into_iter()
-            .map(|account| {
+            .map(clone!(@weak p => move |account| {
                 Self::new(
                     account.id,
                     &account.name,
                     &account.token_id,
                     account.counter,
-                    p.clone(),
+                    p,
                 )
-            })
-            .collect::<Vec<Account>>();
+            }));
+
         Ok(results)
     }
 

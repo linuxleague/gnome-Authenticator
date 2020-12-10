@@ -5,7 +5,9 @@ use crate::widgets::{PreferencesWindow, ProvidersDialog, Window};
 use gettextrs::gettext;
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::prelude::*;
+use gtk_macros::{action, get_action};
 use std::env;
 
 mod imp {

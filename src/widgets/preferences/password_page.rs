@@ -1,13 +1,13 @@
 use crate::config;
 use crate::helpers::Keyring;
-use std::cell::Cell;
-
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
+use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
+use std::cell::Cell;
 
 mod imp {
 

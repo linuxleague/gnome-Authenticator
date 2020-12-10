@@ -7,9 +7,10 @@ use crate::window_state;
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper};
 use glib::{signal::Inhibit, Receiver, Sender};
 use gtk::{prelude::*, CompositeTemplate};
+use gtk_macros::action;
 use once_cell::sync::OnceCell;
 
 #[derive(PartialEq, Debug)]
@@ -196,7 +197,7 @@ impl Window {
         }));
 
         let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/shortcuts.ui");
-        get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
+        gtk_macros::get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.set_help_overlay(Some(&shortcuts));
 
         self_.container.get().append(&self_.providers);
@@ -266,7 +267,7 @@ impl Window {
             self,
             "add-account",
             clone!(@strong self_.sender as sender => move |_,_| {
-                send!(sender, Action::OpenAddAccountDialog);
+                gtk_macros::send!(sender, Action::OpenAddAccountDialog);
             })
         );
 
@@ -279,7 +280,7 @@ impl Window {
                 if Keyring::is_current_password(&password).unwrap() {
                     password_entry.set_text("");
                     app.set_locked(false);
-                    send!(sender, Action::SetView(View::Accounts));
+                    gtk_macros::send!(sender, Action::SetView(View::Accounts));
                 }
             })
         );

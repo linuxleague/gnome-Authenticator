@@ -2,7 +2,7 @@ use super::Restorable;
 use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
-use gio::FileExt;
+use gio::prelude::*;
 use serde::{Deserialize, Serialize};
 
 // Same as andOTP except uses the first tag for the issuer

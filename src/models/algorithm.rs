@@ -1,4 +1,5 @@
 use gettextrs::gettext;
+use glib::GEnum;
 use ring::hmac;
 use serde::{de::Deserializer, ser::Serializer, Deserialize, Serialize};
 use std::str::FromStr;

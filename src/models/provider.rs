@@ -1,14 +1,14 @@
 use super::algorithm::{Algorithm, OTPMethod};
-use crate::diesel::ExpressionMethods;
 use crate::models::{database, Account, AccountsModel, FaviconError, FaviconScrapper};
 use crate::schema::providers;
 use anyhow::Result;
 use core::cmp::Ordering;
+use diesel::ExpressionMethods;
 use diesel::{QueryDsl, RunQueryDsl};
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
+use glib::{glib_object_subclass, glib_wrapper};
 use glib::{Cast, StaticType, ToValue};
-use gtk::prelude::*;
 use std::cell::{Cell, RefCell};
 use std::str::FromStr;
 use std::string::ToString;
@@ -321,8 +321,7 @@ impl Provider {
             .into_iter()
             .map(From::from)
             .map(|p: Provider| {
-                let accounts = Account::load(&p).unwrap();
-                accounts.iter().for_each(|a| p.add_account(a));
+                Account::load(&p).unwrap().for_each(|a| p.add_account(&a));
                 p
             });
 
