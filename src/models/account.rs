@@ -38,6 +38,7 @@ pub struct DiAccount {
     pub provider_id: i32,
 }
 
+#[doc(hidden)]
 mod imp {
     use super::*;
     use glib::subclass::{self, prelude::*};

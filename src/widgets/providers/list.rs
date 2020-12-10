@@ -1,12 +1,10 @@
 use crate::config;
 use crate::models::{Account, Provider, ProviderSorter, ProvidersModel};
-use crate::widgets::{providers::ProviderRow, Action, View};
+use crate::widgets::providers::ProviderRow;
 use gio::{subclass::ObjectSubclass, ListModelExt};
 use glib::subclass::prelude::*;
-use glib::Sender;
 use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
-use once_cell::sync::OnceCell;
 
 mod imp {
     use super::*;
@@ -15,7 +13,6 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     pub struct ProvidersList {
-        pub sender: OnceCell<Sender<Action>>,
         pub filter_model: gtk::FilterListModel,
         pub sorter: ProviderSorter,
         #[template_child]
@@ -40,19 +37,25 @@ mod imp {
                 empty_img: TemplateChild::default(),
                 sorter: ProviderSorter::new(),
                 filter_model,
-                sender: OnceCell::new(),
             }
         }
 
         fn class_init(klass: &mut Self::Class) {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_list.ui");
             Self::bind_template_children(klass);
+            klass.add_signal(
+                "shared",
+                glib::SignalFlags::ACTION,
+                &[Account::static_type()],
+                glib::Type::Unit,
+            );
         }
     }
 
     impl ObjectImpl for ProvidersList {
         fn constructed(&self, obj: &Self::Type) {
             obj.init_template();
+            obj.setup_widgets();
             self.parent_constructed(obj);
         }
     }
@@ -64,15 +67,11 @@ glib_wrapper! {
     pub struct ProvidersList(ObjectSubclass<imp::ProvidersList>) @extends gtk::Widget, gtk::Box;
 }
 impl ProvidersList {
-    pub fn new(sender: Sender<Action>) -> Self {
-        let list: ProvidersList = glib::Object::new(Self::static_type(), &[])
+    pub fn new() -> Self {
+        glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create ProvidersList")
             .downcast::<ProvidersList>()
-            .expect("Created object is of wrong type");
-        let self_ = imp::ProvidersList::from_instance(&list);
-        self_.sender.set(sender).unwrap();
-        list.setup_widgets();
-        list
+            .expect("Created object is of wrong type")
     }
 
     pub fn set_model(&self, model: ProvidersModel) {
@@ -114,26 +113,25 @@ impl ProvidersList {
             .set_from_icon_name(Some(config::APP_ID));
 
         let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&self_.sorter));
-        let sender = self_.sender.get().unwrap();
+
         self_.providers_list.get().bind_model(
             Some(&sort_model),
-            Some(Box::new(
-                clone!(@weak self as list, @strong sender => move |obj| {
-                    let provider = obj.clone().downcast::<Provider>().unwrap();
-                    let row = ProviderRow::new(provider);
-                    row.connect_local("changed", false, clone!(@weak list =>  move |_| {
-                        list.refilter();
-                        None
-                    })).unwrap();
-                    row.connect_local("shared", false, clone!(@strong sender =>  move |args| {
-                        let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
-                        gtk_macros::send!(sender, Action::SetView(View::Account(account)));
-                        None
-                    })).unwrap();
+            Some(Box::new(clone!(@weak self as list => move |obj| {
+                let provider = obj.clone().downcast::<Provider>().unwrap();
+                let row = ProviderRow::new(provider);
+                row.connect_local("changed", false, clone!(@weak list =>  move |_| {
+                    list.refilter();
+                    None
+                })).unwrap();
+                row.connect_local("shared", false, clone!(@weak list =>  move |args| {
+                    let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
 
-                    row.upcast::<gtk::Widget>()
-                }),
-            )),
+                    list.emit("shared", &[&account]);
+                    None
+                })).unwrap();
+
+                row.upcast::<gtk::Widget>()
+            }))),
         );
     }
 }

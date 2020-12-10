@@ -1,12 +1,12 @@
 use crate::helpers::qrcode;
 use crate::models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel};
-use crate::widgets::{Action, ProviderImage, ProviderImageSize};
+use crate::widgets::{ProviderImage, ProviderImageSize};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::{subclass::ObjectSubclass, ActionMapExt};
+use glib::signal::Inhibit;
 use glib::subclass::prelude::*;
 use glib::{clone, glib_object_subclass, glib_wrapper};
-use glib::{signal::Inhibit, Sender};
 use gtk::{prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use libhandy::ActionRowExt;
@@ -20,7 +20,6 @@ mod imp {
 
     #[derive(CompositeTemplate)]
     pub struct AccountAddDialog {
-        pub global_sender: OnceCell<Sender<Action>>,
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: RefCell<Option<Provider>>,
         pub actions: gio::SimpleActionGroup,
@@ -68,7 +67,6 @@ mod imp {
             let actions = gio::SimpleActionGroup::new();
 
             Self {
-                global_sender: OnceCell::new(),
                 actions,
                 image: ProviderImage::new(ProviderImageSize::Large),
                 model: OnceCell::new(),
@@ -93,6 +91,7 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/account_add.ui");
             Self::bind_template_children(klass);
+            klass.add_signal("added", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
         }
     }
 
@@ -111,7 +110,7 @@ glib_wrapper! {
 }
 
 impl AccountAddDialog {
-    pub fn new(model: ProvidersModel, global_sender: Sender<Action>) -> Self {
+    pub fn new(model: ProvidersModel) -> Self {
         let dialog = glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create AccountAddDialog")
             .downcast::<AccountAddDialog>()
@@ -119,7 +118,6 @@ impl AccountAddDialog {
 
         let self_ = imp::AccountAddDialog::from_instance(&dialog);
         self_.model.set(model).unwrap();
-        self_.global_sender.set(global_sender).unwrap();
 
         dialog.setup_actions();
         dialog.setup_signals();
@@ -201,10 +199,9 @@ impl AccountAddDialog {
             let token = self_.token_entry.get().get_text().unwrap();
 
             let account = Account::create(&username, &token, provider)?;
-            gtk_macros::send!(
-                self_.global_sender.get().unwrap(),
-                Action::AccountCreated(account, provider.clone())
-            );
+
+            self_.model.get().unwrap().add_account(&account, &provider);
+            self.emit("added", &[]).unwrap();
             // TODO: display an error message saying there was an error form keyring
         }
         Ok(())
