@@ -16,12 +16,13 @@ mod imp {
     use super::*;
     use glib::subclass;
     use gtk::subclass::prelude::*;
+    use std::cell::RefCell;
 
     #[derive(CompositeTemplate)]
     pub struct AccountAddDialog {
         pub global_sender: OnceCell<Sender<Action>>,
         pub model: OnceCell<ProvidersModel>,
-        pub selected_provider: OnceCell<Provider>,
+        pub selected_provider: RefCell<Option<Provider>>,
         pub actions: gio::SimpleActionGroup,
         pub image: ProviderImage,
         #[template_child]
@@ -71,7 +72,7 @@ mod imp {
                 actions,
                 image: ProviderImage::new(ProviderImageSize::Large),
                 model: OnceCell::new(),
-                selected_provider: OnceCell::new(),
+                selected_provider: RefCell::new(None),
                 main_container: TemplateChild::default(),
                 token_entry: TemplateChild::default(),
                 username_entry: TemplateChild::default(),
@@ -180,12 +181,12 @@ impl AccountAddDialog {
             .unwrap()
             .find_or_create(
                 &otp_uri.issuer,
-                otp_uri.period.unwrap_or_else(|| 30),
+                otp_uri.period.unwrap_or(30),
                 otp_uri.method,
                 None,
                 otp_uri.algorithm,
-                otp_uri.digits.unwrap_or_else(|| 6),
-                otp_uri.counter.unwrap_or_else(|| 1),
+                otp_uri.digits.unwrap_or(6),
+                otp_uri.counter.unwrap_or(1),
             )
             .unwrap();
 
@@ -195,7 +196,7 @@ impl AccountAddDialog {
     fn save(&self) -> Result<()> {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
-        if let Some(provider) = self_.selected_provider.get().clone() {
+        if let Some(ref provider) = *self_.selected_provider.borrow() {
             let username = self_.username_entry.get().get_text().unwrap();
             let token = self_.token_entry.get().get_text().unwrap();
 
@@ -253,7 +254,7 @@ impl AccountAddDialog {
         if let Some(ref help_url) = provider.help_url() {
             self_.provider_help_row.get().set_subtitle(Some(help_url));
         }
-        self_.selected_provider.set(provider);
+        self_.selected_provider.borrow_mut().replace(provider);
     }
 
     fn setup_actions(&self) {

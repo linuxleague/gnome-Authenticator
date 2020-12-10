@@ -40,7 +40,7 @@ mod imp {
         glib_object_subclass!();
 
         fn new() -> Self {
-            let has_set_password = Keyring::has_set_password().unwrap_or_else(|_| false);
+            let has_set_password = Keyring::has_set_password().unwrap_or(false);
 
             Self {
                 has_set_password: Cell::new(has_set_password),
@@ -175,10 +175,10 @@ impl PasswordPage {
         let current_password = self_.current_password_entry.get().get_text().unwrap();
         let password = self_.password_entry.get().get_text().unwrap();
 
-        if Keyring::has_set_password().unwrap_or(false) {
-            if !Keyring::is_current_password(&current_password).unwrap_or(false) {
-                return;
-            }
+        if Keyring::has_set_password().unwrap_or(false)
+            && !Keyring::is_current_password(&current_password).unwrap_or(false)
+        {
+            return;
         }
 
         if Keyring::set_password(&password).is_ok() {

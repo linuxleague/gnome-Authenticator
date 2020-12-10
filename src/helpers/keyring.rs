@@ -70,10 +70,7 @@ impl Keyring {
         let ss = SecretService::new(EncryptionType::Dh)?;
         let col = Self::get_default_collection(&ss)?;
         match col.search_items(vec![("type", "password"), ("application", config::APP_ID)]) {
-            Ok(items) => Ok(match items.get(0) {
-                Some(_) => true,
-                _ => false,
-            }),
+            Ok(items) => Ok(matches!(items.get(0), Some(_))),
             _ => Ok(false),
         }
     }

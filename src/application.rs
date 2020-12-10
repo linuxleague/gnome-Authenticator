@@ -202,7 +202,7 @@ mod imp {
             Keyring::ensure_unlocked()
                 .expect("Authenticator couldn't reach a secret service provider or unlock it");
 
-            let has_set_password = Keyring::has_set_password().unwrap_or_else(|_| false);
+            let has_set_password = Keyring::has_set_password().unwrap_or(false);
 
             app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
             app.set_accels_for_action("app.quit", &["<primary>q"]);
@@ -248,7 +248,7 @@ impl Application {
 
     pub fn locked(&self) -> bool {
         let self_ = imp::Application::from_instance(self);
-        return self_.locked.get();
+        self_.locked.get()
     }
 
     pub fn set_locked(&self, state: bool) {
@@ -263,8 +263,6 @@ impl Application {
 
     fn create_window(&self) -> Window {
         let self_ = imp::Application::from_instance(self);
-        let window = Window::new(self_.model.clone(), &self.clone());
-
-        window
+        Window::new(self_.model.clone(), &self.clone())
     }
 }

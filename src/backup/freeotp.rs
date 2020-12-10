@@ -71,19 +71,19 @@ impl Restorable for FreeOTP {
         let (data, _) = from.load_contents(gio::NONE_CANCELLABLE)?;
         let uris = String::from_utf8(data)?;
 
-        uris.split("\n")
+        uris.split('\n')
             .into_iter()
             .try_for_each(|uri| -> Result<()> {
                 println!("{:#?}", uri);
                 let otp_uri = OTPUri::from_str(uri)?;
                 let provider = model.find_or_create(
                     &otp_uri.issuer,
-                    otp_uri.period.unwrap_or_else(|| 30),
+                    otp_uri.period.unwrap_or(30),
                     otp_uri.method,
                     None,
                     otp_uri.algorithm,
-                    otp_uri.digits.unwrap_or_else(|| 6),
-                    otp_uri.counter.unwrap_or_else(|| 1),
+                    otp_uri.digits.unwrap_or(6),
+                    otp_uri.counter.unwrap_or(1),
                 )?;
 
                 let account = Account::create(&otp_uri.label, &otp_uri.secret, &provider)?;

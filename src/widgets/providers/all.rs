@@ -123,7 +123,7 @@ impl ProvidersDialog {
                 .downcast::<ProviderActionRow>()
                 .unwrap();
             let item = list_item.get_item().unwrap();
-            let provider = item.clone().downcast::<Provider>().unwrap();
+            let provider = item.downcast::<Provider>().unwrap();
             row.set_provider(provider);
         });
 
@@ -294,6 +294,7 @@ mod row {
     }
 
     impl ProviderActionRow {
+        #[allow(clippy::new_without_default)]
         pub fn new() -> Self {
             glib::Object::new(Self::static_type(), &[])
                 .expect("Failed to create ProviderActionRow")

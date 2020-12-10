@@ -106,6 +106,7 @@ glib_wrapper! {
     pub struct ProviderPage(ObjectSubclass<imp::ProviderPage>) @extends gtk::Widget, gtk::Box;
 }
 impl ProviderPage {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create ProviderPage")

@@ -55,6 +55,7 @@ glib_wrapper! {
 }
 
 impl ProvidersModel {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         let model: ProvidersModel = glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create Model")

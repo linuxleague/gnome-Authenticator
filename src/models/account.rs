@@ -195,7 +195,7 @@ impl Account {
         diesel::insert_into(accounts::table)
             .values(NewAccount {
                 name: name.to_string(),
-                token_id: token_id.to_string(),
+                token_id,
                 provider_id: provider.id(),
                 counter: provider.default_counter(),
             })
@@ -261,7 +261,7 @@ impl Account {
 
         let token = Keyring::token(token_id).unwrap().unwrap();
         let self_ = imp::Account::from_instance(&account);
-        self_.token.set(token);
+        self_.token.set(token).unwrap();
 
         account.init();
         account

@@ -177,8 +177,8 @@ impl Window {
 
     fn init(&self, model: ProvidersModel) {
         let self_ = imp::Window::from_instance(self);
-        self_.model.set(model.clone());
-        self_.providers.set_model(model.clone());
+        self_.model.set(model.clone()).unwrap();
+        self_.providers.set_model(model);
 
         self.set_icon_name(Some(config::APP_ID));
         self_

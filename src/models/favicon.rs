@@ -61,14 +61,13 @@ impl FaviconScrapper {
         let mut urls = Vec::new();
         loop {
             match reader.read_event(&mut buf) {
-                Ok(Event::Start(ref e)) => match e.name() {
-                    b"link" => {
+                Ok(Event::Start(ref e)) => {
+                    if let b"link" = e.name() {
                         if let Some(url) = Self::from_link(e, base_url) {
                             urls.push(url);
                         }
                     }
-                    _ => (),
-                },
+                }
                 Ok(Event::Eof) => break,
                 Err(e) => warn!("Error at position {}: {:?}", reader.buffer_position(), e),
                 _ => (),

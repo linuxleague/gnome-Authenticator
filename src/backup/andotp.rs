@@ -107,12 +107,12 @@ impl Restorable for AndOTP {
 
             let provider = model.find_or_create(
                 &item.issuer,
-                item.period.unwrap_or_else(|| 30),
+                item.period.unwrap_or(30),
                 item.method,
                 None,
                 item.algorithm,
                 item.digits,
-                item.counter.unwrap_or_else(|| 1),
+                item.counter.unwrap_or(1),
             )?;
 
             let account = Account::create(&item.label, &item.secret, &provider)?;

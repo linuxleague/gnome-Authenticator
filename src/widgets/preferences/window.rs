@@ -110,7 +110,7 @@ impl PreferencesWindow {
             .downcast::<PreferencesWindow>()
             .expect("Created object is of wrong type");
         let self_ = imp::PreferencesWindow::from_instance(&window);
-        self_.model.set(model);
+        self_.model.set(model).unwrap();
         window.setup_widgets();
         window
     }

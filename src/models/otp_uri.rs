@@ -101,8 +101,8 @@ impl Into<String> for OTPUri {
             self.secret,
             self.issuer,
             self.algorithm.to_string(),
-            self.digits.unwrap_or_else(|| 6),
-            self.counter.unwrap_or_else(|| 1),
+            self.digits.unwrap_or(6),
+            self.counter.unwrap_or(1),
         )
     }
 }

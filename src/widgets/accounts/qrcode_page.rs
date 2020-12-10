@@ -62,6 +62,7 @@ glib_wrapper! {
     pub struct QRCodePage(ObjectSubclass<imp::QRCodePage>) @extends gtk::Widget, gtk::Box;
 }
 impl QRCodePage {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create QRCodePage")

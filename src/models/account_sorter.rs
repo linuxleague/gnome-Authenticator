@@ -48,6 +48,7 @@ glib_wrapper! {
 }
 
 impl AccountSorter {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create AccountSorter")
