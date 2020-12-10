@@ -1,15 +1,9 @@
 #[macro_use]
 extern crate log;
 #[macro_use]
-extern crate lazy_static;
-#[macro_use]
-extern crate diesel_migrations;
-#[macro_use]
 extern crate diesel;
 #[macro_use]
-extern crate glib;
-#[macro_use]
-extern crate gtk_macros;
+extern crate diesel_migrations;
 
 use gettextrs::*;
 mod application;

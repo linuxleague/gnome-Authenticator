@@ -280,7 +280,6 @@ dependencies = [
  "gtk4",
  "hex",
  "image",
- "lazy_static",
  "libhandy4",
  "log",
  "once_cell",

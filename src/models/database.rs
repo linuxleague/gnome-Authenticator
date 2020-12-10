@@ -4,13 +4,12 @@ use diesel::r2d2;
 use diesel::r2d2::ConnectionManager;
 use std::path::PathBuf;
 use std::{fs, fs::File};
+use once_cell::sync::Lazy;
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
-lazy_static! {
-    static ref DB_PATH: PathBuf = glib::get_user_data_dir().join("authenticator");
-    static ref POOL: Pool = init_pool().expect("Failed to create a pool");
-}
+static DB_PATH: Lazy<PathBuf> = Lazy::new(|| glib::get_user_data_dir().join("authenticator"));
+static POOL: Lazy<Pool> = Lazy::new(|| init_pool().expect("Failed to create a pool"));
 
 embed_migrations!("migrations/");
 
