@@ -22,34 +22,34 @@ mod imp {
     #[derive(Debug, CompositeTemplate)]
     pub struct ProviderPage {
         pub image: ProviderImage,
-        #[template_child(id = "main_container")]
-        pub main_container: TemplateChild<gtk::Box>,
-        #[template_child(id = "name_entry")]
-        pub name_entry: TemplateChild<gtk::Entry>,
-        #[template_child(id = "period_spinbutton")]
-        pub period_spinbutton: TemplateChild<gtk::SpinButton>,
-        #[template_child(id = "digits_spinbutton")]
-        pub digits_spinbutton: TemplateChild<gtk::SpinButton>,
-        #[template_child(id = "default_counter_spinbutton")]
-        pub default_counter_spinbutton: TemplateChild<gtk::SpinButton>,
-        #[template_child(id = "provider_website_entry")]
-        pub provider_website_entry: TemplateChild<gtk::Entry>,
-        #[template_child(id = "provider_help_entry")]
-        pub provider_help_entry: TemplateChild<gtk::Entry>,
-        #[template_child(id = "method_comborow")]
-        pub method_comborow: TemplateChild<libhandy::ComboRow>,
-        #[template_child(id = "algorithm_comborow")]
-        pub algorithm_comborow: TemplateChild<libhandy::ComboRow>,
-        #[template_child(id = "period_row")]
-        pub period_row: TemplateChild<libhandy::ActionRow>,
-        #[template_child(id = "digits_row")]
-        pub digits_row: TemplateChild<libhandy::ActionRow>,
-        #[template_child(id = "default_counter_row")]
-        pub default_counter_row: TemplateChild<libhandy::ActionRow>,
-        #[template_child(id = "title")]
-        pub title: TemplateChild<gtk::Label>,
         pub methods_model: libhandy::EnumListModel,
         pub algorithms_model: libhandy::EnumListModel,
+        #[template_child]
+        pub main_container: TemplateChild<gtk::Box>,
+        #[template_child]
+        pub name_entry: TemplateChild<gtk::Entry>,
+        #[template_child]
+        pub period_spinbutton: TemplateChild<gtk::SpinButton>,
+        #[template_child]
+        pub digits_spinbutton: TemplateChild<gtk::SpinButton>,
+        #[template_child]
+        pub default_counter_spinbutton: TemplateChild<gtk::SpinButton>,
+        #[template_child]
+        pub provider_website_entry: TemplateChild<gtk::Entry>,
+        #[template_child]
+        pub provider_help_entry: TemplateChild<gtk::Entry>,
+        #[template_child]
+        pub method_comborow: TemplateChild<libhandy::ComboRow>,
+        #[template_child]
+        pub algorithm_comborow: TemplateChild<libhandy::ComboRow>,
+        #[template_child]
+        pub period_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child]
+        pub digits_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child]
+        pub default_counter_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child]
+        pub title: TemplateChild<gtk::Label>,
     }
 
     impl ObjectSubclass for ProviderPage {

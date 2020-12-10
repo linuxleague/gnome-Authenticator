@@ -16,24 +16,18 @@ mod imp {
     use gtk::subclass::prelude::*;
     #[derive(CompositeTemplate)]
     pub struct PasswordPage {
-        pub has_set_password: Cell<bool>,
-
-        #[template_child(id = "current_password_entry")]
-        pub current_password_entry: TemplateChild<gtk::PasswordEntry>,
-
-        #[template_child(id = "password_entry")]
-        pub password_entry: TemplateChild<gtk::PasswordEntry>,
-
-        #[template_child(id = "confirm_password_entry")]
-        pub confirm_password_entry: TemplateChild<gtk::PasswordEntry>,
-
-        #[template_child(id = "current_password_row")]
-        pub current_password_row: TemplateChild<libhandy::ActionRow>,
-
-        #[template_child(id = "password_img")]
-        pub password_img: TemplateChild<gtk::Image>,
-
         pub actions: OnceCell<gio::SimpleActionGroup>,
+        pub has_set_password: Cell<bool>,
+        #[template_child]
+        pub current_password_entry: TemplateChild<gtk::PasswordEntry>,
+        #[template_child]
+        pub password_entry: TemplateChild<gtk::PasswordEntry>,
+        #[template_child]
+        pub confirm_password_entry: TemplateChild<gtk::PasswordEntry>,
+        #[template_child]
+        pub current_password_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child]
+        pub password_img: TemplateChild<gtk::Image>,
     }
 
     impl ObjectSubclass for PasswordPage {

@@ -25,13 +25,13 @@ mod imp {
     pub struct ProviderRow {
         pub image: ProviderImage,
         pub provider: RefCell<Option<Provider>>,
-        #[template_child(id = "name_label")]
+        #[template_child]
         pub name_label: TemplateChild<gtk::Label>,
-        #[template_child(id = "accounts_list")]
+        #[template_child]
         pub accounts_list: TemplateChild<gtk::ListBox>,
-        #[template_child(id = "progress")]
+        #[template_child]
         pub progress: TemplateChild<gtk::ProgressBar>,
-        #[template_child(id = "header")]
+        #[template_child]
         pub header: TemplateChild<gtk::Box>,
     }
 

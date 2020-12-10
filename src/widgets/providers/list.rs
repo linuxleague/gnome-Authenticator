@@ -16,12 +16,12 @@ mod imp {
     #[derive(Debug, CompositeTemplate)]
     pub struct ProvidersList {
         pub sender: OnceCell<Sender<Action>>,
-        #[template_child(id = "providers_list")]
-        pub providers_list: TemplateChild<gtk::ListBox>,
-        #[template_child(id = "empty_img")]
-        pub empty_img: TemplateChild<gtk::Image>,
         pub filter_model: gtk::FilterListModel,
         pub sorter: ProviderSorter,
+        #[template_child]
+        pub providers_list: TemplateChild<gtk::ListBox>,
+        #[template_child]
+        pub empty_img: TemplateChild<gtk::Image>,
     }
 
     impl ObjectSubclass for ProvidersList {

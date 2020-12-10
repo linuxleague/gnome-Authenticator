@@ -40,19 +40,19 @@ mod imp {
         pub providers: ProvidersList,
         pub qrcode_page: QRCodePage,
         pub model: OnceCell<ProvidersModel>,
-        #[template_child(id = "search_entry")]
+        #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
-        #[template_child(id = "deck")]
+        #[template_child]
         pub deck: TemplateChild<libhandy::Leaflet>,
-        #[template_child(id = "container")]
+        #[template_child]
         pub container: TemplateChild<gtk::Box>,
-        #[template_child(id = "search_bar")]
+        #[template_child]
         pub search_bar: TemplateChild<gtk::SearchBar>,
-        #[template_child(id = "search_btn")]
+        #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
-        #[template_child(id = "password_entry")]
+        #[template_child]
         pub password_entry: TemplateChild<gtk::PasswordEntry>,
-        #[template_child(id = "locked_img")]
+        #[template_child]
         pub locked_img: TemplateChild<gtk::Image>,
     }
 

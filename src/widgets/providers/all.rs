@@ -16,19 +16,19 @@ mod imp {
 
     #[derive(CompositeTemplate)]
     pub struct ProvidersDialog {
-        #[template_child(id = "providers_list")]
-        pub providers_list: TemplateChild<gtk::ListView>,
-        #[template_child(id = "deck")]
-        pub deck: TemplateChild<libhandy::Leaflet>,
-        #[template_child(id = "search_entry")]
-        pub search_entry: TemplateChild<gtk::SearchEntry>,
-        #[template_child(id = "search_bar")]
-        pub search_bar: TemplateChild<gtk::SearchBar>,
-        #[template_child(id = "search_btn")]
-        pub search_btn: TemplateChild<gtk::ToggleButton>,
         pub page: ProviderPage,
         pub actions: gio::SimpleActionGroup,
         pub filter_model: gtk::FilterListModel,
+        #[template_child]
+        pub providers_list: TemplateChild<gtk::ListView>,
+        #[template_child]
+        pub deck: TemplateChild<libhandy::Leaflet>,
+        #[template_child]
+        pub search_entry: TemplateChild<gtk::SearchEntry>,
+        #[template_child]
+        pub search_bar: TemplateChild<gtk::SearchBar>,
+        #[template_child]
+        pub search_btn: TemplateChild<gtk::ToggleButton>,
     }
 
     impl ObjectSubclass for ProvidersDialog {

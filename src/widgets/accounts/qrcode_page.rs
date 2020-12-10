@@ -12,11 +12,11 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     pub struct QRCodePage {
-        #[template_child(id = "image")]
+        #[template_child]
         pub image: TemplateChild<gtk::Image>,
-        #[template_child(id = "provider_label")]
+        #[template_child]
         pub provider_label: TemplateChild<gtk::Label>,
-        #[template_child(id = "account_label")]
+        #[template_child]
         pub account_label: TemplateChild<gtk::Label>,
         #[template_child(id = "provider_website_row")]
         pub website_row: TemplateChild<libhandy::ActionRow>,

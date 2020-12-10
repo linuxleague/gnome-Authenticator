@@ -23,47 +23,33 @@ mod imp {
         pub selected_provider: OnceCell<Provider>,
         pub actions: gio::SimpleActionGroup,
         pub image: ProviderImage,
-
-        #[template_child(id = "main_container")]
+        #[template_child]
         pub main_container: TemplateChild<gtk::Box>,
-
-        #[template_child(id = "username_entry")]
+        #[template_child]
         pub username_entry: TemplateChild<gtk::Entry>,
-
-        #[template_child(id = "token_entry")]
+        #[template_child]
         pub token_entry: TemplateChild<gtk::Entry>,
-
-        #[template_child(id = "more_list")]
+        #[template_child]
         pub more_list: TemplateChild<gtk::ListBox>,
-
-        #[template_child(id = "period_label")]
+        #[template_child]
         pub period_label: TemplateChild<gtk::Label>,
-
-        #[template_child(id = "digits_label")]
+        #[template_child]
         pub digits_label: TemplateChild<gtk::Label>,
-
-        #[template_child(id = "provider_entry")]
+        #[template_child]
         pub provider_entry: TemplateChild<gtk::Entry>,
-
-        #[template_child(id = "method_label")]
+        #[template_child]
         pub method_label: TemplateChild<gtk::Label>,
-
-        #[template_child(id = "provider_website_row")]
+        #[template_child]
         pub provider_website_row: TemplateChild<libhandy::ActionRow>,
-
-        #[template_child(id = "provider_help_row")]
+        #[template_child]
         pub provider_help_row: TemplateChild<libhandy::ActionRow>,
-
-        #[template_child(id = "algorithm_label")]
+        #[template_child]
         pub algorithm_label: TemplateChild<gtk::Label>,
-
-        #[template_child(id = "counter_row")]
+        #[template_child]
         pub counter_row: TemplateChild<libhandy::ActionRow>,
-
-        #[template_child(id = "period_row")]
+        #[template_child]
         pub period_row: TemplateChild<libhandy::ActionRow>,
-
-        #[template_child(id = "provider_completion")]
+        #[template_child]
         pub provider_completion: TemplateChild<gtk::EntryCompletion>,
     }
 

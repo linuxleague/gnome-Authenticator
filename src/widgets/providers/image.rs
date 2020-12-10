@@ -36,13 +36,13 @@ mod imp {
     pub struct ProviderImage {
         pub sender: Sender<ImageAction>,
         pub receiver: RefCell<Option<Receiver<ImageAction>>>,
-        #[template_child(id = "stack")]
-        pub stack: TemplateChild<gtk::Stack>,
-        #[template_child(id = "image")]
-        pub image: TemplateChild<gtk::Image>,
-        #[template_child(id = "spinner")]
-        pub spinner: TemplateChild<gtk::Spinner>,
         pub provider: RefCell<Option<Provider>>,
+        #[template_child]
+        pub stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub image: TemplateChild<gtk::Image>,
+        #[template_child]
+        pub spinner: TemplateChild<gtk::Spinner>,
     }
 
     impl ObjectSubclass for ProviderImage {

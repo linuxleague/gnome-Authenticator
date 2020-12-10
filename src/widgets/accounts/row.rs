@@ -24,15 +24,15 @@ mod imp {
     pub struct AccountRow {
         pub account: RefCell<Option<Account>>,
         pub actions: gio::SimpleActionGroup,
-        #[template_child(id = "name_label")]
+        #[template_child]
         pub name_label: TemplateChild<gtk::Label>,
-        #[template_child(id = "name_entry")]
+        #[template_child]
         pub name_entry: TemplateChild<gtk::Entry>,
-        #[template_child(id = "edit_stack")]
+        #[template_child]
         pub edit_stack: TemplateChild<gtk::Stack>,
-        #[template_child(id = "copy_btn_stack")]
+        #[template_child]
         pub copy_btn_stack: TemplateChild<gtk::Stack>,
-        #[template_child(id = "otp_label")]
+        #[template_child]
         pub otp_label: TemplateChild<gtk::Label>,
     }
 

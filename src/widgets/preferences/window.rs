@@ -30,18 +30,18 @@ mod imp {
         pub actions: gio::SimpleActionGroup,
         pub backup_actions: gio::SimpleActionGroup,
         pub restore_actions: gio::SimpleActionGroup,
+        pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
         pub password_page: PasswordPage,
+        #[template_child]
+        pub backup_group: TemplateChild<libhandy::PreferencesGroup>,
+        #[template_child]
+        pub restore_group: TemplateChild<libhandy::PreferencesGroup>,
         #[template_child(id = "auto_lock_switch")]
         pub auto_lock: TemplateChild<gtk::Switch>,
         #[template_child(id = "dark_theme_switch")]
         pub dark_theme: TemplateChild<gtk::Switch>,
         #[template_child(id = "lock_timeout_spin_btn")]
         pub lock_timeout: TemplateChild<gtk::SpinButton>,
-        #[template_child(id = "backup_group")]
-        pub backup_group: TemplateChild<libhandy::PreferencesGroup>,
-        #[template_child(id = "restore_group")]
-        pub restore_group: TemplateChild<libhandy::PreferencesGroup>,
-        pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
     }
 
     impl ObjectSubclass for PreferencesWindow {
