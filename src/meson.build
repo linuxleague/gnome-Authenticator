@@ -73,6 +73,7 @@ sources = files(
   'widgets/providers/page.rs',
   'widgets/providers/row.rs',
 	'widgets/mod.rs',
+	'widgets/url_row.rs',
 	'widgets/window.rs',
 	'application.rs',
   'config.rs',

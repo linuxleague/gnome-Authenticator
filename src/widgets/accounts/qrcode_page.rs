@@ -1,9 +1,9 @@
 use crate::models::Account;
+use crate::widgets::UrlRow;
 use gio::{subclass::ObjectSubclass, FileExt};
 use glib::subclass::prelude::*;
 use glib::{glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
-use libhandy::prelude::*;
 
 mod imp {
     use super::*;
@@ -12,14 +12,15 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     pub struct QRCodePage {
+        pub website_row: UrlRow,
         #[template_child]
         pub image: TemplateChild<gtk::Image>,
         #[template_child]
         pub provider_label: TemplateChild<gtk::Label>,
         #[template_child]
         pub account_label: TemplateChild<gtk::Label>,
-        #[template_child(id = "provider_website_row")]
-        pub website_row: TemplateChild<libhandy::ActionRow>,
+        #[template_child(id = "list")]
+        pub listbox: TemplateChild<gtk::ListBox>,
     }
 
     impl ObjectSubclass for QRCodePage {
@@ -36,7 +37,8 @@ mod imp {
                 image: TemplateChild::default(),
                 account_label: TemplateChild::default(),
                 provider_label: TemplateChild::default(),
-                website_row: TemplateChild::default(),
+                website_row: UrlRow::new("Website", "link-symbolic"),
+                listbox: TemplateChild::default(),
             }
         }
 
@@ -51,6 +53,7 @@ mod imp {
     impl ObjectImpl for QRCodePage {
         fn constructed(&self, obj: &Self::Type) {
             obj.init_template();
+            obj.setup_widgets();
             self.parent_constructed(obj);
         }
     }
@@ -87,10 +90,16 @@ impl QRCodePage {
             .set_text(&account.provider().name());
 
         if let Some(ref website) = account.provider().website() {
-            self_.website_row.get().set_subtitle(Some(website));
-            self_.website_row.get().show();
+            self_.website_row.set_uri(website);
+            self_.website_row.show();
         } else {
-            self_.website_row.get().hide();
+            self_.website_row.hide();
         }
+    }
+
+    fn setup_widgets(&self) {
+        let self_ = imp::QRCodePage::from_instance(self);
+
+        self_.listbox.get().append(&self_.website_row);
     }
 }

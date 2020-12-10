@@ -139,32 +139,6 @@
                                 <property name="visible">False</property>
                                 <property name="selection_mode">none</property>
                                 <child>
-                                  <object class="HdyActionRow" id="provider_website_row">
-                                    <property name="title" translatable="yes">Website</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="halign">end</property>
-                                        <property name="valign">center</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="icon-name">link-symbolic</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="HdyActionRow" id="provider_help_row">
-                                    <property name="title" translatable="yes">How to setup</property>
-                                    <child>
-                                      <object class="GtkImage">
-                                        <property name="halign">end</property>
-                                        <property name="valign">center</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="icon-name">help-page-symbolic</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
-                                <child>
                                   <object class="HdyActionRow" id="algorithm_row">
                                     <property name="title" translatable="yes">Algorithm</property>
                                     <child>

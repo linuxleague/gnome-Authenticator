@@ -1,6 +1,6 @@
 use crate::helpers::qrcode;
 use crate::models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel};
-use crate::widgets::{ProviderImage, ProviderImageSize};
+use crate::widgets::{ProviderImage, ProviderImageSize, UrlRow};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::{subclass::ObjectSubclass, ActionMapExt};
@@ -9,7 +9,6 @@ use glib::subclass::prelude::*;
 use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
-use libhandy::ActionRowExt;
 use once_cell::sync::OnceCell;
 
 mod imp {
@@ -24,6 +23,8 @@ mod imp {
         pub selected_provider: RefCell<Option<Provider>>,
         pub actions: gio::SimpleActionGroup,
         pub image: ProviderImage,
+        pub provider_website_row: UrlRow,
+        pub provider_help_row: UrlRow,
         #[template_child]
         pub main_container: TemplateChild<gtk::Box>,
         #[template_child]
@@ -40,10 +41,6 @@ mod imp {
         pub provider_entry: TemplateChild<gtk::Entry>,
         #[template_child]
         pub method_label: TemplateChild<gtk::Label>,
-        #[template_child]
-        pub provider_website_row: TemplateChild<libhandy::ActionRow>,
-        #[template_child]
-        pub provider_help_row: TemplateChild<libhandy::ActionRow>,
         #[template_child]
         pub algorithm_label: TemplateChild<gtk::Label>,
         #[template_child]
@@ -65,10 +62,14 @@ mod imp {
 
         fn new() -> Self {
             let actions = gio::SimpleActionGroup::new();
+            let provider_website_row = UrlRow::new("Website", "link-symbolic");
+            let provider_help_row = UrlRow::new("How to setup", "help-page-symbolic");
 
             Self {
                 actions,
                 image: ProviderImage::new(ProviderImageSize::Large),
+                provider_website_row,
+                provider_help_row,
                 model: OnceCell::new(),
                 selected_provider: RefCell::new(None),
                 main_container: TemplateChild::default(),
@@ -79,8 +80,6 @@ mod imp {
                 digits_label: TemplateChild::default(),
                 provider_entry: TemplateChild::default(),
                 method_label: TemplateChild::default(),
-                provider_website_row: TemplateChild::default(),
-                provider_help_row: TemplateChild::default(),
                 provider_completion: TemplateChild::default(),
                 algorithm_label: TemplateChild::default(),
                 counter_row: TemplateChild::default(),
@@ -246,10 +245,10 @@ impl AccountAddDialog {
         };
 
         if let Some(ref website) = provider.website() {
-            self_.provider_website_row.get().set_subtitle(Some(website));
+            self_.provider_website_row.set_uri(website);
         }
         if let Some(ref help_url) = provider.help_url() {
-            self_.provider_help_row.get().set_subtitle(Some(help_url));
+            self_.provider_help_row.set_uri(help_url);
         }
         self_.selected_provider.borrow_mut().replace(provider);
     }
@@ -290,6 +289,9 @@ impl AccountAddDialog {
             .provider_completion
             .get()
             .set_model(Some(&self_.model.get().unwrap().completion_model()));
+
+        self_.more_list.get().prepend(&self_.provider_help_row);
+        self_.more_list.get().prepend(&self_.provider_website_row);
 
         self_.main_container.get().prepend(&self_.image);
 
