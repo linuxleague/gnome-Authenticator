@@ -3,27 +3,27 @@
   <menu id="menu">
     <section>
     <item>
-      <attribute name="label">_Lock the application</attribute>
+      <attribute name="label" translatable="yes">_Lock the application</attribute>
       <attribute name="action">app.lock</attribute>
     </item>
     </section>
     <section>
       <item>
-        <attribute name="label">_Providers</attribute>
+        <attribute name="label" translatable="yes">_Providers</attribute>
         <attribute name="action">app.providers</attribute>
       </item>
       <item>
-        <attribute name="label">_Preferences</attribute>
+        <attribute name="label" translatable="yes">_Preferences</attribute>
         <attribute name="action">app.preferences</attribute>
       </item>
     </section>
     <section>
       <item>
-        <attribute name="label">_Keyboard Shortcuts</attribute>
+        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label">About Authenticator</attribute>
+        <attribute name="label" translatable="yes">About Authenticator</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>
