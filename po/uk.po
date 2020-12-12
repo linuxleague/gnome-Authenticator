@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-03-15 14:18+0000\n"
-"PO-Revision-Date: 2020-04-01 09:37+0300\n"
+"POT-Creation-Date: 2020-12-12 12:42+0000\n"
+"PO-Revision-Date: 2020-12-12 17:17+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -17,345 +17,526 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.07.70\n"
+"X-Generator: Lokalize 20.11.70\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:36
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: src/application.rs:145 src/backup/freeotp.rs:18 src/backup/freeotp.rs:63
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "A Two-Factor Authentication application"
-msgstr "Програма для двофакторного розпізнавання"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-factor Authentication"
+msgstr "Двофакторне розпізнавання"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:148
+msgid "Generate Two-Factor codes"
+msgstr "Створення двофакторних кодів"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+#| msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgstr ""
+"Gnome;GTK;Verification;2FA;Authentication;TwoFactor;гноме;гном;жтека;гтк;"
+"перевірка;2фа;автентифікація;розпізнавання;двофакторна;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+#| msgid "Default window position"
+msgid "Default window width"
+msgstr "Типова ширина вікна програми"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+#| msgid "Default window position"
+msgid "Default window height"
+msgstr "Типова висота вікна програми"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Типова поведінка щодо максимізації вікна"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+#: data/resources/ui/preferences.ui:22
+msgid "Dark Theme"
+msgstr "Темна тема"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark theme."
+msgstr "Чи слід віддавати перевагу у програмі темній темі."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+#| msgid "Auto lock timeout"
+msgid "Auto lock"
+msgstr "Автоблокування"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+#| msgid "Whether the application should use a dark theme."
+msgid "Whether to auto lock the application or not"
+msgstr "Чи слід автоматично блокувати програму"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+#: data/resources/ui/preferences.ui:64
+msgid "Auto lock timeout"
+msgstr "Час очікування на автоблокування"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr ""
+"Блокувати програму, якщо у ній не виконується ніяких дій протягом вказаної "
+"кількості хвилин."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
 msgstr ""
-"Проста програма, яка генерує двофакторний код розпізнавання. Програму"
-" створено для GNOME."
+"Проста програма, яка генерує двофакторний код розпізнавання. Програму "
+"створено для GNOME."
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
 msgstr "Можливості:"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "QR code scanner"
 msgstr "Засіб сканування QR-кодів"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "Beautiful UI"
 msgstr "Чудовий інтерфейс користувача"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "Huge database of more than 560 supported services"
 msgstr "Величезна база даних з понад 560 підтримуваних служб"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr "Безпечне зберігання ваших пін-ключів замиканням даних програми паролем"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services"
-msgstr "Автоматичне отримання зображень для служб"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+#| msgid "Automatically fetch an image for services"
+msgid "Automatically fetch an image for services using their favicon"
+msgstr ""
+"Автоматичне отримання зображень для служб з використанням їхніх піктограм"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "The possibility to add new services"
 msgstr "Можливість додавати нові служби"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid "Dark theme and night light"
 msgstr "Темна тема та пристосованість до роботи вночі"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
-msgid "Main Window - empty state"
-msgstr "Головне вікно — порожній стан"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+#| msgid "Settings Window"
+msgid "Main Window"
+msgstr "Головне вікно"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:12
 msgid "Add a new account"
 msgstr "Додавання нового облікового запису"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
-msgid "Main Window - Accounts List"
-msgstr "Головне вікно — список облікових записів"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+#| msgid "Add a new account"
+msgid "Sharing an account"
+msgstr "Спільне використання облікового запису"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid "Settings Window"
-msgstr "Вікно параметрів програми"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:165
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
-msgstr "Двофакторне розпізнавання"
+#: data/resources/ui/account_add.ui:33
+msgid "Add"
+msgstr "Додати"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
-msgstr ""
-"Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;гноме;гном;жтека;гтк;п"
-"еревірка;2фа;автентифікація;розпізнавання;отп;двофакторна;"
+#: data/resources/ui/account_add.ui:45
+#| msgid "Scan a QR Code"
+msgid "Scan QR Code"
+msgstr "Сканувати QR-код"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "Типове розташування вікна"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: data/resources/gtk/ui/settings.ui.in:28
-msgid "Dark Theme"
-msgstr "Темна тема"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: data/resources/gtk/ui/settings.ui.in:29
-#: data/resources/gtk/ui/settings.ui.in:76
-msgid "Whether the application should use a dark theme."
-msgstr "Чи слід віддавати перевагу у програмі темній темі."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: data/resources/gtk/ui/settings.ui.in:83
-msgid "Auto lock timeout"
-msgstr "Час очікування на автоблокування"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-msgid "Lock the application on idle after X minutes"
-msgstr ""
-"Блокувати програму, якщо у ній не виконується ніяких дій протягом вказаної"
-" кількості хвилин."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/gtk/ui/settings.ui.in:43
-msgid "Night Light"
-msgstr "Нічне світло"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
-#: data/resources/gtk/ui/settings.ui.in:44
-#: data/resources/gtk/ui/settings.ui.in:84
-msgid "Automatically enable dark mode at night."
-msgstr "Автоматично вмикати темний режим вночі."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
-msgid "Default window maximized behaviour"
-msgstr "Типова поведінка щодо максимізації вікна"
-
-#: data/resources/gtk/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Юрій Чорноіван <yurchor@ukr.net>"
-
-#: data/resources/gtk/ui/account_config.ui:57
+#: data/resources/ui/account_add.ui:73
+#: data/resources/ui/account_qrcode_page.ui:50
 msgid "Provider"
 msgstr "Надавач даних"
 
-#: data/resources/gtk/ui/account_config.ui:85
-msgid "Website"
-msgstr "Сайт"
+#: data/resources/ui/account_add.ui:74
+msgid "The service provider"
+msgstr "Надавач послуг служби"
 
-#: data/resources/gtk/ui/account_config.ui:105
+#: data/resources/ui/account_add.ui:89
+#: data/resources/ui/account_qrcode_page.ui:40
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: data/resources/gtk/ui/account_config.ui:124
+#: data/resources/ui/account_add.ui:103
 msgid "Token"
 msgstr "Ключ"
 
-#: data/resources/gtk/ui/account_config.ui:134
-#: data/resources/gtk/ui/account_config.ui:135
-msgid "Enable 2FA for this account"
-msgstr "Увімкнути двофакторне розпізнавання для цього облікового запису"
+#: data/resources/ui/account_add.ui:118 data/resources/ui/provider_page.ui:149
+msgid "Counter"
+msgstr "Лічильник"
 
-#: data/resources/gtk/ui/account_row.ui:48
-msgid "Copy PIN to clipboard"
-msgstr "Копіювати пін-код до буфера обміну"
+#: data/resources/ui/account_add.ui:143 data/resources/ui/provider_page.ui:120
+msgid "Algorithm"
+msgstr "Алгоритм"
 
-#: data/resources/gtk/ui/account_row.ui:158
-msgid "Edit"
-msgstr "Змінити"
+#: data/resources/ui/account_add.ui:155 data/resources/ui/provider_page.ui:112
+msgid "Computing Method"
+msgstr "Метод обчислення"
 
-#: data/resources/gtk/ui/account_row.ui:176
+#: data/resources/ui/account_add.ui:167 data/resources/ui/provider_page.ui:132
+msgid "Period"
+msgstr "Період"
+
+#: data/resources/ui/account_add.ui:179 data/resources/ui/provider_page.ui:166
+msgid "Digits"
+msgstr "Цифри"
+
+#: data/resources/ui/account_row.ui:6
+msgid "Share"
+msgstr "Оприлюднення"
+
+#: data/resources/ui/account_row.ui:12
+msgid "Rename"
+msgstr "Перейменувати"
+
+#: data/resources/ui/account_row.ui:16
 msgid "Delete"
 msgstr "Вилучити"
 
-#: data/resources/gtk/ui/password_widget.ui:46
-msgid "Current Password:"
-msgstr "Поточний пароль:"
+#: data/resources/ui/account_row.ui:64
+msgid "Copy PIN to clipboard"
+msgstr "Копіювати пін-код до буфера обміну"
 
-#: data/resources/gtk/ui/password_widget.ui:91
-msgid "New Password:"
-msgstr "Новий пароль:"
+#: data/resources/ui/account_row.ui:135
+#: data/resources/ui/preferences_password_page.ui:20
+#: data/resources/ui/provider_page.ui:52
+msgid "Save"
+msgstr "Зберегти"
 
-#: data/resources/gtk/ui/password_widget.ui:136
-msgid "Confirm New Password:"
-msgstr "Підтвердження нового пароля:"
+#: data/resources/ui/preferences_password_page.ui:41
+#| msgid "Save Password"
+msgid "Set up a password"
+msgstr "Встановіть пароль"
 
-#: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:174
-msgid "Change Password"
-msgstr "Змінити пароль"
+#: data/resources/ui/preferences_password_page.ui:49
+msgid "By setting a password, Authenticator will from now on start locked."
+msgstr "Після встановлення пароля «Розпізнавач» запускатиметься заблокованим."
 
-#: data/resources/gtk/ui/password_widget.ui:205
-msgid "Delete Password"
-msgstr "Вилучити пароль"
+#: data/resources/ui/preferences_password_page.ui:67
+#| msgid "Current Password:"
+msgid "Current Password"
+msgstr "Поточний пароль"
 
-#: data/resources/gtk/ui/settings.ui.in:24
+#: data/resources/ui/preferences_password_page.ui:80
+#| msgid "New Password:"
+msgid "New Password"
+msgstr "Новий пароль"
+
+#: data/resources/ui/preferences_password_page.ui:93
+#| msgid "Delete Password"
+msgid "Repeat Password"
+msgstr "Повторіть пароль"
+
+#: data/resources/ui/preferences_password_page.ui:114
+msgid "Reset"
+msgstr "Скинути"
+
+#: data/resources/ui/preferences.ui:16
+#| msgctxt "shortcut window"
+#| msgid "General"
+msgid "General"
+msgstr "Загальне"
+
+#: data/resources/ui/preferences.ui:19
 msgid "Appearance"
 msgstr "Вигляд"
 
-#: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:102
-msgid "Lock the application"
-msgstr "Заблокувати програму"
+#: data/resources/ui/preferences.ui:24
+#| msgid "Whether the application should use a dark theme."
+msgid "Whether the application should use a dark theme"
+msgstr "Чи слід віддавати перевагу у програмі темній темі"
 
-#: data/resources/gtk/ui/shortcuts.ui:13
+#: data/resources/ui/preferences.ui:36
+msgid "Privacy"
+msgstr "Конфіденційність"
+
+#: data/resources/ui/preferences.ui:39
+#| msgid "New Password:"
+msgid "Password"
+msgstr "Пароль"
+
+#: data/resources/ui/preferences.ui:40
+#| msgid ""
+#| "Keep your PIN tokens secure by locking the application with a password"
+msgid "Set up a password to lock the application with"
+msgstr "Встановіть пароль, за допомогою якого буде заблоковано програму"
+
+#: data/resources/ui/preferences.ui:52
+#| msgid "Lock the application"
+msgid "Auto Lock the application"
+msgstr "Автоматично заблокувати програму"
+
+#: data/resources/ui/preferences.ui:54
+msgid "Whether to automatically lock the application"
+msgstr "Чи слід автоматично блокувати програму"
+
+#: data/resources/ui/preferences.ui:65
+msgid "The time in minutes"
+msgstr "Час у хвилинах"
+
+#: data/resources/ui/preferences.ui:86
+#| msgid "Restore"
+msgid "Backup/Restore"
+msgstr "Резервне копіювання/Відновлення"
+
+#: data/resources/ui/preferences.ui:89 src/widgets/preferences/window.rs:216
+msgid "Backup"
+msgstr "Резервне копіювання"
+
+#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:223
+msgid "Restore"
+msgstr "Відновити"
+
+#: data/resources/ui/provider_page.ui:84
+msgid "Name"
+msgstr "Назва"
+
+#: data/resources/ui/provider_page.ui:98
+msgid "Website"
+msgstr "Сайт"
+
+#: data/resources/ui/provider_page.ui:99
+msgid "Used to fetch the website icon if possible"
+msgstr "Використовується для отримання піктограми сайта, якщо це можливо"
+
+#: data/resources/ui/provider_page.ui:133
+msgid "The duration in seconds. The recommended value is 30"
+msgstr "Тривалість у секундах. Рекомендованим є значення 30"
+
+#: data/resources/ui/provider_page.ui:150
+msgid "The by default value for counter-based computing method"
+msgstr "Типове значення методу обчислення на основі лічильника"
+
+#: data/resources/ui/provider_page.ui:167
+msgid "Length of the generated code, recommended value is 6"
+msgstr "Довжина створеного коду. Рекомендованим є значення 6"
+
+#: data/resources/ui/provider_page.ui:184
+msgid "Help URL"
+msgstr "Адреса довідки"
+
+#: data/resources/ui/provider_page.ui:185
+#| msgid "Two-factor Authentication"
+msgid "How to set up Two-Factor Authentication"
+msgstr "Як налаштувати двофакторне розпізнавання"
+
+#: data/resources/ui/providers_all.ui:5
+#| msgid "Provider"
+msgid "Providers"
+msgstr "Надавачі даних"
+
+#: data/resources/ui/providers_list.ui:44
+msgid "There are no accounts yet…"
+msgstr "Ще не створено жодного облікового запису…"
+
+#: data/resources/ui/providers_list.ui:76
+msgid "Add a new account from the menu"
+msgstr "Додайте новий обліковий запис з меню"
+
+#: data/resources/ui/providers_list.ui:102
+msgid "Scan a QR Code"
+msgstr "Сканувати QR-код"
+
+#: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Загальні"
 
-#: data/resources/gtk/ui/shortcuts.ui:17
+#: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Показати клавіатурні скорочення"
 
-#: data/resources/gtk/ui/shortcuts.ui:24
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Заблокувати"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Налаштування"
 
-#: data/resources/gtk/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Вийти"
 
-#: data/resources/gtk/ui/shortcuts.ui:40
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "Облікові записи"
 
-#: data/resources/gtk/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Add"
 msgstr "Додати"
 
-#: data/resources/gtk/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Пошук"
 
-#: data/resources/gtk/ui/window.ui.in:188
-msgid "There are no accounts yet…"
-msgstr "Ще не створено жодного облікового запису…"
-
-#: data/resources/gtk/ui/window.ui.in:217
-msgid "Add a new account from the menu"
-msgstr "Додайте новий обліковий запис з меню"
-
-#: data/resources/gtk/ui/window.ui.in:233
-msgid "Scan a QR Code"
+#: data/resources/ui/shortcuts.ui:55
+#| msgid "Scan a QR Code"
+msgctxt "shortcut window"
+msgid "Scan QR"
 msgstr "Сканувати QR-код"
 
-#: data/resources/gtk/ui/window.ui.in:365
-msgid "No results found"
-msgstr "Нічого не знайдено"
+#: data/resources/ui/window.ui:6
+#| msgid "Lock the application"
+msgid "_Lock the application"
+msgstr "За_блокувати програму"
 
-#: data/resources/gtk/ui/window.ui.in:428
-msgid "Authenticator is locked"
-msgstr "«Розпізнавач» замкнено"
+#: data/resources/ui/window.ui:12
+#| msgid "Provider"
+msgid "_Providers"
+msgstr "_Провайдери"
 
-#: data/resources/gtk/ui/window.ui.in:468
-msgid "Unlock"
-msgstr "Розблокувати"
+#: data/resources/ui/window.ui:16
+#| msgid "Preferences"
+msgid "_Preferences"
+msgstr "_Налаштування"
 
-#: src/authenticator.py.in:49
-msgid "Start in debug mode"
-msgstr "Запустити в зневаджувальному режимі"
+#: data/resources/ui/window.ui:22
+#| msgid "Keyboard Shortcuts"
+msgid "_Keyboard Shortcuts"
+msgstr "_Клавіатурні скорочення"
 
-#: src/Authenticator/application.py.in:110
-msgid "from a plain-text JSON file"
-msgstr "для звичайного текстового файла JSON"
-
-#: src/Authenticator/application.py.in:111
-msgid "in a plain-text JSON file"
-msgstr "у звичайному текстовому файлі JSON"
-
-#: src/Authenticator/application.py.in:113
-msgid "Restore"
-msgstr "Відновити"
-
-#: src/Authenticator/application.py.in:114
-msgid "Backup"
-msgstr "Резервне копіювання"
-
-#. Night mode action
-#: src/Authenticator/application.py.in:122
-msgid "Preferences"
-msgstr "Налаштування"
-
-#: src/Authenticator/application.py.in:123
-msgid "Keyboard Shortcuts"
-msgstr "Клавіатурні скорочення"
-
-#: src/Authenticator/application.py.in:124
+#: data/resources/ui/window.ui:26
 msgid "About Authenticator"
 msgstr "Про «Розпізнавач»"
 
-#: src/Authenticator/models/account.py:87
-msgid "Default"
-msgstr "Типовий"
+#: data/resources/ui/window.ui:139
+msgid "Authenticator is locked"
+msgstr "«Розпізнавач» замкнено"
 
-#: src/Authenticator/widgets/accounts/add.py:36
-msgid "Add"
-msgstr "Додати"
+#: data/resources/ui/window.ui:162
+msgid "Unlock"
+msgstr "Розблокувати"
 
-#: src/Authenticator/widgets/accounts/add.py:257
-msgid "Invalid QR code"
-msgstr "Некоректний QR-код"
+#: src/application.rs:152
+msgid "translator-credits"
+msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/Authenticator/widgets/accounts/edit.py:37
-msgid "Save"
-msgstr "Зберегти"
+#: src/backup/andotp.rs:32 src/backup/andotp.rs:91
+msgid "andOTP"
+msgstr "andOTP"
 
-#: src/Authenticator/widgets/accounts/list.py:152
-msgid "The One-Time Passwords expire in {} seconds"
-msgstr "Строк дії одноразових паролів обмежено {} секундами"
+#: src/backup/andotp.rs:36
+#| msgid "in a plain-text JSON file"
+msgid "Into a plain-text JSON file"
+msgstr "До звичайного текстового файла JSON"
 
-#: src/Authenticator/widgets/accounts/row.py:90
-msgid "Couldn't generate the secret code"
-msgstr "Не вдалося створити секретний код"
+#: src/backup/andotp.rs:95 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
+#| msgid "from a plain-text JSON file"
+msgid "From a plain-text JSON file"
+msgstr "Зі звичайного текстового файла JSON"
 
-#: src/Authenticator/widgets/accounts/row.py:100
-msgid "The PIN of {} was copied to the clipboard"
-msgstr "Пін-код {} було скопійовано до буфера обміну даними"
+#: src/backup/bitwarden.rs:16
+msgid "Bitwarden"
+msgstr "Bitwarden"
 
-#: src/Authenticator/widgets/accounts/row.py:139
-msgid "The account was updated successfully"
-msgstr "Обліковий запис успішно оновлено"
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "До звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:86
-msgid "Undo"
+#: src/backup/freeotp.rs:67
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Зі звичайного текстового файла, сумісного з FreeOTP+"
+
+#: src/backup/legacy.rs:29
+#| msgid "Authenticator"
+msgid "Authenticator (Old)"
+msgstr "Розпізнавач (старий)"
+
+#: src/widgets/preferences/window.rs:219 src/widgets/preferences/window.rs:226
+msgid "Select"
+msgstr "Вибрати"
+
+#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:227
+msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/Authenticator/widgets/notification.py:81
-msgid "Close the notification"
-msgstr "Закрити сповіщення"
+#~ msgid "A Two-Factor Authentication application"
+#~ msgstr "Програма для двофакторного розпізнавання"
 
-#: src/Authenticator/widgets/settings.py:170
-msgid "Save Password"
-msgstr "Зберегти пароль"
+#~ msgid "Main Window - empty state"
+#~ msgstr "Головне вікно — порожній стан"
 
-#: src/Authenticator/widgets/settings.py:222
-msgid "Do you want to remove the authentication password?"
-msgstr "Хочете вилучити пароль для розпізнавання?"
+#~ msgid "Main Window - Accounts List"
+#~ msgstr "Головне вікно — список облікових записів"
 
-#: src/Authenticator/widgets/settings.py:223
-msgid "Authentication password enforces the privacy of your accounts."
-msgstr ""
-"Пароль для розпізнавання захищає конфіденційні дані ваших облікових записів."
+#~ msgid "Night Light"
+#~ msgstr "Нічне світло"
 
-#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
-msgid "JSON files"
-msgstr "файли JSON"
+#~ msgid "Automatically enable dark mode at night."
+#~ msgstr "Автоматично вмикати темний режим вночі."
+
+#~ msgid "Enable 2FA for this account"
+#~ msgstr "Увімкнути двофакторне розпізнавання для цього облікового запису"
+
+#~ msgid "Edit"
+#~ msgstr "Змінити"
+
+#~ msgid "Confirm New Password:"
+#~ msgstr "Підтвердження нового пароля:"
+
+#~ msgid "Change Password"
+#~ msgstr "Змінити пароль"
+
+#~ msgid "No results found"
+#~ msgstr "Нічого не знайдено"
+
+#~ msgid "Start in debug mode"
+#~ msgstr "Запустити в зневаджувальному режимі"
+
+#~ msgid "Default"
+#~ msgstr "Типовий"
+
+#~ msgid "Invalid QR code"
+#~ msgstr "Некоректний QR-код"
+
+#~ msgid "The One-Time Passwords expire in {} seconds"
+#~ msgstr "Строк дії одноразових паролів обмежено {} секундами"
+
+#~ msgid "Couldn't generate the secret code"
+#~ msgstr "Не вдалося створити секретний код"
+
+#~ msgid "The PIN of {} was copied to the clipboard"
+#~ msgstr "Пін-код {} було скопійовано до буфера обміну даними"
+
+#~ msgid "The account was updated successfully"
+#~ msgstr "Обліковий запис успішно оновлено"
+
+#~ msgid "Undo"
+#~ msgstr "Скасувати"
+
+#~ msgid "Close the notification"
+#~ msgstr "Закрити сповіщення"
+
+#~ msgid "Do you want to remove the authentication password?"
+#~ msgstr "Хочете вилучити пароль для розпізнавання?"
+
+#~ msgid "Authentication password enforces the privacy of your accounts."
+#~ msgstr ""
+#~ "Пароль для розпізнавання захищає конфіденційні дані ваших облікових "
+#~ "записів."
+
+#~ msgid "JSON files"
+#~ msgstr "файли JSON"
