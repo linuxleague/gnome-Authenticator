@@ -182,7 +182,7 @@
                       <object class="HdyActionRow">
                         <property name="activatable_widget">provider_help_entry</property>
                         <property name="title" translatable="yes">Help URL</property>
-                        <property name="subtitle" translatable="yes">How to setup Two-Factor Authentication</property>
+                        <property name="subtitle" translatable="yes">How to set up Two-Factor Authentication</property>
                         <child>
                           <object class="GtkEntry" id="provider_help_entry">
                             <property name="halign">end</property>

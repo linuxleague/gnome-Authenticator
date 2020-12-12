@@ -13,7 +13,7 @@
     <child>
       <object class="HdyPreferencesPage">
         <property name="icon-name">applications-system-symbolic</property>
-        <property name="title">General</property>
+        <property name="title" translatable="yes">General</property>
         <child>
           <object class="HdyPreferencesGroup">
             <property name="title" translatable="yes">Appearance</property>
@@ -33,11 +33,11 @@
         </child>
         <child>
           <object class="HdyPreferencesGroup">
-            <property name="title">Privacy</property>
+            <property name="title" translatable="yes">Privacy</property>
             <child>
               <object class="HdyActionRow">
                 <property name="title" translatable="yes">Password</property>
-                <property name="subtitle" translatable="yes">Setup a password to lock the application with</property>
+                <property name="subtitle" translatable="yes">Set up a password to lock the application with</property>
                 <property name="activatable">True</property>
                 <property name="action-name">preferences.show_password_page</property>
                 <child>
@@ -83,7 +83,7 @@
     <child>
       <object class="HdyPreferencesPage">
         <property name="icon-name">document-save-as-symbolic</property>
-        <property name="title">Backup/Restore</property>
+        <property name="title" translatable="yes">Backup/Restore</property>
         <child>
           <object class="HdyPreferencesGroup" id="backup_group">
             <property name="title" translatable="yes">Backup</property>
