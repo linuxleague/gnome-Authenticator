@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-04-01 07:35+0000\n"
-"PO-Revision-Date: 2020-04-08 08:57+0700\n"
+"POT-Creation-Date: 2020-12-12 12:42+0000\n"
+"PO-Revision-Date: 2020-12-13 17:38+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/authenticator/"
 "translation/id/>\n"
@@ -17,21 +17,69 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:36
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: src/application.rs:145 src/backup/freeotp.rs:18 src/backup/freeotp.rs:63
 msgid "Authenticator"
 msgstr "Autentikator"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "A Two-Factor Authentication application"
-msgstr "Aplikasi Autentikasi Dua Faktor"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-factor Authentication"
+msgstr "Autentikasi Dua Faktor"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:148
+msgid "Generate Two-Factor codes"
+msgstr "Hasilkan kode Dua Faktor"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgstr "Gnome;GTK;Verifikasi;2FA;Autentikasi;OTP;Dua Faktor;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Lebar jendela baku"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Tinggi jendela baku"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Perilaku baku jendela dimaksimalkan"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+#: data/resources/ui/preferences.ui:22
+msgid "Dark Theme"
+msgstr "Tema Gelap"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark theme."
+msgstr "Apakah aplikasi harus menggunakan tema gelap."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "Kunci otomatis"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "Apakah mengunci aplikasi secara otomatis atau tidak"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+#: data/resources/ui/preferences.ui:64
+msgid "Auto lock timeout"
+msgstr "Batas waktu kunci otomatis"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "Kunci aplikasi yang menganggur setelah X menit"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
@@ -39,499 +87,356 @@ msgstr ""
 "Aplikasi sederhana yang menghasilkan kode autentikasi dua faktor, dibuat "
 "untuk GNOME."
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
 msgstr "Fitur:"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "QR code scanner"
 msgstr "Pemindai kode QR"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "Beautiful UI"
 msgstr "UI yang indah"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "Huge database of more than 560 supported services"
 msgstr "Database besar lebih dari 560 layanan yang didukung"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr ""
 "Menjaga token PIN Anda tetap aman dengan mengunci aplikasi memakai kata sandi"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services"
-msgstr "Secara otomatis mengambil gambar untuk layanan"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Automatically fetch an image for services using their favicon"
+msgstr ""
+"Secara otomatis mengambil gambar untuk layanan menggunakan favicon mereka"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "The possibility to add new services"
 msgstr "Kemungkinan untuk menambahkan layanan baru"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid "Dark theme and night light"
 msgstr "Tema gelap dan cahaya malam"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
-msgid "Main Window - empty state"
-msgstr "Jendela Utama - keadaan kosong"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "Jendela Utama"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:12
 msgid "Add a new account"
 msgstr "Tambah akun baru"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
-msgid "Main Window - Accounts List"
-msgstr "Jendela Utama - Daftar Akun"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Sharing an account"
+msgstr "Berbagi akun"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid "Settings Window"
-msgstr "Jendela Pengaturan"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:165
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
-msgstr "Autentikasi Dua Faktor"
+#: data/resources/ui/account_add.ui:33
+msgid "Add"
+msgstr "Tambah"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
-msgstr "Gnome;GTK;Verifikasi;2FA;Autentikasi;OTP;Dua Faktor;"
+#: data/resources/ui/account_add.ui:45
+msgid "Scan QR Code"
+msgstr "Pindai Kode QR"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "Posisi jendela baku"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: data/resources/gtk/ui/settings.ui.in:28
-msgid "Dark Theme"
-msgstr "Tema Gelap"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: data/resources/gtk/ui/settings.ui.in:29
-#: data/resources/gtk/ui/settings.ui.in:76
-msgid "Whether the application should use a dark theme."
-msgstr "Apakah aplikasi harus menggunakan tema gelap."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: data/resources/gtk/ui/settings.ui.in:83
-msgid "Auto lock timeout"
-msgstr "Batas waktu kunci otomatis"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-msgid "Lock the application on idle after X minutes"
-msgstr "Kunci aplikasi yang menganggur setelah X menit"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/gtk/ui/settings.ui.in:43
-msgid "Night Light"
-msgstr "Cahaya Malam"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
-#: data/resources/gtk/ui/settings.ui.in:44
-#: data/resources/gtk/ui/settings.ui.in:84
-msgid "Automatically enable dark mode at night."
-msgstr "Mengaktifkan mode gelap secara otomatis di malam hari."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
-msgid "Default window maximized behaviour"
-msgstr "Perilaku baku jendela dimaksimalkan"
-
-#: data/resources/gtk/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Andika Triwidada <andika@gmail.com>, 2020"
-
-#: data/resources/gtk/ui/account_config.ui:57
+#: data/resources/ui/account_add.ui:73
+#: data/resources/ui/account_qrcode_page.ui:50
 msgid "Provider"
 msgstr "Penyedia"
 
-#: data/resources/gtk/ui/account_config.ui:85
-msgid "Website"
-msgstr "Situs Web"
+#: data/resources/ui/account_add.ui:74
+msgid "The service provider"
+msgstr "Penyedia layanan"
 
-#: data/resources/gtk/ui/account_config.ui:105
+#: data/resources/ui/account_add.ui:89
+#: data/resources/ui/account_qrcode_page.ui:40
 msgid "Account"
 msgstr "Akun"
 
-#: data/resources/gtk/ui/account_config.ui:124
+#: data/resources/ui/account_add.ui:103
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/gtk/ui/account_config.ui:134
-#: data/resources/gtk/ui/account_config.ui:135
-msgid "Enable 2FA for this account"
-msgstr "Aktifkan 2FA untuk akun ini"
+#: data/resources/ui/account_add.ui:118 data/resources/ui/provider_page.ui:149
+msgid "Counter"
+msgstr "Pencacah"
 
-#: data/resources/gtk/ui/account_row.ui:48
-msgid "Copy PIN to clipboard"
-msgstr "Salin PIN ke papan klip"
+#: data/resources/ui/account_add.ui:143 data/resources/ui/provider_page.ui:120
+msgid "Algorithm"
+msgstr "Algoritma"
 
-#: data/resources/gtk/ui/account_row.ui:158
-msgid "Edit"
-msgstr "Sunting"
+#: data/resources/ui/account_add.ui:155 data/resources/ui/provider_page.ui:112
+msgid "Computing Method"
+msgstr "Metode Komputasi"
 
-#: data/resources/gtk/ui/account_row.ui:176
+#: data/resources/ui/account_add.ui:167 data/resources/ui/provider_page.ui:132
+msgid "Period"
+msgstr "Periode"
+
+#: data/resources/ui/account_add.ui:179 data/resources/ui/provider_page.ui:166
+msgid "Digits"
+msgstr "Angka"
+
+#: data/resources/ui/account_row.ui:6
+msgid "Share"
+msgstr "Berbagi"
+
+#: data/resources/ui/account_row.ui:12
+msgid "Rename"
+msgstr "Ganti Nama"
+
+#: data/resources/ui/account_row.ui:16
 msgid "Delete"
 msgstr "Hapus"
 
-#: data/resources/gtk/ui/password_widget.ui:46
-msgid "Current Password:"
-msgstr "Kata Sandi Saat Ini:"
+#: data/resources/ui/account_row.ui:64
+msgid "Copy PIN to clipboard"
+msgstr "Salin PIN ke papan klip"
 
-#: data/resources/gtk/ui/password_widget.ui:91
-msgid "New Password:"
-msgstr "Kata Sandi Baru:"
+#: data/resources/ui/account_row.ui:135
+#: data/resources/ui/preferences_password_page.ui:20
+#: data/resources/ui/provider_page.ui:52
+msgid "Save"
+msgstr "Simpan"
 
-#: data/resources/gtk/ui/password_widget.ui:136
-msgid "Confirm New Password:"
-msgstr "Konfirmasi Kata Sandi Baru:"
+#: data/resources/ui/preferences_password_page.ui:41
+msgid "Set up a password"
+msgstr "Menyiapkan kata sandi"
 
-#: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:174
-msgid "Change Password"
-msgstr "Ganti Kata Sandi"
+#: data/resources/ui/preferences_password_page.ui:49
+msgid "By setting a password, Authenticator will from now on start locked."
+msgstr ""
+"Dengan mengatur kata sandi, Authenticator akan dari sekarang dimulai dalam "
+"keadaan terkunci."
 
-#: data/resources/gtk/ui/password_widget.ui:205
-msgid "Delete Password"
-msgstr "Hapus Kata Sandi"
+#: data/resources/ui/preferences_password_page.ui:67
+msgid "Current Password"
+msgstr "Kata Sandi Saat Ini"
 
-#: data/resources/gtk/ui/settings.ui.in:24
+#: data/resources/ui/preferences_password_page.ui:80
+msgid "New Password"
+msgstr "Kata Sandi Baru"
+
+#: data/resources/ui/preferences_password_page.ui:93
+msgid "Repeat Password"
+msgstr "Ulangi Kata Sandi"
+
+#: data/resources/ui/preferences_password_page.ui:114
+msgid "Reset"
+msgstr "Reset"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "Umum"
+
+#: data/resources/ui/preferences.ui:19
 msgid "Appearance"
 msgstr "Penampilan"
 
-#: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:102
-msgid "Lock the application"
-msgstr "Kunci aplikasi"
+#: data/resources/ui/preferences.ui:24
+msgid "Whether the application should use a dark theme"
+msgstr "Apakah aplikasi mesti menggunakan tema gelap"
 
-#: data/resources/gtk/ui/shortcuts.ui:13
+#: data/resources/ui/preferences.ui:36
+msgid "Privacy"
+msgstr "Privasi"
+
+#: data/resources/ui/preferences.ui:39
+msgid "Password"
+msgstr "Kata Sandi"
+
+#: data/resources/ui/preferences.ui:40
+msgid "Set up a password to lock the application with"
+msgstr "Menyiapkan kata sandi untuk mengunci aplikasi"
+
+#: data/resources/ui/preferences.ui:52
+msgid "Auto Lock the application"
+msgstr "Kunci Otomatis aplikasi"
+
+#: data/resources/ui/preferences.ui:54
+msgid "Whether to automatically lock the application"
+msgstr "Apakah akan mengunci aplikasi secara otomatis"
+
+#: data/resources/ui/preferences.ui:65
+msgid "The time in minutes"
+msgstr "Waktu dalam menit"
+
+#: data/resources/ui/preferences.ui:86
+msgid "Backup/Restore"
+msgstr "Cadangkan/Pulihkan"
+
+#: data/resources/ui/preferences.ui:89 src/widgets/preferences/window.rs:216
+msgid "Backup"
+msgstr "Cadangan"
+
+#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:223
+msgid "Restore"
+msgstr "Pulihkan"
+
+#: data/resources/ui/provider_page.ui:84
+msgid "Name"
+msgstr "Nama"
+
+#: data/resources/ui/provider_page.ui:98
+msgid "Website"
+msgstr "Situs Web"
+
+#: data/resources/ui/provider_page.ui:99
+msgid "Used to fetch the website icon if possible"
+msgstr "Digunakan untuk mengambil ikon situs web jika memungkinkan"
+
+#: data/resources/ui/provider_page.ui:133
+msgid "The duration in seconds. The recommended value is 30"
+msgstr "Durasi dalam detik. Nilai yang disarankan adalah 30"
+
+#: data/resources/ui/provider_page.ui:150
+msgid "The by default value for counter-based computing method"
+msgstr "Nilai baku untuk metode komputasi berbasis pencacah"
+
+#: data/resources/ui/provider_page.ui:167
+msgid "Length of the generated code, recommended value is 6"
+msgstr "Panjang kode yang dihasilkan, nilai yang disarankan adalah 6"
+
+#: data/resources/ui/provider_page.ui:184
+msgid "Help URL"
+msgstr "URL Bantuan"
+
+#: data/resources/ui/provider_page.ui:185
+msgid "How to set up Two-Factor Authentication"
+msgstr "Cara mengatur Autentikasi Dua Faktor"
+
+#: data/resources/ui/providers_all.ui:5
+msgid "Providers"
+msgstr "Penyedia"
+
+#: data/resources/ui/providers_list.ui:44
+msgid "There are no accounts yet…"
+msgstr "Belum ada akun…"
+
+#: data/resources/ui/providers_list.ui:76
+msgid "Add a new account from the menu"
+msgstr "Tambah akun baru dari menu"
+
+#: data/resources/ui/providers_list.ui:102
+msgid "Scan a QR Code"
+msgstr "Pindai kode QR"
+
+#: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Umum"
 
-#: data/resources/gtk/ui/shortcuts.ui:17
+#: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Tampilkan Pintasan"
 
-#: data/resources/gtk/ui/shortcuts.ui:24
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Kunci"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Preferensi"
 
-#: data/resources/gtk/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Keluar"
 
-#: data/resources/gtk/ui/shortcuts.ui:40
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "Akun"
 
-#: data/resources/gtk/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Add"
 msgstr "Tambah"
 
-#: data/resources/gtk/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Cari"
 
-#: data/resources/gtk/ui/window.ui.in:188
-msgid "There are no accounts yet…"
-msgstr "Belum ada akun…"
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Scan QR"
+msgstr "Pindai QR"
 
-#: data/resources/gtk/ui/window.ui.in:217
-msgid "Add a new account from the menu"
-msgstr "Tambah akun baru dari menu"
+#: data/resources/ui/window.ui:6
+msgid "_Lock the application"
+msgstr "Kunci ap_likasi"
 
-#: data/resources/gtk/ui/window.ui.in:233
-msgid "Scan a QR Code"
-msgstr "Pindai kode QR"
+#: data/resources/ui/window.ui:12
+msgid "_Providers"
+msgstr "_Penyedia"
 
-#: data/resources/gtk/ui/window.ui.in:365
-msgid "No results found"
-msgstr "Tidak ada hasil yang ditemukan"
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_Preferensi"
 
-#: data/resources/gtk/ui/window.ui.in:428
-msgid "Authenticator is locked"
-msgstr "Autentikator terkunci"
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "Pintasan Papan Ti_k"
 
-#: data/resources/gtk/ui/window.ui.in:468
-msgid "Unlock"
-msgstr "Buka Kunci"
-
-#: src/authenticator.py.in:49
-msgid "Start in debug mode"
-msgstr "Mulai dengan mode debud"
-
-#: src/Authenticator/application.py.in:110
-msgid "from a plain-text JSON file"
-msgstr "dari berkas JSON teks polos"
-
-#: src/Authenticator/application.py.in:111
-msgid "in a plain-text JSON file"
-msgstr "dalam berkas JSON teks polos"
-
-#: src/Authenticator/application.py.in:113
-msgid "Restore"
-msgstr "Pulihkan"
-
-#: src/Authenticator/application.py.in:114
-msgid "Backup"
-msgstr "Cadangan"
-
-#. Night mode action
-#: src/Authenticator/application.py.in:122
-msgid "Preferences"
-msgstr "Preferensi"
-
-#: src/Authenticator/application.py.in:123
-msgid "Keyboard Shortcuts"
-msgstr "Pintasan Papan Tik"
-
-#: src/Authenticator/application.py.in:124
+#: data/resources/ui/window.ui:26
 msgid "About Authenticator"
 msgstr "Tentang Autentikator"
 
-#: src/Authenticator/models/account.py:87
-msgid "Default"
-msgstr "Baku"
+#: data/resources/ui/window.ui:139
+msgid "Authenticator is locked"
+msgstr "Autentikator terkunci"
 
-#: src/Authenticator/widgets/accounts/add.py:36
-msgid "Add"
-msgstr "Tambah"
+#: data/resources/ui/window.ui:162
+msgid "Unlock"
+msgstr "Buka Kunci"
 
-#: src/Authenticator/widgets/accounts/add.py:257
-msgid "Invalid QR code"
-msgstr "Kode QR tidak valid"
+#: src/application.rs:152
+msgid "translator-credits"
+msgstr "Andika Triwidada <andika@gmail.com>, 2020"
 
-#: src/Authenticator/widgets/accounts/edit.py:37
-msgid "Save"
-msgstr "Simpan"
+#: src/backup/andotp.rs:32 src/backup/andotp.rs:91
+msgid "andOTP"
+msgstr "andOTP"
 
-#: src/Authenticator/widgets/accounts/list.py:152
-msgid "The One-Time Passwords expire in {} seconds"
-msgstr "Kata Sandi Satu Kali (OTP, One-Time Password) berakhir dalam {} detik"
+#: src/backup/andotp.rs:36
+msgid "Into a plain-text JSON file"
+msgstr "Ke dalam berkas JSON teks polos"
 
-#: src/Authenticator/widgets/accounts/row.py:90
-msgid "Couldn't generate the secret code"
-msgstr "Tidak dapat menghasilkan kode rahasia"
+#: src/backup/andotp.rs:95 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
+msgid "From a plain-text JSON file"
+msgstr "Dari berkas JSON teks polos"
 
-#: src/Authenticator/widgets/accounts/row.py:100
-msgid "The PIN of {} was copied to the clipboard"
-msgstr "PIN {} disalin ke papan klip"
+#: src/backup/bitwarden.rs:16
+msgid "Bitwarden"
+msgstr "Bitwarden"
 
-#: src/Authenticator/widgets/accounts/row.py:139
-msgid "The account was updated successfully"
-msgstr "Akun telah berhasil diperbarui"
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "Ke dalam berkas teks polos, kompatibel dengan FreeOTP+"
 
-#: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:86
-msgid "Undo"
-msgstr "Undo"
+#: src/backup/freeotp.rs:67
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Dari berkas teks polos, kompatibel dengan FreeOTP+"
 
-#: src/Authenticator/widgets/notification.py:81
-msgid "Close the notification"
-msgstr "Menutup notifikasi"
+#: src/backup/legacy.rs:29
+msgid "Authenticator (Old)"
+msgstr "Otentikator (Lama)"
 
-#: src/Authenticator/widgets/settings.py:170
-msgid "Save Password"
-msgstr "Simpan Kata Sandi"
+#: src/widgets/preferences/window.rs:219 src/widgets/preferences/window.rs:226
+msgid "Select"
+msgstr "Pilih"
 
-#: src/Authenticator/widgets/settings.py:222
-msgid "Do you want to remove the authentication password?"
-msgstr "Apakah Anda ingin menghapus kata sandi autentikasi?"
-
-#: src/Authenticator/widgets/settings.py:223
-msgid "Authentication password enforces the privacy of your accounts."
-msgstr "Kata sandi autentikasi memaksakan privasi akun Anda."
-
-#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
-msgid "JSON files"
-msgstr "Berkas JSON"
-
-#, fuzzy
-#~ msgid "Two-factor authentication code generator"
-#~ msgstr "Pembuat kode autentikasi dua faktor."
-
-#, fuzzy
-#~ msgid "Rename project to Authenticator"
-#~ msgstr "Tentang Authenticator"
-
-#, fuzzy
-#~ msgid "Remove unneeded features"
-#~ msgstr "Hapus akun terpilih"
-
-#~ msgid "Gnome;GTK;Verification;"
-#~ msgstr "Gnome;GTK;Verifikasi;"
-
-#, fuzzy
-#~ msgid "Two-factor authentication code generator."
-#~ msgstr "Pembuat kode autentikasi dua faktor."
-
-#~ msgid "Close"
-#~ msgstr "Tutup"
-
-#, fuzzy
-#~ msgid "Scan QR Code"
-#~ msgstr "Pindai kode QR"
-
-#, fuzzy
-#~ msgid "Account Name"
-#~ msgstr "Nama Akun"
-
-#, fuzzy
-#~ msgid "Behaviour"
-#~ msgstr "Kebiasaan"
-
-#~ msgid "Authenticator version number"
-#~ msgstr "Nomor versi Authenticator"
-
-#, fuzzy
-#~ msgid "Authentication password is now enabled."
-#~ msgstr "AutentiksiDuaFaktor"
-
-#, fuzzy
-#~ msgid "The authentication password was updated."
-#~ msgstr "AutentiksiDuaFaktor"
-
-#, fuzzy
-#~ msgid "The authentication password was deleted."
-#~ msgstr "AutentiksiDuaFaktor"
-
-#, fuzzy
-#~ msgid "Night mode"
-#~ msgstr "Mode Malam"
-
-#, fuzzy
-#~ msgid "Authenticator Password"
-#~ msgstr "AutentiksiDuaFaktor"
-
-#~ msgid "Cancel"
-#~ msgstr "Batal"
-
-#, fuzzy
-#~ msgid "Select"
-#~ msgstr "Mode seleksi"
-
-#, fuzzy
-#~ msgid "Secret token"
-#~ msgstr "Token Rahasia"
-
-#~ msgid "Copy"
-#~ msgstr "Salin"
-
-#~ msgid "Search"
-#~ msgstr "Cari"
-
-#~ msgid "Selection mode"
-#~ msgstr "Mode seleksi"
-
-#~ msgid "Click on items to select them"
-#~ msgstr "Klik pada item untuk menyeleksinya"
-
-#, fuzzy
-#~ msgid "Old Password"
-#~ msgstr "Kata sandi lama"
-
-#, fuzzy
-#~ msgctxt "shortcut window"
-#~ msgid "Select"
-#~ msgstr "Mode seleksi"
-
-#, fuzzy
-#~ msgid "Authenticator@NAME_SUFFIX@"
-#~ msgstr "AutentiksiDuaFaktor"
-
-#~ msgid "About"
-#~ msgstr "Tentang"
-
-#~ msgid "com.github.bilelmoussaoui.Authenticator"
-#~ msgstr "com.github.bilelmoussaoui.Authenticator"
-
-#, fuzzy
-#~ msgid "Backup Password"
-#~ msgstr "Ganti kata sandi"
-
-#~ msgid "Next"
-#~ msgstr "Selanjutnya"
-
-#~ msgid "Two Factor Authentication code generator"
-#~ msgstr "Pembuat kode Autentikasi Dua Faktor"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Add a new account"
-#~ msgstr "Tambah akun baru"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Selection mode"
-#~ msgstr "Mode seleksi"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Account list"
-#~ msgstr "Daftar akun"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Select next/previous account"
-#~ msgstr "Pilih akun selanjutnya/sebelumnya"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Add Account"
-#~ msgstr "Tambah Akun"
-
-#~ msgid ""
-#~ "This program comes with absolutely no warranty. See the <a href=\"http://"
-#~ "www.gnu.org/licenses/gpl-3.0.html\">GNU General Public License, version 3 "
-#~ "or later</a> for details."
-#~ msgstr ""
-#~ "Tidak ada jaminan apapun dalam program ini. Lihat <a href=\"http://www."
-#~ "gnu.org/licenses/gpl-3.0.html\">GNU General Public License, vesi 3 ke "
-#~ "atas</a> untuk lebih jelasnya."
-
-#~ msgid "Github"
-#~ msgstr "Github"
-
-#~ msgid "Lock the Application"
-#~ msgstr "Kunci Aplikasi"
-
-#~ msgid "Apply"
-#~ msgstr "Terapkan"
-
-#~ msgid "Select an application"
-#~ msgstr "Pilih aplikasi"
-
-#~ msgid "Enter your password"
-#~ msgstr "Masukkan kata sandi anda"
-
-#~ msgid "Remove the account"
-#~ msgstr "Hapus akun"
-
-#~ msgid "Copy the generated code"
-#~ msgstr "Salin kode yang dihasilkan"
-
-#~ msgid "Edit the account"
-#~ msgstr "Sunting akun"
-
-#~ msgid "Save the new account name"
-#~ msgstr "Simpan nama akun baru"
-
-#~ msgid "Expires in %s seconds"
-#~ msgstr "Kadaluarsa dalam %s detik"
-
-#~ msgid "Error during the generation of code"
-#~ msgstr "Galat ketika menghasilkan kode"
-
-#~ msgid "Do you really want to remove \"%s\"?"
-#~ msgstr "Kamu benar-benar ingin menghapus \"%s\"?"
-
-#~ msgid "Password protection"
-#~ msgstr "Proteksi kata sandi"
-
-#~ msgid "Auto-lock the application (m):"
-#~ msgstr "Kunci-otomatis aplikasi (m):"
+#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:227
+msgid "Cancel"
+msgstr "Batal"
