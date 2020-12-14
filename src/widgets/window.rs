@@ -10,7 +10,7 @@ use glib::signal::Inhibit;
 use glib::subclass::prelude::*;
 use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
-use gtk_macros::action;
+use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 
 #[derive(PartialEq, Debug)]
@@ -257,11 +257,14 @@ impl Window {
 
         action!(
             self,
-            "add-account",
+            "add_account",
             clone!(@weak self as win => move |_,_| {
                 win.open_add_account();
             })
         );
+        app.bind_property("locked", &get_action!(self, @add_account), "enabled")
+            .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
+            .build();
 
         let password_entry = self_.password_entry.get();
         action!(

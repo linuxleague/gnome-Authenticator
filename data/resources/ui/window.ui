@@ -45,7 +45,7 @@
                     <child type="start">
                       <object class="GtkButton" id="add_btn">
                         <property name="receives_default">True</property>
-                        <property name="action_name">win.add-account</property>
+                        <property name="action_name">win.add_account</property>
                         <property name="icon-name">list-add-symbolic</property>
                       </object>
                     </child>
