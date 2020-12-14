@@ -146,7 +146,7 @@ impl ProvidersDialog {
             }),
         );
 
-        let deck_page = self_.deck.get().add(&self_.page).unwrap();
+        let deck_page = self_.deck.get().append(&self_.page).unwrap();
         deck_page.set_name("provider");
     }
 

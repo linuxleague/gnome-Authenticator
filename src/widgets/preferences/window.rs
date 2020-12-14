@@ -6,8 +6,8 @@ use crate::config;
 use crate::models::ProvidersModel;
 use gettextrs::gettext;
 use gio::prelude::*;
+use gio::subclass::ObjectSubclass;
 use gio::ActionMapExt;
-use gio::{subclass::ObjectSubclass, SettingsExt};
 use glib::subclass::prelude::*;
 use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::{prelude::*, CompositeTemplate};
@@ -118,18 +118,14 @@ impl PreferencesWindow {
     fn setup_widgets(&self) {
         let self_ = imp::PreferencesWindow::from_instance(self);
 
-        self_.settings.bind(
-            "dark-theme",
-            &self_.dark_theme.get(),
-            "active",
-            gio::SettingsBindFlags::DEFAULT,
-        );
-        self_.settings.bind(
-            "auto-lock",
-            &self_.auto_lock.get(),
-            "active",
-            gio::SettingsBindFlags::DEFAULT,
-        );
+        self_
+            .settings
+            .bind("dark-theme", &self_.dark_theme.get(), "active")
+            .build();
+        self_
+            .settings
+            .bind("auto-lock", &self_.auto_lock.get(), "active")
+            .build();
 
         self_
             .auto_lock

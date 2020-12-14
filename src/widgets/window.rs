@@ -198,7 +198,7 @@ impl Window {
 
         self_.container.get().append(&self_.providers);
 
-        let page = self_.deck.get().add(&self_.qrcode_page).unwrap();
+        let page = self_.deck.get().append(&self_.qrcode_page).unwrap();
         page.set_name("account");
 
         self_
@@ -225,12 +225,14 @@ impl Window {
             }));
 
         let gtk_settings = gtk::Settings::get_default().unwrap();
-        self_.settings.bind(
-            "dark-theme",
-            &gtk_settings,
-            "gtk-application-prefer-dark-theme",
-            gio::SettingsBindFlags::DEFAULT,
-        );
+        self_
+            .settings
+            .bind(
+                "dark-theme",
+                &gtk_settings,
+                "gtk-application-prefer-dark-theme",
+            )
+            .build();
     }
 
     fn setup_actions(&self, app: &Application) {
