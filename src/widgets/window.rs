@@ -95,7 +95,7 @@ mod imp {
 
 glib_wrapper! {
     pub struct Window(ObjectSubclass<imp::Window>)
-        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, libhandy::ApplicationWindow, gio::ActionMap;
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, libhandy::ApplicationWindow, gio::ActionMap, gio::ActionGroup;
 }
 
 impl Window {
@@ -121,6 +121,7 @@ impl Window {
         match view {
             View::Login => {
                 self_.deck.get().set_visible_child_name("login");
+                self_.password_entry.get().grab_focus();
             }
             View::Accounts => {
                 self_.deck.get().set_visible_child_name("accounts");
@@ -295,5 +296,14 @@ impl Window {
             }),
         )
         .unwrap();
+
+        let self_ = imp::Window::from_instance(self);
+
+        self_
+            .password_entry
+            .get()
+            .connect_activate(clone!(@weak self as win => move |_| {
+                win.activate_action("unlock", None);
+            }));
     }
 }
