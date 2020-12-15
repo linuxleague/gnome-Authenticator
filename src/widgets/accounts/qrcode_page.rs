@@ -1,8 +1,6 @@
-use crate::models::Account;
-use crate::widgets::UrlRow;
+use crate::{models::Account, widgets::UrlRow};
 use gio::{subclass::ObjectSubclass, FileExt};
-use glib::subclass::prelude::*;
-use glib::{glib_object_subclass, glib_wrapper};
+use glib::{glib_object_subclass, glib_wrapper, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 
 mod imp {

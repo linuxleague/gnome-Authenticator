@@ -1,9 +1,9 @@
-use crate::models::{Account, AccountSorter, OTPMethod, Provider};
-use crate::widgets::{accounts::AccountRow, ProviderImage};
-use gio::prelude::*;
-use gio::subclass::ObjectSubclass;
-use glib::subclass::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use crate::{
+    models::{Account, AccountSorter, OTPMethod, Provider},
+    widgets::{accounts::AccountRow, ProviderImage},
+};
+use gio::{prelude::*, subclass::ObjectSubclass};
+use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 use std::cell::RefCell;
 mod imp {

@@ -1,7 +1,9 @@
 use crate::models::OTPUri;
 use anyhow::Result;
-use ashpd::desktop::screenshot::{Screenshot, ScreenshotOptions, ScreenshotProxy};
-use ashpd::{zbus, RequestProxy, Response, WindowIdentifier};
+use ashpd::{
+    desktop::screenshot::{Screenshot, ScreenshotOptions, ScreenshotProxy},
+    zbus, RequestProxy, Response, WindowIdentifier,
+};
 use gio::FileExt;
 use image::GenericImageView;
 use std::str::FromStr;

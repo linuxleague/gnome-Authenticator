@@ -1,15 +1,12 @@
 use super::password_page::PasswordPage;
-use crate::backup::{
-    AndOTP, Backupable, Bitwarden, FreeOTP, LegacyAuthenticator, Operation, Restorable,
+use crate::{
+    backup::{AndOTP, Backupable, Bitwarden, FreeOTP, LegacyAuthenticator, Operation, Restorable},
+    config,
+    models::ProvidersModel,
 };
-use crate::config;
-use crate::models::ProvidersModel;
 use gettextrs::gettext;
-use gio::prelude::*;
-use gio::subclass::ObjectSubclass;
-use gio::ActionMapExt;
-use glib::subclass::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use gio::{prelude::*, subclass::ObjectSubclass, ActionMapExt};
+use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 use libhandy::prelude::*;
 use once_cell::sync::OnceCell;

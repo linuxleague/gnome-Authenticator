@@ -1,17 +1,18 @@
 use super::algorithm::{Algorithm, OTPMethod};
-use crate::models::{database, Account, AccountsModel, FaviconError, FaviconScrapper};
-use crate::schema::providers;
+use crate::{
+    models::{database, Account, AccountsModel, FaviconError, FaviconScrapper},
+    schema::providers,
+};
 use anyhow::Result;
 use core::cmp::Ordering;
-use diesel::ExpressionMethods;
-use diesel::{QueryDsl, RunQueryDsl};
-use gio::prelude::*;
-use gio::subclass::ObjectSubclass;
-use glib::{glib_object_subclass, glib_wrapper};
-use glib::{Cast, StaticType, ToValue};
-use std::cell::{Cell, RefCell};
-use std::str::FromStr;
-use std::string::ToString;
+use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
+use gio::{prelude::*, subclass::ObjectSubclass};
+use glib::{glib_object_subclass, glib_wrapper, Cast, StaticType, ToValue};
+use std::{
+    cell::{Cell, RefCell},
+    str::FromStr,
+    string::ToString,
+};
 use unicase::UniCase;
 use url::Url;
 

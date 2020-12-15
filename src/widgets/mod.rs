@@ -4,8 +4,10 @@ mod providers;
 mod url_row;
 mod window;
 
-pub use self::accounts::AccountAddDialog;
-pub use self::preferences::PreferencesWindow;
-pub use self::providers::{ProviderImage, ProvidersDialog, ProvidersList};
-pub use self::url_row::UrlRow;
-pub use self::window::{View, Window};
+pub use self::{
+    accounts::AccountAddDialog,
+    preferences::PreferencesWindow,
+    providers::{ProviderImage, ProvidersDialog, ProvidersList},
+    url_row::UrlRow,
+    window::{View, Window},
+};

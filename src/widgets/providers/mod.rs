@@ -3,8 +3,10 @@ mod image;
 mod list;
 mod page;
 mod row;
-pub use self::all::ProvidersDialog;
-pub use self::image::ProviderImage;
-pub use self::list::ProvidersList;
-pub use self::page::{ProviderPage, ProviderPageMode};
-pub use self::row::ProviderRow;
+pub use self::{
+    all::ProvidersDialog,
+    image::ProviderImage,
+    list::ProvidersList,
+    page::{ProviderPage, ProviderPageMode},
+    row::ProviderRow,
+};

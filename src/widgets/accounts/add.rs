@@ -1,12 +1,11 @@
-use crate::helpers::qrcode;
-use crate::models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel};
-use crate::widgets::{ProviderImage, UrlRow};
+use crate::{
+    helpers::qrcode,
+    models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel},
+    widgets::{ProviderImage, UrlRow},
+};
 use anyhow::Result;
-use gio::prelude::*;
-use gio::{subclass::ObjectSubclass, ActionMapExt};
-use glib::signal::Inhibit;
-use glib::subclass::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use gio::{prelude::*, subclass::ObjectSubclass, ActionMapExt};
+use glib::{clone, glib_object_subclass, glib_wrapper, signal::Inhibit, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;

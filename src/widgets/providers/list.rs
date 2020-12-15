@@ -1,9 +1,10 @@
-use crate::config;
-use crate::models::{Account, Provider, ProviderSorter, ProvidersModel};
-use crate::widgets::providers::ProviderRow;
+use crate::{
+    config,
+    models::{Account, Provider, ProviderSorter, ProvidersModel},
+    widgets::providers::ProviderRow,
+};
 use gio::{subclass::ObjectSubclass, ListModelExt};
-use glib::subclass::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 
 mod imp {

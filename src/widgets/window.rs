@@ -1,14 +1,13 @@
-use crate::application::Application;
-use crate::config;
-use crate::helpers::Keyring;
-use crate::models::{Account, ProvidersModel};
-use crate::widgets::{accounts::QRCodePage, providers::ProvidersList, AccountAddDialog};
-use crate::window_state;
-use gio::prelude::*;
-use gio::subclass::ObjectSubclass;
-use glib::signal::Inhibit;
-use glib::subclass::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use crate::{
+    application::Application,
+    config,
+    helpers::Keyring,
+    models::{Account, ProvidersModel},
+    widgets::{accounts::QRCodePage, providers::ProvidersList, AccountAddDialog},
+    window_state,
+};
+use gio::{prelude::*, subclass::ObjectSubclass};
+use glib::{clone, glib_object_subclass, glib_wrapper, signal::Inhibit, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;

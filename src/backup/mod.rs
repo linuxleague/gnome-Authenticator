@@ -27,7 +27,6 @@ mod andotp;
 mod bitwarden;
 mod freeotp;
 mod legacy;
-pub use self::andotp::AndOTP;
-pub use self::bitwarden::Bitwarden;
-pub use self::freeotp::FreeOTP;
-pub use self::legacy::LegacyAuthenticator;
+pub use self::{
+    andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP, legacy::LegacyAuthenticator,
+};

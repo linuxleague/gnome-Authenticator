@@ -1,10 +1,7 @@
 use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
-use gio::prelude::*;
-use gio::subclass::ObjectSubclass;
-use gio::ListModelExt;
-use glib::subclass::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use gio::{prelude::*, subclass::ObjectSubclass, ListModelExt};
+use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 

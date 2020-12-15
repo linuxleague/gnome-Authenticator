@@ -2,8 +2,7 @@ use gettextrs::gettext;
 use glib::GEnum;
 use ring::hmac;
 use serde::{de::Deserializer, ser::Serializer, Deserialize, Serialize};
-use std::str::FromStr;
-use std::string::ToString;
+use std::{str::FromStr, string::ToString};
 
 #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
 #[repr(u32)]

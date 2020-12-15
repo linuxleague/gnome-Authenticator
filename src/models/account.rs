@@ -2,21 +2,20 @@ use super::{
     provider::{DiProvider, Provider},
     OTPMethod, OTPUri,
 };
-use crate::helpers::Keyring;
-use crate::models::database;
-use crate::schema::accounts;
+use crate::{helpers::Keyring, models::database, schema::accounts};
 use anyhow::Result;
 use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use gio::{subclass::ObjectSubclass, FileExt};
-use glib::{clone, glib_object_subclass, glib_wrapper};
-use glib::{Cast, ObjectExt, StaticType, ToValue};
+use glib::{clone, glib_object_subclass, glib_wrapper, Cast, ObjectExt, StaticType, ToValue};
 use once_cell::sync::OnceCell;
 use qrcode::QrCode;
 use ring::hmac;
-use std::cell::{Cell, RefCell};
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::{
+    cell::{Cell, RefCell},
+    time::{SystemTime, UNIX_EPOCH},
+};
 use unicase::UniCase;
 
 #[derive(Insertable)]

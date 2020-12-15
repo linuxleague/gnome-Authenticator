@@ -1,10 +1,11 @@
-use crate::config;
-use crate::helpers::Keyring;
-use crate::models::ProvidersModel;
-use crate::widgets::{PreferencesWindow, ProvidersDialog, Window};
+use crate::{
+    config,
+    helpers::Keyring,
+    models::ProvidersModel,
+    widgets::{PreferencesWindow, ProvidersDialog, Window},
+};
 use gettextrs::gettext;
-use gio::prelude::*;
-use gio::subclass::ObjectSubclass;
+use gio::{prelude::*, subclass::ObjectSubclass};
 use glib::{clone, glib_object_subclass, glib_wrapper};
 use gtk::prelude::*;
 use gtk_macros::{action, get_action};
@@ -12,8 +13,7 @@ use std::env;
 
 mod imp {
     use super::*;
-    use glib::subclass::prelude::*;
-    use glib::{subclass, WeakRef};
+    use glib::{subclass, subclass::prelude::*, WeakRef};
     use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplicationImpl};
     use std::cell::{Cell, RefCell};
 

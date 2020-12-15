@@ -1,14 +1,11 @@
 use super::account::Account;
-use gio::prelude::*;
-use gio::subclass::ObjectSubclass;
-use glib::StaticType;
-use glib::{glib_object_subclass, glib_wrapper};
+use gio::{prelude::*, subclass::ObjectSubclass};
+use glib::{glib_object_subclass, glib_wrapper, StaticType};
 
 mod imp {
     use super::*;
     use gio::subclass::ListModelImpl;
-    use glib::subclass;
-    use glib::subclass::prelude::*;
+    use glib::{subclass, subclass::prelude::*};
     use std::cell::RefCell;
 
     #[derive(Debug)]

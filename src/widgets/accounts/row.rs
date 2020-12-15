@@ -1,8 +1,6 @@
 use crate::models::Account;
-use gio::prelude::*;
-use gio::{subclass::ObjectSubclass, ActionMapExt};
-use glib::subclass::prelude::*;
-use glib::{clone, glib_object_subclass, glib_wrapper};
+use gio::{prelude::*, subclass::ObjectSubclass, ActionMapExt};
+use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use std::cell::RefCell;
