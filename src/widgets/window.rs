@@ -121,10 +121,16 @@ impl Window {
         match view {
             View::Login => {
                 self_.deck.get().set_visible_child_name("login");
+                self_
+                    .search_entry
+                    .get()
+                    .set_key_capture_widget(gtk::NONE_WIDGET);
                 self_.password_entry.get().grab_focus();
             }
             View::Accounts => {
                 self_.deck.get().set_visible_child_name("accounts");
+
+                self_.search_entry.get().set_key_capture_widget(Some(self));
             }
             View::Account(account) => {
                 self_.deck.get().set_visible_child_name("account");
@@ -203,20 +209,25 @@ impl Window {
         page.set_name("account");
 
         self_
-            .search_btn
+            .search_bar
             .get()
-            .bind_property("active", &self_.search_bar.get(), "search-mode-enabled")
+            .bind_property("search-mode-enabled", &self_.search_btn.get(), "active")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
 
+        let search_btn = self_.search_btn.get();
         self_.search_entry.get().connect_search_changed(
             clone!(@weak self_.providers as providers => move |entry| {
                 let text = entry.get_text().unwrap().to_string();
                 providers.search(text);
             }),
         );
-
-        let search_btn = self_.search_btn.get();
+        self_
+            .search_entry
+            .get()
+            .connect_search_started(clone!(@weak search_btn => move |entry| {
+                search_btn.set_active(true);
+            }));
         self_
             .search_entry
             .get()
