@@ -26,7 +26,7 @@ impl Restorable for LegacyAuthenticator {
     }
 
     fn title() -> String {
-        gettext("Authenticator (Old)")
+        gettext("Au_thenticator (Old)")
     }
 
     fn subtitle() -> String {

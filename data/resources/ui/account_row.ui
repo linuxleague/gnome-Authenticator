@@ -3,17 +3,17 @@
   <menu id="account-menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">Share</attribute>
+        <attribute name="label" translatable="yes">_Share</attribute>
         <attribute name="action">account.share</attribute>
       </item>
     </section>
     <section>
       <item>
-        <attribute name="label" translatable="yes">Rename</attribute>
+        <attribute name="label" translatable="yes">_Rename</attribute>
         <attribute name="action">account.rename</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">Delete</attribute>
+        <attribute name="label" translatable="yes">_Delete</attribute>
         <attribute name="action">account.delete</attribute>
       </item>
     </section>

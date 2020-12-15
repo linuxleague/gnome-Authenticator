@@ -150,6 +150,7 @@ impl PreferencesWindow {
             .title(&T::title())
             .subtitle(&T::subtitle())
             .activatable(true)
+            .use_underline(true)
             .action_name(&format!("backup.{}", T::identifier()))
             .build();
 
@@ -178,6 +179,7 @@ impl PreferencesWindow {
             .title(&T::title())
             .subtitle(&T::subtitle())
             .activatable(true)
+            .use_underline(true)
             .action_name(&format!("restore.{}", T::identifier()))
             .build();
 

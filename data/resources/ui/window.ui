@@ -9,7 +9,7 @@
     </section>
     <section>
       <item>
-        <attribute name="label" translatable="yes">_Providers</attribute>
+        <attribute name="label" translatable="yes">P_roviders</attribute>
         <attribute name="action">app.providers</attribute>
       </item>
       <item>
@@ -23,7 +23,7 @@
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">About Authenticator</attribute>
+        <attribute name="label" translatable="yes">_About Authenticator</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>
@@ -159,7 +159,8 @@
                             </child>
                             <child>
                               <object class="GtkButton">
-                                <property name="label" translatable="yes">Unlock</property>
+                                <property name="label" translatable="yes">_Unlock</property>
+                                <property name="use-underline">True</property>
                                 <property name="action-name">win.unlock</property>
                                 <property name="receives-default">True</property>
                                 <property name="halign">center</property>

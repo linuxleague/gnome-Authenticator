@@ -15,7 +15,7 @@ impl Backupable for FreeOTP {
     }
 
     fn title() -> String {
-        gettext("Authenticator")
+        gettext("_Authenticator")
     }
 
     fn subtitle() -> String {
@@ -60,7 +60,7 @@ impl Restorable for FreeOTP {
     }
 
     fn title() -> String {
-        gettext("Authenticator")
+        gettext("A_uthenticator")
     }
 
     fn subtitle() -> String {

@@ -13,7 +13,7 @@ impl Restorable for Bitwarden {
     }
 
     fn title() -> String {
-        gettext("Bitwarden")
+        gettext("_Bitwarden")
     }
 
     fn subtitle() -> String {

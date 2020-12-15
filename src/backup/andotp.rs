@@ -29,7 +29,7 @@ impl Backupable for AndOTP {
     }
 
     fn title() -> String {
-        gettext("andOTP")
+        gettext("a_ndOTP")
     }
 
     fn subtitle() -> String {
@@ -88,7 +88,7 @@ impl Restorable for AndOTP {
     }
 
     fn title() -> String {
-        gettext("andOTP")
+        gettext("an_dOTP")
     }
 
     fn subtitle() -> String {
