@@ -1,5 +1,5 @@
 use crate::models::{Algorithm, OTPMethod, Provider};
-use crate::widgets::{ProviderImage, ProviderImageSize};
+use crate::widgets::ProviderImage;
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
 use glib::translate::ToGlib;
@@ -21,11 +21,10 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     pub struct ProviderPage {
-        pub image: ProviderImage,
         pub methods_model: libhandy::EnumListModel,
         pub algorithms_model: libhandy::EnumListModel,
         #[template_child]
-        pub main_container: TemplateChild<gtk::Box>,
+        pub image: TemplateChild<ProviderImage>,
         #[template_child]
         pub name_entry: TemplateChild<gtk::Entry>,
         #[template_child]
@@ -66,8 +65,7 @@ mod imp {
             let algorithms_model = libhandy::EnumListModel::new(Algorithm::static_type());
 
             Self {
-                image: ProviderImage::new(ProviderImageSize::Large),
-                main_container: TemplateChild::default(),
+                image: TemplateChild::default(),
                 name_entry: TemplateChild::default(),
                 period_spinbutton: TemplateChild::default(),
                 digits_spinbutton: TemplateChild::default(),
@@ -86,6 +84,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
+            ProviderImage::static_type();
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/provider_page.ui");
             Self::bind_template_children(klass);
         }
@@ -151,7 +150,7 @@ impl ProviderPage {
                 .methods_model
                 .find_position(provider.method().to_glib()),
         );
-        self_.image.set_provider(&provider);
+        self_.image.get().set_provider(&provider);
         self_
             .title
             .get()
@@ -164,8 +163,6 @@ impl ProviderPage {
             .algorithm_comborow
             .get()
             .set_model(Some(&self_.algorithms_model));
-
-        self_.main_container.get().prepend(&self_.image);
 
         self_
             .algorithm_comborow

@@ -1,6 +1,6 @@
 use crate::helpers::qrcode;
 use crate::models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel};
-use crate::widgets::{ProviderImage, ProviderImageSize, UrlRow};
+use crate::widgets::{ProviderImage, UrlRow};
 use anyhow::Result;
 use gio::prelude::*;
 use gio::{subclass::ObjectSubclass, ActionMapExt};
@@ -22,13 +22,12 @@ mod imp {
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: RefCell<Option<Provider>>,
         pub actions: gio::SimpleActionGroup,
-        pub image: ProviderImage,
+        #[template_child]
+        pub image: TemplateChild<ProviderImage>,
         #[template_child]
         pub provider_website_row: TemplateChild<UrlRow>,
         #[template_child]
         pub provider_help_row: TemplateChild<UrlRow>,
-        #[template_child]
-        pub main_container: TemplateChild<gtk::Box>,
         #[template_child]
         pub username_entry: TemplateChild<gtk::Entry>,
         #[template_child]
@@ -67,12 +66,11 @@ mod imp {
 
             Self {
                 actions,
-                image: ProviderImage::new(ProviderImageSize::Large),
                 model: OnceCell::new(),
                 selected_provider: RefCell::new(None),
+                image: TemplateChild::default(),
                 provider_website_row: TemplateChild::default(),
                 provider_help_row: TemplateChild::default(),
-                main_container: TemplateChild::default(),
                 token_entry: TemplateChild::default(),
                 username_entry: TemplateChild::default(),
                 more_list: TemplateChild::default(),
@@ -89,6 +87,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             UrlRow::static_type();
+            ProviderImage::static_type();
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/account_add.ui");
             Self::bind_template_children(klass);
             klass.add_signal("added", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
@@ -216,7 +215,7 @@ impl AccountAddDialog {
             .get()
             .set_text(&provider.period().to_string());
 
-        self_.image.set_provider(&provider);
+        self_.image.get().set_provider(&provider);
 
         self_
             .method_label
@@ -290,8 +289,6 @@ impl AccountAddDialog {
             .provider_completion
             .get()
             .set_model(Some(&self_.model.get().unwrap().completion_model()));
-
-        self_.main_container.get().prepend(&self_.image);
 
         self_.provider_completion.get().connect_match_selected(
             clone!(@weak self as dialog, @strong self_.model as model => move |_, store, iter| {

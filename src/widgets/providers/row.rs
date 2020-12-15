@@ -1,5 +1,5 @@
 use crate::models::{Account, AccountSorter, OTPMethod, Provider};
-use crate::widgets::{accounts::AccountRow, ProviderImage, ProviderImageSize};
+use crate::widgets::{accounts::AccountRow, ProviderImage};
 use gio::prelude::*;
 use gio::subclass::ObjectSubclass;
 use glib::subclass::prelude::*;
@@ -23,16 +23,15 @@ mod imp {
 
     #[derive(CompositeTemplate)]
     pub struct ProviderRow {
-        pub image: ProviderImage,
         pub provider: RefCell<Option<Provider>>,
+        #[template_child]
+        pub image: TemplateChild<ProviderImage>,
         #[template_child]
         pub name_label: TemplateChild<gtk::Label>,
         #[template_child]
         pub accounts_list: TemplateChild<gtk::ListBox>,
         #[template_child]
         pub progress: TemplateChild<gtk::ProgressBar>,
-        #[template_child]
-        pub header: TemplateChild<gtk::Box>,
     }
 
     impl ObjectSubclass for ProviderRow {
@@ -46,16 +45,16 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                image: ProviderImage::new(ProviderImageSize::Small),
+                image: TemplateChild::default(),
                 name_label: TemplateChild::default(),
                 accounts_list: TemplateChild::default(),
                 progress: TemplateChild::default(),
-                header: TemplateChild::default(),
                 provider: RefCell::new(None),
             }
         }
 
         fn class_init(klass: &mut Self::Class) {
+            ProviderImage::static_type();
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/provider_row.ui");
             Self::bind_template_children(klass);
             klass.install_properties(&PROPERTIES);
@@ -122,8 +121,7 @@ impl ProviderRow {
 
         self.add_css_class(&self.provider().method().to_string());
 
-        self_.header.get().prepend(&self_.image);
-        self_.image.set_provider(&self.provider());
+        self_.image.get().set_provider(&self.provider());
 
         let progress_bar = self_.progress.get();
         if self.provider().method() == OTPMethod::TOTP {

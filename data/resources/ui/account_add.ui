@@ -65,6 +65,12 @@
                             <property name="margin-start">8</property>
                             <property name="margin-end">8</property>
                             <child>
+                              <object class="ProviderImage" id="image">
+                                <property name="halign">center</property>
+                                <property name="size">96</property>
+                              </object>
+                            </child>
+                            <child>
                               <object class="GtkListBox" id="basic_list">
                                 <property name="selection_mode">none</property>
                                 <child>

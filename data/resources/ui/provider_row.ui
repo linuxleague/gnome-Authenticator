@@ -9,9 +9,15 @@
         <property name="orientation">vertical</property>
         <property name="vexpand">True</property>
         <child>
-          <object class="GtkBox" id="header">
+          <object class="GtkBox">
             <property name="orientation">horizontal</property>
             <property name="hexpand">True</property>
+            <child>
+              <object class="ProviderImage" id="image">
+                <property name="halign">start</property>
+                <property name="size">48</property>
+              </object>
+            </child>
             <child>
               <object class="GtkLabel" id="name_label">
                 <property name="halign">start</property>

@@ -5,12 +5,6 @@ use glib::{clone, glib_object_subclass, glib_wrapper};
 use glib::{Receiver, Sender};
 use gtk::{prelude::*, CompositeTemplate};
 
-#[derive(Debug, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
-pub enum ProviderImageSize {
-    Small,
-    Large,
-}
-
 pub enum ImageAction {
     Ready(gio::File),
     Failed,
@@ -20,20 +14,34 @@ mod imp {
     use super::*;
     use glib::subclass;
     use gtk::subclass::prelude::*;
-    use std::cell::RefCell;
+    use std::cell::{Cell, RefCell};
 
-    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("provider", |name| {
-        glib::ParamSpec::object(
-            name,
-            "provider",
-            "Provider",
-            Provider::static_type(),
-            glib::ParamFlags::READWRITE,
-        )
-    })];
+    static PROPERTIES: [subclass::Property; 2] = [
+        subclass::Property("provider", |name| {
+            glib::ParamSpec::object(
+                name,
+                "provider",
+                "Provider",
+                Provider::static_type(),
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+        subclass::Property("size", |name| {
+            glib::ParamSpec::uint(
+                name,
+                "size",
+                "Image size",
+                24,
+                96,
+                48,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+    ];
 
     #[derive(Debug, CompositeTemplate)]
     pub struct ProviderImage {
+        pub size: Cell<u32>,
         pub sender: Sender<ImageAction>,
         pub receiver: RefCell<Option<Receiver<ImageAction>>>,
         pub provider: RefCell<Option<Provider>>,
@@ -60,6 +68,7 @@ mod imp {
             Self {
                 sender,
                 receiver,
+                size: Cell::new(96),
                 stack: TemplateChild::default(),
                 image: TemplateChild::default(),
                 spinner: TemplateChild::default(),
@@ -88,6 +97,10 @@ mod imp {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
+                subclass::Property("size", ..) => {
+                    let size = value.get().unwrap().unwrap();
+                    self.size.set(size);
+                }
                 _ => unimplemented!(),
             }
         }
@@ -97,6 +110,7 @@ mod imp {
 
             match *prop {
                 subclass::Property("provider", ..) => self.provider.borrow().to_value(),
+                subclass::Property("size", ..) => self.size.get().to_value(),
                 _ => unimplemented!(),
             }
         }
@@ -109,13 +123,11 @@ glib_wrapper! {
     pub struct ProviderImage(ObjectSubclass<imp::ProviderImage>) @extends gtk::Widget, gtk::Box;
 }
 impl ProviderImage {
-    pub fn new(image_size: ProviderImageSize) -> Self {
-        let image = glib::Object::new(Self::static_type(), &[])
+    pub fn new() -> Self {
+        glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create ProviderImage")
             .downcast::<ProviderImage>()
-            .expect("Created ProviderImage is of wrong type");
-        image.set_size(image_size);
-        image
+            .expect("Created ProviderImage is of wrong type")
     }
 
     pub fn set_provider(&self, provider: &Provider) {
@@ -167,21 +179,6 @@ impl ProviderImage {
         });
     }
 
-    pub fn set_size(&self, image_size: ProviderImageSize) {
-        let self_ = imp::ProviderImage::from_instance(self);
-
-        match image_size {
-            ProviderImageSize::Small => {
-                self_.image.get().set_pixel_size(48);
-                self.set_halign(gtk::Align::Start);
-            }
-            ProviderImageSize::Large => {
-                self_.image.get().set_pixel_size(96);
-                self.set_halign(gtk::Align::Center);
-            }
-        }
-    }
-
     fn provider(&self) -> Provider {
         let provider = self.get_property("provider").unwrap();
         provider.get::<Provider>().unwrap().unwrap()
@@ -194,6 +191,9 @@ impl ProviderImage {
             None,
             clone!(@weak self as image => move |action| image.do_action(action)),
         );
+        self.bind_property("size", &self_.image.get(), "pixel-size")
+            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
     }
 
     fn do_action(&self, action: ImageAction) -> glib::Continue {
