@@ -61,9 +61,9 @@
                         <child>
                           <object class="GtkBox" id="main_container">
                             <property name="orientation">vertical</property>
-                            <property name="spacing">42</property>
-                            <property name="margin-start">8</property>
-                            <property name="margin-end">8</property>
+                            <property name="spacing">18</property>
+                            <property name="margin-start">12</property>
+                            <property name="margin-end">12</property>
                             <child>
                               <object class="ProviderImage" id="image">
                                 <property name="halign">center</property>
