@@ -10,18 +10,30 @@ mod imp {
     use libhandy::subclass::action_row::ActionRowImpl;
     use std::cell::RefCell;
 
-    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("uri", |name| {
-        glib::ParamSpec::string(
-            name,
-            "uri",
-            "The Row URI",
-            None,
-            glib::ParamFlags::READWRITE,
-        )
-    })];
+    static PROPERTIES: [subclass::Property; 2] = [
+        subclass::Property("uri", |name| {
+            glib::ParamSpec::string(
+                name,
+                "uri",
+                "The Row URI",
+                None,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+        subclass::Property("icon-name", |name| {
+            glib::ParamSpec::string(
+                name,
+                "icon name",
+                "The Icon Name",
+                None,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+    ];
 
     pub struct UrlRow {
         pub uri: RefCell<Option<String>>,
+        pub icon_name: RefCell<Option<String>>,
     }
 
     impl ObjectSubclass for UrlRow {
@@ -36,6 +48,7 @@ mod imp {
         fn new() -> Self {
             Self {
                 uri: RefCell::new(None),
+                icon_name: RefCell::new(None),
             }
         }
 
@@ -53,6 +66,10 @@ mod imp {
                     let uri = value.get().unwrap();
                     self.uri.replace(uri);
                 }
+                subclass::Property("icon-name", ..) => {
+                    let icon_name = value.get().unwrap();
+                    self.icon_name.replace(icon_name);
+                }
                 _ => unimplemented!(),
             }
         }
@@ -61,11 +78,13 @@ mod imp {
             let prop = &PROPERTIES[id];
             match *prop {
                 subclass::Property("uri", ..) => self.uri.borrow().to_value(),
+                subclass::Property("icon-name", ..) => self.icon_name.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }
 
         fn constructed(&self, obj: &Self::Type) {
+            obj.setup_widgets();
             self.parent_constructed(obj);
         }
     }
@@ -80,18 +99,14 @@ glib_wrapper! {
 
 impl UrlRow {
     #[allow(clippy::new_without_default)]
-    pub fn new(title: &str, icon_name: &str) -> Self {
-        let row = glib::Object::new(Self::static_type(), &[])
+    pub fn new() -> Self {
+        glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create UrlRow")
             .downcast::<UrlRow>()
-            .expect("Created object is of wrong type");
-        row.setup_widgets(title, icon_name);
-        row
+            .expect("Created object is of wrong type")
     }
 
-    fn setup_widgets(&self, title: &str, icon_name: &str) {
-        self.set_property("title", &title).unwrap();
-
+    fn setup_widgets(&self) {
         let gesture = gtk::GestureClick::new();
         gesture.connect_pressed(clone!(@weak self as row => move |_,_,_,_| {
             row.open_uri();
@@ -99,8 +114,15 @@ impl UrlRow {
 
         self.add_controller(&gesture);
 
-        let image = gtk::Image::from_icon_name(Some(icon_name));
-        self.add_suffix(&image);
+        let image_prefix = gtk::Image::from_icon_name(Some("image-missing-symbolic"));
+        self.bind_property("icon-name", &image_prefix, "icon-name")
+            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
+        self.add_prefix(&image_prefix);
+
+        let image_suffix = gtk::Image::from_icon_name(Some("link-symbolic"));
+        image_suffix.add_css_class("dim-label");
+        self.add_suffix(&image_suffix);
     }
 
     fn open_uri(&self) {

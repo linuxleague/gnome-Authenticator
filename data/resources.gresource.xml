@@ -23,9 +23,10 @@
   </gresource>
 
   <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions/">
-    <file alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>
-    <file alias="package-x-generic-symbolic.svg">resources/icons/package-x-generic-symbolic.svg</file>
-    <file alias="link-symbolic.svg">resources/icons/link-symbolic.svg</file>
-    <file alias="help-page-symbolic.svg">resources/icons/help-page-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="package-x-generic-symbolic.svg">resources/icons/package-x-generic-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="link-symbolic.svg">resources/icons/link-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="help-page-symbolic.svg">resources/icons/help-page-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="globe-symbolic.svg">resources/icons/globe-symbolic.svg</file>
   </gresource>
 </gresources>

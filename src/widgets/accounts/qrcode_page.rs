@@ -12,7 +12,8 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     pub struct QRCodePage {
-        pub website_row: UrlRow,
+        #[template_child]
+        pub website_row: TemplateChild<UrlRow>,
         #[template_child]
         pub image: TemplateChild<gtk::Image>,
         #[template_child]
@@ -37,12 +38,13 @@ mod imp {
                 image: TemplateChild::default(),
                 account_label: TemplateChild::default(),
                 provider_label: TemplateChild::default(),
-                website_row: UrlRow::new("Website", "link-symbolic"),
+                website_row: TemplateChild::default(),
                 listbox: TemplateChild::default(),
             }
         }
 
         fn class_init(klass: &mut Self::Class) {
+            UrlRow::static_type();
             klass.set_template_from_resource(
                 "/com/belmoussaoui/Authenticator/account_qrcode_page.ui",
             );
@@ -53,7 +55,6 @@ mod imp {
     impl ObjectImpl for QRCodePage {
         fn constructed(&self, obj: &Self::Type) {
             obj.init_template();
-            obj.setup_widgets();
             self.parent_constructed(obj);
         }
     }
@@ -90,16 +91,10 @@ impl QRCodePage {
             .set_text(&account.provider().name());
 
         if let Some(ref website) = account.provider().website() {
-            self_.website_row.set_uri(website);
-            self_.website_row.show();
+            self_.website_row.get().set_uri(website);
+            self_.website_row.get().show();
         } else {
-            self_.website_row.hide();
+            self_.website_row.get().hide();
         }
-    }
-
-    fn setup_widgets(&self) {
-        let self_ = imp::QRCodePage::from_instance(self);
-
-        self_.listbox.get().append(&self_.website_row);
     }
 }
