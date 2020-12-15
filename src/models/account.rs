@@ -17,6 +17,7 @@ use qrcode::QrCode;
 use ring::hmac;
 use std::cell::{Cell, RefCell};
 use std::time::{SystemTime, UNIX_EPOCH};
+use unicase::UniCase;
 
 #[derive(Insertable)]
 #[table_name = "accounts"]
@@ -242,7 +243,7 @@ impl Account {
         let account1 = obj1.downcast_ref::<Account>().unwrap();
         let account2 = obj2.downcast_ref::<Account>().unwrap();
 
-        account1.name().cmp(&account2.name())
+        UniCase::new(account1.name()).cmp(&UniCase::new(account2.name()))
     }
 
     pub fn new(id: i32, name: &str, token_id: &str, counter: i32, provider: Provider) -> Account {
