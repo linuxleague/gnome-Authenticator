@@ -2,8 +2,8 @@
 <interface>
   <object class="GtkAdjustment" id="counter_adjustment">
     <property name="upper">60</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
+    <property name="step-increment">1</property>
+    <property name="page-increment">10</property>
   </object>
   <template parent="HdyWindow" class="AccountAddDialog">
     <property name="modal">True</property>
@@ -23,8 +23,8 @@
                     <property name="show-title-buttons">False</property>
                     <child type="start">
                       <object class="GtkButton" id="back_btn">
-                        <property name="receives_default">True</property>
-                        <property name="action_name">add.back</property>
+                        <property name="receives-default">True</property>
+                        <property name="action-name">add.back</property>
                         <property name="icon-name">go-previous-symbolic</property>
                       </object>
                     </child>
@@ -33,8 +33,8 @@
                         <property name="label" translatable="yes">_Add</property>
                         <property name="use-underline">True</property>
                         <property name="sensitive">False</property>
-                        <property name="receives_default">True</property>
-                        <property name="action_name">add.save</property>
+                        <property name="receives-default">True</property>
+                        <property name="action-name">add.save</property>
                         <style>
                           <class name="suggested-action"/>
                         </style>
@@ -42,9 +42,9 @@
                     </child>
                     <child type="end">
                       <object class="GtkButton" id="scan_btn">
-                        <property name="receives_default">True</property>
-                        <property name="tooltip_text" translatable="yes">Scan QR Code</property>
-                        <property name="action_name">add.scan-qr</property>
+                        <property name="receives-default">True</property>
+                        <property name="tooltip-text" translatable="yes">Scan QR Code</property>
+                        <property name="action-name">add.scan-qr</property>
                         <property name="icon-name">qrscanner-symbolic</property>
                       </object>
                     </child>
@@ -73,10 +73,10 @@
                             </child>
                             <child>
                               <object class="GtkListBox" id="basic_list">
-                                <property name="selection_mode">none</property>
+                                <property name="selection-mode">none</property>
                                 <child>
                                   <object class="HdyActionRow">
-                                    <property name="activatable_widget">provider_entry</property>
+                                    <property name="activatable-widget">provider_entry</property>
                                     <property name="title" translatable="yes">Provider</property>
                                     <property name="subtitle" translatable="yes">The service provider</property>
                                     <child>
@@ -85,28 +85,28 @@
                                         <property name="valign">center</property>
                                         <property name="hexpand">True</property>
                                         <property name="completion">provider_completion</property>
-                                        <property name="enable_emoji_completion">True</property>
+                                        <property name="enable-emoji-completion">True</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="HdyActionRow">
-                                    <property name="activatable_widget">username_entry</property>
+                                    <property name="activatable-widget">username_entry</property>
                                     <property name="title" translatable="yes">Account</property>
                                     <child>
                                       <object class="GtkEntry" id="username_entry">
                                         <property name="halign">end</property>
                                         <property name="valign">center</property>
                                         <property name="hexpand">True</property>
-                                        <property name="enable_emoji_completion">True</property>
+                                        <property name="enable-emoji-completion">True</property>
                                       </object>
                                     </child>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="HdyActionRow" id="token_row">
-                                    <property name="activatable_widget">token_entry</property>
+                                    <property name="activatable-widget">token_entry</property>
                                     <property name="title" translatable="yes">Token</property>
                                     <child>
                                       <object class="GtkPasswordEntry" id="token_entry">
@@ -120,7 +120,7 @@
                                 </child>
                                 <child>
                                   <object class="HdyActionRow" id="counter_row">
-                                    <property name="activatable_widget">counter_spinbutton</property>
+                                    <property name="activatable-widget">counter_spinbutton</property>
                                     <property name="title" translatable="yes">Counter</property>
                                     <property name="visible">False</property>
                                     <child>
@@ -143,7 +143,7 @@
                             <child>
                               <object class="GtkListBox" id="more_list">
                                 <property name="visible">False</property>
-                                <property name="selection_mode">none</property>
+                                <property name="selection-mode">none</property>
                                 <child>
                                   <object class="HdyActionRow" id="algorithm_row">
                                     <property name="title" translatable="yes">Algorithm</property>
@@ -223,9 +223,9 @@
     </child>
   </template>
   <object class="GtkEntryCompletion" id="provider_completion">
-    <property name="minimum_key_length">2</property>
-    <property name="text_column">1</property>
-    <property name="inline_selection">True</property>
+    <property name="minimum-key-length">2</property>
+    <property name="text-column">1</property>
+    <property name="inline-selection">True</property>
     <child>
       <object class="GtkCellRendererText" />
       <attributes>

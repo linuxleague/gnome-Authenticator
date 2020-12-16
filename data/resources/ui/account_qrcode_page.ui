@@ -34,7 +34,7 @@
             <property name="margin-end">8</property>
             <child>
               <object class="GtkListBox" id="list">
-                <property name="selection_mode">none</property>
+                <property name="selection-mode">none</property>
                 <child>
                   <object class="HdyActionRow">
                     <property name="title" translatable="yes">Account</property>

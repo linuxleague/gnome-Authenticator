@@ -19,14 +19,14 @@
                     <property name="show-title-buttons">True</property>
                     <child type="start">
                       <object class="GtkButton" id="add_btn">
-                        <property name="receives_default">True</property>
-                        <property name="action_name">providers.add</property>
+                        <property name="receives-default">True</property>
+                        <property name="action-name">providers.add</property>
                         <property name="icon-name">list-add-symbolic</property>
                       </object>
                     </child>
                     <child type="end">
                       <object class="GtkToggleButton" id="search_btn">
-                        <property name="receives_default">True</property>
+                        <property name="receives-default">True</property>
                         <property name="icon-name">system-search-symbolic</property>
                       </object>
                     </child>
@@ -57,7 +57,7 @@
                             <child>
                               <object class="GtkListView" id="providers_list">
                                 <property name="vexpand">true</property>
-                                <property name="single_click_activate">True</property>
+                                <property name="single-click-activate">True</property>
                                 <style>
                                   <class name="content" />
                                 </style>

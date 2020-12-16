@@ -45,21 +45,21 @@
                     <property name="show-title-buttons">True</property>
                     <child type="start">
                       <object class="GtkButton" id="add_btn">
-                        <property name="receives_default">True</property>
-                        <property name="action_name">win.add_account</property>
+                        <property name="receives-default">True</property>
+                        <property name="action-name">win.add_account</property>
                         <property name="icon-name">list-add-symbolic</property>
                       </object>
                     </child>
                     <child type="end">
                       <object class="GtkMenuButton">
-                        <property name="receives_default">True</property>
+                        <property name="receives-default">True</property>
                         <property name="menu-model">menu</property>
                         <property name="icon-name">open-menu-symbolic</property>
                       </object>
                     </child>
                     <child type="end">
                       <object class="GtkToggleButton" id="search_btn">
-                        <property name="receives_default">True</property>
+                        <property name="receives-default">True</property>
                         <property name="icon-name">system-search-symbolic</property>
                       </object>
                     </child>
@@ -111,9 +111,9 @@
                             <property name="side">end</property>
                             <property name="halign">end</property>
                             <property name="hexpand">true</property>
-                            <property name="margin_top">6</property>
-                            <property name="margin_bottom">6</property>
-                            <property name="margin_end">6</property>
+                            <property name="margin-top">6</property>
+                            <property name="margin-bottom">6</property>
+                            <property name="margin-end">6</property>
                           </object>
                         </child>
                       </object>

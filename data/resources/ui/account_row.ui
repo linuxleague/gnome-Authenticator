@@ -59,9 +59,9 @@
                       <object class="GtkBox">
                         <child>
                           <object class="GtkButton" id="copy_btn">
-                            <property name="receives_default">True</property>
+                            <property name="receives-default">True</property>
                             <property name="action-name">account.copy-otp</property>
-                            <property name="tooltip_text" translatable="yes">Copy PIN to clipboard</property>
+                            <property name="tooltip-text" translatable="yes">Copy PIN to clipboard</property>
                             <property name="valign">center</property>
                             <child>
                               <object class="GtkStack" id="copy_btn_stack">
@@ -97,7 +97,7 @@
                         </child>
                         <child>
                           <object class="GtkMenuButton">
-                            <property name="receives_default">False</property>
+                            <property name="receives-default">False</property>
                             <property name="valign">center</property>
                             <property name="menu-model">account-menu</property>
                             <property name="icon-name">view-more-symbolic</property>
@@ -127,7 +127,7 @@
                 </child>
                 <child>
                   <object class="GtkButton">
-                    <property name="receives_default">True</property>
+                    <property name="receives-default">True</property>
                     <property name="halign">end</property>
                     <property name="valign">center</property>
                     <property name="hexpand">True</property>
