@@ -52,7 +52,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_all.ui");
+            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_dialog.ui");
             Self::bind_template_children(klass);
         }
     }

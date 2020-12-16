@@ -1,10 +1,10 @@
-mod all;
+mod dialog;
 mod image;
 mod list;
 mod page;
 mod row;
 pub use self::{
-    all::ProvidersDialog,
+    dialog::ProvidersDialog,
     image::ProviderImage,
     list::ProvidersList,
     page::{ProviderPage, ProviderPageMode},

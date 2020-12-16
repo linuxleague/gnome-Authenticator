@@ -7,7 +7,7 @@ data/resources/ui/account_row.ui
 data/resources/ui/preferences_password_page.ui
 data/resources/ui/preferences.ui
 data/resources/ui/provider_page.ui
-data/resources/ui/providers_all.ui
+data/resources/ui/providers_dialog.ui
 data/resources/ui/providers_list.ui
 data/resources/ui/shortcuts.ui
 data/resources/ui/window.ui

@@ -12,7 +12,7 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_page.ui">resources/ui/provider_page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_row.ui">resources/ui/provider_row.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="providers_all.ui">resources/ui/providers_all.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="providers_dialog.ui">resources/ui/providers_dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="providers_list.ui">resources/ui/providers_list.ui</file>
 
     <!-- UI Files -->
@@ -24,7 +24,6 @@
 
   <gresource prefix="/com/belmoussaoui/Authenticator/icons/16x16/actions/">
     <file preprocess="xml-stripblanks" alias="qrscanner-symbolic.svg">resources/icons/qrscanner-symbolic.svg</file>
-    <file preprocess="xml-stripblanks" alias="package-x-generic-symbolic.svg">resources/icons/package-x-generic-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="link-symbolic.svg">resources/icons/link-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="help-page-symbolic.svg">resources/icons/help-page-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="globe-symbolic.svg">resources/icons/globe-symbolic.svg</file>
