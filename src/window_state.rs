@@ -8,7 +8,7 @@ pub fn load(window: &Window, settings: &gio::Settings) {
     let height = settings.get_int("window-height");
 
     if width > -1 && height > -1 {
-        window.set_default_size(360, 600);
+        window.set_default_size(width, height);
     }
 
     let is_maximized = settings.get_boolean("is-maximized");

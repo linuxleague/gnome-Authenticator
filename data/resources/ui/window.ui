@@ -29,7 +29,8 @@
     </section>
   </menu>
   <template class="Window" parent="HdyApplicationWindow">
-
+    <property name="default-width">720</property>
+    <property name="default-height">600</property>
     <child>
       <object class="HdyLeaflet" id="deck">
         <property name="can-unfold">False</property>

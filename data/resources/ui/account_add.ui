@@ -7,8 +7,8 @@
   </object>
   <template parent="HdyWindow" class="AccountAddDialog">
     <property name="modal">True</property>
-    <property name="default_width">360</property>
-    <property name="default_height">600</property>
+    <property name="default-width">680</property>
+    <property name="default-height">550</property>
     <property name="title" translatable="yes">Add a new account</property>
     <child>
       <object class="HdyLeaflet">
