@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template parent="GtkListBoxRow" class="ProviderRow">
-    <property name="can_focus">True</property>
+    <property name="activatable">False</property>
     <property name="valign">center</property>
     <property name="selectable">False</property>
     <child>

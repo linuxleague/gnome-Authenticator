@@ -129,7 +129,7 @@ impl Window {
             View::Accounts => {
                 self_.deck.get().set_visible_child_name("accounts");
 
-                self_.search_entry.get().set_key_capture_widget(Some(self));
+                //self_.search_entry.get().set_key_capture_widget(Some(self));
             }
             View::Account(account) => {
                 self_.deck.get().set_visible_child_name("account");

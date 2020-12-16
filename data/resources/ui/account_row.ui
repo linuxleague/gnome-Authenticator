@@ -19,9 +19,9 @@
     </section>
   </menu>
   <template parent="GtkListBoxRow" class="AccountRow">
-    <property name="can_focus">True</property>
     <property name="valign">center</property>
     <property name="selectable">False</property>
+    <property name="activatable">False</property>
     <child>
       <object class="GtkStack" id="edit_stack">
         <property name="transition-type">crossfade</property>
@@ -132,7 +132,8 @@
                     <property name="valign">center</property>
                     <property name="hexpand">True</property>
                     <property name="action-name">account.save</property>
-                    <property name="label" translatable="yes">Save</property>
+                    <property name="label" translatable="yes">_Save</property>
+                    <property name="use-underline">True</property>
                     <style>
                       <class name="suggested-action" />
                     </style>

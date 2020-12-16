@@ -109,12 +109,11 @@
                                     <property name="activatable_widget">token_entry</property>
                                     <property name="title" translatable="yes">Token</property>
                                     <child>
-                                      <object class="GtkEntry" id="token_entry">
+                                      <object class="GtkPasswordEntry" id="token_entry">
                                         <property name="halign">end</property>
                                         <property name="valign">center</property>
                                         <property name="hexpand">True</property>
-                                        <property name="visibility">False</property>
-                                        <property name="input_purpose">pin</property>
+                                        <property name="show-peek-icon">True</property>
                                       </object>
                                     </child>
                                   </object>

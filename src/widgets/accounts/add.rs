@@ -30,7 +30,7 @@ mod imp {
         #[template_child]
         pub username_entry: TemplateChild<gtk::Entry>,
         #[template_child]
-        pub token_entry: TemplateChild<gtk::Entry>,
+        pub token_entry: TemplateChild<gtk::PasswordEntry>,
         #[template_child]
         pub more_list: TemplateChild<gtk::ListBox>,
         #[template_child]
@@ -123,23 +123,26 @@ impl AccountAddDialog {
         dialog
     }
 
+    fn validate(&self) {
+        let self_ = imp::AccountAddDialog::from_instance(self);
+        let username = self_.username_entry.get().get_text().unwrap();
+        let token = self_.token_entry.get().get_text().unwrap();
+
+        let is_valid = !(username.is_empty() || token.is_empty());
+        get_action!(self_.actions, @save).set_enabled(is_valid);
+    }
+
     fn setup_signals(&self) {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
-        let username_entry = self_.username_entry.get();
-        let token_entry = self_.token_entry.get();
-
-        let validate_entries = clone!(@weak username_entry, @weak token_entry, @weak self_.actions as actions => move |_: &gtk::Entry| {
-            let username = username_entry.get_text().unwrap();
-            let token = token_entry.get_text().unwrap();
-
-            let is_valid = !(username.is_empty() || token.is_empty());
-            get_action!(actions, @save).set_enabled(is_valid);
-
-        });
-
-        username_entry.connect_changed(validate_entries.clone());
-        token_entry.connect_changed(validate_entries);
+        self_
+            .username_entry
+            .get()
+            .connect_changed(clone!(@weak self as win => move |_| win.validate()));
+        self_
+            .token_entry
+            .get()
+            .connect_changed(clone!(@weak self as win => move |_| win.validate()));
 
         let event_controller = gtk::EventControllerKey::new();
         event_controller.connect_key_pressed(

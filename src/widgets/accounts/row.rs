@@ -140,6 +140,11 @@ impl AccountRow {
                 get_action!(actions, @save).set_enabled(!name.is_empty());
             }),
         );
+        self_.name_entry.get().connect_activate(
+            clone!(@weak self_.actions as actions => move |_| {
+                   actions.activate_action("save", None);
+            }),
+        );
     }
 
     fn setup_actions(&self) {
@@ -176,15 +181,16 @@ impl AccountRow {
         );
 
         let edit_stack = self_.edit_stack.get();
+        let name_entry = self_.name_entry.get();
         action!(
             self_.actions,
             "rename",
-            clone!(@weak edit_stack => move |_, _| {
+            clone!(@weak edit_stack, @weak name_entry => move |_, _| {
                 edit_stack.set_visible_child_name("edit");
+                name_entry.grab_focus();
             })
         );
 
-        let name_entry = self_.name_entry.get();
         action!(
             self_.actions,
             "save",
