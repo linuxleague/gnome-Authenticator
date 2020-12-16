@@ -121,6 +121,7 @@ glib_wrapper! {
     pub struct ProviderImage(ObjectSubclass<imp::ProviderImage>) @extends gtk::Widget, gtk::Box;
 }
 impl ProviderImage {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create ProviderImage")

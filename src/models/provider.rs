@@ -330,6 +330,7 @@ impl Provider {
         Ok(results)
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn new(
         id: i32,
         name: &str,

@@ -62,6 +62,7 @@ impl ProvidersModel {
         model
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn find_or_create(
         &self,
         name: &str,

@@ -68,6 +68,7 @@ glib_wrapper! {
     pub struct ProvidersList(ObjectSubclass<imp::ProvidersList>) @extends gtk::Widget, gtk::Box;
 }
 impl ProvidersList {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(Self::static_type(), &[])
             .expect("Failed to create ProvidersList")

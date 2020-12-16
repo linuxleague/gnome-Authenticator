@@ -163,7 +163,6 @@ impl ProviderRow {
 
     fn tick(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
-        let max = self.provider().period() as f64;
         let started_at = self_.started_at.borrow().clone().unwrap();
         let remaining_time = started_at.elapsed().as_secs();
 
