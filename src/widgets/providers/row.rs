@@ -5,24 +5,41 @@ use crate::{
 use gio::{prelude::*, subclass::ObjectSubclass};
 use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
 use gtk::{prelude::*, CompositeTemplate};
-use std::cell::RefCell;
+use std::time::{Duration, Instant};
+
 mod imp {
     use super::*;
     use glib::subclass;
     use gtk::subclass::prelude::*;
+    use std::cell::{Cell, RefCell};
 
-    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("provider", |name| {
-        glib::ParamSpec::object(
-            name,
-            "Provider",
-            "The accounts provider",
-            Provider::static_type(),
-            glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
-        )
-    })];
+    static PROPERTIES: [subclass::Property; 2] = [
+        subclass::Property("provider", |name| {
+            glib::ParamSpec::object(
+                name,
+                "Provider",
+                "The accounts provider",
+                Provider::static_type(),
+                glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
+            )
+        }),
+        subclass::Property("remaining-time", |name| {
+            glib::ParamSpec::uint64(
+                name,
+                "remaining time",
+                "the remaining time",
+                0,
+                u64::MAX,
+                0,
+                glib::ParamFlags::READWRITE,
+            )
+        }),
+    ];
 
     #[derive(CompositeTemplate)]
     pub struct ProviderRow {
+        pub remaining_time: Cell<u64>,
+        pub started_at: RefCell<Option<Instant>>,
         pub provider: RefCell<Option<Provider>>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
@@ -45,6 +62,8 @@ mod imp {
 
         fn new() -> Self {
             Self {
+                remaining_time: Cell::new(0),
+                started_at: RefCell::new(None),
                 image: TemplateChild::default(),
                 name_label: TemplateChild::default(),
                 accounts_list: TemplateChild::default(),
@@ -77,6 +96,10 @@ mod imp {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
+                subclass::Property("remaining-time", ..) => {
+                    let remaining_time = value.get().unwrap().unwrap();
+                    self.remaining_time.set(remaining_time);
+                }
                 _ => unimplemented!(),
             }
         }
@@ -85,6 +108,7 @@ mod imp {
             let prop = &PROPERTIES[id];
             match *prop {
                 subclass::Property("provider", ..) => self.provider.borrow().to_value(),
+                subclass::Property("remaining-time", ..) => self.remaining_time.get().to_value(),
                 _ => unimplemented!(),
             }
         }
@@ -116,6 +140,51 @@ impl ProviderRow {
         provider.get::<Provider>().unwrap().unwrap()
     }
 
+    fn restart(&self) {
+        let provider = self.provider();
+
+        if provider.method() == OTPMethod::TOTP {
+            let self_ = imp::ProviderRow::from_instance(self);
+
+            self_.started_at.borrow_mut().replace(Instant::now());
+            self_.progress.get().set_fraction(1_f64);
+            self.set_property("remaining-time", &(self.provider().period() as u64))
+                .unwrap();
+        }
+
+        // Tell all of the accounts to regen
+        let accounts = provider.accounts();
+        for i in 0..accounts.get_n_items() {
+            let item = accounts.get_object(i).unwrap();
+            let account = item.downcast_ref::<Account>().unwrap();
+            account.generate_otp();
+        }
+    }
+
+    fn tick(&self) {
+        let self_ = imp::ProviderRow::from_instance(self);
+        let max = self.provider().period() as f64;
+        let started_at = self_.started_at.borrow().clone().unwrap();
+        let remaining_time = started_at.elapsed().as_secs();
+
+        self.set_property("remaining-time", &remaining_time)
+            .unwrap();
+    }
+
+    fn tick_progressbar(&self) {
+        let self_ = imp::ProviderRow::from_instance(self);
+        let max = 1000_f64 * self.provider().period() as f64;
+
+        let started_at = self_.started_at.borrow().clone().unwrap();
+        let remaining_time = started_at.elapsed().as_millis();
+        let progress_fraction = (max - (remaining_time as f64)) / max;
+
+        self_.progress.get().set_fraction(progress_fraction);
+        if progress_fraction <= 0.0 {
+            self.restart();
+        }
+    }
+
     fn setup_widgets(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
 
@@ -123,23 +192,25 @@ impl ProviderRow {
 
         self_.image.get().set_provider(&self.provider());
 
-        let progress_bar = self_.progress.get();
+        self.restart();
         if self.provider().method() == OTPMethod::TOTP {
-            progress_bar.set_fraction(1_f64);
-            let max = self.provider().period() as f64;
+            glib::timeout_add_seconds_local(
+                1,
+                clone!(@weak self as row => @default-return glib::Continue(false), move || {
+                    row.tick();
+                    glib::Continue(true)
+                }),
+            );
+
             glib::timeout_add_local(
-                std::time::Duration::from_millis(50),
-                clone!(@weak progress_bar => @default-return glib::Continue(false), move || {
-                    let mut new_value = progress_bar.get_fraction() - (0.05/max);
-                    if new_value <= 0.0 {
-                        new_value = 1.0;
-                    }
-                    progress_bar.set_fraction(new_value);
+                Duration::from_millis(20),
+                clone!(@weak self as row => @default-return glib::Continue(false), move || {
+                    row.tick_progressbar();
                     glib::Continue(true)
                 }),
             );
         } else {
-            progress_bar.hide();
+            self_.progress.get().hide();
         }
 
         self.provider()

@@ -261,6 +261,7 @@ mod imp {
                 subclass::Property("website", ..) => self.website.borrow().to_value(),
                 subclass::Property("help-url", ..) => self.help_url.borrow().to_value(),
                 subclass::Property("image-uri", ..) => self.image_uri.borrow().to_value(),
+                subclass::Property("accounts", ..) => self.accounts.to_value(),
                 _ => unimplemented!(),
             }
         }

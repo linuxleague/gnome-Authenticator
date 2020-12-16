@@ -264,26 +264,10 @@ impl Account {
         let self_ = imp::Account::from_instance(&account);
         self_.token.set(token).unwrap();
 
-        account.init();
         account
     }
 
-    fn init(&self) {
-        self.generate_otp();
-        // Only trigger time-based callback after duration if it's a TOTP
-        if self.provider().method() == OTPMethod::TOTP {
-            glib::source::timeout_add_seconds_local(
-                self.provider().period() as u32,
-                clone!(@weak self as account => @default-return glib::Continue(false), move || {
-                    account.generate_otp();
-
-                    glib::Continue(true)
-                }),
-            );
-        }
-    }
-
-    fn generate_otp(&self) {
+    pub fn generate_otp(&self) {
         let provider = self.provider();
 
         let counter = match provider.method() {
@@ -308,7 +292,11 @@ impl Account {
             provider.algorithm().into(),
             provider.digits() as u32,
         );
-        self.set_property("otp", &otp.to_string()).unwrap();
+        self.set_property(
+            "otp",
+            &format!("{:0width$}", otp, width = provider.digits() as usize),
+        )
+        .unwrap();
     }
 
     fn increment_counter(&self) -> Result<()> {
