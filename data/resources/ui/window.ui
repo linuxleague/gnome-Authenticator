@@ -34,6 +34,7 @@
     <child>
       <object class="HdyLeaflet" id="deck">
         <property name="can-unfold">False</property>
+        <property name="can-swipe-back">True</property>
         <child>
           <object class="HdyLeafletPage">
             <property name="name">accounts</property>
@@ -82,6 +83,15 @@
                     </child>
                   </object>
                 </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="HdyLeafletPage">
+            <property name="name">account</property>
+            <property name="child">
+              <object class="AccountDetailsPage" id="account_details">
               </object>
             </property>
           </object>
@@ -179,15 +189,6 @@
                     </child>
                   </object>
                 </child>
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="HdyLeafletPage">
-            <property name="name">account</property>
-            <property name="child">
-              <object class="AccountDetailsPage" id="account_details">
               </object>
             </property>
           </object>

@@ -120,6 +120,7 @@ impl Window {
         match view {
             View::Login => {
                 self_.deck.get().set_visible_child_name("login");
+                self_.deck.get().set_can_swipe_back(false);
                 self_
                     .search_entry
                     .get()
@@ -128,11 +129,13 @@ impl Window {
             }
             View::Accounts => {
                 self_.deck.get().set_visible_child_name("accounts");
+                self_.deck.get().set_can_swipe_back(false);
 
                 //self_.search_entry.get().set_key_capture_widget(Some(self));
             }
             View::Account(account) => {
                 self_.deck.get().set_visible_child_name("account");
+                self_.deck.get().set_can_swipe_back(true);
                 self_.account_details.get().set_account(&account);
             }
         }
