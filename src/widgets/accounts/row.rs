@@ -163,7 +163,7 @@ impl AccountRow {
 
         action!(
             self_.actions,
-            "share",
+            "details",
             clone!(@weak self as row => move |_, _| {
                 row.emit("shared", &[]).unwrap();
             })

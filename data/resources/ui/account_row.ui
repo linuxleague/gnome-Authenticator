@@ -3,8 +3,8 @@
   <menu id="account-menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">_Share</attribute>
-        <attribute name="action">account.share</attribute>
+        <attribute name="label" translatable="yes">D_etails</attribute>
+        <attribute name="action">account.details</attribute>
       </item>
     </section>
     <section>

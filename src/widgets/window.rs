@@ -3,7 +3,7 @@ use crate::{
     config,
     helpers::Keyring,
     models::{Account, ProvidersModel},
-    widgets::{accounts::QRCodePage, providers::ProvidersList, AccountAddDialog},
+    widgets::{accounts::AccountDetailsPage, providers::ProvidersList, AccountAddDialog},
     window_state,
 };
 use gio::subclass::ObjectSubclass;
@@ -29,8 +29,9 @@ mod imp {
     pub struct Window {
         pub settings: gio::Settings,
         pub providers: ProvidersList,
-        pub qrcode_page: QRCodePage,
         pub model: OnceCell<ProvidersModel>,
+        #[template_child]
+        pub account_details: TemplateChild<AccountDetailsPage>,
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
@@ -62,7 +63,7 @@ mod imp {
                 settings,
                 providers: ProvidersList::new(),
                 model: OnceCell::new(),
-                qrcode_page: QRCodePage::new(),
+                account_details: TemplateChild::default(),
                 search_entry: TemplateChild::default(),
                 deck: TemplateChild::default(),
                 container: TemplateChild::default(),
@@ -72,7 +73,9 @@ mod imp {
                 locked_img: TemplateChild::default(),
             }
         }
+
         fn class_init(klass: &mut Self::Class) {
+            AccountDetailsPage::static_type();
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/window.ui");
             Self::bind_template_children(klass);
         }
@@ -130,7 +133,7 @@ impl Window {
             }
             View::Account(account) => {
                 self_.deck.get().set_visible_child_name("account");
-                self_.qrcode_page.set_account(&account);
+                self_.account_details.get().set_account(&account);
             }
         }
     }
@@ -200,9 +203,6 @@ impl Window {
         self.set_help_overlay(Some(&shortcuts));
 
         self_.container.get().append(&self_.providers);
-
-        let page = self_.deck.get().append(&self_.qrcode_page).unwrap();
-        page.set_name("account");
 
         self_
             .search_bar

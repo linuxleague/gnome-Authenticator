@@ -2,7 +2,7 @@ data/com.belmoussaoui.Authenticator.desktop.in.in
 data/com.belmoussaoui.Authenticator.gschema.xml.in
 data/com.belmoussaoui.Authenticator.metainfo.xml.in.in
 data/resources/ui/account_add.ui
-data/resources/ui/account_qrcode_page.ui
+data/resources/ui/account_details_page.ui
 data/resources/ui/account_row.ui
 data/resources/ui/preferences_password_page.ui
 data/resources/ui/preferences.ui

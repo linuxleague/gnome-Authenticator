@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template parent="GtkBox" class="QRCodePage">
+  <template parent="GtkBox" class="AccountDetailsPage">
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="orientation">vertical</property>

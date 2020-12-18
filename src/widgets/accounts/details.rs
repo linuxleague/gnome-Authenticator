@@ -8,7 +8,7 @@ mod imp {
     use gtk::subclass::prelude::*;
 
     #[derive(Debug, CompositeTemplate)]
-    pub struct QRCodePage {
+    pub struct AccountDetailsPage {
         #[template_child]
         pub website_row: TemplateChild<UrlRow>,
         #[template_child]
@@ -21,9 +21,9 @@ mod imp {
         pub listbox: TemplateChild<gtk::ListBox>,
     }
 
-    impl ObjectSubclass for QRCodePage {
-        const NAME: &'static str = "QRCodePage";
-        type Type = super::QRCodePage;
+    impl ObjectSubclass for AccountDetailsPage {
+        const NAME: &'static str = "AccountDetailsPage";
+        type Type = super::AccountDetailsPage;
         type ParentType = gtk::Box;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
@@ -43,33 +43,33 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             UrlRow::static_type();
             klass.set_template_from_resource(
-                "/com/belmoussaoui/Authenticator/account_qrcode_page.ui",
+                "/com/belmoussaoui/Authenticator/account_details_page.ui",
             );
             Self::bind_template_children(klass);
         }
     }
 
-    impl ObjectImpl for QRCodePage {
+    impl ObjectImpl for AccountDetailsPage {
         fn constructed(&self, obj: &Self::Type) {
             obj.init_template();
             self.parent_constructed(obj);
         }
     }
-    impl WidgetImpl for QRCodePage {}
-    impl BoxImpl for QRCodePage {}
+    impl WidgetImpl for AccountDetailsPage {}
+    impl BoxImpl for AccountDetailsPage {}
 }
 
 glib::wrapper! {
-    pub struct QRCodePage(ObjectSubclass<imp::QRCodePage>) @extends gtk::Widget, gtk::Box;
+    pub struct AccountDetailsPage(ObjectSubclass<imp::AccountDetailsPage>) @extends gtk::Widget, gtk::Box;
 }
-impl QRCodePage {
+impl AccountDetailsPage {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create QRCodePage")
+        glib::Object::new(&[]).expect("Failed to create AccountDetailsPage")
     }
 
     pub fn set_account(&self, account: &Account) {
-        let self_ = imp::QRCodePage::from_instance(self);
+        let self_ = imp::AccountDetailsPage::from_instance(self);
         let is_dark = gtk::Settings::get_default()
             .unwrap()
             .get_property_gtk_application_prefer_dark_theme();

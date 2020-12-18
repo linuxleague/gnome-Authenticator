@@ -1,6 +1,6 @@
 mod add;
-mod qrcode_page;
+mod details;
 mod row;
 
 pub use self::{add::AccountAddDialog, row::AccountRow};
-pub use qrcode_page::QRCodePage;
+pub use details::AccountDetailsPage;

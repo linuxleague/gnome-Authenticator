@@ -183,6 +183,15 @@
             </property>
           </object>
         </child>
+        <child>
+          <object class="HdyLeafletPage">
+            <property name="name">account</property>
+            <property name="child">
+              <object class="AccountDetailsPage" id="account_details">
+              </object>
+            </property>
+          </object>
+        </child>
       </object>
     </child>
   </template>
