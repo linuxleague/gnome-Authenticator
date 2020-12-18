@@ -5,7 +5,7 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Authenticator</name>
-  <summary>Generate Two-Factor codes</summary>
+  <summary>Generate Two-Factor Codes</summary>
   <description>
     <p>Simple application that generates a two-factor authentication code, created for GNOME.</p>
     <p>Features:</p>

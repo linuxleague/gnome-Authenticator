@@ -5,7 +5,7 @@
 # Authenticator
 
 <img src="https://gitlab.gnome.org/bilelmoussaoui/authenticator/raw/master/data/icons/com.belmoussaoui.Authenticator.svg" width="128px" height="128px" />
-<p>Generate Two-Factor codes</p>
+<p>Generate Two-Factor Codes</p>
 
 ## Screenshots
 

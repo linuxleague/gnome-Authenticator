@@ -52,7 +52,7 @@
             </child>
             <child>
               <object class="HdyActionRow">
-                <property name="title" translatable="yes">_Auto Lock the application</property>
+                <property name="title" translatable="yes">_Auto Lock the Application</property>
                 <property name="use-underline">True</property>
                 <property name="activatable-widget">auto_lock_switch</property>
                 <property name="subtitle" translatable="yes">Whether to automatically lock the application</property>
@@ -65,7 +65,7 @@
             </child>
             <child>
               <object class="HdyActionRow">
-                <property name="title" translatable="yes">Auto lock _timeout</property>
+                <property name="title" translatable="yes">Auto lock _Timeout</property>
                 <property name="subtitle" translatable="yes">The time in minutes</property>
                 <property name="activatable-widget">lock_timeout_spin_btn</property>
                 <property name="use-underline">True</property>

@@ -145,7 +145,7 @@ mod imp {
                         .program_name(&gettext("Authenticator"))
                         .modal(true)
                         .version(config::VERSION)
-                        .comments(&gettext("Generate Two-Factor codes"))
+                        .comments(&gettext("Generate Two-Factor Codes"))
                         .website("https://gitlab.gnome.org/World/Authenticator")
                         .authors(vec!["Bilal Elmoussaoui".to_string()])
                         .artists(vec!["Alexandros Felekidis".to_string(), "Tobias Bernard".to_string()])
