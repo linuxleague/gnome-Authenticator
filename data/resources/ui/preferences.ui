@@ -10,6 +10,7 @@
     <property name="default-width">680</property>
     <property name="default-height">550</property>
     <property name="search-enabled">False</property>
+    <property name="can-swipe-back">True</property>
     <child>
       <object class="HdyPreferencesPage">
         <property name="icon-name">applications-system-symbolic</property>

@@ -7,7 +7,7 @@
     <child>
       <object class="GtkScrolledWindow">
         <property name="vexpand">True</property>
-        <property name="min-content-width">320</property>
+        <property name="min-content-width">300</property>
         <property name="min-content-height">400</property>
         <child>
           <object class="HdyClamp">
