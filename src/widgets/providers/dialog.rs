@@ -1,8 +1,8 @@
 use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
-use gio::{prelude::*, subclass::ObjectSubclass, ListModelExt};
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gio::{subclass::ObjectSubclass, ListModelExt};
+use glib::clone;
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 mod imp {
@@ -35,7 +35,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
@@ -67,16 +67,14 @@ mod imp {
     impl WindowImpl for ProvidersDialog {}
     impl HdyWindowImpl for ProvidersDialog {}
 }
-glib_wrapper! {
+glib::wrapper! {
     pub struct ProvidersDialog(ObjectSubclass<imp::ProvidersDialog>) @extends gtk::Widget, gtk::Window, libhandy::Window;
 }
 
 impl ProvidersDialog {
     pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create ProvidersDialog")
-            .downcast::<ProvidersDialog>()
-            .expect("Created object is of wrong type");
+        let dialog =
+            glib::Object::new::<ProvidersDialog>(&[]).expect("Failed to create ProvidersDialog");
 
         dialog.setup_widgets(model);
         dialog.setup_actions();
@@ -236,7 +234,7 @@ mod row {
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
-            glib_object_subclass!();
+            glib::object_subclass!();
 
             fn new() -> Self {
                 let actions = gio::SimpleActionGroup::new();
@@ -286,17 +284,14 @@ mod row {
         impl ListBoxRowImpl for ProviderActionRow {}
     }
 
-    glib_wrapper! {
+    glib::wrapper! {
         pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, gtk::ListBoxRow;
     }
 
     impl ProviderActionRow {
         #[allow(clippy::new_without_default)]
         pub fn new() -> Self {
-            glib::Object::new(Self::static_type(), &[])
-                .expect("Failed to create ProviderActionRow")
-                .downcast::<ProviderActionRow>()
-                .expect("Created object is of wrong type")
+            glib::Object::new(&[]).expect("Failed to create ProviderActionRow")
         }
 
         fn setup_widgets(&self) {

@@ -2,7 +2,7 @@ use super::Restorable;
 use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
-use gio::prelude::*;
+use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
 
 // Same as andOTP except uses the first tag for the issuer
@@ -33,8 +33,8 @@ impl Restorable for LegacyAuthenticator {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {
-        let (data, _) = from.load_contents(gio::NONE_CANCELLABLE)?;
+    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
+        let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
 
         let items: Vec<LegacyAuthenticator> = serde_json::de::from_slice(&data)?;
 

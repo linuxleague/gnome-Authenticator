@@ -12,7 +12,7 @@ pub trait Restorable {
     fn subtitle() -> String;
     // Used to define the `restore.$identifier` action
     fn identifier() -> String;
-    fn restore(model: ProvidersModel, from: gio::File) -> Result<()>;
+    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()>;
 }
 
 pub trait Backupable {
@@ -20,7 +20,7 @@ pub trait Backupable {
     fn subtitle() -> String;
     // Used to define the `backup.$identifier` action
     fn identifier() -> String;
-    fn backup(model: ProvidersModel, into: gio::File) -> Result<()>;
+    fn backup(model: ProvidersModel, into: gtk::gio::File) -> Result<()>;
 }
 
 mod andotp;

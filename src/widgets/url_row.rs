@@ -1,11 +1,11 @@
 use gio::subclass::ObjectSubclass;
-use glib::{clone, glib_wrapper, Cast, ObjectExt, StaticType, ToValue};
-use gtk::WidgetExt;
+use glib::{clone, ObjectExt, ToValue};
+use gtk::{gio, glib, WidgetExt};
 use libhandy::ActionRowExt;
 
 mod imp {
     use super::*;
-    use glib::{glib_object_subclass, subclass};
+    use glib::subclass;
     use gtk::subclass::prelude::*;
     use libhandy::subclass::action_row::ActionRowImpl;
     use std::cell::RefCell;
@@ -43,7 +43,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -93,17 +93,14 @@ mod imp {
     impl ActionRowImpl for UrlRow {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct UrlRow(ObjectSubclass<imp::UrlRow>) @extends gtk::Widget, gtk::ListBoxRow, libhandy::ActionRow;
 }
 
 impl UrlRow {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create UrlRow")
-            .downcast::<UrlRow>()
-            .expect("Created object is of wrong type")
+        glib::Object::new(&[]).expect("Failed to create UrlRow")
     }
 
     fn setup_widgets(&self) {

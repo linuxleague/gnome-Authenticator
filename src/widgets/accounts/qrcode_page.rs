@@ -1,7 +1,6 @@
 use crate::{models::Account, widgets::UrlRow};
 use gio::{subclass::ObjectSubclass, FileExt};
-use glib::{glib_object_subclass, glib_wrapper, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;
@@ -29,7 +28,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -60,16 +59,13 @@ mod imp {
     impl BoxImpl for QRCodePage {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct QRCodePage(ObjectSubclass<imp::QRCodePage>) @extends gtk::Widget, gtk::Box;
 }
 impl QRCodePage {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create QRCodePage")
-            .downcast::<QRCodePage>()
-            .expect("Created object is of wrong type")
+        glib::Object::new(&[]).expect("Failed to create QRCodePage")
     }
 
     pub fn set_account(&self, account: &Account) {
@@ -79,7 +75,7 @@ impl QRCodePage {
             .get_property_gtk_application_prefer_dark_theme();
         let qr_code = account.qr_code(is_dark).unwrap();
 
-        let pixbuf = gdk_pixbuf::Pixbuf::from_file(qr_code.get_path().unwrap()).unwrap();
+        let pixbuf = gtk::gdk_pixbuf::Pixbuf::from_file(qr_code.get_path().unwrap()).unwrap();
         self_.image.get().set_from_pixbuf(Some(&pixbuf));
 
         self_.account_label.get().set_text(&account.name());

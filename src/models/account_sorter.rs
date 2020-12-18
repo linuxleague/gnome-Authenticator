@@ -1,6 +1,5 @@
 use super::account::Account;
-use gio::{prelude::*, subclass::ObjectSubclass};
-use glib::{glib_object_subclass, glib_wrapper, StaticType};
+use gtk::glib;
 
 mod imp {
     use super::*;
@@ -17,7 +16,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             Self {}
@@ -40,16 +39,13 @@ mod imp {
     }
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct AccountSorter(ObjectSubclass<imp::AccountSorter>) @extends gtk::Sorter;
 }
 
 impl AccountSorter {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create AccountSorter")
-            .downcast()
-            .expect("Created AccountSorter is of wrong type")
+        glib::Object::new(&[]).expect("Failed to create AccountSorter")
     }
 }

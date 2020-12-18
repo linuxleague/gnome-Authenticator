@@ -8,7 +8,8 @@ use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use gio::{subclass::ObjectSubclass, FileExt};
-use glib::{clone, glib_object_subclass, glib_wrapper, Cast, ObjectExt, StaticType, ToValue};
+use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
+use gtk::{gio, glib};
 use once_cell::sync::OnceCell;
 use qrcode::QrCode;
 use ring::hmac;
@@ -114,7 +115,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn class_init(klass: &mut Self::Class) {
             klass.install_properties(&PROPERTIES);
@@ -181,7 +182,7 @@ mod imp {
         }
     }
 }
-glib_wrapper! {
+glib::wrapper! {
     pub struct Account(ObjectSubclass<imp::Account>);
 }
 
@@ -246,19 +247,14 @@ impl Account {
     }
 
     pub fn new(id: i32, name: &str, token_id: &str, counter: i32, provider: Provider) -> Account {
-        let account = glib::Object::new(
-            Account::static_type(),
-            &[
-                ("id", &id),
-                ("name", &name),
-                ("token-id", &token_id),
-                ("provider", &provider),
-                ("counter", &counter),
-            ],
-        )
-        .expect("Failed to create account")
-        .downcast::<Account>()
-        .expect("Created account is of wrong type");
+        let account = glib::Object::new(&[
+            ("id", &id),
+            ("name", &name),
+            ("token-id", &token_id),
+            ("provider", &provider),
+            ("counter", &counter),
+        ])
+        .expect("Failed to create account");
 
         let token = Keyring::token(token_id).unwrap().unwrap();
         let self_ = imp::Account::from_instance(&account);
@@ -316,7 +312,7 @@ impl Account {
     }
 
     pub fn copy_otp(&self) {
-        let display = gdk::Display::get_default().unwrap();
+        let display = gtk::gdk::Display::get_default().unwrap();
         let clipboard = display.get_clipboard();
         let self_ = imp::Account::from_instance(self);
         clipboard.set_text(&self_.otp.borrow());

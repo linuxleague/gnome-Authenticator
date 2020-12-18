@@ -1,7 +1,7 @@
 use crate::models::Provider;
 use gio::{subclass::ObjectSubclass, FileExt};
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*, Receiver, Sender};
-use gtk::{prelude::*, CompositeTemplate};
+use glib::{clone, Receiver, Sender};
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 
 pub enum ImageAction {
     Ready(gio::File),
@@ -58,7 +58,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
@@ -117,16 +117,13 @@ mod imp {
     impl BoxImpl for ProviderImage {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct ProviderImage(ObjectSubclass<imp::ProviderImage>) @extends gtk::Widget, gtk::Box;
 }
 impl ProviderImage {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create ProviderImage")
-            .downcast::<ProviderImage>()
-            .expect("Created ProviderImage is of wrong type")
+        glib::Object::new(&[]).expect("Failed to create ProviderImage")
     }
 
     pub fn set_provider(&self, provider: &Provider) {

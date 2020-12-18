@@ -5,7 +5,7 @@ use std::{fs, fs::File, path::PathBuf};
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 
-static DB_PATH: Lazy<PathBuf> = Lazy::new(|| glib::get_user_data_dir().join("authenticator"));
+static DB_PATH: Lazy<PathBuf> = Lazy::new(|| gtk::glib::get_user_data_dir().join("authenticator"));
 static POOL: Lazy<Pool> = Lazy::new(|| init_pool().expect("Failed to create a pool"));
 
 embed_migrations!("migrations/");

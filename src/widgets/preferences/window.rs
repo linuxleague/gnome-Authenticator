@@ -5,9 +5,9 @@ use crate::{
     models::ProvidersModel,
 };
 use gettextrs::gettext;
-use gio::{prelude::*, subclass::ObjectSubclass, ActionMapExt};
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gio::{subclass::ObjectSubclass, ActionMapExt};
+use glib::clone;
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use libhandy::prelude::*;
 use once_cell::sync::OnceCell;
 
@@ -48,7 +48,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let settings = gio::Settings::new(config::APP_ID);
@@ -95,17 +95,14 @@ mod imp {
     impl PreferencesWindowImpl for PreferencesWindow {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct PreferencesWindow(ObjectSubclass<imp::PreferencesWindow>)
         @extends gtk::Widget, gtk::Window, libhandy::Window, libhandy::PreferencesWindow;
 }
 
 impl PreferencesWindow {
     pub fn new(model: ProvidersModel) -> Self {
-        let window = glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create PreferencesWindow")
-            .downcast::<PreferencesWindow>()
-            .expect("Created object is of wrong type");
+        let window = glib::Object::new(&[]).expect("Failed to create PreferencesWindow");
         let self_ = imp::PreferencesWindow::from_instance(&window);
         self_.model.set(model).unwrap();
         window.setup_widgets();

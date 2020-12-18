@@ -4,9 +4,9 @@ use crate::{
     widgets::{ProviderImage, UrlRow},
 };
 use anyhow::Result;
-use gio::{prelude::*, subclass::ObjectSubclass, ActionMapExt};
-use glib::{clone, glib_object_subclass, glib_wrapper, signal::Inhibit, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gio::{subclass::ObjectSubclass, ActionMapExt};
+use glib::{clone, signal::Inhibit};
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 
@@ -58,7 +58,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let actions = gio::SimpleActionGroup::new();
@@ -103,16 +103,13 @@ mod imp {
     impl WindowImpl for AccountAddDialog {}
     impl libhandy::subclass::window::WindowImpl for AccountAddDialog {}
 }
-glib_wrapper! {
+glib::wrapper! {
     pub struct AccountAddDialog(ObjectSubclass<imp::AccountAddDialog>) @extends gtk::Widget, gtk::Window, libhandy::Window;
 }
 
 impl AccountAddDialog {
     pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create AccountAddDialog")
-            .downcast::<AccountAddDialog>()
-            .expect("Created object is of wrong type");
+        let dialog = glib::Object::new(&[]).expect("Failed to create AccountAddDialog");
 
         let self_ = imp::AccountAddDialog::from_instance(&dialog);
         self_.model.set(model).unwrap();

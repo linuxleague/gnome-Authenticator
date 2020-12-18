@@ -6,8 +6,9 @@ use crate::{
 use anyhow::Result;
 use core::cmp::Ordering;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use gio::{prelude::*, subclass::ObjectSubclass};
-use glib::{glib_object_subclass, glib_wrapper, Cast, StaticType, ToValue};
+use gio::subclass::ObjectSubclass;
+use glib::{Cast, StaticType, ToValue};
+use gtk::{gio, glib, prelude::*};
 use std::{
     cell::{Cell, RefCell},
     str::FromStr,
@@ -173,7 +174,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn class_init(klass: &mut Self::Class) {
             klass.install_properties(&PROPERTIES);
@@ -268,7 +269,7 @@ mod imp {
     }
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct Provider(ObjectSubclass<imp::Provider>);
 }
 
@@ -343,24 +344,19 @@ impl Provider {
         help_url: Option<String>,
         image_uri: Option<String>,
     ) -> Provider {
-        glib::Object::new(
-            Provider::static_type(),
-            &[
-                ("id", &id),
-                ("name", &name),
-                ("website", &website),
-                ("help-url", &help_url),
-                ("image-uri", &image_uri),
-                ("period", &period),
-                ("method", &method.to_string()),
-                ("algorithm", &algorithm.to_string()),
-                ("digits", &digits),
-                ("default-counter", &default_counter),
-            ],
-        )
+        glib::Object::new(&[
+            ("id", &id),
+            ("name", &name),
+            ("website", &website),
+            ("help-url", &help_url),
+            ("image-uri", &image_uri),
+            ("period", &period),
+            ("method", &method.to_string()),
+            ("algorithm", &algorithm.to_string()),
+            ("digits", &digits),
+            ("default-counter", &default_counter),
+        ])
         .expect("Failed to create provider")
-        .downcast()
-        .expect("Created provider is of wrong type")
     }
 
     pub async fn favicon(&self) -> Result<gio::File, FaviconError> {

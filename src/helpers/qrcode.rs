@@ -4,7 +4,7 @@ use ashpd::{
     desktop::screenshot::{Screenshot, ScreenshotOptions, ScreenshotProxy},
     zbus, RequestProxy, Response, WindowIdentifier,
 };
-use gio::FileExt;
+use gtk::{gio, prelude::*};
 use image::GenericImageView;
 use std::str::FromStr;
 use zbar_rust::ZBarImageScanner;

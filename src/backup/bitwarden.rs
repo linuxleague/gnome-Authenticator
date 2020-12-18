@@ -20,7 +20,7 @@ impl Restorable for Bitwarden {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {
+    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
         Ok(())
     }
 }

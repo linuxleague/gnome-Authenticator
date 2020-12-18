@@ -27,8 +27,8 @@ fn main() {
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
     textdomain(GETTEXT_PACKAGE);
 
-    glib::set_application_name("Authenticator");
-    glib::set_prgname(Some(config::APP_ID));
+    gtk::glib::set_application_name("Authenticator");
+    gtk::glib::set_prgname(Some(config::APP_ID));
 
     static_resources::init().expect("Failed to initialize the resource file.");
 

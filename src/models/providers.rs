@@ -1,8 +1,8 @@
 use super::{Account, Algorithm, OTPMethod, Provider};
 use anyhow::Result;
-use gio::{prelude::*, subclass::ObjectSubclass};
-use glib::{glib_object_subclass, glib_wrapper, StaticType};
-use gtk::prelude::*;
+use gio::subclass::ObjectSubclass;
+use glib::StaticType;
+use gtk::{gio, glib, prelude::*};
 
 mod imp {
     use super::*;
@@ -20,7 +20,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn type_init(type_: &mut subclass::InitializingType<Self>) {
             type_.add_interface::<gio::ListModel>();
@@ -47,17 +47,14 @@ mod imp {
     }
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct ProvidersModel(ObjectSubclass<imp::ProvidersModel>) @implements gio::ListModel;
 }
 
 impl ProvidersModel {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        let model: ProvidersModel = glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create Model")
-            .downcast()
-            .expect("Created Model is of wrong type");
+        let model: ProvidersModel = glib::Object::new(&[]).expect("Failed to create Model");
         model.init();
         model
     }

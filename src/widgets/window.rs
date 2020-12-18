@@ -6,9 +6,9 @@ use crate::{
     widgets::{accounts::QRCodePage, providers::ProvidersList, AccountAddDialog},
     window_state,
 };
-use gio::{prelude::*, subclass::ObjectSubclass};
-use glib::{clone, glib_object_subclass, glib_wrapper, signal::Inhibit, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gio::subclass::ObjectSubclass;
+use glib::{clone, signal::Inhibit, subclass::prelude::*};
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 
@@ -54,7 +54,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let settings = gio::Settings::new(config::APP_ID);
@@ -92,17 +92,14 @@ mod imp {
     impl HdyApplicationWindowImpl for Window {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct Window(ObjectSubclass<imp::Window>)
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, libhandy::ApplicationWindow, gio::ActionMap, gio::ActionGroup;
 }
 
 impl Window {
     pub fn new(model: ProvidersModel, app: &Application) -> Self {
-        let window = glib::Object::new(Window::static_type(), &[("application", app)])
-            .unwrap()
-            .downcast::<Window>()
-            .unwrap();
+        let window = glib::Object::new::<Window>(&[("application", app)]).unwrap();
         app.add_window(&window);
 
         if config::PROFILE == "Devel" {

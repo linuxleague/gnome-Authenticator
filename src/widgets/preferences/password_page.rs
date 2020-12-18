@@ -1,7 +1,7 @@
 use crate::{config, helpers::Keyring};
-use gio::{prelude::*, subclass::ObjectSubclass};
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gio::subclass::ObjectSubclass;
+use glib::clone;
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 use std::cell::Cell;
@@ -34,7 +34,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let has_set_password = Keyring::has_set_password().unwrap_or(false);
@@ -69,16 +69,13 @@ mod imp {
     impl BoxImpl for PasswordPage {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct PasswordPage(ObjectSubclass<imp::PasswordPage>) @extends gtk::Widget, gtk::Box;
 }
 
 impl PasswordPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
-        let page = glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create PasswordPage")
-            .downcast::<PasswordPage>()
-            .expect("Created object is of wrong type");
+        let page = glib::Object::new(&[]).expect("Failed to create PasswordPage");
         let self_ = imp::PasswordPage::from_instance(&page);
         self_.actions.set(actions).unwrap();
         page.setup_widgets();

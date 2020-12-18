@@ -2,9 +2,13 @@ use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
     widgets::{accounts::AccountRow, ProviderImage},
 };
-use gio::{prelude::*, subclass::ObjectSubclass};
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gio::subclass::ObjectSubclass;
+use gtk::{
+    gio, glib,
+    glib::{clone, subclass::prelude::*},
+    prelude::*,
+    CompositeTemplate,
+};
 use std::time::{Duration, Instant};
 
 mod imp {
@@ -58,7 +62,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -123,16 +127,13 @@ mod imp {
     impl ListBoxRowImpl for ProviderRow {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct ProviderRow(ObjectSubclass<imp::ProviderRow>) @extends gtk::Widget, gtk::ListBoxRow;
 }
 
 impl ProviderRow {
     pub fn new(provider: Provider) -> Self {
-        glib::Object::new(Self::static_type(), &[("provider", &provider)])
-            .expect("Failed to create ProviderRow")
-            .downcast::<ProviderRow>()
-            .expect("Created object is of wrong type")
+        glib::Object::new(&[("provider", &provider)]).expect("Failed to create ProviderRow")
     }
 
     fn provider(&self) -> Provider {

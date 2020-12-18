@@ -4,8 +4,8 @@ use crate::{
     widgets::providers::ProviderRow,
 };
 use gio::{subclass::ObjectSubclass, ListModelExt};
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use glib::clone;
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;
@@ -29,7 +29,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
@@ -64,16 +64,13 @@ mod imp {
     impl BoxImpl for ProvidersList {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct ProvidersList(ObjectSubclass<imp::ProvidersList>) @extends gtk::Widget, gtk::Box;
 }
 impl ProvidersList {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create ProvidersList")
-            .downcast::<ProvidersList>()
-            .expect("Created object is of wrong type")
+        glib::Object::new(&[]).expect("Failed to create ProvidersList")
     }
 
     pub fn set_model(&self, model: ProvidersModel) {

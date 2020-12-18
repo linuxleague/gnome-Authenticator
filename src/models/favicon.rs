@@ -15,7 +15,7 @@ const SUPPORTED_RELS: [&[u8]; 7] = [
 pub enum FaviconError {
     Surf(surf::Error),
     Url(url::ParseError),
-    GLib(glib::Error),
+    GLib(gtk::glib::Error),
     NoResults,
 }
 
@@ -25,8 +25,8 @@ impl From<surf::Error> for FaviconError {
     }
 }
 
-impl From<glib::Error> for FaviconError {
-    fn from(e: glib::Error) -> Self {
+impl From<gtk::glib::Error> for FaviconError {
+    fn from(e: gtk::glib::Error) -> Self {
         Self::GLib(e)
     }
 }

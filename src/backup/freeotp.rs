@@ -2,7 +2,7 @@ use super::{Backupable, Restorable};
 use crate::models::{Account, OTPUri, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
-use gio::prelude::*;
+use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
@@ -22,7 +22,7 @@ impl Backupable for FreeOTP {
         gettext("Into a plain-text file, compatible with FreeOTP+")
     }
 
-    fn backup(model: ProvidersModel, into: gio::File) -> Result<()> {
+    fn backup(model: ProvidersModel, into: gtk::gio::File) -> Result<()> {
         let mut items: Vec<String> = Vec::new();
 
         for i in 0..model.get_n_items() {
@@ -46,8 +46,8 @@ impl Backupable for FreeOTP {
             content.as_bytes(),
             None,
             false,
-            gio::FileCreateFlags::REPLACE_DESTINATION,
-            gio::NONE_CANCELLABLE,
+            gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
+            gtk::gio::NONE_CANCELLABLE,
         )?;
 
         Ok(())
@@ -67,8 +67,8 @@ impl Restorable for FreeOTP {
         gettext("From a plain-text file, compatible with FreeOTP+")
     }
 
-    fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {
-        let (data, _) = from.load_contents(gio::NONE_CANCELLABLE)?;
+    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
+        let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
         let uris = String::from_utf8(data)?;
 
         uris.split('\n')

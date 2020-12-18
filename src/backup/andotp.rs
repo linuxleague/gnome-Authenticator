@@ -2,8 +2,7 @@ use super::{Backupable, Restorable};
 use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
-use gio::prelude::*;
-use glib::Cast;
+use gtk::{glib::Cast, prelude::*};
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -36,7 +35,7 @@ impl Backupable for AndOTP {
         gettext("Into a plain-text JSON file")
     }
 
-    fn backup(model: ProvidersModel, into: gio::File) -> Result<()> {
+    fn backup(model: ProvidersModel, into: gtk::gio::File) -> Result<()> {
         let mut items = Vec::new();
 
         for i in 0..model.get_n_items() {
@@ -74,8 +73,8 @@ impl Backupable for AndOTP {
             content.as_bytes(),
             None,
             false,
-            gio::FileCreateFlags::REPLACE_DESTINATION,
-            gio::NONE_CANCELLABLE,
+            gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
+            gtk::gio::NONE_CANCELLABLE,
         )?;
 
         Ok(())
@@ -95,8 +94,8 @@ impl Restorable for AndOTP {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(model: ProvidersModel, from: gio::File) -> Result<()> {
-        let (data, _) = from.load_contents(gio::NONE_CANCELLABLE)?;
+    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
+        let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
 
         let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;
         items.iter().try_for_each(|item| -> anyhow::Result<()> {

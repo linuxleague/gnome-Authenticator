@@ -5,9 +5,9 @@ use crate::{
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use gettextrs::gettext;
-use gio::{prelude::*, subclass::ObjectSubclass};
-use glib::{clone, glib_object_subclass, glib_wrapper};
-use gtk::prelude::*;
+use gio::subclass::ObjectSubclass;
+use glib::clone;
+use gtk::{gio, glib, prelude::*};
 use gtk_macros::{action, get_action};
 use std::env;
 
@@ -45,7 +45,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn class_init(klass: &mut Self::Class) {
             klass.install_properties(&PROPERTIES);
@@ -105,7 +105,7 @@ mod imp {
             libhandy::functions::init();
 
             let app = app.downcast_ref::<super::Application>().unwrap();
-            if let Some(ref display) = gdk::Display::get_default() {
+            if let Some(ref display) = gtk::gdk::Display::get_default() {
                 let p = gtk::CssProvider::new();
                 gtk::CssProvider::load_from_resource(
                     &p,
@@ -220,7 +220,7 @@ mod imp {
     }
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct Application(ObjectSubclass<imp::Application>)
         @extends gio::Application, gtk::Application, gio::ActionMap;
 }
@@ -231,15 +231,10 @@ impl Application {
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
 
-        let app = glib::Object::new(
-            Application::static_type(),
-            &[
-                ("application-id", &Some(config::APP_ID)),
-                ("flags", &gio::ApplicationFlags::empty()),
-            ],
-        )
-        .unwrap()
-        .downcast::<Application>()
+        let app = glib::Object::new::<Application>(&[
+            ("application-id", &Some(config::APP_ID)),
+            ("flags", &gio::ApplicationFlags::empty()),
+        ])
         .unwrap();
 
         let args: Vec<String> = env::args().collect();

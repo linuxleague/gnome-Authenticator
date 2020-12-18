@@ -1,9 +1,8 @@
 use crate::widgets::Window;
 use anyhow::Result;
-use gio::prelude::SettingsExt;
 use gtk::prelude::*;
 
-pub fn load(window: &Window, settings: &gio::Settings) {
+pub fn load(window: &Window, settings: &gtk::gio::Settings) {
     let width = settings.get_int("window-width");
     let height = settings.get_int("window-height");
 
@@ -17,7 +16,7 @@ pub fn load(window: &Window, settings: &gio::Settings) {
     }
 }
 
-pub fn save(window: &Window, settings: &gio::Settings) -> Result<()> {
+pub fn save(window: &Window, settings: &gtk::gio::Settings) -> Result<()> {
     let size = window.get_default_size();
     settings.set_int("window-width", size.0)?;
     settings.set_int("window-height", size.1)?;

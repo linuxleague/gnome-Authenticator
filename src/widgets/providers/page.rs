@@ -3,8 +3,8 @@ use crate::{
     widgets::ProviderImage,
 };
 use gio::subclass::ObjectSubclass;
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*, translate::ToGlib};
-use gtk::{prelude::*, CompositeTemplate};
+use glib::{clone, translate::ToGlib};
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use libhandy::ComboRowExt;
 
 pub enum ProviderPageMode {
@@ -58,7 +58,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let methods_model = libhandy::EnumListModel::new(OTPMethod::static_type());
@@ -101,16 +101,13 @@ mod imp {
     impl BoxImpl for ProviderPage {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct ProviderPage(ObjectSubclass<imp::ProviderPage>) @extends gtk::Widget, gtk::Box;
 }
 impl ProviderPage {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        glib::Object::new(Self::static_type(), &[])
-            .expect("Failed to create ProviderPage")
-            .downcast::<ProviderPage>()
-            .expect("Created object is of wrong type")
+        glib::Object::new(&[]).expect("Failed to create ProviderPage")
     }
 
     pub fn set_provider(&self, provider: Provider) {

@@ -1,7 +1,7 @@
 use crate::models::Account;
-use gio::{prelude::*, subclass::ObjectSubclass, ActionMapExt};
-use glib::{clone, glib_object_subclass, glib_wrapper, subclass::prelude::*};
-use gtk::{prelude::*, CompositeTemplate};
+use gio::{subclass::ObjectSubclass, ActionMapExt};
+use glib::clone;
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use std::cell::RefCell;
 
@@ -43,7 +43,7 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
-        glib_object_subclass!();
+        glib::object_subclass!();
 
         fn new() -> Self {
             let actions = gio::SimpleActionGroup::new();
@@ -100,16 +100,13 @@ mod imp {
     impl ListBoxRowImpl for AccountRow {}
 }
 
-glib_wrapper! {
+glib::wrapper! {
     pub struct AccountRow(ObjectSubclass<imp::AccountRow>) @extends gtk::Widget, gtk::ListBoxRow;
 }
 
 impl AccountRow {
     pub fn new(account: Account) -> Self {
-        glib::Object::new(Self::static_type(), &[("account", &account)])
-            .expect("Failed to create AccountRow")
-            .downcast::<AccountRow>()
-            .expect("Created object is of wrong type")
+        glib::Object::new(&[("account", &account)]).expect("Failed to create AccountRow")
     }
 
     fn account(&self) -> Account {
