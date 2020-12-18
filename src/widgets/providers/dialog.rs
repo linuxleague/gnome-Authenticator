@@ -1,7 +1,7 @@
 use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use gio::{subclass::ObjectSubclass, ListModelExt};
-use glib::clone;
+use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
@@ -143,6 +143,17 @@ impl ProvidersDialog {
 
         let deck_page = self_.deck.get().append(&self_.page).unwrap();
         deck_page.set_name("provider");
+
+        let event_controller = gtk::EventControllerKey::new();
+        event_controller.connect_key_pressed(
+            clone!(@weak self as widget => @default-return Inhibit(false), move |_, k, _, _| {
+                if k == 65307 {
+                    widget.close();
+                }
+                Inhibit(false)
+            }),
+        );
+        self.add_controller(&event_controller);
     }
 
     fn setup_actions(&self) {

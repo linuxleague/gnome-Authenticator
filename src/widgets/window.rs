@@ -7,7 +7,7 @@ use crate::{
     window_state,
 };
 use gio::subclass::ObjectSubclass;
-use glib::{clone, signal::Inhibit, subclass::prelude::*};
+use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
