@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-12-16 02:24+0000\n"
-"PO-Revision-Date: 2020-12-16 16:31+0200\n"
+"POT-Creation-Date: 2020-12-18 22:48+0000\n"
+"PO-Revision-Date: 2020-12-19 09:47+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -32,7 +32,8 @@ msgstr "Двофакторне розпізнавання"
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
 #: src/application.rs:148
-msgid "Generate Two-Factor codes"
+#| msgid "Generate Two-Factor codes"
+msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
@@ -56,7 +57,6 @@ msgid "Default window maximized behaviour"
 msgstr "Типова поведінка щодо максимізації вікна"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/ui/preferences.ui:22
 msgid "Dark Theme"
 msgstr "Темна тема"
 
@@ -73,7 +73,6 @@ msgid "Whether to auto lock the application or not"
 msgstr "Чи слід автоматично блокувати програму"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
-#: data/resources/ui/preferences.ui:64
 msgid "Auto lock timeout"
 msgstr "Час очікування на автоблокування"
 
@@ -150,7 +149,7 @@ msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
 #: data/resources/ui/account_add.ui:80
-#: data/resources/ui/account_qrcode_page.ui:50
+#: data/resources/ui/account_details_page.ui:50
 msgid "Provider"
 msgstr "Надавач даних"
 
@@ -159,7 +158,7 @@ msgid "The service provider"
 msgstr "Надавач послуг служби"
 
 #: data/resources/ui/account_add.ui:96
-#: data/resources/ui/account_qrcode_page.ui:40
+#: data/resources/ui/account_details_page.ui:40
 msgid "Account"
 msgstr "Обліковий запис"
 
@@ -188,7 +187,7 @@ msgid "Digits"
 msgstr "Цифри"
 
 #: data/resources/ui/account_add.ui:197
-#: data/resources/ui/account_qrcode_page.ui:60
+#: data/resources/ui/account_details_page.ui:60
 #: data/resources/ui/provider_page.ui:105
 msgid "Website"
 msgstr "Сайт"
@@ -198,17 +197,14 @@ msgid "How to setup"
 msgstr "Як налаштувати"
 
 #: data/resources/ui/account_row.ui:6
-#| msgid "Share"
-msgid "_Share"
-msgstr "_Оприлюднення"
+msgid "D_etails"
+msgstr "П_одробиці"
 
 #: data/resources/ui/account_row.ui:12
-#| msgid "Rename"
 msgid "_Rename"
 msgstr "Перей_менувати"
 
 #: data/resources/ui/account_row.ui:16
-#| msgid "Delete"
 msgid "_Delete"
 msgstr "В_илучити"
 
@@ -219,7 +215,6 @@ msgstr "Копіювати пін-код до буфера обміну"
 #: data/resources/ui/account_row.ui:135
 #: data/resources/ui/preferences_password_page.ui:20
 #: data/resources/ui/provider_page.ui:52
-#| msgid "Save"
 msgid "_Save"
 msgstr "З_берегти"
 
@@ -244,55 +239,66 @@ msgid "Repeat Password"
 msgstr "Повторіть пароль"
 
 #: data/resources/ui/preferences_password_page.ui:115
-#| msgid "Reset"
 msgid "_Reset"
 msgstr "С_кинути"
 
-#: data/resources/ui/preferences.ui:16
+#: data/resources/ui/preferences.ui:17
 msgid "General"
 msgstr "Загальне"
 
-#: data/resources/ui/preferences.ui:19
+#: data/resources/ui/preferences.ui:20
 msgid "Appearance"
 msgstr "Вигляд"
 
-#: data/resources/ui/preferences.ui:24
+#: data/resources/ui/preferences.ui:23
+#| msgid "Dark Theme"
+msgid "_Dark Theme"
+msgstr "_Темна тема"
+
+#: data/resources/ui/preferences.ui:26
 msgid "Whether the application should use a dark theme"
 msgstr "Чи слід віддавати перевагу у програмі темній темі"
 
-#: data/resources/ui/preferences.ui:36
+#: data/resources/ui/preferences.ui:38
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: data/resources/ui/preferences.ui:39
-msgid "Password"
-msgstr "Пароль"
+#: data/resources/ui/preferences.ui:41
+#| msgid "Password"
+msgid "_Password"
+msgstr "Па_роль"
 
-#: data/resources/ui/preferences.ui:40
+#: data/resources/ui/preferences.ui:43
 msgid "Set up a password to lock the application with"
 msgstr "Встановіть пароль, за допомогою якого буде заблоковано програму"
 
-#: data/resources/ui/preferences.ui:52
-msgid "Auto Lock the application"
-msgstr "Автоматично заблокувати програму"
+#: data/resources/ui/preferences.ui:55
+#| msgid "Auto Lock the application"
+msgid "_Auto Lock the Application"
+msgstr "_Автоматично заблокувати програму"
 
-#: data/resources/ui/preferences.ui:54
+#: data/resources/ui/preferences.ui:58
 msgid "Whether to automatically lock the application"
 msgstr "Чи слід автоматично блокувати програму"
 
-#: data/resources/ui/preferences.ui:65
+#: data/resources/ui/preferences.ui:68
+#| msgid "Auto lock timeout"
+msgid "Auto lock _Timeout"
+msgstr "_Час очікування на автоблокування"
+
+#: data/resources/ui/preferences.ui:69
 msgid "The time in minutes"
 msgstr "Час у хвилинах"
 
-#: data/resources/ui/preferences.ui:86
+#: data/resources/ui/preferences.ui:91
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:89 src/widgets/preferences/window.rs:211
+#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:208
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:218
+#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:215
 msgid "Restore"
 msgstr "Відновити"
 
@@ -324,7 +330,7 @@ msgstr "Адреса довідки"
 msgid "How to set up Two-Factor Authentication"
 msgstr "Як налаштувати двофакторне розпізнавання"
 
-#: data/resources/ui/providers_all.ui:5
+#: data/resources/ui/providers_dialog.ui:5
 msgid "Providers"
 msgstr "Надавачі даних"
 
@@ -390,7 +396,6 @@ msgid "_Lock the application"
 msgstr "За_блокувати програму"
 
 #: data/resources/ui/window.ui:12
-#| msgid "Providers"
 msgid "P_roviders"
 msgstr "_Надавачі даних"
 
@@ -403,16 +408,14 @@ msgid "_Keyboard Shortcuts"
 msgstr "_Клавіатурні скорочення"
 
 #: data/resources/ui/window.ui:26
-#| msgid "About Authenticator"
 msgid "_About Authenticator"
 msgstr "П_ро «Розпізнавач»"
 
-#: data/resources/ui/window.ui:140
+#: data/resources/ui/window.ui:150
 msgid "Authenticator is locked"
 msgstr "«Розпізнавач» замкнено"
 
-#: data/resources/ui/window.ui:163
-#| msgid "Unlock"
+#: data/resources/ui/window.ui:173
 msgid "_Unlock"
 msgstr "_Розблокувати"
 
@@ -420,31 +423,27 @@ msgstr "_Розблокувати"
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/backup/andotp.rs:32
-#| msgid "andOTP"
+#: src/backup/andotp.rs:31
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:36
+#: src/backup/andotp.rs:35
 msgid "Into a plain-text JSON file"
 msgstr "До звичайного текстового файла JSON"
 
-#: src/backup/andotp.rs:91
-#| msgid "andOTP"
+#: src/backup/andotp.rs:90
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:95 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
+#: src/backup/andotp.rs:94 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
 
 #: src/backup/bitwarden.rs:16
-#| msgid "Bitwarden"
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
 #: src/backup/freeotp.rs:18
-#| msgid "Authenticator"
 msgid "_Authenticator"
 msgstr "_Розпізнавач"
 
@@ -453,7 +452,6 @@ msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "До звичайного текстового файла, сумісного з FreeOTP+"
 
 #: src/backup/freeotp.rs:63
-#| msgid "Authenticator"
 msgid "A_uthenticator"
 msgstr "Р_озпізнавач"
 
@@ -462,17 +460,20 @@ msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Зі звичайного текстового файла, сумісного з FreeOTP+"
 
 #: src/backup/legacy.rs:29
-#| msgid "Authenticator (Old)"
 msgid "Au_thenticator (Old)"
 msgstr "Роз_пізнавач (старий)"
 
-#: src/widgets/preferences/window.rs:214 src/widgets/preferences/window.rs:221
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:218
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/widgets/preferences/window.rs:215 src/widgets/preferences/window.rs:222
+#: src/widgets/preferences/window.rs:212 src/widgets/preferences/window.rs:219
 msgid "Cancel"
 msgstr "Скасувати"
+
+#~| msgid "Share"
+#~ msgid "_Share"
+#~ msgstr "_Оприлюднення"
 
 #~ msgid "Add"
 #~ msgstr "Додати"
