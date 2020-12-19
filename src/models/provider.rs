@@ -3,6 +3,7 @@ use crate::{
     models::{database, Account, AccountsModel, FaviconError, FaviconScrapper},
     schema::providers,
 };
+use async_std::prelude::*;
 use anyhow::Result;
 use core::cmp::Ordering;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
@@ -359,32 +360,27 @@ impl Provider {
         .expect("Failed to create provider")
     }
 
-    pub async fn favicon(&self) -> Result<gio::File, FaviconError> {
+    pub async fn favicon(&self) -> Result<gio::File, Box<dyn std::error::Error>> {
         if let Some(ref website) = self.website() {
             let website_url = Url::parse(website)?;
-            let favicons = FaviconScrapper::from_url(website_url).await?;
+            let favicon = FaviconScrapper::new().from_url(website_url).await?;
 
             let icon_name = format!("{}_{}", self.id(), self.name().replace(' ', "_"));
             let cache_path = glib::get_user_cache_dir()
                 .join("authenticator")
                 .join("favicons")
                 .join(icon_name);
-            let dest = gio::File::new_for_path(cache_path);
+            let mut dest = async_std::fs::File::create(cache_path.clone()).await?;
 
-            if let Some(favicon) = favicons.get(0) {
-                let mut res = surf::get(favicon).await?;
+            if let Some(best_favicon) = favicon.find_best().await {
+                let mut res = surf::get(best_favicon).await?;
                 let body = res.body_bytes().await?;
-                dest.replace_contents(
-                    &body,
-                    None,
-                    false,
-                    gio::FileCreateFlags::REPLACE_DESTINATION,
-                    gio::NONE_CANCELLABLE,
-                )?;
-                return Ok(dest);
+                dest.write_all(&body).await?;
+
+                return Ok(gio::File::new_for_path(cache_path));
             }
         }
-        Err(FaviconError::NoResults)
+        Err(Box::new(FaviconError::NoResults))
     }
 
     pub fn id(&self) -> i32 {

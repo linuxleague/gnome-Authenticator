@@ -223,7 +223,7 @@
     </child>
   </template>
   <object class="GtkEntryCompletion" id="provider_completion">
-    <property name="minimum-key-length">2</property>
+    <property name="minimum-key-length">1</property>
     <property name="text-column">1</property>
     <property name="inline-selection">True</property>
     <child>
