@@ -1,3 +1,4 @@
+use super::CLIENT;
 use image::io::Reader as ImageReader;
 use quick_xml::events::{attributes::Attribute, BytesStart, Event};
 use std::io::Cursor;
@@ -42,9 +43,8 @@ impl std::fmt::Display for FaviconError {
     }
 }
 
-
 #[derive(Debug)]
-pub struct Favicon(Vec<Url>, surf::Client);
+pub struct Favicon(Vec<Url>);
 
 impl Favicon {
     pub async fn find_best(&self) -> Option<&Url> {
@@ -63,7 +63,7 @@ impl Favicon {
     }
 
     pub async fn get_size(&self, url: &Url) -> Option<(u32, u32)> {
-        let mut response = self.1.get(url).await.ok()?;
+        let mut response = CLIENT.get(url).await.ok()?;
 
         let ext = std::path::Path::new(url.path())
             .extension()
@@ -86,36 +86,31 @@ impl Favicon {
     }
 }
 #[derive(Debug)]
-pub struct FaviconScrapper(surf::Client);
+pub struct FaviconScrapper;
 
 impl FaviconScrapper {
-    pub fn new() -> Self {
-        let client = surf::client().with(surf::middleware::Redirect::default());
-        Self(client)
-    }
-
-    pub async fn from_url(&self, url: Url) -> Result<Favicon, FaviconError> {
-        let mut res = self.0.get(&url).header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15").await?;
+    pub async fn from_url(url: Url) -> Result<Favicon, FaviconError> {
+        let mut res = CLIENT.get(&url).header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15").await?;
         let body = res.body_string().await?;
         let mut reader = quick_xml::Reader::from_str(&body);
         reader.check_end_names(false);
         reader.trim_markup_names_in_closing_tags(true);
 
-        let icons = self.from_reader(&mut reader, &url);
+        let icons = Self::from_reader(&mut reader, &url);
         if icons.is_empty() {
             return Err(FaviconError::NoResults);
         }
-        Ok(Favicon(icons, self.0.clone()))
+        Ok(Favicon(icons))
     }
 
-    fn from_reader(&self, reader: &mut quick_xml::Reader<&[u8]>, base_url: &Url) -> Vec<Url> {
+    fn from_reader(reader: &mut quick_xml::Reader<&[u8]>, base_url: &Url) -> Vec<Url> {
         let mut buf = Vec::new();
         let mut urls = Vec::new();
         loop {
             match reader.read_event(&mut buf) {
                 Ok(Event::Start(ref e)) | Ok(Event::Empty(ref e)) => {
                     if let b"link" = e.name() {
-                        if let Some(url) = self.from_link(e, base_url) {
+                        if let Some(url) = Self::from_link(e, base_url) {
                             urls.push(url);
                         }
                     }
@@ -129,7 +124,7 @@ impl FaviconScrapper {
         urls
     }
 
-    fn from_link(&self, e: &BytesStart, base_url: &Url) -> Option<Url> {
+    fn from_link(e: &BytesStart, base_url: &Url) -> Option<Url> {
         let mut url = None;
 
         let mut has_proper_rel = false;

@@ -1,10 +1,11 @@
 use super::algorithm::{Algorithm, OTPMethod};
+use super::CLIENT;
 use crate::{
     models::{database, Account, AccountsModel, FaviconError, FaviconScrapper},
     schema::providers,
 };
-use async_std::prelude::*;
 use anyhow::Result;
+use async_std::prelude::*;
 use core::cmp::Ordering;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use gio::subclass::ObjectSubclass;
@@ -363,7 +364,7 @@ impl Provider {
     pub async fn favicon(&self) -> Result<gio::File, Box<dyn std::error::Error>> {
         if let Some(ref website) = self.website() {
             let website_url = Url::parse(website)?;
-            let favicon = FaviconScrapper::new().from_url(website_url).await?;
+            let favicon = FaviconScrapper::from_url(website_url).await?;
 
             let icon_name = format!("{}_{}", self.id(), self.name().replace(' ', "_"));
             let cache_path = glib::get_user_cache_dir()
@@ -373,7 +374,7 @@ impl Provider {
             let mut dest = async_std::fs::File::create(cache_path.clone()).await?;
 
             if let Some(best_favicon) = favicon.find_best().await {
-                let mut res = surf::get(best_favicon).await?;
+                let mut res = CLIENT.get(best_favicon).await?;
                 let body = res.body_bytes().await?;
                 dest.write_all(&body).await?;
 
