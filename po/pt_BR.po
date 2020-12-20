@@ -1,27 +1,27 @@
 # Brazilian Portuguese translation of authenticator.
 # Copyright (C) 2019 Authenticator'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Authenticator package.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2019.
 # Enrico Nicoletto <liverig@gmail.com>, 2020.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2019-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-12-12 12:42+0000\n"
-"PO-Revision-Date: 2020-12-12 11:03-0300\n"
-"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
+"POT-Creation-Date: 2020-12-20 00:34+0000\n"
+"PO-Revision-Date: 2020-12-20 05:54-0300\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 3.38.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:145 src/backup/freeotp.rs:18 src/backup/freeotp.rs:63
+#: src/application.rs:145
 msgid "Authenticator"
 msgstr "Autenticador"
 
@@ -32,8 +32,9 @@ msgstr "Autenticação de dois fatores"
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
 #: src/application.rs:148
-msgid "Generate Two-Factor codes"
-msgstr "Gerar códigos de dois fatores"
+#| msgid "Generate Two-Factor codes"
+msgid "Generate Two-Factor Codes"
+msgstr "Gere códigos de dois fatores"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
 msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
@@ -55,7 +56,6 @@ msgid "Default window maximized behaviour"
 msgstr "Comportamento padrão da janela maximizada"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/ui/preferences.ui:22
 msgid "Dark Theme"
 msgstr "Tema escuro"
 
@@ -72,7 +72,6 @@ msgid "Whether to auto lock the application or not"
 msgstr "Se o aplicativo deve, ou não, ser bloqueado automaticamente"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
-#: data/resources/ui/preferences.ui:64
 msgid "Auto lock timeout"
 msgstr "Tempo até bloqueio automático"
 
@@ -138,62 +137,74 @@ msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
 #: data/resources/ui/account_add.ui:33
-msgid "Add"
-msgstr "Adicionar"
+msgid "_Add"
+msgstr "_Adicionar"
 
-#: data/resources/ui/account_add.ui:45
+#: data/resources/ui/account_add.ui:46
 msgid "Scan QR Code"
 msgstr "Escanear código QR"
 
-#: data/resources/ui/account_add.ui:73
-#: data/resources/ui/account_qrcode_page.ui:50
+#: data/resources/ui/account_add.ui:80
+#: data/resources/ui/account_details_page.ui:50
 msgid "Provider"
 msgstr "Provedor"
 
-#: data/resources/ui/account_add.ui:74
+#: data/resources/ui/account_add.ui:81
 msgid "The service provider"
 msgstr "O provedor de serviço"
 
-#: data/resources/ui/account_add.ui:89
-#: data/resources/ui/account_qrcode_page.ui:40
+#: data/resources/ui/account_add.ui:96
+#: data/resources/ui/account_details_page.ui:40
 msgid "Account"
 msgstr "Conta"
 
-#: data/resources/ui/account_add.ui:103
+#: data/resources/ui/account_add.ui:110
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:118 data/resources/ui/provider_page.ui:149
+#: data/resources/ui/account_add.ui:124 data/resources/ui/provider_page.ui:156
 msgid "Counter"
 msgstr "Contador"
 
-#: data/resources/ui/account_add.ui:143 data/resources/ui/provider_page.ui:120
+#: data/resources/ui/account_add.ui:149 data/resources/ui/provider_page.ui:127
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: data/resources/ui/account_add.ui:155 data/resources/ui/provider_page.ui:112
+#: data/resources/ui/account_add.ui:161 data/resources/ui/provider_page.ui:119
 msgid "Computing Method"
 msgstr "Método de computação"
 
-#: data/resources/ui/account_add.ui:167 data/resources/ui/provider_page.ui:132
+#: data/resources/ui/account_add.ui:173 data/resources/ui/provider_page.ui:139
 msgid "Period"
 msgstr "Período"
 
-#: data/resources/ui/account_add.ui:179 data/resources/ui/provider_page.ui:166
+#: data/resources/ui/account_add.ui:185 data/resources/ui/provider_page.ui:173
 msgid "Digits"
 msgstr "Dígitos"
 
+#: data/resources/ui/account_add.ui:197
+#: data/resources/ui/account_details_page.ui:60
+#: data/resources/ui/provider_page.ui:105
+msgid "Website"
+msgstr "Site"
+
+#: data/resources/ui/account_add.ui:203
+msgid "How to setup"
+msgstr "Como configurar"
+
 #: data/resources/ui/account_row.ui:6
-msgid "Share"
-msgstr "Compartilhar"
+msgid "D_etails"
+msgstr "D_etalhes"
 
 #: data/resources/ui/account_row.ui:12
-msgid "Rename"
-msgstr "Renomear"
+#| msgid "Rename"
+msgid "_Rename"
+msgstr "_Renomear"
 
 #: data/resources/ui/account_row.ui:16
-msgid "Delete"
-msgstr "Excluir"
+#| msgid "Delete"
+msgid "_Delete"
+msgstr "_Excluir"
 
 #: data/resources/ui/account_row.ui:64
 msgid "Copy PIN to clipboard"
@@ -202,116 +213,127 @@ msgstr "Copiar PIN pra área de transferência"
 #: data/resources/ui/account_row.ui:135
 #: data/resources/ui/preferences_password_page.ui:20
 #: data/resources/ui/provider_page.ui:52
-msgid "Save"
-msgstr "Salvar"
+#| msgid "Save"
+msgid "_Save"
+msgstr "_Salvar"
 
-#: data/resources/ui/preferences_password_page.ui:41
+#: data/resources/ui/preferences_password_page.ui:42
 msgid "Set up a password"
 msgstr "Definir senha"
 
-#: data/resources/ui/preferences_password_page.ui:49
+#: data/resources/ui/preferences_password_page.ui:50
 msgid "By setting a password, Authenticator will from now on start locked."
 msgstr ""
 "Ao definir uma senha, o Autenticador iniciará bloqueado a partir desse "
 "momento."
 
-#: data/resources/ui/preferences_password_page.ui:67
+#: data/resources/ui/preferences_password_page.ui:68
 msgid "Current Password"
 msgstr "Senha atual"
 
-#: data/resources/ui/preferences_password_page.ui:80
+#: data/resources/ui/preferences_password_page.ui:81
 msgid "New Password"
 msgstr "Nova senha"
 
-#: data/resources/ui/preferences_password_page.ui:93
+#: data/resources/ui/preferences_password_page.ui:94
 msgid "Repeat Password"
 msgstr "Repetir senha"
 
-#: data/resources/ui/preferences_password_page.ui:114
-msgid "Reset"
-msgstr "Reiniciar"
+#: data/resources/ui/preferences_password_page.ui:115
+#| msgid "Reset"
+msgid "_Reset"
+msgstr "_Redefinir"
 
-#: data/resources/ui/preferences.ui:16
+#: data/resources/ui/preferences.ui:17
 msgid "General"
 msgstr "Geral"
 
-#: data/resources/ui/preferences.ui:19
+#: data/resources/ui/preferences.ui:20
 msgid "Appearance"
 msgstr "Aparência"
 
-#: data/resources/ui/preferences.ui:24
+#: data/resources/ui/preferences.ui:23
+#| msgid "Dark Theme"
+msgid "_Dark Theme"
+msgstr "Tema _escuro"
+
+#: data/resources/ui/preferences.ui:26
 msgid "Whether the application should use a dark theme"
 msgstr "Se o aplicativo deve, ou não, usar um tema escuro"
 
-#: data/resources/ui/preferences.ui:36
+#: data/resources/ui/preferences.ui:38
 msgid "Privacy"
 msgstr "Privacidade"
 
-#: data/resources/ui/preferences.ui:39
-msgid "Password"
-msgstr "Senha"
+#: data/resources/ui/preferences.ui:41
+#| msgid "Password"
+msgid "_Password"
+msgstr "_Senha"
 
-#: data/resources/ui/preferences.ui:40
+#: data/resources/ui/preferences.ui:43
 msgid "Set up a password to lock the application with"
 msgstr "Definir uma senha para bloquear o aplicativo"
 
-#: data/resources/ui/preferences.ui:52
-msgid "Auto Lock the application"
-msgstr "Bloquear automaticamente o aplicativo"
+#: data/resources/ui/preferences.ui:55
+#| msgid "Auto Lock the application"
+msgid "_Auto Lock the Application"
+msgstr "Bloquear _automaticamente o aplicativo"
 
-#: data/resources/ui/preferences.ui:54
+#: data/resources/ui/preferences.ui:58
 msgid "Whether to automatically lock the application"
 msgstr "Se deve, ou não, bloquear automaticamente o aplicativo"
 
-#: data/resources/ui/preferences.ui:65
+#: data/resources/ui/preferences.ui:68
+#| msgid "Auto lock timeout"
+msgid "Auto lock _Timeout"
+msgstr "_Tempo até bloqueio automático"
+
+#: data/resources/ui/preferences.ui:69
 msgid "The time in minutes"
 msgstr "O tempo em minutos"
 
-#: data/resources/ui/preferences.ui:86
+#: data/resources/ui/preferences.ui:91
 msgid "Backup/Restore"
 msgstr "Backup/Restaurar"
 
-#: data/resources/ui/preferences.ui:89 src/widgets/preferences/window.rs:216
+#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:208
 msgid "Backup"
 msgstr "Cópia de segurança"
 
-#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:223
+#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:215
 msgid "Restore"
 msgstr "Restaurar"
 
-#: data/resources/ui/provider_page.ui:84
+#: data/resources/ui/provider_page.ui:91
 msgid "Name"
 msgstr "Nome"
 
-#: data/resources/ui/provider_page.ui:98
-msgid "Website"
-msgstr "Site"
-
-#: data/resources/ui/provider_page.ui:99
+#: data/resources/ui/provider_page.ui:106
 msgid "Used to fetch the website icon if possible"
 msgstr "Usado para obter o ícone de um site da web, se possível"
 
-#: data/resources/ui/provider_page.ui:133
+#: data/resources/ui/provider_page.ui:140
 msgid "The duration in seconds. The recommended value is 30"
 msgstr "A duração em segundos. O valor recomendado é 30"
 
-#: data/resources/ui/provider_page.ui:150
+#: data/resources/ui/provider_page.ui:157
 msgid "The by default value for counter-based computing method"
 msgstr "O valor por padrão para métodos de computação baseadas em contagem"
 
-#: data/resources/ui/provider_page.ui:167
-msgid "Length of the generated code, recommended value is 6"
-msgstr "Comprimento do código gerado, valor recomendado é 6"
+#: data/resources/ui/provider_page.ui:174
+#| msgid "Length of the generated code, recommended value is 6"
+msgid "Length of the generated code. The recommended value is 6"
+msgstr "Comprimento do código gerado. O valor recomendado é 6"
 
-#: data/resources/ui/provider_page.ui:184
+#: data/resources/ui/provider_page.ui:191
 msgid "Help URL"
 msgstr "URL de ajuda"
 
-#: data/resources/ui/provider_page.ui:185
+#: data/resources/ui/provider_page.ui:192
 msgid "How to set up Two-Factor Authentication"
 msgstr "Como configurar autenticação de dois fatores"
 
-#: data/resources/ui/providers_all.ui:5
+#: data/resources/ui/providers_dialog.ui:5
 msgid "Providers"
 msgstr "Provedores"
 
@@ -377,8 +399,9 @@ msgid "_Lock the application"
 msgstr "B_loquear o aplicativo"
 
 #: data/resources/ui/window.ui:12
-msgid "_Providers"
-msgstr "_Provedores"
+#| msgid "Providers"
+msgid "P_roviders"
+msgstr "P_rovedores"
 
 #: data/resources/ui/window.ui:16
 msgid "_Preferences"
@@ -389,16 +412,18 @@ msgid "_Keyboard Shortcuts"
 msgstr "A_talhos de teclado"
 
 #: data/resources/ui/window.ui:26
-msgid "About Authenticator"
-msgstr "Sobre o Autenticador"
+#| msgid "About Authenticator"
+msgid "_About Authenticator"
+msgstr "_Sobre o Autenticador"
 
-#: data/resources/ui/window.ui:139
+#: data/resources/ui/window.ui:150
 msgid "Authenticator is locked"
 msgstr "O Autenticador está bloqueado"
 
-#: data/resources/ui/window.ui:162
-msgid "Unlock"
-msgstr "Desbloquear"
+#: data/resources/ui/window.ui:173
+#| msgid "Unlock"
+msgid "_Unlock"
+msgstr "_Desbloquear"
 
 #: src/application.rs:152
 msgid "translator-credits"
@@ -407,41 +432,68 @@ msgstr ""
 "Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Enrico Nicoletto <liverig@gmail.com>"
 
-#: src/backup/andotp.rs:32 src/backup/andotp.rs:91
-msgid "andOTP"
-msgstr "e OTP"
+#: src/backup/andotp.rs:31
+#| msgid "andOTP"
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:36
+#: src/backup/andotp.rs:35
 msgid "Into a plain-text JSON file"
 msgstr "Em um arquivo de texto puro JSON"
 
-#: src/backup/andotp.rs:95 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
+#: src/backup/andotp.rs:90
+#| msgid "andOTP"
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:94 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
 msgid "From a plain-text JSON file"
 msgstr "De um arquivo de texto puro JSON"
 
 #: src/backup/bitwarden.rs:16
-msgid "Bitwarden"
-msgstr "Bitwarden"
+#| msgid "Bitwarden"
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
+
+#: src/backup/freeotp.rs:18
+#| msgid "Authenticator"
+msgid "_Authenticator"
+msgstr "_Autenticador"
 
 #: src/backup/freeotp.rs:22
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Em um arquivo de texto puro, compatível com FreeOTP+"
+
+#: src/backup/freeotp.rs:63
+#| msgid "Authenticator"
+msgid "A_uthenticator"
+msgstr "A_utenticador"
 
 #: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "De um arquivo de texto puro, compatível com FreeOTP+"
 
 #: src/backup/legacy.rs:29
-msgid "Authenticator (Old)"
-msgstr "Autenticador (antigo)"
+#| msgid "Authenticator (Old)"
+msgid "Au_thenticator (Old)"
+msgstr "Au_tenticador (antigo)"
 
-#: src/widgets/preferences/window.rs:219 src/widgets/preferences/window.rs:226
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:218
 msgid "Select"
 msgstr "Selecionar"
 
-#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:227
+#: src/widgets/preferences/window.rs:212 src/widgets/preferences/window.rs:219
 msgid "Cancel"
 msgstr "Cancelar"
+
+#~ msgid "Add"
+#~ msgstr "Adicionar"
+
+#~ msgid "Share"
+#~ msgstr "Compartilhar"
+
+#~ msgid "_Providers"
+#~ msgstr "_Provedores"
 
 #~ msgid "A Two-Factor Authentication application"
 #~ msgstr "Um aplicativo de autenticação de dois fatores"
