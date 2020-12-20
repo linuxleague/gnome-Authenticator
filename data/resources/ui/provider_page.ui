@@ -171,7 +171,7 @@
                       <object class="HdyActionRow" id="digits_row">
                         <property name="activatable-widget">digits_spinbutton</property>
                         <property name="title" translatable="yes">Digits</property>
-                        <property name="subtitle" translatable="yes">Length of the generated code, recommended value is 6</property>
+                        <property name="subtitle" translatable="yes">Length of the generated code. The recommended value is 6</property>
                         <child>
                           <object class="GtkSpinButton" id="digits_spinbutton">
                             <property name="halign">end</property>
