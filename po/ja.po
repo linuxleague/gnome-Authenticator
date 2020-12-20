@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-03-02 14:57+0000\n"
-"PO-Revision-Date: 2020-03-03 00:05+0900\n"
+"POT-Creation-Date: 2020-12-20 00:34+0000\n"
+"PO-Revision-Date: 2020-12-20 15:31+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -17,338 +17,515 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:36
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: src/application.rs:145
 msgid "Authenticator"
 msgstr "Authenticator"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "A Two-Factor Authentication application"
-msgstr "二要素認証アプリケーション"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-factor Authentication"
+msgstr "二要素認証"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:148
+msgid "Generate Two-Factor Codes"
+msgstr "二要素認証コードを生成します"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgstr ""
+"Gnome;GTK;Verification;2FA;Authentication;TwoFactor;認証;二要素;2要素;2段"
+"階;二段階;ワンタイムパスワード;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "ウィンドウのデフォルトの幅"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "ウィンドウのデフォルトの高さ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "デフォルトでウィンドウを最大化するかどうか"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Theme"
+msgstr "ダークテーマ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark theme."
+msgstr "ダークテーマを使用するかどうかです。"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "オートロック"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "アプリケーションをオートロックするかどうか"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "オートロックのタイムアウト"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "X 分間アイドル状態が続いたらアプリケーションをロックする"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
 msgstr "GNOME 用のシンプルな二要素認証コード生成アプリケーションです。"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
 msgstr "特徴:"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "QR code scanner"
 msgstr "QR コードスキャナー"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "Beautiful UI"
 msgstr "美しい UI"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "Huge database of more than 560 supported services"
 msgstr "560 を超えるサポートしているサービスの膨大なデータベース"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr "アプリケーションをパスワードでロックして PIN トークンの安全性を維持"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services"
-msgstr "サービスの画像の自動取得"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Automatically fetch an image for services using their favicon"
+msgstr "サービスの画像の自動取得 (ファビコンを使用)"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "The possibility to add new services"
 msgstr "新しいサービスの追加"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid "Dark theme and night light"
 msgstr "ダークテーマとナイトライト"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
-msgid "Main Window - empty state"
-msgstr "メインウィンドウ - 空の状態"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "メインウィンドウ"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:12
 msgid "Add a new account"
 msgstr "アカウントの追加"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
-msgid "Main Window - Accounts List"
-msgstr "メインウィンドウ - アカウント一覧"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Sharing an account"
+msgstr "アカウントの共有"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid "Settings Window"
-msgstr "設定ウィンドウ"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:165
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
-msgstr "二要素認証"
+#: data/resources/ui/account_add.ui:33
+msgid "_Add"
+msgstr "追加(_A)"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
-msgstr ""
-"Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;認証;二要素;2要素;2段"
-"階;二段階;ワンタイムパスワード;"
+#: data/resources/ui/account_add.ui:46
+msgid "Scan QR Code"
+msgstr "QR コードをスキャン"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "ウィンドウのデフォルト位置"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: data/resources/gtk/ui/settings.ui.in:28
-msgid "Dark Theme"
-msgstr "ダークテーマ"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: data/resources/gtk/ui/settings.ui.in:29
-#: data/resources/gtk/ui/settings.ui.in:76
-msgid "Whether the application should use a dark theme."
-msgstr "ダークテーマにするかどうかです。"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: data/resources/gtk/ui/settings.ui.in:83
-msgid "Auto lock timeout"
-msgstr "オートロックのタイムアウト"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-msgid "Lock the application on idle after X minutes"
-msgstr "X 分間アイドル状態が続いたらアプリケーションをロックする"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/gtk/ui/settings.ui.in:43
-msgid "Night Light"
-msgstr "ナイトライト"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
-#: data/resources/gtk/ui/settings.ui.in:44
-#: data/resources/gtk/ui/settings.ui.in:84
-msgid "Automatically enable dark mode at night."
-msgstr "夜間は自動でダークモードにします。"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
-msgid "Default window maximized behaviour"
-msgstr "デフォルトでウィンドウを最大化するかどうか"
-
-#: data/resources/gtk/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "sicklylife <translation@sicklylife.jp>"
-
-#: data/resources/gtk/ui/account_config.ui:57
+#: data/resources/ui/account_add.ui:80
+#: data/resources/ui/account_details_page.ui:50
 msgid "Provider"
 msgstr "プロバイダー"
 
-#: data/resources/gtk/ui/account_config.ui:85
-msgid "Website"
-msgstr "ウェブサイト"
+#: data/resources/ui/account_add.ui:81
+msgid "The service provider"
+msgstr "サービスプロバイダー"
 
-#: data/resources/gtk/ui/account_config.ui:105
+#: data/resources/ui/account_add.ui:96
+#: data/resources/ui/account_details_page.ui:40
 msgid "Account"
 msgstr "アカウント"
 
-#: data/resources/gtk/ui/account_config.ui:124
+#: data/resources/ui/account_add.ui:110
 msgid "Token"
 msgstr "トークン"
 
-#: data/resources/gtk/ui/account_config.ui:134
-#: data/resources/gtk/ui/account_config.ui:135
-msgid "Enable 2FA for this account"
-msgstr "このアカウントの二要素認証を有効にします"
+#: data/resources/ui/account_add.ui:124 data/resources/ui/provider_page.ui:156
+msgid "Counter"
+msgstr "カウンター"
 
-#: data/resources/gtk/ui/account_row.ui:48
+#: data/resources/ui/account_add.ui:149 data/resources/ui/provider_page.ui:127
+msgid "Algorithm"
+msgstr "アルゴリズム"
+
+#: data/resources/ui/account_add.ui:161 data/resources/ui/provider_page.ui:119
+msgid "Computing Method"
+msgstr "計算方式"
+
+#: data/resources/ui/account_add.ui:173 data/resources/ui/provider_page.ui:139
+msgid "Period"
+msgstr "期間"
+
+#: data/resources/ui/account_add.ui:185 data/resources/ui/provider_page.ui:173
+msgid "Digits"
+msgstr "数値"
+
+#: data/resources/ui/account_add.ui:197
+#: data/resources/ui/account_details_page.ui:60
+#: data/resources/ui/provider_page.ui:105
+msgid "Website"
+msgstr "ウェブサイト"
+
+#: data/resources/ui/account_add.ui:203
+msgid "How to setup"
+msgstr "セットアップ方法"
+
+#: data/resources/ui/account_row.ui:6
+msgid "D_etails"
+msgstr "詳細(_E)"
+
+#: data/resources/ui/account_row.ui:12
+msgid "_Rename"
+msgstr "名前の変更(_R)"
+
+#: data/resources/ui/account_row.ui:16
+msgid "_Delete"
+msgstr "削除(_D)"
+
+#: data/resources/ui/account_row.ui:64
 msgid "Copy PIN to clipboard"
-msgstr "PIN をクリップボードにコピーします"
+msgstr "PIN をクリップボードにコピー"
 
-#: data/resources/gtk/ui/account_row.ui:158
-msgid "Edit"
-msgstr "編集"
+#: data/resources/ui/account_row.ui:135
+#: data/resources/ui/preferences_password_page.ui:20
+#: data/resources/ui/provider_page.ui:52
+msgid "_Save"
+msgstr "保存(_S)"
 
-#: data/resources/gtk/ui/account_row.ui:176
-msgid "Delete"
-msgstr "削除"
+#: data/resources/ui/preferences_password_page.ui:42
+msgid "Set up a password"
+msgstr "パスワードのセットアップ"
 
-#: data/resources/gtk/ui/password_widget.ui:46
-msgid "Current Password:"
-msgstr "現在のパスワード:"
+#: data/resources/ui/preferences_password_page.ui:50
+msgid "By setting a password, Authenticator will from now on start locked."
+msgstr ""
+"パスワードを設定すると、以降 Authenticator はロックされた状態になります。"
 
-#: data/resources/gtk/ui/password_widget.ui:91
-msgid "New Password:"
-msgstr "新しいパスワード:"
+#: data/resources/ui/preferences_password_page.ui:68
+msgid "Current Password"
+msgstr "現在のパスワード"
 
-#: data/resources/gtk/ui/password_widget.ui:136
-msgid "Confirm New Password:"
-msgstr "新しいパスワードの確認:"
+#: data/resources/ui/preferences_password_page.ui:81
+msgid "New Password"
+msgstr "新しいパスワード"
 
-#: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:174
-msgid "Change Password"
-msgstr "パスワードを変更"
+#: data/resources/ui/preferences_password_page.ui:94
+msgid "Repeat Password"
+msgstr "パスワードの再入力"
 
-#: data/resources/gtk/ui/password_widget.ui:205
-msgid "Delete Password"
-msgstr "パスワードを削除"
+#: data/resources/ui/preferences_password_page.ui:115
+msgid "_Reset"
+msgstr "リセット(_R)"
 
-#: data/resources/gtk/ui/settings.ui.in:24
+#: data/resources/ui/preferences.ui:17
+msgid "General"
+msgstr "全般"
+
+#: data/resources/ui/preferences.ui:20
 msgid "Appearance"
 msgstr "外観"
 
-#: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:102
-msgid "Lock the application"
-msgstr "アプリケーションをロック"
+#: data/resources/ui/preferences.ui:23
+msgid "_Dark Theme"
+msgstr "ダークテーマ(_D)"
 
-#: data/resources/gtk/ui/shortcuts.ui:13
+#: data/resources/ui/preferences.ui:26
+msgid "Whether the application should use a dark theme"
+msgstr "ダークテーマを使用するかどうか"
+
+#: data/resources/ui/preferences.ui:38
+msgid "Privacy"
+msgstr "プライバシー"
+
+#: data/resources/ui/preferences.ui:41
+msgid "_Password"
+msgstr "パスワード(_P)"
+
+#: data/resources/ui/preferences.ui:43
+msgid "Set up a password to lock the application with"
+msgstr ""
+"アプリケーションをロックするためのパスワードのセットアップ"
+
+#: data/resources/ui/preferences.ui:55
+msgid "_Auto Lock the Application"
+msgstr "アプリケーションをオートロック(_A)"
+
+#: data/resources/ui/preferences.ui:58
+msgid "Whether to automatically lock the application"
+msgstr "アプリケーションを自動的にロックするかどうか"
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto lock _Timeout"
+msgstr "オートロックのタイムアウト(_T)"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "分単位"
+
+#: data/resources/ui/preferences.ui:91
+msgid "Backup/Restore"
+msgstr "バックアップ/復元"
+
+#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:208
+msgid "Backup"
+msgstr "バックアップ"
+
+#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:215
+msgid "Restore"
+msgstr "復元"
+
+#: data/resources/ui/provider_page.ui:91
+msgid "Name"
+msgstr "名前"
+
+#: data/resources/ui/provider_page.ui:106
+msgid "Used to fetch the website icon if possible"
+msgstr "ウェブサイトのアイコンの取得に使用します (可能な場合)"
+
+#: data/resources/ui/provider_page.ui:140
+msgid "The duration in seconds. The recommended value is 30"
+msgstr "秒単位の時間 (推奨値は 30)"
+
+#: data/resources/ui/provider_page.ui:157
+msgid "The by default value for counter-based computing method"
+msgstr "カウンターベースの計算方式のデフォルト値"
+
+#: data/resources/ui/provider_page.ui:174
+msgid "Length of the generated code. The recommended value is 6"
+msgstr "生成されるコードの長さ (推奨値は 6)"
+
+#: data/resources/ui/provider_page.ui:191
+msgid "Help URL"
+msgstr "ヘルプの URL"
+
+#: data/resources/ui/provider_page.ui:192
+msgid "How to set up Two-Factor Authentication"
+msgstr "二要素認証のセットアップ方法"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "プロバイダー"
+
+#: data/resources/ui/providers_list.ui:44
+msgid "There are no accounts yet…"
+msgstr "まだアカウントはありません…"
+
+#: data/resources/ui/providers_list.ui:76
+msgid "Add a new account from the menu"
+msgstr "メニューから新しいアカウントを追加"
+
+#: data/resources/ui/providers_list.ui:102
+msgid "Scan a QR Code"
+msgstr "QR コードをスキャン"
+
+#: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
 msgstr "全般"
 
-#: data/resources/gtk/ui/shortcuts.ui:17
+#: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "ショートカットを表示する"
 
-#: data/resources/gtk/ui/shortcuts.ui:24
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "ロックする"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "設定を表示する"
 
-#: data/resources/gtk/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "終了する"
 
-#: data/resources/gtk/ui/shortcuts.ui:40
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "アカウント"
 
-#: data/resources/gtk/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Add"
 msgstr "追加する"
 
-#: data/resources/gtk/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "検索する"
 
-#: data/resources/gtk/ui/window.ui.in:188
-msgid "There are no accounts yet…"
-msgstr "まだアカウントはありません…"
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Scan QR"
+msgstr "QR をスキャンする"
 
-#: data/resources/gtk/ui/window.ui.in:217
-msgid "Add a new account from the menu"
-msgstr "メニューから新しいアカウントを追加します"
+#: data/resources/ui/window.ui:6
+msgid "_Lock the application"
+msgstr "アプリケーションをロック(_L)"
 
-#: data/resources/gtk/ui/window.ui.in:233
-msgid "Scan a QR Code"
-msgstr "QR コードをスキャンします"
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "プロバイダー(_P)"
 
-#: data/resources/gtk/ui/window.ui.in:365
-msgid "No results found"
-msgstr "見つかりませんでした"
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "設定(_P)"
 
-#: data/resources/gtk/ui/window.ui.in:428
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "キーボードショートカット(_K)"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "Authenticator について(_A)"
+
+#: data/resources/ui/window.ui:150
 msgid "Authenticator is locked"
 msgstr "Authenticator をロックしています"
 
-#: data/resources/gtk/ui/window.ui.in:468
-msgid "Unlock"
-msgstr "ロック解除"
+#: data/resources/ui/window.ui:173
+msgid "_Unlock"
+msgstr "ロック解除(_U)"
 
-#: src/authenticator.py.in:49
-msgid "Start in debug mode"
-msgstr "デバッグモードで起動"
+#: src/application.rs:152
+msgid "translator-credits"
+msgstr "sicklylife <translation@sicklylife.jp>"
 
-#: src/Authenticator/application.py.in:110
-msgid "from a plain-text JSON file"
-msgstr "プレーンテキスト JSON ファイルから"
+#: src/backup/andotp.rs:31
+msgid "a_ndOTP"
+msgstr "andOTP(_N)"
 
-#: src/Authenticator/application.py.in:111
-msgid "in a plain-text JSON file"
+#: src/backup/andotp.rs:35
+msgid "Into a plain-text JSON file"
 msgstr "プレーンテキスト JSON ファイルへ"
 
-#: src/Authenticator/application.py.in:113
-msgid "Restore"
-msgstr "復元"
+#: src/backup/andotp.rs:90
+msgid "an_dOTP"
+msgstr "andOTP(_D)"
 
-#: src/Authenticator/application.py.in:114
-msgid "Backup"
-msgstr "バックアップ"
+#: src/backup/andotp.rs:94 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
+msgid "From a plain-text JSON file"
+msgstr "プレーンテキスト JSON ファイルから"
 
-#. Night mode action
-#: src/Authenticator/application.py.in:122
-msgid "Preferences"
-msgstr "設定"
+#: src/backup/bitwarden.rs:16
+msgid "_Bitwarden"
+msgstr "Bitwarden(_B)"
 
-#: src/Authenticator/application.py.in:123
-msgid "Keyboard Shortcuts"
-msgstr "キーボードショートカット"
+#: src/backup/freeotp.rs:18
+msgid "_Authenticator"
+msgstr "Authenticator(_A)"
 
-#: src/Authenticator/application.py.in:124
-msgid "About Authenticator"
-msgstr "Authenticator について"
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "プレーンテキストファイルへ (FreeOTP+ と互換)"
 
-#: src/Authenticator/models/account.py:87
-msgid "Default"
-msgstr "デフォルト"
+#: src/backup/freeotp.rs:63
+msgid "A_uthenticator"
+msgstr "Authenticator(_U)"
 
-#: src/Authenticator/widgets/accounts/add.py:36
-msgid "Add"
-msgstr "追加"
+#: src/backup/freeotp.rs:67
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "プレーンテキストファイルから (FreeOTP+ と互換)"
 
-#: src/Authenticator/widgets/accounts/add.py:257
-msgid "Invalid QR code"
-msgstr "不正な QR コードです"
+#: src/backup/legacy.rs:29
+msgid "Au_thenticator (Old)"
+msgstr "Authenticator (旧)(_T)"
 
-#: src/Authenticator/widgets/accounts/edit.py:37
-msgid "Save"
-msgstr "保存"
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:218
+msgid "Select"
+msgstr "選択"
 
-#: src/Authenticator/widgets/accounts/list.py:152
-msgid "The One-Time Passwords expire in {} seconds"
-msgstr "ワンタイムパスワードは {} 秒で期限切れになります"
+#: src/widgets/preferences/window.rs:212 src/widgets/preferences/window.rs:219
+msgid "Cancel"
+msgstr "キャンセル"
 
-#: src/Authenticator/widgets/accounts/row.py:90
-msgid "Couldn't generate the secret code"
-msgstr "シークレットコードを生成できませんでした"
+#~ msgid "A Two-Factor Authentication application"
+#~ msgstr "二要素認証アプリケーション"
 
-#: src/Authenticator/widgets/accounts/row.py:100
-msgid "The PIN of {} was copied to the clipboard"
-msgstr "{} の PIN をクリップボードにコピーしました"
+#~ msgid "Main Window - empty state"
+#~ msgstr "メインウィンドウ - 空の状態"
 
-#: src/Authenticator/widgets/accounts/row.py:139
-msgid "The account was updated successfully"
-msgstr "アカウントは正常に更新されました"
+#~ msgid "Main Window - Accounts List"
+#~ msgstr "メインウィンドウ - アカウント一覧"
 
-#: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:86
-msgid "Undo"
-msgstr "元に戻す"
+#~ msgid "Night Light"
+#~ msgstr "ナイトライト"
 
-#: src/Authenticator/widgets/notification.py:81
-msgid "Close the notification"
-msgstr "通知を閉じます"
+#~ msgid "Automatically enable dark mode at night."
+#~ msgstr "夜間は自動でダークモードにします。"
 
-#: src/Authenticator/widgets/settings.py:170
-msgid "Save Password"
-msgstr "パスワードを保存"
+#~ msgid "Enable 2FA for this account"
+#~ msgstr "このアカウントの二要素認証を有効にします"
 
-#: src/Authenticator/widgets/settings.py:222
-msgid "Do you want to remove the authentication password?"
-msgstr "認証パスワードを削除しますか?"
+#~ msgid "Edit"
+#~ msgstr "編集"
 
-#: src/Authenticator/widgets/settings.py:223
-msgid "Authentication password enforces the privacy of your accounts."
-msgstr "認証パスワードはアカウントのプライバシーを強化します。"
+#~ msgid "Confirm New Password:"
+#~ msgstr "新しいパスワードの確認:"
 
-#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
-msgid "JSON files"
-msgstr "JSON ファイル"
+#~ msgid "Change Password"
+#~ msgstr "パスワードを変更"
+
+#~ msgid "No results found"
+#~ msgstr "見つかりませんでした"
+
+#~ msgid "Start in debug mode"
+#~ msgstr "デバッグモードで起動"
+
+#~ msgid "Default"
+#~ msgstr "デフォルト"
+
+#~ msgid "Add"
+#~ msgstr "追加"
+
+#~ msgid "Invalid QR code"
+#~ msgstr "不正な QR コードです"
+
+#~ msgid "The One-Time Passwords expire in {} seconds"
+#~ msgstr "ワンタイムパスワードは {} 秒で期限切れになります"
+
+#~ msgid "Couldn't generate the secret code"
+#~ msgstr "シークレットコードを生成できませんでした"
+
+#~ msgid "The PIN of {} was copied to the clipboard"
+#~ msgstr "{} の PIN をクリップボードにコピーしました"
+
+#~ msgid "The account was updated successfully"
+#~ msgstr "アカウントは正常に更新されました"
+
+#~ msgid "Undo"
+#~ msgstr "元に戻す"
+
+#~ msgid "Close the notification"
+#~ msgstr "通知を閉じます"
+
+#~ msgid "Do you want to remove the authentication password?"
+#~ msgstr "認証パスワードを削除しますか?"
+
+#~ msgid "Authentication password enforces the privacy of your accounts."
+#~ msgstr "認証パスワードはアカウントのプライバシーを強化します。"
+
+#~ msgid "JSON files"
+#~ msgstr "JSON ファイル"
