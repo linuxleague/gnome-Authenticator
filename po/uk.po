@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-12-18 22:48+0000\n"
-"PO-Revision-Date: 2020-12-19 09:47+0200\n"
+"POT-Creation-Date: 2020-12-20 00:34+0000\n"
+"PO-Revision-Date: 2020-12-20 09:35+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -32,7 +32,6 @@ msgstr "Двофакторне розпізнавання"
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
 #: src/application.rs:148
-#| msgid "Generate Two-Factor codes"
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
@@ -251,7 +250,6 @@ msgid "Appearance"
 msgstr "Вигляд"
 
 #: data/resources/ui/preferences.ui:23
-#| msgid "Dark Theme"
 msgid "_Dark Theme"
 msgstr "_Темна тема"
 
@@ -264,7 +262,6 @@ msgid "Privacy"
 msgstr "Конфіденційність"
 
 #: data/resources/ui/preferences.ui:41
-#| msgid "Password"
 msgid "_Password"
 msgstr "Па_роль"
 
@@ -273,7 +270,6 @@ msgid "Set up a password to lock the application with"
 msgstr "Встановіть пароль, за допомогою якого буде заблоковано програму"
 
 #: data/resources/ui/preferences.ui:55
-#| msgid "Auto Lock the application"
 msgid "_Auto Lock the Application"
 msgstr "_Автоматично заблокувати програму"
 
@@ -282,7 +278,6 @@ msgid "Whether to automatically lock the application"
 msgstr "Чи слід автоматично блокувати програму"
 
 #: data/resources/ui/preferences.ui:68
-#| msgid "Auto lock timeout"
 msgid "Auto lock _Timeout"
 msgstr "_Час очікування на автоблокування"
 
@@ -319,7 +314,8 @@ msgid "The by default value for counter-based computing method"
 msgstr "Типове значення методу обчислення на основі лічильника"
 
 #: data/resources/ui/provider_page.ui:174
-msgid "Length of the generated code, recommended value is 6"
+#| msgid "Length of the generated code, recommended value is 6"
+msgid "Length of the generated code. The recommended value is 6"
 msgstr "Довжина створеного коду. Рекомендованим є значення 6"
 
 #: data/resources/ui/provider_page.ui:191
