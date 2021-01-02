@@ -7,8 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-05-13 18:43+0000\n"
-"PO-Revision-Date: 2020-05-20 14:50+0300\n"
+"POT-Creation-Date: 2020-12-20 00:34+0000\n"
+"PO-Revision-Date: 2021-01-02 20:34+0200\n"
+"Last-Translator: Florentina Mușat <florentina.musat.28@gmail.com>\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
@@ -16,72 +17,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2);;\n"
-"Last-Translator: Florentina Mușat <emryslokadottir [at] gmail [dot] com>\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/Authenticator/application.py.in:36
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: src/application.rs:145
 msgid "Authenticator"
 msgstr "Autentificator"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
 msgid "Two-factor Authentication"
 msgstr "Autentificare cu doi factori"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "A Two-Factor Authentication application"
-msgstr "O aplicație cu autentificare cu doi factori"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:148
+msgid "Generate Two-Factor Codes"
+msgstr "Generează coduri cu doi factori"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
 msgstr ""
-"Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;Verificare;"
+"Gnome;GTK;Verification;2FA;Authentication;TwoFactor;Verificare;"
 "Autentificare;DoiFactori;"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "Poziția implicită a ferestrei"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Lățimea implicită a ferestrei"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: data/resources/gtk/ui/settings.ui.in:28
-msgid "Dark Theme"
-msgstr "Temă întunecată"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Înălțimea implicită a ferestrei"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: data/resources/gtk/ui/settings.ui.in:29
-#: data/resources/gtk/ui/settings.ui.in:76
-msgid "Whether the application should use a dark theme."
-msgstr "Dacă aplicația ar trebui să utilizeze o temă întunecată."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: data/resources/gtk/ui/settings.ui.in:83
-msgid "Auto lock timeout"
-msgstr "Temporizare blocare automată"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-msgid "Lock the application on idle after X minutes"
-msgstr "Blochează aplicația în așteptare dupa X minute"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/gtk/ui/settings.ui.in:43
-msgid "Night Light"
-msgstr "Lumină de noapte"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
-#: data/resources/gtk/ui/settings.ui.in:44
-#: data/resources/gtk/ui/settings.ui.in:84
-msgid "Automatically enable dark mode at night."
-msgstr "Activează automat modul întunecat când este noapte."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
 msgid "Default window maximized behaviour"
 msgstr "Comportamentul maximizat al ferestrei implicite"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:10
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Theme"
+msgstr "Temă întunecată"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark theme."
+msgstr "Dacă aplicația ar trebui să utilizeze o temă întunecată."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "Blocare automată"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "Dacă să se blocheze sau nu automat aplicația"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "Temporizare blocare automată"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "Blochează aplicația în așteptare dupa X minute"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid ""
 "Simple application that generates a two-factor authentication code, created "
 "for GNOME."
@@ -89,271 +87,453 @@ msgstr ""
 "O aplicație simplă care generează un cod de autentificare cu doi factori, "
 "creată pentru GNOME."
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:11
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
 msgstr "Funcționalități:"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:13
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "QR code scanner"
 msgstr "Scaner cod QR"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "Beautiful UI"
 msgstr "UI frumos"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:15
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "Huge database of more than 560 supported services"
 msgstr "Bază de date imensă de mai bine de 560 de dispozitive suportate"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:16
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Keep your PIN tokens secure by locking the application with a password"
 msgstr ""
 "Păstrați-vă jetoanele PIN în siguranță prin blocarea aplicației cu o parolă"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:17
-msgid "Automatically fetch an image for services"
-msgstr "Preia automat o imagine pentru servicii"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Automatically fetch an image for services using their favicon"
+msgstr ""
+"Aduce automat o imagine pentru serviciile care își utilizează faviconul"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:18
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "The possibility to add new services"
 msgstr "Posibilitatea de a adăuga servicii noi"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:19
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid "Dark theme and night light"
 msgstr "Temă întunecată și lumină de noapte"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:25
-msgid "Main Window - empty state"
-msgstr "Fereastra principală - stare goală"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "Fereastră principală"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:12
 msgid "Add a new account"
 msgstr "Adaugă un cont nou"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:33
-msgid "Main Window - Accounts List"
-msgstr "Fereastra principală - Listă de conturi"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Sharing an account"
+msgstr "Partajarea unui cont"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:37
-msgid "Settings Window"
-msgstr "Fereastra de configurări"
-
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:170
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:165
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/gtk/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Florentina Mușat <emryslokadottir [at] gmail [dot] com>, 2020"
+#: data/resources/ui/account_add.ui:33
+msgid "_Add"
+msgstr "_Adaugă"
 
-#: data/resources/gtk/ui/account_config.ui:57
+#: data/resources/ui/account_add.ui:46
+msgid "Scan QR Code"
+msgstr "Scanează cod QR"
+
+#: data/resources/ui/account_add.ui:80
+#: data/resources/ui/account_details_page.ui:50
 msgid "Provider"
 msgstr "Furnizor"
 
-#: data/resources/gtk/ui/account_config.ui:85
-msgid "Website"
-msgstr "Pagină web"
+#: data/resources/ui/account_add.ui:81
+msgid "The service provider"
+msgstr "Furnizorul serviciului"
 
-#: data/resources/gtk/ui/account_config.ui:105
+#: data/resources/ui/account_add.ui:96
+#: data/resources/ui/account_details_page.ui:40
 msgid "Account"
 msgstr "Cont"
 
-#: data/resources/gtk/ui/account_config.ui:124
+#: data/resources/ui/account_add.ui:110
 msgid "Token"
 msgstr "Jeton"
 
-#: data/resources/gtk/ui/account_config.ui:134
-#: data/resources/gtk/ui/account_config.ui:135
-msgid "Enable 2FA for this account"
-msgstr "Activează 2FA pentru acest cont"
+#: data/resources/ui/account_add.ui:124 data/resources/ui/provider_page.ui:156
+msgid "Counter"
+msgstr "Contor"
 
-#: data/resources/gtk/ui/account_row.ui:48
+#: data/resources/ui/account_add.ui:149 data/resources/ui/provider_page.ui:127
+msgid "Algorithm"
+msgstr "Algoritm"
+
+#: data/resources/ui/account_add.ui:161 data/resources/ui/provider_page.ui:119
+msgid "Computing Method"
+msgstr "Metodă de calcul"
+
+#: data/resources/ui/account_add.ui:173 data/resources/ui/provider_page.ui:139
+msgid "Period"
+msgstr "Punct"
+
+#: data/resources/ui/account_add.ui:185 data/resources/ui/provider_page.ui:173
+msgid "Digits"
+msgstr "Cifre"
+
+#: data/resources/ui/account_add.ui:197
+#: data/resources/ui/account_details_page.ui:60
+#: data/resources/ui/provider_page.ui:105
+msgid "Website"
+msgstr "Pagină web"
+
+#: data/resources/ui/account_add.ui:203
+msgid "How to setup"
+msgstr "Cum se configurează"
+
+#: data/resources/ui/account_row.ui:6
+msgid "D_etails"
+msgstr "D_etalii"
+
+#: data/resources/ui/account_row.ui:12
+msgid "_Rename"
+msgstr "_Redenumește"
+
+#: data/resources/ui/account_row.ui:16
+msgid "_Delete"
+msgstr "Șt_erge"
+
+#: data/resources/ui/account_row.ui:64
 msgid "Copy PIN to clipboard"
 msgstr "Copiază PIN-ul la clipboard"
 
-#: data/resources/gtk/ui/account_row.ui:158
-msgid "Edit"
-msgstr "Editare"
+#: data/resources/ui/account_row.ui:135
+#: data/resources/ui/preferences_password_page.ui:20
+#: data/resources/ui/provider_page.ui:52
+msgid "_Save"
+msgstr "_Salvează"
 
-#: data/resources/gtk/ui/account_row.ui:176
-msgid "Delete"
-msgstr "Șterge"
+#: data/resources/ui/preferences_password_page.ui:42
+msgid "Set up a password"
+msgstr "Configurează o parolă"
 
-#: data/resources/gtk/ui/password_widget.ui:46
-msgid "Current Password:"
-msgstr "Parola curentă:"
+#: data/resources/ui/preferences_password_page.ui:50
+msgid "By setting a password, Authenticator will from now on start locked."
+msgstr ""
+"Prin configurarea unei parole, Autentificator va începe de acum încolo "
+"blocat."
 
-#: data/resources/gtk/ui/password_widget.ui:91
-msgid "New Password:"
-msgstr "Parola nouă:"
+#: data/resources/ui/preferences_password_page.ui:68
+msgid "Current Password"
+msgstr "Parola curentă"
 
-#: data/resources/gtk/ui/password_widget.ui:136
-msgid "Confirm New Password:"
-msgstr "Confirmă parola nouă:"
+#: data/resources/ui/preferences_password_page.ui:81
+msgid "New Password"
+msgstr "Parola nouă"
 
-#: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:172
-msgid "Change Password"
-msgstr "Schimbă parola"
+#: data/resources/ui/preferences_password_page.ui:94
+msgid "Repeat Password"
+msgstr "Repetă parola"
 
-#: data/resources/gtk/ui/password_widget.ui:205
-msgid "Delete Password"
-msgstr "Șterge parola"
+#: data/resources/ui/preferences_password_page.ui:115
+msgid "_Reset"
+msgstr "_Restabilește"
 
-#: data/resources/gtk/ui/settings.ui.in:24
+#: data/resources/ui/preferences.ui:17
+msgid "General"
+msgstr "Generale"
+
+#: data/resources/ui/preferences.ui:20
 msgid "Appearance"
 msgstr "Aspect"
 
-#: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:102
-msgid "Lock the application"
-msgstr "Blochează aplicația"
+#: data/resources/ui/preferences.ui:23
+msgid "_Dark Theme"
+msgstr "Temă întunec_ată"
 
-#: data/resources/gtk/ui/shortcuts.ui:13
+#: data/resources/ui/preferences.ui:26
+msgid "Whether the application should use a dark theme"
+msgstr "Dacă aplicația ar trebui să utilizeze o temă întunecată"
+
+#: data/resources/ui/preferences.ui:38
+msgid "Privacy"
+msgstr "Confidențialitate"
+
+#: data/resources/ui/preferences.ui:41
+msgid "_Password"
+msgstr "_Parolă"
+
+#: data/resources/ui/preferences.ui:43
+msgid "Set up a password to lock the application with"
+msgstr "Configurați o parolă cu care să blocați aplicația"
+
+#: data/resources/ui/preferences.ui:55
+msgid "_Auto Lock the Application"
+msgstr "Bloc_ați automat aplicația"
+
+#: data/resources/ui/preferences.ui:58
+msgid "Whether to automatically lock the application"
+msgstr "Dacă să se blocheze automat aplicația"
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto lock _Timeout"
+msgstr "Limită de _timp pentru blocarea automată atinsă"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "Ora în minute"
+
+#: data/resources/ui/preferences.ui:91
+msgid "Backup/Restore"
+msgstr "Copiere de rezervă/Restaurare"
+
+#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:208
+msgid "Backup"
+msgstr "Copie de rezervă"
+
+#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:215
+msgid "Restore"
+msgstr "Restaurează"
+
+#: data/resources/ui/provider_page.ui:91
+msgid "Name"
+msgstr "Nume"
+
+#: data/resources/ui/provider_page.ui:106
+msgid "Used to fetch the website icon if possible"
+msgstr "Utilizat pentru a aduce iconița paginii web, dacă este posibil"
+
+#: data/resources/ui/provider_page.ui:140
+msgid "The duration in seconds. The recommended value is 30"
+msgstr "Durata în secunde. Valoarea recomandată este 30"
+
+#: data/resources/ui/provider_page.ui:157
+msgid "The by default value for counter-based computing method"
+msgstr "Valoarea în mod implicit pentru metoda de calcul bazată pe contor"
+
+#: data/resources/ui/provider_page.ui:174
+msgid "Length of the generated code. The recommended value is 6"
+msgstr "Lungimea codului generat. Valoarea recomandată este 6"
+
+#: data/resources/ui/provider_page.ui:191
+msgid "Help URL"
+msgstr "URL ajutor"
+
+#: data/resources/ui/provider_page.ui:192
+msgid "How to set up Two-Factor Authentication"
+msgstr "Cum se configurează autentificarea cu doi factori"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "Furnizori"
+
+#: data/resources/ui/providers_list.ui:44
+msgid "There are no accounts yet…"
+msgstr "Nu există conturi încă…"
+
+#: data/resources/ui/providers_list.ui:76
+msgid "Add a new account from the menu"
+msgstr "Adaugă un cont nou de la meniu"
+
+#: data/resources/ui/providers_list.ui:102
+msgid "Scan a QR Code"
+msgstr "Scanează un cod QR"
+
+#: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Generale"
 
-#: data/resources/gtk/ui/shortcuts.ui:17
+#: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Arată scurtăturile"
 
-#: data/resources/gtk/ui/shortcuts.ui:24
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Blochează"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Preferințe"
 
-#: data/resources/gtk/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Ieșire"
 
-#: data/resources/gtk/ui/shortcuts.ui:40
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "Conturi"
 
-#: data/resources/gtk/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Add"
 msgstr "Adaugă"
 
-#: data/resources/gtk/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Caută"
 
-#: data/resources/gtk/ui/window.ui.in:188
-msgid "There are no accounts yet…"
-msgstr "Nu există conturi încă…"
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Scan QR"
+msgstr "Scanează QR"
 
-#: data/resources/gtk/ui/window.ui.in:217
-msgid "Add a new account from the menu"
-msgstr "Adaugă un cont nou de la meniu"
+#: data/resources/ui/window.ui:6
+msgid "_Lock the application"
+msgstr "_Blochează aplicația"
 
-#: data/resources/gtk/ui/window.ui.in:233
-msgid "Scan a QR Code"
-msgstr "Scanează un cod QR"
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "Fu_rnizori"
 
-#: data/resources/gtk/ui/window.ui.in:365
-msgid "No results found"
-msgstr "Nu s-au găsit rezultate"
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_Preferințe"
 
-#: data/resources/gtk/ui/window.ui.in:428
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "Scurtături de _tastatură"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "_Despre Autentificator"
+
+#: data/resources/ui/window.ui:150
 msgid "Authenticator is locked"
 msgstr "Autentificator este blocat"
 
-#: data/resources/gtk/ui/window.ui.in:468
-msgid "Unlock"
-msgstr "Deblochează"
+#: data/resources/ui/window.ui:173
+msgid "_Unlock"
+msgstr "_Deblochează"
 
-#: src/authenticator.py.in:49
-msgid "Start in debug mode"
-msgstr "Pornește în modul de depanare"
+#: src/application.rs:152
+msgid "translator-credits"
+msgstr ""
+"Florentina Mușat <florentina [dot] musat [dot] 28 [at] gmail [dot] com>, "
+"2020-2021"
 
-#: src/Authenticator/application.py.in:110
-msgid "from a plain-text JSON file"
-msgstr "de la un fișier JSON cu text simplu"
+#: src/backup/andotp.rs:31
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
 
-#: src/Authenticator/application.py.in:111
-msgid "in a plain-text JSON file"
-msgstr "într-un fișier JSON cu text simplu"
+#: src/backup/andotp.rs:35
+msgid "Into a plain-text JSON file"
+msgstr "Într-un fișier text simplu JSON"
 
-#: src/Authenticator/application.py.in:113
-msgid "Restore"
-msgstr "Restaurează"
+#: src/backup/andotp.rs:90
+msgid "an_dOTP"
+msgstr "an_dOTP"
 
-#: src/Authenticator/application.py.in:114
-msgid "Backup"
-msgstr "Copie de rezervă"
+#: src/backup/andotp.rs:94 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
+msgid "From a plain-text JSON file"
+msgstr "De la un fișier text simplu JSON"
 
-#. Night mode action
-#: src/Authenticator/application.py.in:122
-msgid "Preferences"
-msgstr "Preferințe"
+#: src/backup/bitwarden.rs:16
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
 
-#: src/Authenticator/application.py.in:123
-msgid "Keyboard Shortcuts"
-msgstr "Scurtături de tastatură"
+#: src/backup/freeotp.rs:18
+msgid "_Authenticator"
+msgstr "_Autentificator"
 
-#: src/Authenticator/application.py.in:124
-msgid "About Authenticator"
-msgstr "Despre Autentificator"
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "Într-un fișier text simplu, compatibil cu FreeOTP+"
 
-#: src/Authenticator/models/account.py:87
-msgid "Default"
-msgstr "Implicit"
+#: src/backup/freeotp.rs:63
+msgid "A_uthenticator"
+msgstr "A_utentificator"
 
-#: src/Authenticator/widgets/accounts/add.py:36
-msgid "Add"
-msgstr "Adaugă"
+#: src/backup/freeotp.rs:67
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "De la un fișier text simplu, compatibil cu FreeOTP+"
 
-#: src/Authenticator/widgets/accounts/add.py:256
-msgid "Invalid QR code"
-msgstr "Cod QR nevalid"
+#: src/backup/legacy.rs:29
+msgid "Au_thenticator (Old)"
+msgstr "Au_tentificator (Vechi)"
 
-#: src/Authenticator/widgets/accounts/edit.py:37
-msgid "Save"
-msgstr "Salvează"
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:218
+msgid "Select"
+msgstr "Selectează"
 
-#: src/Authenticator/widgets/accounts/list.py:151
-msgid "The One-Time Passwords expire in {} seconds"
-msgstr "Parolele de unică folosință expiră în {} secunde"
+#: src/widgets/preferences/window.rs:212 src/widgets/preferences/window.rs:219
+msgid "Cancel"
+msgstr "Anulează"
 
-#: src/Authenticator/widgets/accounts/row.py:89
-msgid "Couldn't generate the secret code"
-msgstr "Nu s-a putut genera codul secret"
+#~ msgid "A Two-Factor Authentication application"
+#~ msgstr "O aplicație cu autentificare cu doi factori"
 
-#: src/Authenticator/widgets/accounts/row.py:99
-msgid "The PIN of {} was copied to the clipboard"
-msgstr "PIN-ul al {} a fost copiat la clipboard"
+#~ msgid "Night Light"
+#~ msgstr "Lumină de noapte"
 
-#: src/Authenticator/widgets/accounts/row.py:138
-msgid "The account was updated successfully"
-msgstr "Contul a fost actualizat cu succes"
+#~ msgid "Automatically enable dark mode at night."
+#~ msgstr "Activează automat modul întunecat când este noapte."
 
-#: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:86
-msgid "Undo"
-msgstr "Refă"
+#~ msgid "Main Window - empty state"
+#~ msgstr "Fereastra principală - stare goală"
 
-#: src/Authenticator/widgets/notification.py:81
-msgid "Close the notification"
-msgstr "Închide înștiințarea"
+#~ msgid "Main Window - Accounts List"
+#~ msgstr "Fereastra principală - Listă de conturi"
 
-#: src/Authenticator/widgets/settings.py:168
-msgid "Save Password"
-msgstr "Salvează parola"
+#~ msgid "Enable 2FA for this account"
+#~ msgstr "Activează 2FA pentru acest cont"
 
-#: src/Authenticator/widgets/settings.py:220
-msgid "Do you want to remove the authentication password?"
-msgstr "Doriți să eliminați parola de autentificare?"
+#~ msgid "Edit"
+#~ msgstr "Editare"
 
-#: src/Authenticator/widgets/settings.py:221
-msgid "Authentication password enforces the privacy of your accounts."
-msgstr "Parola de autentificare impune confidențialitatea conturilor."
+#~ msgid "Confirm New Password:"
+#~ msgstr "Confirmă parola nouă:"
 
-#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
-msgid "JSON files"
-msgstr "Fișier JSON"
+#~ msgid "Change Password"
+#~ msgstr "Schimbă parola"
+
+#~ msgid "No results found"
+#~ msgstr "Nu s-au găsit rezultate"
+
+#~ msgid "Start in debug mode"
+#~ msgstr "Pornește în modul de depanare"
+
+#~ msgid "Default"
+#~ msgstr "Implicit"
+
+#~ msgid "Add"
+#~ msgstr "Adaugă"
+
+#~ msgid "Invalid QR code"
+#~ msgstr "Cod QR nevalid"
+
+#~ msgid "The One-Time Passwords expire in {} seconds"
+#~ msgstr "Parolele de unică folosință expiră în {} secunde"
+
+#~ msgid "Couldn't generate the secret code"
+#~ msgstr "Nu s-a putut genera codul secret"
+
+#~ msgid "The PIN of {} was copied to the clipboard"
+#~ msgstr "PIN-ul al {} a fost copiat la clipboard"
+
+#~ msgid "The account was updated successfully"
+#~ msgstr "Contul a fost actualizat cu succes"
+
+#~ msgid "Undo"
+#~ msgstr "Refă"
+
+#~ msgid "Close the notification"
+#~ msgstr "Închide înștiințarea"
+
+#~ msgid "Do you want to remove the authentication password?"
+#~ msgstr "Doriți să eliminați parola de autentificare?"
+
+#~ msgid "Authentication password enforces the privacy of your accounts."
+#~ msgstr "Parola de autentificare impune confidențialitatea conturilor."
+
+#~ msgid "JSON files"
+#~ msgstr "Fișier JSON"
