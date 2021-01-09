@@ -21,6 +21,8 @@ pub struct LegacyAuthenticator {
 }
 
 impl Restorable for LegacyAuthenticator {
+    type Item = Self;
+
     fn identifier() -> String {
         "authenticator_legacy".to_string()
     }
@@ -33,31 +35,30 @@ impl Restorable for LegacyAuthenticator {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
+    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
-
         let items: Vec<LegacyAuthenticator> = serde_json::de::from_slice(&data)?;
+        Ok(items)
+    }
 
-        items.iter().try_for_each(|item| -> anyhow::Result<()> {
-            let issuer = item.tags.get(0).unwrap();
-            info!(
-                "Restoring account: {} - {} from LegacyAuthenticator",
-                issuer, item.label
-            );
+    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
+        let issuer = item.tags.get(0).unwrap();
+        info!(
+            "Restoring account: {} - {} from LegacyAuthenticator",
+            issuer, item.label
+        );
 
-            let provider = model.find_or_create(
-                &issuer,
-                item.period,
-                item.method,
-                None,
-                item.algorithm,
-                item.digits,
-                1,
-            )?;
-            let account = Account::create(&item.label, &item.secret, &provider)?;
-            provider.add_account(&account);
-            Ok(())
-        })?;
+        let provider = model.find_or_create(
+            &issuer,
+            item.period,
+            item.method,
+            None,
+            item.algorithm,
+            item.digits,
+            1,
+        )?;
+        let account = Account::create(&item.label, &item.secret, &provider)?;
+        provider.add_account(&account);
         Ok(())
     }
 }

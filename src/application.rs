@@ -5,16 +5,15 @@ use crate::{
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use gettextrs::gettext;
-use gio::subclass::ObjectSubclass;
 use glib::clone;
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*};
 use gtk_macros::{action, get_action};
 use std::env;
 
 mod imp {
     use super::*;
-    use glib::{subclass, subclass::prelude::*, WeakRef};
-    use gtk::subclass::prelude::{ApplicationImpl, ApplicationImplExt, GtkApplicationImpl};
+    use glib::{subclass, WeakRef};
     use std::cell::{Cell, RefCell};
 
     pub struct Application {

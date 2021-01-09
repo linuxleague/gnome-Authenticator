@@ -4,8 +4,8 @@ use crate::{
     widgets::{ProviderImage, UrlRow},
 };
 use anyhow::Result;
-use gio::{subclass::ObjectSubclass, ActionMapExt};
 use glib::{clone, signal::Inhibit};
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
@@ -13,7 +13,6 @@ use once_cell::sync::OnceCell;
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     use std::cell::RefCell;
 
     #[derive(CompositeTemplate)]

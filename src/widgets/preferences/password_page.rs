@@ -1,6 +1,6 @@
 use crate::{config, helpers::Keyring};
-use gio::subclass::ObjectSubclass;
 use glib::clone;
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
@@ -10,7 +10,6 @@ mod imp {
 
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     #[derive(CompositeTemplate)]
     pub struct PasswordPage {
         pub actions: OnceCell<gio::SimpleActionGroup>,

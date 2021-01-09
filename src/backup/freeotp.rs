@@ -22,7 +22,7 @@ impl Backupable for FreeOTP {
         gettext("Into a plain-text file, compatible with FreeOTP+")
     }
 
-    fn backup(model: ProvidersModel, into: gtk::gio::File) -> Result<()> {
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
         let mut items: Vec<String> = Vec::new();
 
         for i in 0..model.get_n_items() {
@@ -55,6 +55,7 @@ impl Backupable for FreeOTP {
 }
 
 impl Restorable for FreeOTP {
+    type Item = OTPUri;
     fn identifier() -> String {
         "authenticator".to_string()
     }
@@ -67,30 +68,33 @@ impl Restorable for FreeOTP {
         gettext("From a plain-text file, compatible with FreeOTP+")
     }
 
-    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
+    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
         let uris = String::from_utf8(data)?;
 
-        uris.split('\n')
+        let items = uris
+            .split('\n')
             .into_iter()
-            .try_for_each(|uri| -> Result<()> {
-                println!("{:#?}", uri);
-                let otp_uri = OTPUri::from_str(uri)?;
-                let provider = model.find_or_create(
-                    &otp_uri.issuer,
-                    otp_uri.period.unwrap_or(30),
-                    otp_uri.method,
-                    None,
-                    otp_uri.algorithm,
-                    otp_uri.digits.unwrap_or(6),
-                    otp_uri.counter.unwrap_or(1),
-                )?;
+            .map(|uri| OTPUri::from_str(uri))
+            .filter(|uri| uri.is_ok())
+            .map(|uri| uri.unwrap())
+            .collect::<Vec<OTPUri>>();
+        Ok(items)
+    }
 
-                let account = Account::create(&otp_uri.label, &otp_uri.secret, &provider)?;
-                provider.add_account(&account);
+    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
+        let provider = model.find_or_create(
+            &item.issuer,
+            item.period.unwrap_or(30),
+            item.method,
+            None,
+            item.algorithm,
+            item.digits.unwrap_or(6),
+            item.counter.unwrap_or(1),
+        )?;
 
-                Ok(())
-            });
+        let account = Account::create(&item.label, &item.secret, &provider)?;
+        provider.add_account(&account);
         Ok(())
     }
 }

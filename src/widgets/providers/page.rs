@@ -2,9 +2,9 @@ use crate::{
     models::{Algorithm, OTPMethod, Provider},
     widgets::ProviderImage,
 };
-use gio::subclass::ObjectSubclass;
 use glib::{clone, translate::ToGlib};
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::subclass::prelude::*;
+use gtk::{glib, prelude::*, CompositeTemplate};
 use libhandy::ComboRowExt;
 
 pub enum ProviderPageMode {
@@ -17,7 +17,6 @@ mod imp {
 
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
 
     #[derive(Debug, CompositeTemplate)]
     pub struct ProviderPage {

@@ -1,3 +1,5 @@
+use std::fmt::Debug;
+
 use crate::models::ProvidersModel;
 use anyhow::Result;
 
@@ -7,20 +9,23 @@ pub enum Operation {
     Restore,
 }
 
-pub trait Restorable {
+pub trait Restorable: Sized {
+    type Item: Debug;
+
     fn title() -> String;
     fn subtitle() -> String;
     // Used to define the `restore.$identifier` action
     fn identifier() -> String;
-    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()>;
+    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>>;
+    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()>;
 }
 
-pub trait Backupable {
+pub trait Backupable: Sized {
     fn title() -> String;
     fn subtitle() -> String;
     // Used to define the `backup.$identifier` action
     fn identifier() -> String;
-    fn backup(model: ProvidersModel, into: gtk::gio::File) -> Result<()>;
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()>;
 }
 
 mod andotp;

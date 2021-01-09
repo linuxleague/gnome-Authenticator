@@ -1,12 +1,11 @@
-use gio::subclass::ObjectSubclass;
 use glib::{clone, ObjectExt, ToValue};
-use gtk::{gio, glib, WidgetExt};
+use gtk::subclass::prelude::*;
+use gtk::{glib, WidgetExt};
 use libhandy::ActionRowExt;
 
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     use libhandy::subclass::action_row::ActionRowImpl;
     use std::cell::RefCell;
 

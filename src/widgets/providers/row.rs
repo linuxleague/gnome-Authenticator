@@ -2,19 +2,13 @@ use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
     widgets::{accounts::AccountRow, ProviderImage},
 };
-use gio::subclass::ObjectSubclass;
-use gtk::{
-    gio, glib,
-    glib::{clone, subclass::prelude::*},
-    prelude::*,
-    CompositeTemplate,
-};
+use gtk::subclass::prelude::*;
+use gtk::{glib, glib::clone, prelude::*, CompositeTemplate};
 use std::time::{Duration, Instant};
 
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     use std::cell::{Cell, RefCell};
 
     static PROPERTIES: [subclass::Property; 2] = [
@@ -262,6 +256,6 @@ impl ProviderRow {
         self_
             .accounts_list
             .get()
-            .bind_model(Some(&sort_model), Some(Box::new(create_callback)));
+            .bind_model(Some(&sort_model), create_callback);
     }
 }

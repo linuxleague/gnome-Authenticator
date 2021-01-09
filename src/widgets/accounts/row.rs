@@ -1,6 +1,6 @@
 use crate::models::Account;
-use gio::{subclass::ObjectSubclass, ActionMapExt};
 use glib::clone;
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use std::cell::RefCell;
@@ -8,7 +8,6 @@ use std::cell::RefCell;
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
 
     static PROPERTIES: [subclass::Property; 1] = [subclass::Property("account", |name| {
         glib::ParamSpec::object(

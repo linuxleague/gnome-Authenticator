@@ -1,14 +1,13 @@
 use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
-use gio::{subclass::ObjectSubclass, ListModelExt};
 use glib::{clone, signal::Inhibit};
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     use libhandy::subclass::window::WindowImpl as HdyWindowImpl;
 
     #[derive(CompositeTemplate)]
@@ -190,13 +189,13 @@ impl ProvidersDialog {
     fn search(&self, text: String) {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
-        let providers_filter = gtk::CustomFilter::new(Some(Box::new(move |object| {
+        let providers_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider
                 .name()
                 .to_ascii_lowercase()
                 .contains(&text.to_ascii_lowercase())
-        })));
+        });
         self_.filter_model.set_filter(Some(&providers_filter));
     }
 
@@ -219,7 +218,6 @@ mod row {
     mod imp {
         use super::*;
         use glib::subclass;
-        use gtk::subclass::prelude::*;
         use std::cell::RefCell;
 
         static PROPERTIES: [subclass::Property; 1] = [subclass::Property("provider", |name| {

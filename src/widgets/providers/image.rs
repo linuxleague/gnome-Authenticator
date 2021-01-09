@@ -1,6 +1,6 @@
 use crate::models::Provider;
-use gio::{subclass::ObjectSubclass, FileExt};
 use glib::{clone, Receiver, Sender};
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 
 pub enum ImageAction {
@@ -11,7 +11,6 @@ pub enum ImageAction {
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     use std::cell::{Cell, RefCell};
 
     static PROPERTIES: [subclass::Property; 2] = [

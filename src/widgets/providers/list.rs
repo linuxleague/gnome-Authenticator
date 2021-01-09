@@ -3,14 +3,13 @@ use crate::{
     models::{Account, Provider, ProviderSorter, ProvidersModel},
     widgets::providers::ProviderRow,
 };
-use gio::{subclass::ObjectSubclass, ListModelExt};
 use glib::clone;
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
 
     #[derive(Debug, CompositeTemplate)]
     pub struct ProvidersList {
@@ -75,10 +74,10 @@ impl ProvidersList {
 
     pub fn set_model(&self, model: ProvidersModel) {
         let self_ = imp::ProvidersList::from_instance(self);
-        let accounts_filter = gtk::CustomFilter::new(Some(Box::new(|object| {
+        let accounts_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.has_accounts()
-        })));
+        });
         self_.filter_model.set_filter(Some(&accounts_filter));
         self_.filter_model.set_model(Some(&model));
     }
@@ -95,11 +94,11 @@ impl ProvidersList {
     pub fn search(&self, text: String) {
         let self_ = imp::ProvidersList::from_instance(self);
 
-        let accounts_filter = gtk::CustomFilter::new(Some(Box::new(move |object| {
+        let accounts_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.filter(text.clone());
             provider.accounts().get_n_items() != 0
-        })));
+        });
         self_.filter_model.set_filter(Some(&accounts_filter));
     }
 
@@ -115,7 +114,7 @@ impl ProvidersList {
 
         self_.providers_list.get().bind_model(
             Some(&sort_model),
-            Some(Box::new(clone!(@weak self as list => move |obj| {
+            clone!(@weak self as list => move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
                 let row = ProviderRow::new(provider);
                 row.connect_local("changed", false, clone!(@weak list =>  move |_| {
@@ -130,7 +129,7 @@ impl ProvidersList {
                 })).unwrap();
 
                 row.upcast::<gtk::Widget>()
-            }))),
+            }),
         );
     }
 }

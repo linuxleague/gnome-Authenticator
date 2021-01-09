@@ -35,7 +35,7 @@ impl Backupable for AndOTP {
         gettext("Into a plain-text JSON file")
     }
 
-    fn backup(model: ProvidersModel, into: gtk::gio::File) -> Result<()> {
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
         let mut items = Vec::new();
 
         for i in 0..model.get_n_items() {
@@ -82,6 +82,8 @@ impl Backupable for AndOTP {
 }
 
 impl Restorable for AndOTP {
+    type Item = Self;
+
     fn identifier() -> String {
         "andotp".to_string()
     }
@@ -94,30 +96,31 @@ impl Restorable for AndOTP {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
+    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
 
         let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;
-        items.iter().try_for_each(|item| -> anyhow::Result<()> {
-            info!(
-                "Restoring account: {} - {} from AndOTP",
-                item.issuer, item.label
-            );
+        Ok(items)
+    }
 
-            let provider = model.find_or_create(
-                &item.issuer,
-                item.period.unwrap_or(30),
-                item.method,
-                None,
-                item.algorithm,
-                item.digits,
-                item.counter.unwrap_or(1),
-            )?;
+    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
+        info!(
+            "Restoring account: {} - {} from AndOTP",
+            item.issuer, item.label
+        );
 
-            let account = Account::create(&item.label, &item.secret, &provider)?;
-            provider.add_account(&account);
-            Ok(())
-        });
+        let provider = model.find_or_create(
+            &item.issuer,
+            item.period.unwrap_or(30),
+            item.method,
+            None,
+            item.algorithm,
+            item.digits,
+            item.counter.unwrap_or(1),
+        )?;
+
+        let account = Account::create(&item.label, &item.secret, &provider)?;
+        provider.add_account(&account);
         Ok(())
     }
 }

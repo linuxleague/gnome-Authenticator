@@ -8,8 +8,8 @@ use anyhow::Result;
 use async_std::prelude::*;
 use core::cmp::Ordering;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use gio::subclass::ObjectSubclass;
 use glib::{Cast, StaticType, ToValue};
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*};
 use std::{
     cell::{Cell, RefCell},
@@ -49,7 +49,7 @@ pub struct DiProvider {
 }
 mod imp {
     use super::*;
-    use glib::subclass::{self, prelude::*};
+    use glib::subclass;
 
     static PROPERTIES: [subclass::Property; 11] = [
         subclass::Property("id", |name| {
@@ -480,13 +480,13 @@ impl Provider {
 
     pub fn filter(&self, text: String) {
         let self_ = imp::Provider::from_instance(self);
-        let filter = gtk::CustomFilter::new(Some(Box::new(move |obj| {
+        let filter = gtk::CustomFilter::new(move |obj| {
             let account = obj.downcast_ref::<Account>().unwrap();
             account
                 .name()
                 .to_ascii_lowercase()
                 .contains(&text.to_ascii_lowercase())
-        })));
+        });
         self_.filter_model.set_filter(Some(&filter));
     }
 

@@ -4,9 +4,10 @@ use crate::{
     config,
     models::ProvidersModel,
 };
+use anyhow::Result;
 use gettextrs::gettext;
-use gio::{subclass::ObjectSubclass, ActionMapExt};
 use glib::clone;
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use libhandy::prelude::*;
 use once_cell::sync::OnceCell;
@@ -14,7 +15,6 @@ use once_cell::sync::OnceCell;
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     use libhandy::subclass::{
         preferences_window::PreferencesWindowImpl, window::WindowImpl as HdyWindowImpl,
     };
@@ -156,7 +156,7 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Backup);
                 dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        T::backup(model, d.get_file().unwrap());
+                        T::backup(&model, &d.get_file().unwrap());
                     }
                     d.destroy();
                 }));
@@ -177,16 +177,15 @@ impl PreferencesWindow {
             .action_name(&format!("restore.{}", T::identifier()))
             .build();
 
-        let model = self_.model.get().unwrap();
         gtk_macros::action!(
             self_.restore_actions,
             &T::identifier(),
-            clone!(@weak self as win, @weak model => move |_, _| {
+            clone!(@weak self as win => move |_, _| {
                 let dialog = win.select_file(filters, Operation::Restore);
-                dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
+                dialog.connect_response(clone!(@weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        T::restore(model, d.get_file().unwrap()).unwrap();
-                        win.emit("restore-completed", &[]).unwrap();
+                        let items: Vec<T::Item> = T::restore(&d.get_file().unwrap()).unwrap();
+                        //win.restore_items(items);
                     }
                     d.destroy();
                 }));
@@ -194,6 +193,11 @@ impl PreferencesWindow {
         );
 
         self_.restore_group.get().add(&row);
+    }
+
+    fn restore_items<T: Restorable>(&self, items: Vec<T::Item>) -> Result<()> {
+        println!("{:#?}", items);
+        Ok(())
     }
 
     fn select_file(

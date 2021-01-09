@@ -6,8 +6,8 @@ use crate::{
     widgets::{accounts::AccountDetailsPage, providers::ProvidersList, AccountAddDialog},
     window_state,
 };
-use gio::subclass::ObjectSubclass;
 use glib::{clone, signal::Inhibit};
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
@@ -22,7 +22,6 @@ pub enum View {
 mod imp {
     use super::*;
     use glib::subclass;
-    use gtk::subclass::prelude::*;
     use libhandy::subclass::application_window::ApplicationWindowImpl as HdyApplicationWindowImpl;
 
     #[derive(Debug, CompositeTemplate)]

@@ -8,6 +8,8 @@ use serde::{Deserialize, Serialize};
 pub struct Bitwarden;
 
 impl Restorable for Bitwarden {
+    type Item = Self;
+
     fn identifier() -> String {
         "bitwarden".to_string()
     }
@@ -20,7 +22,11 @@ impl Restorable for Bitwarden {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(model: ProvidersModel, from: gtk::gio::File) -> Result<()> {
+    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
+        Ok(Vec::new())
+    }
+
+    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
         Ok(())
     }
 }

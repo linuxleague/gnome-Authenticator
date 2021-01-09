@@ -7,8 +7,9 @@ use anyhow::Result;
 use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
-use gio::{subclass::ObjectSubclass, FileExt};
 use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
+use gtk::prelude::*;
+use gtk::subclass::prelude::*;
 use gtk::{gio, glib};
 use once_cell::sync::OnceCell;
 use qrcode::QrCode;
@@ -42,7 +43,7 @@ pub struct DiAccount {
 #[doc(hidden)]
 mod imp {
     use super::*;
-    use glib::subclass::{self, prelude::*};
+    use glib::subclass;
 
     static PROPERTIES: [subclass::Property; 6] = [
         subclass::Property("id", |name| {
