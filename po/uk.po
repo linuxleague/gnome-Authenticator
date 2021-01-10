@@ -2,13 +2,13 @@
 # Copyright (C) 2020 authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-12-20 00:34+0000\n"
-"PO-Revision-Date: 2020-12-20 09:35+0200\n"
+"POT-Creation-Date: 2021-01-10 00:31+0000\n"
+"PO-Revision-Date: 2021-01-10 09:43+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,24 +21,26 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:145
+#: src/application.rs:144
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
+#| msgid "Two-factor Authentication"
+msgid "Two-Factor Authentication"
 msgstr "Двофакторне розпізнавання"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:148
+#: src/application.rs:147
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+#| msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
 msgstr ""
-"Gnome;GTK;Verification;2FA;Authentication;TwoFactor;гноме;гном;жтека;гтк;"
+"Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;гноме;гном;жтека;гтк;"
 "перевірка;2фа;автентифікація;розпізнавання;двофакторна;"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
@@ -82,12 +84,11 @@ msgstr ""
 "кількості хвилин."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
-msgid ""
-"Simple application that generates a two-factor authentication code, created "
-"for GNOME."
-msgstr ""
-"Проста програма, яка генерує двофакторний код розпізнавання. Програму "
-"створено для GNOME."
+#| msgid ""
+#| "Simple application that generates a two-factor authentication code, "
+#| "created for GNOME."
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "Проста програма для створення двофакторних кодів розпізнавання."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
@@ -106,8 +107,10 @@ msgid "Huge database of more than 560 supported services"
 msgstr "Величезна база даних з понад 560 підтримуваних служб"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr "Безпечне зберігання ваших пін-ключів замиканням даних програми паролем"
+#| msgid ""
+#| "Keep your PIN tokens secure by locking the application with a password"
+msgid "Keep your tokens secure by locking the application with a password"
+msgstr "Безпечне зберігання ваших жетонів замиканням даних програми паролем"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Automatically fetch an image for services using their favicon"
@@ -148,7 +151,7 @@ msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
 #: data/resources/ui/account_add.ui:80
-#: data/resources/ui/account_details_page.ui:50
+#: data/resources/ui/account_details_page.ui:51
 msgid "Provider"
 msgstr "Надавач даних"
 
@@ -157,7 +160,7 @@ msgid "The service provider"
 msgstr "Надавач послуг служби"
 
 #: data/resources/ui/account_add.ui:96
-#: data/resources/ui/account_details_page.ui:40
+#: data/resources/ui/account_details_page.ui:41
 msgid "Account"
 msgstr "Обліковий запис"
 
@@ -186,7 +189,7 @@ msgid "Digits"
 msgstr "Цифри"
 
 #: data/resources/ui/account_add.ui:197
-#: data/resources/ui/account_details_page.ui:60
+#: data/resources/ui/account_details_page.ui:61
 #: data/resources/ui/provider_page.ui:105
 msgid "Website"
 msgstr "Сайт"
@@ -289,11 +292,11 @@ msgstr "Час у хвилинах"
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:208
+#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:212
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:215
+#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:219
 msgid "Restore"
 msgstr "Відновити"
 
@@ -314,7 +317,6 @@ msgid "The by default value for counter-based computing method"
 msgstr "Типове значення методу обчислення на основі лічильника"
 
 #: data/resources/ui/provider_page.ui:174
-#| msgid "Length of the generated code, recommended value is 6"
 msgid "Length of the generated code. The recommended value is 6"
 msgstr "Довжина створеного коду. Рекомендованим є значення 6"
 
@@ -415,7 +417,7 @@ msgstr "«Розпізнавач» замкнено"
 msgid "_Unlock"
 msgstr "_Розблокувати"
 
-#: src/application.rs:152
+#: src/application.rs:151
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
@@ -427,15 +429,15 @@ msgstr "a_ndOTP"
 msgid "Into a plain-text JSON file"
 msgstr "До звичайного текстового файла JSON"
 
-#: src/backup/andotp.rs:90
+#: src/backup/andotp.rs:92
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:94 src/backup/bitwarden.rs:20 src/backup/legacy.rs:33
+#: src/backup/andotp.rs:96 src/backup/bitwarden.rs:22 src/backup/legacy.rs:35
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
 
-#: src/backup/bitwarden.rs:16
+#: src/backup/bitwarden.rs:18
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
@@ -447,23 +449,23 @@ msgstr "_Розпізнавач"
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "До звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:64
 msgid "A_uthenticator"
 msgstr "Р_озпізнавач"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:68
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Зі звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/backup/legacy.rs:29
+#: src/backup/legacy.rs:31
 msgid "Au_thenticator (Old)"
 msgstr "Роз_пізнавач (старий)"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:218
+#: src/widgets/preferences/window.rs:215 src/widgets/preferences/window.rs:222
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/widgets/preferences/window.rs:212 src/widgets/preferences/window.rs:219
+#: src/widgets/preferences/window.rs:216 src/widgets/preferences/window.rs:223
 msgid "Cancel"
 msgstr "Скасувати"
 
