@@ -7,13 +7,13 @@
   <name>Authenticator</name>
   <summary>Generate Two-Factor Codes</summary>
   <description>
-    <p>Simple application that generates a two-factor authentication code, created for GNOME.</p>
+    <p>Simple application for generating Two-Factor Authentication Codes.</p>
     <p>Features:</p>
     <ul>
         <li>QR code scanner</li>
         <li>Beautiful UI</li>
         <li>Huge database of more than 560 supported services</li>
-        <li>Keep your PIN tokens secure by locking the application with a password</li>
+        <li>Keep your tokens secure by locking the application with a password</li>
         <li>Automatically fetch an image for services using their favicon</li>
         <li>The possibility to add new services</li>
         <li>Dark theme and night light</li>
@@ -37,7 +37,7 @@
   <url type="bugtracker">https://gitlab.gnome.org/World/Authenticator/issues</url>
   <url type="translate">https://l10n.gnome.org/module/authenticator/</url>
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
-  <content_rating type="oars-1.0" />
+  <content_rating type="oars-1.1" />
   <releases>
     <release version="3.32.2" date="2019-07-23">
         <description>
