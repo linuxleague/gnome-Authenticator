@@ -1,3 +1,4 @@
+use super::qrcode_paintable::QRCodePaintable;
 use crate::{models::Account, widgets::UrlRow};
 use gtk::subclass::prelude::*;
 use gtk::{glib, prelude::*, CompositeTemplate};
@@ -11,13 +12,14 @@ mod imp {
         #[template_child]
         pub website_row: TemplateChild<UrlRow>,
         #[template_child]
-        pub image: TemplateChild<gtk::Image>,
+        pub qrcode_picture: TemplateChild<gtk::Picture>,
         #[template_child]
         pub provider_label: TemplateChild<gtk::Label>,
         #[template_child]
         pub account_label: TemplateChild<gtk::Label>,
         #[template_child(id = "list")]
         pub listbox: TemplateChild<gtk::ListBox>,
+        pub qrcode_paintable: QRCodePaintable,
     }
 
     impl ObjectSubclass for AccountDetailsPage {
@@ -31,11 +33,12 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                image: TemplateChild::default(),
+                qrcode_picture: TemplateChild::default(),
                 account_label: TemplateChild::default(),
                 provider_label: TemplateChild::default(),
                 website_row: TemplateChild::default(),
                 listbox: TemplateChild::default(),
+                qrcode_paintable: QRCodePaintable::new(),
             }
         }
 
@@ -51,6 +54,7 @@ mod imp {
     impl ObjectImpl for AccountDetailsPage {
         fn constructed(&self, obj: &Self::Type) {
             obj.init_template();
+            obj.init_widgets();
             self.parent_constructed(obj);
         }
     }
@@ -67,15 +71,18 @@ impl AccountDetailsPage {
         glib::Object::new(&[]).expect("Failed to create AccountDetailsPage")
     }
 
+    fn init_widgets(&self) {
+        let self_ = imp::AccountDetailsPage::from_instance(self);
+        self_
+            .qrcode_picture
+            .get()
+            .set_paintable(Some(&self_.qrcode_paintable));
+    }
+
     pub fn set_account(&self, account: &Account) {
         let self_ = imp::AccountDetailsPage::from_instance(self);
-        let is_dark = gtk::Settings::get_default()
-            .unwrap()
-            .get_property_gtk_application_prefer_dark_theme();
-        let qr_code = account.qr_code(is_dark).unwrap();
-
-        let pixbuf = gtk::gdk_pixbuf::Pixbuf::from_file(qr_code.get_path().unwrap()).unwrap();
-        self_.image.get().set_from_pixbuf(Some(&pixbuf));
+        let qr_code = account.qr_code();
+        self_.qrcode_paintable.set_qrcode(qr_code);
 
         self_.account_label.get().set_text(&account.name());
         self_

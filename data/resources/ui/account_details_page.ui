@@ -15,10 +15,11 @@
       </object>
     </child>
     <child>
-      <object class="GtkImage" id="image">
+      <object class="GtkPicture" id="qrcode_picture">
         <property name="halign">center</property>
         <property name="margin-top">36</property>
-        <property name="pixel-size">200</property>
+        <property name="width-request">200</property>
+        <property name="height-request">200</property>
       </object>
     </child>
     <child>

@@ -2,17 +2,16 @@ use super::{
     provider::{DiProvider, Provider},
     OTPMethod, OTPUri,
 };
+use crate::widgets::QRCodeData;
 use crate::{helpers::Keyring, models::database, schema::accounts};
 use anyhow::Result;
 use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
-use gtk::prelude::*;
+use gtk::glib;
 use gtk::subclass::prelude::*;
-use gtk::{gio, glib};
 use once_cell::sync::OnceCell;
-use qrcode::QrCode;
 use ring::hmac;
 use std::{
     cell::{Cell, RefCell},
@@ -358,33 +357,9 @@ impl Account {
         self.into()
     }
 
-    pub fn qr_code(&self, is_dark: bool) -> Result<gio::File> {
+    pub fn qr_code(&self) -> QRCodeData {
         let otp: String = self.otp_uri().into();
-        let code = QrCode::new(otp.as_bytes())?;
-
-        let dark = if is_dark {
-            image::Rgba([238, 238, 236, 255])
-        } else {
-            image::Rgba([15, 17, 17, 255])
-        };
-
-        let light = if is_dark {
-            image::Rgba([53, 53, 53, 255])
-        } else {
-            image::Rgba([246, 245, 244, 255])
-        };
-
-        let image = code
-            .render::<image::Rgba<u8>>()
-            .min_dimensions(200, 200)
-            .dark_color(dark)
-            .light_color(light)
-            .build();
-
-        let (file, _) = gio::File::new_tmp("qrcode_XXXXXX.png")?;
-
-        image.save(file.get_path().unwrap())?;
-        Ok(file)
+        QRCodeData::from(otp.as_str())
     }
 
     pub fn set_name(&self, name: &str) -> Result<()> {

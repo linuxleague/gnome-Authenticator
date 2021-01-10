@@ -62,6 +62,7 @@ sources = files(
   'widgets/accounts/add.rs',
   'widgets/accounts/details.rs',
   'widgets/accounts/mod.rs',
+  'widgets/accounts/qrcode_paintable.rs',
   'widgets/accounts/row.rs',
   'widgets/preferences/mod.rs',
   'widgets/preferences/password_page.rs',

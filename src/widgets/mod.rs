@@ -5,7 +5,7 @@ mod url_row;
 mod window;
 
 pub use self::{
-    accounts::AccountAddDialog,
+    accounts::{AccountAddDialog, QRCodeData},
     preferences::PreferencesWindow,
     providers::{ProviderImage, ProvidersDialog, ProvidersList},
     url_row::UrlRow,
