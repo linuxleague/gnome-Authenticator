@@ -105,14 +105,11 @@ impl ProvidersList {
     fn setup_widgets(&self) {
         let self_ = imp::ProvidersList::from_instance(self);
 
-        self_
-            .empty_img
-            .get()
-            .set_from_icon_name(Some(config::APP_ID));
+        self_.empty_img.set_from_icon_name(Some(config::APP_ID));
 
         let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&self_.sorter));
 
-        self_.providers_list.get().bind_model(
+        self_.providers_list.bind_model(
             Some(&sort_model),
             clone!(@weak self as list => move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();

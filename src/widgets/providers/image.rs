@@ -127,8 +127,8 @@ impl ProviderImage {
 
     pub fn set_provider(&self, provider: &Provider) {
         let self_ = imp::ProviderImage::from_instance(self);
-        self_.stack.get().set_visible_child_name("loading");
-        self_.spinner.get().start();
+        self_.stack.set_visible_child_name("loading");
+        self_.spinner.start();
 
         self.set_property("provider", &provider.clone()).unwrap();
 
@@ -139,9 +139,8 @@ impl ProviderImage {
                 if uri == "invalid" {
                     self_
                         .image
-                        .get()
                         .set_from_icon_name(Some("image-missing-symbolic"));
-                    self_.stack.get().set_visible_child_name("image");
+                    self_.stack.set_visible_child_name("image");
                     return;
                 }
 
@@ -151,8 +150,8 @@ impl ProviderImage {
                     return;
                 }
 
-                self_.image.get().set_from_file(file.get_path().unwrap());
-                self_.stack.get().set_visible_child_name("image");
+                self_.image.set_from_file(file.get_path().unwrap());
+                self_.stack.set_visible_child_name("image");
             }
             _ => {
                 self.fetch();
@@ -163,8 +162,8 @@ impl ProviderImage {
     fn fetch(&self) {
         let self_ = imp::ProviderImage::from_instance(self);
         let sender = self_.sender.clone();
-        self_.stack.get().set_visible_child_name("loading");
-        self_.spinner.get().start();
+        self_.stack.set_visible_child_name("loading");
+        self_.spinner.start();
         let p = self.provider();
         gtk_macros::spawn!(async move {
             match p.favicon().await {
@@ -186,7 +185,7 @@ impl ProviderImage {
             None,
             clone!(@weak self as image => move |action| image.do_action(action)),
         );
-        self.bind_property("size", &self_.image.get(), "pixel-size")
+        self.bind_property("size", &*self_.image, "pixel-size")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
     }
@@ -197,17 +196,16 @@ impl ProviderImage {
             ImageAction::Failed => {
                 self_
                     .image
-                    .get()
                     .set_from_icon_name(Some("image-missing-symbolic"));
                 self.provider().set_image_uri("invalid");
             }
             ImageAction::Ready(image) => {
-                self_.image.get().set_from_file(image.get_path().unwrap());
+                self_.image.set_from_file(image.get_path().unwrap());
                 self.provider().set_image_uri(&image.get_uri());
             }
         }
-        self_.stack.get().set_visible_child_name("image");
-        self_.spinner.get().stop();
+        self_.stack.set_visible_child_name("image");
+        self_.spinner.stop();
 
         glib::Continue(true)
     }

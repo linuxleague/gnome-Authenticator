@@ -142,7 +142,7 @@ impl ProviderRow {
             let self_ = imp::ProviderRow::from_instance(self);
 
             self_.started_at.borrow_mut().replace(Instant::now());
-            self_.progress.get().set_fraction(1_f64);
+            self_.progress.set_fraction(1_f64);
             self.set_property("remaining-time", &(self.provider().period() as u64))
                 .unwrap();
         }
@@ -173,7 +173,7 @@ impl ProviderRow {
         let remaining_time = started_at.elapsed().as_millis();
         let progress_fraction = (max - (remaining_time as f64)) / max;
 
-        self_.progress.get().set_fraction(progress_fraction);
+        self_.progress.set_fraction(progress_fraction);
         if progress_fraction <= 0.0 {
             self.restart();
         }
@@ -184,7 +184,7 @@ impl ProviderRow {
 
         self.add_css_class(&self.provider().method().to_string());
 
-        self_.image.get().set_provider(&self.provider());
+        self_.image.set_provider(&self.provider());
 
         self.restart();
         if self.provider().method() == OTPMethod::TOTP {
@@ -204,11 +204,11 @@ impl ProviderRow {
                 }),
             );
         } else {
-            self_.progress.get().hide();
+            self_.progress.hide();
         }
 
         self.provider()
-            .bind_property("name", &self_.name_label.get(), "label")
+            .bind_property("name", &*self_.name_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
@@ -255,7 +255,6 @@ impl ProviderRow {
 
         self_
             .accounts_list
-            .get()
             .bind_model(Some(&sort_model), create_callback);
     }
 }

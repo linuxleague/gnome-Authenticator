@@ -111,21 +111,18 @@ impl ProviderPage {
 
     pub fn set_provider(&self, provider: Provider) {
         let self_ = imp::ProviderPage::from_instance(self);
-        self_.name_entry.get().set_text(&provider.name());
-        self_
-            .period_spinbutton
-            .get()
-            .set_value(provider.period() as f64);
+        self_.name_entry.set_text(&provider.name());
+        self_.period_spinbutton.set_value(provider.period() as f64);
 
         if let Some(ref website) = provider.website() {
-            self_.provider_website_entry.get().set_text(website);
+            self_.provider_website_entry.set_text(website);
         }
 
         if let Some(ref website) = provider.help_url() {
-            self_.provider_help_entry.get().set_text(website);
+            self_.provider_help_entry.set_text(website);
         }
 
-        self_.algorithm_comborow.get().set_selected(
+        self_.algorithm_comborow.set_selected(
             self_
                 .algorithms_model
                 .find_position(provider.algorithm().to_glib()),
@@ -134,22 +131,17 @@ impl ProviderPage {
 
         self_
             .default_counter_spinbutton
-            .get()
             .set_value(provider.default_counter() as f64);
-        self_
-            .digits_spinbutton
-            .get()
-            .set_value(provider.digits() as f64);
+        self_.digits_spinbutton.set_value(provider.digits() as f64);
 
-        self_.method_comborow.get().set_selected(
+        self_.method_comborow.set_selected(
             self_
                 .methods_model
                 .find_position(provider.method().to_glib()),
         );
-        self_.image.get().set_provider(&provider);
+        self_.image.set_provider(&provider);
         self_
             .title
-            .get()
             .set_text(&format!("Editing provider: {}", provider.name()));
     }
 
@@ -157,33 +149,28 @@ impl ProviderPage {
         let self_ = imp::ProviderPage::from_instance(self);
         self_
             .algorithm_comborow
-            .get()
             .set_model(Some(&self_.algorithms_model));
 
         self_
             .algorithm_comborow
-            .get()
             .connect_property_selected_item_notify(clone!(@weak self as page => move |_| {
                 page.on_algorithm_changed();
             }));
-        self_
-            .method_comborow
-            .get()
-            .set_model(Some(&self_.methods_model));
+        self_.method_comborow.set_model(Some(&self_.methods_model));
     }
 
     fn on_algorithm_changed(&self) {
         let self_ = imp::ProviderPage::from_instance(self);
 
-        let selected = OTPMethod::from(self_.method_comborow.get().get_selected());
+        let selected = OTPMethod::from(self_.method_comborow.get_selected());
         match selected {
             OTPMethod::TOTP => {
-                self_.default_counter_row.get().hide();
-                self_.period_row.get().show();
+                self_.default_counter_row.hide();
+                self_.period_row.show();
             }
             OTPMethod::HOTP => {
-                self_.default_counter_row.get().show();
-                self_.period_row.get().hide();
+                self_.default_counter_row.show();
+                self_.period_row.hide();
             }
             OTPMethod::Steam => {}
         }
@@ -193,13 +180,13 @@ impl ProviderPage {
         let self_ = imp::ProviderPage::from_instance(self);
         match mode {
             ProviderPageMode::Create => {
-                self_.title.get().set_label("New Provider");
-                self_.name_entry.get().set_text("");
-                self_.period_spinbutton.get().set_value(30_f64);
-                self_.provider_website_entry.get().set_text("");
-                self_.provider_help_entry.get().set_text("");
+                self_.title.set_label("New Provider");
+                self_.name_entry.set_text("");
+                self_.period_spinbutton.set_value(30_f64);
+                self_.provider_website_entry.set_text("");
+                self_.provider_help_entry.set_text("");
 
-                self_.method_comborow.get().set_selected(0);
+                self_.method_comborow.set_selected(0);
             }
             ProviderPageMode::Edit => {}
         }
