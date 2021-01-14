@@ -87,11 +87,14 @@ mod imp {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/provider_page.ui");
             Self::bind_template_children(klass);
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for ProviderPage {
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
             obj.setup_widgets();
             self.parent_constructed(obj);
         }

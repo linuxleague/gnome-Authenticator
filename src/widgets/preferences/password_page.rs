@@ -55,15 +55,13 @@ mod imp {
             );
             Self::bind_template_children(klass);
         }
-    }
 
-    impl ObjectImpl for PasswordPage {
-        fn constructed(&self, obj: &Self::Type) {
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
             obj.init_template();
-            self.parent_constructed(obj);
         }
     }
 
+    impl ObjectImpl for PasswordPage {}
     impl WidgetImpl for PasswordPage {}
     impl BoxImpl for PasswordPage {}
 }

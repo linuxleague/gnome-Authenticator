@@ -90,14 +90,13 @@ mod imp {
             Self::bind_template_children(klass);
             klass.add_signal("added", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
         }
-    }
 
-    impl ObjectImpl for AccountAddDialog {
-        fn constructed(&self, obj: &Self::Type) {
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
             obj.init_template();
-            self.parent_constructed(obj);
         }
     }
+
+    impl ObjectImpl for AccountAddDialog {}
     impl WidgetImpl for AccountAddDialog {}
     impl WindowImpl for AccountAddDialog {}
     impl libhandy::subclass::window::WindowImpl for AccountAddDialog {}

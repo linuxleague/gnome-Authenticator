@@ -54,6 +54,10 @@ mod imp {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_dialog.ui");
             Self::bind_template_children(klass);
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for ProvidersDialog {

@@ -78,16 +78,13 @@ mod imp {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/window.ui");
             Self::bind_template_children(klass);
         }
-    }
 
-    impl ObjectImpl for Window {
-        fn constructed(&self, obj: &Self::Type) {
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
             obj.init_template();
-
-            self.parent_constructed(obj);
         }
     }
 
+    impl ObjectImpl for Window {}
     impl WidgetImpl for Window {}
     impl WindowImpl for Window {}
     impl ApplicationWindowImpl for Window {}

@@ -50,11 +50,14 @@ mod imp {
                 glib::Type::Unit,
             );
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for ProvidersList {
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
             obj.setup_widgets();
             self.parent_constructed(obj);
         }

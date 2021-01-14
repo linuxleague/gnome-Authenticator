@@ -65,6 +65,10 @@ mod imp {
             klass.add_signal("removed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
             klass.add_signal("shared", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for AccountRow {
@@ -80,7 +84,7 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
+        fn get_property(&self, obj: &Self::Type, id: usize) -> glib::Value {
             let prop = &PROPERTIES[id];
             match *prop {
                 subclass::Property("account", ..) => self.account.borrow().to_value(),
@@ -89,7 +93,6 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
             obj.setup_actions();
             obj.setup_widgets();
             self.parent_constructed(obj);

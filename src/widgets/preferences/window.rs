@@ -80,11 +80,14 @@ mod imp {
                 glib::Type::Unit,
             );
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for PreferencesWindow {
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
             obj.setup_actions();
             self.parent_constructed(obj);
         }

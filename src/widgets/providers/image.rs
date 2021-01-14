@@ -78,11 +78,14 @@ mod imp {
             Self::bind_template_children(klass);
             klass.install_properties(&PROPERTIES);
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for ProviderImage {
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
             obj.setup_widgets();
             self.parent_constructed(obj);
         }
