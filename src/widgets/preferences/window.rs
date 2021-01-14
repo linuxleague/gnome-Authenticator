@@ -114,17 +114,16 @@ impl PreferencesWindow {
 
         self_
             .settings
-            .bind("dark-theme", &self_.dark_theme.get(), "active")
+            .bind("dark-theme", &*self_.dark_theme, "active")
             .build();
         self_
             .settings
-            .bind("auto-lock", &self_.auto_lock.get(), "active")
+            .bind("auto-lock", &*self_.auto_lock, "active")
             .build();
 
         self_
             .auto_lock
-            .get()
-            .bind_property("active", &self_.lock_timeout.get(), "sensitive")
+            .bind_property("active", &*self_.lock_timeout, "sensitive")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
@@ -163,7 +162,7 @@ impl PreferencesWindow {
             })
         );
 
-        self_.backup_group.get().add(&row);
+        self_.backup_group.add(&row);
     }
 
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
@@ -192,7 +191,7 @@ impl PreferencesWindow {
             })
         );
 
-        self_.restore_group.get().add(&row);
+        self_.restore_group.add(&row);
     }
 
     fn restore_items<T: Restorable>(&self, items: Vec<T::Item>) -> Result<()> {

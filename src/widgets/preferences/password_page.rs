@@ -85,9 +85,9 @@ impl PasswordPage {
     fn validate(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        let current_password = self_.current_password_entry.get().get_text().unwrap();
-        let password = self_.password_entry.get().get_text().unwrap();
-        let password_repeat = self_.confirm_password_entry.get().get_text().unwrap();
+        let current_password = self_.current_password_entry.get_text().unwrap();
+        let password = self_.password_entry.get_text().unwrap();
+        let password_repeat = self_.confirm_password_entry.get_text().unwrap();
 
         let is_valid = if self_.has_set_password.get() {
             password_repeat == password && current_password != password && password != ""
@@ -101,26 +101,20 @@ impl PasswordPage {
     fn setup_widgets(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        self_
-            .password_img
-            .get()
-            .set_from_icon_name(Some(config::APP_ID));
+        self_.password_img.set_from_icon_name(Some(config::APP_ID));
 
         self_
             .password_entry
-            .get()
             .connect_changed(clone!(@weak self as page=> move |_| page.validate()));
         self_
             .confirm_password_entry
-            .get()
             .connect_changed(clone!(@weak self as page => move |_| page.validate()));
 
         if !self_.has_set_password.get() {
-            self_.current_password_row.get().hide();
+            self_.current_password_row.hide();
         } else {
             self_
                 .current_password_entry
-                .get()
                 .connect_changed(clone!(@weak self as page => move |_| page.validate()));
         }
     }
@@ -156,7 +150,7 @@ impl PasswordPage {
             get_action!(actions, @close_page).activate(None);
             get_action!(actions, @save_password).set_enabled(false);
             get_action!(actions, @reset_password).set_enabled(false);
-            self_.current_password_row.get().hide();
+            self_.current_password_row.hide();
             self_.has_set_password.set(false);
         }
     }
@@ -165,8 +159,8 @@ impl PasswordPage {
         let self_ = imp::PasswordPage::from_instance(self);
         let actions = self_.actions.get().unwrap();
 
-        let current_password = self_.current_password_entry.get().get_text().unwrap();
-        let password = self_.password_entry.get().get_text().unwrap();
+        let current_password = self_.current_password_entry.get_text().unwrap();
+        let password = self_.password_entry.get_text().unwrap();
 
         if Keyring::has_set_password().unwrap_or(false)
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
@@ -175,10 +169,10 @@ impl PasswordPage {
         }
 
         if Keyring::set_password(&password).is_ok() {
-            self_.current_password_row.get().show();
-            self_.current_password_entry.get().set_text("");
-            self_.password_entry.get().set_text("");
-            self_.confirm_password_entry.get().set_text("");
+            self_.current_password_row.show();
+            self_.current_password_entry.set_text("");
+            self_.password_entry.set_text("");
+            self_.confirm_password_entry.set_text("");
             get_action!(actions, @save_password).set_enabled(false);
             get_action!(actions, @reset_password).set_enabled(true);
             get_action!(actions, @close_page).activate(None);
