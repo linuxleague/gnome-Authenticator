@@ -2,7 +2,7 @@ use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use glib::{clone, signal::Inhibit};
 use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gdk, gio, glib, prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 mod imp {
@@ -54,6 +54,10 @@ mod imp {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_dialog.ui");
             Self::bind_template_children(klass);
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for ProvidersDialog {
@@ -86,22 +90,20 @@ impl ProvidersDialog {
         self_.filter_model.set_model(Some(&model));
         self_
             .search_bar
-            .get()
-            .bind_property("search-mode-enabled", &self_.search_btn.get(), "active")
+            .bind_property("search-mode-enabled", &*self_.search_btn, "active")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        self_.search_entry.get().connect_search_changed(
-            clone!(@weak self as dialog => move |entry| {
+        self_
+            .search_entry
+            .connect_search_changed(clone!(@weak self as dialog => move |entry| {
                 let text = entry.get_text().unwrap().to_string();
                 dialog.search(text);
-            }),
-        );
+            }));
 
         self_
             .search_btn
-            .get()
-            .bind_property("active", &self_.search_bar.get(), "search-mode-enabled")
+            .bind_property("active", &*self_.search_bar, "search-mode-enabled")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
 
@@ -121,14 +123,14 @@ impl ProvidersDialog {
             row.set_provider(provider);
         });
 
-        self_.providers_list.get().set_factory(Some(&factory));
+        self_.providers_list.set_factory(Some(&factory));
         let sorter = ProviderSorter::new();
         let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&sorter));
 
         let selection_model = gtk::NoSelection::new(Some(&sort_model));
-        self_.providers_list.get().set_model(Some(&selection_model));
+        self_.providers_list.set_model(Some(&selection_model));
 
-        self_.providers_list.get().connect_activate(
+        self_.providers_list.connect_activate(
             clone!(@weak self as dialog => move |listview, pos| {
                 let model = listview.get_model().unwrap();
                 let provider = model
@@ -140,13 +142,13 @@ impl ProvidersDialog {
             }),
         );
 
-        let deck_page = self_.deck.get().append(&self_.page).unwrap();
+        let deck_page = self_.deck.append(&self_.page).unwrap();
         deck_page.set_name("provider");
 
         let event_controller = gtk::EventControllerKey::new();
         event_controller.connect_key_pressed(
             clone!(@weak self as widget => @default-return Inhibit(false), move |_, k, _, _| {
-                if k == 65307 {
+                if k == gdk::keys::Key::from_name("Escape") {
                     widget.close();
                 }
                 Inhibit(false)
@@ -158,8 +160,8 @@ impl ProvidersDialog {
     fn setup_actions(&self) {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
-        let deck = self_.deck.get();
-        let search_bar = self_.search_bar.get();
+        let deck = &*self_.deck;
+        let search_bar = &*self_.search_bar;
         gtk_macros::action!(
             self_.actions,
             "search",
@@ -201,13 +203,13 @@ impl ProvidersDialog {
 
     fn add_provider(&self) {
         let self_ = imp::ProvidersDialog::from_instance(self);
-        self_.deck.get().set_visible_child_name("provider");
+        self_.deck.set_visible_child_name("provider");
         self_.page.set_mode(ProviderPageMode::Create);
     }
 
     fn edit_provider(&self, provider: Provider) {
         let self_ = imp::ProvidersDialog::from_instance(self);
-        self_.deck.get().set_visible_child_name("provider");
+        self_.deck.set_visible_child_name("provider");
         self_.page.set_provider(provider);
         self_.page.set_mode(ProviderPageMode::Edit);
     }

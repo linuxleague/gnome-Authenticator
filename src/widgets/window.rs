@@ -78,16 +78,13 @@ mod imp {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/window.ui");
             Self::bind_template_children(klass);
         }
-    }
 
-    impl ObjectImpl for Window {
-        fn constructed(&self, obj: &Self::Type) {
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
             obj.init_template();
-
-            self.parent_constructed(obj);
         }
     }
 
+    impl ObjectImpl for Window {}
     impl WidgetImpl for Window {}
     impl WindowImpl for Window {}
     impl ApplicationWindowImpl for Window {}
@@ -118,24 +115,21 @@ impl Window {
         let self_ = imp::Window::from_instance(self);
         match view {
             View::Login => {
-                self_.deck.get().set_visible_child_name("login");
-                self_.deck.get().set_can_swipe_back(false);
-                self_
-                    .search_entry
-                    .get()
-                    .set_key_capture_widget(gtk::NONE_WIDGET);
-                self_.password_entry.get().grab_focus();
+                self_.deck.set_visible_child_name("login");
+                self_.deck.set_can_swipe_back(false);
+                self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
+                self_.password_entry.grab_focus();
             }
             View::Accounts => {
-                self_.deck.get().set_visible_child_name("accounts");
-                self_.deck.get().set_can_swipe_back(false);
+                self_.deck.set_visible_child_name("accounts");
+                self_.deck.set_can_swipe_back(false);
 
-                //self_.search_entry.get().set_key_capture_widget(Some(self));
+                //self_.search_entry.set_key_capture_widget(Some(self));
             }
             View::Account(account) => {
-                self_.deck.get().set_visible_child_name("account");
-                self_.deck.get().set_can_swipe_back(true);
-                self_.account_details.get().set_account(&account);
+                self_.deck.set_visible_child_name("account");
+                self_.deck.set_can_swipe_back(true);
+                self_.account_details.set_account(&account);
             }
         }
     }
@@ -185,10 +179,7 @@ impl Window {
             .unwrap();
 
         self.set_icon_name(Some(config::APP_ID));
-        self_
-            .locked_img
-            .get()
-            .set_from_icon_name(Some(config::APP_ID));
+        self_.locked_img.set_from_icon_name(Some(config::APP_ID));
 
         // load latest window state
         window_state::load(&self, &self_.settings);
@@ -204,17 +195,16 @@ impl Window {
         gtk_macros::get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.set_help_overlay(Some(&shortcuts));
 
-        self_.container.get().append(&self_.providers);
+        self_.container.append(&self_.providers);
 
         self_
             .search_bar
-            .get()
-            .bind_property("search-mode-enabled", &self_.search_btn.get(), "active")
+            .bind_property("search-mode-enabled", &*self_.search_btn, "active")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        let search_btn = self_.search_btn.get();
-        self_.search_entry.get().connect_search_changed(
+        let search_btn = &*self_.search_btn;
+        self_.search_entry.connect_search_changed(
             clone!(@weak self_.providers as providers => move |entry| {
                 let text = entry.get_text().unwrap().to_string();
                 providers.search(text);
@@ -222,13 +212,11 @@ impl Window {
         );
         self_
             .search_entry
-            .get()
             .connect_search_started(clone!(@weak search_btn => move |entry| {
                 search_btn.set_active(true);
             }));
         self_
             .search_entry
-            .get()
             .connect_stop_search(clone!(@weak search_btn => move |entry| {
                 entry.set_text("");
                 search_btn.set_active(false);
@@ -247,7 +235,7 @@ impl Window {
 
     fn setup_actions(&self, app: &Application) {
         let self_ = imp::Window::from_instance(self);
-        let search_btn = self_.search_btn.get();
+        let search_btn = &*self_.search_btn;
         action!(
             self,
             "search",
@@ -276,7 +264,7 @@ impl Window {
             .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        let password_entry = self_.password_entry.get();
+        let password_entry = &*self_.password_entry;
         action!(
             self,
             "unlock",
@@ -310,7 +298,6 @@ impl Window {
 
         self_
             .password_entry
-            .get()
             .connect_activate(clone!(@weak self as win => move |_| {
                 win.activate_action("unlock", None);
             }));

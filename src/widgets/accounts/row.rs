@@ -65,6 +65,10 @@ mod imp {
             klass.add_signal("removed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
             klass.add_signal("shared", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
         }
+
+        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+            obj.init_template();
+        }
     }
 
     impl ObjectImpl for AccountRow {
@@ -80,7 +84,7 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
+        fn get_property(&self, obj: &Self::Type, id: usize) -> glib::Value {
             let prop = &PROPERTIES[id];
             match *prop {
                 subclass::Property("account", ..) => self.account.borrow().to_value(),
@@ -89,7 +93,6 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
             obj.setup_actions();
             obj.setup_widgets();
             self.parent_constructed(obj);
@@ -116,37 +119,37 @@ impl AccountRow {
     fn setup_widgets(&self) {
         let self_ = imp::AccountRow::from_instance(self);
         self.account()
-            .bind_property("name", &self_.name_label.get(), "label")
+            .bind_property("name", &*self_.name_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
         self.account()
-            .bind_property("name", &self_.name_entry.get(), "text")
+            .bind_property("name", &*self_.name_entry, "text")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
         self.account()
-            .bind_property("otp", &self_.otp_label.get(), "label")
+            .bind_property("otp", &*self_.otp_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        self_.name_entry.get().connect_changed(
-            clone!(@weak self_.actions as actions => move |entry| {
+        self_
+            .name_entry
+            .connect_changed(clone!(@weak self_.actions as actions => move |entry| {
                 let name = entry.get_text().unwrap();
                 get_action!(actions, @save).set_enabled(!name.is_empty());
-            }),
-        );
-        self_.name_entry.get().connect_activate(
-            clone!(@weak self_.actions as actions => move |_| {
+            }));
+        self_
+            .name_entry
+            .connect_activate(clone!(@weak self_.actions as actions => move |_| {
                    actions.activate_action("save", None);
-            }),
-        );
+            }));
     }
 
     fn setup_actions(&self) {
         let self_ = imp::AccountRow::from_instance(self);
         self.insert_action_group("account", Some(&self_.actions));
-        let copy_btn_stack = self_.copy_btn_stack.get();
+        let copy_btn_stack = &*self_.copy_btn_stack;
         action!(
             self_.actions,
             "copy-otp",
@@ -176,8 +179,8 @@ impl AccountRow {
             })
         );
 
-        let edit_stack = self_.edit_stack.get();
-        let name_entry = self_.name_entry.get();
+        let edit_stack = &*self_.edit_stack;
+        let name_entry = &*self_.name_entry;
         action!(
             self_.actions,
             "rename",
