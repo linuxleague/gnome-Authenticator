@@ -6,7 +6,7 @@ use crate::{
 use anyhow::Result;
 use glib::{clone, signal::Inhibit};
 use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gdk, gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 
@@ -143,7 +143,7 @@ impl AccountAddDialog {
         let event_controller = gtk::EventControllerKey::new();
         event_controller.connect_key_pressed(
             clone!(@weak self as widget => @default-return Inhibit(false), move |_, k, _, _| {
-                if k == 65307 {
+                if k == gdk::keys::Key::from_name("Escape") {
                     widget.close();
                 }
                 Inhibit(false)

@@ -2,7 +2,7 @@ use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use glib::{clone, signal::Inhibit};
 use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gdk, gio, glib, prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 mod imp {
@@ -146,7 +146,7 @@ impl ProvidersDialog {
         let event_controller = gtk::EventControllerKey::new();
         event_controller.connect_key_pressed(
             clone!(@weak self as widget => @default-return Inhibit(false), move |_, k, _, _| {
-                if k == 65307 {
+                if k == gdk::keys::Key::from_name("Escape") {
                     widget.close();
                 }
                 Inhibit(false)
