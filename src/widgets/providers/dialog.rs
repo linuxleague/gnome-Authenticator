@@ -144,17 +144,6 @@ impl ProvidersDialog {
 
         let deck_page = self_.deck.append(&self_.page).unwrap();
         deck_page.set_name("provider");
-
-        let event_controller = gtk::EventControllerKey::new();
-        event_controller.connect_key_pressed(
-            clone!(@weak self as widget => @default-return Inhibit(false), move |_, k, _, _| {
-                if k == gdk::keys::Key::from_name("Escape") {
-                    widget.close();
-                }
-                Inhibit(false)
-            }),
-        );
-        self.add_controller(&event_controller);
     }
 
     fn setup_actions(&self) {

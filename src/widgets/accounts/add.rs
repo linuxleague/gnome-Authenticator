@@ -136,17 +136,6 @@ impl AccountAddDialog {
         self_
             .token_entry
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
-
-        let event_controller = gtk::EventControllerKey::new();
-        event_controller.connect_key_pressed(
-            clone!(@weak self as widget => @default-return Inhibit(false), move |_, k, _, _| {
-                if k == gdk::keys::Key::from_name("Escape") {
-                    widget.close();
-                }
-                Inhibit(false)
-            }),
-        );
-        self.add_controller(&event_controller);
     }
 
     fn scan_qr(&self) -> Result<()> {

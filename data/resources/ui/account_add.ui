@@ -221,6 +221,17 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class='GtkShortcutController'>
+        <property name='scope'>global</property>
+        <child>
+          <object class='GtkShortcut'>
+            <property name='trigger'>Escape</property>
+            <property name='action'>action(window.close)</property>
+          </object>
+        </child>
+      </object>
+    </child>
   </template>
   <object class="GtkEntryCompletion" id="provider_completion">
     <property name="minimum-key-length">1</property>
