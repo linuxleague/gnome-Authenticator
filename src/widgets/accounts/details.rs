@@ -75,7 +75,6 @@ impl AccountDetailsPage {
         let self_ = imp::AccountDetailsPage::from_instance(self);
         self_
             .qrcode_picture
-            .get()
             .set_paintable(Some(&self_.qrcode_paintable));
     }
 
@@ -84,17 +83,14 @@ impl AccountDetailsPage {
         let qr_code = account.qr_code();
         self_.qrcode_paintable.set_qrcode(qr_code);
 
-        self_.account_label.get().set_text(&account.name());
-        self_
-            .provider_label
-            .get()
-            .set_text(&account.provider().name());
+        self_.account_label.set_text(&account.name());
+        self_.provider_label.set_text(&account.provider().name());
 
         if let Some(ref website) = account.provider().website() {
-            self_.website_row.get().set_uri(website);
-            self_.website_row.get().show();
+            self_.website_row.set_uri(website);
+            self_.website_row.show();
         } else {
-            self_.website_row.get().hide();
+            self_.website_row.hide();
         }
     }
 }

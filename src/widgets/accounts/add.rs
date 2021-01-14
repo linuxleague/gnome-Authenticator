@@ -121,8 +121,8 @@ impl AccountAddDialog {
 
     fn validate(&self) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-        let username = self_.username_entry.get().get_text().unwrap();
-        let token = self_.token_entry.get().get_text().unwrap();
+        let username = self_.username_entry.get_text().unwrap();
+        let token = self_.token_entry.get_text().unwrap();
 
         let is_valid = !(username.is_empty() || token.is_empty());
         get_action!(self_.actions, @save).set_enabled(is_valid);
@@ -133,11 +133,9 @@ impl AccountAddDialog {
 
         self_
             .username_entry
-            .get()
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
         self_
             .token_entry
-            .get()
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
 
         let event_controller = gtk::EventControllerKey::new();
@@ -167,8 +165,8 @@ impl AccountAddDialog {
     fn set_from_otp_uri(&self, otp_uri: OTPUri) {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
-        self_.token_entry.get().set_text(&otp_uri.secret);
-        self_.username_entry.get().set_text(&otp_uri.label);
+        self_.token_entry.set_text(&otp_uri.secret);
+        self_.username_entry.set_text(&otp_uri.label);
 
         let provider = self_
             .model
@@ -192,8 +190,8 @@ impl AccountAddDialog {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
         if let Some(ref provider) = *self_.selected_provider.borrow() {
-            let username = self_.username_entry.get().get_text().unwrap();
-            let token = self_.token_entry.get().get_text().unwrap();
+            let username = self_.username_entry.get_text().unwrap();
+            let token = self_.token_entry.get_text().unwrap();
 
             let account = Account::create(&username, &token, provider)?;
 
@@ -206,47 +204,39 @@ impl AccountAddDialog {
 
     fn set_provider(&self, provider: Provider) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-        self_.more_list.get().show();
-        self_.provider_entry.get().set_text(&provider.name());
-        self_
-            .period_label
-            .get()
-            .set_text(&provider.period().to_string());
+        self_.more_list.show();
+        self_.provider_entry.set_text(&provider.name());
+        self_.period_label.set_text(&provider.period().to_string());
 
-        self_.image.get().set_provider(&provider);
+        self_.image.set_provider(&provider);
 
         self_
             .method_label
-            .get()
             .set_text(&provider.method().to_locale_string());
 
         self_
             .algorithm_label
-            .get()
             .set_text(&provider.algorithm().to_locale_string());
 
-        self_
-            .digits_label
-            .get()
-            .set_text(&provider.digits().to_string());
+        self_.digits_label.set_text(&provider.digits().to_string());
 
         match provider.method() {
             OTPMethod::TOTP => {
-                self_.counter_row.get().hide();
-                self_.period_row.get().show();
+                self_.counter_row.hide();
+                self_.period_row.show();
             }
             OTPMethod::HOTP => {
-                self_.counter_row.get().show();
-                self_.period_row.get().hide();
+                self_.counter_row.show();
+                self_.period_row.hide();
             }
             OTPMethod::Steam => {}
         };
 
         if let Some(ref website) = provider.website() {
-            self_.provider_website_row.get().set_uri(website);
+            self_.provider_website_row.set_uri(website);
         }
         if let Some(ref help_url) = provider.help_url() {
-            self_.provider_help_row.get().set_uri(help_url);
+            self_.provider_help_row.set_uri(help_url);
         }
         self_.selected_provider.borrow_mut().replace(provider);
     }
@@ -285,10 +275,9 @@ impl AccountAddDialog {
         let self_ = imp::AccountAddDialog::from_instance(self);
         self_
             .provider_completion
-            .get()
             .set_model(Some(&self_.model.get().unwrap().completion_model()));
 
-        self_.provider_completion.get().connect_match_selected(
+        self_.provider_completion.connect_match_selected(
             clone!(@weak self as dialog, @strong self_.model as model => move |_, store, iter| {
                 let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();
                 let provider = model.get().unwrap().find_by_id(provider_id).unwrap();
