@@ -1,14 +1,14 @@
 # Japanese translation for authenticator.
-# Copyright (C) 2019-2020 authenticator's COPYRIGHT HOLDER
+# Copyright (C) 2019-2021 authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
-# sicklylife <translation@sicklylife.jp>, 2019-2020.
+# sicklylife <translation@sicklylife.jp>, 2019-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
 "POT-Creation-Date: 2020-12-20 00:34+0000\n"
-"PO-Revision-Date: 2020-12-20 15:31+0900\n"
+"PO-Revision-Date: 2021-01-17 10:00+0900\n"
 "Last-Translator: sicklylife <translation@sicklylife.jp>\n"
 "Language-Team: Japanese <gnome-translation@gnome.gr.jp>\n"
 "Language: ja\n"
@@ -24,7 +24,7 @@ msgid "Authenticator"
 msgstr "Authenticator"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
+msgid "Two-Factor Authentication"
 msgstr "二要素認証"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
@@ -34,10 +34,10 @@ msgid "Generate Two-Factor Codes"
 msgstr "二要素認証コードを生成します"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
 msgstr ""
-"Gnome;GTK;Verification;2FA;Authentication;TwoFactor;認証;二要素;2要素;2段"
-"階;二段階;ワンタイムパスワード;"
+"Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;TwoFactor;認証;二要素;"
+"2要素;2段階;二段階;ワンタイムパスワード;"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
@@ -78,10 +78,8 @@ msgid "Lock the application on idle after X minutes"
 msgstr "X 分間アイドル状態が続いたらアプリケーションをロックする"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
-msgid ""
-"Simple application that generates a two-factor authentication code, created "
-"for GNOME."
-msgstr "GNOME 用のシンプルな二要素認証コード生成アプリケーションです。"
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "シンプルな二要素認証コード生成アプリケーションです。"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
@@ -97,11 +95,11 @@ msgstr "美しい UI"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "Huge database of more than 560 supported services"
-msgstr "560 を超えるサポートしているサービスの膨大なデータベース"
+msgstr "膨大なデータベース (サポートしているサービスは 560 以上)"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr "アプリケーションをパスワードでロックして PIN トークンの安全性を維持"
+msgid "Keep your tokens secure by locking the application with a password"
+msgstr "アプリケーション自体をパスワード保護することでトークンの安全性を維持"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Automatically fetch an image for services using their favicon"
