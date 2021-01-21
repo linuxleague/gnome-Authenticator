@@ -21,7 +21,7 @@ mod imp {
         #[template_child]
         pub confirm_password_entry: TemplateChild<gtk::PasswordEntry>,
         #[template_child]
-        pub current_password_row: TemplateChild<libhandy::ActionRow>,
+        pub current_password_row: TemplateChild<libadwaita::ActionRow>,
         #[template_child]
         pub password_img: TemplateChild<gtk::Image>,
     }

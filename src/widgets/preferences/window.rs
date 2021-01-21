@@ -9,15 +9,13 @@ use gettextrs::gettext;
 use glib::clone;
 use gtk::subclass::prelude::*;
 use gtk::{gio, glib, prelude::*, CompositeTemplate};
-use libhandy::prelude::*;
+use libadwaita::prelude::*;
 use once_cell::sync::OnceCell;
 
 mod imp {
     use super::*;
     use glib::subclass;
-    use libhandy::subclass::{
-        preferences_window::PreferencesWindowImpl, window::WindowImpl as HdyWindowImpl,
-    };
+    use libadwaita::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
     use std::cell::RefCell;
 
     #[derive(CompositeTemplate)]
@@ -30,9 +28,9 @@ mod imp {
         pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
         pub password_page: PasswordPage,
         #[template_child]
-        pub backup_group: TemplateChild<libhandy::PreferencesGroup>,
+        pub backup_group: TemplateChild<libadwaita::PreferencesGroup>,
         #[template_child]
-        pub restore_group: TemplateChild<libhandy::PreferencesGroup>,
+        pub restore_group: TemplateChild<libadwaita::PreferencesGroup>,
         #[template_child(id = "auto_lock_switch")]
         pub auto_lock: TemplateChild<gtk::Switch>,
         #[template_child(id = "dark_theme_switch")]
@@ -44,7 +42,7 @@ mod imp {
     impl ObjectSubclass for PreferencesWindow {
         const NAME: &'static str = "PreferencesWindow";
         type Type = super::PreferencesWindow;
-        type ParentType = libhandy::PreferencesWindow;
+        type ParentType = libadwaita::PreferencesWindow;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -94,13 +92,13 @@ mod imp {
     }
     impl WidgetImpl for PreferencesWindow {}
     impl WindowImpl for PreferencesWindow {}
-    impl HdyWindowImpl for PreferencesWindow {}
+    impl AdwWindowImpl for PreferencesWindow {}
     impl PreferencesWindowImpl for PreferencesWindow {}
 }
 
 glib::wrapper! {
     pub struct PreferencesWindow(ObjectSubclass<imp::PreferencesWindow>)
-        @extends gtk::Widget, gtk::Window, libhandy::Window, libhandy::PreferencesWindow;
+        @extends gtk::Widget, gtk::Window, libadwaita::Window, libadwaita::PreferencesWindow;
 }
 
 impl PreferencesWindow {
@@ -142,7 +140,7 @@ impl PreferencesWindow {
     fn register_backup<T: Backupable>(&self, filters: &'static [&str]) {
         let self_ = imp::PreferencesWindow::from_instance(self);
 
-        let row = libhandy::ActionRowBuilder::new()
+        let row = libadwaita::ActionRowBuilder::new()
             .title(&T::title())
             .subtitle(&T::subtitle())
             .activatable(true)
@@ -171,7 +169,7 @@ impl PreferencesWindow {
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
         let self_ = imp::PreferencesWindow::from_instance(self);
 
-        let row = libhandy::ActionRowBuilder::new()
+        let row = libadwaita::ActionRowBuilder::new()
             .title(&T::title())
             .subtitle(&T::subtitle())
             .activatable(true)

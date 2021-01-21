@@ -28,15 +28,15 @@
       </item>
     </section>
   </menu>
-  <template class="Window" parent="HdyApplicationWindow">
+  <template class="Window" parent="AdwApplicationWindow">
     <property name="default-width">720</property>
     <property name="default-height">600</property>
     <child>
-      <object class="HdyLeaflet" id="deck">
+      <object class="AdwLeaflet" id="deck">
         <property name="can-unfold">False</property>
         <property name="can-swipe-back">True</property>
         <child>
-          <object class="HdyLeafletPage">
+          <object class="AdwLeafletPage">
             <property name="name">accounts</property>
             <property name="child">
               <object class="GtkBox">
@@ -88,7 +88,7 @@
           </object>
         </child>
         <child>
-          <object class="HdyLeafletPage">
+          <object class="AdwLeafletPage">
             <property name="name">account</property>
             <property name="child">
               <object class="AccountDetailsPage" id="account_details">
@@ -97,7 +97,7 @@
           </object>
         </child>
         <child>
-          <object class="HdyLeafletPage">
+          <object class="AdwLeafletPage">
             <property name="name">login</property>
             <property name="child">
               <object class="GtkWindowHandle">
