@@ -6,20 +6,20 @@
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <template class="PreferencesWindow" parent="HdyPreferencesWindow">
+  <template class="PreferencesWindow" parent="AdwPreferencesWindow">
     <property name="default-width">680</property>
     <property name="default-height">550</property>
     <property name="search-enabled">False</property>
     <property name="can-swipe-back">True</property>
     <child>
-      <object class="HdyPreferencesPage">
+      <object class="AdwPreferencesPage">
         <property name="icon-name">applications-system-symbolic</property>
         <property name="title" translatable="yes">General</property>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Appearance</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="title" translatable="yes">_Dark Theme</property>
                 <property name="use-underline">True</property>
                 <property name="activatable-widget">dark_theme_switch</property>
@@ -34,10 +34,10 @@
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Privacy</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="title" translatable="yes">_Password</property>
                 <property name="use-underline">True</property>
                 <property name="subtitle" translatable="yes">Set up a password to lock the application with</property>
@@ -51,7 +51,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="title" translatable="yes">_Auto Lock the Application</property>
                 <property name="use-underline">True</property>
                 <property name="activatable-widget">auto_lock_switch</property>
@@ -64,7 +64,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="title" translatable="yes">Auto lock _Timeout</property>
                 <property name="subtitle" translatable="yes">The time in minutes</property>
                 <property name="activatable-widget">lock_timeout_spin_btn</property>
@@ -86,16 +86,16 @@
       </object>
     </child>
     <child>
-      <object class="HdyPreferencesPage">
+      <object class="AdwPreferencesPage">
         <property name="icon-name">document-save-as-symbolic</property>
         <property name="title" translatable="yes">Backup/Restore</property>
         <child>
-          <object class="HdyPreferencesGroup" id="backup_group">
+          <object class="AdwPreferencesGroup" id="backup_group">
             <property name="title" translatable="yes">Backup</property>
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup" id="restore_group">
+          <object class="AdwPreferencesGroup" id="restore_group">
             <property name="title" translatable="yes">Restore</property>
           </object>
         </child>

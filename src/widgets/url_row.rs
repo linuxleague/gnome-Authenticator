@@ -1,12 +1,12 @@
 use glib::{clone, ObjectExt, ToValue};
 use gtk::subclass::prelude::*;
 use gtk::{glib, WidgetExt};
-use libhandy::ActionRowExt;
+use libadwaita::ActionRowExt;
 
 mod imp {
     use super::*;
     use glib::subclass;
-    use libhandy::subclass::action_row::ActionRowImpl;
+    use libadwaita::subclass::action_row::ActionRowImpl;
     use std::cell::RefCell;
 
     static PROPERTIES: [subclass::Property; 2] = [
@@ -38,7 +38,7 @@ mod imp {
     impl ObjectSubclass for UrlRow {
         const NAME: &'static str = "UrlRow";
         type Type = super::UrlRow;
-        type ParentType = libhandy::ActionRow;
+        type ParentType = libadwaita::ActionRow;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -93,7 +93,7 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct UrlRow(ObjectSubclass<imp::UrlRow>) @extends gtk::Widget, gtk::ListBoxRow, libhandy::ActionRow;
+    pub struct UrlRow(ObjectSubclass<imp::UrlRow>) @extends gtk::Widget, gtk::ListBoxRow, libadwaita::ActionRow;
 }
 
 impl UrlRow {

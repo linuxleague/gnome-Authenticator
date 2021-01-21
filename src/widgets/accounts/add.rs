@@ -43,9 +43,9 @@ mod imp {
         #[template_child]
         pub algorithm_label: TemplateChild<gtk::Label>,
         #[template_child]
-        pub counter_row: TemplateChild<libhandy::ActionRow>,
+        pub counter_row: TemplateChild<libadwaita::ActionRow>,
         #[template_child]
-        pub period_row: TemplateChild<libhandy::ActionRow>,
+        pub period_row: TemplateChild<libadwaita::ActionRow>,
         #[template_child]
         pub provider_completion: TemplateChild<gtk::EntryCompletion>,
     }
@@ -53,7 +53,7 @@ mod imp {
     impl ObjectSubclass for AccountAddDialog {
         const NAME: &'static str = "AccountAddDialog";
         type Type = super::AccountAddDialog;
-        type ParentType = libhandy::Window;
+        type ParentType = libadwaita::Window;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -99,10 +99,10 @@ mod imp {
     impl ObjectImpl for AccountAddDialog {}
     impl WidgetImpl for AccountAddDialog {}
     impl WindowImpl for AccountAddDialog {}
-    impl libhandy::subclass::window::WindowImpl for AccountAddDialog {}
+    impl libadwaita::subclass::window::AdwWindowImpl for AccountAddDialog {}
 }
 glib::wrapper! {
-    pub struct AccountAddDialog(ObjectSubclass<imp::AccountAddDialog>) @extends gtk::Widget, gtk::Window, libhandy::Window;
+    pub struct AccountAddDialog(ObjectSubclass<imp::AccountAddDialog>) @extends gtk::Widget, gtk::Window, libadwaita::Window;
 }
 
 impl AccountAddDialog {

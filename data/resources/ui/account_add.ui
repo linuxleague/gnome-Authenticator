@@ -5,15 +5,15 @@
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <template parent="HdyWindow" class="AccountAddDialog">
+  <template parent="AdwWindow" class="AccountAddDialog">
     <property name="modal">True</property>
     <property name="default-width">680</property>
     <property name="default-height">550</property>
     <property name="title" translatable="yes">Add a new account</property>
     <child>
-      <object class="HdyLeaflet">
+      <object class="AdwLeaflet">
         <child>
-          <object class="HdyLeafletPage">
+          <object class="AdwLeafletPage">
             <property name="child">
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
@@ -55,7 +55,7 @@
                     <property name="min-content-width">300</property>
                     <property name="min-content-height">400</property>
                     <child>
-                      <object class="HdyClamp">
+                      <object class="AdwClamp">
                         <property name="margin-top">36</property>
                         <property name="margin-bottom">12</property>
                         <property name="vexpand">True</property>
@@ -75,7 +75,7 @@
                               <object class="GtkListBox" id="basic_list">
                                 <property name="selection-mode">none</property>
                                 <child>
-                                  <object class="HdyActionRow">
+                                  <object class="AdwActionRow">
                                     <property name="activatable-widget">provider_entry</property>
                                     <property name="title" translatable="yes">Provider</property>
                                     <property name="subtitle" translatable="yes">The service provider</property>
@@ -91,7 +91,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HdyActionRow">
+                                  <object class="AdwActionRow">
                                     <property name="activatable-widget">username_entry</property>
                                     <property name="title" translatable="yes">Account</property>
                                     <child>
@@ -105,7 +105,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HdyActionRow" id="token_row">
+                                  <object class="AdwActionRow" id="token_row">
                                     <property name="activatable-widget">token_entry</property>
                                     <property name="title" translatable="yes">Token</property>
                                     <child>
@@ -119,7 +119,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HdyActionRow" id="counter_row">
+                                  <object class="AdwActionRow" id="counter_row">
                                     <property name="activatable-widget">counter_spinbutton</property>
                                     <property name="title" translatable="yes">Counter</property>
                                     <property name="visible">False</property>
@@ -145,7 +145,7 @@
                                 <property name="visible">False</property>
                                 <property name="selection-mode">none</property>
                                 <child>
-                                  <object class="HdyActionRow" id="algorithm_row">
+                                  <object class="AdwActionRow" id="algorithm_row">
                                     <property name="title" translatable="yes">Algorithm</property>
                                     <child>
                                       <object class="GtkLabel" id="algorithm_label">
@@ -157,7 +157,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HdyActionRow" id="method_row">
+                                  <object class="AdwActionRow" id="method_row">
                                     <property name="title" translatable="yes">Computing Method</property>
                                     <child>
                                       <object class="GtkLabel" id="method_label">
@@ -169,7 +169,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HdyActionRow" id="period_row">
+                                  <object class="AdwActionRow" id="period_row">
                                     <property name="title" translatable="yes">Period</property>
                                     <child>
                                       <object class="GtkLabel" id="period_label">
@@ -181,7 +181,7 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="HdyActionRow" id="digits_row">
+                                  <object class="AdwActionRow" id="digits_row">
                                     <property name="title" translatable="yes">Digits</property>
                                     <child>
                                       <object class="GtkLabel" id="digits_label">

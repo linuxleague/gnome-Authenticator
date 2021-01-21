@@ -30,5 +30,5 @@ serde = "1.0"
 serde_json = "1.0"
 qrcode = {version ="0.12",features=["image"]}
 gtk = { git = "https://github.com/gtk-rs/gtk4-rs", package = "gtk4"}
-libhandy = { git = "https://gitlab.gnome.org/bilelmoussaoui/libhandy4-rs", package = "libhandy4"}
+libadwaita = { git = "https://gitlab.gnome.org/bilelmoussaoui/libadwaita-rs" }
 async-std = "1.8"

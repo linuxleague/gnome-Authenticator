@@ -66,7 +66,7 @@
         <property name="min-content-width">340</property>
         <property name="min-content-height">400</property>
         <child>
-          <object class="HdyClamp">
+          <object class="AdwClamp">
             <property name="margin-top">36</property>
             <property name="margin-bottom">12</property>
             <property name="vexpand">True</property>
@@ -86,7 +86,7 @@
                   <object class="GtkListBox">
                     <property name="selection-mode">none</property>
                     <child>
-                      <object class="HdyActionRow">
+                      <object class="AdwActionRow">
                         <property name="activatable-widget">name_entry</property>
                         <property name="title" translatable="yes">Name</property>
                         <child>
@@ -100,7 +100,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="HdyActionRow">
+                      <object class="AdwActionRow">
                         <property name="activatable-widget">provider_website_entry</property>
                         <property name="title" translatable="yes">Website</property>
                         <property name="subtitle" translatable="yes">Used to fetch the website icon if possible</property>
@@ -115,18 +115,18 @@
                       </object>
                     </child>
                     <child>
-                      <object class="HdyComboRow" id="method_comborow">
+                      <object class="AdwComboRow" id="method_comborow">
                         <property name="title" translatable="yes">Computing Method</property>
                         <property name="expression">
-                          <lookup type="HdyEnumValueObject" name="name"/>
+                          <lookup type="AdwEnumValueObject" name="name"/>
                         </property>
                       </object>
                     </child>
                     <child>
-                      <object class="HdyComboRow" id="algorithm_comborow">
+                      <object class="AdwComboRow" id="algorithm_comborow">
                         <property name="title" translatable="yes">Algorithm</property>
                         <property name="expression">
-                          <lookup type="HdyEnumValueObject" name="name"/>
+                          <lookup type="AdwEnumValueObject" name="name"/>
                         </property>
                       </object>
                     </child>
@@ -134,7 +134,7 @@
                       <class name="content"/>
                     </style>
                     <child>
-                      <object class="HdyActionRow" id="period_row">
+                      <object class="AdwActionRow" id="period_row">
                         <property name="activatable-widget">period_spinbutton</property>
                         <property name="title" translatable="yes">Period</property>
                         <property name="subtitle" translatable="yes">The duration in seconds. The recommended value is 30</property>
@@ -151,7 +151,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="HdyActionRow" id="default_counter_row">
+                      <object class="AdwActionRow" id="default_counter_row">
                         <property name="activatable-widget">default_counter_spinbutton</property>
                         <property name="title" translatable="yes">Counter</property>
                         <property name="subtitle" translatable="yes">The by default value for counter-based computing method</property>
@@ -168,7 +168,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="HdyActionRow" id="digits_row">
+                      <object class="AdwActionRow" id="digits_row">
                         <property name="activatable-widget">digits_spinbutton</property>
                         <property name="title" translatable="yes">Digits</property>
                         <property name="subtitle" translatable="yes">Length of the generated code. The recommended value is 6</property>
@@ -186,7 +186,7 @@
                       </object>
                     </child>
                     <child>
-                      <object class="HdyActionRow">
+                      <object class="AdwActionRow">
                         <property name="activatable-widget">provider_help_entry</property>
                         <property name="title" translatable="yes">Help URL</property>
                         <property name="subtitle" translatable="yes">How to set up Two-Factor Authentication</property>

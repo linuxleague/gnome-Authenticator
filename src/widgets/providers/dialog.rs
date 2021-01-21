@@ -8,7 +8,7 @@ use row::ProviderActionRow;
 mod imp {
     use super::*;
     use glib::subclass;
-    use libhandy::subclass::window::WindowImpl as HdyWindowImpl;
+    use libadwaita::subclass::window::AdwWindowImpl;
 
     #[derive(CompositeTemplate)]
     pub struct ProvidersDialog {
@@ -18,7 +18,7 @@ mod imp {
         #[template_child]
         pub providers_list: TemplateChild<gtk::ListView>,
         #[template_child]
-        pub deck: TemplateChild<libhandy::Leaflet>,
+        pub deck: TemplateChild<libadwaita::Leaflet>,
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
@@ -30,7 +30,7 @@ mod imp {
     impl ObjectSubclass for ProvidersDialog {
         const NAME: &'static str = "ProvidersDialog";
         type Type = super::ProvidersDialog;
-        type ParentType = libhandy::Window;
+        type ParentType = libadwaita::Window;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -68,10 +68,10 @@ mod imp {
     }
     impl WidgetImpl for ProvidersDialog {}
     impl WindowImpl for ProvidersDialog {}
-    impl HdyWindowImpl for ProvidersDialog {}
+    impl AdwWindowImpl for ProvidersDialog {}
 }
 glib::wrapper! {
-    pub struct ProvidersDialog(ObjectSubclass<imp::ProvidersDialog>) @extends gtk::Widget, gtk::Window, libhandy::Window;
+    pub struct ProvidersDialog(ObjectSubclass<imp::ProvidersDialog>) @extends gtk::Widget, gtk::Window, libadwaita::Window;
 }
 
 impl ProvidersDialog {
@@ -143,7 +143,7 @@ impl ProvidersDialog {
         );
 
         let deck_page = self_.deck.append(&self_.page).unwrap();
-        deck_page.set_name("provider");
+        deck_page.set_name(Some("provider"));
     }
 
     fn setup_actions(&self) {

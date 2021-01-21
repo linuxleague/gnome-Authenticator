@@ -101,7 +101,7 @@ mod imp {
         fn startup(&self, app: &Self::Type) {
             self.parent_startup(app);
 
-            libhandy::functions::init();
+            libadwaita::functions::init();
 
             let app = app.downcast_ref::<super::Application>().unwrap();
             if let Some(ref display) = gtk::gdk::Display::get_default() {
