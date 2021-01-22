@@ -4,7 +4,7 @@ use crate::{
 };
 use gtk::subclass::prelude::*;
 use gtk::{glib, glib::clone, prelude::*, CompositeTemplate};
-use std::time::{Duration, Instant};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 mod imp {
     use super::*;
@@ -37,7 +37,6 @@ mod imp {
     #[derive(CompositeTemplate)]
     pub struct ProviderRow {
         pub remaining_time: Cell<u64>,
-        pub started_at: RefCell<Option<Instant>>,
         pub provider: RefCell<Option<Provider>>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
@@ -61,7 +60,6 @@ mod imp {
         fn new() -> Self {
             Self {
                 remaining_time: Cell::new(0),
-                started_at: RefCell::new(None),
                 image: TemplateChild::default(),
                 name_label: TemplateChild::default(),
                 accounts_list: TemplateChild::default(),
@@ -144,7 +142,14 @@ impl ProviderRow {
         if provider.method() == OTPMethod::TOTP {
             let self_ = imp::ProviderRow::from_instance(self);
 
-            self_.started_at.borrow_mut().replace(Instant::now());
+            // If current_time is writen as 30 * x + r, where r
+            // is the integer such that 0<= r < 30, this returns 30 * x.
+            let last_epoch: u64 = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs() % self.provider().period() as u64
+                * self.provider().period() as u64;
+
             self_.progress.set_fraction(1_f64);
             self.set_property("remaining-time", &(self.provider().period() as u64))
                 .unwrap();
@@ -161,8 +166,10 @@ impl ProviderRow {
 
     fn tick(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
-        let started_at = self_.started_at.borrow().clone().unwrap();
-        let remaining_time = started_at.elapsed().as_secs();
+        let remaining_time: u64 = self.provider().period() as u64 - SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_secs() % self.provider().period() as u64;
 
         self.set_property("remaining-time", &remaining_time)
             .unwrap();
@@ -170,11 +177,14 @@ impl ProviderRow {
 
     fn tick_progressbar(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
-        let max = 1000_f64 * self.provider().period() as f64;
+        let period_millis = self.provider().period() as u128 * 1000;
 
-        let started_at = self_.started_at.borrow().clone().unwrap();
-        let remaining_time = started_at.elapsed().as_millis();
-        let progress_fraction = (max - (remaining_time as f64)) / max;
+        let remaining_time: u128 = period_millis - SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis() % period_millis;
+
+        let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
         self_.progress.set_fraction(progress_fraction);
         if progress_fraction <= 0.0 {
