@@ -50,7 +50,8 @@ row.totp .content row.account-row:last-child {
   padding: 12px;
 }
 .account-otp {
-  margin-right: 8px;
+  letter-spacing: 2px;
+  font-size: large;
   font-weight: 500;
   font-feature-settings: "tnum" 1;
 }
