@@ -197,6 +197,12 @@ impl ProviderRow {
         if (progress_fraction - 1.0).abs() < 0.002 {
             self.restart();
         }
+        // When there is left than 1/5 of the time remaining, turn the bar red.
+        if progress_fraction < 0.2 {
+            self_.progress.add_css_class("red-progress")
+        } else {
+            self_.progress.remove_css_class("red-progress")
+        }
     }
 
     fn setup_widgets(&self) {
