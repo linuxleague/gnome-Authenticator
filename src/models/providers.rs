@@ -134,7 +134,7 @@ impl ProvidersModel {
         self.items_changed(pos, 0, 1);
     }
 
-    pub fn add_account(&self, account: &Account, provider: &Provider) -> Result<()> {
+    pub fn add_account(&self, account: &Account, provider: &Provider) {
         let mut found = false;
         for pos in 0..self.get_n_items() {
             let obj = self.get_object(pos).unwrap();
@@ -149,7 +149,6 @@ impl ProvidersModel {
             provider.add_account(account);
             self.add_provider(provider);
         }
-        Ok(())
     }
 
     fn init(&self) {

@@ -252,7 +252,9 @@ impl AccountAddDialog {
             self_.actions,
             "scan-qr",
             clone!(@weak self as dialog => move |_, _| {
-                dialog.scan_qr();
+                if let Err(err) = dialog.scan_qr() {
+                    warn!("Failed to scan a QR code {}", err)
+                }
             })
         );
         self.insert_action_group("add", Some(&self_.actions));

@@ -122,7 +122,7 @@ mod imp {
             self.parent_constructed(obj);
         }
 
-        fn dispose(&self, obj: &Self::Type) {
+        fn dispose(&self, _obj: &Self::Type) {
             if let Some(id) = self.callback_id.borrow_mut().take() {
                 id.remove();
             }
@@ -155,15 +155,6 @@ impl ProviderRow {
         if provider.method() == OTPMethod::TOTP {
             let self_ = imp::ProviderRow::from_instance(self);
 
-            // If current_time is writen as 30 * x + r, where r
-            // is the integer such that 0<= r < 30, this returns 30 * x.
-            let last_epoch: u64 = SystemTime::now()
-                .duration_since(UNIX_EPOCH)
-                .unwrap()
-                .as_secs()
-                % self.provider().period() as u64
-                * self.provider().period() as u64;
-
             self_.progress.set_fraction(1_f64);
             self.set_property("remaining-time", &(self.provider().period() as u64))
                 .unwrap();
@@ -179,7 +170,6 @@ impl ProviderRow {
     }
 
     fn tick(&self) {
-        let self_ = imp::ProviderRow::from_instance(self);
         let remaining_time: u64 = self.provider().period() as u64
             - SystemTime::now()
                 .duration_since(UNIX_EPOCH)
@@ -203,20 +193,18 @@ impl ProviderRow {
         let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
         self_.progress.set_fraction(progress_fraction);
-        if remaining_time <= 1000 {
-            if self_.schedule.borrow().is_none() {
-                let id = glib::timeout_add_local(
-                    Duration::from_millis(remaining_time as u64),
-                    clone!(@weak self as row  => @default-return glib::Continue(false), move || {
-                        row.restart();
-                        let row_ = imp::ProviderRow::from_instance(&row);
-                        row_.schedule.replace(None);
+        if remaining_time <= 1000 && self_.schedule.borrow().is_none() {
+            let id = glib::timeout_add_local(
+                Duration::from_millis(remaining_time as u64),
+                clone!(@weak self as row  => @default-return glib::Continue(false), move || {
+                    row.restart();
+                    let row_ = imp::ProviderRow::from_instance(&row);
+                    row_.schedule.replace(None);
 
-                        glib::Continue(false)
-                    }),
-                );
-                self_.schedule.replace(Some(id));
-            }
+                    glib::Continue(false)
+                }),
+            );
+            self_.schedule.replace(Some(id));
         }
         // When there is left than 1/5 of the time remaining, turn the bar red.
         if progress_fraction < 0.2 {

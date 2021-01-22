@@ -148,6 +148,18 @@ impl PreferencesWindow {
         window
     }
 
+    pub fn has_set_password(&self) -> bool {
+        self.get_property("has-set-password")
+            .unwrap()
+            .get::<bool>()
+            .unwrap()
+            .unwrap()
+    }
+
+    pub fn set_has_set_password(&self, state: bool) {
+        self.set_property("has-set-password", &state).unwrap()
+    }
+
     fn setup_widgets(&self) {
         let self_ = imp::PreferencesWindow::from_instance(self);
 
@@ -301,9 +313,8 @@ impl PreferencesWindow {
         gtk_macros::action!(
             self_.actions,
             "close_page",
-            clone!(@weak self as win, @weak self_.password_page as password_page => move |_, _| {
+            clone!(@weak self as win => move |_, _| {
                 win.close_subpage();
-                password_page.reset();
             })
         );
         self.insert_action_group("preferences", Some(&self_.actions));

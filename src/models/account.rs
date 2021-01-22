@@ -275,7 +275,9 @@ impl Account {
             }
             OTPMethod::HOTP => {
                 let old_counter = self.counter();
-                self.increment_counter();
+                if let Err(err) = self.increment_counter() {
+                    error!("Failed to increment HOTP counter {}", err);
+                }
                 old_counter as u64
             }
             OTPMethod::Steam => 1,
@@ -377,7 +379,9 @@ impl Account {
     }
 
     pub fn delete(&self) -> Result<()> {
-        Keyring::remove_token(&self.token_id());
+        if let Err(err) = Keyring::remove_token(&self.token_id()) {
+            error!("Failed to remove the token from secret service {}", err);
+        }
         let db = database::connection();
         let conn = db.get()?;
         diesel::delete(accounts::table.filter(accounts::columns::id.eq(&self.id())))

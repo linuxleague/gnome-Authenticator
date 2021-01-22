@@ -9,6 +9,8 @@ use std::cell::Cell;
 mod imp {
     use super::*;
     use glib::subclass;
+    use gtk::subclass::widget::WidgetImplExt;
+    use std::cell::RefCell;
 
     static PROPERTIES: [subclass::Property; 1] = [subclass::Property("has-set-password", |name| {
         glib::ParamSpec::boolean(
@@ -33,6 +35,7 @@ mod imp {
         pub current_password_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub password_img: TemplateChild<gtk::Image>,
+        pub default_password_signal: RefCell<Option<glib::SignalHandlerId>>,
     }
 
     impl ObjectSubclass for PasswordPage {
@@ -53,6 +56,7 @@ mod imp {
                 current_password_row: TemplateChild::default(),
                 password_img: TemplateChild::default(),
                 actions: OnceCell::new(),
+                default_password_signal: RefCell::default(),
             }
         }
 
@@ -96,7 +100,12 @@ mod imp {
             }
         }
     }
-    impl WidgetImpl for PasswordPage {}
+    impl WidgetImpl for PasswordPage {
+        fn unmap(&self, widget: &Self::Type) {
+            widget.reset();
+            self.parent_unmap(widget);
+        }
+    }
     impl BoxImpl for PasswordPage {}
 }
 
@@ -161,10 +170,26 @@ impl PasswordPage {
         .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
         .build();
 
+        self.reset_validation();
+        // Reset the validation whenever the password state changes
+        self.connect_notify_local(
+            Some("has-set-password"),
+            clone!(@weak self as page => move |_, _| {
+                page.reset_validation();
+            }),
+        );
+    }
+
+    // Called when either the user sets/resets the password to bind/unbind the
+    // the validation callback on the password entry
+    fn reset_validation(&self) {
+        let self_ = imp::PasswordPage::from_instance(self);
         if self.has_set_password() {
             self_
                 .current_password_entry
                 .connect_changed(clone!(@weak self as page => move |_| page.validate()));
+        } else if let Some(handler_id) = self_.default_password_signal.borrow_mut().take() {
+            self_.current_password_entry.disconnect(handler_id);
         }
     }
 

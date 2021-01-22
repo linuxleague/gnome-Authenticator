@@ -84,7 +84,7 @@ mod imp {
             }
         }
 
-        fn get_property(&self, obj: &Self::Type, id: usize) -> glib::Value {
+        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
             let prop = &PROPERTIES[id];
             match *prop {
                 subclass::Property("account", ..) => self.account.borrow().to_value(),
@@ -195,7 +195,9 @@ impl AccountRow {
             "save",
             clone!(@weak self as row, @weak edit_stack, @weak name_entry => move |_, _| {
                 let new_name = name_entry.get_text().unwrap();
-                row.account().set_name(&new_name);
+                if let Err(err) = row.account().set_name(&new_name) {
+                    error!("Failed to update the account name {}", err);
+                }
                 edit_stack.set_visible_child_name("display");
             })
         );

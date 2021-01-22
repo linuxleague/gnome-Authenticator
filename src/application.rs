@@ -125,9 +125,14 @@ mod imp {
                     let win = active_window.downcast_ref::<Window>().unwrap();
 
                     let preferences = PreferencesWindow::new(model);
+                    preferences.set_has_set_password(app.can_be_locked());
                     preferences.connect_local("restore-completed", false, clone!(@weak win => move |_| {
                         win.providers().refilter();
                         None
+                    })).unwrap();
+                    preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, prop| {
+                        let state = preferences.has_set_password();
+                        app.set_can_be_locked(state);
                     }));
                     preferences.set_transient_for(Some(&active_window));
                     preferences.show();
@@ -241,13 +246,22 @@ impl Application {
     }
 
     pub fn locked(&self) -> bool {
-        let self_ = imp::Application::from_instance(self);
-        self_.locked.get()
+        self.get_property("locked")
+            .unwrap()
+            .get_some::<bool>()
+            .unwrap()
     }
 
     pub fn set_locked(&self, state: bool) {
         self.set_property("locked", &state)
             .expect("Failed to set locked property");
+    }
+
+    pub fn can_be_locked(&self) -> bool {
+        self.get_property("can-be-locked")
+            .unwrap()
+            .get_some::<bool>()
+            .unwrap()
     }
 
     pub fn set_can_be_locked(&self, state: bool) {

@@ -195,17 +195,21 @@ impl ProviderImage {
 
     fn do_action(&self, action: ImageAction) -> glib::Continue {
         let self_ = imp::ProviderImage::from_instance(self);
-        match action {
+        let result = match action {
+            //TODO: handle network failure and other errors differently
             ImageAction::Failed => {
                 self_
                     .image
                     .set_from_icon_name(Some("image-missing-symbolic"));
-                self.provider().set_image_uri("invalid");
+                self.provider().set_image_uri("invalid")
             }
             ImageAction::Ready(image) => {
                 self_.image.set_from_file(image.get_path().unwrap());
-                self.provider().set_image_uri(&image.get_uri());
+                self.provider().set_image_uri(&image.get_uri())
             }
+        };
+        if let Err(err) = result {
+            warn!("Failed to update the provider image {}", err);
         }
         self_.stack.set_visible_child_name("image");
         self_.spinner.stop();
