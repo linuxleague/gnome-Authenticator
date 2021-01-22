@@ -94,16 +94,21 @@ impl FromStr for OTPUri {
 
 impl Into<String> for OTPUri {
     fn into(self) -> String {
-        format!(
-            "otpauth://{}/{}?secret={}&issuer={}&algorithm={}&digits={}&counter={}",
+        let mut otp_uri = format!(
+            "otpauth://{}/{}?secret={}&issuer={}&algorithm={}",
             self.method.to_string(),
             self.label,
             self.secret,
             self.issuer,
             self.algorithm.to_string(),
-            self.digits.unwrap_or(6),
-            self.counter.unwrap_or(1),
-        )
+        );
+        if let Some(digits) = self.digits {
+            otp_uri.push_str(&format!("&digits={}", digits));
+        }
+        if self.method == OTPMethod::HOTP {
+            otp_uri.push_str(&format!("&counter={}", self.counter.unwrap_or(1)));
+        }
+        otp_uri
     }
 }
 
