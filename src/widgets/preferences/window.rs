@@ -8,8 +8,7 @@ use adw::prelude::*;
 use anyhow::Result;
 use gettextrs::gettext;
 use glib::clone;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use once_cell::sync::OnceCell;
 
 mod imp {

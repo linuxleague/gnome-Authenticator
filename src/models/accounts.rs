@@ -1,7 +1,6 @@
 use super::account::Account;
 use glib::StaticType;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;

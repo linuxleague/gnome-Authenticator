@@ -6,8 +6,7 @@ use crate::{
 };
 use gettextrs::gettext;
 use glib::clone;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use gtk_macros::{action, get_action};
 use std::env;
 

@@ -2,15 +2,17 @@ use super::{
     provider::{DiProvider, Provider},
     OTPMethod, OTPUri,
 };
-use crate::models::otp;
-use crate::widgets::QRCodeData;
-use crate::{helpers::Keyring, models::database, schema::accounts};
+use crate::{
+    helpers::Keyring,
+    models::{database, otp},
+    schema::accounts,
+    widgets::QRCodeData,
+};
 use anyhow::Result;
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
-use gtk::glib;
-use gtk::subclass::prelude::*;
+use gtk::{glib, subclass::prelude::*};
 use once_cell::sync::OnceCell;
 use std::{
     cell::{Cell, RefCell},

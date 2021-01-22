@@ -1,7 +1,6 @@
 use super::qrcode_paintable::QRCodePaintable;
 use crate::{models::Account, widgets::UrlRow};
-use gtk::subclass::prelude::*;
-use gtk::{glib, prelude::*, CompositeTemplate};
+use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;

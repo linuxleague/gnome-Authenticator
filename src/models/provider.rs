@@ -1,5 +1,7 @@
-use super::algorithm::{Algorithm, OTPMethod};
-use super::CLIENT;
+use super::{
+    algorithm::{Algorithm, OTPMethod},
+    CLIENT,
+};
 use crate::{
     models::{database, Account, AccountsModel, FaviconError, FaviconScrapper},
     schema::providers,
@@ -9,8 +11,7 @@ use async_std::prelude::*;
 use core::cmp::Ordering;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{Cast, StaticType, ToValue};
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::{Cell, RefCell},
     str::FromStr,

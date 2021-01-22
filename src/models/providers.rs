@@ -1,8 +1,7 @@
 use super::{Account, Algorithm, OTPMethod, Provider};
 use anyhow::Result;
 use glib::StaticType;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;

@@ -1,7 +1,6 @@
 use crate::models::Provider;
 use glib::{clone, Receiver, Sender};
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
 pub enum ImageAction {
     Ready(gio::File),

@@ -1,7 +1,6 @@
 use crate::{config, helpers::Keyring};
 use glib::clone;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 use std::cell::Cell;

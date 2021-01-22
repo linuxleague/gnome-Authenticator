@@ -2,8 +2,7 @@ use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
     widgets::{accounts::AccountRow, ProviderImage},
 };
-use gtk::subclass::prelude::*;
-use gtk::{glib, glib::clone, prelude::*, CompositeTemplate};
+use gtk::{glib, glib::clone, prelude::*, subclass::prelude::*, CompositeTemplate};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod imp {

@@ -1,7 +1,6 @@
 use adw::ActionRowExt;
 use glib::{clone, ObjectExt, ToValue};
-use gtk::subclass::prelude::*;
-use gtk::{glib, WidgetExt};
+use gtk::{glib, subclass::prelude::*, WidgetExt};
 
 mod imp {
     use super::*;

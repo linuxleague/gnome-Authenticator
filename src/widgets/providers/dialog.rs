@@ -1,8 +1,7 @@
 use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use glib::clone;
-use gtk::subclass::prelude::*;
-use gtk::{gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 mod imp {

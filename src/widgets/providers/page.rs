@@ -4,8 +4,7 @@ use crate::{
 };
 use adw::ComboRowExt;
 use glib::{clone, translate::ToGlib};
-use gtk::subclass::prelude::*;
-use gtk::{glib, prelude::*, CompositeTemplate};
+use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
 pub enum ProviderPageMode {
     Create,
