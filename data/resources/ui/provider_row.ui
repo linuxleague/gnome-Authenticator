@@ -15,7 +15,7 @@
             <child>
               <object class="ProviderImage" id="image">
                 <property name="halign">start</property>
-                <property name="size">32</property>
+                <property name="size">48</property>
               </object>
             </child>
             <child>

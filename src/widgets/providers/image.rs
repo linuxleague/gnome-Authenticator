@@ -30,7 +30,7 @@ mod imp {
                 24,
                 96,
                 48,
-                glib::ParamFlags::READWRITE,
+                glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
             )
         }),
     ];

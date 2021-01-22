@@ -161,14 +161,6 @@ impl PasswordPage {
             .confirm_password_entry
             .connect_changed(clone!(@weak self as page => move |_| page.validate()));
 
-        self.bind_property(
-            "has-set-password",
-            &self_.current_password_row.get(),
-            "visible",
-        )
-        .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-        .build();
-
         self.reset_validation();
         // Reset the validation whenever the password state changes
         self.connect_notify_local(

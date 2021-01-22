@@ -172,16 +172,6 @@ impl PreferencesWindow {
             .build();
 
         self_
-            .auto_lock
-            .bind_property("active", &*self_.lock_timeout, "sensitive")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-            .build();
-
-        self.bind_property("has-set-password", &self_.auto_lock.get(), "sensitive")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-            .build();
-
-        self_
             .password_page
             .bind_property("has-set-password", self, "has-set-password")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)

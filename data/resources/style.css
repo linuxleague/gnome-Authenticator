@@ -57,8 +57,8 @@ row.totp .content row.account-row:last-child {
   padding: 12px;
 }
 .account-otp {
-  letter-spacing: 2px;
-  font-size: large;
+  letter-spacing: 1.8px;
+  font-size: medium;
   font-weight: 500;
   font-feature-settings: "tnum" 1;
 }
