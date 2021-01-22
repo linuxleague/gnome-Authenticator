@@ -209,13 +209,10 @@ impl ProviderRow {
                 }),
             );
 
-            glib::timeout_add_local(
-                Duration::from_millis(20),
-                clone!(@weak self as row => @default-return glib::Continue(false), move || {
-                    row.tick_progressbar();
-                    glib::Continue(true)
-                }),
-            );
+            self.add_tick_callback(|row, _| {
+                row.tick_progressbar();
+                glib::Continue(true)
+            });
         } else {
             self_.progress.hide();
         }
