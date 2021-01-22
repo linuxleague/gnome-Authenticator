@@ -15,13 +15,25 @@ use once_cell::sync::OnceCell;
 mod imp {
     use super::*;
     use glib::subclass;
-    use libadwaita::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
-    use std::cell::RefCell;
+    use libhandy::subclass::{
+        preferences_window::PreferencesWindowImpl, window::WindowImpl as HdyWindowImpl,
+    };
+    use std::cell::{Cell, RefCell};
 
+    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("has-set-password", |name| {
+        glib::ParamSpec::boolean(
+            name,
+            "has set password",
+            "Has Set Password",
+            false,
+            glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+        )
+    })];
     #[derive(CompositeTemplate)]
     pub struct PreferencesWindow {
         pub settings: gio::Settings,
         pub model: OnceCell<ProvidersModel>,
+        pub has_set_password: Cell<bool>,
         pub actions: gio::SimpleActionGroup,
         pub backup_actions: gio::SimpleActionGroup,
         pub restore_actions: gio::SimpleActionGroup,
@@ -54,6 +66,7 @@ mod imp {
 
             Self {
                 settings,
+                has_set_password: Cell::new(false), // Synced from the application
                 password_page: PasswordPage::new(actions.clone()),
                 actions,
                 model: OnceCell::new(),
@@ -71,6 +84,7 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/preferences.ui");
             Self::bind_template_children(klass);
+            klass.install_properties(&PROPERTIES);
             klass.add_signal(
                 "restore-completed",
                 glib::SignalFlags::ACTION,
@@ -85,6 +99,32 @@ mod imp {
     }
 
     impl ObjectImpl for PreferencesWindow {
+        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
+            let prop = &PROPERTIES[id];
+
+            match *prop {
+                subclass::Property("has-set-password", ..) => {
+                    let has_set_password = value
+                        .get()
+                        .expect("type conformity checked by `Object::set_property`")
+                        .unwrap();
+                    self.has_set_password.set(has_set_password);
+                }
+                _ => unimplemented!(),
+            }
+        }
+
+        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
+            let prop = &PROPERTIES[id];
+
+            match *prop {
+                subclass::Property("has-set-password", ..) => {
+                    self.has_set_password.get().to_value()
+                }
+                _ => unimplemented!(),
+            }
+        }
+
         fn constructed(&self, obj: &Self::Type) {
             obj.setup_actions();
             self.parent_constructed(obj);
@@ -126,6 +166,16 @@ impl PreferencesWindow {
             .auto_lock
             .bind_property("active", &*self_.lock_timeout, "sensitive")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
+
+        self.bind_property("has-set-password", &self_.auto_lock.get(), "sensitive")
+            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
+
+        self_
+            .password_page
+            .bind_property("has-set-password", self, "has-set-password")
+            .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
 
         self.register_backup::<FreeOTP>(&["text/plain"]);
@@ -253,8 +303,9 @@ impl PreferencesWindow {
         gtk_macros::action!(
             self_.actions,
             "close_page",
-            clone!(@weak self as win => move |_, _| {
+            clone!(@weak self as win, @weak self_.password_page as password_page => move |_, _| {
                 win.close_subpage();
+                password_page.reset();
             })
         );
         self.insert_action_group("preferences", Some(&self_.actions));

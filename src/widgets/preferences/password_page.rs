@@ -7,9 +7,18 @@ use once_cell::sync::OnceCell;
 use std::cell::Cell;
 
 mod imp {
-
     use super::*;
     use glib::subclass;
+
+    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("has-set-password", |name| {
+        glib::ParamSpec::boolean(
+            name,
+            "has set password",
+            "Has Set Password",
+            false,
+            glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+        )
+    })];
     #[derive(CompositeTemplate)]
     pub struct PasswordPage {
         pub actions: OnceCell<gio::SimpleActionGroup>,
@@ -36,10 +45,8 @@ mod imp {
         glib::object_subclass!();
 
         fn new() -> Self {
-            let has_set_password = Keyring::has_set_password().unwrap_or(false);
-
             Self {
-                has_set_password: Cell::new(has_set_password),
+                has_set_password: Cell::new(false), // state is synced later on from the window
                 current_password_entry: TemplateChild::default(),
                 password_entry: TemplateChild::default(),
                 confirm_password_entry: TemplateChild::default(),
@@ -53,11 +60,38 @@ mod imp {
             klass.set_template_from_resource(
                 "/com/belmoussaoui/Authenticator/preferences_password_page.ui",
             );
+            klass.install_properties(&PROPERTIES);
             Self::bind_template_children(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
             obj.init_template();
+        }
+
+        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
+            let prop = &PROPERTIES[id];
+
+            match *prop {
+                subclass::Property("has-set-password", ..) => {
+                    let has_set_password = value
+                        .get()
+                        .expect("type conformity checked by `Object::set_property`")
+                        .unwrap();
+                    self.has_set_password.set(has_set_password);
+                }
+                _ => unimplemented!(),
+            }
+        }
+
+        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
+            let prop = &PROPERTIES[id];
+
+            match *prop {
+                subclass::Property("has-set-password", ..) => {
+                    self.has_set_password.get().to_value()
+                }
+                _ => unimplemented!(),
+            }
         }
     }
 
@@ -80,6 +114,17 @@ impl PasswordPage {
         page
     }
 
+    pub fn has_set_password(&self) -> bool {
+        self.get_property("has-set-password")
+            .unwrap()
+            .get_some::<bool>()
+            .unwrap()
+    }
+
+    pub fn set_has_set_password(&self, new_value: bool) {
+        self.set_property("has-set-password", &new_value).unwrap();
+    }
+
     fn validate(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
@@ -87,7 +132,7 @@ impl PasswordPage {
         let password = self_.password_entry.get_text().unwrap();
         let password_repeat = self_.confirm_password_entry.get_text().unwrap();
 
-        let is_valid = if self_.has_set_password.get() {
+        let is_valid = if self.has_set_password() {
             password_repeat == password && current_password != password && password != ""
         } else {
             password_repeat == password && password != ""
@@ -108,9 +153,15 @@ impl PasswordPage {
             .confirm_password_entry
             .connect_changed(clone!(@weak self as page => move |_| page.validate()));
 
-        if !self_.has_set_password.get() {
-            self_.current_password_row.hide();
-        } else {
+        self.bind_property(
+            "has-set-password",
+            &self_.current_password_row.get(),
+            "visible",
+        )
+        .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+        .build();
+
+        if self.has_set_password() {
             self_
                 .current_password_entry
                 .connect_changed(clone!(@weak self as page => move |_| page.validate()));
@@ -133,24 +184,37 @@ impl PasswordPage {
             actions,
             "reset_password",
             clone!(@weak self as page => move |_,_| {
-                page.reset();
+                page.reset_password();
             })
         );
         get_action!(actions, @save_password).set_enabled(false);
-        get_action!(actions, @reset_password).set_enabled(self_.has_set_password.get());
+
+        self.bind_property(
+            "has-set-password",
+            &get_action!(actions, @reset_password),
+            "enabled",
+        )
+        .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+        .build();
     }
 
-    fn reset(&self) {
+    fn reset_password(&self) {
         if Keyring::reset_password().is_ok() {
             let self_ = imp::PasswordPage::from_instance(self);
             let actions = self_.actions.get().unwrap();
 
             get_action!(actions, @close_page).activate(None);
             get_action!(actions, @save_password).set_enabled(false);
-            get_action!(actions, @reset_password).set_enabled(false);
-            self_.current_password_row.hide();
-            self_.has_set_password.set(false);
+            self.set_has_set_password(false);
         }
+    }
+
+    pub fn reset(&self) {
+        let self_ = imp::PasswordPage::from_instance(self);
+
+        self_.current_password_entry.get().set_text("");
+        self_.password_entry.get().set_text("");
+        self_.confirm_password_entry.get().set_text("");
     }
 
     fn save(&self) {
@@ -160,21 +224,17 @@ impl PasswordPage {
         let current_password = self_.current_password_entry.get_text().unwrap();
         let password = self_.password_entry.get_text().unwrap();
 
-        if Keyring::has_set_password().unwrap_or(false)
+        if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
         {
             return;
         }
 
         if Keyring::set_password(&password).is_ok() {
-            self_.current_password_row.show();
-            self_.current_password_entry.set_text("");
-            self_.password_entry.set_text("");
-            self_.confirm_password_entry.set_text("");
+            self.reset();
             get_action!(actions, @save_password).set_enabled(false);
-            get_action!(actions, @reset_password).set_enabled(true);
+            self.set_has_set_password(true);
             get_action!(actions, @close_page).activate(None);
-            self_.has_set_password.set(true);
         }
     }
 }
