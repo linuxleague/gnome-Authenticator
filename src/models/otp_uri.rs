@@ -107,6 +107,8 @@ impl Into<String> for OTPUri {
         }
         if self.method == OTPMethod::HOTP {
             otp_uri.push_str(&format!("&counter={}", self.counter.unwrap_or(1)));
+        } else {
+            otp_uri.push_str(&format!("&period={}", self.period.unwrap_or(30)));
         }
         otp_uri
     }
