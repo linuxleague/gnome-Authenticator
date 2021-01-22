@@ -282,15 +282,19 @@ impl Account {
             OTPMethod::Steam => 1,
         };
 
-        if let Ok(otp) = otp::generate_hotp(
+        let label = match otp::generate_hotp(
             &self.token(),
             counter,
             provider.algorithm().into(),
             provider.digits() as u32,
         ) {
-            self.set_property("otp", &otp::format(otp, provider.digits() as usize))
-                .unwrap();
+            Ok(otp) => otp::format(otp, provider.digits() as usize),
+            Err(err) => {
+                debug!("Could not generate HOTP {:?}", err);
+                "Error".to_string()
+            }
         };
+        self.set_property("otp", &label).unwrap();
     }
 
     fn increment_counter(&self) -> Result<()> {
