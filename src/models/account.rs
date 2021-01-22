@@ -288,11 +288,8 @@ impl Account {
             provider.algorithm().into(),
             provider.digits() as u32,
         ) {
-            self.set_property(
-                "otp",
-                &format!("{:0width$}", otp, width = provider.digits() as usize),
-            )
-            .unwrap();
+            self.set_property("otp", &otp::format(otp, provider.digits() as usize))
+                .unwrap();
         };
     }
 

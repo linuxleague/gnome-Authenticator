@@ -49,9 +49,18 @@ pub(crate) fn generate_hotp(
     )
 }
 
+pub(crate) fn format(code: u32, digits: usize) -> String {
+    let mut formated_code = format!("{:0width$}", code, width = digits);
+    if digits % 2 == 0 {
+        let middle = digits / 2;
+        formated_code.insert(middle, ' ');
+    }
+    formated_code
+}
+
 #[cfg(test)]
 mod tests {
-    use super::make_hotp;
+    use super::{format, make_hotp};
 
     #[test]
     fn hotp() {
@@ -69,5 +78,11 @@ mod tests {
             make_hotp("BASE32SECRET3232", 1401, algorithm, digits).unwrap(),
             316439
         );
+    }
+
+    #[test]
+    fn hotp() {
+        assert_eq!(format(012345, 6).unwrap(), "012 345");
+        assert_eq!(format(01234, 5).unwrap(), "01234");
     }
 }
