@@ -147,7 +147,8 @@ impl ProviderRow {
             let last_epoch: u64 = SystemTime::now()
                 .duration_since(UNIX_EPOCH)
                 .unwrap()
-                .as_secs() % self.provider().period() as u64
+                .as_secs()
+                % self.provider().period() as u64
                 * self.provider().period() as u64;
 
             self_.progress.set_fraction(1_f64);
@@ -166,10 +167,12 @@ impl ProviderRow {
 
     fn tick(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
-        let remaining_time: u64 = self.provider().period() as u64 - SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_secs() % self.provider().period() as u64;
+        let remaining_time: u64 = self.provider().period() as u64
+            - SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs()
+                % self.provider().period() as u64;
 
         self.set_property("remaining-time", &remaining_time)
             .unwrap();
@@ -178,16 +181,20 @@ impl ProviderRow {
     fn tick_progressbar(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
         let period_millis = self.provider().period() as u128 * 1000;
-
-        let remaining_time: u128 = period_millis - SystemTime::now()
+        let now: u128 = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .unwrap()
-            .as_millis() % period_millis;
+            .as_millis();
+        let remaining_time: u128 = period_millis - now % period_millis;
 
         let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
         self_.progress.set_fraction(progress_fraction);
-        if progress_fraction <= 0.0 {
+        // TODO This can be improved, as the time window is big enough
+        // so that restart will be called multiples times. 0.002 correspods to
+        // about 16 frames, this callback won't be run on machines which can't display
+        // more than 16 frames.
+        if (progress_fraction - 1.0).abs() < 0.002 {
             self.restart();
         }
     }
