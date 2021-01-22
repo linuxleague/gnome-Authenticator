@@ -2,10 +2,10 @@ use super::{
     provider::{DiProvider, Provider},
     OTPMethod, OTPUri,
 };
+use crate::models::otp;
 use crate::widgets::QRCodeData;
 use crate::{helpers::Keyring, models::database, schema::accounts};
 use anyhow::Result;
-use byteorder::{BigEndian, ReadBytesExt};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
@@ -282,17 +282,18 @@ impl Account {
             OTPMethod::Steam => 1,
         };
 
-        let otp = generate_otp(
+        if let Ok(otp) = otp::generate_hotp(
             &self.token(),
             counter,
             provider.algorithm().into(),
             provider.digits() as u32,
-        );
-        self.set_property(
-            "otp",
-            &format!("{:0width$}", otp, width = provider.digits() as usize),
-        )
-        .unwrap();
+        ) {
+            self.set_property(
+                "otp",
+                &format!("{:0width$}", otp, width = provider.digits() as usize),
+            )
+            .unwrap();
+        };
     }
 
     fn increment_counter(&self) -> Result<()> {
@@ -383,23 +384,4 @@ impl Account {
             .execute(&conn)?;
         Ok(())
     }
-}
-
-pub(crate) fn generate_otp(
-    token: &str,
-    counter: u64,
-    algorithm: hmac::Algorithm,
-    digits: u32,
-) -> u32 {
-    // Modified version of an implementation from otpauth crate
-    let key = hmac::Key::new(algorithm, token.as_bytes());
-    let wtr = counter.to_be_bytes().to_vec();
-    let result = hmac::sign(&key, &wtr);
-    let digest = result.as_ref();
-    let ob = digest[19];
-    let pos = (ob & 15) as usize;
-    let mut rdr = std::io::Cursor::new(digest[pos..pos + 4].to_vec());
-    let base = rdr.read_u32::<BigEndian>().unwrap() & 0x7fff_ffff;
-
-    base % 10_u32.pow(digits)
 }

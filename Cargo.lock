@@ -247,7 +247,7 @@ dependencies = [
  "anyhow",
  "ashpd",
  "async-std",
- "byteorder",
+ "data-encoding",
  "diesel",
  "diesel_migrations",
  "futures",
