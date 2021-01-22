@@ -35,7 +35,7 @@ fn encode_digest(digest: &[u8], digits: u32) -> Result<u32> {
 
 /// Performs the [HMAC-based One-time Password Algorithm](http://en.wikipedia.org/wiki/HMAC-based_One-time_Password_Algorithm)
 /// (HOTP) given an RFC4648 base32 encoded secret, and an integer counter.
-pub(crate) fn generate_hotp(
+pub(crate) fn hotp(
     secret: &str,
     counter: u64,
     algorithm: hmac::Algorithm,
@@ -59,29 +59,29 @@ pub(crate) fn format(code: u32, digits: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{format, generate_hotp};
+    use super::{format, hmac, hotp};
 
     #[test]
-    fn hotp() {
+    fn test_htop() {
         let algorithm = hmac::HMAC_SHA1_FOR_LEGACY_USE_ONLY;
         let digits: u32 = 6;
         assert_eq!(
-            generate_hotp("BASE32SECRET3232", 0, algorithm, digits).unwrap(),
+            hotp("BASE32SECRET3232", 0, algorithm, digits).unwrap(),
             260182
         );
         assert_eq!(
-            generate_hotp("BASE32SECRET3232", 1, algorithm, digits).unwrap(),
+            hotp("BASE32SECRET3232", 1, algorithm, digits).unwrap(),
             55283
         );
         assert_eq!(
-            generate_hotp("BASE32SECRET3232", 1401, algorithm, digits).unwrap(),
+            hotp("BASE32SECRET3232", 1401, algorithm, digits).unwrap(),
             316439
         );
     }
 
     #[test]
-    fn hotp() {
-        assert_eq!(format(012345, 6).unwrap(), "012 345");
-        assert_eq!(format(01234, 5).unwrap(), "01234");
+    fn test_otp_format() {
+        assert_eq!(format(012345, 6), "012 345");
+        assert_eq!(format(01234, 5), "01234");
     }
 }

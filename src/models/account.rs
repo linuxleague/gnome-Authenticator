@@ -285,7 +285,7 @@ impl Account {
             OTPMethod::Steam => 1,
         };
 
-        let label = match otp::generate_hotp(
+        let label = match otp::hotp(
             &self.token(),
             counter,
             provider.algorithm().into(),
