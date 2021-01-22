@@ -39,6 +39,7 @@ mod imp {
         pub remaining_time: Cell<u64>,
         pub provider: RefCell<Option<Provider>>,
         pub callback_id: RefCell<Option<gtk::TickCallbackId>>,
+        pub schedule: RefCell<Option<glib::SourceId>>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -67,6 +68,7 @@ mod imp {
                 progress: TemplateChild::default(),
                 provider: RefCell::new(None),
                 callback_id: RefCell::default(),
+                schedule: RefCell::default(),
             }
         }
 
@@ -123,6 +125,9 @@ mod imp {
         fn dispose(&self, obj: &Self::Type) {
             if let Some(id) = self.callback_id.borrow_mut().take() {
                 id.remove();
+            }
+            if let Some(id) = self.schedule.borrow_mut().take() {
+                glib::source_remove(id);
             }
         }
     }
@@ -198,12 +203,20 @@ impl ProviderRow {
         let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
         self_.progress.set_fraction(progress_fraction);
-        // TODO This can be improved, as the time window is big enough
-        // so that restart will be called multiples times. 0.002 correspods to
-        // about 16 frames, this callback won't be run on machines which can't display
-        // more than 16 frames.
-        if (progress_fraction - 1.0).abs() < 0.002 {
-            self.restart();
+        if remaining_time <= 1000 {
+            if self_.schedule.borrow().is_none() {
+                let id = glib::timeout_add_local(
+                    Duration::from_millis(remaining_time as u64),
+                    clone!(@weak self as row  => @default-return glib::Continue(false), move || {
+                        row.restart();
+                        let row_ = imp::ProviderRow::from_instance(&row);
+                        row_.schedule.replace(None);
+
+                        glib::Continue(false)
+                    }),
+                );
+                self_.schedule.replace(Some(id));
+            }
         }
         // When there is left than 1/5 of the time remaining, turn the bar red.
         if progress_fraction < 0.2 {
