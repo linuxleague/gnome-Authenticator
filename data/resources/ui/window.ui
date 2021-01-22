@@ -2,10 +2,10 @@
 <interface>
   <menu id="menu">
     <section>
-    <item>
-      <attribute name="label" translatable="yes">_Lock the application</attribute>
-      <attribute name="action">app.lock</attribute>
-    </item>
+      <item>
+        <attribute name="label" translatable="yes">_Lock the application</attribute>
+        <attribute name="action">app.lock</attribute>
+      </item>
     </section>
     <section>
       <item>
@@ -45,7 +45,7 @@
                   <object class="GtkHeaderBar">
                     <property name="show-title-buttons">True</property>
                     <child type="start">
-                      <object class="GtkButton" id="add_btn">
+                      <object class="GtkButton">
                         <property name="receives-default">True</property>
                         <property name="action-name">win.add_account</property>
                         <property name="icon-name">list-add-symbolic</property>
@@ -74,10 +74,10 @@
                     <property name="vexpand">True</property>
                     <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkSearchBar" id="search_bar">
+                      <object class="GtkSearchBar">
+                        <property name="search-mode-enabled" bind-source="search_btn" bind-property="active" bind-flags="sync-create" />
                         <child>
-                          <object class="GtkSearchEntry" id="search_entry">
-                          </object>
+                          <object class="GtkSearchEntry" id="search_entry" />
                         </child>
                       </object>
                     </child>
@@ -91,8 +91,7 @@
           <object class="AdwLeafletPage">
             <property name="name">account</property>
             <property name="child">
-              <object class="AccountDetailsPage" id="account_details">
-              </object>
+              <object class="AccountDetailsPage" id="account_details" />
             </property>
           </object>
         </child>

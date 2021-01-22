@@ -21,8 +21,6 @@ mod imp {
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
-        pub search_bar: TemplateChild<gtk::SearchBar>,
-        #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
     }
 
@@ -41,7 +39,6 @@ mod imp {
                 deck: TemplateChild::default(),
                 providers_list: TemplateChild::default(),
                 search_entry: TemplateChild::default(),
-                search_bar: TemplateChild::default(),
                 search_btn: TemplateChild::default(),
                 page: ProviderPage::new(),
                 actions: gio::SimpleActionGroup::new(),
@@ -87,11 +84,6 @@ impl ProvidersDialog {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
         self_.filter_model.set_model(Some(&model));
-        self_
-            .search_bar
-            .bind_property("search-mode-enabled", &*self_.search_btn, "active")
-            .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
-            .build();
 
         self_
             .search_entry
@@ -99,12 +91,6 @@ impl ProvidersDialog {
                 let text = entry.get_text().unwrap().to_string();
                 dialog.search(text);
             }));
-
-        self_
-            .search_btn
-            .bind_property("active", &*self_.search_bar, "search-mode-enabled")
-            .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
-            .build();
 
         let factory = gtk::SignalListItemFactory::new();
         factory.connect_setup(|_, list_item| {
@@ -149,14 +135,6 @@ impl ProvidersDialog {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
         let deck = &*self_.deck;
-        let search_bar = &*self_.search_bar;
-        gtk_macros::action!(
-            self_.actions,
-            "search",
-            clone!(@weak search_bar => move |_,_| {
-                search_bar.set_search_mode(!search_bar.get_search_mode());
-            })
-        );
         gtk_macros::action!(
             self_.actions,
             "back",

@@ -62,7 +62,7 @@
                     <property name="icon-name">globe-symbolic</property>
                   </object>
                 </child>
-              <style>
+                <style>
                   <class name="content"/>
                 </style>
               </object>

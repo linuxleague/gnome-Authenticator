@@ -19,7 +19,7 @@
                   <object class="GtkHeaderBar">
                     <property name="show-title-buttons">True</property>
                     <child type="start">
-                      <object class="GtkButton" id="add_btn">
+                      <object class="GtkButton">
                         <property name="receives-default">True</property>
                         <property name="action-name">providers.add</property>
                         <property name="icon-name">list-add-symbolic</property>
@@ -40,10 +40,10 @@
                   <object class="GtkBox">
                     <property name="orientation">vertical</property>
                     <child>
-                      <object class="GtkSearchBar" id="search_bar">
+                      <object class="GtkSearchBar">
+                        <property name="search-mode-enabled" bind-source="search_btn" bind-property="active" bind-flags="sync-create" />
                         <child>
-                          <object class="GtkSearchEntry" id="search_entry">
-                          </object>
+                          <object class="GtkSearchEntry" id="search_entry"/>
                         </child>
                       </object>
                     </child>

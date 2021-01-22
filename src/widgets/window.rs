@@ -37,8 +37,6 @@ mod imp {
         #[template_child]
         pub container: TemplateChild<gtk::Box>,
         #[template_child]
-        pub search_bar: TemplateChild<gtk::SearchBar>,
-        #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub password_entry: TemplateChild<gtk::PasswordEntry>,
@@ -65,7 +63,6 @@ mod imp {
                 search_entry: TemplateChild::default(),
                 deck: TemplateChild::default(),
                 container: TemplateChild::default(),
-                search_bar: TemplateChild::default(),
                 search_btn: TemplateChild::default(),
                 password_entry: TemplateChild::default(),
                 locked_img: TemplateChild::default(),
@@ -195,12 +192,6 @@ impl Window {
         self.set_help_overlay(Some(&shortcuts));
 
         self_.container.append(&self_.providers);
-
-        self_
-            .search_bar
-            .bind_property("search-mode-enabled", &*self_.search_btn, "active")
-            .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
-            .build();
 
         let search_btn = &*self_.search_btn;
         self_.search_entry.connect_search_changed(
