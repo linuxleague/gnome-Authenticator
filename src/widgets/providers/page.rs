@@ -129,7 +129,7 @@ impl ProviderPage {
                 .algorithms_model
                 .find_position(provider.algorithm().to_glib()),
         );
-        self.on_algorithm_changed();
+        self.on_method_changed();
 
         self_
             .default_counter_spinbutton
@@ -153,15 +153,15 @@ impl ProviderPage {
             .algorithm_comborow
             .set_model(Some(&self_.algorithms_model));
 
-        self_
-            .algorithm_comborow
-            .connect_property_selected_item_notify(clone!(@weak self as page => move |_| {
-                page.on_algorithm_changed();
-            }));
+        self_.method_comborow.connect_property_selected_item_notify(
+            clone!(@weak self as page => move |_| {
+                page.on_method_changed();
+            }),
+        );
         self_.method_comborow.set_model(Some(&self_.methods_model));
     }
 
-    fn on_algorithm_changed(&self) {
+    fn on_method_changed(&self) {
         let self_ = imp::ProviderPage::from_instance(self);
 
         let selected = OTPMethod::from(self_.method_comborow.get_selected());
