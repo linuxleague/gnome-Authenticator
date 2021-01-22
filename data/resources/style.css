@@ -39,6 +39,8 @@
   border-top-left-radius: 0;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 /* Only for TOTP accounts */
 row.totp .content row.account-row:last-child {
@@ -46,11 +48,17 @@ row.totp .content row.account-row:last-child {
   border-bottom-left-radius: 0;
 }
 
+.red-progress trough progress {
+  background-color: #c01c28;
+  border-color: #c01c28;
+}
+
 .account-row {
   padding: 12px;
 }
 .account-otp {
-  margin-right: 8px;
+  letter-spacing: 2px;
+  font-size: large;
   font-weight: 500;
   font-feature-settings: "tnum" 1;
 }

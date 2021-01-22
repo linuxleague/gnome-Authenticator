@@ -4,7 +4,7 @@ use crate::{
 };
 use gtk::subclass::prelude::*;
 use gtk::{glib, glib::clone, prelude::*, CompositeTemplate};
-use std::time::{Duration, Instant};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
 mod imp {
     use super::*;
@@ -37,8 +37,9 @@ mod imp {
     #[derive(CompositeTemplate)]
     pub struct ProviderRow {
         pub remaining_time: Cell<u64>,
-        pub started_at: RefCell<Option<Instant>>,
         pub provider: RefCell<Option<Provider>>,
+        pub callback_id: RefCell<Option<gtk::TickCallbackId>>,
+        pub schedule: RefCell<Option<glib::SourceId>>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -61,12 +62,13 @@ mod imp {
         fn new() -> Self {
             Self {
                 remaining_time: Cell::new(0),
-                started_at: RefCell::new(None),
                 image: TemplateChild::default(),
                 name_label: TemplateChild::default(),
                 accounts_list: TemplateChild::default(),
                 progress: TemplateChild::default(),
                 provider: RefCell::new(None),
+                callback_id: RefCell::default(),
+                schedule: RefCell::default(),
             }
         }
 
@@ -119,6 +121,15 @@ mod imp {
             obj.setup_widgets();
             self.parent_constructed(obj);
         }
+
+        fn dispose(&self, obj: &Self::Type) {
+            if let Some(id) = self.callback_id.borrow_mut().take() {
+                id.remove();
+            }
+            if let Some(id) = self.schedule.borrow_mut().take() {
+                glib::source_remove(id);
+            }
+        }
     }
     impl WidgetImpl for ProviderRow {}
     impl ListBoxRowImpl for ProviderRow {}
@@ -144,7 +155,15 @@ impl ProviderRow {
         if provider.method() == OTPMethod::TOTP {
             let self_ = imp::ProviderRow::from_instance(self);
 
-            self_.started_at.borrow_mut().replace(Instant::now());
+            // If current_time is writen as 30 * x + r, where r
+            // is the integer such that 0<= r < 30, this returns 30 * x.
+            let last_epoch: u64 = SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs()
+                % self.provider().period() as u64
+                * self.provider().period() as u64;
+
             self_.progress.set_fraction(1_f64);
             self.set_property("remaining-time", &(self.provider().period() as u64))
                 .unwrap();
@@ -161,8 +180,12 @@ impl ProviderRow {
 
     fn tick(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
-        let started_at = self_.started_at.borrow().clone().unwrap();
-        let remaining_time = started_at.elapsed().as_secs();
+        let remaining_time: u64 = self.provider().period() as u64
+            - SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs()
+                % self.provider().period() as u64;
 
         self.set_property("remaining-time", &remaining_time)
             .unwrap();
@@ -170,15 +193,36 @@ impl ProviderRow {
 
     fn tick_progressbar(&self) {
         let self_ = imp::ProviderRow::from_instance(self);
-        let max = 1000_f64 * self.provider().period() as f64;
+        let period_millis = self.provider().period() as u128 * 1000;
+        let now: u128 = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_millis();
+        let remaining_time: u128 = period_millis - now % period_millis;
 
-        let started_at = self_.started_at.borrow().clone().unwrap();
-        let remaining_time = started_at.elapsed().as_millis();
-        let progress_fraction = (max - (remaining_time as f64)) / max;
+        let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
         self_.progress.set_fraction(progress_fraction);
-        if progress_fraction <= 0.0 {
-            self.restart();
+        if remaining_time <= 1000 {
+            if self_.schedule.borrow().is_none() {
+                let id = glib::timeout_add_local(
+                    Duration::from_millis(remaining_time as u64),
+                    clone!(@weak self as row  => @default-return glib::Continue(false), move || {
+                        row.restart();
+                        let row_ = imp::ProviderRow::from_instance(&row);
+                        row_.schedule.replace(None);
+
+                        glib::Continue(false)
+                    }),
+                );
+                self_.schedule.replace(Some(id));
+            }
+        }
+        // When there is left than 1/5 of the time remaining, turn the bar red.
+        if progress_fraction < 0.2 {
+            self_.progress.add_css_class("red-progress")
+        } else {
+            self_.progress.remove_css_class("red-progress")
         }
     }
 
@@ -199,13 +243,12 @@ impl ProviderRow {
                 }),
             );
 
-            glib::timeout_add_local(
-                Duration::from_millis(20),
-                clone!(@weak self as row => @default-return glib::Continue(false), move || {
+            self_
+                .callback_id
+                .replace(Some(self.add_tick_callback(|row, _| {
                     row.tick_progressbar();
                     glib::Continue(true)
-                }),
-            );
+                })));
         } else {
             self_.progress.hide();
         }

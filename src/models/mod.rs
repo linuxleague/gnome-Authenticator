@@ -6,6 +6,7 @@ mod accounts;
 mod algorithm;
 pub mod database;
 mod favicon;
+pub mod otp;
 mod otp_uri;
 mod provider;
 mod provider_sorter;
