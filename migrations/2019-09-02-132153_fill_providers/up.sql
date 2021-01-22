@@ -101,6 +101,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("PayPal", "https
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Paysafecard", "https://www.paysafecard.com/", "https://www.paysafecard.com/en-au/lp-products/2-step-login/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Privacy", "https://privacy.com/", "https://support.privacy.com/hc/en-us/articles/360012047174");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Ravelin", "https://www.ravelin.com/", "https://ravelin.zendesk.com/hc/en-us/articles/115001071665");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Skrill", "https://skrill.com", "https://skrill.com/en-us/support#/path/ACCOUNT/Two-Factor-Authentication/905782552/Two-Factor-Authentication-2FA.htm");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Square", "https://squareup.com", "https://squareup.com/help/us/en/article/5593");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Stripe", "https://www.stripe.com/", "https://support.stripe.com/questions/how-do-i-enable-two-step-verification");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Tebex", "https://www.tebex.io/", "https://help.tebex.io/en/articles/2319372");
@@ -141,6 +142,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Repairshopr", "
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Ripe NCC", "https://www.ripe.net/", "https://www.ripe.net/participate/member-support/ripe-ncc-access/two-step-verification");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("SaneBox", "https://www.sanebox.com/", "https://www.sanebox.com/help/127");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("SmartSimple", "https://www.smartsimple.com", "https://wiki.smartsimple.com/wiki/Two-Factor_Authentication");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Teespring", "https://teespring.com", "https://community.teespring.com/blog/a-more-secure-teespring-two-factor-authentification/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Ubiquiti Inc", "https://www.ui.com", "https://help.ubnt.com/hc/en-us/articles/115012986607");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Upwork", "https://www.upwork.com", "https://support.upwork.com/hc/en-us/articles/360009491414");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Usabilla", "https://usabilla.com", "https://support.usabilla.com/hc/en-us/articles/115003081611");
@@ -173,6 +175,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Dashlane", "htt
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("ID.me", "https://www.id.me/", "https://help.id.me/hc/en-us/categories/360001435974");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Keeper", "https://keepersecurity.com/", "https://www.keepersecurity.com/security#twoFactor");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("LastPass", "https://lastpass.com/", "https://support.logmeininc.com/lastpass/help/enable-multifactor-authentication-lp010002");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("NordPass", "https://nordpass.com/", "https://support.nordpass.com/hc/en-us/articles/360002770497-How-to-enable-Two-Factor-Authentication-");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Okta", "https://www.okta.com/", "https://help.okta.com/en/prod/Content/Topics/Security/MFA.htm");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("OneLogin", "https://www.onelogin.com/", "https://onelogin.service-now.com/support?id=kb_article&sys_id=43d99143db109700d5505eea4b96197a");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("ORCID", "https://orcid.org/", "https://support.orcid.org/hc/en-us/articles/360006971673");
@@ -261,6 +264,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Bethesda", "htt
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Black Desert Online", "https://www.blackdesertonline.com/", "https://blackdesert.zendesk.com/hc/en-us/articles/360000535909");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Blade & Soul", "https://www.bladeandsoul.com/", "https://support.bladeandsoul.com/hc/en-us/articles/207578553");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Bohemia Interactive", "https://www.bohemia.net/", "");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Call Of Duty", "https://callofduty.com", "https://profile.callofduty.com/cod/announcement2FA");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Electronic Arts (Origin)", "https://www.ea.com/", "https://help.ea.com/en-us/help/account/origin-login-verification-information/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Epic Games", "https://www.epicgames.com/", "https://www.epicgames.com/help/en-US/c74/c112/a3218");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("ESL", "https://www.eslgaming.com", "");
@@ -278,6 +282,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Nexus Mods", "h
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Nintendo Account", "https://accounts.nintendo.com/", "https://en-americas-support.nintendo.com/app/answers/detail/a_id/27496");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Parsec", "https://www.parsecgaming.com", "https://support.parsecgaming.com/hc/en-us/articles/360015480691");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Playstation Network", "https://www.playstation.com/", "https://playstation.com/support/2sv/");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Razer", "https://www.razer.com/", "https://mysupport.razer.com/app/answers/detail/a_id/1716");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Roberts Space Industries", "https://robertsspaceindustries.com/", "https://support.robertsspaceindustries.com/hc/en-us/articles/115009965628");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Rockstar Games Social Club", "https://socialclub.rockstargames.com", "https://support.rockstargames.com/articles/360000031747");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("RuneScape", "https://www.runescape.com/", "https://support.runescape.com/hc/en-gb/articles/206811835");
@@ -294,6 +299,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Bitbond", "http
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Carta", "https://carta.com/", "https://support.carta.com/s/article/2-factor-authentication");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("DEGIRO", "https://www.degiro.nl", "");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Exact Online", "https://exact.com/", "https://support.exactonline.com/community/s/knowledge-base#All-All-HNO-Task-general-security-gen-auth-totpregphndsktpt");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Expensify", "https://www.expensify.com/", "https://community.expensify.com/discussion/7385");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("FreeAgent", "https://www.freeagent.com", "https://www.freeagent.com/support/kb/getting-started/two-step-verification");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("FreeTaxUSA", "https://www.freetaxusa.com/", "https://www.freetaxusa.com/faqsearch?search_keyword=authentication");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Gusto", "https://www.gusto.com", "https://support.gusto.com/1066223171");
@@ -303,6 +309,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Justworks", "ht
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Metorik", "https://www.metorik.com", "https://help.metorik.com/article/22-how-can-i-enable-2fa-on-my-account");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Mint", "https://www.mint.com", "https://help.mint.com/Security/908045661");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Moneybird", "https://www.moneybird.com/", "https://www.moneybird.nl/blog/twee-staps-verificatie/");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Northwestern Mutual", "https://www.northwesternmutual.com/", "https://www.northwesternmutual.com/security-and-privacy/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Pocketsmith", "https://www.pocketsmith.com", "https://learn.pocketsmith.com/article/167--");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Principal", "https://www.principal.com", "https://secure02.principal.com/publicvsupply/GetFile?fm=ww42&ty=VOP&EXT=.VOP");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Quickbooks Online", "https://quickbooks.intuit.com/", "https://accounts-help.lc.intuit.com/questions/1590157");
@@ -317,6 +324,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Niconico", "htt
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Plex", "https://www.plex.tv", "https://support.plex.tv/articles/two-factor-authentication/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Rocket Beans TV", "https://rocketbeans.tv/", "https://forum.rocketbeans.tv/t/35407/31");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("smashcast", "https://www.smashcast.tv/", "");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Twitch", "https://www.twitch.tv/", "https://help.twitch.tv/s/article/two-factor-authentication");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("YouTube", "https://www.youtube.com/", "https://www.google.com/intl/en-US/landing/2step/features.html");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("FastMail", "https://www.fastmail.com/", "https://www.fastmail.com/help/account/2fa.html");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Gmail", "https://mail.google.com", "https://www.google.com/intl/en-US/landing/2step/features.html");
@@ -446,12 +454,13 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Packagist", "ht
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Panic Sync", "https://panic.com/", "https://library.panic.com/general/sync-2fa/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Phacility", "https://phacility.com/", "");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Pivotal Tracker", "https://www.pivotaltracker.com", "https://www.pivotaltracker.com/help/articles/two_factor_auth/");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("ProfitWell", "https://profitwell.com", "https://learn.profitwell.com/article/wsudrpi199-setting-up-2-factor-authentication");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Pushover", "https://pushover.net/", "https://support.pushover.app/i49");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("PyPI", "https://pypi.org/", "https://pypi.org/help/#twofa");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("PythonAnywhere", "https://www.pythonanywhere.com", "https://help.pythonanywhere.com/pages/SecuringYourAccount/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Raygun", "https://raygun.com", "https://raygun.com/docs/workflow/two-factor-authentication");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("RBCommons", "https://rbcommons.com", "https://beanbag.freshdesk.com/support/solutions/articles/3000006998");
-INSERT INTO "providers" ("name", "website", "help_url") VALUES ("ReadMe", "https://readme.io", "https://docs.readme.com/docs/two-factor-authentication");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("ReadMe", "https://readme.com", "https://docs.readme.com/docs/two-factor-authentication");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Report URI", "https://report-uri.com", "https://scotthelme.co.uk/dealing-with-account-recovery-and-2fa/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Rollbar", "https://rollbar.com/", "https://rollbar.com/docs/two-factor-authentication/");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("RubyGems.org", "https://rubygems.org", "https://guides.rubygems.org/setting-up-multifactor-authentication/");
@@ -508,6 +517,7 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Coinspot", "htt
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("CoinTracker", "https://www.cointracker.io", "https://help.cointracker.io/en/articles/2641553");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("CoinTracking", "https://cointracking.info/", "");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Coinut", "https://coinut.com/", "https://help.coinut.com/hc/en-us/articles/360005061354");
+INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Crypto", "https://www.crypto.com", "https://help.crypto.com/en/articles/3511439");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Cryptonator", "https://www.cryptonator.com", "https://cryptonator.zendesk.com/hc/en-us/articles/201715352");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("DSX", "https://dsx.uk/", "https://docs.dsx.uk/dsx/getting-started-with-dsx/your-security-is-our-priority/enable-two-factor-authentication");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Gatehub", "https://gatehub.net", "https://support.gatehub.net/hc/en-us/articles/360021168234");
