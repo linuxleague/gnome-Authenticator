@@ -38,6 +38,7 @@ mod imp {
     pub struct ProviderRow {
         pub remaining_time: Cell<u64>,
         pub provider: RefCell<Option<Provider>>,
+        pub callback_id: RefCell<Option<gtk::TickCallbackId>>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -65,6 +66,7 @@ mod imp {
                 accounts_list: TemplateChild::default(),
                 progress: TemplateChild::default(),
                 provider: RefCell::new(None),
+                callback_id: RefCell::default(),
             }
         }
 
@@ -116,6 +118,12 @@ mod imp {
         fn constructed(&self, obj: &Self::Type) {
             obj.setup_widgets();
             self.parent_constructed(obj);
+        }
+
+        fn dispose(&self, obj: &Self::Type) {
+            if let Some(id) = self.callback_id.borrow_mut().take() {
+                id.remove();
+            }
         }
     }
     impl WidgetImpl for ProviderRow {}
@@ -222,10 +230,12 @@ impl ProviderRow {
                 }),
             );
 
-            self.add_tick_callback(|row, _| {
-                row.tick_progressbar();
-                glib::Continue(true)
-            });
+            self_
+                .callback_id
+                .replace(Some(self.add_tick_callback(|row, _| {
+                    row.tick_progressbar();
+                    glib::Continue(true)
+                })));
         } else {
             self_.progress.hide();
         }
