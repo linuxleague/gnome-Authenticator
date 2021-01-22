@@ -4,7 +4,7 @@ use crate::{
 };
 use gtk::subclass::prelude::*;
 use gtk::{glib, glib::clone, prelude::*, CompositeTemplate};
-use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod imp {
     use super::*;

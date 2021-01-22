@@ -1,14 +1,14 @@
 use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
-use glib::{clone, signal::Inhibit};
+use glib::clone;
 use gtk::subclass::prelude::*;
-use gtk::{gdk, gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 mod imp {
     use super::*;
+    use adw::subclass::window::AdwWindowImpl;
     use glib::subclass;
-    use libadwaita::subclass::window::AdwWindowImpl;
 
     #[derive(CompositeTemplate)]
     pub struct ProvidersDialog {
@@ -18,7 +18,7 @@ mod imp {
         #[template_child]
         pub providers_list: TemplateChild<gtk::ListView>,
         #[template_child]
-        pub deck: TemplateChild<libadwaita::Leaflet>,
+        pub deck: TemplateChild<adw::Leaflet>,
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
@@ -30,7 +30,7 @@ mod imp {
     impl ObjectSubclass for ProvidersDialog {
         const NAME: &'static str = "ProvidersDialog";
         type Type = super::ProvidersDialog;
-        type ParentType = libadwaita::Window;
+        type ParentType = adw::Window;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -71,7 +71,7 @@ mod imp {
     impl AdwWindowImpl for ProvidersDialog {}
 }
 glib::wrapper! {
-    pub struct ProvidersDialog(ObjectSubclass<imp::ProvidersDialog>) @extends gtk::Widget, gtk::Window, libadwaita::Window;
+    pub struct ProvidersDialog(ObjectSubclass<imp::ProvidersDialog>) @extends gtk::Widget, gtk::Window, adw::Window;
 }
 
 impl ProvidersDialog {

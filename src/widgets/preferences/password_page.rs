@@ -30,7 +30,7 @@ mod imp {
         #[template_child]
         pub confirm_password_entry: TemplateChild<gtk::PasswordEntry>,
         #[template_child]
-        pub current_password_row: TemplateChild<libadwaita::ActionRow>,
+        pub current_password_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub password_img: TemplateChild<gtk::Image>,
     }
@@ -67,7 +67,9 @@ mod imp {
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
             obj.init_template();
         }
+    }
 
+    impl ObjectImpl for PasswordPage {
         fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
             let prop = &PROPERTIES[id];
 
@@ -94,8 +96,6 @@ mod imp {
             }
         }
     }
-
-    impl ObjectImpl for PasswordPage {}
     impl WidgetImpl for PasswordPage {}
     impl BoxImpl for PasswordPage {}
 }

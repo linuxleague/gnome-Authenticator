@@ -2,10 +2,10 @@ use crate::{
     models::{Algorithm, OTPMethod, Provider},
     widgets::ProviderImage,
 };
+use adw::ComboRowExt;
 use glib::{clone, translate::ToGlib};
 use gtk::subclass::prelude::*;
 use gtk::{glib, prelude::*, CompositeTemplate};
-use libadwaita::ComboRowExt;
 
 pub enum ProviderPageMode {
     Create,
@@ -20,8 +20,8 @@ mod imp {
 
     #[derive(Debug, CompositeTemplate)]
     pub struct ProviderPage {
-        pub methods_model: libadwaita::EnumListModel,
-        pub algorithms_model: libadwaita::EnumListModel,
+        pub methods_model: adw::EnumListModel,
+        pub algorithms_model: adw::EnumListModel,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -37,15 +37,15 @@ mod imp {
         #[template_child]
         pub provider_help_entry: TemplateChild<gtk::Entry>,
         #[template_child]
-        pub method_comborow: TemplateChild<libadwaita::ComboRow>,
+        pub method_comborow: TemplateChild<adw::ComboRow>,
         #[template_child]
-        pub algorithm_comborow: TemplateChild<libadwaita::ComboRow>,
+        pub algorithm_comborow: TemplateChild<adw::ComboRow>,
         #[template_child]
-        pub period_row: TemplateChild<libadwaita::ActionRow>,
+        pub period_row: TemplateChild<adw::ActionRow>,
         #[template_child]
-        pub digits_row: TemplateChild<libadwaita::ActionRow>,
+        pub digits_row: TemplateChild<adw::ActionRow>,
         #[template_child]
-        pub default_counter_row: TemplateChild<libadwaita::ActionRow>,
+        pub default_counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub title: TemplateChild<gtk::Label>,
     }
@@ -60,8 +60,8 @@ mod imp {
         glib::object_subclass!();
 
         fn new() -> Self {
-            let methods_model = libadwaita::EnumListModel::new(OTPMethod::static_type());
-            let algorithms_model = libadwaita::EnumListModel::new(Algorithm::static_type());
+            let methods_model = adw::EnumListModel::new(OTPMethod::static_type());
+            let algorithms_model = adw::EnumListModel::new(Algorithm::static_type());
 
             Self {
                 image: TemplateChild::default(),

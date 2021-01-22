@@ -1,8 +1,7 @@
 use anyhow::Result;
-use data_encoding::{DecodeError, BASE32_NOPAD};
+use data_encoding::BASE32_NOPAD;
 use ring::hmac;
 use std::convert::TryInto;
-use std::time::{SystemTime, SystemTimeError};
 
 /// Code graciously taken from the rust-top crate.
 /// https://github.com/TimDumol/rust-otp/blob/master/src/lib.rs
@@ -60,22 +59,22 @@ pub(crate) fn format(code: u32, digits: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{format, make_hotp};
+    use super::{format, generate_hotp};
 
     #[test]
     fn hotp() {
         let algorithm = hmac::HMAC_SHA1_FOR_LEGACY_USE_ONLY;
         let digits: u32 = 6;
         assert_eq!(
-            make_hotp("BASE32SECRET3232", 0, algorithm, digits).unwrap(),
+            generate_hotp("BASE32SECRET3232", 0, algorithm, digits).unwrap(),
             260182
         );
         assert_eq!(
-            make_hotp("BASE32SECRET3232", 1, algorithm, digits).unwrap(),
+            generate_hotp("BASE32SECRET3232", 1, algorithm, digits).unwrap(),
             55283
         );
         assert_eq!(
-            make_hotp("BASE32SECRET3232", 1401, algorithm, digits).unwrap(),
+            generate_hotp("BASE32SECRET3232", 1401, algorithm, digits).unwrap(),
             316439
         );
     }

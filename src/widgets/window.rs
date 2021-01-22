@@ -21,8 +21,8 @@ pub enum View {
 
 mod imp {
     use super::*;
+    use adw::subclass::application_window::AdwApplicationWindowImpl;
     use glib::subclass;
-    use libadwaita::subclass::application_window::AdwApplicationWindowImpl;
 
     #[derive(Debug, CompositeTemplate)]
     pub struct Window {
@@ -34,7 +34,7 @@ mod imp {
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
-        pub deck: TemplateChild<libadwaita::Leaflet>,
+        pub deck: TemplateChild<adw::Leaflet>,
         #[template_child]
         pub container: TemplateChild<gtk::Box>,
         #[template_child]
@@ -50,7 +50,7 @@ mod imp {
     impl ObjectSubclass for Window {
         const NAME: &'static str = "Window";
         type Type = super::Window;
-        type ParentType = libadwaita::ApplicationWindow;
+        type ParentType = adw::ApplicationWindow;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -93,7 +93,7 @@ mod imp {
 
 glib::wrapper! {
     pub struct Window(ObjectSubclass<imp::Window>)
-        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, libadwaita::ApplicationWindow, gio::ActionMap, gio::ActionGroup;
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow, gio::ActionMap, gio::ActionGroup;
 }
 
 impl Window {

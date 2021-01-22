@@ -6,7 +6,7 @@ use crate::{
 use anyhow::Result;
 use glib::{clone, signal::Inhibit};
 use gtk::subclass::prelude::*;
-use gtk::{gdk, gio, glib, prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 
@@ -43,9 +43,9 @@ mod imp {
         #[template_child]
         pub algorithm_label: TemplateChild<gtk::Label>,
         #[template_child]
-        pub counter_row: TemplateChild<libadwaita::ActionRow>,
+        pub counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
-        pub period_row: TemplateChild<libadwaita::ActionRow>,
+        pub period_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub provider_completion: TemplateChild<gtk::EntryCompletion>,
     }
@@ -53,7 +53,7 @@ mod imp {
     impl ObjectSubclass for AccountAddDialog {
         const NAME: &'static str = "AccountAddDialog";
         type Type = super::AccountAddDialog;
-        type ParentType = libadwaita::Window;
+        type ParentType = adw::Window;
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -99,10 +99,10 @@ mod imp {
     impl ObjectImpl for AccountAddDialog {}
     impl WidgetImpl for AccountAddDialog {}
     impl WindowImpl for AccountAddDialog {}
-    impl libadwaita::subclass::window::AdwWindowImpl for AccountAddDialog {}
+    impl adw::subclass::window::AdwWindowImpl for AccountAddDialog {}
 }
 glib::wrapper! {
-    pub struct AccountAddDialog(ObjectSubclass<imp::AccountAddDialog>) @extends gtk::Widget, gtk::Window, libadwaita::Window;
+    pub struct AccountAddDialog(ObjectSubclass<imp::AccountAddDialog>) @extends gtk::Widget, gtk::Window, adw::Window;
 }
 
 impl AccountAddDialog {

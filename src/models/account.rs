@@ -12,7 +12,6 @@ use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
 use gtk::glib;
 use gtk::subclass::prelude::*;
 use once_cell::sync::OnceCell;
-use ring::hmac;
 use std::{
     cell::{Cell, RefCell},
     time::{SystemTime, UNIX_EPOCH},
