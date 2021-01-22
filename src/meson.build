@@ -36,8 +36,6 @@ run_command(
   check: true
 )
 
-
-
 sources = files(
   'backup/andotp.rs',
   'backup/bitwarden.rs',
@@ -102,4 +100,10 @@ cargo_release = custom_target(
     get_option('buildtype'),
     meson.project_name(),
   ]
+)
+
+test (
+  'Cargo tests',
+  cargo,
+  args: ['test']
 )

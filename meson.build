@@ -10,7 +10,7 @@ dependency('gdk-pixbuf-2.0')
 dependency('gtk4', version: '>= 4.0.0')
 dependency('libadwaita-1', version: '>=1.0.0')
 
-cargo = find_program('cargo', required: false)
+cargo = find_program('cargo', required: true)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)
 glib_compile_resources = find_program('glib-compile-resources', required: true)
 
