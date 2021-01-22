@@ -250,7 +250,7 @@ impl ProviderRow {
 
         let provider = self.provider();
 
-        let create_callback = clone!(@weak self as provider_row, @weak sorter, @weak provider => move |account: &glib::Object| {
+        let create_callback = clone!(@strong self as provider_row, @weak sorter, @weak provider => move |account: &glib::Object| {
             let account = account.clone().downcast::<Account>().unwrap();
             let row = AccountRow::new(account.clone());
             row.connect_local(
