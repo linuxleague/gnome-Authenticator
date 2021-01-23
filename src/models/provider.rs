@@ -464,13 +464,15 @@ impl Provider {
 
     pub fn filter(&self, text: String) {
         let self_ = imp::Provider::from_instance(self);
-        let filter = gtk::CustomFilter::new(move |obj| {
+        let filter = gtk::CustomFilter::new(glib::clone!(@weak self as provider => move |obj| {
             let account = obj.downcast_ref::<Account>().unwrap();
+            let query = &text.to_ascii_lowercase();
+            let provider_match = provider.name().to_ascii_lowercase().contains(query);
             account
                 .name()
                 .to_ascii_lowercase()
-                .contains(&text.to_ascii_lowercase())
-        });
+                .contains(query) || provider_match
+        }));
         self_.filter_model.set_filter(Some(&filter));
     }
 
