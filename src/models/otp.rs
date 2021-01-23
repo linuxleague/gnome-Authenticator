@@ -60,9 +60,8 @@ pub(crate) fn steam(secret: &str) -> Result<String> {
     )?;
     let mut code = String::new();
     let total_chars = STEAM_CHARS.len() as u32;
-    for i in 0..5 {
+    for _ in 0..5 {
         let pos = token % total_chars;
-        println!("{:#?}", pos);
         let charachter = STEAM_CHARS.chars().nth(pos as usize).unwrap();
         code.push(charachter);
         token = token / total_chars;
