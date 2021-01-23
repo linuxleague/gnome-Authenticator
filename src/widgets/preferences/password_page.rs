@@ -221,6 +221,16 @@ impl PasswordPage {
     }
 
     fn reset_password(&self) {
+        let self_ = imp::PasswordPage::from_instance(self);
+
+        let current_password = self_.current_password_entry.get_text().unwrap();
+
+        if self.has_set_password()
+            && !Keyring::is_current_password(&current_password).unwrap_or(false)
+        {
+            self_.error_revealer.popup(&gettext("Wrong Password"));
+            return;
+        }
         if Keyring::reset_password().is_ok() {
             let self_ = imp::PasswordPage::from_instance(self);
             let actions = self_.actions.get().unwrap();
