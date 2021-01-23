@@ -1,11 +1,11 @@
 use once_cell::sync::Lazy;
-
 mod account;
 mod account_sorter;
 mod accounts;
 mod algorithm;
 pub mod database;
 mod favicon;
+mod keyring;
 pub mod otp;
 mod otp_uri;
 mod provider;
@@ -21,6 +21,7 @@ pub use self::{
     accounts::AccountsModel,
     algorithm::{Algorithm, OTPMethod},
     favicon::{FaviconError, FaviconScrapper},
+    keyring::Keyring,
     otp_uri::OTPUri,
     provider::Provider,
     provider_sorter::ProviderSorter,

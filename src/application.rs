@@ -1,7 +1,6 @@
 use crate::{
     config,
-    helpers::Keyring,
-    models::ProvidersModel,
+    models::{Keyring, ProvidersModel},
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use gettextrs::gettext;

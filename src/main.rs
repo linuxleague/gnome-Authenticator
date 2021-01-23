@@ -9,7 +9,6 @@ use gettextrs::*;
 mod application;
 mod backup;
 mod config;
-mod helpers;
 mod models;
 mod schema;
 mod static_resources;

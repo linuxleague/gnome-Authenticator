@@ -1,4 +1,4 @@
-use crate::{config, helpers::Keyring};
+use crate::{config, models::Keyring};
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};

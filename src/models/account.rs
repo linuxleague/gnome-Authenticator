@@ -3,8 +3,7 @@ use super::{
     OTPMethod, OTPUri,
 };
 use crate::{
-    helpers::Keyring,
-    models::{database, otp},
+    models::{database, otp, Keyring},
     schema::accounts,
     widgets::QRCodeData,
 };
@@ -268,7 +267,7 @@ impl Account {
         let provider = self.provider();
 
         let counter = match provider.method() {
-            OTPMethod::TOTP => {
+            OTPMethod::TOTP | OTPMethod::Steam => {
                 let timestamp = SystemTime::now()
                     .duration_since(UNIX_EPOCH)
                     .unwrap()
@@ -282,21 +281,30 @@ impl Account {
                 }
                 old_counter as u64
             }
-            OTPMethod::Steam => 1,
         };
 
-        let label = match otp::hotp(
-            &self.token(),
-            counter,
-            provider.algorithm().into(),
-            provider.digits() as u32,
-        ) {
-            Ok(otp) => otp::format(otp, provider.digits() as usize),
+        let otp_password: Result<String> = match provider.method() {
+            OTPMethod::Steam => otp::steam(&self.token()),
+            _ => {
+                let token = otp::hotp(
+                    &self.token(),
+                    counter,
+                    provider.algorithm().into(),
+                    provider.digits() as u32,
+                );
+
+                token.map(|d| otp::format(d, provider.digits() as usize))
+            }
+        };
+
+        let label = match otp_password {
+            Ok(password) => password,
             Err(err) => {
-                debug!("Could not generate HOTP {:?}", err);
+                warn!("Failed to generate the OTP {}", err);
                 "Error".to_string()
             }
         };
+
         self.set_property("otp", &label).unwrap();
     }
 

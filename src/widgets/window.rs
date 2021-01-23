@@ -1,8 +1,7 @@
 use crate::{
     application::Application,
     config,
-    helpers::Keyring,
-    models::{Account, ProvidersModel},
+    models::{Account, Keyring, ProvidersModel},
     widgets::{accounts::AccountDetailsPage, providers::ProvidersList, AccountAddDialog},
     window_state,
 };
