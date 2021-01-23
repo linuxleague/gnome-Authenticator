@@ -1,6 +1,6 @@
 use super::Algorithm;
 use anyhow::Result;
-use data_encoding::BASE32_NOPAD;
+use data_encoding::BASE32;
 use ring::hmac;
 use std::convert::TryInto;
 
@@ -14,7 +14,7 @@ static STEAM_DEFAULT_DIGITS: u32 = 5;
 /// Decodes a secret (given as an RFC4648 base32-encoded ASCII string)
 /// into a byte string
 fn decode_secret(secret: &str) -> Result<Vec<u8>> {
-    let res = BASE32_NOPAD.decode(secret.as_bytes())?;
+    let res = BASE32.decode(secret.as_bytes())?;
     Ok(res)
 }
 
