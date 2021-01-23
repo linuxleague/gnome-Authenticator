@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-23 00:42+0000\n"
-"PO-Revision-Date: 2021-01-23 13:58+0200\n"
+"POT-Creation-Date: 2021-01-23 19:14+0000\n"
+"PO-Revision-Date: 2021-01-23 21:51+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:148
+#: src/application.rs:147
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -30,7 +30,7 @@ msgstr "Двофакторне розпізнавання"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:151
+#: src/application.rs:150
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
@@ -136,13 +136,11 @@ msgstr "Bilal Elmoussaoui"
 
 #: data/resources/ui/account_add.ui:6
 msgid "_Camera"
-msgstr ""
-"_Камера"
+msgstr "_Камера"
 
 #: data/resources/ui/account_add.ui:10
 msgid "_Screenshot"
-msgstr ""
-"З_німок вікна"
+msgstr "З_німок вікна"
 
 #: data/resources/ui/account_add.ui:48
 msgid "_Add"
@@ -224,18 +222,15 @@ msgstr "З_берегти"
 
 #: data/resources/ui/camera.ui:28
 msgid "No Camera Found"
-msgstr ""
-"Не знайдено камери"
+msgstr "Не знайдено камери"
 
 #: data/resources/ui/camera.ui:32
 msgid "_From A Screenshot"
-msgstr ""
-"З_і знімка вікна"
+msgstr "З_і знімка вікна"
 
 #: data/resources/ui/camera.ui:65
 msgid "Capture from a screenshot"
-msgstr ""
-"Захопити зі знімка вікна"
+msgstr "Захопити зі знімка вікна"
 
 #: data/resources/ui/preferences_password_page.ui:43
 msgid "Set up a password"
@@ -434,23 +429,25 @@ msgstr "«Розпізнавач» замкнено"
 msgid "_Unlock"
 msgstr "_Розблокувати"
 
-#: src/application.rs:155
+#: src/application.rs:154
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/backup/andotp.rs:31
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:32
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:35
+#: src/backup/andotp.rs:36
 msgid "Into a plain-text JSON file"
 msgstr "До звичайного текстового файла JSON"
 
-#: src/backup/andotp.rs:92
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:94
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:96 src/backup/bitwarden.rs:22 src/backup/legacy.rs:35
+#: src/backup/andotp.rs:98 src/backup/bitwarden.rs:22 src/backup/legacy.rs:35
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
 
@@ -477,6 +474,37 @@ msgstr "Зі звичайного текстового файла, сумісн�
 #: src/backup/legacy.rs:31
 msgid "Au_thenticator (Old)"
 msgstr "Роз_пізнавач (старий)"
+
+#: src/models/algorithm.rs:55
+#| msgid "Counter"
+msgid "Counter-based"
+msgstr "На основі лічильника"
+
+#: src/models/algorithm.rs:56
+msgid "Time-based"
+msgstr ""
+"На основі часу"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:58
+msgid "Steam"
+msgstr ""
+"Steam"
+
+#: src/models/algorithm.rs:125
+msgid "SHA-1"
+msgstr ""
+"SHA-1"
+
+#: src/models/algorithm.rs:126
+msgid "SHA-256"
+msgstr ""
+"SHA-256"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-512"
+msgstr ""
+"SHA-512"
 
 #: src/widgets/preferences/window.rs:264 src/widgets/preferences/window.rs:271
 msgid "Select"
