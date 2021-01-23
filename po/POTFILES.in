@@ -18,4 +18,6 @@ src/backup/bitwarden.rs
 src/backup/freeotp.rs
 src/backup/legacy.rs
 src/models/algorithm.rs
+src/widgets/window.rs
+src/widgets/preferences/password_page.rs
 src/widgets/preferences/window.rs

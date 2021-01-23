@@ -2,9 +2,12 @@ use crate::{
     application::Application,
     config,
     models::{Account, Keyring, ProvidersModel},
-    widgets::{accounts::AccountDetailsPage, providers::ProvidersList, AccountAddDialog},
+    widgets::{
+        accounts::AccountDetailsPage, providers::ProvidersList, AccountAddDialog, ErrorRevealer,
+    },
     window_state,
 };
+use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
@@ -34,6 +37,8 @@ mod imp {
         #[template_child]
         pub deck: TemplateChild<adw::Leaflet>,
         #[template_child]
+        pub error_revealer: TemplateChild<ErrorRevealer>,
+        #[template_child]
         pub container: TemplateChild<gtk::Box>,
         #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
@@ -61,6 +66,7 @@ mod imp {
                 account_details: TemplateChild::default(),
                 search_entry: TemplateChild::default(),
                 deck: TemplateChild::default(),
+                error_revealer: TemplateChild::default(),
                 container: TemplateChild::default(),
                 search_btn: TemplateChild::default(),
                 password_entry: TemplateChild::default(),
@@ -70,6 +76,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             AccountDetailsPage::static_type();
+            ErrorRevealer::static_type();
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/window.ui");
             Self::bind_template_children(klass);
         }
@@ -263,6 +270,9 @@ impl Window {
                     password_entry.set_text("");
                     app.set_locked(false);
                     win.set_view(View::Accounts);
+                } else {
+                    let win_ = imp::Window::from_instance(&win);
+                    win_.error_revealer.popup(&gettext("Wrong Password"));
                 }
             })
         );
