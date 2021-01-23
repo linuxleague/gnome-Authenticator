@@ -7,37 +7,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-10 00:31+0000\n"
-"PO-Revision-Date: 2021-01-10 09:43+0200\n"
+"POT-Creation-Date: 2021-01-23 00:42+0000\n"
+"PO-Revision-Date: 2021-01-23 13:58+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
-"%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Lokalize 20.11.70\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:144
+#: src/application.rs:148
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:4
-#| msgid "Two-factor Authentication"
 msgid "Two-Factor Authentication"
 msgstr "Двофакторне розпізнавання"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:147
+#: src/application.rs:151
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
-#| msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
 msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
 msgstr ""
 "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;гноме;гном;жтека;гтк;"
@@ -84,9 +81,6 @@ msgstr ""
 "кількості хвилин."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
-#| msgid ""
-#| "Simple application that generates a two-factor authentication code, "
-#| "created for GNOME."
 msgid "Simple application for generating Two-Factor Authentication Codes."
 msgstr "Проста програма для створення двофакторних кодів розпізнавання."
 
@@ -107,8 +101,6 @@ msgid "Huge database of more than 560 supported services"
 msgstr "Величезна база даних з понад 560 підтримуваних служб"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
-#| msgid ""
-#| "Keep your PIN tokens secure by locking the application with a password"
 msgid "Keep your tokens secure by locking the application with a password"
 msgstr "Безпечне зберігання ваших жетонів замиканням даних програми паролем"
 
@@ -130,7 +122,7 @@ msgid "Main Window"
 msgstr "Головне вікно"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
-#: data/resources/ui/account_add.ui:12
+#: data/resources/ui/account_add.ui:24
 msgid "Add a new account"
 msgstr "Додавання нового облікового запису"
 
@@ -142,59 +134,69 @@ msgstr "Спільне використання облікового запис�
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:33
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr ""
+"_Камера"
+
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr ""
+"З_німок вікна"
+
+#: data/resources/ui/account_add.ui:48
 msgid "_Add"
 msgstr "Д_одати"
 
-#: data/resources/ui/account_add.ui:46
+#: data/resources/ui/account_add.ui:60
 msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
-#: data/resources/ui/account_add.ui:80
+#: data/resources/ui/account_add.ui:94
 #: data/resources/ui/account_details_page.ui:51
 msgid "Provider"
 msgstr "Надавач даних"
 
-#: data/resources/ui/account_add.ui:81
+#: data/resources/ui/account_add.ui:95
 msgid "The service provider"
 msgstr "Надавач послуг служби"
 
-#: data/resources/ui/account_add.ui:96
+#: data/resources/ui/account_add.ui:110
 #: data/resources/ui/account_details_page.ui:41
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: data/resources/ui/account_add.ui:110
+#: data/resources/ui/account_add.ui:124
 msgid "Token"
 msgstr "Ключ"
 
-#: data/resources/ui/account_add.ui:124 data/resources/ui/provider_page.ui:156
+#: data/resources/ui/account_add.ui:138 data/resources/ui/provider_page.ui:156
 msgid "Counter"
 msgstr "Лічильник"
 
-#: data/resources/ui/account_add.ui:149 data/resources/ui/provider_page.ui:127
+#: data/resources/ui/account_add.ui:163 data/resources/ui/provider_page.ui:127
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:161 data/resources/ui/provider_page.ui:119
+#: data/resources/ui/account_add.ui:175 data/resources/ui/provider_page.ui:119
 msgid "Computing Method"
 msgstr "Метод обчислення"
 
-#: data/resources/ui/account_add.ui:173 data/resources/ui/provider_page.ui:139
+#: data/resources/ui/account_add.ui:187 data/resources/ui/provider_page.ui:139
 msgid "Period"
 msgstr "Період"
 
-#: data/resources/ui/account_add.ui:185 data/resources/ui/provider_page.ui:173
+#: data/resources/ui/account_add.ui:199 data/resources/ui/provider_page.ui:173
 msgid "Digits"
 msgstr "Цифри"
 
-#: data/resources/ui/account_add.ui:197
+#: data/resources/ui/account_add.ui:211
 #: data/resources/ui/account_details_page.ui:61
 #: data/resources/ui/provider_page.ui:105
 msgid "Website"
 msgstr "Сайт"
 
-#: data/resources/ui/account_add.ui:203
+#: data/resources/ui/account_add.ui:217
 msgid "How to setup"
 msgstr "Як налаштувати"
 
@@ -210,93 +212,108 @@ msgstr "Перей_менувати"
 msgid "_Delete"
 msgstr "В_илучити"
 
-#: data/resources/ui/account_row.ui:64
+#: data/resources/ui/account_row.ui:65
 msgid "Copy PIN to clipboard"
 msgstr "Копіювати пін-код до буфера обміну"
 
-#: data/resources/ui/account_row.ui:135
-#: data/resources/ui/preferences_password_page.ui:20
+#: data/resources/ui/account_row.ui:136
+#: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:52
 msgid "_Save"
 msgstr "З_берегти"
 
-#: data/resources/ui/preferences_password_page.ui:42
+#: data/resources/ui/camera.ui:28
+msgid "No Camera Found"
+msgstr ""
+"Не знайдено камери"
+
+#: data/resources/ui/camera.ui:32
+msgid "_From A Screenshot"
+msgstr ""
+"З_і знімка вікна"
+
+#: data/resources/ui/camera.ui:65
+msgid "Capture from a screenshot"
+msgstr ""
+"Захопити зі знімка вікна"
+
+#: data/resources/ui/preferences_password_page.ui:43
 msgid "Set up a password"
 msgstr "Встановіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:50
+#: data/resources/ui/preferences_password_page.ui:51
 msgid "By setting a password, Authenticator will from now on start locked."
 msgstr "Після встановлення пароля «Розпізнавач» запускатиметься заблокованим."
 
-#: data/resources/ui/preferences_password_page.ui:68
+#: data/resources/ui/preferences_password_page.ui:69
 msgid "Current Password"
 msgstr "Поточний пароль"
 
-#: data/resources/ui/preferences_password_page.ui:81
+#: data/resources/ui/preferences_password_page.ui:82
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: data/resources/ui/preferences_password_page.ui:94
+#: data/resources/ui/preferences_password_page.ui:95
 msgid "Repeat Password"
 msgstr "Повторіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:115
+#: data/resources/ui/preferences_password_page.ui:116
 msgid "_Reset"
 msgstr "С_кинути"
 
-#: data/resources/ui/preferences.ui:17
+#: data/resources/ui/preferences.ui:18
 msgid "General"
 msgstr "Загальне"
 
-#: data/resources/ui/preferences.ui:20
+#: data/resources/ui/preferences.ui:21
 msgid "Appearance"
 msgstr "Вигляд"
 
-#: data/resources/ui/preferences.ui:23
+#: data/resources/ui/preferences.ui:24
 msgid "_Dark Theme"
 msgstr "_Темна тема"
 
-#: data/resources/ui/preferences.ui:26
+#: data/resources/ui/preferences.ui:27
 msgid "Whether the application should use a dark theme"
 msgstr "Чи слід віддавати перевагу у програмі темній темі"
 
-#: data/resources/ui/preferences.ui:38
+#: data/resources/ui/preferences.ui:39
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: data/resources/ui/preferences.ui:41
+#: data/resources/ui/preferences.ui:42
 msgid "_Password"
 msgstr "Па_роль"
 
-#: data/resources/ui/preferences.ui:43
+#: data/resources/ui/preferences.ui:44
 msgid "Set up a password to lock the application with"
 msgstr "Встановіть пароль, за допомогою якого буде заблоковано програму"
 
-#: data/resources/ui/preferences.ui:55
+#: data/resources/ui/preferences.ui:56
 msgid "_Auto Lock the Application"
 msgstr "_Автоматично заблокувати програму"
 
-#: data/resources/ui/preferences.ui:58
+#: data/resources/ui/preferences.ui:59
 msgid "Whether to automatically lock the application"
 msgstr "Чи слід автоматично блокувати програму"
 
-#: data/resources/ui/preferences.ui:68
+#: data/resources/ui/preferences.ui:70
 msgid "Auto lock _Timeout"
 msgstr "_Час очікування на автоблокування"
 
-#: data/resources/ui/preferences.ui:69
+#: data/resources/ui/preferences.ui:71
 msgid "The time in minutes"
 msgstr "Час у хвилинах"
 
-#: data/resources/ui/preferences.ui:91
+#: data/resources/ui/preferences.ui:93
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:212
+#: data/resources/ui/preferences.ui:96 src/widgets/preferences/window.rs:261
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:219
+#: data/resources/ui/preferences.ui:101 src/widgets/preferences/window.rs:268
 msgid "Restore"
 msgstr "Відновити"
 
@@ -409,15 +426,15 @@ msgstr "_Клавіатурні скорочення"
 msgid "_About Authenticator"
 msgstr "П_ро «Розпізнавач»"
 
-#: data/resources/ui/window.ui:150
+#: data/resources/ui/window.ui:149
 msgid "Authenticator is locked"
 msgstr "«Розпізнавач» замкнено"
 
-#: data/resources/ui/window.ui:173
+#: data/resources/ui/window.ui:172
 msgid "_Unlock"
 msgstr "_Розблокувати"
 
-#: src/application.rs:151
+#: src/application.rs:155
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
@@ -461,11 +478,11 @@ msgstr "Зі звичайного текстового файла, сумісн�
 msgid "Au_thenticator (Old)"
 msgstr "Роз_пізнавач (старий)"
 
-#: src/widgets/preferences/window.rs:215 src/widgets/preferences/window.rs:222
+#: src/widgets/preferences/window.rs:264 src/widgets/preferences/window.rs:271
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/widgets/preferences/window.rs:216 src/widgets/preferences/window.rs:223
+#: src/widgets/preferences/window.rs:265 src/widgets/preferences/window.rs:272
 msgid "Cancel"
 msgstr "Скасувати"
 
