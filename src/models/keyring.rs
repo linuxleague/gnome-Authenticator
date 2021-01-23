@@ -68,8 +68,14 @@ impl Keyring {
 
         let token_id = encode_argon2(token)?;
         let attributes = token_attributes(&token_id);
-        let base64_token = hex::encode(token.as_bytes());
-        col.create_item(label, attributes, base64_token.as_bytes(), true, "plain")?;
+        let base64_encoded_token = hex::encode(token.as_bytes());
+        col.create_item(
+            label,
+            attributes,
+            base64_encoded_token.as_bytes(),
+            true,
+            "text/plain",
+        )?;
         Ok(token_id)
     }
 
