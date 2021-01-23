@@ -28,6 +28,7 @@ impl Backupable for AndOTP {
     }
 
     fn title() -> String {
+        // Translators: This is for making a backup for the andOTP Android app.
         gettext("a_ndOTP")
     }
 
@@ -89,6 +90,7 @@ impl Restorable for AndOTP {
     }
 
     fn title() -> String {
+        // Translators: This is for restoring a backup from the andOTP Android app.
         gettext("an_dOTP")
     }
 

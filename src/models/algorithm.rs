@@ -54,6 +54,7 @@ impl OTPMethod {
         match *self {
             OTPMethod::HOTP => gettext("Counter-based"),
             OTPMethod::TOTP => gettext("Time-based"),
+            // Translators: Steam refers to the gaming application by Valve.
             OTPMethod::Steam => gettext("Steam"),
         }
     }
