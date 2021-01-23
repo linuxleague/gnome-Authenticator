@@ -70,6 +70,7 @@ sources = files(
   'widgets/providers/page.rs',
   'widgets/providers/row.rs',
   'widgets/camera.rs',
+  'widgets/error_revealer.rs',
 	'widgets/mod.rs',
 	'widgets/url_row.rs',
 	'widgets/window.rs',

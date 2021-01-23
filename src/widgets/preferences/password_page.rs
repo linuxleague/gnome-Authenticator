@@ -1,4 +1,6 @@
+use crate::widgets::ErrorRevealer;
 use crate::{config, models::Keyring};
+use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
@@ -27,6 +29,8 @@ mod imp {
         #[template_child]
         pub current_password_entry: TemplateChild<gtk::PasswordEntry>,
         #[template_child]
+        pub error_revealer: TemplateChild<ErrorRevealer>,
+        #[template_child]
         pub password_entry: TemplateChild<gtk::PasswordEntry>,
         #[template_child]
         pub confirm_password_entry: TemplateChild<gtk::PasswordEntry>,
@@ -53,6 +57,7 @@ mod imp {
                 password_entry: TemplateChild::default(),
                 confirm_password_entry: TemplateChild::default(),
                 current_password_row: TemplateChild::default(),
+                error_revealer: TemplateChild::default(),
                 password_img: TemplateChild::default(),
                 actions: OnceCell::new(),
                 default_password_signal: RefCell::default(),
@@ -60,6 +65,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
+            ErrorRevealer::static_type();
             klass.set_template_from_resource(
                 "/com/belmoussaoui/Authenticator/preferences_password_page.ui",
             );
@@ -243,6 +249,7 @@ impl PasswordPage {
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
         {
+            self_.error_revealer.popup(&gettext("Wrong Password"));
             return;
         }
 
