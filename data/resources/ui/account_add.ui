@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <menu id="scan_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Camera</attribute>
+        <attribute name="action">add.camera</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Screenshot</attribute>
+        <attribute name="action">add.screenshot</attribute>
+      </item>
+    </section>
+  </menu>
   <object class="GtkAdjustment" id="counter_adjustment">
     <property name="upper">60</property>
     <property name="step-increment">1</property>
@@ -11,9 +23,12 @@
     <property name="default-height">550</property>
     <property name="title" translatable="yes">Add a new account</property>
     <child>
-      <object class="AdwLeaflet">
+      <object class="AdwLeaflet" id="deck">
+        <property name="can-unfold">False</property>
+        <property name="can-swipe-back">True</property>
         <child>
           <object class="AdwLeafletPage">
+            <property name="name">main</property>
             <property name="child">
               <object class="GtkBox">
                 <property name="orientation">vertical</property>
@@ -41,10 +56,9 @@
                       </object>
                     </child>
                     <child type="end">
-                      <object class="GtkButton" id="scan_btn">
-                        <property name="receives-default">True</property>
+                      <object class="GtkMenuButton" id="scan_btn">
                         <property name="tooltip-text" translatable="yes">Scan QR Code</property>
-                        <property name="action-name">add.scan-qr</property>
+                        <property name="menu-model">scan_menu</property>
                         <property name="icon-name">qrscanner-symbolic</property>
                       </object>
                     </child>
@@ -216,6 +230,14 @@
                   </object>
                 </child>
               </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwLeafletPage">
+            <property name="name">camera</property>
+            <property name="child">
+              <object class="Camera" id="camera" />
             </property>
           </object>
         </child>

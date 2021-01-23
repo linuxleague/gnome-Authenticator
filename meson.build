@@ -9,6 +9,12 @@ dependency('gio-2.0', version: '>= 2.56')
 dependency('gdk-pixbuf-2.0')
 dependency('gtk4', version: '>= 4.0.0')
 dependency('libadwaita-1', version: '>=1.0.0')
+dependency('zbar', version: '>= 0.20')
+dependency('gstreamer-1.0', version: '>= 1.18')
+dependency('gstreamer-base-1.0', version: '>= 1.18')
+dependency('gstreamer-plugins-base-1.0', version: '>= 1.18')
+dependency('gstreamer-plugins-bad-1.0', version: '>= 1.18')
+
 
 cargo = find_program('cargo', required: true)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)

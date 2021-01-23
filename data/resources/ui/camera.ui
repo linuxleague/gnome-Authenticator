@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template parent="GtkWidget" class="Camera">
+    <child>
+      <object class="GtkStack" id="stack">
+        <property name="transition-type">crossfade</property>
+        <property name="hhomogeneous">False</property>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">loading</property>
+            <property name="child">
+              <object class="GtkSpinner" id="spinner">
+                <property name="halign">center</property>
+                <property name="vexpand">True</property>
+                <property name="valign">center</property>
+                <property name="width-request">48</property>
+                <property name="height-request">48</property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">not-found</property>
+            <property name="child">
+              <object class="AdwStatusPage">
+                <property name="icon-name">camera-hardware-disabled-symbolic</property>
+                <property name="title" translatable="yes">No Camera Found</property>
+                <property name="description" translatable="yes"></property>
+                <property name="child">
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">_From A Screenshot</property>
+                    <property name="action-name">add.screenshot</property>
+                    <property name="halign">center</property>
+                    <property name="margin-top">24</property>
+                    <property name="use-underline">True</property>
+                    <style>
+                      <class name="large-button" />
+                      <class name="pill-button" />
+                      <class name="suggested-action" />
+                    </style>
+                  </object>
+                </property>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">stream</property>
+            <property name="child">
+              <object class="GtkOverlay" id="overlay">
+                <child type="overlay">
+                  <object class="GtkBox">
+                    <property name="orientation">horizontal</property>
+                    <property name="valign">end</property>
+                    <property name="halign">fill</property>
+                    <property name="margin-start">18</property>
+                    <property name="margin-end">18</property>
+                    <property name="margin-bottom">18</property>
+                    <property name="spacing">8</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="icon-name">qrscanner-symbolic</property>
+                        <property name="tooltip-text" translatable="yes">Capture from a screenshot</property>
+                        <property name="width-request">44</property>
+                        <property name="height-request">44</property>
+                        <property name="halign">end</property>
+                        <property name="hexpand">True</property>
+                        <property name="valign">center</property>
+                        <property name="action-name">camera.screenshot-scan</property>
+                        <style>
+                          <class name="osd" />
+                          <class name="circular-button" />
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

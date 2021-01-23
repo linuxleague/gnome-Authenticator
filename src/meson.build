@@ -71,6 +71,7 @@ sources = files(
   'widgets/providers/mod.rs',
   'widgets/providers/page.rs',
   'widgets/providers/row.rs',
+  'widgets/camera.rs',
 	'widgets/mod.rs',
 	'widgets/url_row.rs',
 	'widgets/window.rs',

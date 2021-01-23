@@ -1,13 +1,13 @@
 use crate::{
-    helpers::qrcode,
     models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel},
-    widgets::{ProviderImage, UrlRow},
+    widgets::{Camera, ProviderImage, UrlRow},
 };
 use anyhow::Result;
 use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
+use std::str::FromStr;
 
 mod imp {
     use super::*;
@@ -19,6 +19,10 @@ mod imp {
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: RefCell<Option<Provider>>,
         pub actions: gio::SimpleActionGroup,
+        #[template_child]
+        pub camera: TemplateChild<Camera>,
+        #[template_child]
+        pub deck: TemplateChild<adw::Leaflet>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -79,12 +83,15 @@ mod imp {
                 algorithm_label: TemplateChild::default(),
                 counter_row: TemplateChild::default(),
                 period_row: TemplateChild::default(),
+                deck: TemplateChild::default(),
+                camera: TemplateChild::default(),
             }
         }
 
         fn class_init(klass: &mut Self::Class) {
             UrlRow::static_type();
             ProviderImage::static_type();
+            Camera::static_type();
             klass.set_template_from_resource("/com/belmoussaoui/Authenticator/account_add.ui");
             Self::bind_template_children(klass);
             klass.add_signal("added", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
@@ -137,20 +144,21 @@ impl AccountAddDialog {
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
     }
 
-    fn scan_qr(&self) -> Result<()> {
-        qrcode::screenshot_area(
-            self.clone().upcast::<gtk::Window>(),
-            clone!(@weak self as dialog => move |screenshot| {
-                if let Ok(otp_uri) = qrcode::scan(&screenshot) {
-                    dialog.set_from_otp_uri(otp_uri);
-                }
-            }),
-        )?;
-        Ok(())
+    fn scan_from_screenshot(&self) {
+        let self_ = imp::AccountAddDialog::from_instance(self);
+        self_.camera.from_screenshot();
+    }
+
+    fn scan_from_camera(&self) {
+        let self_ = imp::AccountAddDialog::from_instance(self);
+        self_.deck.set_visible_child_name("camera");
+
+        self_.camera.start();
     }
 
     fn set_from_otp_uri(&self, otp_uri: OTPUri) {
         let self_ = imp::AccountAddDialog::from_instance(self);
+        self_.deck.set_visible_child_name("main"); // Switch back the form view
 
         self_.token_entry.set_text(&otp_uri.secret);
         self_.username_entry.set_text(&otp_uri.label);
@@ -234,7 +242,7 @@ impl AccountAddDialog {
             self_.actions,
             "back",
             clone!(@weak self as dialog => move |_, _| {
-                dialog.destroy();
+                dialog.close();
             })
         );
         action!(
@@ -249,11 +257,17 @@ impl AccountAddDialog {
 
         action!(
             self_.actions,
-            "scan-qr",
+            "camera",
             clone!(@weak self as dialog => move |_, _| {
-                if let Err(err) = dialog.scan_qr() {
-                    warn!("Failed to scan a QR code {}", err)
-                }
+                dialog.scan_from_camera();
+            })
+        );
+
+        action!(
+            self_.actions,
+            "screenshot",
+            clone!(@weak self as dialog => move |_, _| {
+                dialog.scan_from_screenshot();
             })
         );
         self.insert_action_group("add", Some(&self_.actions));
@@ -268,12 +282,28 @@ impl AccountAddDialog {
 
         self_.provider_completion.connect_match_selected(
             clone!(@weak self as dialog, @strong self_.model as model => move |_, store, iter| {
-                let provider_id = store.get_value(iter, 0). get_some::<i32>().unwrap();
+                let provider_id = store.get_value(iter, 0).get_some::<i32>().unwrap();
                 let provider = model.get().unwrap().find_by_id(provider_id).unwrap();
                 dialog.set_provider(provider);
 
                 Inhibit(false)
             }),
         );
+
+        self_
+            .camera
+            .connect_local(
+                "code-detected",
+                false,
+                clone!(@weak self as dialog => move |args| {
+                    let code = args.get(1).unwrap().get::<String>().unwrap().unwrap();
+                    if let Ok(otp_uri) = OTPUri::from_str(&code) {
+                        dialog.set_from_otp_uri(otp_uri);
+                    }
+
+                    None
+                }),
+            )
+            .unwrap();
     }
 }

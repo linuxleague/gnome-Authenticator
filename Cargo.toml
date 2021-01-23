@@ -13,6 +13,8 @@ diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "1.4", features = ["sqlite"]}
 futures = "0.3"
 gettext-rs = {version = "0.5", features = ["gettext-system"]}
+gst = {package = "gstreamer", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs"}
+gst_base = {package = "gstreamer-base", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs"}
 gtk = {git = "https://github.com/gtk-rs/gtk4-rs", package = "gtk4"}
 gtk-macros = "0.2"
 hex = "0.4"

@@ -22,6 +22,7 @@ use config::{GETTEXT_PACKAGE, LOCALEDIR};
 fn main() {
     pretty_env_logger::init();
     gtk::init().expect("failed to init gtk4 ");
+    gst::init().expect("failed to init gstreamer");
     // Prepare i18n
     setlocale(LocaleCategory::LcAll, "");
     bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
