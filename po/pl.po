@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-10 00:31+0000\n"
-"PO-Revision-Date: 2021-01-10 18:20+0100\n"
+"POT-Creation-Date: 2021-01-23 22:43+0000\n"
+"PO-Revision-Date: 2021-01-24 13:45+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:144
+#: src/application.rs:147
 msgid "Authenticator"
 msgstr "Authenticator"
 
@@ -32,7 +32,7 @@ msgstr "Uwierzytelnianie dwuetapowe"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:147
+#: src/application.rs:150
 msgid "Generate Two-Factor Codes"
 msgstr "Generowanie kodów uwierzytelniania dwuetapowego"
 
@@ -121,7 +121,7 @@ msgid "Main Window"
 msgstr "Główne okno"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
-#: data/resources/ui/account_add.ui:12
+#: data/resources/ui/account_add.ui:24
 msgid "Add a new account"
 msgstr "Dodawanie nowego konta"
 
@@ -133,59 +133,67 @@ msgstr "Udostępnianie konta"
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:33
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr "_Aparat"
+
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr "_Zrzut ekranu"
+
+#: data/resources/ui/account_add.ui:48
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: data/resources/ui/account_add.ui:46
+#: data/resources/ui/account_add.ui:60
 msgid "Scan QR Code"
 msgstr "Skanuj kod QR"
 
-#: data/resources/ui/account_add.ui:80
+#: data/resources/ui/account_add.ui:94
 #: data/resources/ui/account_details_page.ui:51
 msgid "Provider"
 msgstr "Dostawca"
 
-#: data/resources/ui/account_add.ui:81
+#: data/resources/ui/account_add.ui:95
 msgid "The service provider"
 msgstr "Dostawca usługi"
 
-#: data/resources/ui/account_add.ui:96
+#: data/resources/ui/account_add.ui:110
 #: data/resources/ui/account_details_page.ui:41
 msgid "Account"
 msgstr "Konto"
 
-#: data/resources/ui/account_add.ui:110
+#: data/resources/ui/account_add.ui:124
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:124 data/resources/ui/provider_page.ui:156
+#: data/resources/ui/account_add.ui:138 data/resources/ui/provider_page.ui:156
 msgid "Counter"
 msgstr "Licznik"
 
-#: data/resources/ui/account_add.ui:149 data/resources/ui/provider_page.ui:127
+#: data/resources/ui/account_add.ui:163 data/resources/ui/provider_page.ui:127
 msgid "Algorithm"
 msgstr "Algorytm"
 
-#: data/resources/ui/account_add.ui:161 data/resources/ui/provider_page.ui:119
+#: data/resources/ui/account_add.ui:175 data/resources/ui/provider_page.ui:119
 msgid "Computing Method"
 msgstr "Metoda obliczania"
 
-#: data/resources/ui/account_add.ui:173 data/resources/ui/provider_page.ui:139
+#: data/resources/ui/account_add.ui:187 data/resources/ui/provider_page.ui:139
 msgid "Period"
 msgstr "Okres"
 
-#: data/resources/ui/account_add.ui:185 data/resources/ui/provider_page.ui:173
+#: data/resources/ui/account_add.ui:199 data/resources/ui/provider_page.ui:173
 msgid "Digits"
 msgstr "Cyfry"
 
-#: data/resources/ui/account_add.ui:197
+#: data/resources/ui/account_add.ui:211
 #: data/resources/ui/account_details_page.ui:61
 #: data/resources/ui/provider_page.ui:105
 msgid "Website"
 msgstr "Witryna"
 
-#: data/resources/ui/account_add.ui:203
+#: data/resources/ui/account_add.ui:217
 msgid "How to setup"
 msgstr "Jak skonfigurować"
 
@@ -201,93 +209,105 @@ msgstr "Z_mień nazwę"
 msgid "_Delete"
 msgstr "_Usuń"
 
-#: data/resources/ui/account_row.ui:64
+#: data/resources/ui/account_row.ui:65
 msgid "Copy PIN to clipboard"
 msgstr "Skopiuj PIN do schowka"
 
-#: data/resources/ui/account_row.ui:135
-#: data/resources/ui/preferences_password_page.ui:20
+#: data/resources/ui/account_row.ui:136
+#: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:52
 msgid "_Save"
 msgstr "_Zapisz"
 
-#: data/resources/ui/preferences_password_page.ui:42
+#: data/resources/ui/camera.ui:28
+msgid "No Camera Found"
+msgstr "Nie odnaleziono aparatu"
+
+#: data/resources/ui/camera.ui:32
+msgid "_From A Screenshot"
+msgstr "_Ze zrzutu ekranu"
+
+#: data/resources/ui/camera.ui:65
+msgid "Capture from a screenshot"
+msgstr "Pobiera ze zrzutu ekranu"
+
+#: data/resources/ui/preferences_password_page.ui:43
 msgid "Set up a password"
 msgstr "Ustawienie hasła"
 
-#: data/resources/ui/preferences_password_page.ui:50
+#: data/resources/ui/preferences_password_page.ui:51
 msgid "By setting a password, Authenticator will from now on start locked."
 msgstr "Po ustawieniu hasła program będzie uruchamiany jako zablokowany."
 
-#: data/resources/ui/preferences_password_page.ui:68
+#: data/resources/ui/preferences_password_page.ui:74
 msgid "Current Password"
 msgstr "Obecne hasło"
 
-#: data/resources/ui/preferences_password_page.ui:81
+#: data/resources/ui/preferences_password_page.ui:87
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: data/resources/ui/preferences_password_page.ui:94
+#: data/resources/ui/preferences_password_page.ui:100
 msgid "Repeat Password"
 msgstr "Powtórzenie hasła"
 
-#: data/resources/ui/preferences_password_page.ui:115
+#: data/resources/ui/preferences_password_page.ui:121
 msgid "_Reset"
 msgstr "_Przywróć"
 
-#: data/resources/ui/preferences.ui:17
+#: data/resources/ui/preferences.ui:18
 msgid "General"
 msgstr "Ogólne"
 
-#: data/resources/ui/preferences.ui:20
+#: data/resources/ui/preferences.ui:21
 msgid "Appearance"
 msgstr "Interfejs"
 
-#: data/resources/ui/preferences.ui:23
+#: data/resources/ui/preferences.ui:24
 msgid "_Dark Theme"
 msgstr "_Ciemny motyw"
 
-#: data/resources/ui/preferences.ui:26
+#: data/resources/ui/preferences.ui:27
 msgid "Whether the application should use a dark theme"
 msgstr "Czy program ma używać ciemnego motywu"
 
-#: data/resources/ui/preferences.ui:38
+#: data/resources/ui/preferences.ui:39
 msgid "Privacy"
 msgstr "Prywatność"
 
-#: data/resources/ui/preferences.ui:41
+#: data/resources/ui/preferences.ui:42
 msgid "_Password"
 msgstr "_Hasło"
 
-#: data/resources/ui/preferences.ui:43
+#: data/resources/ui/preferences.ui:44
 msgid "Set up a password to lock the application with"
 msgstr "Ustawienie hasła, którym blokować program"
 
-#: data/resources/ui/preferences.ui:55
+#: data/resources/ui/preferences.ui:56
 msgid "_Auto Lock the Application"
 msgstr "_Automatyczne blokowanie programu"
 
-#: data/resources/ui/preferences.ui:58
+#: data/resources/ui/preferences.ui:59
 msgid "Whether to automatically lock the application"
 msgstr "Czy automatycznie blokować program"
 
-#: data/resources/ui/preferences.ui:68
+#: data/resources/ui/preferences.ui:70
 msgid "Auto lock _Timeout"
 msgstr "Czas _oczekiwania na automatyczną blokadę"
 
-#: data/resources/ui/preferences.ui:69
+#: data/resources/ui/preferences.ui:71
 msgid "The time in minutes"
 msgstr "Czas w minutach"
 
-#: data/resources/ui/preferences.ui:91
+#: data/resources/ui/preferences.ui:93
 msgid "Backup/Restore"
 msgstr "Kopia zapasowa/przywracanie"
 
-#: data/resources/ui/preferences.ui:94 src/widgets/preferences/window.rs:212
+#: data/resources/ui/preferences.ui:96 src/widgets/preferences/window.rs:261
 msgid "Backup"
 msgstr "Kopia zapasowa"
 
-#: data/resources/ui/preferences.ui:99 src/widgets/preferences/window.rs:219
+#: data/resources/ui/preferences.ui:101 src/widgets/preferences/window.rs:268
 msgid "Restore"
 msgstr "Przywracanie"
 
@@ -400,34 +420,36 @@ msgstr "_Skróty klawiszowe"
 msgid "_About Authenticator"
 msgstr "_O programie"
 
-#: data/resources/ui/window.ui:150
+#: data/resources/ui/window.ui:149
 msgid "Authenticator is locked"
 msgstr "Program jest zablokowany"
 
-#: data/resources/ui/window.ui:173
+#: data/resources/ui/window.ui:177
 msgid "_Unlock"
 msgstr "Od_blokuj"
 
-#: src/application.rs:151
+#: src/application.rs:154
 msgid "translator-credits"
 msgstr ""
 "WaldiS <admin@sto.ugu.pl>, 2018\n"
 "Piotr Drąg <piotrdrag@gmail.com>, 2019-2021\n"
 "Aviary.pl <community-poland@mozilla.org>, 2019-2021"
 
-#: src/backup/andotp.rs:31
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:32
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:35
+#: src/backup/andotp.rs:36
 msgid "Into a plain-text JSON file"
 msgstr "Do tekstowego pliku JSON"
 
-#: src/backup/andotp.rs:92
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:94
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:96 src/backup/bitwarden.rs:22 src/backup/legacy.rs:35
+#: src/backup/andotp.rs:98 src/backup/bitwarden.rs:22 src/backup/legacy.rs:35
 msgid "From a plain-text JSON file"
 msgstr "Z tekstowego pliku JSON"
 
@@ -455,10 +477,39 @@ msgstr "Z pliku tekstowego, zgodne z programem FreeOTP+"
 msgid "Au_thenticator (Old)"
 msgstr "Aut_henticator (poprzednia wersja)"
 
-#: src/widgets/preferences/window.rs:215 src/widgets/preferences/window.rs:222
+#: src/models/algorithm.rs:55
+msgid "Counter-based"
+msgstr "Na podstawie licznika"
+
+#: src/models/algorithm.rs:56
+msgid "Time-based"
+msgstr "Na podstawie czasu"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:58
+msgid "Steam"
+msgstr "Steam"
+
+#: src/models/algorithm.rs:125
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:126
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/window.rs:275 src/widgets/preferences/password_page.rs:252
+msgid "Wrong Password"
+msgstr "Błędne hasło"
+
+#: src/widgets/preferences/window.rs:264 src/widgets/preferences/window.rs:271
 msgid "Select"
 msgstr "Wybierz"
 
-#: src/widgets/preferences/window.rs:216 src/widgets/preferences/window.rs:223
+#: src/widgets/preferences/window.rs:265 src/widgets/preferences/window.rs:272
 msgid "Cancel"
 msgstr "Anuluj"
