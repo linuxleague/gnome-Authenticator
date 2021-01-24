@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-23 19:14+0000\n"
-"PO-Revision-Date: 2021-01-23 21:51+0200\n"
+"POT-Creation-Date: 2021-01-23 22:43+0000\n"
+"PO-Revision-Date: 2021-01-24 09:35+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -240,19 +240,19 @@ msgstr "Встановіть пароль"
 msgid "By setting a password, Authenticator will from now on start locked."
 msgstr "Після встановлення пароля «Розпізнавач» запускатиметься заблокованим."
 
-#: data/resources/ui/preferences_password_page.ui:69
+#: data/resources/ui/preferences_password_page.ui:74
 msgid "Current Password"
 msgstr "Поточний пароль"
 
-#: data/resources/ui/preferences_password_page.ui:82
+#: data/resources/ui/preferences_password_page.ui:87
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: data/resources/ui/preferences_password_page.ui:95
+#: data/resources/ui/preferences_password_page.ui:100
 msgid "Repeat Password"
 msgstr "Повторіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:116
+#: data/resources/ui/preferences_password_page.ui:121
 msgid "_Reset"
 msgstr "С_кинути"
 
@@ -425,7 +425,7 @@ msgstr "П_ро «Розпізнавач»"
 msgid "Authenticator is locked"
 msgstr "«Розпізнавач» замкнено"
 
-#: data/resources/ui/window.ui:172
+#: data/resources/ui/window.ui:177
 msgid "_Unlock"
 msgstr "_Розблокувати"
 
@@ -476,35 +476,34 @@ msgid "Au_thenticator (Old)"
 msgstr "Роз_пізнавач (старий)"
 
 #: src/models/algorithm.rs:55
-#| msgid "Counter"
 msgid "Counter-based"
 msgstr "На основі лічильника"
 
 #: src/models/algorithm.rs:56
 msgid "Time-based"
-msgstr ""
-"На основі часу"
+msgstr "На основі часу"
 
 #. Translators: Steam refers to the gaming application by Valve.
 #: src/models/algorithm.rs:58
 msgid "Steam"
-msgstr ""
-"Steam"
+msgstr "Steam"
 
 #: src/models/algorithm.rs:125
 msgid "SHA-1"
-msgstr ""
-"SHA-1"
+msgstr "SHA-1"
 
 #: src/models/algorithm.rs:126
 msgid "SHA-256"
-msgstr ""
-"SHA-256"
+msgstr "SHA-256"
 
 #: src/models/algorithm.rs:127
 msgid "SHA-512"
-msgstr ""
-"SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/window.rs:275 src/widgets/preferences/password_page.rs:252
+#| msgid "Change Password"
+msgid "Wrong Password"
+msgstr "Помилковий пароль"
 
 #: src/widgets/preferences/window.rs:264 src/widgets/preferences/window.rs:271
 msgid "Select"
@@ -548,9 +547,6 @@ msgstr "Скасувати"
 
 #~ msgid "Confirm New Password:"
 #~ msgstr "Підтвердження нового пароля:"
-
-#~ msgid "Change Password"
-#~ msgstr "Змінити пароль"
 
 #~ msgid "No results found"
 #~ msgstr "Нічого не знайдено"
