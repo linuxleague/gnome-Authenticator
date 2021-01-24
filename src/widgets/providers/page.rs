@@ -3,6 +3,7 @@ use crate::{
     widgets::ProviderImage,
 };
 use adw::ComboRowExt;
+use gettextrs::gettext;
 use glib::{clone, translate::ToGlib};
 use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
@@ -182,7 +183,7 @@ impl ProviderPage {
         let self_ = imp::ProviderPage::from_instance(self);
         match mode {
             ProviderPageMode::Create => {
-                self_.title.set_label("New Provider");
+                self_.title.set_label(&gettext("New Provider"));
                 self_.name_entry.set_text("");
                 self_.period_spinbutton.set_value(30_f64);
                 self_.provider_website_entry.set_text("");

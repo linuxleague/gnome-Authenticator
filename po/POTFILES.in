@@ -21,3 +21,4 @@ src/models/algorithm.rs
 src/widgets/window.rs
 src/widgets/preferences/password_page.rs
 src/widgets/preferences/window.rs
+src/widgets/providers/page.rs
