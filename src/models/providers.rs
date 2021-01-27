@@ -106,6 +106,19 @@ impl ProvidersModel {
         None
     }
 
+    pub fn has_providers(&self) -> bool {
+        let mut found = false;
+        for pos in 0..self.get_n_items() {
+            let obj = self.get_object(pos).unwrap();
+            let provider = obj.downcast::<Provider>().unwrap();
+            if provider.has_accounts() {
+                found = true;
+                break;
+            }
+        }
+        found
+    }
+
     pub fn completion_model(&self) -> gtk::ListStore {
         let store = gtk::ListStore::new(&[i32::static_type(), String::static_type()]);
         for pos in 0..self.get_n_items() {

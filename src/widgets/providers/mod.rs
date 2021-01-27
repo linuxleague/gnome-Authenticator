@@ -6,7 +6,7 @@ mod row;
 pub use self::{
     dialog::ProvidersDialog,
     image::ProviderImage,
-    list::ProvidersList,
+    list::{ProvidersList, ProvidersListView},
     page::{ProviderPage, ProviderPageMode},
     row::ProviderRow,
 };

@@ -3,7 +3,9 @@ use crate::{
     config,
     models::{Account, Keyring, ProvidersModel},
     widgets::{
-        accounts::AccountDetailsPage, providers::ProvidersList, AccountAddDialog, ErrorRevealer,
+        accounts::AccountDetailsPage,
+        providers::{ProvidersList, ProvidersListView},
+        AccountAddDialog, ErrorRevealer,
     },
     window_state,
 };
@@ -29,8 +31,9 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/Authenticator/window.ui")]
     pub struct Window {
         pub settings: gio::Settings,
-        pub providers: ProvidersList,
         pub model: OnceCell<ProvidersModel>,
+        #[template_child]
+        pub providers: TemplateChild<ProvidersList>,
         #[template_child]
         pub account_details: TemplateChild<AccountDetailsPage>,
         #[template_child]
@@ -40,13 +43,15 @@ mod imp {
         #[template_child]
         pub error_revealer: TemplateChild<ErrorRevealer>,
         #[template_child]
-        pub container: TemplateChild<gtk::Box>,
-        #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub password_entry: TemplateChild<gtk::PasswordEntry>,
         #[template_child]
         pub locked_img: TemplateChild<gtk::Image>,
+        #[template_child]
+        pub accounts_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub empty_status_page: TemplateChild<adw::StatusPage>,
     }
 
     impl ObjectSubclass for Window {
@@ -63,15 +68,16 @@ mod imp {
             let settings = gio::Settings::new(config::APP_ID);
             Self {
                 settings,
-                providers: ProvidersList::new(),
+                providers: TemplateChild::default(),
                 model: OnceCell::new(),
                 account_details: TemplateChild::default(),
                 search_entry: TemplateChild::default(),
                 deck: TemplateChild::default(),
                 error_revealer: TemplateChild::default(),
-                container: TemplateChild::default(),
+                empty_status_page: TemplateChild::default(),
                 search_btn: TemplateChild::default(),
                 password_entry: TemplateChild::default(),
+                accounts_stack: TemplateChild::default(),
                 locked_img: TemplateChild::default(),
             }
         }
@@ -105,7 +111,7 @@ impl Window {
         if config::PROFILE == "Devel" {
             window.get_style_context().add_class("devel");
         }
-        window.init(model);
+        window.init(model, app);
         window.setup_actions(app);
         window.set_view(View::Login); // Start by default in an empty state
         window.setup_signals(app);
@@ -124,8 +130,21 @@ impl Window {
             View::Accounts => {
                 self_.deck.set_visible_child_name("accounts");
                 self_.deck.set_can_swipe_back(false);
-
-                //self_.search_entry.set_key_capture_widget(Some(self));
+                if self_.providers.model().get_n_items() == 0 {
+                    if self_.model.get().unwrap().has_providers() {
+                        // We do have at least one provider
+                        // the 0 items comes from the search filter, so let's show an empty search
+                        // page instead
+                        self_.providers.set_view(ProvidersListView::NoSearchResults);
+                    } else {
+                        self_.accounts_stack.set_visible_child_name("empty");
+                        self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
+                    }
+                } else {
+                    self_.providers.set_view(ProvidersListView::List);
+                    self_.accounts_stack.set_visible_child_name("accounts");
+                    //self_.search_entry.set_key_capture_widget(Some(self));
+                }
             }
             View::Account(account) => {
                 self_.deck.set_visible_child_name("account");
@@ -162,7 +181,7 @@ impl Window {
         self_.providers.clone()
     }
 
-    fn init(&self, model: ProvidersModel) {
+    fn init(&self, model: ProvidersModel, app: &Application) {
         let self_ = imp::Window::from_instance(self);
         self_.model.set(model.clone()).unwrap();
         self_.providers.set_model(model);
@@ -179,7 +198,17 @@ impl Window {
             )
             .unwrap();
 
+        self_.providers.model().connect_items_changed(
+            clone!(@weak self as win, @weak app => move |model, _,_,_| {
+            // We do a check on set_view to ensure we always use the right page
+            if !app.locked() {
+                win.set_view(View::Accounts);
+            }
+            }),
+        );
+
         self.set_icon_name(Some(config::APP_ID));
+        self_.empty_status_page.set_icon_name(Some(config::APP_ID));
         self_.locked_img.set_from_icon_name(Some(config::APP_ID));
 
         // load latest window state
@@ -196,15 +225,14 @@ impl Window {
         gtk_macros::get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.set_help_overlay(Some(&shortcuts));
 
-        self_.container.append(&self_.providers);
-
         let search_btn = &*self_.search_btn;
-        self_.search_entry.connect_search_changed(
-            clone!(@weak self_.providers as providers => move |entry| {
+        let providers = &*self_.providers;
+        self_
+            .search_entry
+            .connect_search_changed(clone!(@weak providers => move |entry| {
                 let text = entry.get_text().unwrap().to_string();
                 providers.search(text);
-            }),
-        );
+            }));
         self_
             .search_entry
             .connect_search_started(clone!(@weak search_btn => move |entry| {

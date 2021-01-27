@@ -39,51 +39,103 @@
           <object class="AdwLeafletPage">
             <property name="name">accounts</property>
             <property name="child">
-              <object class="GtkBox">
-                <property name="orientation">vertical</property>
+              <object class="GtkStack" id="accounts_stack">
+                <property name="transition-type">crossfade</property>
                 <child>
-                  <object class="GtkHeaderBar">
-                    <property name="show-title-buttons">True</property>
-                    <child type="start">
-                      <object class="GtkButton">
-                        <property name="receives-default">True</property>
-                        <property name="action-name">win.add_account</property>
-                        <property name="icon-name">list-add-symbolic</property>
+                  <object class="GtkStackPage">
+                    <property name="name">empty</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="show-title-buttons">True</property>
+                            <child type="start">
+                              <object class="GtkButton">
+                                <property name="receives-default">True</property>
+                                <property name="action-name">win.add_account</property>
+                                <property name="icon-name">list-add-symbolic</property>
+                              </object>
+                            </child>
+                            <child type="end">
+                              <object class="GtkMenuButton">
+                                <property name="receives-default">True</property>
+                                <property name="menu-model">menu</property>
+                                <property name="icon-name">open-menu-symbolic</property>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="titlebar"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwStatusPage" id="empty_status_page">
+                            <property name="title" translatable="yes">There are no accounts currently</property>
+                            <property name="description" translatable="yes">Add an account or scan a QR code first</property>
+                          </object>
+                        </child>
                       </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkMenuButton">
-                        <property name="receives-default">True</property>
-                        <property name="menu-model">menu</property>
-                        <property name="icon-name">open-menu-symbolic</property>
-                      </object>
-                    </child>
-                    <child type="end">
-                      <object class="GtkToggleButton" id="search_btn">
-                        <property name="receives-default">True</property>
-                        <property name="icon-name">system-search-symbolic</property>
-                      </object>
-                    </child>
-                    <style>
-                      <class name="titlebar"/>
-                    </style>
+                    </property>
                   </object>
                 </child>
                 <child>
-                  <object class="GtkBox" id="container">
-                    <property name="vexpand">True</property>
-                    <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkSearchBar">
-                        <property name="search-mode-enabled" bind-source="search_btn" bind-property="active" bind-flags="sync-create" />
+                  <object class="GtkStackPage">
+                    <property name="name">accounts</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkSearchEntry" id="search_entry" />
+                          <object class="GtkHeaderBar">
+                            <property name="show-title-buttons">True</property>
+                            <child type="start">
+                              <object class="GtkButton">
+                                <property name="receives-default">True</property>
+                                <property name="action-name">win.add_account</property>
+                                <property name="icon-name">list-add-symbolic</property>
+                              </object>
+                            </child>
+                            <child type="end">
+                              <object class="GtkMenuButton">
+                                <property name="receives-default">True</property>
+                                <property name="menu-model">menu</property>
+                                <property name="icon-name">open-menu-symbolic</property>
+                              </object>
+                            </child>
+                            <child type="end">
+                              <object class="GtkToggleButton" id="search_btn">
+                                <property name="receives-default">True</property>
+                                <property name="icon-name">system-search-symbolic</property>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="titlebar"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkBox">
+                            <property name="vexpand">True</property>
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkSearchBar">
+                                <property name="search-mode-enabled" bind-source="search_btn" bind-property="active" bind-flags="sync-create" />
+                                <child>
+                                  <object class="GtkSearchEntry" id="search_entry" />
+                                </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="ProvidersList" id="providers" />
+                            </child>
+                          </object>
                         </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </child>
               </object>
+
             </property>
           </object>
         </child>

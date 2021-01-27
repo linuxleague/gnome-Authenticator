@@ -1,10 +1,15 @@
 use crate::{
-    config,
     models::{Account, Provider, ProviderSorter, ProvidersModel},
     widgets::providers::ProviderRow,
 };
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+
+#[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
+pub enum ProvidersListView {
+    NoSearchResults,
+    List,
+}
 
 mod imp {
     use super::*;
@@ -18,7 +23,7 @@ mod imp {
         #[template_child]
         pub providers_list: TemplateChild<gtk::ListBox>,
         #[template_child]
-        pub empty_img: TemplateChild<gtk::Image>,
+        pub stack: TemplateChild<gtk::Stack>,
     }
 
     impl ObjectSubclass for ProvidersList {
@@ -35,7 +40,7 @@ mod imp {
             let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
             Self {
                 providers_list: TemplateChild::default(),
-                empty_img: TemplateChild::default(),
+                stack: TemplateChild::default(),
                 sorter: ProviderSorter::new(),
                 filter_model,
             }
@@ -81,6 +86,22 @@ impl ProvidersList {
         glib::Object::new(&[]).expect("Failed to create ProvidersList")
     }
 
+    pub fn set_view(&self, view: ProvidersListView) {
+        let self_ = imp::ProvidersList::from_instance(self);
+        match view {
+            ProvidersListView::NoSearchResults => {
+                self_.stack.set_visible_child_name("no-results");
+            }
+            ProvidersListView::List => {
+                self_.stack.set_visible_child_name("results");
+            }
+        }
+    }
+
+    /// Initialize the ProvidersList by setting the model to use.
+    ///
+    /// The model contains initially all the providers and are filtered
+    /// to keep only the ones that have at least an account.
     pub fn set_model(&self, model: ProvidersModel) {
         let self_ = imp::ProvidersList::from_instance(self);
         let accounts_filter = gtk::CustomFilter::new(move |object| {
@@ -100,6 +121,12 @@ impl ProvidersList {
         self_.sorter.changed(gtk::SorterChange::Different);
     }
 
+    /// Returns an instance of the filtered initial model
+    pub fn model(&self) -> gtk::FilterListModel {
+        let self_ = imp::ProvidersList::from_instance(self);
+        self_.filter_model.clone()
+    }
+
     pub fn search(&self, text: String) {
         let self_ = imp::ProvidersList::from_instance(self);
 
@@ -113,8 +140,6 @@ impl ProvidersList {
 
     fn setup_widgets(&self) {
         let self_ = imp::ProvidersList::from_instance(self);
-
-        self_.empty_img.set_from_icon_name(Some(config::APP_ID));
 
         let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&self_.sorter));
 

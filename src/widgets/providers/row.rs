@@ -14,7 +14,7 @@ mod imp {
     use once_cell::sync::Lazy;
     use std::cell::{Cell, RefCell};
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_row.ui")]
     pub struct ProviderRow {
         pub remaining_time: Cell<u64>,
