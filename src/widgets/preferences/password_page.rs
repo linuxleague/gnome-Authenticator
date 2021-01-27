@@ -9,20 +9,12 @@ use std::cell::Cell;
 
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::{subclass, ParamSpec};
     use gtk::subclass::widget::WidgetImplExt;
     use std::cell::RefCell;
 
-    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("has-set-password", |name| {
-        glib::ParamSpec::boolean(
-            name,
-            "has set password",
-            "Has Set Password",
-            false,
-            glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
-        )
-    })];
-    #[derive(CompositeTemplate)]
+    #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/preferences_password_page.ui")]
     pub struct PasswordPage {
         pub actions: OnceCell<gio::SimpleActionGroup>,
         pub has_set_password: Cell<bool>,
@@ -45,6 +37,7 @@ mod imp {
         const NAME: &'static str = "PasswordPage";
         type Type = super::PasswordPage;
         type ParentType = gtk::Box;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -65,12 +58,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            ErrorRevealer::static_type();
-            klass.set_template_from_resource(
-                "/com/belmoussaoui/Authenticator/preferences_password_page.ui",
-            );
-            klass.install_properties(&PROPERTIES);
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -79,11 +67,28 @@ mod imp {
     }
 
     impl ObjectImpl for PasswordPage {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("has-set-password", ..) => {
+        fn properties() -> &'static [ParamSpec] {
+            use once_cell::sync::Lazy;
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![ParamSpec::boolean(
+                    "has-set-password",
+                    "has set password",
+                    "Has Set Password",
+                    false,
+                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                )]
+            });
+            PROPERTIES.as_ref()
+        }
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "has-set-password" => {
                     let has_set_password = value
                         .get()
                         .expect("type conformity checked by `Object::set_property`")
@@ -94,13 +99,9 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("has-set-password", ..) => {
-                    self.has_set_password.get().to_value()
-                }
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
             }
         }

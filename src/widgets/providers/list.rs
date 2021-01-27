@@ -8,9 +8,10 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::subclass::{self, Signal};
 
     #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/providers_list.ui")]
     pub struct ProvidersList {
         pub filter_model: gtk::FilterListModel,
         pub sorter: ProviderSorter,
@@ -24,6 +25,7 @@ mod imp {
         const NAME: &'static str = "ProvidersList";
         type Type = super::ProvidersList;
         type ParentType = gtk::Box;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -40,14 +42,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_list.ui");
-            Self::bind_template_children(klass);
-            klass.add_signal(
-                "shared",
-                glib::SignalFlags::ACTION,
-                &[Account::static_type()],
-                glib::Type::Unit,
-            );
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -59,6 +54,18 @@ mod imp {
         fn constructed(&self, obj: &Self::Type) {
             obj.setup_widgets();
             self.parent_constructed(obj);
+        }
+
+        fn signals() -> &'static [Signal] {
+            use once_cell::sync::Lazy;
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![
+                    Signal::builder("shared", &[Account::static_type()], <()>::static_type())
+                        .flags(glib::SignalFlags::ACTION)
+                        .build(),
+                ]
+            });
+            SIGNALS.as_ref()
         }
     }
     impl WidgetImpl for ProvidersList {}

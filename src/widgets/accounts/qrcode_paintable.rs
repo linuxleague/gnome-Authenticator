@@ -82,14 +82,11 @@ mod imp {
         const NAME: &'static str = "QRCodePaintable";
         type Type = super::QRCodePaintable;
         type ParentType = glib::Object;
+        type Interfaces = (gdk::Paintable,);
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib::object_subclass!();
-
-        fn type_init(type_: &mut subclass::InitializingType<Self>) {
-            type_.add_interface::<gdk::Paintable>();
-        }
 
         fn new() -> Self {
             Self {
@@ -122,6 +119,7 @@ glib::wrapper! {
 }
 
 impl QRCodePaintable {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(&[]).expect("Failed to create a QRCodePaintable")
     }

@@ -11,10 +11,11 @@ use std::str::FromStr;
 
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::subclass::{self, Signal};
     use std::cell::RefCell;
 
-    #[derive(CompositeTemplate)]
+    #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
     pub struct AccountAddDialog {
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: RefCell<Option<Provider>>,
@@ -57,6 +58,7 @@ mod imp {
         const NAME: &'static str = "AccountAddDialog";
         type Type = super::AccountAddDialog;
         type ParentType = adw::Window;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -89,12 +91,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            UrlRow::static_type();
-            ProviderImage::static_type();
-            Camera::static_type();
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/account_add.ui");
-            Self::bind_template_children(klass);
-            klass.add_signal("added", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -102,7 +99,17 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for AccountAddDialog {}
+    impl ObjectImpl for AccountAddDialog {
+        fn signals() -> &'static [Signal] {
+            use once_cell::sync::Lazy;
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![Signal::builder("added", &[], <()>::static_type())
+                    .flags(glib::SignalFlags::ACTION)
+                    .build()]
+            });
+            SIGNALS.as_ref()
+        }
+    }
     impl WidgetImpl for AccountAddDialog {}
     impl WindowImpl for AccountAddDialog {}
     impl adw::subclass::window::AdwWindowImpl for AccountAddDialog {}

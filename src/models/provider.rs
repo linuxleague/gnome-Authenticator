@@ -50,111 +50,8 @@ pub struct DiProvider {
 }
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::{subclass, ParamSpec};
 
-    static PROPERTIES: [subclass::Property; 11] = [
-        subclass::Property("id", |name| {
-            glib::ParamSpec::int(
-                name,
-                "id",
-                "Id",
-                0,
-                i32::MAX,
-                0,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("name", |name| {
-            glib::ParamSpec::string(name, "name", "Name", None, glib::ParamFlags::READWRITE)
-        }),
-        subclass::Property("accounts", |name| {
-            glib::ParamSpec::object(
-                name,
-                "accounts",
-                "accounts",
-                AccountsModel::static_type(),
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("period", |name| {
-            glib::ParamSpec::int(
-                name,
-                "period",
-                "Period",
-                0,
-                1000,
-                30,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("digits", |name| {
-            glib::ParamSpec::int(
-                name,
-                "digits",
-                "Digits",
-                0,
-                1000,
-                6,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("default-counter", |name| {
-            glib::ParamSpec::int(
-                name,
-                "default_counter",
-                "default_counter",
-                0,
-                i32::MAX,
-                1,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("algorithm", |name| {
-            glib::ParamSpec::string(
-                name,
-                "algorithm",
-                "Algorithm",
-                Some(&Algorithm::default().to_string()),
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("method", |name| {
-            glib::ParamSpec::string(
-                name,
-                "method",
-                "Method",
-                Some(&OTPMethod::default().to_string()),
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("website", |name| {
-            glib::ParamSpec::string(
-                name,
-                "website",
-                "Website",
-                None,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("help-url", |name| {
-            glib::ParamSpec::string(
-                name,
-                "help url",
-                "Help URL",
-                None,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("image-uri", |name| {
-            glib::ParamSpec::string(
-                name,
-                "image uri",
-                "Image URI",
-                None,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-    ];
     pub struct Provider {
         pub id: Cell<i32>,
         pub name: RefCell<String>,
@@ -174,15 +71,11 @@ mod imp {
         const NAME: &'static str = "Provider";
         type Type = super::Provider;
         type ParentType = glib::Object;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib::object_subclass!();
-
-        fn class_init(klass: &mut Self::Class) {
-            klass.install_properties(&PROPERTIES);
-        }
-
         fn new() -> Self {
             let model = AccountsModel::new();
             Self {
@@ -203,47 +96,139 @@ mod imp {
     }
 
     impl ObjectImpl for Provider {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
+        fn properties() -> &'static [ParamSpec] {
+            use once_cell::sync::Lazy;
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![
+                    ParamSpec::int(
+                        "id",
+                        "id",
+                        "Id",
+                        0,
+                        i32::MAX,
+                        0,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string("name", "name", "Name", None, glib::ParamFlags::READWRITE),
+                    ParamSpec::object(
+                        "accounts",
+                        "accounts",
+                        "accounts",
+                        AccountsModel::static_type(),
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::int(
+                        "period",
+                        "period",
+                        "Period",
+                        0,
+                        1000,
+                        30,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::int(
+                        "digits",
+                        "digits",
+                        "Digits",
+                        0,
+                        1000,
+                        6,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::int(
+                        "default-counter",
+                        "default_counter",
+                        "default_counter",
+                        0,
+                        i32::MAX,
+                        1,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string(
+                        "algorithm",
+                        "algorithm",
+                        "Algorithm",
+                        Some(&Algorithm::default().to_string()),
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string(
+                        "method",
+                        "method",
+                        "Method",
+                        Some(&OTPMethod::default().to_string()),
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string(
+                        "website",
+                        "website",
+                        "Website",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string(
+                        "help-url",
+                        "help url",
+                        "Help URL",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string(
+                        "image-uri",
+                        "image uri",
+                        "Image URI",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                ]
+            });
+            PROPERTIES.as_ref()
+        }
 
-            match *prop {
-                subclass::Property("id", ..) => {
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "id" => {
                     let id = value.get().unwrap().unwrap();
                     self.id.replace(id);
                 }
-                subclass::Property("name", ..) => {
+                "name" => {
                     let name = value.get().unwrap().unwrap();
                     self.name.replace(name);
                 }
-                subclass::Property("period", ..) => {
+                "period" => {
                     let period = value.get_some().unwrap();
                     self.period.replace(period);
                 }
-                subclass::Property("method", ..) => {
+                "method" => {
                     let method = value.get().unwrap().unwrap();
                     self.method.replace(method);
                 }
-                subclass::Property("digits", ..) => {
+                "digits" => {
                     let digits = value.get_some().unwrap();
                     self.digits.replace(digits);
                 }
-                subclass::Property("algorithm", ..) => {
+                "algorithm" => {
                     let algorithm = value.get().unwrap().unwrap();
                     self.algorithm.replace(algorithm);
                 }
-                subclass::Property("default-counter", ..) => {
+                "default-counter" => {
                     let default_counter = value.get_some().unwrap();
                     self.default_counter.replace(default_counter);
                 }
-                subclass::Property("website", ..) => {
+                "website" => {
                     let website = value.get().unwrap();
                     self.website.replace(website);
                 }
-                subclass::Property("help-url", ..) => {
+                "help-url" => {
                     let help_url = value.get().unwrap();
                     self.help_url.replace(help_url);
                 }
-                subclass::Property("image-uri", ..) => {
+                "image-uri" => {
                     let image_uri = value.get().unwrap();
                     self.image_uri.replace(image_uri);
                 }
@@ -251,21 +236,19 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("id", ..) => self.id.get().to_value(),
-                subclass::Property("name", ..) => self.name.borrow().to_value(),
-                subclass::Property("period", ..) => self.period.get().to_value(),
-                subclass::Property("method", ..) => self.method.borrow().to_value(),
-                subclass::Property("digits", ..) => self.digits.get().to_value(),
-                subclass::Property("algorithm", ..) => self.algorithm.borrow().to_value(),
-                subclass::Property("default-counter", ..) => self.default_counter.get().to_value(),
-                subclass::Property("website", ..) => self.website.borrow().to_value(),
-                subclass::Property("help-url", ..) => self.help_url.borrow().to_value(),
-                subclass::Property("image-uri", ..) => self.image_uri.borrow().to_value(),
-                subclass::Property("accounts", ..) => self.accounts.to_value(),
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "id" => self.id.get().to_value(),
+                "name" => self.name.borrow().to_value(),
+                "period" => self.period.get().to_value(),
+                "method" => self.method.borrow().to_value(),
+                "digits" => self.digits.get().to_value(),
+                "algorithm" => self.algorithm.borrow().to_value(),
+                "default-counter" => self.default_counter.get().to_value(),
+                "website" => self.website.borrow().to_value(),
+                "help-url" => self.help_url.borrow().to_value(),
+                "image-uri" => self.image_uri.borrow().to_value(),
+                "accounts" => self.accounts.to_value(),
                 _ => unimplemented!(),
             }
         }

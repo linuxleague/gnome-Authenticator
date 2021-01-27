@@ -7,33 +7,15 @@ use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::{
+        subclass::{self, Signal},
+        ParamSpec,
+    };
+    use once_cell::sync::Lazy;
     use std::cell::{Cell, RefCell};
 
-    static PROPERTIES: [subclass::Property; 2] = [
-        subclass::Property("provider", |name| {
-            glib::ParamSpec::object(
-                name,
-                "Provider",
-                "The accounts provider",
-                Provider::static_type(),
-                glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
-            )
-        }),
-        subclass::Property("remaining-time", |name| {
-            glib::ParamSpec::uint64(
-                name,
-                "remaining time",
-                "the remaining time",
-                0,
-                u64::MAX,
-                0,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-    ];
-
-    #[derive(CompositeTemplate)]
+    #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/provider_row.ui")]
     pub struct ProviderRow {
         pub remaining_time: Cell<u64>,
         pub provider: RefCell<Option<Provider>>,
@@ -53,6 +35,7 @@ mod imp {
         const NAME: &'static str = "ProviderRow";
         type Type = super::ProviderRow;
         type ParentType = gtk::ListBoxRow;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -72,17 +55,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            ProviderImage::static_type();
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/provider_row.ui");
-            Self::bind_template_children(klass);
-            klass.install_properties(&PROPERTIES);
-            klass.add_signal("changed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
-            klass.add_signal(
-                "shared",
-                glib::SignalFlags::ACTION,
-                &[Account::static_type()],
-                glib::Type::Unit,
-            );
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -91,15 +64,57 @@ mod imp {
     }
 
     impl ObjectImpl for ProviderRow {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
+        fn properties() -> &'static [ParamSpec] {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![
+                    ParamSpec::object(
+                        "provider",
+                        "Provider",
+                        "The accounts provider",
+                        Provider::static_type(),
+                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
+                    ),
+                    ParamSpec::uint64(
+                        "remaining-time",
+                        "remaining time",
+                        "the remaining time",
+                        0,
+                        u64::MAX,
+                        0,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                ]
+            });
+            PROPERTIES.as_ref()
+        }
 
-            match *prop {
-                subclass::Property("provider", ..) => {
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![
+                    Signal::builder("changed", &[], <()>::static_type())
+                        .flags(glib::SignalFlags::ACTION)
+                        .build(),
+                    Signal::builder("shared", &[Account::static_type()], <()>::static_type())
+                        .flags(glib::SignalFlags::ACTION)
+                        .build(),
+                ]
+            });
+            SIGNALS.as_ref()
+        }
+
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "provider" => {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
-                subclass::Property("remaining-time", ..) => {
+                "remaining-time" => {
                     let remaining_time = value.get().unwrap().unwrap();
                     self.remaining_time.set(remaining_time);
                 }
@@ -107,11 +122,10 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-            match *prop {
-                subclass::Property("provider", ..) => self.provider.borrow().to_value(),
-                subclass::Property("remaining-time", ..) => self.remaining_time.get().to_value(),
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "provider" => self.provider.borrow().to_value(),
+                "remaining-time" => self.remaining_time.get().to_value(),
                 _ => unimplemented!(),
             }
         }

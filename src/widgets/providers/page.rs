@@ -18,6 +18,7 @@ mod imp {
     use glib::subclass;
 
     #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/provider_page.ui")]
     pub struct ProviderPage {
         pub methods_model: adw::EnumListModel,
         pub algorithms_model: adw::EnumListModel,
@@ -53,6 +54,7 @@ mod imp {
         const NAME: &'static str = "ProviderPage";
         type Type = super::ProviderPage;
         type ParentType = gtk::Box;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -82,9 +84,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            ProviderImage::static_type();
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/provider_page.ui");
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {

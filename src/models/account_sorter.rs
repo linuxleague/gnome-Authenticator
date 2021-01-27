@@ -13,6 +13,7 @@ mod imp {
         const NAME: &'static str = "AccountSorter";
         type Type = super::AccountSorter;
         type ParentType = gtk::Sorter;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 

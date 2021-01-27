@@ -7,6 +7,7 @@ mod imp {
     use glib::subclass;
 
     #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/account_details_page.ui")]
     pub struct AccountDetailsPage {
         #[template_child]
         pub website_row: TemplateChild<UrlRow>,
@@ -25,6 +26,7 @@ mod imp {
         const NAME: &'static str = "AccountDetailsPage";
         type Type = super::AccountDetailsPage;
         type ParentType = gtk::Box;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -42,11 +44,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            UrlRow::static_type();
-            klass.set_template_from_resource(
-                "/com/belmoussaoui/Authenticator/account_details_page.ui",
-            );
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {

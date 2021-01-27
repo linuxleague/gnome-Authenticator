@@ -13,6 +13,7 @@ mod imp {
     use glib::subclass;
 
     #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/error_revealer.ui")]
     pub struct ErrorRevealer {
         pub source_id: RefCell<Option<SourceId>>,
         #[template_child]
@@ -24,6 +25,7 @@ mod imp {
     impl ObjectSubclass for ErrorRevealer {
         const NAME: &'static str = "ErrorRevealer";
         type ParentType = gtk::Widget;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
         type Type = super::ErrorRevealer;
@@ -40,8 +42,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.set_layout_manager_type::<gtk::BinLayout>();
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/error_revealer.ui");
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -73,6 +74,7 @@ glib::wrapper! {
 }
 
 impl ErrorRevealer {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(&[]).unwrap()
     }

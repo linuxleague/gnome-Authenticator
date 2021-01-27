@@ -14,14 +14,11 @@ mod imp {
         const NAME: &'static str = "AccountsModel";
         type Type = super::AccountsModel;
         type ParentType = glib::Object;
+        type Interfaces = (gio::ListModel,);
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib::object_subclass!();
-
-        fn type_init(type_: &mut subclass::InitializingType<Self>) {
-            type_.add_interface::<gio::ListModel>();
-        }
 
         fn new() -> Self {
             Self(RefCell::new(Vec::new()))

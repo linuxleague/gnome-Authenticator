@@ -9,7 +9,8 @@ mod imp {
     use adw::subclass::window::AdwWindowImpl;
     use glib::subclass;
 
-    #[derive(CompositeTemplate)]
+    #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
     pub struct ProvidersDialog {
         pub page: ProviderPage,
         pub actions: gio::SimpleActionGroup,
@@ -28,6 +29,7 @@ mod imp {
         const NAME: &'static str = "ProvidersDialog";
         type Type = super::ProvidersDialog;
         type ParentType = adw::Window;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -47,8 +49,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/providers_dialog.ui");
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -185,18 +186,8 @@ mod row {
     use super::*;
     mod imp {
         use super::*;
-        use glib::subclass;
+        use glib::{subclass, ParamSpec};
         use std::cell::RefCell;
-
-        static PROPERTIES: [subclass::Property; 1] = [subclass::Property("provider", |name| {
-            glib::ParamSpec::object(
-                name,
-                "Provider",
-                "The Provider",
-                Provider::static_type(),
-                glib::ParamFlags::READWRITE,
-            )
-        })];
 
         pub struct ProviderActionRow {
             pub provider: RefCell<Option<Provider>>,
@@ -208,6 +199,7 @@ mod row {
             const NAME: &'static str = "ProviderActionRow";
             type Type = super::ProviderActionRow;
             type ParentType = gtk::ListBoxRow;
+            type Interfaces = ();
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
 
@@ -223,18 +215,32 @@ mod row {
                     provider: RefCell::new(None),
                 }
             }
-
-            fn class_init(klass: &mut Self::Class) {
-                klass.install_properties(&PROPERTIES);
-            }
         }
 
         impl ObjectImpl for ProviderActionRow {
-            fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-                let prop = &PROPERTIES[id];
+            fn properties() -> &'static [ParamSpec] {
+                use once_cell::sync::Lazy;
+                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                    vec![ParamSpec::object(
+                        "provider",
+                        "Provider",
+                        "The Provider",
+                        Provider::static_type(),
+                        glib::ParamFlags::READWRITE,
+                    )]
+                });
+                PROPERTIES.as_ref()
+            }
 
-                match *prop {
-                    subclass::Property("provider", ..) => {
+            fn set_property(
+                &self,
+                _obj: &Self::Type,
+                _id: usize,
+                value: &glib::Value,
+                pspec: &ParamSpec,
+            ) {
+                match pspec.get_name() {
+                    "provider" => {
                         let provider = value
                             .get()
                             .expect("type conformity checked by `Object::set_property`");
@@ -244,10 +250,14 @@ mod row {
                 }
             }
 
-            fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-                let prop = &PROPERTIES[id];
-                match *prop {
-                    subclass::Property("provider", ..) => self.provider.borrow().to_value(),
+            fn get_property(
+                &self,
+                _obj: &Self::Type,
+                _id: usize,
+                pspec: &ParamSpec,
+            ) -> glib::Value {
+                match pspec.get_name() {
+                    "provider" => self.provider.borrow().to_value(),
                     _ => unimplemented!(),
                 }
             }

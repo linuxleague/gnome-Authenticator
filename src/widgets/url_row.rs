@@ -5,29 +5,8 @@ use gtk::{glib, subclass::prelude::*, WidgetExt};
 mod imp {
     use super::*;
     use adw::subclass::action_row::ActionRowImpl;
-    use glib::subclass;
+    use glib::{subclass, ParamSpec};
     use std::cell::RefCell;
-
-    static PROPERTIES: [subclass::Property; 2] = [
-        subclass::Property("uri", |name| {
-            glib::ParamSpec::string(
-                name,
-                "uri",
-                "The Row URI",
-                None,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("icon-name", |name| {
-            glib::ParamSpec::string(
-                name,
-                "icon name",
-                "The Icon Name",
-                None,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-    ];
 
     pub struct UrlRow {
         pub uri: RefCell<Option<String>>,
@@ -38,6 +17,7 @@ mod imp {
         const NAME: &'static str = "UrlRow";
         type Type = super::UrlRow;
         type ParentType = adw::ActionRow;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -49,22 +29,45 @@ mod imp {
                 icon_name: RefCell::new(None),
             }
         }
-
-        fn class_init(klass: &mut Self::Class) {
-            klass.install_properties(&PROPERTIES);
-        }
     }
 
     impl ObjectImpl for UrlRow {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
+        fn properties() -> &'static [ParamSpec] {
+            use once_cell::sync::Lazy;
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![
+                    ParamSpec::string(
+                        "uri",
+                        "uri",
+                        "The Row URI",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string(
+                        "icon-name",
+                        "icon name",
+                        "The Icon Name",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                ]
+            });
+            PROPERTIES.as_ref()
+        }
 
-            match *prop {
-                subclass::Property("uri", ..) => {
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "uri" => {
                     let uri = value.get().unwrap();
                     self.uri.replace(uri);
                 }
-                subclass::Property("icon-name", ..) => {
+                "icon-name" => {
                     let icon_name = value.get().unwrap();
                     self.icon_name.replace(icon_name);
                 }
@@ -72,11 +75,10 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-            match *prop {
-                subclass::Property("uri", ..) => self.uri.borrow().to_value(),
-                subclass::Property("icon-name", ..) => self.icon_name.borrow().to_value(),
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "uri" => self.uri.borrow().to_value(),
+                "icon-name" => self.icon_name.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }

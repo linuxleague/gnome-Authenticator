@@ -64,7 +64,7 @@ pub(crate) fn steam(secret: &str) -> Result<String> {
         let pos = token % total_chars;
         let charachter = STEAM_CHARS.chars().nth(pos as usize).unwrap();
         code.push(charachter);
-        token = token / total_chars;
+        token /= total_chars;
     }
     Ok(code)
 }

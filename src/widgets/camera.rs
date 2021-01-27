@@ -88,10 +88,11 @@ pub enum CameraState {
 
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::subclass::{self, Signal};
     use std::cell::RefCell;
 
     #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/camera.ui")]
     pub struct Camera {
         pub actions: gio::SimpleActionGroup,
         pub sender: Sender<CameraEvent>,
@@ -112,21 +113,15 @@ mod imp {
         const NAME: &'static str = "Camera";
         type Type = super::Camera;
         type ParentType = gtk::Widget;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib::object_subclass!();
 
         fn class_init(klass: &mut Self::Class) {
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/camera.ui");
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
             klass.set_layout_manager_type::<gtk::BinLayout>();
-            klass.add_signal(
-                "code-detected",
-                glib::SignalFlags::RUN_FIRST,
-                &[String::static_type()],
-                glib::Type::Unit,
-            );
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -155,6 +150,19 @@ mod imp {
     }
 
     impl ObjectImpl for Camera {
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![Signal::builder(
+                    "code-detected",
+                    &[String::static_type()],
+                    <()>::static_type(),
+                )
+                .run_first()
+                .build()]
+            });
+            SIGNALS.as_ref()
+        }
+
         fn constructed(&self, obj: &Self::Type) {
             obj.init_widgets();
             obj.init_monitor();
@@ -173,6 +181,7 @@ glib::wrapper! {
 }
 
 impl Camera {
+    #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(&[]).expect("Failed to create a Camera")
     }

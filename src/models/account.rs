@@ -42,62 +42,8 @@ pub struct DiAccount {
 #[doc(hidden)]
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::{subclass, ParamSpec};
 
-    static PROPERTIES: [subclass::Property; 6] = [
-        subclass::Property("id", |name| {
-            glib::ParamSpec::int(
-                name,
-                "id",
-                "Id",
-                0,
-                i32::MAX,
-                0,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("counter", |name| {
-            glib::ParamSpec::int(
-                name,
-                "counter",
-                "Counter",
-                0,
-                i32::MAX,
-                0,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("name", |name| {
-            glib::ParamSpec::string(name, "name", "Name", None, glib::ParamFlags::READWRITE)
-        }),
-        subclass::Property("token-id", |name| {
-            glib::ParamSpec::string(
-                name,
-                "token-id",
-                "token id",
-                None,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("otp", |name| {
-            glib::ParamSpec::string(
-                name,
-                "otp",
-                "The One Time Password",
-                None,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("provider", |name| {
-            glib::ParamSpec::object(
-                name,
-                "provider",
-                "The account provider",
-                Provider::static_type(),
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-    ];
     pub struct Account {
         pub id: Cell<i32>,
         pub otp: RefCell<String>,
@@ -112,14 +58,11 @@ mod imp {
         const NAME: &'static str = "Account";
         type Type = super::Account;
         type ParentType = glib::Object;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib::object_subclass!();
-
-        fn class_init(klass: &mut Self::Class) {
-            klass.install_properties(&PROPERTIES);
-        }
 
         fn new() -> Self {
             Self {
@@ -135,31 +78,85 @@ mod imp {
     }
 
     impl ObjectImpl for Account {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
+        fn properties() -> &'static [ParamSpec] {
+            use once_cell::sync::Lazy;
 
-            match *prop {
-                subclass::Property("id", ..) => {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![
+                    ParamSpec::int(
+                        "id",
+                        "id",
+                        "Id",
+                        0,
+                        i32::MAX,
+                        0,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::int(
+                        "counter",
+                        "counter",
+                        "Counter",
+                        0,
+                        i32::MAX,
+                        0,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string("name", "name", "Name", None, glib::ParamFlags::READWRITE),
+                    ParamSpec::string(
+                        "token-id",
+                        "token-id",
+                        "token id",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::string(
+                        "otp",
+                        "otp",
+                        "The One Time Password",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::object(
+                        "provider",
+                        "provider",
+                        "The account provider",
+                        Provider::static_type(),
+                        glib::ParamFlags::READWRITE,
+                    ),
+                ]
+            });
+            PROPERTIES.as_ref()
+        }
+
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "id" => {
                     let id = value.get().unwrap().unwrap();
                     self.id.replace(id);
                 }
-                subclass::Property("name", ..) => {
+                "name" => {
                     let name = value.get().unwrap().unwrap();
                     self.name.replace(name);
                 }
-                subclass::Property("counter", ..) => {
+                "counter" => {
                     let counter = value.get().unwrap().unwrap();
                     self.counter.replace(counter);
                 }
-                subclass::Property("otp", ..) => {
+                "otp" => {
                     let otp = value.get().unwrap().unwrap();
                     self.otp.replace(otp);
                 }
-                subclass::Property("token-id", ..) => {
+                "token-id" => {
                     let token_id = value.get().unwrap().unwrap();
                     self.token_id.replace(token_id);
                 }
-                subclass::Property("provider", ..) => {
+                "provider" => {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
@@ -167,16 +164,14 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("id", ..) => self.id.get().to_value(),
-                subclass::Property("name", ..) => self.name.borrow().to_value(),
-                subclass::Property("counter", ..) => self.counter.get().to_value(),
-                subclass::Property("otp", ..) => self.otp.borrow().to_value(),
-                subclass::Property("token-id", ..) => self.token_id.borrow().to_value(),
-                subclass::Property("provider", ..) => self.provider.borrow().to_value(),
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "id" => self.id.get().to_value(),
+                "name" => self.name.borrow().to_value(),
+                "counter" => self.counter.get().to_value(),
+                "otp" => self.otp.borrow().to_value(),
+                "token-id" => self.token_id.borrow().to_value(),
+                "provider" => self.provider.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }

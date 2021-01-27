@@ -11,7 +11,7 @@ use std::env;
 
 mod imp {
     use super::*;
-    use glib::{subclass, WeakRef};
+    use glib::{subclass, ParamSpec, WeakRef};
     use std::cell::{Cell, RefCell};
 
     pub struct Application {
@@ -20,33 +20,15 @@ mod imp {
         pub locked: Cell<bool>,
         pub can_be_locked: Cell<bool>,
     }
-
-    static PROPERTIES: [subclass::Property; 2] = [
-        subclass::Property("locked", |name| {
-            glib::ParamSpec::boolean(name, "locked", "locked", false, glib::ParamFlags::READWRITE)
-        }),
-        subclass::Property("can-be-locked", |name| {
-            glib::ParamSpec::boolean(
-                name,
-                "can_be_locked",
-                "can be locked",
-                false,
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-    ];
     impl ObjectSubclass for Application {
         const NAME: &'static str = "Application";
         type ParentType = gtk::Application;
         type Type = super::Application;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
         glib::object_subclass!();
-
-        fn class_init(klass: &mut Self::Class) {
-            klass.install_properties(&PROPERTIES);
-        }
 
         fn new() -> Self {
             let model = ProvidersModel::new();
@@ -61,18 +43,44 @@ mod imp {
     }
 
     impl ObjectImpl for Application {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("locked", ..) => {
+        fn properties() -> &'static [ParamSpec] {
+            use once_cell::sync::Lazy;
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![
+                    ParamSpec::boolean(
+                        "locked",
+                        "locked",
+                        "locked",
+                        false,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::boolean(
+                        "can-be-locked",
+                        "can_be_locked",
+                        "can be locked",
+                        false,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                ]
+            });
+            PROPERTIES.as_ref()
+        }
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "locked" => {
                     let locked = value
                         .get()
                         .expect("type conformity checked by `Object::set_property`")
                         .unwrap();
                     self.locked.set(locked);
                 }
-                subclass::Property("can-be-locked", ..) => {
+                "can-be-locked" => {
                     let can_be_locked = value
                         .get()
                         .expect("type conformity checked by `Object::set_property`")
@@ -83,12 +91,10 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("locked", ..) => self.locked.get().to_value(),
-                subclass::Property("can-be-locked", ..) => self.can_be_locked.get().to_value(),
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "locked" => self.locked.get().to_value(),
+                "can-be-locked" => self.can_be_locked.get().to_value(),
                 _ => unimplemented!(),
             }
         }

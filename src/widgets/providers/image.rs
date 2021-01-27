@@ -9,33 +9,11 @@ pub enum ImageAction {
 
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::{subclass, ParamSpec};
     use std::cell::{Cell, RefCell};
 
-    static PROPERTIES: [subclass::Property; 2] = [
-        subclass::Property("provider", |name| {
-            glib::ParamSpec::object(
-                name,
-                "provider",
-                "Provider",
-                Provider::static_type(),
-                glib::ParamFlags::READWRITE,
-            )
-        }),
-        subclass::Property("size", |name| {
-            glib::ParamSpec::uint(
-                name,
-                "size",
-                "Image size",
-                24,
-                96,
-                48,
-                glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
-            )
-        }),
-    ];
-
     #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/provider_image.ui")]
     pub struct ProviderImage {
         pub size: Cell<u32>,
         pub sender: Sender<ImageAction>,
@@ -53,6 +31,7 @@ mod imp {
         const NAME: &'static str = "ProviderImage";
         type Type = super::ProviderImage;
         type ParentType = gtk::Box;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -73,9 +52,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/provider_image.ui");
-            Self::bind_template_children(klass);
-            klass.install_properties(&PROPERTIES);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -88,15 +65,44 @@ mod imp {
             obj.setup_widgets();
             self.parent_constructed(obj);
         }
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
+        fn properties() -> &'static [ParamSpec] {
+            use once_cell::sync::Lazy;
 
-            match *prop {
-                subclass::Property("provider", ..) => {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![
+                    ParamSpec::object(
+                        "provider",
+                        "provider",
+                        "Provider",
+                        Provider::static_type(),
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::uint(
+                        "size",
+                        "size",
+                        "Image size",
+                        24,
+                        96,
+                        48,
+                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                    ),
+                ]
+            });
+            PROPERTIES.as_ref()
+        }
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "provider" => {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
-                subclass::Property("size", ..) => {
+                "size" => {
                     let size = value.get().unwrap().unwrap();
                     self.size.set(size);
                 }
@@ -104,12 +110,10 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("provider", ..) => self.provider.borrow().to_value(),
-                subclass::Property("size", ..) => self.size.get().to_value(),
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "provider" => self.provider.borrow().to_value(),
+                "size" => self.size.get().to_value(),
                 _ => unimplemented!(),
             }
         }

@@ -14,19 +14,15 @@ use once_cell::sync::OnceCell;
 mod imp {
     use super::*;
     use adw::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
-    use glib::subclass;
+    use glib::{
+        subclass::{self, Signal},
+        ParamSpec,
+    };
+    use once_cell::sync::Lazy;
     use std::cell::{Cell, RefCell};
 
-    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("has-set-password", |name| {
-        glib::ParamSpec::boolean(
-            name,
-            "has set password",
-            "Has Set Password",
-            false,
-            glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
-        )
-    })];
-    #[derive(CompositeTemplate)]
+    #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/preferences.ui")]
     pub struct PreferencesWindow {
         pub settings: gio::Settings,
         pub model: OnceCell<ProvidersModel>,
@@ -52,6 +48,7 @@ mod imp {
         const NAME: &'static str = "PreferencesWindow";
         type Type = super::PreferencesWindow;
         type ParentType = adw::PreferencesWindow;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -79,15 +76,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/preferences.ui");
-            Self::bind_template_children(klass);
-            klass.install_properties(&PROPERTIES);
-            klass.add_signal(
-                "restore-completed",
-                glib::SignalFlags::ACTION,
-                &[],
-                glib::Type::Unit,
-            );
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -96,11 +85,39 @@ mod imp {
     }
 
     impl ObjectImpl for PreferencesWindow {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
+        fn properties() -> &'static [ParamSpec] {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![ParamSpec::boolean(
+                    "has-set-password",
+                    "has set password",
+                    "Has Set Password",
+                    false,
+                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                )]
+            });
+            PROPERTIES.as_ref()
+        }
 
-            match *prop {
-                subclass::Property("has-set-password", ..) => {
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![
+                    Signal::builder("restore-completed", &[], <()>::static_type())
+                        .flags(glib::SignalFlags::ACTION)
+                        .build(),
+                ]
+            });
+            SIGNALS.as_ref()
+        }
+
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "has-set-password" => {
                     let has_set_password = value
                         .get()
                         .expect("type conformity checked by `Object::set_property`")
@@ -111,13 +128,9 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-
-            match *prop {
-                subclass::Property("has-set-password", ..) => {
-                    self.has_set_password.get().to_value()
-                }
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
             }
         }

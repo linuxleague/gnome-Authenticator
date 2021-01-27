@@ -6,19 +6,14 @@ use std::cell::RefCell;
 
 mod imp {
     use super::*;
-    use glib::subclass;
+    use glib::{
+        subclass::{self, Signal},
+        ParamSpec,
+    };
+    use once_cell::sync::Lazy;
 
-    static PROPERTIES: [subclass::Property; 1] = [subclass::Property("account", |name| {
-        glib::ParamSpec::object(
-            name,
-            "Account",
-            "The account",
-            Account::static_type(),
-            glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
-        )
-    })];
-
-    #[derive(CompositeTemplate)]
+    #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/account_row.ui")]
     pub struct AccountRow {
         pub account: RefCell<Option<Account>>,
         pub actions: gio::SimpleActionGroup,
@@ -38,6 +33,7 @@ mod imp {
         const NAME: &'static str = "AccountRow";
         type Type = super::AccountRow;
         type ParentType = gtk::ListBoxRow;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -58,11 +54,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/account_row.ui");
-            Self::bind_template_children(klass);
-            klass.install_properties(&PROPERTIES);
-            klass.add_signal("removed", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
-            klass.add_signal("shared", glib::SignalFlags::ACTION, &[], glib::Type::Unit);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
@@ -71,11 +63,41 @@ mod imp {
     }
 
     impl ObjectImpl for AccountRow {
-        fn set_property(&self, _obj: &Self::Type, id: usize, value: &glib::Value) {
-            let prop = &PROPERTIES[id];
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![
+                    Signal::builder("removed", &[], <()>::static_type())
+                        .flags(glib::SignalFlags::ACTION)
+                        .build(),
+                    Signal::builder("shared", &[], <()>::static_type())
+                        .flags(glib::SignalFlags::ACTION)
+                        .build(),
+                ]
+            });
+            SIGNALS.as_ref()
+        }
 
-            match *prop {
-                subclass::Property("account", ..) => {
+        fn properties() -> &'static [ParamSpec] {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
+                vec![ParamSpec::object(
+                    "account",
+                    "Account",
+                    "The account",
+                    Account::static_type(),
+                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
+                )]
+            });
+            PROPERTIES.as_ref()
+        }
+        fn set_property(
+            &self,
+            _obj: &Self::Type,
+            _id: usize,
+            value: &glib::Value,
+            pspec: &ParamSpec,
+        ) {
+            match pspec.get_name() {
+                "account" => {
                     let account = value.get().unwrap();
                     self.account.replace(account);
                 }
@@ -83,10 +105,9 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, id: usize) -> glib::Value {
-            let prop = &PROPERTIES[id];
-            match *prop {
-                subclass::Property("account", ..) => self.account.borrow().to_value(),
+        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.get_name() {
+                "account" => self.account.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }

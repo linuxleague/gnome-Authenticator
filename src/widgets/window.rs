@@ -26,6 +26,7 @@ mod imp {
     use glib::subclass;
 
     #[derive(Debug, CompositeTemplate)]
+    #[template(resource = "/com/belmoussaoui/Authenticator/window.ui")]
     pub struct Window {
         pub settings: gio::Settings,
         pub providers: ProvidersList,
@@ -52,6 +53,7 @@ mod imp {
         const NAME: &'static str = "Window";
         type Type = super::Window;
         type ParentType = adw::ApplicationWindow;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
@@ -75,10 +77,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            AccountDetailsPage::static_type();
-            ErrorRevealer::static_type();
-            klass.set_template_from_resource("/com/belmoussaoui/Authenticator/window.ui");
-            Self::bind_template_children(klass);
+            Self::bind_template(klass);
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {

@@ -13,6 +13,7 @@ mod imp {
         const NAME: &'static str = "ProviderSorter";
         type Type = super::ProviderSorter;
         type ParentType = gtk::Sorter;
+        type Interfaces = ();
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
