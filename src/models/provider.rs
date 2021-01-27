@@ -3,7 +3,7 @@ use super::{
     CLIENT,
 };
 use crate::{
-    models::{database, Account, AccountsModel, FaviconError, FaviconScrapper},
+    models::{database, otp, Account, AccountsModel, FaviconError, FaviconScrapper},
     schema::providers,
 };
 use anyhow::Result;
@@ -53,13 +53,13 @@ mod imp {
     use glib::{subclass, ParamSpec};
 
     pub struct Provider {
-        pub id: Cell<i32>,
+        pub id: Cell<u32>,
         pub name: RefCell<String>,
-        pub period: Cell<i32>,
+        pub period: Cell<u32>,
         pub method: RefCell<String>,
-        pub default_counter: Cell<i32>,
+        pub default_counter: Cell<u32>,
         pub algorithm: RefCell<String>,
-        pub digits: Cell<i32>,
+        pub digits: Cell<u32>,
         pub website: RefCell<Option<String>>,
         pub help_url: RefCell<Option<String>>,
         pub image_uri: RefCell<Option<String>>,
@@ -80,15 +80,15 @@ mod imp {
             let model = AccountsModel::new();
             Self {
                 id: Cell::new(0),
-                default_counter: Cell::new(1),
+                default_counter: Cell::new(otp::HOTP_DEFAULT_COUNTER),
                 algorithm: RefCell::new(Algorithm::default().to_string()),
-                digits: Cell::new(6),
+                digits: Cell::new(otp::DEFAULT_DIGITS),
                 name: RefCell::new("".to_string()),
                 website: RefCell::new(None),
                 help_url: RefCell::new(None),
                 image_uri: RefCell::new(None),
                 method: RefCell::new(OTPMethod::default().to_string()),
-                period: Cell::new(30),
+                period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
                 filter_model: gtk::FilterListModel::new(Some(&model), gtk::NONE_FILTER),
                 accounts: model,
             }
@@ -117,31 +117,31 @@ mod imp {
                         AccountsModel::static_type(),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::int(
+                    ParamSpec::uint(
                         "period",
                         "period",
                         "Period",
                         0,
                         1000,
-                        30,
+                        otp::TOTP_DEFAULT_PERIOD,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::int(
+                    ParamSpec::uint(
                         "digits",
                         "digits",
                         "Digits",
                         0,
                         1000,
-                        6,
+                        otp::DEFAULT_DIGITS,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::int(
+                    ParamSpec::uint(
                         "default-counter",
                         "default_counter",
                         "default_counter",
                         0,
-                        i32::MAX,
-                        1,
+                        u32::MAX,
+                        otp::HOTP_DEFAULT_COUNTER,
                         glib::ParamFlags::READWRITE,
                     ),
                     ParamSpec::string(
@@ -262,12 +262,12 @@ glib::wrapper! {
 impl Provider {
     pub fn create(
         name: &str,
-        period: i32,
+        period: u32,
         algorithm: Algorithm,
         website: Option<String>,
         method: OTPMethod,
-        digits: i32,
-        default_counter: i32,
+        digits: u32,
+        default_counter: u32,
     ) -> Result<Self> {
         let db = database::connection();
         let conn = db.get()?;
@@ -275,12 +275,12 @@ impl Provider {
         diesel::insert_into(providers::table)
             .values(NewProvider {
                 name: name.to_string(),
-                period,
+                period: period as i32,
                 method: method.to_string(),
                 website,
                 algorithm: algorithm.to_string(),
-                digits,
-                default_counter,
+                digits: digits as i32,
+                default_counter: default_counter as i32,
                 help_url: None,
                 image_uri: None,
             })
@@ -368,7 +368,7 @@ impl Provider {
         Err(Box::new(FaviconError::NoResults))
     }
 
-    pub fn id(&self) -> i32 {
+    pub fn id(&self) -> u32 {
         let self_ = imp::Provider::from_instance(self);
         self_.id.get()
     }
@@ -378,17 +378,17 @@ impl Provider {
         self_.name.borrow().clone()
     }
 
-    pub fn digits(&self) -> i32 {
+    pub fn digits(&self) -> u32 {
         let self_ = imp::Provider::from_instance(self);
         self_.digits.get()
     }
 
-    pub fn default_counter(&self) -> i32 {
+    pub fn default_counter(&self) -> u32 {
         let self_ = imp::Provider::from_instance(self);
         self_.default_counter.get()
     }
 
-    pub fn period(&self) -> i32 {
+    pub fn period(&self) -> u32 {
         let self_ = imp::Provider::from_instance(self);
         self_.period.get()
     }
@@ -417,7 +417,7 @@ impl Provider {
         let db = database::connection();
         let conn = db.get()?;
 
-        let target = providers::table.filter(providers::columns::id.eq(self.id()));
+        let target = providers::table.filter(providers::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set(providers::columns::image_uri.eq(uri))
             .execute(&conn)?;
@@ -504,13 +504,13 @@ impl From<DiProvider> for Provider {
 impl From<&Provider> for DiProvider {
     fn from(p: &Provider) -> Self {
         Self {
-            id: p.id(),
+            id: p.id() as i32,
             name: p.name(),
-            period: p.period(),
+            period: p.period() as i32,
             method: p.method().to_string(),
             algorithm: p.algorithm().to_string(),
-            digits: p.digits(),
-            default_counter: p.default_counter(),
+            digits: p.digits() as i32,
+            default_counter: p.default_counter() as i32,
             website: p.website(),
             help_url: p.help_url(),
             image_uri: p.image_uri(),

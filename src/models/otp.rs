@@ -4,9 +4,12 @@ use data_encoding::BASE32;
 use ring::hmac;
 use std::convert::TryInto;
 
-static STEAM_CHARS: &str = "23456789BCDFGHJKMNPQRTVWXY";
-static STEAM_DEFAULT_COUNTER: u64 = 30;
-static STEAM_DEFAULT_DIGITS: u32 = 5;
+pub static STEAM_CHARS: &str = "23456789BCDFGHJKMNPQRTVWXY";
+pub static STEAM_DEFAULT_COUNTER: u32 = 30;
+pub static STEAM_DEFAULT_DIGITS: u32 = 5;
+pub static HOTP_DEFAULT_COUNTER: u32 = 1;
+pub static DEFAULT_DIGITS: u32 = 6;
+pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 
 /// Code graciously taken from the rust-top crate.
 /// https://github.com/TimDumol/rust-otp/blob/master/src/lib.rs
@@ -54,7 +57,7 @@ pub(crate) fn hotp(
 pub(crate) fn steam(secret: &str) -> Result<String> {
     let mut token = hotp(
         secret,
-        STEAM_DEFAULT_COUNTER,
+        STEAM_DEFAULT_COUNTER as u64,
         Algorithm::SHA1.into(),
         STEAM_DEFAULT_DIGITS,
     )?;
@@ -80,22 +83,21 @@ pub(crate) fn format(code: u32, digits: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{format, hmac, hotp};
+    use super::{format, hmac, hotp, DEFAULT_DIGITS};
 
     #[test]
     fn test_htop() {
         let algorithm = hmac::HMAC_SHA1_FOR_LEGACY_USE_ONLY;
-        let digits: u32 = 6;
         assert_eq!(
-            hotp("BASE32SECRET3232", 0, algorithm, digits).unwrap(),
+            hotp("BASE32SECRET3232", 0, algorithm, DEFAULT_DIGITS).unwrap(),
             260182
         );
         assert_eq!(
-            hotp("BASE32SECRET3232", 1, algorithm, digits).unwrap(),
+            hotp("BASE32SECRET3232", 1, algorithm, DEFAULT_DIGITS).unwrap(),
             55283
         );
         assert_eq!(
-            hotp("BASE32SECRET3232", 1401, algorithm, digits).unwrap(),
+            hotp("BASE32SECRET3232", 1401, algorithm, DEFAULT_DIGITS).unwrap(),
             316439
         );
     }

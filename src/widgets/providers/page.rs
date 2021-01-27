@@ -1,5 +1,5 @@
 use crate::{
-    models::{Algorithm, OTPMethod, Provider},
+    models::{otp, Algorithm, OTPMethod, Provider},
     widgets::ProviderImage,
 };
 use adw::ComboRowExt;
@@ -185,7 +185,9 @@ impl ProviderPage {
             ProviderPageMode::Create => {
                 self_.title.set_label(&gettext("New Provider"));
                 self_.name_entry.set_text("");
-                self_.period_spinbutton.set_value(30_f64);
+                self_
+                    .period_spinbutton
+                    .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
                 self_.provider_website_entry.set_text("");
                 self_.provider_help_entry.set_text("");
 

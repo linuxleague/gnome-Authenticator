@@ -1,5 +1,5 @@
 use super::Restorable;
-use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
+use crate::models::{otp, Account, Algorithm, OTPMethod, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -10,14 +10,14 @@ use serde::{Deserialize, Serialize};
 pub struct LegacyAuthenticator {
     pub secret: String,
     pub label: String,
-    pub digits: i32,
+    pub digits: u32,
     #[serde(rename = "type")]
     pub method: OTPMethod,
     pub algorithm: Algorithm,
     pub thumbnail: String,
     pub last_used: i64,
     pub tags: Vec<String>,
-    pub period: i32,
+    pub period: u32,
 }
 
 impl Restorable for LegacyAuthenticator {
@@ -55,7 +55,7 @@ impl Restorable for LegacyAuthenticator {
             None,
             item.algorithm,
             item.digits,
-            1,
+            otp::HOTP_DEFAULT_COUNTER,
         )?;
         let account = Account::create(&item.label, &item.secret, &provider)?;
         provider.add_account(&account);

@@ -58,12 +58,12 @@ impl ProvidersModel {
     pub fn find_or_create(
         &self,
         name: &str,
-        period: i32,
+        period: u32,
         method: OTPMethod,
         website: Option<String>,
         algorithm: Algorithm,
-        digits: i32,
-        default_counter: i32,
+        digits: u32,
+        default_counter: u32,
     ) -> Result<Provider> {
         let provider = match self.find_by_name(name) {
             Some(p) => p,
@@ -95,7 +95,7 @@ impl ProvidersModel {
         None
     }
 
-    pub fn find_by_id(&self, id: i32) -> Option<Provider> {
+    pub fn find_by_id(&self, id: u32) -> Option<Provider> {
         for pos in 0..self.get_n_items() {
             let obj = self.get_object(pos)?;
             let provider = obj.downcast::<Provider>().unwrap();
@@ -120,7 +120,7 @@ impl ProvidersModel {
     }
 
     pub fn completion_model(&self) -> gtk::ListStore {
-        let store = gtk::ListStore::new(&[i32::static_type(), String::static_type()]);
+        let store = gtk::ListStore::new(&[u32::static_type(), String::static_type()]);
         for pos in 0..self.get_n_items() {
             let obj = self.get_object(pos).unwrap();
             let provider = obj.downcast_ref::<Provider>().unwrap();

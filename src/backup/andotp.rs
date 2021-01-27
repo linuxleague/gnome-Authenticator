@@ -1,5 +1,5 @@
 use super::{Backupable, Restorable};
-use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
+use crate::models::{otp, Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
@@ -10,16 +10,16 @@ pub struct AndOTP {
     pub secret: String,
     pub issuer: String,
     pub label: String,
-    pub digits: i32,
+    pub digits: u32,
     #[serde(rename = "type")]
     pub method: OTPMethod,
     pub algorithm: Algorithm,
     pub thumbnail: String,
     pub last_used: i64,
     pub used_frequency: i32,
-    pub counter: Option<i32>,
+    pub counter: Option<u32>,
     pub tags: Vec<String>,
-    pub period: Option<i32>,
+    pub period: Option<u32>,
 }
 
 impl Backupable for AndOTP {
@@ -113,12 +113,12 @@ impl Restorable for AndOTP {
 
         let provider = model.find_or_create(
             &item.issuer,
-            item.period.unwrap_or(30),
+            item.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD),
             item.method,
             None,
             item.algorithm,
             item.digits,
-            item.counter.unwrap_or(1),
+            item.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER),
         )?;
 
         let account = Account::create(&item.label, &item.secret, &provider)?;

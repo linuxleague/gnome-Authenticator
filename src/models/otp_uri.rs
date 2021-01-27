@@ -1,4 +1,4 @@
-use crate::models::{Account, Algorithm, OTPMethod};
+use crate::models::{otp, Account, Algorithm, OTPMethod};
 use percent_encoding::percent_decode_str;
 use std::str::FromStr;
 
@@ -9,9 +9,9 @@ pub struct OTPUri {
     pub secret: String,
     pub issuer: String,
     pub method: OTPMethod,
-    pub digits: Option<i32>,
-    pub period: Option<i32>,
-    pub counter: Option<i32>,
+    pub digits: Option<u32>,
+    pub period: Option<u32>,
+    pub counter: Option<u32>,
 }
 
 impl FromStr for OTPUri {
@@ -48,13 +48,13 @@ impl FromStr for OTPUri {
 
         pairs.for_each(|(key, value)| match key.into_owned().as_str() {
             "period" => {
-                period = value.parse::<i32>().ok();
+                period = value.parse::<u32>().ok();
             }
             "digits" => {
-                digits = value.parse::<i32>().ok();
+                digits = value.parse::<u32>().ok();
             }
             "counter" => {
-                counter = value.parse::<i32>().ok();
+                counter = value.parse::<u32>().ok();
             }
             "issuer" => {
                 provider_name = Some(value.to_string());
@@ -106,9 +106,15 @@ impl Into<String> for OTPUri {
             otp_uri.push_str(&format!("&digits={}", digits));
         }
         if self.method == OTPMethod::HOTP {
-            otp_uri.push_str(&format!("&counter={}", self.counter.unwrap_or(1)));
+            otp_uri.push_str(&format!(
+                "&counter={}",
+                self.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER)
+            ));
         } else {
-            otp_uri.push_str(&format!("&period={}", self.period.unwrap_or(30)));
+            otp_uri.push_str(&format!(
+                "&period={}",
+                self.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD)
+            ));
         }
         otp_uri
     }

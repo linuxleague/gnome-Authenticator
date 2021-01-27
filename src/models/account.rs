@@ -45,10 +45,10 @@ mod imp {
     use glib::{subclass, ParamSpec};
 
     pub struct Account {
-        pub id: Cell<i32>,
+        pub id: Cell<u32>,
         pub otp: RefCell<String>,
         pub name: RefCell<String>,
-        pub counter: Cell<i32>,
+        pub counter: Cell<u32>,
         pub token: OnceCell<String>,
         pub token_id: RefCell<String>,
         pub provider: RefCell<Option<Provider>>,
@@ -67,7 +67,7 @@ mod imp {
         fn new() -> Self {
             Self {
                 id: Cell::new(0),
-                counter: Cell::new(1),
+                counter: Cell::new(otp::HOTP_DEFAULT_COUNTER),
                 name: RefCell::new("".to_string()),
                 otp: RefCell::new("".to_string()),
                 token_id: RefCell::new("".to_string()),
@@ -193,8 +193,8 @@ impl Account {
             .values(NewAccount {
                 name: name.to_string(),
                 token_id,
-                provider_id: provider.id(),
-                counter: provider.default_counter(),
+                provider_id: provider.id() as i32,
+                counter: provider.default_counter() as i32,
             })
             .execute(&conn)?;
 
@@ -312,9 +312,9 @@ impl Account {
         let db = database::connection();
         let conn = db.get()?;
 
-        let target = accounts::table.filter(accounts::columns::id.eq(self.id()));
+        let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
         diesel::update(target)
-            .set(accounts::columns::counter.eq(new_value))
+            .set(accounts::columns::counter.eq(new_value as i32))
             .execute(&conn)?;
         Ok(())
     }
@@ -331,7 +331,7 @@ impl Account {
         }
     }
 
-    pub fn id(&self) -> i32 {
+    pub fn id(&self) -> u32 {
         let self_ = imp::Account::from_instance(self);
         self_.id.get()
     }
@@ -341,7 +341,7 @@ impl Account {
         provider.get::<Provider>().unwrap().unwrap()
     }
 
-    pub fn counter(&self) -> i32 {
+    pub fn counter(&self) -> u32 {
         let self_ = imp::Account::from_instance(self);
         self_.counter.get()
     }
@@ -374,7 +374,7 @@ impl Account {
         let db = database::connection();
         let conn = db.get()?;
 
-        let target = accounts::table.filter(accounts::columns::id.eq(self.id()));
+        let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set(accounts::columns::name.eq(name))
             .execute(&conn)?;
@@ -389,7 +389,7 @@ impl Account {
         }
         let db = database::connection();
         let conn = db.get()?;
-        diesel::delete(accounts::table.filter(accounts::columns::id.eq(&self.id())))
+        diesel::delete(accounts::table.filter(accounts::columns::id.eq(self.id() as i32)))
             .execute(&conn)?;
         Ok(())
     }

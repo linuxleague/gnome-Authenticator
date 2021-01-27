@@ -1,7 +1,6 @@
 const REVEAL_TIME_SECS: u32 = 2;
 
-use gtk::subclass::prelude::*;
-use gtk::{glib, prelude::*};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use glib::SourceId;

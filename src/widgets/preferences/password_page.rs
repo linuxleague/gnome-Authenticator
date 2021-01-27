@@ -1,5 +1,4 @@
-use crate::widgets::ErrorRevealer;
-use crate::{config, models::Keyring};
+use crate::{config, models::Keyring, widgets::ErrorRevealer};
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};

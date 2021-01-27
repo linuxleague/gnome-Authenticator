@@ -67,7 +67,7 @@ impl AccountsModel {
         self.items_changed(pos, 1, 0);
     }
 
-    pub fn find_by_id(&self, id: i32) -> Option<u32> {
+    pub fn find_by_id(&self, id: u32) -> Option<u32> {
         for pos in 0..self.get_n_items() {
             let obj = self.get_object(pos)?;
             let account = obj.downcast::<Account>().unwrap();
