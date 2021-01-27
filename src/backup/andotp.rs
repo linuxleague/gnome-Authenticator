@@ -1,5 +1,5 @@
 use super::{Backupable, Restorable};
-use crate::models::{otp, Account, Algorithm, OTPMethod, Provider, ProvidersModel};
+use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
@@ -113,12 +113,12 @@ impl Restorable for AndOTP {
 
         let provider = model.find_or_create(
             &item.issuer,
-            item.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD),
+            item.period,
             item.method,
             None,
             item.algorithm,
-            item.digits,
-            item.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER),
+            Some(item.digits),
+            item.counter,
         )?;
 
         let account = Account::create(&item.label, &item.secret, &provider)?;

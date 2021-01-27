@@ -1,5 +1,5 @@
 use crate::{
-    models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
+    models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel},
     widgets::{Camera, ProviderImage, UrlRow},
 };
 use anyhow::Result;
@@ -176,12 +176,12 @@ impl AccountAddDialog {
             .unwrap()
             .find_or_create(
                 &otp_uri.issuer,
-                otp_uri.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD),
+                otp_uri.period,
                 otp_uri.method,
                 None,
                 otp_uri.algorithm,
-                otp_uri.digits.unwrap_or(otp::DEFAULT_DIGITS),
-                otp_uri.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER),
+                otp_uri.digits,
+                otp_uri.counter,
             )
             .unwrap();
 

@@ -1,5 +1,5 @@
 use super::{Backupable, Restorable};
-use crate::models::{otp, Account, OTPUri, Provider, ProvidersModel};
+use crate::models::{Account, OTPUri, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -85,12 +85,12 @@ impl Restorable for FreeOTP {
     fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
         let provider = model.find_or_create(
             &item.issuer,
-            item.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD),
+            item.period,
             item.method,
             None,
             item.algorithm,
-            item.digits.unwrap_or(otp::DEFAULT_DIGITS),
-            item.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER),
+            item.digits,
+            item.counter,
         )?;
 
         let account = Account::create(&item.label, &item.secret, &provider)?;

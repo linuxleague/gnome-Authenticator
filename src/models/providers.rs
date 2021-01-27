@@ -1,4 +1,4 @@
-use super::{Account, Algorithm, OTPMethod, Provider};
+use super::{otp, Account, Algorithm, OTPMethod, Provider};
 use anyhow::Result;
 use glib::StaticType;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -58,24 +58,24 @@ impl ProvidersModel {
     pub fn find_or_create(
         &self,
         name: &str,
-        period: u32,
+        period: Option<u32>,
         method: OTPMethod,
         website: Option<String>,
         algorithm: Algorithm,
-        digits: u32,
-        default_counter: u32,
+        digits: Option<u32>,
+        default_counter: Option<u32>,
     ) -> Result<Provider> {
         let provider = match self.find_by_name(name) {
             Some(p) => p,
             None => {
                 let p = Provider::create(
                     name,
-                    period,
+                    period.unwrap_or(otp::TOTP_DEFAULT_PERIOD),
                     algorithm,
                     website,
                     method,
-                    digits,
-                    default_counter,
+                    digits.unwrap_or(otp::DEFAULT_DIGITS),
+                    default_counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER),
                 )?;
                 self.add_provider(&p);
                 p

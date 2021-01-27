@@ -1,5 +1,5 @@
 use super::Restorable;
-use crate::models::{otp, Account, Algorithm, OTPMethod, ProvidersModel};
+use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -50,12 +50,12 @@ impl Restorable for LegacyAuthenticator {
 
         let provider = model.find_or_create(
             &issuer,
-            item.period,
+            Some(item.period),
             item.method,
             None,
             item.algorithm,
-            item.digits,
-            otp::HOTP_DEFAULT_COUNTER,
+            Some(item.digits),
+            None,
         )?;
         let account = Account::create(&item.label, &item.secret, &provider)?;
         provider.add_account(&account);
