@@ -23,6 +23,8 @@ mod imp {
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
+        #[template_child]
+        pub stack: TemplateChild<gtk::Stack>,
     }
 
     impl ObjectSubclass for ProvidersDialog {
@@ -45,6 +47,7 @@ mod imp {
                 page: ProviderPage::new(),
                 actions: gio::SimpleActionGroup::new(),
                 filter_model,
+                stack: TemplateChild::default(),
             }
         }
 
@@ -85,6 +88,17 @@ impl ProvidersDialog {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
         self_.filter_model.set_model(Some(&model));
+
+        let stack = &*self_.stack;
+        self_
+            .filter_model
+            .connect_items_changed(clone!(@weak stack => move |model, _, _, _| {
+                if model.get_n_items() == 0 {
+                    stack.set_visible_child_name("no-results");
+                } else {
+                    stack.set_visible_child_name("results");
+                }
+            }));
 
         self_
             .search_entry

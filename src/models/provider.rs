@@ -100,12 +100,12 @@ mod imp {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::int(
+                    ParamSpec::uint(
                         "id",
                         "id",
                         "Id",
                         0,
-                        i32::MAX,
+                        u32::MAX,
                         0,
                         glib::ParamFlags::READWRITE,
                     ),
@@ -319,13 +319,13 @@ impl Provider {
 
     #[allow(clippy::too_many_arguments)]
     pub fn new(
-        id: i32,
+        id: u32,
         name: &str,
-        period: i32,
+        period: u32,
         method: OTPMethod,
         algorithm: Algorithm,
-        digits: i32,
-        default_counter: i32,
+        digits: u32,
+        default_counter: u32,
         website: Option<String>,
         help_url: Option<String>,
         image_uri: Option<String>,
@@ -487,13 +487,13 @@ impl Provider {
 impl From<DiProvider> for Provider {
     fn from(p: DiProvider) -> Self {
         Self::new(
-            p.id,
+            p.id as u32,
             &p.name,
-            p.period,
+            p.period as u32,
             OTPMethod::from_str(&p.method).unwrap(),
             Algorithm::from_str(&p.algorithm).unwrap(),
-            p.digits,
-            p.default_counter,
+            p.digits as u32,
+            p.default_counter as u32,
             p.website,
             p.help_url,
             p.image_uri,

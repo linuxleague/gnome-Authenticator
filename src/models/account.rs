@@ -83,22 +83,22 @@ mod imp {
 
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::int(
+                    ParamSpec::uint(
                         "id",
                         "id",
                         "Id",
                         0,
-                        i32::MAX,
+                        u32::MAX,
                         0,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::int(
+                    ParamSpec::uint(
                         "counter",
                         "counter",
                         "Counter",
                         0,
-                        i32::MAX,
-                        0,
+                        u32::MAX,
+                        otp::HOTP_DEFAULT_COUNTER,
                         glib::ParamFlags::READWRITE,
                     ),
                     ParamSpec::string("name", "name", "Name", None, glib::ParamFlags::READWRITE),
@@ -204,10 +204,10 @@ impl Account {
             .map_err(From::from)
             .map(|account| {
                 Self::new(
-                    account.id,
+                    account.id as u32,
                     &account.name,
                     &account.token_id,
-                    account.counter,
+                    account.counter as u32,
                     provider.clone(),
                 )
             })
@@ -223,10 +223,10 @@ impl Account {
             .into_iter()
             .map(clone!(@weak p => move |account| {
                 Self::new(
-                    account.id,
+                    account.id  as u32,
                     &account.name,
                     &account.token_id,
-                    account.counter,
+                    account.counter as u32,
                     p,
                 )
             }));
@@ -241,7 +241,7 @@ impl Account {
         UniCase::new(account1.name()).cmp(&UniCase::new(account2.name()))
     }
 
-    pub fn new(id: i32, name: &str, token_id: &str, counter: i32, provider: Provider) -> Account {
+    pub fn new(id: u32, name: &str, token_id: &str, counter: u32, provider: Provider) -> Account {
         let account = glib::Object::new(&[
             ("id", &id),
             ("name", &name),
