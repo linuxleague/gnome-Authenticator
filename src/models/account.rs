@@ -209,6 +209,7 @@ impl Account {
                     &account.token_id,
                     account.counter as u32,
                     provider.clone(),
+                    Some(token),
                 )
             })
     }
@@ -228,6 +229,7 @@ impl Account {
                     &account.token_id,
                     account.counter as u32,
                     p,
+                    None,
                 )
             }));
 
@@ -241,7 +243,14 @@ impl Account {
         UniCase::new(account1.name()).cmp(&UniCase::new(account2.name()))
     }
 
-    pub fn new(id: u32, name: &str, token_id: &str, counter: u32, provider: Provider) -> Account {
+    pub fn new(
+        id: u32,
+        name: &str,
+        token_id: &str,
+        counter: u32,
+        provider: Provider,
+        token: Option<&str>,
+    ) -> Account {
         let account = glib::Object::new(&[
             ("id", &id),
             ("name", &name),
@@ -251,10 +260,14 @@ impl Account {
         ])
         .expect("Failed to create account");
 
-        let token = Keyring::token(token_id).unwrap().unwrap();
+        let token = if let Some(t) = token {
+            t.to_string()
+        } else {
+            Keyring::token(token_id).unwrap().unwrap()
+        };
+
         let self_ = imp::Account::from_instance(&account);
         self_.token.set(token).unwrap();
-
         account
     }
 
@@ -384,9 +397,12 @@ impl Account {
     }
 
     pub fn delete(&self) -> Result<()> {
-        if let Err(err) = Keyring::remove_token(&self.token_id()) {
-            error!("Failed to remove the token from secret service {}", err);
-        }
+        let token_id = self.token_id();
+        std::thread::spawn(move || {
+            if let Err(err) = Keyring::remove_token(&token_id) {
+                error!("Failed to remove the token from secret service {}", err);
+            }
+        });
         let db = database::connection();
         let conn = db.get()?;
         diesel::delete(accounts::table.filter(accounts::columns::id.eq(self.id() as i32)))
