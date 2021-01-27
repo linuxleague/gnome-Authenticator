@@ -1,5 +1,5 @@
-use super::Restorable;
-use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
+use super::{Restorable, RestorableItem};
+use crate::models::{Algorithm, OTPMethod};
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -40,25 +40,41 @@ impl Restorable for LegacyAuthenticator {
         let items: Vec<LegacyAuthenticator> = serde_json::de::from_slice(&data)?;
         Ok(items)
     }
+}
 
-    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
-        let issuer = item.tags.get(0).unwrap();
-        info!(
-            "Restoring account: {} - {} from LegacyAuthenticator",
-            issuer, item.label
-        );
+impl RestorableItem for LegacyAuthenticator {
+    fn account(&self) -> String {
+        self.label.clone()
+    }
 
-        let provider = model.find_or_create(
-            &issuer,
-            Some(item.period),
-            item.method,
-            None,
-            item.algorithm,
-            Some(item.digits),
-            None,
-        )?;
-        let account = Account::create(&item.label, &item.secret, &provider)?;
-        provider.add_account(&account);
-        Ok(())
+    fn issuer(&self) -> String {
+        self.tags
+            .get(0)
+            .map(|s| s.clone())
+            .unwrap_or_else(|| "Default".to_string())
+    }
+
+    fn secret(&self) -> String {
+        self.secret.clone()
+    }
+
+    fn period(&self) -> Option<u32> {
+        Some(self.period)
+    }
+
+    fn method(&self) -> OTPMethod {
+        self.method
+    }
+
+    fn algorithm(&self) -> Algorithm {
+        self.algorithm
+    }
+
+    fn digits(&self) -> Option<u32> {
+        Some(self.digits)
+    }
+
+    fn counter(&self) -> Option<u32> {
+        None
     }
 }

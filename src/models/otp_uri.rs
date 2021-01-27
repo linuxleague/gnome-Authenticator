@@ -1,4 +1,7 @@
-use crate::models::{otp, Account, Algorithm, OTPMethod};
+use crate::{
+    backup::RestorableItem,
+    models::{otp, Account, Algorithm, OTPMethod},
+};
 use percent_encoding::percent_decode_str;
 use std::str::FromStr;
 
@@ -12,6 +15,40 @@ pub struct OTPUri {
     pub digits: Option<u32>,
     pub period: Option<u32>,
     pub counter: Option<u32>,
+}
+
+impl RestorableItem for OTPUri {
+    fn account(&self) -> String {
+        self.label.clone()
+    }
+
+    fn issuer(&self) -> String {
+        self.issuer.clone()
+    }
+
+    fn secret(&self) -> String {
+        self.secret.clone()
+    }
+
+    fn period(&self) -> Option<u32> {
+        self.period
+    }
+
+    fn method(&self) -> OTPMethod {
+        self.method
+    }
+
+    fn algorithm(&self) -> Algorithm {
+        self.algorithm
+    }
+
+    fn digits(&self) -> Option<u32> {
+        self.digits
+    }
+
+    fn counter(&self) -> Option<u32> {
+        self.counter
+    }
 }
 
 impl FromStr for OTPUri {

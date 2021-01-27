@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Bitwarden;
-
+/*
 impl Restorable for Bitwarden {
     type Item = Self;
 
@@ -29,4 +29,4 @@ impl Restorable for Bitwarden {
     fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
         Ok(())
     }
-}
+} */

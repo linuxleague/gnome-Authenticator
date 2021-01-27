@@ -1,6 +1,8 @@
 use super::password_page::PasswordPage;
 use crate::{
-    backup::{AndOTP, Backupable, Bitwarden, FreeOTP, LegacyAuthenticator, Operation, Restorable},
+    backup::{
+        AndOTP, Backupable, FreeOTP, LegacyAuthenticator, Operation, Restorable, RestorableItem,
+    },
     config,
     models::ProvidersModel,
 };
@@ -195,7 +197,7 @@ impl PreferencesWindow {
 
         self.register_restore::<FreeOTP>(&["text/plain"]);
         self.register_restore::<AndOTP>(&["application/json"]);
-        self.register_restore::<Bitwarden>(&["application/json"]);
+        //self.register_restore::<Bitwarden>(&["application/json"]);
         self.register_restore::<LegacyAuthenticator>(&["application/json"]);
     }
 
@@ -247,7 +249,7 @@ impl PreferencesWindow {
                 dialog.connect_response(clone!(@weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
                         let items: Vec<T::Item> = T::restore(&d.get_file().unwrap()).unwrap();
-                        //win.restore_items(items);
+                        win.restore_items::<T, T::Item>(items);
                     }
                     d.destroy();
                 }));
@@ -257,8 +259,16 @@ impl PreferencesWindow {
         self_.restore_group.add(&row);
     }
 
-    fn restore_items<T: Restorable>(&self, items: Vec<T::Item>) -> Result<()> {
-        println!("{:#?}", items);
+    fn restore_items<T: Restorable<Item = Q>, Q: RestorableItem>(
+        &self,
+        items: Vec<Q>,
+    ) -> Result<()> {
+        let self_ = imp::PreferencesWindow::from_instance(self);
+        let model = self_.model.get().unwrap();
+        items.iter().for_each(move |item| {
+            T::restore_item(item, model);
+        });
+        self.emit("restore-completed", &[]).unwrap();
         Ok(())
     }
 

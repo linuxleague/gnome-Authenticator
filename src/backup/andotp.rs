@@ -1,4 +1,4 @@
-use super::{Backupable, Restorable};
+use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
@@ -20,6 +20,40 @@ pub struct AndOTP {
     pub counter: Option<u32>,
     pub tags: Vec<String>,
     pub period: Option<u32>,
+}
+
+impl RestorableItem for AndOTP {
+    fn account(&self) -> String {
+        self.label.clone()
+    }
+
+    fn issuer(&self) -> String {
+        self.issuer.clone()
+    }
+
+    fn secret(&self) -> String {
+        self.secret.clone()
+    }
+
+    fn period(&self) -> Option<u32> {
+        self.period
+    }
+
+    fn method(&self) -> OTPMethod {
+        self.method
+    }
+
+    fn algorithm(&self) -> Algorithm {
+        self.algorithm
+    }
+
+    fn digits(&self) -> Option<u32> {
+        Some(self.digits)
+    }
+
+    fn counter(&self) -> Option<u32> {
+        self.counter
+    }
 }
 
 impl Backupable for AndOTP {
@@ -103,26 +137,5 @@ impl Restorable for AndOTP {
 
         let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;
         Ok(items)
-    }
-
-    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
-        info!(
-            "Restoring account: {} - {} from AndOTP",
-            item.issuer, item.label
-        );
-
-        let provider = model.find_or_create(
-            &item.issuer,
-            item.period,
-            item.method,
-            None,
-            item.algorithm,
-            Some(item.digits),
-            item.counter,
-        )?;
-
-        let account = Account::create(&item.label, &item.secret, &provider)?;
-        provider.add_account(&account);
-        Ok(())
     }
 }

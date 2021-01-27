@@ -81,20 +81,4 @@ impl Restorable for FreeOTP {
             .collect::<Vec<OTPUri>>();
         Ok(items)
     }
-
-    fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
-        let provider = model.find_or_create(
-            &item.issuer,
-            item.period,
-            item.method,
-            None,
-            item.algorithm,
-            item.digits,
-            item.counter,
-        )?;
-
-        let account = Account::create(&item.label, &item.secret, &provider)?;
-        provider.add_account(&account);
-        Ok(())
-    }
 }
