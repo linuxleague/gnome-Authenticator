@@ -71,6 +71,7 @@
                         </child>
                         <child>
                           <object class="AdwStatusPage" id="empty_status_page">
+                            <property name="vexpand">True</property>
                             <property name="title" translatable="yes">There are no accounts currently</property>
                             <property name="description" translatable="yes">Add an account or scan a QR code first</property>
                           </object>

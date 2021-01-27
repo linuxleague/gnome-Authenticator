@@ -24,6 +24,7 @@
             <property name="name">not-found</property>
             <property name="child">
               <object class="AdwStatusPage">
+                <property name="vexpand">True</property>
                 <property name="icon-name">camera-hardware-disabled-symbolic</property>
                 <property name="title" translatable="yes">No Camera Found</property>
                 <property name="child">
