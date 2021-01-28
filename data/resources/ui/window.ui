@@ -32,6 +32,12 @@
     <property name="default-width">720</property>
     <property name="default-height">600</property>
     <child>
+      <object class="GtkGestureClick" id="click_gesture" />
+    </child>
+    <child>
+      <object class="GtkEventControllerKey" id="key_gesture" />
+    </child>
+    <child>
       <object class="AdwLeaflet" id="deck">
         <property name="can-unfold">False</property>
         <property name="can-swipe-back">True</property>

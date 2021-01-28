@@ -37,6 +37,10 @@ mod imp {
         #[template_child]
         pub account_details: TemplateChild<AccountDetailsPage>,
         #[template_child]
+        pub click_gesture: TemplateChild<gtk::GestureClick>,
+        #[template_child]
+        pub key_gesture: TemplateChild<gtk::EventControllerKey>,
+        #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
         pub deck: TemplateChild<adw::Leaflet>,
@@ -72,6 +76,8 @@ mod imp {
                 model: OnceCell::new(),
                 account_details: TemplateChild::default(),
                 search_entry: TemplateChild::default(),
+                click_gesture: TemplateChild::default(),
+                key_gesture: TemplateChild::default(),
                 deck: TemplateChild::default(),
                 error_revealer: TemplateChild::default(),
                 empty_status_page: TemplateChild::default(),
@@ -326,6 +332,20 @@ impl Window {
             .password_entry
             .connect_activate(clone!(@weak self as win => move |_| {
                 win.activate_action("unlock", None);
+            }));
+
+        // On each click or key pressed we restart the timeout.
+        self_
+            .click_gesture
+            .connect_pressed(clone!(@weak app => move |_, _, _, _| {
+                app.restart_lock_timeout();
+            }));
+
+        self_
+            .key_gesture
+            .connect_key_pressed(clone!(@weak app => move |_, _, _, _| {
+                app.restart_lock_timeout();
+                Inhibit(false)
             }));
     }
 }
