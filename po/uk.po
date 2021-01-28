@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-23 22:43+0000\n"
-"PO-Revision-Date: 2021-01-24 09:35+0200\n"
+"POT-Creation-Date: 2021-01-27 21:39+0000\n"
+"PO-Revision-Date: 2021-01-28 10:21+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:147
+#: src/application.rs:153
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -30,7 +30,7 @@ msgstr "Двофакторне розпізнавання"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:150
+#: src/application.rs:156
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
@@ -215,12 +215,12 @@ msgid "Copy PIN to clipboard"
 msgstr "Копіювати пін-код до буфера обміну"
 
 #: data/resources/ui/account_row.ui:136
-#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/preferences_password_page.ui:20
 #: data/resources/ui/provider_page.ui:52
 msgid "_Save"
 msgstr "З_берегти"
 
-#: data/resources/ui/camera.ui:28
+#: data/resources/ui/camera.ui:29
 msgid "No Camera Found"
 msgstr "Не знайдено камери"
 
@@ -232,15 +232,15 @@ msgstr "З_і знімка вікна"
 msgid "Capture from a screenshot"
 msgstr "Захопити зі знімка вікна"
 
-#: data/resources/ui/preferences_password_page.ui:43
+#: data/resources/ui/preferences_password_page.ui:42
 msgid "Set up a password"
 msgstr "Встановіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:51
+#: data/resources/ui/preferences_password_page.ui:50
 msgid "By setting a password, Authenticator will from now on start locked."
 msgstr "Після встановлення пароля «Розпізнавач» запускатиметься заблокованим."
 
-#: data/resources/ui/preferences_password_page.ui:74
+#: data/resources/ui/preferences_password_page.ui:73
 msgid "Current Password"
 msgstr "Поточний пароль"
 
@@ -304,11 +304,11 @@ msgstr "Час у хвилинах"
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:96 src/widgets/preferences/window.rs:261
+#: data/resources/ui/preferences.ui:96 src/widgets/preferences/window.rs:284
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:101 src/widgets/preferences/window.rs:268
+#: data/resources/ui/preferences.ui:101 src/widgets/preferences/window.rs:291
 msgid "Restore"
 msgstr "Відновити"
 
@@ -344,17 +344,21 @@ msgstr "Як налаштувати двофакторне розпізнава�
 msgid "Providers"
 msgstr "Надавачі даних"
 
-#: data/resources/ui/providers_list.ui:44
-msgid "There are no accounts yet…"
-msgstr "Ще не створено жодного облікового запису…"
+#: data/resources/ui/providers_dialog.ui:85
+#: data/resources/ui/providers_list.ui:42
+#| msgid "No results found"
+msgid "No Results"
+msgstr "Нічого не знайдено"
 
-#: data/resources/ui/providers_list.ui:76
-msgid "Add a new account from the menu"
-msgstr "Додайте новий обліковий запис з меню"
+#: data/resources/ui/providers_dialog.ui:86
+msgid "No provider corresponding to the typed item were found"
+msgstr ""
+"Жоден із надавачів даних не відповідає введеним ключовим словам"
 
-#: data/resources/ui/providers_list.ui:102
-msgid "Scan a QR Code"
-msgstr "Сканувати QR-код"
+#: data/resources/ui/providers_list.ui:43
+msgid "No account/provider corresponding to the typed item were found"
+msgstr ""
+"Жоден із облікових записів або надавачів даних не відповідає введеним ключовим словам"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -421,39 +425,45 @@ msgstr "_Клавіатурні скорочення"
 msgid "_About Authenticator"
 msgstr "П_ро «Розпізнавач»"
 
-#: data/resources/ui/window.ui:149
+#: data/resources/ui/window.ui:75
+#| msgid "There are no accounts yet…"
+msgid "There are no accounts currently"
+msgstr "Ще не створено жодного облікового запису"
+
+#: data/resources/ui/window.ui:76
+msgid "Add an account or scan a QR code first"
+msgstr ""
+"Спочатку додайте обліковий запис або виконайте сканування QR-коду"
+
+#: data/resources/ui/window.ui:202
 msgid "Authenticator is locked"
 msgstr "«Розпізнавач» замкнено"
 
-#: data/resources/ui/window.ui:177
+#: data/resources/ui/window.ui:230
 msgid "_Unlock"
 msgstr "_Розблокувати"
 
-#: src/application.rs:154
+#: src/application.rs:160
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:32
+#: src/backup/andotp.rs:66
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:36
+#: src/backup/andotp.rs:70
 msgid "Into a plain-text JSON file"
 msgstr "До звичайного текстового файла JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:94
+#: src/backup/andotp.rs:128
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:98 src/backup/bitwarden.rs:22 src/backup/legacy.rs:35
+#: src/backup/andotp.rs:132 src/backup/legacy.rs:35
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
-
-#: src/backup/bitwarden.rs:18
-msgid "_Bitwarden"
-msgstr "_Bitwarden"
 
 #: src/backup/freeotp.rs:18
 msgid "_Authenticator"
@@ -500,18 +510,32 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/window.rs:275 src/widgets/preferences/password_page.rs:252
-#| msgid "Change Password"
+#: src/widgets/window.rs:302 src/widgets/preferences/password_page.rs:231
+#: src/widgets/preferences/password_page.rs:262
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/window.rs:264 src/widgets/preferences/window.rs:271
+#: src/widgets/preferences/window.rs:287 src/widgets/preferences/window.rs:294
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/widgets/preferences/window.rs:265 src/widgets/preferences/window.rs:272
+#: src/widgets/preferences/window.rs:288 src/widgets/preferences/window.rs:295
 msgid "Cancel"
 msgstr "Скасувати"
+
+#: src/widgets/providers/page.rs:186
+#| msgid "Provider"
+msgid "New Provider"
+msgstr "Новий надавач даних"
+
+#~ msgid "Add a new account from the menu"
+#~ msgstr "Додайте новий обліковий запис з меню"
+
+#~ msgid "Scan a QR Code"
+#~ msgstr "Сканувати QR-код"
+
+#~ msgid "_Bitwarden"
+#~ msgstr "_Bitwarden"
 
 #~| msgid "Share"
 #~ msgid "_Share"
@@ -547,9 +571,6 @@ msgstr "Скасувати"
 
 #~ msgid "Confirm New Password:"
 #~ msgstr "Підтвердження нового пароля:"
-
-#~ msgid "No results found"
-#~ msgstr "Нічого не знайдено"
 
 #~ msgid "Start in debug mode"
 #~ msgstr "Запустити в зневаджувальному режимі"
