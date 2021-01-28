@@ -2,6 +2,7 @@ use super::{ProviderPage, ProviderPageMode};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk_macros::action;
 use row::ProviderActionRow;
 
 mod imp {
@@ -150,7 +151,7 @@ impl ProvidersDialog {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
         let deck = &*self_.deck;
-        gtk_macros::action!(
+        action!(
             self_.actions,
             "back",
             clone!(@weak deck => move |_ , _| {
@@ -158,7 +159,7 @@ impl ProvidersDialog {
             })
         );
 
-        gtk_macros::action!(
+        action!(
             self_.actions,
             "add",
             clone!(@weak self as dialog => move |_, _| {

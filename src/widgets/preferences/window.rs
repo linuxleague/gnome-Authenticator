@@ -11,6 +11,7 @@ use anyhow::Result;
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk_macros::action;
 use once_cell::sync::OnceCell;
 
 mod imp {
@@ -185,6 +186,10 @@ impl PreferencesWindow {
             .settings
             .bind("auto-lock", &*self_.auto_lock, "active")
             .build();
+        self_
+            .settings
+            .bind("auto-lock-timeout", &*self_.lock_timeout, "value")
+            .build();
 
         self_
             .password_page
@@ -213,7 +218,7 @@ impl PreferencesWindow {
             .build();
 
         let model = self_.model.get().unwrap().clone();
-        gtk_macros::action!(
+        action!(
             self_.backup_actions,
             &T::identifier(),
             clone!(@weak self as win, @weak model => move |_, _| {
@@ -241,7 +246,7 @@ impl PreferencesWindow {
             .action_name(&format!("restore.{}", T::identifier()))
             .build();
 
-        gtk_macros::action!(
+        action!(
             self_.restore_actions,
             &T::identifier(),
             clone!(@weak self as win => move |_, _| {
@@ -315,14 +320,14 @@ impl PreferencesWindow {
     fn setup_actions(&self) {
         let self_ = imp::PreferencesWindow::from_instance(self);
 
-        gtk_macros::action!(
+        action!(
             self_.actions,
             "show_password_page",
             clone!(@weak self as win, @weak self_.password_page as password_page => move |_, _| {
                 win.present_subpage(&password_page);
             })
         );
-        gtk_macros::action!(
+        action!(
             self_.actions,
             "close_page",
             clone!(@weak self as win => move |_, _| {

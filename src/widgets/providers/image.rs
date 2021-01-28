@@ -1,6 +1,7 @@
 use crate::models::Provider;
 use glib::{clone, Receiver, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk_macros::{send, spawn};
 
 pub enum ImageAction {
     Ready(gio::File),
@@ -171,10 +172,10 @@ impl ProviderImage {
         self_.stack.set_visible_child_name("loading");
         self_.spinner.start();
         let p = self.provider();
-        gtk_macros::spawn!(async move {
+        spawn!(async move {
             match p.favicon().await {
-                Ok(file) => gtk_macros::send!(sender, ImageAction::Ready(file)),
-                Err(_) => gtk_macros::send!(sender, ImageAction::Failed),
+                Ok(file) => send!(sender, ImageAction::Ready(file)),
+                Err(_) => send!(sender, ImageAction::Failed),
             }
         });
     }

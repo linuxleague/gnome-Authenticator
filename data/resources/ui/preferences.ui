@@ -7,7 +7,6 @@
     <property name="page-increment">10</property>
   </object>
   <template class="PreferencesWindow" parent="AdwPreferencesWindow">
-    <property name="has-set-password" bind-source="auto_lock_switch" bind-property="sensitive" bind-flags="sync-create" />
     <property name="default-width">680</property>
     <property name="default-height">550</property>
     <property name="search-enabled">False</property>
@@ -60,7 +59,7 @@
                 <child>
                   <object class="GtkSwitch" id="auto_lock_switch">
                     <property name="valign">center</property>
-                    <property name="active" bind-source="lock_timeout_spin_btn" bind-property="sensitive" bind-flags="sync-create" />
+                    <property name="sensitive" bind-source="PreferencesWindow" bind-property="has-set-password" bind-flags="sync-create" />
                   </object>
                 </child>
               </object>
@@ -75,6 +74,7 @@
                   <object class="GtkSpinButton" id="lock_timeout_spin_btn">
                     <property name="valign">center</property>
                     <property name="halign">center</property>
+                    <property name="sensitive" bind-source="auto_lock_switch" bind-property="active" bind-flags="sync-create" />
                     <property name="adjustment">auto_lock_adjustment</property>
                     <property name="climb-rate">1</property>
                     <property name="numeric">True</property>
