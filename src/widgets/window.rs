@@ -302,6 +302,7 @@ impl Window {
                 if Keyring::is_current_password(&password).unwrap() {
                     password_entry.set_text("");
                     app.set_locked(false);
+                    app.restart_lock_timeout();
                     win.set_view(View::Accounts);
                 } else {
                     let win_ = imp::Window::from_instance(&win);
