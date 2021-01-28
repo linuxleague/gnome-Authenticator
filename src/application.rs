@@ -20,6 +20,7 @@ mod imp {
         pub locked: Cell<bool>,
         pub lock_timeout_id: RefCell<Option<glib::SourceId>>,
         pub can_be_locked: Cell<bool>,
+        pub settings: gio::Settings,
     }
     impl ObjectSubclass for Application {
         const NAME: &'static str = "Application";
@@ -33,10 +34,12 @@ mod imp {
 
         fn new() -> Self {
             let model = ProvidersModel::new();
+            let settings = gio::Settings::new(config::APP_ID);
 
             Self {
                 window: RefCell::new(None),
                 model,
+                settings,
                 can_be_locked: Cell::new(false),
                 lock_timeout_id: RefCell::default(),
                 locked: Cell::new(false),
@@ -195,6 +198,23 @@ mod imp {
             app.bind_property("locked", &get_action!(app, @providers), "enabled")
                 .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
                 .build();
+
+            self.settings
+                .connect_changed(clone!(@weak app => move |settings, key| {
+                    match key {
+                        "auto-lock" => {
+                            if settings.get_boolean(key) {
+                                app.restart_lock_timeout()
+                            } else {
+                                let app_ = imp::Application::from_instance(&app);
+                                if let Some(id) = app_.lock_timeout_id.borrow_mut().take() {
+                                    glib::source_remove(id);
+                                }
+                            }
+                        },
+                        _ => ()
+                    }
+                }));
         }
 
         fn activate(&self, app: &Self::Type) {
@@ -288,13 +308,11 @@ impl Application {
     pub fn restart_lock_timeout(&self) {
         const TIMEOUT: u32 = 5 * 60;
         let self_ = imp::Application::from_instance(self);
+        let auto_lock = self_.settings.get_boolean("auto-lock");
 
         if let Some(id) = self_.lock_timeout_id.borrow_mut().take() {
             glib::source_remove(id);
         }
-
-        // TODO get actual property.
-        let auto_lock = false;
 
         if auto_lock && !self.locked() && self.can_be_locked() {
             let id = glib::timeout_add_seconds_local(
