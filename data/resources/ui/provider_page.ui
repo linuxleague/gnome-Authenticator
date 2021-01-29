@@ -103,7 +103,7 @@
                       <object class="AdwActionRow">
                         <property name="activatable-widget">provider_website_entry</property>
                         <property name="title" translatable="yes">Website</property>
-                        <property name="subtitle" translatable="yes">Used to fetch the website icon if possible</property>
+                        <property name="subtitle" translatable="yes">Used to fetch the provider icon</property>
                         <child>
                           <object class="GtkEntry" id="provider_website_entry">
                             <property name="halign">end</property>
@@ -137,7 +137,7 @@
                       <object class="AdwActionRow" id="period_row">
                         <property name="activatable-widget">period_spinbutton</property>
                         <property name="title" translatable="yes">Period</property>
-                        <property name="subtitle" translatable="yes">The duration in seconds. The recommended value is 30</property>
+                        <property name="subtitle" translatable="yes">Duration in seconds until the next password update</property>
                         <child>
                           <object class="GtkSpinButton" id="period_spinbutton">
                             <property name="halign">end</property>
@@ -171,7 +171,7 @@
                       <object class="AdwActionRow" id="digits_row">
                         <property name="activatable-widget">digits_spinbutton</property>
                         <property name="title" translatable="yes">Digits</property>
-                        <property name="subtitle" translatable="yes">Length of the generated code. The recommended value is 6</property>
+                        <property name="subtitle" translatable="yes">Length of the generated code</property>
                         <child>
                           <object class="GtkSpinButton" id="digits_spinbutton">
                             <property name="halign">end</property>
@@ -189,7 +189,7 @@
                       <object class="AdwActionRow">
                         <property name="activatable-widget">provider_help_entry</property>
                         <property name="title" translatable="yes">Help URL</property>
-                        <property name="subtitle" translatable="yes">How to set up Two-Factor Authentication</property>
+                        <property name="subtitle" translatable="yes">Provider setup instructions</property>
                         <child>
                           <object class="GtkEntry" id="provider_help_entry">
                             <property name="halign">end</property>

@@ -97,7 +97,7 @@
                                   <object class="AdwActionRow">
                                     <property name="activatable-widget">provider_entry</property>
                                     <property name="title" translatable="yes">Provider</property>
-                                    <property name="subtitle" translatable="yes">The service provider</property>
+                                    <property name="subtitle" translatable="yes">Token issuer</property>
                                     <child>
                                       <object class="GtkEntry" id="provider_entry">
                                         <property name="halign">end</property>
@@ -190,6 +190,7 @@
                                 <child>
                                   <object class="AdwActionRow" id="period_row">
                                     <property name="title" translatable="yes">Period</property>
+                                    <property name="subtitle" translatable="yes">Duration in seconds until the next password update</property>
                                     <child>
                                       <object class="GtkLabel" id="period_label">
                                         <property name="halign">end</property>
@@ -202,6 +203,7 @@
                                 <child>
                                   <object class="AdwActionRow" id="digits_row">
                                     <property name="title" translatable="yes">Digits</property>
+                                    <property name="subtitle" translatable="yes">Length of the generated code</property>
                                     <child>
                                       <object class="GtkLabel" id="digits_label">
                                         <property name="halign">end</property>
