@@ -214,6 +214,7 @@ mod imp {
                                 false => app.cancel_lock_timeout(),
                             }
                         },
+                        "auto-lock-timeout" => app.restart_lock_timeout(),
                         _ => ()
                     }
                 }));
