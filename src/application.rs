@@ -308,15 +308,17 @@ impl Application {
 
     /// Starts or restarts the lock timeout.
     pub fn restart_lock_timeout(&self) {
-        const TIMEOUT: u32 = 5 * 60;
         let self_ = imp::Application::from_instance(self);
         let auto_lock = self_.settings.get_boolean("auto-lock");
+        let timeout = self_.settings.get_uint("auto-lock-timeout");
+
+        if !auto_lock { return }
 
         self.cancel_lock_timeout();
 
-        if auto_lock && !self.locked() && self.can_be_locked() {
+        if !self.locked() && self.can_be_locked() {
             let id = glib::timeout_add_seconds_local(
-                TIMEOUT,
+                timeout,
                 clone!(@weak self as app => @default-return glib::Continue(false), move || {
                     app.set_locked(true);
                     glib::Continue(false)
