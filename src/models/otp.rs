@@ -15,10 +15,15 @@ pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 /// https://github.com/TimDumol/rust-otp/blob/master/src/lib.rs
 
 /// Decodes a secret (given as an RFC4648 base32-encoded ASCII string)
-/// into a byte string
+/// into a byte string. It fails if secret is not a valid Base32 string.
 fn decode_secret(secret: &str) -> Result<Vec<u8>> {
     let res = BASE32.decode(secret.as_bytes())?;
     Ok(res)
+}
+
+/// Validates if `secret` is a valid Base32 String.
+pub fn is_valid(secret: &str) -> bool {
+    decode_secret(secret).is_ok()
 }
 
 /// Calculates the HMAC digest for the given secret and counter.
