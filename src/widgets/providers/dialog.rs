@@ -104,7 +104,7 @@ impl ProvidersDialog {
         self_
             .search_entry
             .connect_search_changed(clone!(@weak self as dialog => move |entry| {
-                let text = entry.get_text().unwrap().to_string();
+                let text = entry.get_text().to_string();
                 dialog.search(text);
             }));
 

@@ -2,7 +2,7 @@ use crate::{
     models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
     widgets::{Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
-use anyhow::{Context, Result};
+use anyhow::Result;
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
@@ -137,8 +137,8 @@ impl AccountAddDialog {
 
     fn validate(&self) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-        let username = self_.username_entry.get_text().unwrap();
-        let token = self_.token_entry.get_text().unwrap();
+        let username = self_.username_entry.get_text();
+        let token = self_.token_entry.get_text();
 
         let is_valid = !(username.is_empty() || token.is_empty());
         get_action!(self_.actions, @save).set_enabled(is_valid);
@@ -196,11 +196,8 @@ impl AccountAddDialog {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
         if let Some(ref provider) = *self_.selected_provider.borrow() {
-            let username = self_
-                .username_entry
-                .get_text()
-                .context("Could not get text")?;
-            let token = self_.token_entry.get_text().context("Could not get text")?;
+            let username = self_.username_entry.get_text();
+            let token = self_.token_entry.get_text();
             if !otp::is_valid(&token) {
                 self_.error_revealer.popup(&gettext("Invalid Token"));
                 anyhow::bail!("Token {} is not a valid Base32 secret", &token);

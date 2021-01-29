@@ -156,7 +156,7 @@ impl AccountRow {
         self_
             .name_entry
             .connect_changed(clone!(@weak self_.actions as actions => move |entry| {
-                let name = entry.get_text().unwrap();
+                let name = entry.get_text();
                 get_action!(actions, @save).set_enabled(!name.is_empty());
             }));
         self_
@@ -214,7 +214,7 @@ impl AccountRow {
             self_.actions,
             "save",
             clone!(@weak self as row, @weak edit_stack, @weak name_entry => move |_, _| {
-                let new_name = name_entry.get_text().unwrap();
+                let new_name = name_entry.get_text();
                 if let Err(err) = row.account().set_name(&new_name) {
                     error!("Failed to update the account name {}", err);
                 }

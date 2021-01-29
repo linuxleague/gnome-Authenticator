@@ -142,9 +142,9 @@ impl PasswordPage {
     fn validate(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        let current_password = self_.current_password_entry.get_text().unwrap();
-        let password = self_.password_entry.get_text().unwrap();
-        let password_repeat = self_.confirm_password_entry.get_text().unwrap();
+        let current_password = self_.current_password_entry.get_text();
+        let password = self_.password_entry.get_text();
+        let password_repeat = self_.confirm_password_entry.get_text();
 
         let is_valid = if self.has_set_password() {
             password_repeat == password && current_password != password && password != ""
@@ -223,7 +223,7 @@ impl PasswordPage {
     fn reset_password(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        let current_password = self_.current_password_entry.get_text().unwrap();
+        let current_password = self_.current_password_entry.get_text();
 
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
@@ -253,8 +253,8 @@ impl PasswordPage {
         let self_ = imp::PasswordPage::from_instance(self);
         let actions = self_.actions.get().unwrap();
 
-        let current_password = self_.current_password_entry.get_text().unwrap();
-        let password = self_.password_entry.get_text().unwrap();
+        let current_password = self_.current_password_entry.get_text();
+        let password = self_.password_entry.get_text();
 
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)

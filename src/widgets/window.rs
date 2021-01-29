@@ -236,7 +236,7 @@ impl Window {
         self_
             .search_entry
             .connect_search_changed(clone!(@weak providers => move |entry| {
-                let text = entry.get_text().unwrap().to_string();
+                let text = entry.get_text().to_string();
                 providers.search(text);
             }));
         self_
@@ -298,7 +298,7 @@ impl Window {
             self,
             "unlock",
             clone!(@weak self as win, @weak password_entry, @weak app => move |_, _| {
-                let password = password_entry.get_text().unwrap();
+                let password = password_entry.get_text();
                 if Keyring::is_current_password(&password).unwrap_or_else(|err| {
                     debug!("Could not verify password: {:?}", err);
                     false
