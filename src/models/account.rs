@@ -298,7 +298,7 @@ impl Account {
                 let token = otp::hotp(
                     &self.token(),
                     counter,
-                    provider.algorithm().into(),
+                    provider.algorithm(),
                     provider.digits() as u32,
                 );
 

@@ -27,8 +27,8 @@ pub fn is_valid(secret: &str) -> bool {
 }
 
 /// Calculates the HMAC digest for the given secret and counter.
-fn calc_digest(decoded_secret: &[u8], counter: u64, algorithm: hmac::Algorithm) -> hmac::Tag {
-    let key = hmac::Key::new(algorithm, decoded_secret);
+fn calc_digest(decoded_secret: &[u8], counter: u64, algorithm: Algorithm) -> hmac::Tag {
+    let key = hmac::Key::new(algorithm.into(), decoded_secret);
     hmac::sign(&key, &counter.to_be_bytes())
 }
 
@@ -48,12 +48,7 @@ fn encode_digest(digest: &[u8]) -> Result<u32> {
 
 /// Performs the [HMAC-based One-time Password Algorithm](http://en.wikipedia.org/wiki/HMAC-based_One-time_Password_Algorithm)
 /// (HOTP) given an RFC4648 base32 encoded secret, and an integer counter.
-pub(crate) fn hotp(
-    secret: &str,
-    counter: u64,
-    algorithm: hmac::Algorithm,
-    digits: u32,
-) -> Result<u32> {
+pub(crate) fn hotp(secret: &str, counter: u64, algorithm: Algorithm, digits: u32) -> Result<u32> {
     let decoded = decode_secret(secret)?;
     let digest = encode_digest(calc_digest(decoded.as_slice(), counter, algorithm).as_ref())?;
     Ok(digest % 10_u32.pow(digits))
@@ -63,7 +58,7 @@ pub(crate) fn steam(secret: &str) -> Result<String> {
     let mut token = hotp(
         secret,
         STEAM_DEFAULT_COUNTER as u64,
-        Algorithm::SHA1.into(),
+        Algorithm::SHA1,
         STEAM_DEFAULT_DIGITS,
     )?;
     let mut code = String::new();
@@ -88,21 +83,20 @@ pub(crate) fn format(code: u32, digits: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{format, hmac, hotp, DEFAULT_DIGITS};
+    use super::{format, hotp, Algorithm, DEFAULT_DIGITS};
 
     #[test]
     fn test_htop() {
-        let algorithm = hmac::HMAC_SHA1_FOR_LEGACY_USE_ONLY;
         assert_eq!(
-            hotp("BASE32SECRET3232", 0, algorithm, DEFAULT_DIGITS).unwrap(),
+            hotp("BASE32SECRET3232", 0, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
             260182
         );
         assert_eq!(
-            hotp("BASE32SECRET3232", 1, algorithm, DEFAULT_DIGITS).unwrap(),
+            hotp("BASE32SECRET3232", 1, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
             55283
         );
         assert_eq!(
-            hotp("BASE32SECRET3232", 1401, algorithm, DEFAULT_DIGITS).unwrap(),
+            hotp("BASE32SECRET3232", 1401, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
             316439
         );
     }
