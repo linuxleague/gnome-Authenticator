@@ -27,7 +27,7 @@
         <description>Whether to auto lock the application or not</description>
     </key>
     <key name='auto-lock-timeout' type='u'>
-        <default>15</default>
+        <default>5</default>
         <summary>Auto lock timeout</summary>
         <description>Lock the application on idle after X minutes</description>
     </key>
