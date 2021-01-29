@@ -1,6 +1,12 @@
 use crate::config;
+use once_cell::sync::Lazy;
 use secret_service::{Collection, EncryptionType, Error, SecretService};
 use std::collections::HashMap;
+
+static SECRET_SERVICE: Lazy<SecretService<'static>> = Lazy::new(|| {
+    SecretService::new(EncryptionType::Dh)
+        .expect("A running secret-service is required for Authenticator")
+});
 
 pub struct Keyring;
 
@@ -45,9 +51,9 @@ fn verify_argon2(hash: &str, password: &str) -> anyhow::Result<bool> {
 }
 
 impl Keyring {
-    pub fn get_default_collection<'a>(ss: &'a SecretService<'a>) -> Result<Collection<'a>, Error> {
-        let collection = match ss.get_default_collection() {
-            Err(Error::NoResult) => ss.create_collection("default", "default"),
+    pub fn get_default_collection<'a>() -> Result<Collection<'a>, Error> {
+        let collection = match SECRET_SERVICE.get_default_collection() {
+            Err(Error::NoResult) => SECRET_SERVICE.create_collection("default", "default"),
             e => e,
         }?;
 
@@ -55,17 +61,14 @@ impl Keyring {
     }
 
     pub fn ensure_unlocked() -> Result<(), Error> {
-        let ss = secret_service::SecretService::new(secret_service::EncryptionType::Dh)?;
-        let collection = Keyring::get_default_collection(&ss)?;
+        let collection = Self::get_default_collection()?;
         collection.ensure_unlocked()?;
 
         Ok(())
     }
 
     pub fn store(label: &str, token: &str) -> anyhow::Result<String> {
-        let ss = SecretService::new(EncryptionType::Dh)?;
-        let col = Self::get_default_collection(&ss)?;
-
+        let col = Self::get_default_collection()?;
         let token_id = encode_argon2(token)?;
         let attributes = token_attributes(&token_id);
         let base64_encoded_token = hex::encode(token.as_bytes());
@@ -80,8 +83,7 @@ impl Keyring {
     }
 
     pub fn token(token_id: &str) -> Result<Option<String>, Error> {
-        let ss = SecretService::new(EncryptionType::Dh)?;
-        let col = Self::get_default_collection(&ss)?;
+        let col = Self::get_default_collection()?;
 
         let attributes = token_attributes(token_id);
         let items = col.search_items(attributes)?;
@@ -92,8 +94,7 @@ impl Keyring {
     }
 
     pub fn remove_token(token_id: &str) -> Result<(), Error> {
-        let ss = SecretService::new(EncryptionType::Dh)?;
-        let col = Self::get_default_collection(&ss)?;
+        let col = Self::get_default_collection()?;
 
         let attributes = token_attributes(token_id);
         let items = col.search_items(attributes)?;
@@ -104,8 +105,7 @@ impl Keyring {
     }
 
     pub fn has_set_password() -> Result<bool, Error> {
-        let ss = SecretService::new(EncryptionType::Dh)?;
-        let col = Self::get_default_collection(&ss)?;
+        let col = Self::get_default_collection()?;
 
         let attributes = password_attributes();
         match col.search_items(attributes) {
@@ -116,8 +116,7 @@ impl Keyring {
 
     /// Stores password using the Argon2 algorithm with a random 128bit salt.
     pub fn set_password(password: &str) -> anyhow::Result<()> {
-        let ss = SecretService::new(EncryptionType::Dh)?;
-        let col = Self::get_default_collection(&ss)?;
+        let col = Self::get_default_collection()?;
 
         let encoded_password = encode_argon2(password)?;
         let attributes = password_attributes();
@@ -132,8 +131,7 @@ impl Keyring {
     }
 
     pub fn reset_password() -> Result<(), Error> {
-        let ss = SecretService::new(EncryptionType::Dh)?;
-        let col = Self::get_default_collection(&ss)?;
+        let col = Self::get_default_collection()?;
 
         let attributes = password_attributes();
         let items = col.search_items(attributes)?;
@@ -145,8 +143,7 @@ impl Keyring {
     }
 
     pub fn is_current_password(password: &str) -> anyhow::Result<bool> {
-        let ss = SecretService::new(EncryptionType::Dh)?;
-        let col = Self::get_default_collection(&ss)?;
+        let col = Self::get_default_collection()?;
 
         let attributes = password_attributes();
         let items = col.search_items(attributes)?;
