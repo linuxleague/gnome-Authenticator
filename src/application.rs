@@ -313,7 +313,9 @@ impl Application {
         let auto_lock = self_.settings.get_boolean("auto-lock");
         let timeout = self_.settings.get_uint("auto-lock-timeout");
 
-        if !auto_lock { return }
+        if !auto_lock {
+            return;
+        }
 
         self.cancel_lock_timeout();
 
