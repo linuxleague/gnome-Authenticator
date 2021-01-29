@@ -160,7 +160,7 @@ mod imp {
                         .version(config::VERSION)
                         .comments(&gettext("Generate Two-Factor Codes"))
                         .website("https://gitlab.gnome.org/World/Authenticator")
-                        .authors(vec!["Bilal Elmoussaoui".to_string()])
+                        .authors(vec!["Bilal Elmoussaoui".to_string(), "Maximiliano Sandoval".to_string()])
                         .artists(vec!["Alexandros Felekidis".to_string(), "Tobias Bernard".to_string()])
                         .translator_credits(&gettext("translator-credits"))
                         .logo_icon_name(config::APP_ID)
