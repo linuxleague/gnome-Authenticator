@@ -11,7 +11,7 @@
             <property name="title" translatable="yes" context="shortcut window">General</property>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Show Shortcuts</property>
+                <property name="title" translatable="yes" context="shortcut window">Keyboard Shortcuts</property>
                 <property name="action-name">win.show-help-overlay</property>
               </object>
             </child>
@@ -40,7 +40,7 @@
             <property name="title" translatable="yes" context="shortcut window">Accounts</property>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Add</property>
+                <property name="title" translatable="yes" context="shortcut window">New Account</property>
                 <property name="action-name">win.add_account</property>
               </object>
             </child>
