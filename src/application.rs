@@ -18,7 +18,9 @@ mod imp {
         pub window: RefCell<Option<WeakRef<Window>>>,
         pub model: ProvidersModel,
         pub locked: Cell<bool>,
+        pub lock_timeout_id: RefCell<Option<glib::SourceId>>,
         pub can_be_locked: Cell<bool>,
+        pub settings: gio::Settings,
     }
     impl ObjectSubclass for Application {
         const NAME: &'static str = "Application";
@@ -32,11 +34,14 @@ mod imp {
 
         fn new() -> Self {
             let model = ProvidersModel::new();
+            let settings = gio::Settings::new(config::APP_ID);
 
             Self {
                 window: RefCell::new(None),
                 model,
+                settings,
                 can_be_locked: Cell::new(false),
+                lock_timeout_id: RefCell::default(),
                 locked: Cell::new(false),
             }
         }
@@ -193,6 +198,26 @@ mod imp {
             app.bind_property("locked", &get_action!(app, @providers), "enabled")
                 .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
                 .build();
+
+            app.connect_notify_local(Some("can-be-locked"), |app, _| {
+                if !app.can_be_locked() {
+                    app.cancel_lock_timeout();
+                }
+            });
+
+            self.settings
+                .connect_changed(clone!(@weak app => move |settings, key| {
+                    match key {
+                        "auto-lock" => {
+                            match settings.get_boolean(key) {
+                                true => app.restart_lock_timeout(),
+                                false => app.cancel_lock_timeout(),
+                            }
+                        },
+                        "auto-lock-timeout" => app.restart_lock_timeout(),
+                        _ => ()
+                    }
+                }));
         }
 
         fn activate(&self, app: &Self::Type) {
@@ -224,6 +249,10 @@ mod imp {
 
             app.set_locked(has_set_password);
             app.set_can_be_locked(has_set_password);
+
+            // Start the timeout to lock the app if the auto-lock
+            // setting is enabled.
+            app.restart_lock_timeout();
         }
     }
 }
@@ -276,5 +305,35 @@ impl Application {
     fn create_window(&self) -> Window {
         let self_ = imp::Application::from_instance(self);
         Window::new(self_.model.clone(), &self.clone())
+    }
+
+    /// Starts or restarts the lock timeout.
+    pub fn restart_lock_timeout(&self) {
+        let self_ = imp::Application::from_instance(self);
+        let auto_lock = self_.settings.get_boolean("auto-lock");
+        let timeout = self_.settings.get_uint("auto-lock-timeout");
+
+        if !auto_lock { return }
+
+        self.cancel_lock_timeout();
+
+        if !self.locked() && self.can_be_locked() {
+            let id = glib::timeout_add_seconds_local(
+                timeout,
+                clone!(@weak self as app => @default-return glib::Continue(false), move || {
+                    app.set_locked(true);
+                    glib::Continue(false)
+                }),
+            );
+            self_.lock_timeout_id.replace(Some(id));
+        }
+    }
+
+    pub fn cancel_lock_timeout(&self) {
+        let self_ = imp::Application::from_instance(self);
+
+        if let Some(id) = self_.lock_timeout_id.borrow_mut().take() {
+            glib::source_remove(id);
+        }
     }
 }
