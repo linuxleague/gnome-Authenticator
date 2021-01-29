@@ -225,7 +225,9 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Backup);
                 dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        T::backup(&model, &d.get_file().unwrap());
+                        if let Err(err) = T::backup(&model, &d.get_file().unwrap()) {
+                            warn!("Failed to create a backup {}", err);
+                        }
                     }
                     d.destroy();
                 }));
@@ -253,8 +255,14 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Restore);
                 dialog.connect_response(clone!(@weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        let items: Vec<T::Item> = T::restore(&d.get_file().unwrap()).unwrap();
-                        win.restore_items::<T, T::Item>(items);
+                        match T::restore(&d.get_file().unwrap()) {
+                            Ok(items) => {
+                                win.restore_items::<T, T::Item>(items);
+                            },
+                            Err(err) => {
+                                warn!("Failed to parse the selected file {}", err);
+                            }
+                        }
                     }
                     d.destroy();
                 }));
@@ -264,17 +272,19 @@ impl PreferencesWindow {
         self_.restore_group.add(&row);
     }
 
-    fn restore_items<T: Restorable<Item = Q>, Q: RestorableItem>(
-        &self,
-        items: Vec<Q>,
-    ) -> Result<()> {
+    fn restore_items<T: Restorable<Item = Q>, Q: RestorableItem>(&self, items: Vec<Q>) {
         let self_ = imp::PreferencesWindow::from_instance(self);
         let model = self_.model.get().unwrap();
-        items.iter().for_each(move |item| {
-            T::restore_item(item, model);
-        });
+        items
+            .iter()
+            .map(move |item| T::restore_item(item, model))
+            .filter(Result::is_ok)
+            .for_each(|item| {
+                if let Err(err) = item {
+                    warn!("Failed to restore item {}", err);
+                }
+            });
         self.emit("restore-completed", &[]).unwrap();
-        Ok(())
     }
 
     fn select_file(

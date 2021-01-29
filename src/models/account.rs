@@ -7,7 +7,7 @@ use crate::{
     schema::accounts,
     widgets::QRCodeData,
 };
-use anyhow::{anyhow, Context, Result};
+use anyhow::{Context, Result};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
