@@ -245,7 +245,6 @@ mod imp {
             app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
             app.set_accels_for_action("win.search", &["<primary>f"]);
             app.set_accels_for_action("win.add_account", &["<primary>n"]);
-            app.set_accels_for_action("add.scan-qr", &["<primary>t"]);
 
             app.set_locked(has_set_password);
             app.set_can_be_locked(has_set_password);

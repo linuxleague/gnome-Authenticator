@@ -11,26 +11,26 @@
             <property name="title" translatable="yes" context="shortcut window">General</property>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Show Shortcuts</property>
-                <property name="accelerator">&lt;Primary&gt;question</property>
+                <property name="title" translatable="yes" context="shortcut window">Keyboard Shortcuts</property>
+                <property name="action-name">win.show-help-overlay</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Lock</property>
-                <property name="accelerator">&lt;Primary&gt;L</property>
+                <property name="action-name">app.lock</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Preferences</property>
-                <property name="accelerator">&lt;Primary&gt;comma</property>
+                <property name="action-name">app.preferences</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Quit</property>
-                <property name="accelerator">&lt;Primary&gt;Q</property>
+                <property name="action-name">app.quit</property>
               </object>
             </child>
           </object>
@@ -40,20 +40,20 @@
             <property name="title" translatable="yes" context="shortcut window">Accounts</property>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Add</property>
-                <property name="accelerator">&lt;Primary&gt;N</property>
+                <property name="title" translatable="yes" context="shortcut window">New Account</property>
+                <property name="action-name">win.add_account</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Search</property>
-                <property name="accelerator">&lt;Primary&gt;F</property>
+                <property name="action-name">win.search</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Scan QR</property>
-                <property name="accelerator">T</property>
+                <property name="title" translatable="yes" context="shortcut window">Show Providers List</property>
+                <property name="action-name">app.providers</property>
               </object>
             </child>
           </object>
@@ -62,6 +62,3 @@
     </child>
   </object>
 </interface>
-
-
-
