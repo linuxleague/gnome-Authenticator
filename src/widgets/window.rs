@@ -149,7 +149,7 @@ impl Window {
                 } else {
                     self_.providers.set_view(ProvidersListView::List);
                     self_.accounts_stack.set_visible_child_name("accounts");
-                    //self_.search_entry.set_key_capture_widget(Some(self));
+                    self_.search_entry.set_key_capture_widget(Some(self));
                 }
             }
             View::Account(account) => {
