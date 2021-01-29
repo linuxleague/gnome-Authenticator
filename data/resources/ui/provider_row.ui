@@ -29,18 +29,27 @@
           </object>
         </child>
         <child>
-          <object class="GtkListBox" id="accounts_list">
-            <property name="vexpand">True</property>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="overflow">hidden</property>
+            <child>
+              <object class="GtkListBox" id="accounts_list">
+                <property name="vexpand">True</property>
+                <style>
+                  <class name="content" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkProgressBar" id="progress">
+                <property name="pulse-step">0.0001</property>
+                <style>
+                  <class name="totp-progress" />
+                </style>
+              </object>
+            </child>
             <style>
-              <class name="content" />
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkProgressBar" id="progress">
-            <property name="pulse-step">0.0001</property>
-            <style>
-              <class name="totp-progress" />
+              <class name="provider-row-content" />
             </style>
           </object>
         </child>
