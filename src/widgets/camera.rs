@@ -74,6 +74,7 @@ mod screenshot {
 pub enum CameraEvent {
     CodeDetected(String),
     DeviceAdded(gst::Device),
+    DeviceSelected(gst::Device),
     DeviceRemoved(gst::Device),
     StreamStarted,
 }
@@ -99,6 +100,7 @@ mod imp {
         pub receiver: RefCell<Option<Receiver<CameraEvent>>>,
         pub pipeline: gst::Pipeline,
         pub sink: gst::Element,
+        pub selected_device: RefCell<Option<gst::Device>>,
         pub devices: gio::ListStore,
         pub monitor: gst::DeviceMonitor,
         #[template_child]
@@ -140,6 +142,7 @@ mod imp {
                 sender,
                 receiver,
                 pipeline,
+                selected_device: RefCell::default(),
                 spinner: TemplateChild::default(),
                 stack: TemplateChild::default(),
                 overlay: TemplateChild::default(),
@@ -313,12 +316,19 @@ impl Camera {
                 self.emit("code-detected", &[&code]).unwrap();
             }
             CameraEvent::DeviceAdded(device) => {
-                // TODO: allow selecting a device and update the sink on the pipeline
                 info!("Camera source added: {}", device.get_display_name());
+                self_.devices.append(&device);
+                if self_.selected_device.borrow_mut().is_none() {
+                    send!(self_.sender, CameraEvent::DeviceSelected(device));
+                }
+            }
+            CameraEvent::DeviceSelected(device) => {
+                info!("Camera source selected: {}", device.get_display_name());
+                // TODO: allow selecting a device and update the sink on the pipeline
                 self.set_state(CameraState::Loading);
                 let element = device.create_element(None).unwrap();
                 self.init_pipelines(element);
-                self_.devices.append(&device);
+                self_.selected_device.replace(Some(device));
             }
             CameraEvent::DeviceRemoved(device) => {
                 info!("Camera source removed: {}", device.get_display_name());
