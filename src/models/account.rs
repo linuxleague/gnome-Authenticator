@@ -7,7 +7,7 @@ use crate::{
     schema::accounts,
     widgets::QRCodeData,
 };
-use anyhow::Result;
+use anyhow::{anyhow, Context, Result};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
@@ -187,7 +187,7 @@ impl Account {
         let conn = db.get()?;
 
         let token_id = Keyring::store(&format!("{} - {}", provider.name(), name), &token)
-            .expect("Failed to save token");
+            .context("Failed to save token")?;
 
         diesel::insert_into(accounts::table)
             .values(NewAccount {
@@ -211,6 +211,7 @@ impl Account {
                     provider.clone(),
                     Some(token),
                 )
+                .unwrap()
             })
     }
 
@@ -230,7 +231,7 @@ impl Account {
                     account.counter as u32,
                     p,
                     None,
-                )
+                ).unwrap()
             }));
 
         Ok(results)
@@ -250,7 +251,7 @@ impl Account {
         counter: u32,
         provider: Provider,
         token: Option<&str>,
-    ) -> Account {
+    ) -> Result<Account> {
         let account = glib::Object::new(&[
             ("id", &id),
             ("name", &name),
@@ -258,17 +259,17 @@ impl Account {
             ("provider", &provider),
             ("counter", &counter),
         ])
-        .expect("Failed to create account");
+        .context("Failed to create account")?;
 
         let token = if let Some(t) = token {
             t.to_string()
         } else {
-            Keyring::token(token_id).unwrap().unwrap()
+            Keyring::token(token_id)?.context("Could not get item from keyring")?
         };
 
         let self_ = imp::Account::from_instance(&account);
         self_.token.set(token).unwrap();
-        account
+        Ok(account)
     }
 
     pub fn generate_otp(&self) {

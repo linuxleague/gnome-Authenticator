@@ -1,8 +1,9 @@
 use crate::{
-    models::{Account, OTPMethod, OTPUri, Provider, ProvidersModel},
-    widgets::{Camera, ProviderImage, UrlRow},
+    models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
+    widgets::{Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
 use anyhow::Result;
+use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
@@ -52,6 +53,8 @@ mod imp {
         pub period_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub provider_completion: TemplateChild<gtk::EntryCompletion>,
+        #[template_child]
+        pub error_revealer: TemplateChild<ErrorRevealer>,
     }
 
     impl ObjectSubclass for AccountAddDialog {
@@ -87,6 +90,7 @@ mod imp {
                 period_row: TemplateChild::default(),
                 deck: TemplateChild::default(),
                 camera: TemplateChild::default(),
+                error_revealer: TemplateChild::default(),
             }
         }
 
@@ -133,8 +137,8 @@ impl AccountAddDialog {
 
     fn validate(&self) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-        let username = self_.username_entry.get_text().unwrap();
-        let token = self_.token_entry.get_text().unwrap();
+        let username = self_.username_entry.get_text();
+        let token = self_.token_entry.get_text();
 
         let is_valid = !(username.is_empty() || token.is_empty());
         get_action!(self_.actions, @save).set_enabled(is_valid);
@@ -192,14 +196,20 @@ impl AccountAddDialog {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
         if let Some(ref provider) = *self_.selected_provider.borrow() {
-            let username = self_.username_entry.get_text().unwrap();
-            let token = self_.token_entry.get_text().unwrap();
+            let username = self_.username_entry.get_text();
+            let token = self_.token_entry.get_text();
+            if !otp::is_valid(&token) {
+                self_.error_revealer.popup(&gettext("Invalid Token"));
+                anyhow::bail!("Token {} is not a valid Base32 secret", &token);
+            }
 
             let account = Account::create(&username, &token, provider)?;
 
             self_.model.get().unwrap().add_account(&account, &provider);
             self.emit("added", &[]).unwrap();
-            // TODO: display an error message saying there was an error form keyring
+        // TODO: display an error message saying there was an error form keyring
+        } else {
+            anyhow::bail!("Could not find provider");
         }
         Ok(())
     }
