@@ -199,17 +199,19 @@ mod imp {
                 .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
                 .build();
 
+            app.connect_notify_local(Some("can-be-locked"), |app, _| {
+                if !app.can_be_locked() {
+                    app.cancel_lock_timeout();
+                }
+            });
+
             self.settings
                 .connect_changed(clone!(@weak app => move |settings, key| {
                     match key {
                         "auto-lock" => {
-                            if settings.get_boolean(key) {
-                                app.restart_lock_timeout()
-                            } else {
-                                let app_ = imp::Application::from_instance(&app);
-                                if let Some(id) = app_.lock_timeout_id.borrow_mut().take() {
-                                    glib::source_remove(id);
-                                }
+                            match settings.get_boolean(key) {
+                                true => app.restart_lock_timeout(),
+                                false => app.cancel_lock_timeout(),
                             }
                         },
                         _ => ()
@@ -310,9 +312,7 @@ impl Application {
         let self_ = imp::Application::from_instance(self);
         let auto_lock = self_.settings.get_boolean("auto-lock");
 
-        if let Some(id) = self_.lock_timeout_id.borrow_mut().take() {
-            glib::source_remove(id);
-        }
+        self.cancel_lock_timeout();
 
         if auto_lock && !self.locked() && self.can_be_locked() {
             let id = glib::timeout_add_seconds_local(
@@ -323,6 +323,14 @@ impl Application {
                 }),
             );
             self_.lock_timeout_id.replace(Some(id));
+        }
+    }
+
+    pub fn cancel_lock_timeout(&self) {
+        let self_ = imp::Application::from_instance(self);
+
+        if let Some(id) = self_.lock_timeout_id.borrow_mut().take() {
+            glib::source_remove(id);
         }
     }
 }
