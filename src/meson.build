@@ -20,21 +20,6 @@ run_command(
   join_paths(meson.source_root(), 'src', 'config.rs'),
   check: true
 )
-# include_bytes! only takes a string literal
-resources_conf = configuration_data()
-resources_conf.set_quoted('RESOURCEFILE', resources.full_path())
-static_resources_output_file = configure_file(
-  input: 'static_resources.rs.in',
-  output: 'static_resources.rs',
-  configuration: resources_conf
-)
-
-run_command(
-  'cp',
-  static_resources_output_file,
-  meson.current_source_dir(),
-  check: true
-)
 
 sources = files(
   'backup/andotp.rs',
@@ -78,7 +63,6 @@ sources = files(
   'config.rs',
   'main.rs',
   'schema.rs',
-  'static_resources.rs',
   'window_state.rs'
 )
 
@@ -91,7 +75,6 @@ cargo_release = custom_target(
   console: true,
   install: true,
   install_dir: get_option('bindir'),
-  depends: resources,
   command: [
     cargo_script,
     meson.build_root(),

@@ -1,7 +1,9 @@
-resources = gnome.compile_resources(
-  application_id,
+gnome.compile_resources(
+  meson.project_name(),
   'resources.gresource.xml',
-  gresource_bundle: true
+  gresource_bundle: true,
+  install: true,
+  install_dir: pkgdatadir,
 )
 
 # GSchema

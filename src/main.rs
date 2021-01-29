@@ -4,6 +4,7 @@ extern crate log;
 extern crate diesel;
 #[macro_use]
 extern crate diesel_migrations;
+use gtk::{gio, glib};
 
 use gettextrs::*;
 mod application;
@@ -11,25 +12,26 @@ mod backup;
 mod config;
 mod models;
 mod schema;
-mod static_resources;
 mod widgets;
 mod window_state;
 
 use application::Application;
-use config::{GETTEXT_PACKAGE, LOCALEDIR};
 
 fn main() {
     pretty_env_logger::init();
     gtk::init().expect("failed to init gtk4 ");
     gst::init().expect("failed to init gstreamer");
+
     // Prepare i18n
     setlocale(LocaleCategory::LcAll, "");
-    bindtextdomain(GETTEXT_PACKAGE, LOCALEDIR);
-    textdomain(GETTEXT_PACKAGE);
+    bindtextdomain(config::GETTEXT_PACKAGE, config::LOCALEDIR);
+    textdomain(config::GETTEXT_PACKAGE);
 
-    gtk::glib::set_application_name(&gettext("Authenticator"));
+    let res = gio::Resource::load(config::PKGDATADIR.to_owned() + "/authenticator.gresource")
+        .expect("Could not load resources");
+    gio::resources_register(&res);
 
-    static_resources::init().expect("Failed to initialize the resource file.");
+    glib::set_application_name(&gettext("Authenticator"));
 
     Application::run();
 }
