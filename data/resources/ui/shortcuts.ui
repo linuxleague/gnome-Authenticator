@@ -50,12 +50,6 @@
                 <property name="accelerator">&lt;Primary&gt;F</property>
               </object>
             </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Scan QR</property>
-                <property name="accelerator">T</property>
-              </object>
-            </child>
           </object>
         </child>
       </object>
