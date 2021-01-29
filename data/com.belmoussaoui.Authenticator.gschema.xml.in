@@ -21,12 +21,12 @@
         <summary>Dark Theme</summary>
         <description>Whether the application should use a dark theme.</description>
     </key>
-    <key name='auto-lock' type='b'>
+    <key name="auto-lock" type="b">
         <default>false</default>
         <summary>Auto lock</summary>
         <description>Whether to auto lock the application or not</description>
     </key>
-    <key name='auto-lock-timeout' type='u'>
+    <key name="auto-lock-timeout" type="u">
         <default>5</default>
         <summary>Auto lock timeout</summary>
         <description>Lock the application on idle after X minutes</description>
