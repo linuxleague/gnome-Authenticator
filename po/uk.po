@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-29 14:49+0000\n"
-"PO-Revision-Date: 2021-01-29 19:36+0200\n"
+"POT-Creation-Date: 2021-01-29 22:28+0000\n"
+"PO-Revision-Date: 2021-01-30 10:12+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:158 src/main.rs:30
+#: src/application.rs:158 src/main.rs:34
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -150,51 +150,62 @@ msgstr "Д_одати"
 msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
-#: data/resources/ui/account_add.ui:94
+#: data/resources/ui/account_add.ui:99
 #: data/resources/ui/account_details_page.ui:51
 msgid "Provider"
 msgstr "Надавач даних"
 
-#: data/resources/ui/account_add.ui:95
-msgid "The service provider"
-msgstr "Надавач послуг служби"
+#: data/resources/ui/account_add.ui:100
+msgid "Token issuer"
+msgstr ""
+"Видавець жетона"
 
-#: data/resources/ui/account_add.ui:110
+#: data/resources/ui/account_add.ui:115
 #: data/resources/ui/account_details_page.ui:41
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: data/resources/ui/account_add.ui:124
+#: data/resources/ui/account_add.ui:129
 msgid "Token"
 msgstr "Ключ"
 
-#: data/resources/ui/account_add.ui:138 data/resources/ui/provider_page.ui:156
+#: data/resources/ui/account_add.ui:143 data/resources/ui/provider_page.ui:156
 msgid "Counter"
 msgstr "Лічильник"
 
-#: data/resources/ui/account_add.ui:163 data/resources/ui/provider_page.ui:127
+#: data/resources/ui/account_add.ui:168 data/resources/ui/provider_page.ui:127
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:175 data/resources/ui/provider_page.ui:119
+#: data/resources/ui/account_add.ui:180 data/resources/ui/provider_page.ui:119
 msgid "Computing Method"
 msgstr "Метод обчислення"
 
-#: data/resources/ui/account_add.ui:187 data/resources/ui/provider_page.ui:139
+#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:139
 msgid "Period"
 msgstr "Період"
 
-#: data/resources/ui/account_add.ui:199 data/resources/ui/provider_page.ui:173
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:140
+msgid "Duration in seconds until the next password update"
+msgstr ""
+"Тривалість періоду (у секундах) до наступного оновлення пароля"
+
+#: data/resources/ui/account_add.ui:205 data/resources/ui/provider_page.ui:173
 msgid "Digits"
 msgstr "Цифри"
 
-#: data/resources/ui/account_add.ui:211
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:174
+#| msgid "Length of the generated code. The recommended value is 6"
+msgid "Length of the generated code"
+msgstr "Довжина створеного коду"
+
+#: data/resources/ui/account_add.ui:218
 #: data/resources/ui/account_details_page.ui:61
 #: data/resources/ui/provider_page.ui:105
 msgid "Website"
 msgstr "Сайт"
 
-#: data/resources/ui/account_add.ui:217
+#: data/resources/ui/account_add.ui:224
 msgid "How to setup"
 msgstr "Як налаштувати"
 
@@ -304,11 +315,11 @@ msgstr "Час у хвилинах"
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:96 src/widgets/preferences/window.rs:289
+#: data/resources/ui/preferences.ui:96 src/widgets/preferences/window.rs:299
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:101 src/widgets/preferences/window.rs:296
+#: data/resources/ui/preferences.ui:101 src/widgets/preferences/window.rs:306
 msgid "Restore"
 msgstr "Відновити"
 
@@ -317,28 +328,22 @@ msgid "Name"
 msgstr "Назва"
 
 #: data/resources/ui/provider_page.ui:106
-msgid "Used to fetch the website icon if possible"
-msgstr "Використовується для отримання піктограми сайта, якщо це можливо"
-
-#: data/resources/ui/provider_page.ui:140
-msgid "The duration in seconds. The recommended value is 30"
-msgstr "Тривалість у секундах. Рекомендованим є значення 30"
+#| msgid "Used to fetch the website icon if possible"
+msgid "Used to fetch the provider icon"
+msgstr "Використовується для отримання піктограми надавача даних"
 
 #: data/resources/ui/provider_page.ui:157
 msgid "The by default value for counter-based computing method"
 msgstr "Типове значення методу обчислення на основі лічильника"
-
-#: data/resources/ui/provider_page.ui:174
-msgid "Length of the generated code. The recommended value is 6"
-msgstr "Довжина створеного коду. Рекомендованим є значення 6"
 
 #: data/resources/ui/provider_page.ui:191
 msgid "Help URL"
 msgstr "Адреса довідки"
 
 #: data/resources/ui/provider_page.ui:192
-msgid "How to set up Two-Factor Authentication"
-msgstr "Як налаштувати двофакторне розпізнавання"
+msgid "Provider setup instructions"
+msgstr ""
+"Настанови щодо налаштування надавача даних"
 
 #: data/resources/ui/providers_dialog.ui:5
 msgid "Providers"
@@ -365,7 +370,6 @@ msgid "General"
 msgstr "Загальні"
 
 #: data/resources/ui/shortcuts.ui:14
-#| msgid "_Keyboard Shortcuts"
 msgctxt "shortcut window"
 msgid "Keyboard Shortcuts"
 msgstr "Клавіатурні скорочення"
@@ -391,7 +395,6 @@ msgid "Accounts"
 msgstr "Облікові записи"
 
 #: data/resources/ui/shortcuts.ui:43
-#| msgid "Account"
 msgctxt "shortcut window"
 msgid "New Account"
 msgstr "Створити обліковий запис"
@@ -402,7 +405,6 @@ msgid "Search"
 msgstr "Пошук"
 
 #: data/resources/ui/shortcuts.ui:55
-#| msgid "New Provider"
 msgctxt "shortcut window"
 msgid "Show Providers List"
 msgstr "Показати список надавачів даних"
@@ -510,22 +512,36 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/window.rs:309 src/widgets/preferences/password_page.rs:231
+#: src/widgets/accounts/add.rs:202
+#| msgid "Invalid QR code"
+msgid "Invalid Token"
+msgstr "Некоректний жетон"
+
+#: src/widgets/window.rs:312 src/widgets/preferences/password_page.rs:231
 #: src/widgets/preferences/password_page.rs:262
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/window.rs:292 src/widgets/preferences/window.rs:299
+#: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/widgets/preferences/window.rs:293 src/widgets/preferences/window.rs:300
+#: src/widgets/preferences/window.rs:303 src/widgets/preferences/window.rs:310
 msgid "Cancel"
 msgstr "Скасувати"
 
 #: src/widgets/providers/page.rs:186
 msgid "New Provider"
 msgstr "Новий надавач даних"
+
+#~ msgid "The service provider"
+#~ msgstr "Надавач послуг служби"
+
+#~ msgid "The duration in seconds. The recommended value is 30"
+#~ msgstr "Тривалість у секундах. Рекомендованим є значення 30"
+
+#~ msgid "How to set up Two-Factor Authentication"
+#~ msgstr "Як налаштувати двофакторне розпізнавання"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Show Shortcuts"
@@ -588,9 +604,6 @@ msgstr "Новий надавач даних"
 
 #~ msgid "Default"
 #~ msgstr "Типовий"
-
-#~ msgid "Invalid QR code"
-#~ msgstr "Некоректний QR-код"
 
 #~ msgid "The One-Time Passwords expire in {} seconds"
 #~ msgstr "Строк дії одноразових паролів обмежено {} секундами"
