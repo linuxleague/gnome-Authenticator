@@ -73,7 +73,7 @@
                   <object class="GtkSpinButton" id="lock_timeout_spin_btn">
                     <property name="valign">center</property>
                     <property name="halign">center</property>
-                    <property name="sensitive" bind-source="auto_lock_switch" bind-property="active" bind-flags="sync-create" />
+                    <property name="sensitive" bind-source="auto_lock_switch" bind-property="sensitive" bind-flags="sync-create" />
                     <property name="adjustment">auto_lock_adjustment</property>
                     <property name="climb-rate">1</property>
                     <property name="numeric">True</property>
