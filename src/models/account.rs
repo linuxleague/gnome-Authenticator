@@ -223,7 +223,7 @@ impl Account {
         let results = DiAccount::belonging_to(&dip)
             .load::<DiAccount>(&conn)?
             .into_iter()
-            .map(clone!(@weak p => move |account| {
+            .filter_map(clone!(@weak p => move |account| {
                 Self::new(
                     account.id  as u32,
                     &account.name,
@@ -231,7 +231,7 @@ impl Account {
                     account.counter as u32,
                     p,
                     None,
-                ).unwrap()
+                ).ok()
             }));
 
         Ok(results)
