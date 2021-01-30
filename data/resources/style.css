@@ -40,8 +40,8 @@
   margin-left: 0px;
   margin-right: 0px;
 }
-/* Only for TOTP accounts */
-row.totp .content row.account-row:last-child {
+
+row .content row.account-row:last-child {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border-bottom: 0;
