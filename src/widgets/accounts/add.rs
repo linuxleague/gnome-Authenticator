@@ -186,6 +186,7 @@ impl AccountAddDialog {
                 otp_uri.algorithm,
                 otp_uri.digits,
                 otp_uri.counter,
+                None,
             )
             .ok();
 

@@ -268,6 +268,7 @@ impl Provider {
         method: OTPMethod,
         digits: u32,
         default_counter: u32,
+        help_url: Option<String>,
     ) -> Result<Self> {
         let db = database::connection();
         let conn = db.get()?;
@@ -281,7 +282,7 @@ impl Provider {
                 algorithm: algorithm.to_string(),
                 digits: digits as i32,
                 default_counter: default_counter as i32,
-                help_url: None,
+                help_url,
                 image_uri: None,
             })
             .execute(&conn)?;

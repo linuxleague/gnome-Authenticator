@@ -161,3 +161,13 @@ impl From<Algorithm> for hmac::Algorithm {
         }
     }
 }
+
+impl From<u32> for Algorithm {
+    fn from(u: u32) -> Self {
+        match u {
+            1 => Algorithm::SHA256,
+            2 => Algorithm::SHA512,
+            _ => Algorithm::default(),
+        }
+    }
+}

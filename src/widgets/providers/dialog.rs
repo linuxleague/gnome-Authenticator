@@ -161,6 +161,20 @@ impl ProvidersDialog {
             }),
         );
 
+        self_
+            .page
+            .connect_local(
+                "created",
+                false,
+                clone!(@weak model, @weak self as dialog => move |args| {
+                    let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
+                    model.add_provider(&provider);
+                    dialog.set_view(View::List);
+                    None
+                }),
+            )
+            .unwrap();
+
         let deck_page = self_.deck.append(&self_.page).unwrap();
         deck_page.set_name(Some("provider"));
         self.set_view(View::List);

@@ -64,6 +64,7 @@ impl ProvidersModel {
         algorithm: Algorithm,
         digits: Option<u32>,
         default_counter: Option<u32>,
+        help_url: Option<String>,
     ) -> Result<Provider> {
         let provider = match self.find_by_name(name) {
             Some(p) => p,
@@ -76,6 +77,7 @@ impl ProvidersModel {
                     method,
                     digits.unwrap_or(otp::DEFAULT_DIGITS),
                     default_counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER),
+                    help_url,
                 )?;
                 self.add_provider(&p);
                 p
