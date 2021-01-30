@@ -81,10 +81,10 @@ pub(crate) fn format(code: u32, digits: usize) -> String {
 
 #[cfg(test)]
 mod tests {
-    use super::{format, hotp, Algorithm, DEFAULT_DIGITS};
+    use super::{format, hotp, steam, Algorithm, DEFAULT_DIGITS};
 
     #[test]
-    fn test_htop() {
+    fn test_hotp() {
         assert_eq!(
             hotp("BASE32SECRET3232", 0, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
             260182
@@ -97,6 +97,12 @@ mod tests {
             hotp("BASE32SECRET3232", 1401, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
             316439
         );
+    }
+
+    #[test]
+    fn test_steam_totp() {
+        assert_eq!(steam("BASE32SECRET3232", 0).unwrap(), "2TC8B");
+        assert_eq!(steam("BASE32SECRET3232", 1).unwrap(), "YKKK4");
     }
 
     #[test]
