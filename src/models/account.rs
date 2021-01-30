@@ -276,7 +276,7 @@ impl Account {
         let provider = self.provider();
 
         let counter = match provider.method() {
-            OTPMethod::TOTP | OTPMethod::Steam => {
+            OTPMethod::TOTP => {
                 let timestamp = SystemTime::now()
                     .duration_since(UNIX_EPOCH)
                     .unwrap()
@@ -290,10 +290,17 @@ impl Account {
                 }
                 old_counter as u64
             }
+            OTPMethod::Steam => {
+                let timestamp = SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap()
+                    .as_secs();
+                timestamp / otp::STEAM_DEFAULT_PERIOD as u64
+            }
         };
 
         let otp_password: Result<String> = match provider.method() {
-            OTPMethod::Steam => otp::steam(&self.token()),
+            OTPMethod::Steam => otp::steam(&self.token(), counter),
             _ => {
                 let token = otp::hotp(
                     &self.token(),

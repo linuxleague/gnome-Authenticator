@@ -234,7 +234,7 @@ impl AccountAddDialog {
             self_.digits_label.set_text(&provider.digits().to_string());
 
             match provider.method() {
-                OTPMethod::TOTP => {
+                OTPMethod::TOTP | OTPMethod::Steam => {
                     self_.counter_row.hide();
                     self_.period_row.show();
                 }
@@ -242,7 +242,6 @@ impl AccountAddDialog {
                     self_.counter_row.show();
                     self_.period_row.hide();
                 }
-                OTPMethod::Steam => {}
             };
 
             if let Some(ref website) = provider.website() {
