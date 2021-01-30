@@ -1,4 +1,4 @@
-use super::{ProviderPage, ProviderPageMode};
+use super::ProviderPage;
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
@@ -186,14 +186,14 @@ impl ProvidersDialog {
     fn add_provider(&self) {
         let self_ = imp::ProvidersDialog::from_instance(self);
         self_.deck.set_visible_child_name("provider");
-        self_.page.set_mode(ProviderPageMode::Create);
+        // By not setting the current provider we implicitly say it's for creating a new one
+        self_.page.set_provider(None);
     }
 
     fn edit_provider(&self, provider: Provider) {
         let self_ = imp::ProvidersDialog::from_instance(self);
         self_.deck.set_visible_child_name("provider");
-        self_.page.set_provider(provider);
-        self_.page.set_mode(ProviderPageMode::Edit);
+        self_.page.set_provider(Some(provider));
     }
 }
 

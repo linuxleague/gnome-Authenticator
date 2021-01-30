@@ -232,7 +232,7 @@ impl ProviderRow {
 
         self.add_css_class(&self.provider().method().to_string());
 
-        self_.image.set_provider(&self.provider());
+        self_.image.set_provider(Some(&self.provider()));
 
         self.restart();
         if self.provider().method() == OTPMethod::TOTP {

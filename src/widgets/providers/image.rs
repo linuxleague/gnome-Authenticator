@@ -132,37 +132,43 @@ impl ProviderImage {
         glib::Object::new(&[]).expect("Failed to create ProviderImage")
     }
 
-    pub fn set_provider(&self, provider: &Provider) {
+    pub fn set_provider(&self, provider: Option<&Provider>) {
         let self_ = imp::ProviderImage::from_instance(self);
-        self_.stack.set_visible_child_name("loading");
-        self_.spinner.start();
+        if let Some(provider) = provider {
+            self_.stack.set_visible_child_name("loading");
+            self_.spinner.start();
 
-        self.set_property("provider", &provider.clone()).unwrap();
+            self.set_property("provider", &provider.clone()).unwrap();
 
-        match provider.image_uri() {
-            Some(uri) => {
-                // Very dirty hack to store that we couldn't find an icon
-                // to avoid re-hitting the website every time we have to display it
-                if uri == "invalid" {
-                    self_
-                        .image
-                        .set_from_icon_name(Some("image-missing-symbolic"));
+            match provider.image_uri() {
+                Some(uri) => {
+                    // Very dirty hack to store that we couldn't find an icon
+                    // to avoid re-hitting the website every time we have to display it
+                    if uri == "invalid" {
+                        self_
+                            .image
+                            .set_from_icon_name(Some("image-missing-symbolic"));
+                        self_.stack.set_visible_child_name("image");
+                        return;
+                    }
+
+                    let file = gio::File::new_for_uri(&uri);
+                    if !file.query_exists(gio::NONE_CANCELLABLE) {
+                        self.fetch();
+                        return;
+                    }
+
+                    self_.image.set_from_file(file.get_path().unwrap());
                     self_.stack.set_visible_child_name("image");
-                    return;
                 }
-
-                let file = gio::File::new_for_uri(&uri);
-                if !file.query_exists(gio::NONE_CANCELLABLE) {
+                _ => {
                     self.fetch();
-                    return;
                 }
-
-                self_.image.set_from_file(file.get_path().unwrap());
-                self_.stack.set_visible_child_name("image");
             }
-            _ => {
-                self.fetch();
-            }
+        } else {
+            self_
+                .image
+                .set_from_icon_name(Some("image-missing-symbolic"));
         }
     }
 

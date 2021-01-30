@@ -33,6 +33,7 @@ sources = files(
   'models/algorithm.rs',
   'models/database.rs',
   'models/favicon.rs',
+  'models/i18n.rs',
   'models/keyring.rs',
   'models/mod.rs',
   'models/otp.rs',

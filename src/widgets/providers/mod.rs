@@ -7,6 +7,6 @@ pub use self::{
     dialog::ProvidersDialog,
     image::ProviderImage,
     list::{ProvidersList, ProvidersListView},
-    page::{ProviderPage, ProviderPageMode},
+    page::ProviderPage,
     row::ProviderRow,
 };

@@ -5,6 +5,7 @@ mod accounts;
 mod algorithm;
 pub mod database;
 mod favicon;
+pub mod i18n;
 mod keyring;
 pub mod otp;
 mod otp_uri;

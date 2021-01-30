@@ -1,16 +1,11 @@
 use crate::{
-    models::{otp, Algorithm, OTPMethod, Provider},
+    models::{i18n, otp, Algorithm, OTPMethod, Provider},
     widgets::ProviderImage,
 };
 use adw::ComboRowExt;
 use gettextrs::gettext;
 use glib::{clone, translate::ToGlib};
 use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
-
-pub enum ProviderPageMode {
-    Create,
-    Edit,
-}
 
 mod imp {
     use crate::models::OTPMethod;
@@ -112,40 +107,69 @@ impl ProviderPage {
         glib::Object::new(&[]).expect("Failed to create ProviderPage")
     }
 
-    pub fn set_provider(&self, provider: Provider) {
+    pub fn set_provider(&self, provider: Option<Provider>) {
         let self_ = imp::ProviderPage::from_instance(self);
-        self_.name_entry.set_text(&provider.name());
-        self_.period_spinbutton.set_value(provider.period() as f64);
+        if let Some(provider) = provider {
+            self_.name_entry.set_text(&provider.name());
+            self_.period_spinbutton.set_value(provider.period() as f64);
 
-        if let Some(ref website) = provider.website() {
-            self_.provider_website_entry.set_text(website);
-        }
+            if let Some(ref website) = provider.website() {
+                self_.provider_website_entry.set_text(website);
+            }
 
-        if let Some(ref website) = provider.help_url() {
-            self_.provider_help_entry.set_text(website);
-        }
+            if let Some(ref website) = provider.help_url() {
+                self_.provider_help_entry.set_text(website);
+            }
 
-        self_.algorithm_comborow.set_selected(
+            self_.algorithm_comborow.set_selected(
+                self_
+                    .algorithms_model
+                    .find_position(provider.algorithm().to_glib()),
+            );
+
             self_
-                .algorithms_model
-                .find_position(provider.algorithm().to_glib()),
-        );
-        self.on_method_changed();
+                .default_counter_spinbutton
+                .set_value(provider.default_counter() as f64);
+            self_.digits_spinbutton.set_value(provider.digits() as f64);
 
-        self_
-            .default_counter_spinbutton
-            .set_value(provider.default_counter() as f64);
-        self_.digits_spinbutton.set_value(provider.digits() as f64);
-
-        self_.method_comborow.set_selected(
+            self_.method_comborow.set_selected(
+                self_
+                    .methods_model
+                    .find_position(provider.method().to_glib()),
+            );
+            self_.image.set_provider(Some(&provider));
             self_
-                .methods_model
-                .find_position(provider.method().to_glib()),
-        );
-        self_.image.set_provider(&provider);
-        self_
-            .title
-            .set_text(&format!("Editing provider: {}", provider.name()));
+                .title
+                .set_text(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
+        } else {
+            self_.name_entry.set_text("");
+            self_
+                .period_spinbutton
+                .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
+            self_.provider_website_entry.set_text("");
+            self_.provider_help_entry.set_text("");
+
+            self_.algorithm_comborow.set_selected(
+                self_
+                    .algorithms_model
+                    .find_position(Algorithm::default().to_glib()),
+            );
+
+            self_
+                .default_counter_spinbutton
+                .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
+            self_
+                .digits_spinbutton
+                .set_value(otp::DEFAULT_DIGITS as f64);
+
+            self_.method_comborow.set_selected(
+                self_
+                    .methods_model
+                    .find_position(OTPMethod::default().to_glib()),
+            );
+            self_.image.set_provider(None);
+            self_.title.set_text(&gettext("New Provider"));
+        }
     }
 
     fn setup_widgets(&self) {
@@ -176,24 +200,6 @@ impl ProviderPage {
                 self_.period_row.hide();
             }
             OTPMethod::Steam => {}
-        }
-    }
-
-    pub fn set_mode(&self, mode: ProviderPageMode) {
-        let self_ = imp::ProviderPage::from_instance(self);
-        match mode {
-            ProviderPageMode::Create => {
-                self_.title.set_label(&gettext("New Provider"));
-                self_.name_entry.set_text("");
-                self_
-                    .period_spinbutton
-                    .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
-                self_.provider_website_entry.set_text("");
-                self_.provider_help_entry.set_text("");
-
-                self_.method_comborow.set_selected(0);
-            }
-            ProviderPageMode::Edit => {}
         }
     }
 }

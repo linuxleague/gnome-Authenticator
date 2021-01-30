@@ -187,7 +187,7 @@ impl AccountAddDialog {
                 otp_uri.digits,
                 otp_uri.counter,
             )
-            .unwrap();
+            .ok();
 
         self.set_provider(provider);
     }
@@ -214,43 +214,47 @@ impl AccountAddDialog {
         Ok(())
     }
 
-    fn set_provider(&self, provider: Provider) {
+    fn set_provider(&self, provider: Option<Provider>) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-        self_.more_list.show();
-        self_.provider_entry.set_text(&provider.name());
-        self_.period_label.set_text(&provider.period().to_string());
+        if let Some(provider) = provider {
+            self_.more_list.show();
+            self_.provider_entry.set_text(&provider.name());
+            self_.period_label.set_text(&provider.period().to_string());
 
-        self_.image.set_provider(&provider);
+            self_.image.set_provider(Some(&provider));
 
-        self_
-            .method_label
-            .set_text(&provider.method().to_locale_string());
+            self_
+                .method_label
+                .set_text(&provider.method().to_locale_string());
 
-        self_
-            .algorithm_label
-            .set_text(&provider.algorithm().to_locale_string());
+            self_
+                .algorithm_label
+                .set_text(&provider.algorithm().to_locale_string());
 
-        self_.digits_label.set_text(&provider.digits().to_string());
+            self_.digits_label.set_text(&provider.digits().to_string());
 
-        match provider.method() {
-            OTPMethod::TOTP => {
-                self_.counter_row.hide();
-                self_.period_row.show();
+            match provider.method() {
+                OTPMethod::TOTP => {
+                    self_.counter_row.hide();
+                    self_.period_row.show();
+                }
+                OTPMethod::HOTP => {
+                    self_.counter_row.show();
+                    self_.period_row.hide();
+                }
+                OTPMethod::Steam => {}
+            };
+
+            if let Some(ref website) = provider.website() {
+                self_.provider_website_row.set_uri(website);
             }
-            OTPMethod::HOTP => {
-                self_.counter_row.show();
-                self_.period_row.hide();
+            if let Some(ref help_url) = provider.help_url() {
+                self_.provider_help_row.set_uri(help_url);
             }
-            OTPMethod::Steam => {}
-        };
-
-        if let Some(ref website) = provider.website() {
-            self_.provider_website_row.set_uri(website);
+            self_.selected_provider.borrow_mut().replace(provider);
+        } else {
+            self_.selected_provider.borrow_mut().take();
         }
-        if let Some(ref help_url) = provider.help_url() {
-            self_.provider_help_row.set_uri(help_url);
-        }
-        self_.selected_provider.borrow_mut().replace(provider);
     }
 
     fn setup_actions(&self) {
@@ -300,7 +304,7 @@ impl AccountAddDialog {
         self_.provider_completion.connect_match_selected(
             clone!(@weak self as dialog, @strong self_.model as model => move |_, store, iter| {
                 let provider_id = store.get_value(iter, 0).get_some::<u32>().unwrap();
-                let provider = model.get().unwrap().find_by_id(provider_id).unwrap();
+                let provider = model.get().unwrap().find_by_id(provider_id);
                 dialog.set_provider(provider);
 
                 Inhibit(false)
