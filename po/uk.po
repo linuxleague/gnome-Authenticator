@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-29 22:28+0000\n"
-"PO-Revision-Date: 2021-01-30 10:12+0200\n"
+"POT-Creation-Date: 2021-01-30 11:07+0000\n"
+"PO-Revision-Date: 2021-01-30 14:14+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -157,8 +157,7 @@ msgstr "Надавач даних"
 
 #: data/resources/ui/account_add.ui:100
 msgid "Token issuer"
-msgstr ""
-"Видавець жетона"
+msgstr "Видавець жетона"
 
 #: data/resources/ui/account_add.ui:115
 #: data/resources/ui/account_details_page.ui:41
@@ -187,15 +186,13 @@ msgstr "Період"
 
 #: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:140
 msgid "Duration in seconds until the next password update"
-msgstr ""
-"Тривалість періоду (у секундах) до наступного оновлення пароля"
+msgstr "Тривалість періоду (у секундах) до наступного оновлення пароля"
 
 #: data/resources/ui/account_add.ui:205 data/resources/ui/provider_page.ui:173
 msgid "Digits"
 msgstr "Цифри"
 
 #: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:174
-#| msgid "Length of the generated code. The recommended value is 6"
 msgid "Length of the generated code"
 msgstr "Довжина створеного коду"
 
@@ -267,59 +264,59 @@ msgstr "Повторіть пароль"
 msgid "_Reset"
 msgstr "С_кинути"
 
-#: data/resources/ui/preferences.ui:17
+#: data/resources/ui/preferences.ui:16
 msgid "General"
 msgstr "Загальне"
 
-#: data/resources/ui/preferences.ui:20
+#: data/resources/ui/preferences.ui:19
 msgid "Appearance"
 msgstr "Вигляд"
 
-#: data/resources/ui/preferences.ui:23
+#: data/resources/ui/preferences.ui:22
 msgid "_Dark Theme"
 msgstr "_Темна тема"
 
-#: data/resources/ui/preferences.ui:26
+#: data/resources/ui/preferences.ui:25
 msgid "Whether the application should use a dark theme"
 msgstr "Чи слід віддавати перевагу у програмі темній темі"
 
-#: data/resources/ui/preferences.ui:38
+#: data/resources/ui/preferences.ui:37
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: data/resources/ui/preferences.ui:41
+#: data/resources/ui/preferences.ui:40
 msgid "_Password"
 msgstr "Па_роль"
 
-#: data/resources/ui/preferences.ui:43
+#: data/resources/ui/preferences.ui:42
 msgid "Set up a password to lock the application with"
 msgstr "Встановіть пароль, за допомогою якого буде заблоковано програму"
 
-#: data/resources/ui/preferences.ui:55
+#: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
 msgstr "_Автоматично заблокувати програму"
 
-#: data/resources/ui/preferences.ui:58
+#: data/resources/ui/preferences.ui:57
 msgid "Whether to automatically lock the application"
 msgstr "Чи слід автоматично блокувати програму"
 
-#: data/resources/ui/preferences.ui:69
+#: data/resources/ui/preferences.ui:68
 msgid "Auto lock _Timeout"
 msgstr "_Час очікування на автоблокування"
 
-#: data/resources/ui/preferences.ui:70
+#: data/resources/ui/preferences.ui:69
 msgid "The time in minutes"
 msgstr "Час у хвилинах"
 
-#: data/resources/ui/preferences.ui:93
+#: data/resources/ui/preferences.ui:92
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:96 src/widgets/preferences/window.rs:299
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:299
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:101 src/widgets/preferences/window.rs:306
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:306
 msgid "Restore"
 msgstr "Відновити"
 
@@ -328,7 +325,6 @@ msgid "Name"
 msgstr "Назва"
 
 #: data/resources/ui/provider_page.ui:106
-#| msgid "Used to fetch the website icon if possible"
 msgid "Used to fetch the provider icon"
 msgstr "Використовується для отримання піктограми надавача даних"
 
@@ -342,8 +338,7 @@ msgstr "Адреса довідки"
 
 #: data/resources/ui/provider_page.ui:192
 msgid "Provider setup instructions"
-msgstr ""
-"Настанови щодо налаштування надавача даних"
+msgstr "Настанови щодо налаштування надавача даних"
 
 #: data/resources/ui/providers_dialog.ui:5
 msgid "Providers"
@@ -513,7 +508,6 @@ msgid "SHA-512"
 msgstr "SHA-512"
 
 #: src/widgets/accounts/add.rs:202
-#| msgid "Invalid QR code"
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
@@ -530,7 +524,12 @@ msgstr "Вибрати"
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/widgets/providers/page.rs:186
+#: src/widgets/providers/page.rs:143
+msgid "Editing Provider: {}"
+msgstr ""
+"Редагування надавача даних: {}"
+
+#: src/widgets/providers/page.rs:171
 msgid "New Provider"
 msgstr "Новий надавач даних"
 
