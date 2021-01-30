@@ -1,5 +1,5 @@
 project('authenticator', 'rust',
-	version: '3.32.2',
+	version: '4.0.0',
   meson_version: '>= 0.50',
   license: 'GPL+-3.0'
 )
@@ -23,10 +23,6 @@ glib_compile_resources = find_program('glib-compile-resources', required: true)
 cargo_script = find_program('build-aux/cargo.sh')
 
 version = meson.project_version()
-version_array = version.split('.')
-major_version = version_array[0].to_int()
-minor_version = version_array[1].to_int()
-version_micro = version_array[2].to_int()
 
 prefix = get_option('prefix')
 bindir = prefix / get_option('bindir')
