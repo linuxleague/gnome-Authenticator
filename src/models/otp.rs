@@ -3,9 +3,10 @@ use anyhow::Result;
 use data_encoding::BASE32;
 use ring::hmac;
 use std::convert::TryInto;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 pub static STEAM_CHARS: &str = "23456789BCDFGHJKMNPQRTVWXY";
-pub static STEAM_DEFAULT_COUNTER: u32 = 30;
+pub static STEAM_DEFAULT_PERIOD: u32 = 30;
 pub static STEAM_DEFAULT_DIGITS: u32 = 5;
 pub static HOTP_DEFAULT_COUNTER: u32 = 1;
 pub static DEFAULT_DIGITS: u32 = 6;
@@ -54,20 +55,18 @@ pub(crate) fn hotp(secret: &str, counter: u64, algorithm: Algorithm, digits: u32
     Ok(digest % 10_u32.pow(digits))
 }
 
-pub(crate) fn steam(secret: &str) -> Result<String> {
-    let mut token = hotp(
-        secret,
-        STEAM_DEFAULT_COUNTER as u64,
-        Algorithm::SHA1,
-        STEAM_DEFAULT_DIGITS,
-    )?;
+pub(crate) fn steam(secret: &str, counter: u64) -> Result<String> {
+    let decoded = decode_secret(secret)?;
+    let mut full_token =
+        encode_digest(calc_digest(decoded.as_slice(), counter, Algorithm::SHA1).as_ref())?;
+
     let mut code = String::new();
     let total_chars = STEAM_CHARS.len() as u32;
-    for _ in 0..5 {
-        let pos = token % total_chars;
+    for _ in 0..STEAM_DEFAULT_DIGITS {
+        let pos = full_token % total_chars;
         let charachter = STEAM_CHARS.chars().nth(pos as usize).unwrap();
         code.push(charachter);
-        token /= total_chars;
+        full_token /= total_chars;
     }
     Ok(code)
 }
@@ -81,12 +80,20 @@ pub(crate) fn format(code: u32, digits: usize) -> String {
     formated_code
 }
 
+pub(crate) fn time_based_counter(period: u32) -> u64 {
+    let timestamp = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+    timestamp / period as u64
+}
+
 #[cfg(test)]
 mod tests {
-    use super::{format, hotp, Algorithm, DEFAULT_DIGITS};
+    use super::{format, hotp, steam, Algorithm, DEFAULT_DIGITS};
 
     #[test]
-    fn test_htop() {
+    fn test_hotp() {
         assert_eq!(
             hotp("BASE32SECRET3232", 0, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
             260182
@@ -99,6 +106,12 @@ mod tests {
             hotp("BASE32SECRET3232", 1401, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
             316439
         );
+    }
+
+    #[test]
+    fn test_steam_totp() {
+        assert_eq!(steam("BASE32SECRET3232", 0).unwrap(), "2TC8B");
+        assert_eq!(steam("BASE32SECRET3232", 1).unwrap(), "YKKK4");
     }
 
     #[test]

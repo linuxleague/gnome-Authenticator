@@ -13,10 +13,7 @@ use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
 use gtk::{glib, subclass::prelude::*};
 use once_cell::sync::OnceCell;
-use std::{
-    cell::{Cell, RefCell},
-    time::{SystemTime, UNIX_EPOCH},
-};
+use std::cell::{Cell, RefCell};
 use unicase::UniCase;
 
 #[derive(Insertable)]
@@ -276,13 +273,7 @@ impl Account {
         let provider = self.provider();
 
         let counter = match provider.method() {
-            OTPMethod::TOTP | OTPMethod::Steam => {
-                let timestamp = SystemTime::now()
-                    .duration_since(UNIX_EPOCH)
-                    .unwrap()
-                    .as_secs();
-                timestamp / (provider.period() as u64)
-            }
+            OTPMethod::TOTP => otp::time_based_counter(provider.period()),
             OTPMethod::HOTP => {
                 let old_counter = self.counter();
                 if let Err(err) = self.increment_counter() {
@@ -290,10 +281,11 @@ impl Account {
                 }
                 old_counter as u64
             }
+            OTPMethod::Steam => otp::time_based_counter(otp::STEAM_DEFAULT_PERIOD),
         };
 
         let otp_password: Result<String> = match provider.method() {
-            OTPMethod::Steam => otp::steam(&self.token()),
+            OTPMethod::Steam => otp::steam(&self.token(), counter),
             _ => {
                 let token = otp::hotp(
                     &self.token(),

@@ -165,12 +165,15 @@ impl ProviderRow {
     fn restart(&self) {
         let provider = self.provider();
 
-        if provider.method() == OTPMethod::TOTP {
-            let self_ = imp::ProviderRow::from_instance(self);
+        match self.provider().method() {
+            OTPMethod::TOTP | OTPMethod::Steam => {
+                let self_ = imp::ProviderRow::from_instance(self);
 
-            self_.progress.set_fraction(1_f64);
-            self.set_property("remaining-time", &(self.provider().period() as u64))
-                .unwrap();
+                self_.progress.set_fraction(1_f64);
+                self.set_property("remaining-time", &(self.provider().period() as u64))
+                    .unwrap();
+            }
+            _ => (),
         }
 
         // Tell all of the accounts to regen
@@ -235,23 +238,24 @@ impl ProviderRow {
         self_.image.set_provider(Some(&self.provider()));
 
         self.restart();
-        if self.provider().method() == OTPMethod::TOTP {
-            glib::timeout_add_seconds_local(
-                1,
-                clone!(@weak self as row => @default-return glib::Continue(false), move || {
-                    row.tick();
-                    glib::Continue(true)
-                }),
-            );
+        match self.provider().method() {
+            OTPMethod::TOTP | OTPMethod::Steam => {
+                glib::timeout_add_seconds_local(
+                    1,
+                    clone!(@weak self as row => @default-return glib::Continue(false), move || {
+                        row.tick();
+                        glib::Continue(true)
+                    }),
+                );
 
-            self_
-                .callback_id
-                .replace(Some(self.add_tick_callback(|row, _| {
-                    row.tick_progressbar();
-                    glib::Continue(true)
-                })));
-        } else {
-            self_.progress.hide();
+                self_
+                    .callback_id
+                    .replace(Some(self.add_tick_callback(|row, _| {
+                        row.tick_progressbar();
+                        glib::Continue(true)
+                    })));
+            }
+            _ => self_.progress.hide(),
         }
 
         self.provider()
