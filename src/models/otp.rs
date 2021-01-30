@@ -3,6 +3,7 @@ use anyhow::Result;
 use data_encoding::BASE32;
 use ring::hmac;
 use std::convert::TryInto;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 pub static STEAM_CHARS: &str = "23456789BCDFGHJKMNPQRTVWXY";
 pub static STEAM_DEFAULT_PERIOD: u32 = 30;
@@ -77,6 +78,14 @@ pub(crate) fn format(code: u32, digits: usize) -> String {
         formated_code.insert(middle, ' ');
     }
     formated_code
+}
+
+pub(crate) fn time_based_counter(period: u32) -> u64 {
+    let timestamp = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+    timestamp / period as u64
 }
 
 #[cfg(test)]
