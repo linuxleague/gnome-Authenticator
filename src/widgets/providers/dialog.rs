@@ -5,6 +5,11 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::action;
 use row::ProviderActionRow;
 
+enum View {
+    List,
+    Form,
+}
+
 mod imp {
     use super::*;
     use adw::subclass::window::AdwWindowImpl;
@@ -108,6 +113,19 @@ impl ProvidersDialog {
                 dialog.search(text);
             }));
 
+        let search_btn = &*self_.search_btn;
+        self_
+            .search_entry
+            .connect_search_started(clone!(@weak search_btn => move |entry| {
+                search_btn.set_active(true);
+            }));
+        self_
+            .search_entry
+            .connect_stop_search(clone!(@weak search_btn => move |entry| {
+                entry.set_text("");
+                search_btn.set_active(false);
+            }));
+
         let factory = gtk::SignalListItemFactory::new();
         factory.connect_setup(|_, list_item| {
             let row = ProviderActionRow::new();
@@ -145,17 +163,17 @@ impl ProvidersDialog {
 
         let deck_page = self_.deck.append(&self_.page).unwrap();
         deck_page.set_name(Some("provider"));
+        self.set_view(View::List);
     }
 
     fn setup_actions(&self) {
         let self_ = imp::ProvidersDialog::from_instance(self);
 
-        let deck = &*self_.deck;
         action!(
             self_.actions,
             "back",
-            clone!(@weak deck => move |_ , _| {
-                deck.set_visible_child_name("providers");
+            clone!(@weak self as dialog => move |_ , _| {
+                dialog.set_view(View::List);
             })
         );
 
@@ -185,15 +203,29 @@ impl ProvidersDialog {
 
     fn add_provider(&self) {
         let self_ = imp::ProvidersDialog::from_instance(self);
-        self_.deck.set_visible_child_name("provider");
+        self.set_view(View::Form);
         // By not setting the current provider we implicitly say it's for creating a new one
         self_.page.set_provider(None);
     }
 
     fn edit_provider(&self, provider: Provider) {
         let self_ = imp::ProvidersDialog::from_instance(self);
-        self_.deck.set_visible_child_name("provider");
+        self.set_view(View::Form);
         self_.page.set_provider(Some(provider));
+    }
+
+    fn set_view(&self, view: View) {
+        let self_ = imp::ProvidersDialog::from_instance(self);
+        match view {
+            View::Form => {
+                self_.deck.set_visible_child_name("provider");
+                self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
+            }
+            View::List => {
+                self_.deck.set_visible_child_name("providers");
+                self_.search_entry.set_key_capture_widget(Some(self));
+            }
+        }
     }
 }
 
