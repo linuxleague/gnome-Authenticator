@@ -245,7 +245,6 @@ impl Window {
             search_btn.set_active(true);
         }));
         search_entry.connect_stop_search(clone!(@weak search_btn => move |entry| {
-            entry.set_text("");
             search_btn.set_active(false);
         }));
 
@@ -255,6 +254,7 @@ impl Window {
                 title_stack.set_visible_child_name("search");
                 search_entry.grab_focus();
             } else {
+                search_entry.set_text("");
                 title_stack.set_visible_child_name("title");
             }
         }));
