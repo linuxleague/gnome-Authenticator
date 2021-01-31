@@ -20,6 +20,19 @@ use std::{
 use unicase::UniCase;
 use url::Url;
 
+#[derive(Debug)]
+pub struct ProviderPatch {
+    pub name: String,
+    pub website: Option<String>,
+    pub help_url: Option<String>,
+    pub image_uri: Option<String>,
+    pub period: i32,
+    pub digits: i32,
+    pub default_counter: i32,
+    pub algorithm: String,
+    pub method: String,
+}
+
 #[derive(Insertable)]
 #[table_name = "providers"]
 struct NewProvider {
@@ -412,6 +425,37 @@ impl Provider {
     pub fn help_url(&self) -> Option<String> {
         let self_ = imp::Provider::from_instance(self);
         self_.help_url.borrow().clone()
+    }
+
+    pub fn update(&self, patch: &ProviderPatch) -> Result<()> {
+        let db = database::connection();
+        let conn = db.get()?;
+
+        let target = providers::table.filter(providers::columns::id.eq(self.id() as i32));
+        diesel::update(target)
+            .set((
+                providers::columns::image_uri.eq(&patch.image_uri),
+                providers::columns::website.eq(&patch.website),
+                providers::columns::algorithm.eq(&patch.algorithm),
+                providers::columns::method.eq(&patch.method),
+                providers::columns::help_url.eq(&patch.help_url),
+                providers::columns::digits.eq(&patch.digits),
+                providers::columns::period.eq(&patch.period),
+                providers::columns::default_counter.eq(&patch.default_counter),
+                providers::columns::name.eq(&patch.name),
+            ))
+            .execute(&conn)?;
+
+        self.set_property("image-uri", &patch.image_uri)?;
+        self.set_property("name", &patch.name)?;
+        self.set_property("website", &patch.website)?;
+        self.set_property("period", &(patch.period as u32))?;
+        self.set_property("method", &patch.method)?;
+        self.set_property("digits", &(patch.digits as u32))?;
+        self.set_property("algorithm", &patch.algorithm)?;
+        self.set_property("help-url", &patch.help_url)?;
+        self.set_property("default-counter", &(patch.default_counter as u32))?;
+        Ok(())
     }
 
     pub fn set_image_uri(&self, uri: &str) -> Result<()> {

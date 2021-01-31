@@ -1,5 +1,5 @@
 use crate::{
-    models::{i18n, otp, Algorithm, OTPMethod, Provider},
+    models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch},
     widgets::ProviderImage,
 };
 use adw::ComboRowExt;
@@ -99,6 +99,8 @@ mod imp {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
                     Signal::builder("created", &[Provider::static_type()], <()>::static_type())
+                        .build(),
+                    Signal::builder("updated", &[Provider::static_type()], <()>::static_type())
                         .build(),
                 ]
             });
@@ -221,7 +223,18 @@ impl ProviderPage {
         let default_counter = self_.default_counter_spinbutton.get_value() as u32;
 
         if let Some(provider) = self_.selected_provider.borrow().clone() {
-            println!("updating provider");
+            provider.update(&ProviderPatch {
+                name: name.to_string(),
+                website: Some(website),
+                help_url: Some(help_url),
+                image_uri: None,
+                period: period as i32,
+                digits: digits as i32,
+                default_counter: default_counter as i32,
+                algorithm: algorithm.to_string(),
+                method: method.to_string(),
+            })?;
+            self.emit("updated", &[&provider]).unwrap();
         } else {
             let provider = Provider::create(
                 &name,

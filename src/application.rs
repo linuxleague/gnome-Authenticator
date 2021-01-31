@@ -174,9 +174,14 @@ mod imp {
             action!(
                 app,
                 "providers",
-                clone!(@weak app, @weak self.model as model => move |_, _| {
+                clone!(@weak app,@weak self.model as model => move |_, _| {
                     let window = app.get_active_window().unwrap();
                     let providers = ProvidersDialog::new(model);
+                    let win = window.downcast_ref::<Window>().unwrap();
+                    providers.connect_local("changed", false, clone!(@weak win => move |_| {
+                        win.providers().refilter();
+                        None
+                    })).unwrap();
                     providers.set_transient_for(Some(&window));
                     providers.show();
                 })

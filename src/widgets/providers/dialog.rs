@@ -13,7 +13,7 @@ enum View {
 mod imp {
     use super::*;
     use adw::subclass::window::AdwWindowImpl;
-    use glib::subclass;
+    use glib::subclass::{self, Signal};
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
@@ -67,6 +67,12 @@ mod imp {
     }
 
     impl ObjectImpl for ProvidersDialog {
+        fn signals() -> &'static [Signal] {
+            use once_cell::sync::Lazy;
+            static SIGNALS: Lazy<Vec<Signal>> =
+                Lazy::new(|| vec![Signal::builder("changed", &[], <()>::static_type()).build()]);
+            SIGNALS.as_ref()
+        }
         fn constructed(&self, obj: &Self::Type) {
             obj.init_template();
             self.parent_constructed(obj);
@@ -170,11 +176,25 @@ impl ProvidersDialog {
                     let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
                     model.add_provider(&provider);
                     dialog.set_view(View::List);
+                    dialog.emit("changed", &[]).unwrap();
                     None
                 }),
             )
             .unwrap();
 
+        self_
+            .page
+            .connect_local(
+                "updated",
+                false,
+                clone!(@weak model, @weak self as dialog => move |args| {
+                    let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
+                    dialog.set_view(View::List);
+                    dialog.emit("changed", &[]).unwrap();
+                    None
+                }),
+            )
+            .unwrap();
         let deck_page = self_.deck.append(&self_.page).unwrap();
         deck_page.set_name(Some("provider"));
         self.set_view(View::List);
@@ -234,6 +254,7 @@ impl ProvidersDialog {
             View::Form => {
                 self_.deck.set_visible_child_name("provider");
                 self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
+                self_.search_entry.emit_stop_search();
             }
             View::List => {
                 self_.deck.set_visible_child_name("providers");

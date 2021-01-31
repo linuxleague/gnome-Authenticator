@@ -24,7 +24,7 @@ pub use self::{
     favicon::{FaviconError, FaviconScrapper},
     keyring::Keyring,
     otp_uri::OTPUri,
-    provider::Provider,
+    provider::{Provider, ProviderPatch},
     provider_sorter::ProviderSorter,
     providers::ProvidersModel,
 };
