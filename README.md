@@ -5,6 +5,7 @@
 # Authenticator
 
 <img src="https://gitlab.gnome.org/bilelmoussaoui/authenticator/raw/master/data/icons/com.belmoussaoui.Authenticator.svg" width="128px" height="128px" />
+
 <p>Generate Two-Factor Codes</p>
 
 ## Screenshots
@@ -15,12 +16,12 @@
 
 ## Features
 
-- Time-based/Counter-based methods support
-- SHA1/SHA256/SHA512 algorithms support
-- QR code scanner
+- Time-based/Counter-based/Steam methods support
+- SHA-1/SHA-256/SHA-512 algorithms support
+- QR code scanner using a camera or from a screenshot
 - Lock the application with a password
 - Beautiful UI
-- Backup/Restore from/into known applications like FreeOTP+, andOTP, Bitwarden
+- Backup/Restore from/into known applications like FreeOTP+, andOTP
 
 ## Getting in touch
 
