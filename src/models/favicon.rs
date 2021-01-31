@@ -76,21 +76,29 @@ impl Favicon {
         let ext = std::path::Path::new(url.path())
             .extension()
             .map(|e| e.to_str().unwrap())?;
-        // Assumes the svg is the best size we can find
+
         if ext == "svg" {
-            return Some((1024, 1024));
+            let body = response.body_string().await.ok()?;
+
+            self.svg_dimensions(body)
+        } else {
+            let bytes = response.body_bytes().await.ok()?;
+
+            let mut image = ImageReader::new(Cursor::new(bytes));
+
+            let format = image::ImageFormat::from_extension(ext)?;
+            image.set_format(format);
+            image.into_dimensions().ok()
         }
+    }
 
-        let format = match ext {
-            "png" => image::ImageFormat::Png,
-            "ico" => image::ImageFormat::Ico,
-            _ => unreachable!(),
-        };
+    // TODO: replace with librsvg maybe?
+    fn svg_dimensions(&self, svg: String) -> Option<(u32, u32)> {
+        let metadata = svg_metadata::Metadata::parse(svg).ok()?;
 
-        let bytes = response.body_bytes().await.ok()?;
-        let mut image = ImageReader::new(Cursor::new(bytes));
-        image.set_format(format);
-        image.into_dimensions().ok()
+        let width = metadata.width()? as u32;
+        let height = metadata.height()? as u32;
+        Some((width, height))
     }
 }
 #[derive(Debug)]
