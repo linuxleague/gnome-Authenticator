@@ -28,7 +28,7 @@ mod imp {
         #[template_child]
         pub current_password_row: TemplateChild<adw::ActionRow>,
         #[template_child]
-        pub password_img: TemplateChild<gtk::Image>,
+        pub status_page: TemplateChild<adw::StatusPage>,
         pub default_password_signal: RefCell<Option<glib::SignalHandlerId>>,
     }
 
@@ -50,7 +50,7 @@ mod imp {
                 confirm_password_entry: TemplateChild::default(),
                 current_password_row: TemplateChild::default(),
                 error_revealer: TemplateChild::default(),
-                password_img: TemplateChild::default(),
+                status_page: TemplateChild::default(),
                 actions: OnceCell::new(),
                 default_password_signal: RefCell::default(),
             }
@@ -158,7 +158,7 @@ impl PasswordPage {
     fn setup_widgets(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        self_.password_img.set_from_icon_name(Some(config::APP_ID));
+        self_.status_page.set_icon_name(Some(config::APP_ID));
 
         self_
             .password_entry
