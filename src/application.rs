@@ -317,7 +317,7 @@ impl Application {
     pub fn restart_lock_timeout(&self) {
         let self_ = imp::Application::from_instance(self);
         let auto_lock = self_.settings.get_boolean("auto-lock");
-        let timeout = self_.settings.get_uint("auto-lock-timeout");
+        let timeout = self_.settings.get_uint("auto-lock-timeout") * 60;
 
         if !auto_lock {
             return;
