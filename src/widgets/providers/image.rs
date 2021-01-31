@@ -137,38 +137,48 @@ impl ProviderImage {
         if let Some(provider) = provider {
             self_.stack.set_visible_child_name("loading");
             self_.spinner.start();
-
             self.set_property("provider", &provider.clone()).unwrap();
-
-            match provider.image_uri() {
-                Some(uri) => {
-                    // Very dirty hack to store that we couldn't find an icon
-                    // to avoid re-hitting the website every time we have to display it
-                    if uri == "invalid" {
-                        self_
-                            .image
-                            .set_from_icon_name(Some("image-missing-symbolic"));
-                        self_.stack.set_visible_child_name("image");
-                        return;
-                    }
-
-                    let file = gio::File::new_for_uri(&uri);
-                    if !file.query_exists(gio::NONE_CANCELLABLE) {
-                        self.fetch();
-                        return;
-                    }
-
-                    self_.image.set_from_file(file.get_path().unwrap());
-                    self_.stack.set_visible_child_name("image");
-                }
-                _ => {
-                    self.fetch();
-                }
-            }
+            self.on_provider_image_changed();
+            provider.connect_notify_local(
+                Some("image-uri"),
+                clone!(@weak self as image => move |_, _| {
+                    image.on_provider_image_changed();
+                }),
+            );
         } else {
             self_
                 .image
                 .set_from_icon_name(Some("image-missing-symbolic"));
+        }
+    }
+
+    fn on_provider_image_changed(&self) {
+        let self_ = imp::ProviderImage::from_instance(self);
+        let provider = self.provider().unwrap();
+        match provider.image_uri() {
+            Some(uri) => {
+                // Very dirty hack to store that we couldn't find an icon
+                // to avoid re-hitting the website every time we have to display it
+                if uri == "invalid" {
+                    self_
+                        .image
+                        .set_from_icon_name(Some("image-missing-symbolic"));
+                    self_.stack.set_visible_child_name("image");
+                    return;
+                }
+
+                let file = gio::File::new_for_uri(&uri);
+                if !file.query_exists(gio::NONE_CANCELLABLE) {
+                    self.fetch();
+                    return;
+                }
+
+                self_.image.set_from_file(file.get_path().unwrap());
+                self_.stack.set_visible_child_name("image");
+            }
+            _ => {
+                self.fetch();
+            }
         }
     }
 
@@ -177,18 +187,35 @@ impl ProviderImage {
         let sender = self_.sender.clone();
         self_.stack.set_visible_child_name("loading");
         self_.spinner.start();
-        let p = self.provider();
-        spawn!(async move {
-            match p.favicon().await {
-                Ok(file) => send!(sender, ImageAction::Ready(file)),
-                Err(_) => send!(sender, ImageAction::Failed),
-            }
-        });
+        if let Some(provider) = self.provider() {
+            spawn!(async move {
+                match provider.favicon().await {
+                    Ok(file) => send!(sender, ImageAction::Ready(file)),
+                    Err(_) => send!(sender, ImageAction::Failed),
+                }
+            });
+        }
     }
 
-    fn provider(&self) -> Provider {
+    pub fn reset(&self) {
+        let self_ = imp::ProviderImage::from_instance(self);
+        self_
+            .image
+            .set_from_icon_name(Some("image-missing-symbolic"));
+
+        self.fetch();
+    }
+
+    pub fn set_from_file(&self, file: &gio::File) {
+        let self_ = imp::ProviderImage::from_instance(self);
+
+        self_.image.set_from_file(file.get_path().unwrap());
+        self_.stack.set_visible_child_name("image");
+    }
+
+    fn provider(&self) -> Option<Provider> {
         let provider = self.get_property("provider").unwrap();
-        provider.get::<Provider>().unwrap().unwrap()
+        provider.get::<Provider>().unwrap()
     }
 
     fn setup_widgets(&self) {
@@ -205,25 +232,28 @@ impl ProviderImage {
 
     fn do_action(&self, action: ImageAction) -> glib::Continue {
         let self_ = imp::ProviderImage::from_instance(self);
-        let result = match action {
+        let image_path = match action {
             //TODO: handle network failure and other errors differently
             ImageAction::Failed => {
                 self_
                     .image
                     .set_from_icon_name(Some("image-missing-symbolic"));
-                self.provider().set_image_uri("invalid")
+                "invalid".to_string()
             }
             ImageAction::Ready(image) => {
                 self_.image.set_from_file(image.get_path().unwrap());
-                self.provider().set_image_uri(&image.get_uri())
+                let image_uri = image.get_uri();
+                image_uri.to_string()
             }
         };
-        if let Err(err) = result {
-            warn!("Failed to update the provider image {}", err);
+        if let Some(provider) = self.provider() {
+            if let Err(err) = provider.set_image_uri(&image_path) {
+                warn!("Failed to update provider image {}", err);
+            }
         }
+
         self_.stack.set_visible_child_name("image");
         self_.spinner.stop();
-
         glib::Continue(true)
     }
 }

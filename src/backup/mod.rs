@@ -27,6 +27,7 @@ pub trait Restorable: Sized {
             item.digits(),
             item.counter(),
             None,
+            None,
         )?;
 
         let account = Account::create(&item.account(), &item.secret(), &provider)?;

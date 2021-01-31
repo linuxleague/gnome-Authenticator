@@ -1,5 +1,5 @@
 use crate::{
-    models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch},
+    models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch, FAVICONS_PATH},
     widgets::ProviderImage,
 };
 use adw::ComboRowExt;
@@ -47,6 +47,9 @@ mod imp {
         #[template_child]
         pub title: TemplateChild<gtk::Label>,
         pub selected_provider: RefCell<Option<Provider>>,
+        // We need to hold a reference to the native file chooser
+        pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
+        pub selected_image: RefCell<Option<gio::File>>,
     }
 
     impl ObjectSubclass for ProviderPage {
@@ -81,6 +84,8 @@ mod imp {
                 methods_model,
                 algorithms_model,
                 selected_provider: RefCell::default(),
+                file_chooser: RefCell::default(),
+                selected_image: RefCell::default(),
             }
         }
 
@@ -222,12 +227,47 @@ impl ProviderPage {
         let algorithm = Algorithm::from(self_.algorithm_comborow.get_selected());
         let default_counter = self_.default_counter_spinbutton.get_value() as u32;
 
+        let image_uri = if let Some(file) = self_.selected_image.borrow().clone() {
+            let basename = file.get_basename().unwrap();
+            println!("{:#?}", basename);
+            let extension = basename
+                .to_str()
+                .unwrap()
+                .split('.')
+                .last()
+                .unwrap_or_else(|| "png");
+
+            let icon_name = format!(
+                "{}.{}",
+                glib::base64_encode(basename.to_str().unwrap().as_bytes()),
+                extension
+            );
+
+            let image_dest = FAVICONS_PATH.join(icon_name.as_str());
+
+            let dest_file = gio::File::new_for_path(image_dest);
+            dest_file.create(
+                gio::FileCreateFlags::REPLACE_DESTINATION,
+                gio::NONE_CANCELLABLE,
+            )?;
+            file.copy(
+                &dest_file,
+                gio::FileCopyFlags::OVERWRITE,
+                gio::NONE_CANCELLABLE,
+                None,
+            )?;
+
+            Some(dest_file.get_uri().to_string())
+        } else {
+            None
+        };
+
         if let Some(provider) = self_.selected_provider.borrow().clone() {
             provider.update(&ProviderPatch {
                 name: name.to_string(),
                 website: Some(website),
                 help_url: Some(help_url),
-                image_uri: None,
+                image_uri,
                 period: period as i32,
                 digits: digits as i32,
                 default_counter: default_counter as i32,
@@ -245,10 +285,55 @@ impl ProviderPage {
                 digits,
                 default_counter,
                 Some(help_url),
+                image_uri,
             )?;
             self.emit("created", &[&provider]).unwrap();
         }
         Ok(())
+    }
+
+    fn open_select_image(&self) {
+        let self_ = imp::ProviderPage::from_instance(self);
+        let parent = self.get_root().unwrap().downcast::<gtk::Window>().unwrap();
+
+        let file_chooser = gtk::FileChooserNativeBuilder::new()
+            .accept_label(&gettext("Select"))
+            .cancel_label(&gettext("Cancel"))
+            .modal(true)
+            .action(gtk::FileChooserAction::Open)
+            .transient_for(&parent)
+            .build();
+
+        let images_filter = gtk::FileFilter::new();
+        images_filter.set_name(Some(&gettext("Image")));
+        images_filter.add_pixbuf_formats();
+        file_chooser.add_filter(&images_filter);
+
+        file_chooser.connect_response(clone!(@weak self as page => move |dialog, response| {
+            if response == gtk::ResponseType::Accept {
+                let file = dialog.get_file().unwrap();
+                page.set_image(file);
+            }
+            let self_ = imp::ProviderPage::from_instance(&page);
+            self_.file_chooser.replace(None);
+            dialog.destroy();
+        }));
+
+        file_chooser.show();
+        self_.file_chooser.replace(Some(file_chooser));
+    }
+
+    fn set_image(&self, file: gio::File) {
+        let self_ = imp::ProviderPage::from_instance(self);
+
+        self_.image.set_from_file(&file);
+        self_.selected_image.replace(Some(file));
+    }
+
+    fn reset_image(&self) {
+        let self_ = imp::ProviderPage::from_instance(self);
+        self_.image.reset();
+        self_.selected_image.replace(None);
     }
 
     fn setup_actions(&self) {
@@ -260,6 +345,20 @@ impl ProviderPage {
                 if let Err(err) = page.save() {
                     warn!("Failed to save provider {}", err);
                 }
+            })
+        );
+        action!(
+            self_.actions,
+            "reset_image",
+            clone!(@weak self as page => move |_, _| {
+                page.reset_image();
+            })
+        );
+        action!(
+            self_.actions,
+            "select_image",
+            clone!(@weak self as page => move |_, _| {
+                page.open_select_image();
             })
         );
         self.insert_action_group("providers", Some(&self_.actions));

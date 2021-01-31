@@ -1,6 +1,6 @@
 use crate::{
     config,
-    models::{Keyring, ProvidersModel},
+    models::{Keyring, ProvidersModel, FAVICONS_PATH},
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use gettextrs::gettext;
@@ -111,6 +111,8 @@ mod imp {
             self.parent_startup(app);
 
             adw::functions::init();
+
+            std::fs::create_dir_all(&*FAVICONS_PATH.clone()).ok();
 
             let app = app.downcast_ref::<super::Application>().unwrap();
             if let Some(ref display) = gtk::gdk::Display::get_default() {

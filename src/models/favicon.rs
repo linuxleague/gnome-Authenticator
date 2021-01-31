@@ -1,8 +1,16 @@
 use super::CLIENT;
 use image::io::Reader as ImageReader;
+use once_cell::sync::Lazy;
 use quick_xml::events::{attributes::Attribute, BytesStart, Event};
 use std::io::Cursor;
 use url::Url;
+
+pub static FAVICONS_PATH: Lazy<std::path::PathBuf> = Lazy::new(|| {
+    gtk::glib::get_user_cache_dir()
+        .join("authenticator")
+        .join("favicons")
+});
+
 const SUPPORTED_RELS: [&[u8]; 7] = [
     b"icon",
     b"fluid-icon",

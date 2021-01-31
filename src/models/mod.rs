@@ -21,7 +21,7 @@ pub use self::{
     account_sorter::AccountSorter,
     accounts::AccountsModel,
     algorithm::{Algorithm, OTPMethod},
-    favicon::{FaviconError, FaviconScrapper},
+    favicon::{FaviconError, FaviconScrapper, FAVICONS_PATH},
     keyring::Keyring,
     otp_uri::OTPUri,
     provider::{Provider, ProviderPatch},

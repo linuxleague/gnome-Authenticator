@@ -78,9 +78,45 @@
                 <property name="margin-start">12</property>
                 <property name="margin-end">12</property>
                 <child>
-                  <object class="ProviderImage" id="image">
-                    <property name="halign">center</property>
-                    <property name="size">96</property>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="ProviderImage" id="image">
+                        <property name="halign">center</property>
+                        <property name="size">96</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">horizontal</property>
+                        <property name="halign">center</property>
+                        <property name="spacing">12</property>
+                        <property name="margin-top">18</property>
+                        <property name="margin-bottom">18</property>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">_Reset</property>
+                            <property name="use-underline">True</property>
+                            <property name="action-name">providers.reset_image</property>
+                            <style>
+                              <class name="large-button" />
+                              <class name="pill-button"/>
+                            </style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Select A _File</property>
+                            <property name="use-underline">True</property>
+                            <property name="action-name">providers.select_image</property>
+                            <style>
+                              <class name="large-button" />
+                              <class name="pill-button"/>
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
                 <child>

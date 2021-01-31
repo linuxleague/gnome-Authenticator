@@ -3,7 +3,7 @@ use super::{
     CLIENT,
 };
 use crate::{
-    models::{database, otp, Account, AccountsModel, FaviconError, FaviconScrapper},
+    models::{database, otp, Account, AccountsModel, FaviconError, FaviconScrapper, FAVICONS_PATH},
     schema::providers,
 };
 use anyhow::Result;
@@ -282,6 +282,7 @@ impl Provider {
         digits: u32,
         default_counter: u32,
         help_url: Option<String>,
+        image_uri: Option<String>,
     ) -> Result<Self> {
         let db = database::connection();
         let conn = db.get()?;
@@ -296,7 +297,7 @@ impl Provider {
                 digits: digits as i32,
                 default_counter: default_counter as i32,
                 help_url,
-                image_uri: None,
+                image_uri,
             })
             .execute(&conn)?;
 
@@ -365,10 +366,8 @@ impl Provider {
             let favicon = FaviconScrapper::from_url(website_url).await?;
 
             let icon_name = format!("{}_{}", self.id(), self.name().replace(' ', "_"));
-            let cache_path = glib::get_user_cache_dir()
-                .join("authenticator")
-                .join("favicons")
-                .join(icon_name);
+            let icon_name = glib::base64_encode(icon_name.as_bytes());
+            let cache_path = FAVICONS_PATH.join(icon_name.as_str());
             let mut dest = async_std::fs::File::create(cache_path.clone()).await?;
 
             if let Some(best_favicon) = favicon.find_best().await {

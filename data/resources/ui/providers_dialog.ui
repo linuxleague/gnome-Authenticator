@@ -133,6 +133,12 @@
         </child>
         <child>
           <object class='GtkShortcut'>
+            <property name='trigger'>&lt;Primary&gt;N</property>
+            <property name='action'>action(providers.add)</property>
+          </object>
+        </child>
+        <child>
+          <object class='GtkShortcut'>
             <property name='trigger'>&lt;Primary&gt;F</property>
             <property name='action'>action(providers.search)</property>
           </object>
