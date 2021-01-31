@@ -28,7 +28,8 @@ impl Restorable for LegacyAuthenticator {
     }
 
     fn title() -> String {
-        gettext("Au_thenticator (Old)")
+        // Translators: this is for restoring a backup from the old Authenticator release
+        gettext("Au_thenticator (Legacy)")
     }
 
     fn subtitle() -> String {
