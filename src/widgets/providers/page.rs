@@ -256,10 +256,12 @@ impl ProviderPage {
             let image_dest = FAVICONS_PATH.join(icon_name.as_str());
 
             let dest_file = gio::File::new_for_path(image_dest);
-            dest_file.create(
-                gio::FileCreateFlags::REPLACE_DESTINATION,
-                gio::NONE_CANCELLABLE,
-            )?;
+            dest_file
+                .create(
+                    gio::FileCreateFlags::REPLACE_DESTINATION,
+                    gio::NONE_CANCELLABLE,
+                )
+                .ok();
             file.copy(
                 &dest_file,
                 gio::FileCopyFlags::OVERWRITE,
