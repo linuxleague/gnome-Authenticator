@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-30 11:07+0000\n"
-"PO-Revision-Date: 2021-01-30 14:14+0200\n"
+"POT-Creation-Date: 2021-01-31 03:14+0000\n"
+"PO-Revision-Date: 2021-01-31 08:51+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/application.rs:158 src/main.rs:34
+#: data/resources/ui/window.ui:34 src/application.rs:158 src/main.rs:34
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -344,20 +344,21 @@ msgstr "Настанови щодо налаштування надавача д
 msgid "Providers"
 msgstr "Надавачі даних"
 
-#: data/resources/ui/providers_dialog.ui:85
+#: data/resources/ui/providers_dialog.ui:106
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Нічого не знайдено"
 
-#: data/resources/ui/providers_dialog.ui:86
-msgid "No provider corresponding to the typed item were found"
-msgstr "Жоден із надавачів даних не відповідає введеним ключовим словам"
+#: data/resources/ui/providers_dialog.ui:107
+#| msgid "No provider corresponding to the typed item were found"
+msgid "No providers matching the query were found"
+msgstr "Не знайдено жодного надавача даних, який відповідає заданим критеріям"
 
 #: data/resources/ui/providers_list.ui:43
-msgid "No account/provider corresponding to the typed item were found"
+#| msgid "No account/provider corresponding to the typed item were found"
+msgid "No accounts or providers matching the query were found"
 msgstr ""
-"Жоден із облікових записів або надавачів даних не відповідає введеним "
-"ключовим словам"
+"Не знайдено жодного облікового запису або надавача даних, який відповідає заданим критеріям"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -424,19 +425,19 @@ msgstr "_Клавіатурні скорочення"
 msgid "_About Authenticator"
 msgstr "П_ро «Розпізнавач»"
 
-#: data/resources/ui/window.ui:81
+#: data/resources/ui/window.ui:82
 msgid "There are no accounts currently"
 msgstr "Ще не створено жодного облікового запису"
 
-#: data/resources/ui/window.ui:82
+#: data/resources/ui/window.ui:83
 msgid "Add an account or scan a QR code first"
 msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду"
 
-#: data/resources/ui/window.ui:208
+#: data/resources/ui/window.ui:225
 msgid "Authenticator is locked"
 msgstr "«Розпізнавач» замкнено"
 
-#: data/resources/ui/window.ui:236
+#: data/resources/ui/window.ui:253
 msgid "_Unlock"
 msgstr "_Розблокувати"
 
@@ -458,7 +459,7 @@ msgstr "До звичайного текстового файла JSON"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/legacy.rs:35
+#: src/backup/andotp.rs:132 src/backup/legacy.rs:36
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
 
@@ -478,9 +479,11 @@ msgstr "Р_озпізнавач"
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Зі звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/backup/legacy.rs:31
-msgid "Au_thenticator (Old)"
-msgstr "Роз_пізнавач (старий)"
+#. Translators: this is for restoring a backup from the old Authenticator release
+#: src/backup/legacy.rs:32
+#| msgid "Au_thenticator (Old)"
+msgid "Au_thenticator (Legacy)"
+msgstr "Роз_пізнавач (застарілий)"
 
 #: src/models/algorithm.rs:55
 msgid "Counter-based"
@@ -507,11 +510,11 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:203
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
-#: src/widgets/window.rs:312 src/widgets/preferences/password_page.rs:231
+#: src/widgets/window.rs:320 src/widgets/preferences/password_page.rs:231
 #: src/widgets/preferences/password_page.rs:262
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
@@ -524,12 +527,11 @@ msgstr "Вибрати"
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/widgets/providers/page.rs:143
+#: src/widgets/providers/page.rs:162
 msgid "Editing Provider: {}"
-msgstr ""
-"Редагування надавача даних: {}"
+msgstr "Редагування надавача даних: {}"
 
-#: src/widgets/providers/page.rs:171
+#: src/widgets/providers/page.rs:191
 msgid "New Provider"
 msgstr "Новий надавач даних"
 
