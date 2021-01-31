@@ -146,9 +146,7 @@ impl ProviderImage {
                 }),
             );
         } else {
-            self_
-                .image
-                .set_from_icon_name(Some("image-missing-symbolic"));
+            self_.image.set_from_icon_name(Some("provider-fallback"));
         }
     }
 
@@ -160,9 +158,7 @@ impl ProviderImage {
                 // Very dirty hack to store that we couldn't find an icon
                 // to avoid re-hitting the website every time we have to display it
                 if uri == "invalid" {
-                    self_
-                        .image
-                        .set_from_icon_name(Some("image-missing-symbolic"));
+                    self_.image.set_from_icon_name(Some("provider-fallback"));
                     self_.stack.set_visible_child_name("image");
                     return;
                 }
@@ -199,9 +195,7 @@ impl ProviderImage {
 
     pub fn reset(&self) {
         let self_ = imp::ProviderImage::from_instance(self);
-        self_
-            .image
-            .set_from_icon_name(Some("image-missing-symbolic"));
+        self_.image.set_from_icon_name(Some("provider-fallback"));
 
         self.fetch();
     }
@@ -235,9 +229,7 @@ impl ProviderImage {
         let image_path = match action {
             //TODO: handle network failure and other errors differently
             ImageAction::Failed => {
-                self_
-                    .image
-                    .set_from_icon_name(Some("image-missing-symbolic"));
+                self_.image.set_from_icon_name(Some("provider-fallback"));
                 "invalid".to_string()
             }
             ImageAction::Ready(image) => {
