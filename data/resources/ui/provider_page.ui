@@ -263,5 +263,16 @@
         </child>
       </object>
     </child>
+    <child>
+      <object class='GtkShortcutController'>
+        <property name='scope'>local</property>
+        <child>
+          <object class='GtkShortcut'>
+            <property name='trigger'>Escape</property>
+            <property name='action'>action(providers.back)</property>
+          </object>
+        </child>
+      </object>
+    </child>
   </template>
 </interface>
