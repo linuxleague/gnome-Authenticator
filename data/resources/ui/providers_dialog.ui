@@ -3,8 +3,8 @@
   <template parent="AdwWindow" class="ProvidersDialog">
     <property name="modal">True</property>
     <property name="title" translatable="yes">Providers</property>
-    <property name="default-width">680</property>
-    <property name="default-height">550</property>
+    <property name="default-width">820</property>
+    <property name="default-height">760</property>
     <child>
       <object class="AdwLeaflet" id="deck">
         <property name="can-unfold">False</property>
