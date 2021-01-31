@@ -83,7 +83,7 @@
                               <object class="AdwStatusPage">
                                 <property name="vexpand">True</property>
                                 <property name="title" translatable="yes">No Results</property>
-                                <property name="description" translatable="yes">No provider corresponding to the typed item were found</property>
+                                <property name="description" translatable="yes">No provider matching the query was found</property>
                                 <property name="icon-name">system-search-symbolic</property>
                               </object>
                             </property>
