@@ -31,8 +31,8 @@
           <object class="GtkBox">
             <property name="orientation">vertical</property>
             <property name="spacing">42</property>
-            <property name="margin-start">8</property>
-            <property name="margin-end">8</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
             <child>
               <object class="GtkListBox" id="list">
                 <property name="selection-mode">none</property>

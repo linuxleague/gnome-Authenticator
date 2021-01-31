@@ -58,7 +58,7 @@
                     <property name="margin-start">18</property>
                     <property name="margin-end">18</property>
                     <property name="margin-bottom">18</property>
-                    <property name="spacing">8</property>
+                    <property name="spacing">6</property>
                     <child>
                       <object class="GtkButton">
                         <property name="icon-name">qrscanner-symbolic</property>
