@@ -46,6 +46,8 @@ mod imp {
         pub default_counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub title: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub delete_button: TemplateChild<gtk::Button>,
         pub selected_provider: RefCell<Option<Provider>>,
         // We need to hold a reference to the native file chooser
         pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
@@ -81,6 +83,7 @@ mod imp {
                 digits_row: TemplateChild::default(),
                 default_counter_row: TemplateChild::default(),
                 title: TemplateChild::default(),
+                delete_button: TemplateChild::default(),
                 methods_model,
                 algorithms_model,
                 selected_provider: RefCell::default(),
@@ -106,6 +109,8 @@ mod imp {
                     Signal::builder("created", &[Provider::static_type()], <()>::static_type())
                         .build(),
                     Signal::builder("updated", &[Provider::static_type()], <()>::static_type())
+                        .build(),
+                    Signal::builder("deleted", &[Provider::static_type()], <()>::static_type())
                         .build(),
                 ]
             });
@@ -134,6 +139,7 @@ impl ProviderPage {
     pub fn set_provider(&self, provider: Option<Provider>) {
         let self_ = imp::ProviderPage::from_instance(self);
         if let Some(provider) = provider {
+            self_.delete_button.show();
             self_.name_entry.set_text(&provider.name());
             self_.period_spinbutton.set_value(provider.period() as f64);
 
@@ -168,6 +174,7 @@ impl ProviderPage {
             self_.selected_provider.replace(Some(provider));
         } else {
             self_.name_entry.set_text("");
+            self_.delete_button.hide();
             self_
                 .period_spinbutton
                 .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
@@ -336,6 +343,16 @@ impl ProviderPage {
         self_.selected_image.replace(None);
     }
 
+    fn delete_provider(&self) -> anyhow::Result<()> {
+        let self_ = imp::ProviderPage::from_instance(self);
+        if let Some(provider) = self_.selected_provider.borrow().clone() {
+            provider.delete();
+            self.emit("deleted", &[&provider]).unwrap();
+        } else {
+            anyhow::bail!("Can't remove a provider as none are selected");
+        }
+        Ok(())
+    }
     fn setup_actions(&self) {
         let self_ = imp::ProviderPage::from_instance(self);
         action!(
@@ -347,6 +364,16 @@ impl ProviderPage {
                 }
             })
         );
+        action!(
+            self_.actions,
+            "delete",
+            clone!(@weak self as page => move |_, _| {
+                if let Err(err) = page.delete_provider() {
+                    warn!("Failed to delete the provider {}", err);
+                }
+            })
+        );
+
         action!(
             self_.actions,
             "reset_image",

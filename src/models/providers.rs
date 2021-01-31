@@ -147,6 +147,26 @@ impl ProvidersModel {
         self.items_changed(pos, 0, 1);
     }
 
+    pub fn delete_provider(&self, provider: &Provider) {
+        let self_ = imp::ProvidersModel::from_instance(self);
+        let mut provider_pos = None;
+        for pos in 0..self.get_n_items() {
+            let obj = self.get_object(pos).unwrap();
+            let p = obj.downcast::<Provider>().unwrap();
+            if p.id() == provider.id() {
+                provider_pos = Some(pos);
+                break;
+            }
+        }
+        if let Some(pos) = provider_pos {
+            {
+                let mut data = self_.0.borrow_mut();
+                data.remove(pos as usize);
+            }
+            self.items_changed(pos, 1, 0);
+        }
+    }
+
     pub fn add_account(&self, account: &Account, provider: &Provider) {
         let mut found = false;
         for pos in 0..self.get_n_items() {

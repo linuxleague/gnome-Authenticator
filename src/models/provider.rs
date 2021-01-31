@@ -426,6 +426,14 @@ impl Provider {
         self_.help_url.borrow().clone()
     }
 
+    pub fn delete(&self) -> Result<()> {
+        let db = database::connection();
+        let conn = db.get()?;
+        diesel::delete(providers::table.filter(providers::columns::id.eq(self.id() as i32)))
+            .execute(&conn)?;
+        Ok(())
+    }
+
     pub fn update(&self, patch: &ProviderPatch) -> Result<()> {
         let db = database::connection();
         let conn = db.get()?;
