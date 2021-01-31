@@ -1,6 +1,6 @@
 use crate::{
     models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch, FAVICONS_PATH},
-    widgets::ProviderImage,
+    widgets::{ErrorRevealer, ProviderImage},
 };
 use adw::ComboRowExt;
 use gettextrs::gettext;
@@ -20,6 +20,8 @@ mod imp {
         pub actions: gio::SimpleActionGroup,
         pub methods_model: adw::EnumListModel,
         pub algorithms_model: adw::EnumListModel,
+        #[template_child]
+        pub error_revealer: TemplateChild<ErrorRevealer>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -71,6 +73,7 @@ mod imp {
             Self {
                 actions: gio::SimpleActionGroup::new(),
                 image: TemplateChild::default(),
+                error_revealer: TemplateChild::default(),
                 name_entry: TemplateChild::default(),
                 period_spinbutton: TemplateChild::default(),
                 digits_spinbutton: TemplateChild::default(),
@@ -346,8 +349,13 @@ impl ProviderPage {
     fn delete_provider(&self) -> anyhow::Result<()> {
         let self_ = imp::ProviderPage::from_instance(self);
         if let Some(provider) = self_.selected_provider.borrow().clone() {
-            provider.delete();
-            self.emit("deleted", &[&provider]).unwrap();
+            if provider.has_accounts() {
+                self_.error_revealer.popup(&gettext(
+                    "The provider has accounts assigned to it, please remove them first",
+                ));
+            } else if provider.delete().is_ok() {
+                self.emit("deleted", &[&provider]).unwrap();
+            }
         } else {
             anyhow::bail!("Can't remove a provider as none are selected");
         }
