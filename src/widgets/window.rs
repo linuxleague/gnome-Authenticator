@@ -56,6 +56,8 @@ mod imp {
         pub accounts_stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub empty_status_page: TemplateChild<adw::StatusPage>,
+        #[template_child]
+        pub title_stack: TemplateChild<gtk::Stack>,
     }
 
     impl ObjectSubclass for Window {
@@ -85,6 +87,7 @@ mod imp {
                 password_entry: TemplateChild::default(),
                 accounts_stack: TemplateChild::default(),
                 locked_img: TemplateChild::default(),
+                title_stack: TemplateChild::default(),
             }
         }
 
@@ -231,25 +234,30 @@ impl Window {
         gtk_macros::get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
         self.set_help_overlay(Some(&shortcuts));
 
+        let search_entry = &*self_.search_entry;
         let search_btn = &*self_.search_btn;
         let providers = &*self_.providers;
-        self_
-            .search_entry
-            .connect_search_changed(clone!(@weak providers => move |entry| {
-                let text = entry.get_text().to_string();
-                providers.search(text);
-            }));
-        self_
-            .search_entry
-            .connect_search_started(clone!(@weak search_btn => move |entry| {
-                search_btn.set_active(true);
-            }));
-        self_
-            .search_entry
-            .connect_stop_search(clone!(@weak search_btn => move |entry| {
-                entry.set_text("");
-                search_btn.set_active(false);
-            }));
+        search_entry.connect_search_changed(clone!(@weak providers => move |entry| {
+            let text = entry.get_text().to_string();
+            providers.search(text);
+        }));
+        search_entry.connect_search_started(clone!(@weak search_btn => move |entry| {
+            search_btn.set_active(true);
+        }));
+        search_entry.connect_stop_search(clone!(@weak search_btn => move |entry| {
+            entry.set_text("");
+            search_btn.set_active(false);
+        }));
+
+        let title_stack = &*self_.title_stack;
+        search_btn.connect_toggled(clone!(@weak search_entry, @weak title_stack => move |btn| {
+            if btn.get_active() {
+                title_stack.set_visible_child_name("search");
+                search_entry.grab_focus();
+            } else {
+                title_stack.set_visible_child_name("title");
+            }
+        }));
 
         let gtk_settings = gtk::Settings::get_default().unwrap();
         self_
