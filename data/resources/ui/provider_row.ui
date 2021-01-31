@@ -22,7 +22,7 @@
               <object class="GtkLabel" id="name_label">
                 <property name="halign">start</property>
                 <style>
-                  <class name="title-2" />
+                  <class name="title-3" />
                 </style>
               </object>
             </child>
