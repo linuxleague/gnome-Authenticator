@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-31 03:14+0000\n"
-"PO-Revision-Date: 2021-01-31 10:30+0100\n"
+"POT-Creation-Date: 2021-01-31 13:50+0000\n"
+"PO-Revision-Date: 2021-01-31 16:33+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -141,67 +141,74 @@ msgstr "_Aparat"
 msgid "_Screenshot"
 msgstr "_Zrzut ekranu"
 
-#: data/resources/ui/account_add.ui:48
+#: data/resources/ui/account_add.ui:44
+#: data/resources/ui/account_details_page.ui:13
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:48
+msgid "Go Back"
+msgstr "Wstecz"
+
+#: data/resources/ui/account_add.ui:49
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: data/resources/ui/account_add.ui:60
+#: data/resources/ui/account_add.ui:61
 msgid "Scan QR Code"
 msgstr "Skanuj kod QR"
 
-#: data/resources/ui/account_add.ui:99
-#: data/resources/ui/account_details_page.ui:51
+#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_details_page.ui:52
 msgid "Provider"
 msgstr "Dostawca"
 
-#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_add.ui:101
 msgid "Token issuer"
 msgstr "Wystawca tokenu"
 
-#: data/resources/ui/account_add.ui:115
-#: data/resources/ui/account_details_page.ui:41
+#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_details_page.ui:42
 msgid "Account"
 msgstr "Konto"
 
-#: data/resources/ui/account_add.ui:129
+#: data/resources/ui/account_add.ui:130
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:143 data/resources/ui/provider_page.ui:156
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:157
 msgid "Counter"
 msgstr "Licznik"
 
-#: data/resources/ui/account_add.ui:168 data/resources/ui/provider_page.ui:127
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:128
 msgid "Algorithm"
 msgstr "Algorytm"
 
-#: data/resources/ui/account_add.ui:180 data/resources/ui/provider_page.ui:119
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:120
 msgid "Computing Method"
 msgstr "Metoda obliczania"
 
-#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:139
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:140
 msgid "Period"
 msgstr "Okres"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:140
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:141
 msgid "Duration in seconds until the next password update"
 msgstr "Czas w sekundach do następnej aktualizacji hasła"
 
-#: data/resources/ui/account_add.ui:205 data/resources/ui/provider_page.ui:173
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:174
 msgid "Digits"
 msgstr "Cyfry"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:174
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:175
 msgid "Length of the generated code"
 msgstr "Długość generowanego kodu"
 
-#: data/resources/ui/account_add.ui:218
-#: data/resources/ui/account_details_page.ui:61
-#: data/resources/ui/provider_page.ui:105
+#: data/resources/ui/account_add.ui:219
+#: data/resources/ui/account_details_page.ui:62
+#: data/resources/ui/provider_page.ui:106
 msgid "Website"
 msgstr "Witryna"
 
-#: data/resources/ui/account_add.ui:224
+#: data/resources/ui/account_add.ui:225
 msgid "How to setup"
 msgstr "Jak skonfigurować"
 
@@ -221,9 +228,13 @@ msgstr "_Usuń"
 msgid "Copy PIN to clipboard"
 msgstr "Skopiuj PIN do schowka"
 
-#: data/resources/ui/account_row.ui:136
-#: data/resources/ui/preferences_password_page.ui:20
-#: data/resources/ui/provider_page.ui:52
+#: data/resources/ui/account_row.ui:105
+msgid "More"
+msgstr "Więcej"
+
+#: data/resources/ui/account_row.ui:137
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:53
 msgid "_Save"
 msgstr "_Zapisz"
 
@@ -239,27 +250,27 @@ msgstr "_Ze zrzutu ekranu"
 msgid "Capture from a screenshot"
 msgstr "Pobiera ze zrzutu ekranu"
 
-#: data/resources/ui/preferences_password_page.ui:42
+#: data/resources/ui/preferences_password_page.ui:43
 msgid "Set up a password"
 msgstr "Ustawienie hasła"
 
-#: data/resources/ui/preferences_password_page.ui:50
+#: data/resources/ui/preferences_password_page.ui:51
 msgid "By setting a password, Authenticator will from now on start locked."
 msgstr "Po ustawieniu hasła program będzie uruchamiany jako zablokowany."
 
-#: data/resources/ui/preferences_password_page.ui:73
+#: data/resources/ui/preferences_password_page.ui:74
 msgid "Current Password"
 msgstr "Obecne hasło"
 
-#: data/resources/ui/preferences_password_page.ui:87
+#: data/resources/ui/preferences_password_page.ui:88
 msgid "New Password"
 msgstr "Nowe hasło"
 
-#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/preferences_password_page.ui:101
 msgid "Repeat Password"
 msgstr "Powtórzenie hasła"
 
-#: data/resources/ui/preferences_password_page.ui:121
+#: data/resources/ui/preferences_password_page.ui:122
 msgid "_Reset"
 msgstr "_Przywróć"
 
@@ -319,23 +330,23 @@ msgstr "Kopia zapasowa"
 msgid "Restore"
 msgstr "Przywracanie"
 
-#: data/resources/ui/provider_page.ui:91
+#: data/resources/ui/provider_page.ui:92
 msgid "Name"
 msgstr "Nazwa"
 
-#: data/resources/ui/provider_page.ui:106
+#: data/resources/ui/provider_page.ui:107
 msgid "Used to fetch the provider icon"
 msgstr "Używane do pobierania ikony dostawcy"
 
-#: data/resources/ui/provider_page.ui:157
+#: data/resources/ui/provider_page.ui:158
 msgid "The by default value for counter-based computing method"
 msgstr "Domyślna wartość dla metody obliczania na podstawie licznika"
 
-#: data/resources/ui/provider_page.ui:191
+#: data/resources/ui/provider_page.ui:192
 msgid "Help URL"
 msgstr "Adres URL pomocy"
 
-#: data/resources/ui/provider_page.ui:192
+#: data/resources/ui/provider_page.ui:193
 msgid "Provider setup instructions"
 msgstr "Instrukcje konfiguracji dostawcy"
 
@@ -343,12 +354,20 @@ msgstr "Instrukcje konfiguracji dostawcy"
 msgid "Providers"
 msgstr "Dostawcy"
 
-#: data/resources/ui/providers_dialog.ui:106
+#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:191
+msgid "New Provider"
+msgstr "Nowy dostawca"
+
+#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:151
+msgid "Search"
+msgstr "Wyszukiwanie"
+
+#: data/resources/ui/providers_dialog.ui:108
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Brak wyników"
 
-#: data/resources/ui/providers_dialog.ui:107
+#: data/resources/ui/providers_dialog.ui:109
 msgid "No providers matching the query were found"
 msgstr "Nie odnaleziono dostawców pasujących do zapytania"
 
@@ -421,19 +440,27 @@ msgstr "_Skróty klawiszowe"
 msgid "_About Authenticator"
 msgstr "_O programie"
 
-#: data/resources/ui/window.ui:82
+#: data/resources/ui/window.ui:65 data/resources/ui/window.ui:106
+msgid "New Account"
+msgstr "Nowe konto"
+
+#: data/resources/ui/window.ui:73 data/resources/ui/window.ui:144
+msgid "Menu"
+msgstr "Menu"
+
+#: data/resources/ui/window.ui:84
 msgid "There are no accounts currently"
 msgstr "Nie ma teraz żadnych kont"
 
-#: data/resources/ui/window.ui:83
+#: data/resources/ui/window.ui:85
 msgid "Add an account or scan a QR code first"
 msgstr "Należy najpierw dodać konto lub zeskanować kod QR"
 
-#: data/resources/ui/window.ui:225
+#: data/resources/ui/window.ui:230
 msgid "Authenticator is locked"
 msgstr "Program jest zablokowany"
 
-#: data/resources/ui/window.ui:253
+#: data/resources/ui/window.ui:258
 msgid "_Unlock"
 msgstr "Od_blokuj"
 
@@ -528,7 +555,3 @@ msgstr "Anuluj"
 #: src/widgets/providers/page.rs:162
 msgid "Editing Provider: {}"
 msgstr "Modyfikowanie dostawcy: {}"
-
-#: src/widgets/providers/page.rs:191
-msgid "New Provider"
-msgstr "Nowy dostawca"
