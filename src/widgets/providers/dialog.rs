@@ -1,5 +1,6 @@
 use super::ProviderPage;
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
+use adw::{prelude::*, subclass::prelude::*};
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::action;
@@ -312,7 +313,7 @@ mod row {
         impl ObjectSubclass for ProviderActionRow {
             const NAME: &'static str = "ProviderActionRow";
             type Type = super::ProviderActionRow;
-            type ParentType = gtk::ListBoxRow;
+            type ParentType = adw::Bin;
             type Interfaces = ();
             type Instance = subclass::simple::InstanceStruct<Self>;
             type Class = subclass::simple::ClassStruct<Self>;
@@ -382,11 +383,11 @@ mod row {
             }
         }
         impl WidgetImpl for ProviderActionRow {}
-        impl ListBoxRowImpl for ProviderActionRow {}
+        impl BinImpl for ProviderActionRow {}
     }
 
     glib::wrapper! {
-        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, gtk::ListBoxRow;
+        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, adw::Bin;
     }
 
     impl ProviderActionRow {
