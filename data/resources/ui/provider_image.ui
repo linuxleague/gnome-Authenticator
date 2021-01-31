@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <template class="ProviderImage" parent="GtkBox">
+    <property name="margin-bottom">6</property>
+    <property name="margin-end">6</property>
     <child>
       <object class="GtkStack" id="stack">
         <property name="transition-type">crossfade</property>
@@ -28,8 +30,5 @@
         </child>
       </object>
     </child>
-    <style>
-      <class name="provider-image" />
-    </style>
   </template>
 </interface>
