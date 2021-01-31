@@ -227,6 +227,15 @@ impl ProvidersDialog {
             })
         );
 
+        let search_btn = &*self_.search_btn;
+        action!(
+            self_.actions,
+            "search",
+            clone!(@weak search_btn => move |_,_| {
+                search_btn.set_active(!search_btn.get_active());
+            })
+        );
+
         self.insert_action_group("providers", Some(&self_.actions));
     }
 
