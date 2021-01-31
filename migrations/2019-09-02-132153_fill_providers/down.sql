@@ -624,3 +624,6 @@ DELETE FROM "providers" WHERE "name"="Synology";
 DELETE FROM "providers" WHERE "name"="Tresorit";
 DELETE FROM "providers" WHERE "name"="Wasabi";
 DELETE FROM "providers" WHERE "name"="Zoolz";
+DELETE FROM "providers" WHERE "name"="Battle.net";
+DELETE FROM "providers" WHERE "name"="Blizzard";
+DELETE FROM "providers" WHERE "name"="Gitea";
