@@ -31,6 +31,8 @@ mod imp {
         pub search_btn: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub title_stack: TemplateChild<gtk::Stack>,
     }
 
     impl ObjectSubclass for ProvidersDialog {
@@ -54,6 +56,7 @@ mod imp {
                 actions: gio::SimpleActionGroup::new(),
                 filter_model,
                 stack: TemplateChild::default(),
+                title_stack: TemplateChild::default(),
             }
         }
 
@@ -112,25 +115,30 @@ impl ProvidersDialog {
                 }
             }));
 
-        self_
-            .search_entry
-            .connect_search_changed(clone!(@weak self as dialog => move |entry| {
-                let text = entry.get_text().to_string();
-                dialog.search(text);
-            }));
+        let search_entry = &*self_.search_entry;
+        search_entry.connect_search_changed(clone!(@weak self as dialog => move |entry| {
+            let text = entry.get_text().to_string();
+            dialog.search(text);
+        }));
 
         let search_btn = &*self_.search_btn;
-        self_
-            .search_entry
-            .connect_search_started(clone!(@weak search_btn => move |entry| {
-                search_btn.set_active(true);
-            }));
-        self_
-            .search_entry
-            .connect_stop_search(clone!(@weak search_btn => move |entry| {
-                entry.set_text("");
-                search_btn.set_active(false);
-            }));
+        search_entry.connect_search_started(clone!(@weak search_btn => move |entry| {
+            search_btn.set_active(true);
+        }));
+        search_entry.connect_stop_search(clone!(@weak search_btn => move |entry| {
+            entry.set_text("");
+            search_btn.set_active(false);
+        }));
+
+        let title_stack = &*self_.title_stack;
+        search_btn.connect_toggled(clone!(@weak title_stack, @weak search_entry => move |btn| {
+            if btn.get_active() {
+                title_stack.set_visible_child_name("search");
+                search_entry.grab_focus();
+            } else {
+                title_stack.set_visible_child_name("title");
+            }
+        }));
 
         let factory = gtk::SignalListItemFactory::new();
         factory.connect_setup(|_, list_item| {
