@@ -22,6 +22,7 @@
                         <property name="receives-default">True</property>
                         <property name="action-name">providers.add</property>
                         <property name="icon-name">list-add-symbolic</property>
+                        <property name="tooltip-text" translatable="yes">New Provider</property>
                       </object>
                     </child>
                     <child type="title">
@@ -58,6 +59,7 @@
                       <object class="GtkToggleButton" id="search_btn">
                         <property name="receives-default">True</property>
                         <property name="icon-name">system-search-symbolic</property>
+                        <property name="tooltip-text" translatable="yes">Search</property>
                       </object>
                     </child>
                     <style>

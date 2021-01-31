@@ -102,6 +102,7 @@
                             <property name="valign">center</property>
                             <property name="menu-model">account-menu</property>
                             <property name="icon-name">view-more-symbolic</property>
+                            <property name="tooltip-text" translatable="yes">More</property>
                           </object>
                         </child>
                         <style>

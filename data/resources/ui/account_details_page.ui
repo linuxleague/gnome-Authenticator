@@ -10,6 +10,7 @@
           <object class="GtkButton">
             <property name="icon-name">go-previous-symbolic</property>
             <property name="action-name">win.back</property>
+            <property name="tooltip-text" translatable="yes">Go Back</property>
           </object>
         </child>
       </object>
