@@ -33,6 +33,8 @@ mod imp {
         pub settings: gio::Settings,
         pub model: OnceCell<ProvidersModel>,
         #[template_child]
+        pub main_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
         pub providers: TemplateChild<ProvidersList>,
         #[template_child]
         pub account_details: TemplateChild<AccountDetailsPage>,
@@ -88,6 +90,7 @@ mod imp {
                 accounts_stack: TemplateChild::default(),
                 locked_img: TemplateChild::default(),
                 title_stack: TemplateChild::default(),
+                main_stack: TemplateChild::default(),
             }
         }
 
@@ -131,12 +134,12 @@ impl Window {
         let self_ = imp::Window::from_instance(self);
         match view {
             View::Login => {
-                self_.deck.set_visible_child_name("login");
-                self_.deck.set_can_swipe_back(false);
+                self_.main_stack.set_visible_child_name("login");
                 self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
                 self_.password_entry.grab_focus();
             }
             View::Accounts => {
+                self_.main_stack.set_visible_child_name("unlocked");
                 self_.deck.set_visible_child_name("accounts");
                 self_.deck.set_can_swipe_back(false);
                 if self_.providers.model().get_n_items() == 0 {
@@ -156,6 +159,7 @@ impl Window {
                 }
             }
             View::Account(account) => {
+                self_.main_stack.set_visible_child_name("unlocked");
                 self_.deck.set_visible_child_name("account");
                 self_.deck.set_can_swipe_back(true);
                 self_.account_details.set_account(&account);
