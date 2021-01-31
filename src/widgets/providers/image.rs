@@ -180,10 +180,10 @@ impl ProviderImage {
 
     fn fetch(&self) {
         let self_ = imp::ProviderImage::from_instance(self);
-        let sender = self_.sender.clone();
-        self_.stack.set_visible_child_name("loading");
-        self_.spinner.start();
         if let Some(provider) = self.provider() {
+            let sender = self_.sender.clone();
+            self_.stack.set_visible_child_name("loading");
+            self_.spinner.start();
             spawn!(async move {
                 match provider.favicon().await {
                     Ok(file) => send!(sender, ImageAction::Ready(file)),
