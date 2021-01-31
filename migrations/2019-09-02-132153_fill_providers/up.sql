@@ -624,3 +624,6 @@ INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Synology", "htt
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Tresorit", "https://tresorit.com/", "https://support.tresorit.com/hc/en-us/articles/216114527");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Wasabi", "https://wasabi.com/", "https://wasabi.com/wp-content/themes/wasabi/docs/User_Guide/index.html#t=topics%2FCONSOLE_ACCESS_for_the_Root_User.htm");
 INSERT INTO "providers" ("name", "website", "help_url") VALUES ("Zoolz", "https://intelli.zoolz.com/", "https://wiki.zoolz.com/how-do-i-enable-two-factor-authentication-on-my-zoolz-intelligent-account/");
+INSERT INTO "providers" ("name", "website", "help_url", "digits") VALUES ("Battle.net", "https://battle.net", "https://eu.battle.net/support/en/article/10363", 8);
+INSERT INTO "providers" ("name", "website", "help_url", "digits") VALUES ("Blizzard", "https://blizzard.com", "https://eu.battle.net/support/en/article/10363", 8);
+INSERT INTO "providers" ("name", "website") VALUES ("Gitea", "https://gitea.io");
