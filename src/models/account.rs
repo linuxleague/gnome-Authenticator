@@ -329,7 +329,9 @@ impl Account {
         let display = gtk::gdk::Display::get_default().unwrap();
         let clipboard = display.get_clipboard();
         let self_ = imp::Account::from_instance(self);
-        clipboard.set_text(&self_.otp.borrow());
+        // The codes come with the white space shown in the label.
+        let code = &self_.otp.borrow().replace(' ', "");
+        clipboard.set_text(&code);
 
         // Indirectly increment the counter once the token was copied
         if self.provider().method() == OTPMethod::HOTP {

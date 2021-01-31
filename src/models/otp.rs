@@ -72,10 +72,13 @@ pub(crate) fn steam(secret: &str, counter: u64) -> Result<String> {
 }
 
 pub(crate) fn format(code: u32, digits: usize) -> String {
-    let mut formated_code = format!("{:0width$}", code, width = digits);
-    if digits % 2 == 0 {
-        let middle = digits / 2;
-        formated_code.insert(middle, ' ');
+    let padded_code = format!("{:0width$}", code, width = digits);
+    let mut formated_code = String::new();
+    for (idx, ch) in padded_code.chars().enumerate() {
+        if (digits - idx) % 3 == 0 && (digits - idx) != 0 && idx != 0 {
+            formated_code.push(' ');
+        }
+        formated_code.push(ch);
     }
     formated_code
 }
@@ -116,7 +119,11 @@ mod tests {
 
     #[test]
     fn test_otp_format() {
-        assert_eq!(format(012345, 6), "012 345");
-        assert_eq!(format(01234, 5), "01234");
+        assert_eq!(format(01234, 5), "01 234");
+        assert_eq!(format(01234, 6), "001 234");
+        assert_eq!(format(123456, 6), "123 456");
+        assert_eq!(format(01234, 7), "0 001 234");
+        assert_eq!(format(01234567, 8), "01 234 567");
+        assert_eq!(format(12345678, 8), "12 345 678");
     }
 }
