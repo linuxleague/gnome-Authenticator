@@ -11,7 +11,7 @@
             <property name="name">image</property>
             <property name="child">
               <object class="GtkImage" id="image">
-                <property name="icon-name">image-missing-symbolic</property>
+                <property name="icon-name">provider-fallback</property>
                 <property name="pixel-size">96</property>
               </object>
             </property>
