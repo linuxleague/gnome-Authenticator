@@ -18,7 +18,7 @@ pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 /// Decodes a secret (given as an RFC4648 base32-encoded ASCII string)
 /// into a byte string. It fails if secret is not a valid Base32 string.
 fn decode_secret(secret: &str) -> Result<Vec<u8>> {
-    let res = BASE32.decode(secret.as_bytes())?;
+    let res = BASE32.decode(secret.trim().to_uppercase().as_bytes())?;
     Ok(res)
 }
 
