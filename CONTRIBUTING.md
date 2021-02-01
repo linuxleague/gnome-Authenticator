@@ -1,6 +1,6 @@
 # Hey newcomer, welcome to Authenticator
 
-The application is built using Python3, Gtk 3, GLib and other GNOME technologies around it. It's built to run on GNOME & Librem 5 phone.
+The application is built using Rust, GTK 4, GLib and other GNOME technologies around it. It's built to run on either desktop or mobile.
 
 ## If you're a translator
 
