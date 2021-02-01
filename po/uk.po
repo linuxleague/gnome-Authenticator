@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-01-31 17:05+0000\n"
-"PO-Revision-Date: 2021-01-31 19:36+0200\n"
+"POT-Creation-Date: 2021-02-01 00:30+0000\n"
+"PO-Revision-Date: 2021-02-01 12:26+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -64,20 +64,20 @@ msgstr "Чи слід віддавати перевагу у програмі т
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
-msgstr "Автоблокування"
+msgstr "Автозамикання"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
 msgid "Whether to auto lock the application or not"
-msgstr "Чи слід автоматично блокувати програму"
+msgstr "Чи слід автоматично замикати програму"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
 msgid "Auto lock timeout"
-msgstr "Час очікування на автоблокування"
+msgstr "Час очікування на автозамикання"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
 msgid "Lock the application on idle after X minutes"
 msgstr ""
-"Блокувати програму, якщо у ній не виконується ніяких дій протягом вказаної "
+"Замикати програму, якщо у ній не виконується ніяких дій протягом вказаної "
 "кількості хвилин."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
@@ -89,48 +89,61 @@ msgid "Features:"
 msgstr "Можливості:"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
-msgid "QR code scanner"
-msgstr "Засіб сканування QR-кодів"
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr ""
+"На основі часу/На основі лічильника/Підтримка методів Steam"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr ""
+"Підтримка алгоритмів SHA-1/SHA-256/SHA-512"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr ""
+"Сканування кодів QR за допомогою камери або зі знімка вікна"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+#| msgid "_Lock the application"
+msgid "Lock the application with a password"
+msgstr "Замикання програми за допомогою пароля"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Beautiful UI"
 msgstr "Чудовий інтерфейс користувача"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
-msgid "Huge database of more than 560 supported services"
-msgstr "Величезна база даних з понад 560 підтримуваних служб"
-
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
-msgid "Keep your tokens secure by locking the application with a password"
-msgstr "Безпечне зберігання ваших жетонів замиканням даних програми паролем"
-
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
-msgid "Automatically fetch an image for services using their favicon"
-msgstr ""
-"Автоматичне отримання зображень для служб з використанням їхніх піктограм"
-
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "The possibility to add new services"
-msgstr "Можливість додавати нові служби"
+msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
+msgstr ""
+"Резервне копіювання і відновлення даних з резервних копій для відомих програм, зокрема FreeOTP+, andOTP"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
-msgid "Dark theme and night light"
-msgstr "Темна тема та пристосованість до роботи вночі"
-
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
 msgid "Main Window"
 msgstr "Головне вікно"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
 #: data/resources/ui/account_add.ui:24
-msgid "Add a new account"
+#| msgid "Add a new account"
+msgid "Add a New Account"
 msgstr "Додавання нового облікового запису"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
-msgid "Sharing an account"
-msgstr "Спільне використання облікового запису"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#| msgid "New Provider"
+msgid "Add a New Provider"
+msgstr "Додавання нового надавача даних"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:165
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#| msgctxt "shortcut window"
+#| msgid "Accounts"
+msgid "Account Details"
+msgstr "Параметри облікового запису"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+#| msgid "Backup/Restore"
+msgid "Backup/Restore formats support"
+msgstr "Підтримка форматів резервного копіювання/відновлення"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:183
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -175,42 +188,43 @@ msgstr "Обліковий запис"
 msgid "Token"
 msgstr "Ключ"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:193
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:198
 msgid "Counter"
 msgstr "Лічильник"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:164
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:169
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:156
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:161
 msgid "Computing Method"
 msgstr "Метод обчислення"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:176
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:181
 msgid "Period"
 msgstr "Період"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:177
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:182
 msgid "Duration in seconds until the next password update"
 msgstr "Тривалість періоду (у секундах) до наступного оновлення пароля"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:210
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:215
 msgid "Digits"
 msgstr "Цифри"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:211
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:216
 msgid "Length of the generated code"
 msgstr "Довжина створеного коду"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:142
+#: data/resources/ui/provider_page.ui:147
 msgid "Website"
 msgstr "Сайт"
 
 #: data/resources/ui/account_add.ui:225
-msgid "How to setup"
+#| msgid "How to setup"
+msgid "How to Set Up"
 msgstr "Як налаштувати"
 
 #: data/resources/ui/account_row.ui:6
@@ -221,7 +235,7 @@ msgstr "П_одробиці"
 msgid "_Rename"
 msgstr "Перей_менувати"
 
-#: data/resources/ui/account_row.ui:16
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:249
 msgid "_Delete"
 msgstr "В_илучити"
 
@@ -244,34 +258,37 @@ msgid "No Camera Found"
 msgstr "Не знайдено камери"
 
 #: data/resources/ui/camera.ui:32
-msgid "_From A Screenshot"
+#| msgid "_From A Screenshot"
+msgid "_From a Screenshot"
 msgstr "З_і знімка вікна"
 
 #: data/resources/ui/camera.ui:65
 msgid "Capture from a screenshot"
 msgstr "Захопити зі знімка вікна"
 
-#: data/resources/ui/preferences_password_page.ui:43
-msgid "Set up a password"
+#: data/resources/ui/preferences_password_page.ui:32
+#| msgid "Set up a password"
+msgid "Set up a Password"
 msgstr "Встановіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:51
-msgid "By setting a password, Authenticator will from now on start locked."
-msgstr "Після встановлення пароля «Розпізнавач» запускатиметься заблокованим."
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a password is set."
+msgstr ""
+"«Розпізнавач» запускатиметься заблокованим після встановлення пароля."
 
-#: data/resources/ui/preferences_password_page.ui:74
+#: data/resources/ui/preferences_password_page.ui:52
 msgid "Current Password"
 msgstr "Поточний пароль"
 
-#: data/resources/ui/preferences_password_page.ui:88
+#: data/resources/ui/preferences_password_page.ui:66
 msgid "New Password"
 msgstr "Новий пароль"
 
-#: data/resources/ui/preferences_password_page.ui:101
+#: data/resources/ui/preferences_password_page.ui:79
 msgid "Repeat Password"
 msgstr "Повторіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:122
+#: data/resources/ui/preferences_password_page.ui:100
 #: data/resources/ui/provider_page.ui:98
 msgid "_Reset"
 msgstr "С_кинути"
@@ -302,19 +319,20 @@ msgstr "Па_роль"
 
 #: data/resources/ui/preferences.ui:42
 msgid "Set up a password to lock the application with"
-msgstr "Встановіть пароль, за допомогою якого буде заблоковано програму"
+msgstr "Встановіть пароль, за допомогою якого буде замкнено програму"
 
 #: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
-msgstr "_Автоматично заблокувати програму"
+msgstr "_Автоматично замкнути програму"
 
 #: data/resources/ui/preferences.ui:57
 msgid "Whether to automatically lock the application"
-msgstr "Чи слід автоматично блокувати програму"
+msgstr "Чи слід автоматично замикати програму"
 
 #: data/resources/ui/preferences.ui:68
-msgid "Auto lock _Timeout"
-msgstr "_Час очікування на автоблокування"
+#| msgid "Auto lock _Timeout"
+msgid "Auto Lock _Timeout"
+msgstr "_Час очікування на автозамикання"
 
 #: data/resources/ui/preferences.ui:69
 msgid "The time in minutes"
@@ -333,27 +351,27 @@ msgid "Restore"
 msgstr "Відновити"
 
 #: data/resources/ui/provider_page.ui:109
-#| msgid "Select"
-msgid "Select A _File"
+#| msgid "Select A _File"
+msgid "Select a _File"
 msgstr "Вибрати _файл"
 
-#: data/resources/ui/provider_page.ui:128
+#: data/resources/ui/provider_page.ui:133
 msgid "Name"
 msgstr "Назва"
 
-#: data/resources/ui/provider_page.ui:143
+#: data/resources/ui/provider_page.ui:148
 msgid "Used to fetch the provider icon"
 msgstr "Використовується для отримання піктограми надавача даних"
 
-#: data/resources/ui/provider_page.ui:194
+#: data/resources/ui/provider_page.ui:199
 msgid "The by default value for counter-based computing method"
 msgstr "Типове значення методу обчислення на основі лічильника"
 
-#: data/resources/ui/provider_page.ui:228
+#: data/resources/ui/provider_page.ui:233
 msgid "Help URL"
 msgstr "Адреса довідки"
 
-#: data/resources/ui/provider_page.ui:229
+#: data/resources/ui/provider_page.ui:234
 msgid "Provider setup instructions"
 msgstr "Настанови щодо налаштування надавача даних"
 
@@ -361,11 +379,11 @@ msgstr "Настанови щодо налаштування надавача д
 msgid "Providers"
 msgstr "Надавачі даних"
 
-#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:196
+#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:206
 msgid "New Provider"
 msgstr "Новий надавач даних"
 
-#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:151
+#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
 msgid "Search"
 msgstr "Пошук"
 
@@ -375,14 +393,16 @@ msgid "No Results"
 msgstr "Нічого не знайдено"
 
 #: data/resources/ui/providers_dialog.ui:109
-msgid "No providers matching the query were found"
-msgstr "Не знайдено жодного надавача даних, який відповідає заданим критеріям"
+#| msgid "No providers matching the query were found"
+msgid "No providers matching the query were found."
+msgstr "Не знайдено жодного надавача даних, який відповідає заданим критеріям."
 
 #: data/resources/ui/providers_list.ui:43
-msgid "No accounts or providers matching the query were found"
+#| msgid "No accounts or providers matching the query were found"
+msgid "No accounts or providers matching the query were found."
 msgstr ""
 "Не знайдено жодного облікового запису або надавача даних, який відповідає "
-"заданим критеріям"
+"заданим критеріям."
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -397,7 +417,7 @@ msgstr "Клавіатурні скорочення"
 #: data/resources/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Lock"
-msgstr "Заблокувати"
+msgstr "Замкнути"
 
 #: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
@@ -430,8 +450,9 @@ msgid "Show Providers List"
 msgstr "Показати список надавачів даних"
 
 #: data/resources/ui/window.ui:6
-msgid "_Lock the application"
-msgstr "За_блокувати програму"
+#| msgid "_Lock the application"
+msgid "_Lock the Application"
+msgstr "З_амкнути програму"
 
 #: data/resources/ui/window.ui:12
 msgid "P_roviders"
@@ -449,29 +470,32 @@ msgstr "_Клавіатурні скорочення"
 msgid "_About Authenticator"
 msgstr "П_ро «Розпізнавач»"
 
-#: data/resources/ui/window.ui:65 data/resources/ui/window.ui:106
+#: data/resources/ui/window.ui:95
+#| msgid "Authenticator is locked"
+msgid "Authenticator is Locked"
+msgstr "«Розпізнавач» замкнено"
+
+#: data/resources/ui/window.ui:123
+msgid "_Unlock"
+msgstr "Віді_мкнути"
+
+#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
 msgid "New Account"
 msgstr "Створити обліковий запис"
 
-#: data/resources/ui/window.ui:73 data/resources/ui/window.ui:144
+#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
 msgid "Menu"
 msgstr "Меню"
 
-#: data/resources/ui/window.ui:84
-msgid "There are no accounts currently"
+#: data/resources/ui/window.ui:192
+#| msgid "There are no accounts currently"
+msgid "There Are no Accounts Currently"
 msgstr "Ще не створено жодного облікового запису"
 
-#: data/resources/ui/window.ui:85
-msgid "Add an account or scan a QR code first"
-msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду"
-
-#: data/resources/ui/window.ui:230
-msgid "Authenticator is locked"
-msgstr "«Розпізнавач» замкнено"
-
-#: data/resources/ui/window.ui:258
-msgid "_Unlock"
-msgstr "_Розблокувати"
+#: data/resources/ui/window.ui:193
+#| msgid "Add an account or scan a QR code first"
+msgid "Add an account or scan a QR code first."
+msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду."
 
 #: src/application.rs:167
 msgid "translator-credits"
@@ -545,29 +569,59 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
-#: src/widgets/window.rs:320 src/widgets/preferences/password_page.rs:231
+#: src/widgets/window.rs:324 src/widgets/preferences/password_page.rs:231
 #: src/widgets/preferences/password_page.rs:262
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
 #: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
-#: src/widgets/providers/page.rs:300
+#: src/widgets/providers/page.rs:312
 msgid "Select"
 msgstr "Вибрати"
 
 #: src/widgets/preferences/window.rs:303 src/widgets/preferences/window.rs:310
-#: src/widgets/providers/page.rs:301
+#: src/widgets/providers/page.rs:313
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/widgets/providers/page.rs:167
+#: src/widgets/providers/page.rs:176
 msgid "Editing Provider: {}"
 msgstr "Редагування надавача даних: {}"
 
-#: src/widgets/providers/page.rs:308
+#: src/widgets/providers/page.rs:320
 msgid "Image"
+msgstr "Зображення"
+
+#: src/widgets/providers/page.rs:356
+msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
-"Зображення"
+"Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку вилучіть ці записи."
+
+#~ msgid "QR code scanner"
+#~ msgstr "Засіб сканування QR-кодів"
+
+#~ msgid "Huge database of more than 560 supported services"
+#~ msgstr "Величезна база даних з понад 560 підтримуваних служб"
+
+#~ msgid "Keep your tokens secure by locking the application with a password"
+#~ msgstr "Безпечне зберігання ваших жетонів замиканням даних програми паролем"
+
+#~ msgid "Automatically fetch an image for services using their favicon"
+#~ msgstr ""
+#~ "Автоматичне отримання зображень для служб з використанням їхніх піктограм"
+
+#~ msgid "The possibility to add new services"
+#~ msgstr "Можливість додавати нові служби"
+
+#~ msgid "Dark theme and night light"
+#~ msgstr "Темна тема та пристосованість до роботи вночі"
+
+#~ msgid "Sharing an account"
+#~ msgstr "Спільне використання облікового запису"
+
+#~ msgid "By setting a password, Authenticator will from now on start locked."
+#~ msgstr ""
+#~ "Після встановлення пароля «Розпізнавач» запускатиметься заблокованим."
 
 #~ msgid "The service provider"
 #~ msgstr "Надавач послуг служби"
