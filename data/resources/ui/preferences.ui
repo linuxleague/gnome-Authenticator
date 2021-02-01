@@ -37,9 +37,9 @@
             <property name="title" translatable="yes">Privacy</property>
             <child>
               <object class="AdwActionRow">
-                <property name="title" translatable="yes">_Password</property>
+                <property name="title" translatable="yes">_Passphrase</property>
                 <property name="use-underline">True</property>
-                <property name="subtitle" translatable="yes">Set up a password to lock the application with</property>
+                <property name="subtitle" translatable="yes">Set up a passphrase to lock the application with</property>
                 <property name="activatable">True</property>
                 <property name="action-name">preferences.show_password_page</property>
                 <child>

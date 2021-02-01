@@ -228,7 +228,7 @@ impl PasswordPage {
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
         {
-            self_.error_revealer.popup(&gettext("Wrong Password"));
+            self_.error_revealer.popup(&gettext("Wrong Passphrase"));
             return;
         }
         if Keyring::reset_password().is_ok() {
@@ -259,7 +259,7 @@ impl PasswordPage {
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
         {
-            self_.error_revealer.popup(&gettext("Wrong Password"));
+            self_.error_revealer.popup(&gettext("Wrong Passphrase"));
             return;
         }
 
