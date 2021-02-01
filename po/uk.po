@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-01 11:38+0000\n"
-"PO-Revision-Date: 2021-02-01 14:05+0200\n"
+"POT-Creation-Date: 2021-02-01 16:02+0000\n"
+"PO-Revision-Date: 2021-02-01 20:23+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -135,7 +135,7 @@ msgstr "Параметри облікового запису"
 msgid "Backup/Restore formats support"
 msgstr "Підтримка форматів резервного копіювання/відновлення"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:190
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -257,23 +257,28 @@ msgid "Capture from a screenshot"
 msgstr "Захопити зі знімка вікна"
 
 #: data/resources/ui/preferences_password_page.ui:32
-msgid "Set up a Password"
+#| msgid "Set up a Password"
+msgid "Set up a Passphrase"
 msgstr "Встановіть пароль"
 
 #: data/resources/ui/preferences_password_page.ui:33
-msgid "Authenticator will start locked after a password is set."
+#| msgid "Authenticator will start locked after a password is set."
+msgid "Authenticator will start locked after a passphrase is set."
 msgstr "«Розпізнавач» запускатиметься заблокованим після встановлення пароля."
 
 #: data/resources/ui/preferences_password_page.ui:52
-msgid "Current Password"
+#| msgid "Current Password"
+msgid "Current Passphrase"
 msgstr "Поточний пароль"
 
 #: data/resources/ui/preferences_password_page.ui:66
-msgid "New Password"
+#| msgid "New Password"
+msgid "New Passphrase"
 msgstr "Новий пароль"
 
 #: data/resources/ui/preferences_password_page.ui:79
-msgid "Repeat Password"
+#| msgid "Repeat Password"
+msgid "Repeat Passphrase"
 msgstr "Повторіть пароль"
 
 #: data/resources/ui/preferences_password_page.ui:100
@@ -302,11 +307,13 @@ msgid "Privacy"
 msgstr "Конфіденційність"
 
 #: data/resources/ui/preferences.ui:40
-msgid "_Password"
+#| msgid "_Password"
+msgid "_Passphrase"
 msgstr "Па_роль"
 
 #: data/resources/ui/preferences.ui:42
-msgid "Set up a password to lock the application with"
+#| msgid "Set up a password to lock the application with"
+msgid "Set up a passphrase to lock the application with"
 msgstr "Встановіть пароль, за допомогою якого буде замкнено програму"
 
 #: data/resources/ui/preferences.ui:54
@@ -470,8 +477,6 @@ msgid "Menu"
 msgstr "Меню"
 
 #: data/resources/ui/window.ui:192
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "No Accounts"
 msgstr "Немає облікових записів"
 
@@ -551,9 +556,14 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
-#: src/widgets/window.rs:324 src/widgets/preferences/password_page.rs:231
-#: src/widgets/preferences/password_page.rs:262
+#: src/widgets/window.rs:324
 msgid "Wrong Password"
+msgstr "Помилковий пароль"
+
+#: src/widgets/preferences/password_page.rs:231
+#: src/widgets/preferences/password_page.rs:262
+#| msgid "Wrong Password"
+msgid "Wrong Passphrase"
 msgstr "Помилковий пароль"
 
 #: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
