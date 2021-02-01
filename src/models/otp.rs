@@ -1,6 +1,5 @@
 use super::Algorithm;
 use anyhow::Result;
-use data_encoding::BASE32;
 use ring::hmac;
 use std::convert::TryInto;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -18,8 +17,11 @@ pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 /// Decodes a secret (given as an RFC4648 base32-encoded ASCII string)
 /// into a byte string. It fails if secret is not a valid Base32 string.
 fn decode_secret(secret: &str) -> Result<Vec<u8>> {
-    let res = BASE32.decode(secret.trim().replace(' ', "").to_uppercase().as_bytes())?;
-    Ok(res)
+    let secret = secret.trim().replace(' ', "").to_uppercase();
+
+    data_encoding::BASE32_NOPAD
+        .decode(secret.as_bytes())
+        .map_err(From::from)
 }
 
 /// Validates if `secret` is a valid Base32 String.
