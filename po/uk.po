@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-01 00:30+0000\n"
-"PO-Revision-Date: 2021-02-01 12:26+0200\n"
+"POT-Creation-Date: 2021-02-01 11:38+0000\n"
+"PO-Revision-Date: 2021-02-01 14:05+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -90,21 +90,17 @@ msgstr "Можливості:"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "Time-based/Counter-based/Steam methods support"
-msgstr ""
-"На основі часу/На основі лічильника/Підтримка методів Steam"
+msgstr "На основі часу/На основі лічильника/Підтримка методів Steam"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "SHA-1/SHA-256/SHA-512 algorithms support"
-msgstr ""
-"Підтримка алгоритмів SHA-1/SHA-256/SHA-512"
+msgstr "Підтримка алгоритмів SHA-1/SHA-256/SHA-512"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "QR code scanner using a camera or from a screenshot"
-msgstr ""
-"Сканування кодів QR за допомогою камери або зі знімка вікна"
+msgstr "Сканування кодів QR за допомогою камери або зі знімка вікна"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
-#| msgid "_Lock the application"
 msgid "Lock the application with a password"
 msgstr "Замикання програми за допомогою пароля"
 
@@ -115,7 +111,8 @@ msgstr "Чудовий інтерфейс користувача"
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
 msgstr ""
-"Резервне копіювання і відновлення даних з резервних копій для відомих програм, зокрема FreeOTP+, andOTP"
+"Резервне копіювання і відновлення даних з резервних копій для відомих "
+"програм, зокрема FreeOTP+, andOTP"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
 msgid "Main Window"
@@ -123,27 +120,22 @@ msgstr "Головне вікно"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
 #: data/resources/ui/account_add.ui:24
-#| msgid "Add a new account"
 msgid "Add a New Account"
 msgstr "Додавання нового облікового запису"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
-#| msgid "New Provider"
 msgid "Add a New Provider"
 msgstr "Додавання нового надавача даних"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "Account Details"
 msgstr "Параметри облікового запису"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
-#| msgid "Backup/Restore"
 msgid "Backup/Restore formats support"
 msgstr "Підтримка форматів резервного копіювання/відновлення"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:183
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:190
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -223,7 +215,6 @@ msgid "Website"
 msgstr "Сайт"
 
 #: data/resources/ui/account_add.ui:225
-#| msgid "How to setup"
 msgid "How to Set Up"
 msgstr "Як налаштувати"
 
@@ -258,7 +249,6 @@ msgid "No Camera Found"
 msgstr "Не знайдено камери"
 
 #: data/resources/ui/camera.ui:32
-#| msgid "_From A Screenshot"
 msgid "_From a Screenshot"
 msgstr "З_і знімка вікна"
 
@@ -267,14 +257,12 @@ msgid "Capture from a screenshot"
 msgstr "Захопити зі знімка вікна"
 
 #: data/resources/ui/preferences_password_page.ui:32
-#| msgid "Set up a password"
 msgid "Set up a Password"
 msgstr "Встановіть пароль"
 
 #: data/resources/ui/preferences_password_page.ui:33
 msgid "Authenticator will start locked after a password is set."
-msgstr ""
-"«Розпізнавач» запускатиметься заблокованим після встановлення пароля."
+msgstr "«Розпізнавач» запускатиметься заблокованим після встановлення пароля."
 
 #: data/resources/ui/preferences_password_page.ui:52
 msgid "Current Password"
@@ -330,7 +318,6 @@ msgid "Whether to automatically lock the application"
 msgstr "Чи слід автоматично замикати програму"
 
 #: data/resources/ui/preferences.ui:68
-#| msgid "Auto lock _Timeout"
 msgid "Auto Lock _Timeout"
 msgstr "_Час очікування на автозамикання"
 
@@ -351,7 +338,6 @@ msgid "Restore"
 msgstr "Відновити"
 
 #: data/resources/ui/provider_page.ui:109
-#| msgid "Select A _File"
 msgid "Select a _File"
 msgstr "Вибрати _файл"
 
@@ -393,12 +379,10 @@ msgid "No Results"
 msgstr "Нічого не знайдено"
 
 #: data/resources/ui/providers_dialog.ui:109
-#| msgid "No providers matching the query were found"
 msgid "No providers matching the query were found."
 msgstr "Не знайдено жодного надавача даних, який відповідає заданим критеріям."
 
 #: data/resources/ui/providers_list.ui:43
-#| msgid "No accounts or providers matching the query were found"
 msgid "No accounts or providers matching the query were found."
 msgstr ""
 "Не знайдено жодного облікового запису або надавача даних, який відповідає "
@@ -450,7 +434,6 @@ msgid "Show Providers List"
 msgstr "Показати список надавачів даних"
 
 #: data/resources/ui/window.ui:6
-#| msgid "_Lock the application"
 msgid "_Lock the Application"
 msgstr "З_амкнути програму"
 
@@ -471,7 +454,6 @@ msgid "_About Authenticator"
 msgstr "П_ро «Розпізнавач»"
 
 #: data/resources/ui/window.ui:95
-#| msgid "Authenticator is locked"
 msgid "Authenticator is Locked"
 msgstr "«Розпізнавач» замкнено"
 
@@ -488,12 +470,12 @@ msgid "Menu"
 msgstr "Меню"
 
 #: data/resources/ui/window.ui:192
-#| msgid "There are no accounts currently"
-msgid "There Are no Accounts Currently"
-msgstr "Ще не створено жодного облікового запису"
+#| msgctxt "shortcut window"
+#| msgid "Accounts"
+msgid "No Accounts"
+msgstr "Немає облікових записів"
 
 #: data/resources/ui/window.ui:193
-#| msgid "Add an account or scan a QR code first"
 msgid "Add an account or scan a QR code first."
 msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду."
 
@@ -595,7 +577,12 @@ msgstr "Зображення"
 #: src/widgets/providers/page.rs:356
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
-"Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку вилучіть ці записи."
+"Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку "
+"вилучіть ці записи."
+
+#~| msgid "There are no accounts currently"
+#~ msgid "There Are no Accounts Currently"
+#~ msgstr "Ще не створено жодного облікового запису"
 
 #~ msgid "QR code scanner"
 #~ msgstr "Засіб сканування QR-кодів"
