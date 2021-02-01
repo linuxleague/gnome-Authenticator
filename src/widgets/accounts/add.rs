@@ -262,11 +262,17 @@ impl AccountAddDialog {
         let self_ = imp::AccountAddDialog::from_instance(self);
         action!(
             self_.actions,
-            "back",
+            "previous",
             clone!(@weak self as dialog => move |_, _| {
-                dialog.close();
+                let self_ = imp::AccountAddDialog::from_instance(&dialog);
+                if self_.deck.get_visible_child_name().unwrap() == "camera" {
+                    self_.deck.set_visible_child_name("main");
+                } else {
+                    dialog.close();
+                }
             })
         );
+
         action!(
             self_.actions,
             "save",

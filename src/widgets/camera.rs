@@ -95,7 +95,6 @@ mod imp {
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/camera.ui")]
     pub struct Camera {
-        pub actions: gio::SimpleActionGroup,
         pub sender: Sender<CameraEvent>,
         pub receiver: RefCell<Option<Receiver<CameraEvent>>>,
         pub pipeline: gst::Pipeline,
@@ -137,7 +136,6 @@ mod imp {
             let receiver = RefCell::new(Some(r));
 
             Self {
-                actions: gio::SimpleActionGroup::new(),
                 sink,
                 sender,
                 receiver,

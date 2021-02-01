@@ -39,7 +39,7 @@
                     <child type="start">
                       <object class="GtkButton" id="back_btn">
                         <property name="receives-default">True</property>
-                        <property name="action-name">add.back</property>
+                        <property name="action-name">add.previous</property>
                         <property name="icon-name">go-previous-symbolic</property>
                         <property name="tooltip-text" translatable="yes">Go Back</property>
                       </object>
@@ -253,11 +253,11 @@
     </child>
     <child>
       <object class='GtkShortcutController'>
-        <property name='scope'>global</property>
+        <property name='scope'>local</property>
         <child>
           <object class='GtkShortcut'>
             <property name='trigger'>Escape</property>
-            <property name='action'>action(window.close)</property>
+            <property name='action'>action(add.previous)</property>
           </object>
         </child>
       </object>
