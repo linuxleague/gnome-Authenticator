@@ -187,6 +187,9 @@
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
   </kudos>
+  <provides>
+    <id>com.github.bilelmoussaoui.Authenticator</id>
+  </provides>
   <developer_name>Bilal Elmoussaoui</developer_name>
   <update_contact>bilal.elmoussaoui@gnome.org</update_contact>
   <translation type="gettext">@gettext-package@</translation>
