@@ -65,7 +65,7 @@
             </child>
             <child>
               <object class="AdwActionRow">
-                <property name="title" translatable="yes">Auto lock _Timeout</property>
+                <property name="title" translatable="yes">Auto Lock _Timeout</property>
                 <property name="subtitle" translatable="yes">The time in minutes</property>
                 <property name="activatable-widget">lock_timeout_spin_btn</property>
                 <property name="use-underline">True</property>

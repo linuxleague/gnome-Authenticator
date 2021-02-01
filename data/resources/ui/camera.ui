@@ -29,7 +29,7 @@
                 <property name="title" translatable="yes">No Camera Found</property>
                 <property name="child">
                   <object class="GtkButton">
-                    <property name="label" translatable="yes">_From A Screenshot</property>
+                    <property name="label" translatable="yes">_From a Screenshot</property>
                     <property name="action-name">add.screenshot</property>
                     <property name="halign">center</property>
                     <property name="margin-top">24</property>

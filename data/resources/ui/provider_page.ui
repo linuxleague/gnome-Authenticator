@@ -106,7 +106,7 @@
                         </child>
                         <child>
                           <object class="GtkButton">
-                            <property name="label" translatable="yes">Select A _File</property>
+                            <property name="label" translatable="yes">Select a _File</property>
                             <property name="use-underline">True</property>
                             <property name="action-name">providers.select_image</property>
                             <style>

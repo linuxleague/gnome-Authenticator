@@ -21,7 +21,7 @@
     <property name="modal">True</property>
     <property name="default-width">820</property>
     <property name="default-height">760</property>
-    <property name="title" translatable="yes">Add a new account</property>
+    <property name="title" translatable="yes">Add a New Account</property>
     <child>
       <object class="AdwLeaflet" id="deck">
         <property name="can-unfold">False</property>
@@ -222,7 +222,7 @@
                                 </child>
                                 <child>
                                   <object class="UrlRow" id="provider_help_row">
-                                    <property name="title" translatable="yes">How to setup</property>
+                                    <property name="title" translatable="yes">How to Set Up</property>
                                     <property name="icon-name">help-page-symbolic</property>
                                   </object>
                                 </child>
