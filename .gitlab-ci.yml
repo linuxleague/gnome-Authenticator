@@ -34,7 +34,6 @@ rustfmt:
   script:
     - rustup component add rustfmt
     - echo -e "" >> src/config.rs
-    - echo -e "" >> src/static_resources.rs
     - rustc -Vv && cargo -Vv
     - cargo fmt --version
     - cargo fmt --all -- --color=always --check
