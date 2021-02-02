@@ -95,28 +95,162 @@ pub(crate) fn time_based_counter(period: u32) -> u64 {
 
 #[cfg(test)]
 mod tests {
-    use super::{format, hotp, steam, Algorithm, DEFAULT_DIGITS};
+    use super::{format, hotp, steam, Algorithm, DEFAULT_DIGITS, TOTP_DEFAULT_PERIOD};
+    use data_encoding::BASE32_NOPAD;
+    #[test]
+    fn test_totp() {
+        let secret_sha1 = BASE32_NOPAD.encode(b"12345678901234567890");
+        let secret_sha256 = BASE32_NOPAD.encode(b"12345678901234567890123456789012");
+        let secret_sha512 = BASE32_NOPAD
+            .encode(b"1234567890123456789012345678901234567890123456789012345678901234");
 
+        let counter1 = 59 / TOTP_DEFAULT_PERIOD as u64;
+        assert_eq!(
+            Some(94287082),
+            hotp(&secret_sha1, counter1, Algorithm::SHA1, 8).ok()
+        );
+        assert_eq!(
+            Some(46119246),
+            hotp(&secret_sha256, counter1, Algorithm::SHA256, 8).ok()
+        );
+        assert_eq!(
+            Some(90693936),
+            hotp(&secret_sha512, counter1, Algorithm::SHA512, 8).ok()
+        );
+
+        let counter2 = 1111111109 / TOTP_DEFAULT_PERIOD as u64;
+        assert_eq!(
+            Some(7081804),
+            hotp(&secret_sha1, counter2, Algorithm::SHA1, 8).ok()
+        );
+        assert_eq!(
+            Some(68084774),
+            hotp(&secret_sha256, counter2, Algorithm::SHA256, 8).ok()
+        );
+        assert_eq!(
+            Some(25091201),
+            hotp(&secret_sha512, counter2, Algorithm::SHA512, 8).ok()
+        );
+
+        let counter3 = 1111111111 / TOTP_DEFAULT_PERIOD as u64;
+        assert_eq!(
+            Some(14050471),
+            hotp(&secret_sha1, counter3, Algorithm::SHA1, 8).ok()
+        );
+        assert_eq!(
+            Some(67062674),
+            hotp(&secret_sha256, counter3, Algorithm::SHA256, 8).ok()
+        );
+        assert_eq!(
+            Some(99943326),
+            hotp(&secret_sha512, counter3, Algorithm::SHA512, 8).ok()
+        );
+
+        let counter4 = 1234567890 / TOTP_DEFAULT_PERIOD as u64;
+        assert_eq!(
+            Some(89005924),
+            hotp(&secret_sha1, counter4, Algorithm::SHA1, 8).ok()
+        );
+        assert_eq!(
+            Some(91819424),
+            hotp(&secret_sha256, counter4, Algorithm::SHA256, 8).ok()
+        );
+        assert_eq!(
+            Some(93441116),
+            hotp(&secret_sha512, counter4, Algorithm::SHA512, 8).ok()
+        );
+
+        let counter5 = 2000000000 / TOTP_DEFAULT_PERIOD as u64;
+        assert_eq!(
+            Some(69279037),
+            hotp(&secret_sha1, counter5, Algorithm::SHA1, 8).ok()
+        );
+        assert_eq!(
+            Some(90698825),
+            hotp(&secret_sha256, counter5, Algorithm::SHA256, 8).ok()
+        );
+        assert_eq!(
+            Some(38618901),
+            hotp(&secret_sha512, counter5, Algorithm::SHA512, 8).ok()
+        );
+
+        let counter6 = 20000000000 / TOTP_DEFAULT_PERIOD as u64;
+        assert_eq!(
+            Some(65353130),
+            hotp(&secret_sha1, counter6, Algorithm::SHA1, 8).ok()
+        );
+        assert_eq!(
+            Some(77737706),
+            hotp(&secret_sha256, counter6, Algorithm::SHA256, 8).ok()
+        );
+        assert_eq!(
+            Some(47863826),
+            hotp(&secret_sha512, counter6, Algorithm::SHA512, 8).ok()
+        );
+    }
+
+    // Some of the tests are heavily inspired(copy-paste) of the andOTP application
     #[test]
     fn test_hotp() {
         assert_eq!(
-            hotp("BASE32SECRET3232", 0, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
-            260182
+            hotp("BASE32SECRET3232", 0, Algorithm::SHA1, DEFAULT_DIGITS).ok(),
+            Some(260182)
         );
         assert_eq!(
-            hotp("BASE32SECRET3232", 1, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
-            55283
+            hotp("BASE32SECRET3232", 1, Algorithm::SHA1, DEFAULT_DIGITS).ok(),
+            Some(55283)
         );
         assert_eq!(
-            hotp("BASE32SECRET3232", 1401, Algorithm::SHA1, DEFAULT_DIGITS).unwrap(),
-            316439
+            hotp("BASE32SECRET3232", 1401, Algorithm::SHA1, DEFAULT_DIGITS).ok(),
+            Some(316439)
+        );
+        let secret = BASE32_NOPAD.encode(b"12345678901234567890");
+        assert_eq!(
+            Some(755224),
+            hotp(&secret, 0, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(287082),
+            hotp(&secret, 1, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(359152),
+            hotp(&secret, 2, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(969429),
+            hotp(&secret, 3, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(338314),
+            hotp(&secret, 4, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(254676),
+            hotp(&secret, 5, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(287922),
+            hotp(&secret, 6, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(162583),
+            hotp(&secret, 7, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(399871),
+            hotp(&secret, 8, Algorithm::SHA1, DEFAULT_DIGITS).ok()
+        );
+        assert_eq!(
+            Some(520489),
+            hotp(&secret, 9, Algorithm::SHA1, DEFAULT_DIGITS).ok()
         );
     }
 
     #[test]
     fn test_steam_totp() {
-        assert_eq!(steam("BASE32SECRET3232", 0).unwrap(), "2TC8B");
-        assert_eq!(steam("BASE32SECRET3232", 1).unwrap(), "YKKK4");
+        assert_eq!(steam("BASE32SECRET3232", 0).ok(), Some("2TC8B".into()));
+        assert_eq!(steam("BASE32SECRET3232", 1).ok(), Some("YKKK4".into()));
     }
 
     #[test]
