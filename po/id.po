@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-01 00:30+0000\n"
-"PO-Revision-Date: 2021-02-01 17:44+0700\n"
+"POT-Creation-Date: 2021-02-01 16:02+0000\n"
+"PO-Revision-Date: 2021-02-02 18:59+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/authenticator/"
 "translation/id/>\n"
@@ -134,7 +134,7 @@ msgstr "Detail Akun"
 msgid "Backup/Restore formats support"
 msgstr "Dukungan format Pencadangan/Pemulihan"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:183
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -256,24 +256,24 @@ msgid "Capture from a screenshot"
 msgstr "Ambil dari cuplikan layar"
 
 #: data/resources/ui/preferences_password_page.ui:32
-msgid "Set up a Password"
-msgstr "Menyiapkan Kata Sandi"
+msgid "Set up a Passphrase"
+msgstr "Menyiapkan Frasa Sandi"
 
 #: data/resources/ui/preferences_password_page.ui:33
-msgid "Authenticator will start locked after a password is set."
-msgstr "Autentikator akan mulai terkunci setelah kata sandi disetel."
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "Otentikator akan mulai terkunci setelah frasa sandi disetel."
 
 #: data/resources/ui/preferences_password_page.ui:52
-msgid "Current Password"
-msgstr "Kata Sandi Saat Ini"
+msgid "Current Passphrase"
+msgstr "Frasa Sandi Saat Ini"
 
 #: data/resources/ui/preferences_password_page.ui:66
-msgid "New Password"
-msgstr "Kata Sandi Baru"
+msgid "New Passphrase"
+msgstr "Frasa Sandi Baru"
 
 #: data/resources/ui/preferences_password_page.ui:79
-msgid "Repeat Password"
-msgstr "Ulangi Kata Sandi"
+msgid "Repeat Passphrase"
+msgstr "Ulangi Frasa Sandi"
 
 #: data/resources/ui/preferences_password_page.ui:100
 #: data/resources/ui/provider_page.ui:98
@@ -301,12 +301,12 @@ msgid "Privacy"
 msgstr "Privasi"
 
 #: data/resources/ui/preferences.ui:40
-msgid "_Password"
-msgstr "_Kata sandi"
+msgid "_Passphrase"
+msgstr "_Frasa sandi"
 
 #: data/resources/ui/preferences.ui:42
-msgid "Set up a password to lock the application with"
-msgstr "Menyiapkan kata sandi untuk mengunci aplikasi"
+msgid "Set up a passphrase to lock the application with"
+msgstr "Menyiapkan frasa sandi untuk mengunci aplikasi dengan"
 
 #: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
@@ -467,8 +467,8 @@ msgid "Menu"
 msgstr "Menu"
 
 #: data/resources/ui/window.ui:192
-msgid "There Are no Accounts Currently"
-msgstr "Saat Ini Belum Ada Akun"
+msgid "No Accounts"
+msgstr "Tidak Ada Akun"
 
 #: data/resources/ui/window.ui:193
 msgid "Add an account or scan a QR code first."
@@ -548,10 +548,14 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Token Tidak Valid"
 
-#: src/widgets/window.rs:324 src/widgets/preferences/password_page.rs:231
-#: src/widgets/preferences/password_page.rs:262
+#: src/widgets/window.rs:324
 msgid "Wrong Password"
 msgstr "Kata Sandi Salah"
+
+#: src/widgets/preferences/password_page.rs:231
+#: src/widgets/preferences/password_page.rs:262
+msgid "Wrong Passphrase"
+msgstr "Frasa Sandi Salah"
 
 #: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
 #: src/widgets/providers/page.rs:312
@@ -576,6 +580,9 @@ msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Penyedia memiliki akun yang ditugaskan untuk itu, silakan hapus terlebih "
 "dahulu"
+
+#~ msgid "There Are no Accounts Currently"
+#~ msgstr "Saat Ini Belum Ada Akun"
 
 #~ msgid "QR code scanner"
 #~ msgstr "Pemindai kode QR"
