@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-01 11:38+0000\n"
-"PO-Revision-Date: 2021-02-01 09:19-0300\n"
+"POT-Creation-Date: 2021-02-01 16:02+0000\n"
+"PO-Revision-Date: 2021-02-02 07:56-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
@@ -99,7 +99,6 @@ msgstr ""
 "Leitor de código QR usando uma câmera ou a partir de uma captura de tela"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
-#| msgid "_Lock the application"
 msgid "Lock the application with a password"
 msgstr "Bloqueie o aplicativo com uma senha"
 
@@ -118,27 +117,22 @@ msgstr "Janela principal"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
 #: data/resources/ui/account_add.ui:24
-#| msgid "Add a new account"
 msgid "Add a New Account"
 msgstr "Adição de uma nova conta"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
-#| msgid "New Provider"
 msgid "Add a New Provider"
 msgstr "Adição de um novo provedor"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "Account Details"
 msgstr "Detalhes da conta"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
-#| msgid "Backup/Restore"
 msgid "Backup/Restore formats support"
 msgstr "Suporte a formatos de backup/restauração"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:190
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -218,7 +212,6 @@ msgid "Website"
 msgstr "Site"
 
 #: data/resources/ui/account_add.ui:225
-#| msgid "How to setup"
 msgid "How to Set Up"
 msgstr "Como configurar"
 
@@ -253,7 +246,6 @@ msgid "No Camera Found"
 msgstr "Nenhuma câmera localizada"
 
 #: data/resources/ui/camera.ui:32
-#| msgid "_From A Screenshot"
 msgid "_From a Screenshot"
 msgstr "_De uma captura de tela"
 
@@ -262,25 +254,30 @@ msgid "Capture from a screenshot"
 msgstr "Captura de uma captura de tela"
 
 #: data/resources/ui/preferences_password_page.ui:32
-#| msgid "Set up a password"
-msgid "Set up a Password"
-msgstr "Definir senha"
+#| msgid "Set up a Password"
+msgid "Set up a Passphrase"
+msgstr "Definir uma frase secreta"
 
 #: data/resources/ui/preferences_password_page.ui:33
-msgid "Authenticator will start locked after a password is set."
-msgstr "Autenticador vai iniciar bloqueado após uma senha ser definida."
+#| msgid "Authenticator will start locked after a password is set."
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr ""
+"O Autenticador vai iniciar bloqueado após uma frase secreta ser definida."
 
 #: data/resources/ui/preferences_password_page.ui:52
-msgid "Current Password"
-msgstr "Senha atual"
+#| msgid "Current Password"
+msgid "Current Passphrase"
+msgstr "Frase secreta atual"
 
 #: data/resources/ui/preferences_password_page.ui:66
-msgid "New Password"
-msgstr "Nova senha"
+#| msgid "New Password"
+msgid "New Passphrase"
+msgstr "Nova frase secreta"
 
 #: data/resources/ui/preferences_password_page.ui:79
-msgid "Repeat Password"
-msgstr "Repetir senha"
+#| msgid "Repeat Password"
+msgid "Repeat Passphrase"
+msgstr "Repetir frase secreta"
 
 #: data/resources/ui/preferences_password_page.ui:100
 #: data/resources/ui/provider_page.ui:98
@@ -308,12 +305,13 @@ msgid "Privacy"
 msgstr "Privacidade"
 
 #: data/resources/ui/preferences.ui:40
-msgid "_Password"
-msgstr "_Senha"
+msgid "_Passphrase"
+msgstr "_Frase secreta"
 
 #: data/resources/ui/preferences.ui:42
-msgid "Set up a password to lock the application with"
-msgstr "Definir uma senha para bloquear o aplicativo"
+#| msgid "Set up a password to lock the application with"
+msgid "Set up a passphrase to lock the application with"
+msgstr "Defina uma frase secreta para bloquear o aplicativo"
 
 #: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
@@ -324,7 +322,6 @@ msgid "Whether to automatically lock the application"
 msgstr "Se deve, ou não, bloquear automaticamente o aplicativo"
 
 #: data/resources/ui/preferences.ui:68
-#| msgid "Auto lock _Timeout"
 msgid "Auto Lock _Timeout"
 msgstr "_Tempo até bloqueio automático"
 
@@ -345,7 +342,6 @@ msgid "Restore"
 msgstr "Restaurar"
 
 #: data/resources/ui/provider_page.ui:109
-#| msgid "Select"
 msgid "Select a _File"
 msgstr "Selecionar um _arquivo"
 
@@ -387,12 +383,10 @@ msgid "No Results"
 msgstr "Nenhum resultado"
 
 #: data/resources/ui/providers_dialog.ui:109
-#| msgid "No providers matching the query were found"
 msgid "No providers matching the query were found."
 msgstr "Nenhum provedor correspondente à consulta foi encontrado."
 
 #: data/resources/ui/providers_list.ui:43
-#| msgid "No accounts or providers matching the query were found"
 msgid "No accounts or providers matching the query were found."
 msgstr "Nenhuma conta ou provedor correspondente à consulta foi encontrado."
 
@@ -442,7 +436,6 @@ msgid "Show Providers List"
 msgstr "Mostra a lista de provedores"
 
 #: data/resources/ui/window.ui:6
-#| msgid "_Lock the application"
 msgid "_Lock the Application"
 msgstr "B_loquear o aplicativo"
 
@@ -463,7 +456,6 @@ msgid "_About Authenticator"
 msgstr "_Sobre o Autenticador"
 
 #: data/resources/ui/window.ui:95
-#| msgid "Authenticator is locked"
 msgid "Authenticator is Locked"
 msgstr "O Autenticador está bloqueado"
 
@@ -480,13 +472,10 @@ msgid "Menu"
 msgstr "Menu"
 
 #: data/resources/ui/window.ui:192
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "No Accounts"
 msgstr "Nenhuma conta"
 
 #: data/resources/ui/window.ui:193
-#| msgid "Add an account or scan a QR code first"
 msgid "Add an account or scan a QR code first."
 msgstr "Adicione uma conta ou leia um código QR primeiro."
 
@@ -565,10 +554,15 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Token inválido"
 
-#: src/widgets/window.rs:324 src/widgets/preferences/password_page.rs:231
-#: src/widgets/preferences/password_page.rs:262
+#: src/widgets/window.rs:324
 msgid "Wrong Password"
 msgstr "Senha incorreta"
+
+#: src/widgets/preferences/password_page.rs:231
+#: src/widgets/preferences/password_page.rs:262
+#| msgid "Wrong Password"
+msgid "Wrong Passphrase"
+msgstr "Frase secreta incorreta"
 
 #: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
 #: src/widgets/providers/page.rs:312
@@ -591,6 +585,9 @@ msgstr "Imagem"
 #: src/widgets/providers/page.rs:356
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
+
+#~ msgid "_Password"
+#~ msgstr "_Senha"
 
 #~ msgid "QR code scanner"
 #~ msgstr "Escaneador de código QR"
@@ -981,10 +978,6 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 
 #~ msgid "Import"
 #~ msgstr "Importar"
-
-#, fuzzy
-#~ msgid "Paraphrase"
-#~ msgstr "Paráfrase"
 
 #~ msgid "There was an error during the import of the encrypted file."
 #~ msgstr "Houve um erro durante a importação do arquivo criptografado."
