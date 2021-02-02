@@ -112,8 +112,6 @@ mod imp {
 
             adw::functions::init();
 
-            std::fs::create_dir_all(&*FAVICONS_PATH.clone()).ok();
-
             let app = app.downcast_ref::<super::Application>().unwrap();
             if let Some(ref display) = gtk::gdk::Display::get_default() {
                 let p = gtk::CssProvider::new();
@@ -239,9 +237,6 @@ mod imp {
             window.present();
             self.window.replace(Some(window.downgrade()));
 
-            Keyring::ensure_unlocked()
-                .expect("Authenticator couldn't reach a secret service provider or unlock it");
-
             let has_set_password = Keyring::has_set_password().unwrap_or(false);
 
             app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
@@ -273,6 +268,10 @@ impl Application {
         info!("Authenticator ({})", config::APP_ID);
         info!("Version: {} ({})", config::VERSION, config::PROFILE);
         info!("Datadir: {}", config::PKGDATADIR);
+
+        std::fs::create_dir_all(&*FAVICONS_PATH.clone()).ok();
+        Keyring::ensure_unlocked()
+            .expect("Authenticator couldn't reach a secret service provider or unlock it");
 
         let app = glib::Object::new::<Application>(&[
             ("application-id", &Some(config::APP_ID)),
