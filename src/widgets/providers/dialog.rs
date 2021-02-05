@@ -123,10 +123,10 @@ impl ProvidersDialog {
         }));
 
         let search_btn = &*self_.search_btn;
-        search_entry.connect_search_started(clone!(@weak search_btn => move |entry| {
+        search_entry.connect_search_started(clone!(@weak search_btn => move |_| {
             search_btn.set_active(true);
         }));
-        search_entry.connect_stop_search(clone!(@weak search_btn => move |entry| {
+        search_entry.connect_stop_search(clone!(@weak search_btn => move |_| {
             search_btn.set_active(false);
         }));
 
@@ -196,8 +196,7 @@ impl ProvidersDialog {
             .connect_local(
                 "updated",
                 false,
-                clone!(@weak self as dialog => move |args| {
-                    let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
+                clone!(@weak self as dialog => move |_| {
                     dialog.set_view(View::List);
                     dialog.emit("changed", &[]).unwrap();
                     None
@@ -356,9 +355,7 @@ mod row {
             ) {
                 match pspec.get_name() {
                     "provider" => {
-                        let provider = value
-                            .get()
-                            .expect("type conformity checked by `Object::set_property`");
+                        let provider = value.get().unwrap();
                         self.provider.replace(provider);
                     }
                     _ => unimplemented!(),

@@ -212,7 +212,7 @@ impl Window {
             .unwrap();
 
         self_.providers.model().connect_items_changed(
-            clone!(@weak self as win, @weak app => move |model, _,_,_| {
+            clone!(@weak self as win, @weak app => move |_, _,_,_| {
             // We do a check on set_view to ensure we always use the right page
             if !app.locked() {
                 win.set_view(View::Accounts);
@@ -245,10 +245,10 @@ impl Window {
             let text = entry.get_text().to_string();
             providers.search(text);
         }));
-        search_entry.connect_search_started(clone!(@weak search_btn => move |entry| {
+        search_entry.connect_search_started(clone!(@weak search_btn => move |_| {
             search_btn.set_active(true);
         }));
-        search_entry.connect_stop_search(clone!(@weak search_btn => move |entry| {
+        search_entry.connect_stop_search(clone!(@weak search_btn => move |_| {
             search_btn.set_active(false);
         }));
 

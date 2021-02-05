@@ -121,10 +121,7 @@ mod imp {
         ) {
             match pspec.get_name() {
                 "has-set-password" => {
-                    let has_set_password = value
-                        .get()
-                        .expect("type conformity checked by `Object::set_property`")
-                        .unwrap();
+                    let has_set_password = value.get().unwrap().unwrap();
                     self.has_set_password.set(has_set_password);
                 }
                 _ => unimplemented!(),

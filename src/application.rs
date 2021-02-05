@@ -79,17 +79,11 @@ mod imp {
         ) {
             match pspec.get_name() {
                 "locked" => {
-                    let locked = value
-                        .get()
-                        .expect("type conformity checked by `Object::set_property`")
-                        .unwrap();
+                    let locked = value.get().unwrap().unwrap();
                     self.locked.set(locked);
                 }
                 "can-be-locked" => {
-                    let can_be_locked = value
-                        .get()
-                        .expect("type conformity checked by `Object::set_property`")
-                        .unwrap();
+                    let can_be_locked = value.get().unwrap().unwrap();
                     self.can_be_locked.set(can_be_locked);
                 }
                 _ => unimplemented!(),
@@ -139,7 +133,7 @@ mod imp {
                         win.providers().refilter();
                         None
                     })).unwrap();
-                    preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, prop| {
+                    preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, _| {
                         let state = preferences.has_set_password();
                         app.set_can_be_locked(state);
                     }));

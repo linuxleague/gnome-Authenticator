@@ -144,6 +144,11 @@ impl AccountRow {
             .build();
 
         self.account()
+            .bind_property("name", &*self_.name_label, "tooltip-text")
+            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .build();
+
+        self.account()
             .bind_property("name", &*self_.name_entry, "text")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
