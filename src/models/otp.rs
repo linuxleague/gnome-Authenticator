@@ -1,5 +1,5 @@
 use super::Algorithm;
-use anyhow::Result;
+use anyhow::{anyhow, Result};
 use ring::hmac;
 use std::convert::TryInto;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -18,10 +18,14 @@ pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 /// into a byte string. It fails if secret is not a valid Base32 string.
 fn decode_secret(secret: &str) -> Result<Vec<u8>> {
     let secret = secret.trim().replace(' ', "").to_uppercase();
+    // The buffer should have a length of secret.len() * 5 / 8.
+    let size = secret.len();
+    let mut output_buffer = std::iter::repeat(0).take(size).collect::<Vec<u8>>();
+    let vec = binascii::b32decode(secret.as_bytes(), &mut output_buffer)
+        .map_err(|_| anyhow!("Invalid Input"))?
+        .to_vec();
 
-    data_encoding::BASE32_NOPAD
-        .decode(secret.as_bytes())
-        .map_err(From::from)
+    Ok(vec)
 }
 
 /// Validates if `secret` is a valid Base32 String.
@@ -96,13 +100,29 @@ pub(crate) fn time_based_counter(period: u32) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::{format, hotp, steam, Algorithm, DEFAULT_DIGITS, TOTP_DEFAULT_PERIOD};
-    use data_encoding::BASE32_NOPAD;
     #[test]
     fn test_totp() {
-        let secret_sha1 = BASE32_NOPAD.encode(b"12345678901234567890");
-        let secret_sha256 = BASE32_NOPAD.encode(b"12345678901234567890123456789012");
-        let secret_sha512 = BASE32_NOPAD
-            .encode(b"1234567890123456789012345678901234567890123456789012345678901234");
+        let secret_sha1 = String::from_utf8(
+            binascii::b32encode(b"12345678901234567890", &mut [0; 64])
+                .unwrap()
+                .to_vec(),
+        )
+        .unwrap();
+        let secret_sha256 = String::from_utf8(
+            binascii::b32encode(b"12345678901234567890123456789012", &mut [0; 64])
+                .unwrap()
+                .to_vec(),
+        )
+        .unwrap();
+        let secret_sha512 = String::from_utf8(
+            binascii::b32encode(
+                b"1234567890123456789012345678901234567890123456789012345678901234",
+                &mut [0; 128],
+            )
+            .unwrap()
+            .to_vec(),
+        )
+        .unwrap();
 
         let counter1 = 59 / TOTP_DEFAULT_PERIOD as u64;
         assert_eq!(
@@ -204,7 +224,12 @@ mod tests {
             hotp("BASE32SECRET3232", 1401, Algorithm::SHA1, DEFAULT_DIGITS).ok(),
             Some(316439)
         );
-        let secret = BASE32_NOPAD.encode(b"12345678901234567890");
+        let secret = String::from_utf8(
+            binascii::b32encode(b"12345678901234567890", &mut [0; 64])
+                .unwrap()
+                .to_vec(),
+        )
+        .unwrap();
         assert_eq!(
             Some(755224),
             hotp(&secret, 0, Algorithm::SHA1, DEFAULT_DIGITS).ok()

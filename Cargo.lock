@@ -259,7 +259,7 @@ dependencies = [
  "anyhow",
  "ashpd",
  "async-std",
- "data-encoding",
+ "binascii",
  "diesel",
  "diesel_migrations",
  "futures",
@@ -313,6 +313,12 @@ name = "base64"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "904dfeac50f3cdaba28fc6f57fdcddb75f49ed61346676a78c4ffe55877802fd"
+
+[[package]]
+name = "binascii"
+version = "0.1.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "383d29d513d8764dcdc42ea295d979eb99c3c9f00607b3692cf68a431f7dca72"
 
 [[package]]
 name = "bitflags"
