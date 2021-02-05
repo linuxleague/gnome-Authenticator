@@ -30,6 +30,7 @@
             <property name="name">display</property>
             <property name="child">
               <object class="GtkBox">
+                <property name="spacing">12</property>
                 <child>
                   <object class="GtkLabel" id="name_label">
                     <property name="halign">start</property>
