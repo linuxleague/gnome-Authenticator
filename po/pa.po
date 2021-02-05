@@ -1,0 +1,576 @@
+# Punjabi translation for authenticator.
+# Copyright (C) 2021 authenticator's COPYRIGHT HOLDER
+# This file is distributed under the same license as the authenticator package.
+#
+# A S Alam <amanpreet.alam@gmail.com>, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: authenticator master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2021-02-04 10:57+0000\n"
+"PO-Revision-Date: 2021-02-04 22:43-0800\n"
+"Last-Translator: A S Alam <aalam@satluj.org>\n"
+"Language-Team: Punjabi <punjab-translation@googlegroups.com>\n"
+"Language: pa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 20.08.1\n"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:158 src/main.rs:34
+msgid "Authenticator"
+msgstr "ਅਥੈਂਟੀਕੇਟਰ"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "ਦੋ-ਪੜਾਵੀਂ ਪਰਮਾਣਕਿਤਾ"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:161
+msgid "Generate Two-Factor Codes"
+msgstr "ਦੋ-ਪੜਾਵੀਂ ਕੋਡ ਬਣਾਓ"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "ਗਨੋਮ;ਜਾਂਚ;ਤਸਦੀਕ;2ਐਫਏ;ਪਰਮਾਣਕਿਤਾ;ਓਟੀਪੀ;ਟੀਓਪੀਟੀ;ਓ-ਟੀ-ਪੀ;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "ਮੂਲ ਵਿੰਡੋ ਚੌੜਾਈ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "ਮੂਲ ਵਿੰਡੋ ਉਚਾਈ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "ਮੂਲ ਵਿੰਡੋ ਵੱਧ ਤੋਂ ਵੱਧ ਕਰਨ ਦਾ ਰਵੱਈਆ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Theme"
+msgstr "ਗੂੜ੍ਹਾ ਥੀਮ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark theme."
+msgstr "ਕੀ ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਗੂੜ੍ਹਾ ਥੀਮ ਵਰਤਣਾ ਚਾਹੀਦਾ ਹੈ।"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰੋ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "ਕੀ ਐਪਲੀਕੇਸ਼ਨ ਆਪਣੇ-ਆਪ ਲਾਕ ਹੋਵੇ ਜਾਂ ਨਾ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "ਆਪਣੇ-ਆਪ ਲਾਕ ਲਈ ਟਾਈਮ ਆਉਟ"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "X ਮਿੰਟਾਂ ਦੀ ਨਾ-ਵਰਤੋਂ ਦੇ ਬਾਅਦ ਐਪਲੀਕੇਸ਼ਨ ਲਾਕ ਕਰੋ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "ਦੋ-ਪੜਾਵੀਂ ਪਰਮਾਣਕਿਤਾ ਕੋਡ ਤਿਆਰ ਕਰਨ ਲਈ ਸਰਲ ਐਪਲੀਕੇਸ਼ਨ ਹੈ।"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "ਫੀਚਰ:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "ਸਮਾਂ-ਅਧਾਰਿਤ/ਗਿਣਤੀ-ਅਧਾਰਿਤ/ਸਟੀਮ ਢੰਗ ਸਹਾਇਕ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "SHA-1/SHA-256/SHA-512 ਐਲਗੋਰਿਥਮ ਸਹਾਇਕ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "ਕੈਮਰਾ ਵਰਤ ਕੇ ਜਾਂ ਸਕਰੀਨਸ਼ਾਟ ਤੋਂ QR ਕੋਡ ਸਕੈਨਰ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਪਾਸਵਰਡ ਨਾਲ ਲਾਕ ਕਰੋ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "ਸੋਹਣਾ UI"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
+msgstr ""
+"ਜਾਣੀਆਂ ਪਛਾਣੀਆਂ ਐਪਲੀਕੇਸ਼ਨ ਜਿਵੇਂ FreeOTP+, andOTP ਤੋਂ/ਵਿੱਚ ਬੈਕਅੱਪ ਲਵੋ/ਬਹਾਲ ਕਰੋ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+msgid "Main Window"
+msgstr "ਮੁੱਖ ਵਿੰਡੋ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/resources/ui/account_add.ui:24
+msgid "Add a New Account"
+msgstr "ਨਵਾਂ ਖਾਤਾ ਜੋੜੋ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+msgid "Add a New Provider"
+msgstr "ਨਵਾਂ ਪੂਰਕ ਜੋੜੋ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+msgid "Account Details"
+msgstr "ਖਾਤੇ ਦੇ ਵੇਰਵੇ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+msgid "Backup/Restore formats support"
+msgstr "ਬੈਕਅੱਪ/ਬਹਾਲ ਕਰਨ ਵਾਲੇ ਫਾਰਮੈਟਾਂ ਲਈ ਸਹਾਇਕ"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
+msgid "Bilal Elmoussaoui"
+msgstr "ਬਿਲਾਲ ਇਲਮੌਸੋਈ"
+
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr "ਕੈਮਰਾ(_C)"
+
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr "ਸਕਰੀਨਸ਼ਾਟ(_S)"
+
+#: data/resources/ui/account_add.ui:44
+#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:48
+msgid "Go Back"
+msgstr "ਪਿੱਛੇ ਜਾਓ"
+
+#: data/resources/ui/account_add.ui:49
+msgid "_Add"
+msgstr "ਜੋੜੋ(_A)"
+
+#: data/resources/ui/account_add.ui:61
+msgid "Scan QR Code"
+msgstr "QR ਕੋਡ ਸਕੈਨ ਕਰੋ"
+
+#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_details_page.ui:52
+msgid "Provider"
+msgstr "ਪੂਰਕ"
+
+#: data/resources/ui/account_add.ui:101
+msgid "Token issuer"
+msgstr "ਟੋਕਨ ਜਾਰੀ ਕਰਤਾ"
+
+#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_details_page.ui:42
+msgid "Account"
+msgstr "ਖਾਤਾ"
+
+#: data/resources/ui/account_add.ui:130
+msgid "Token"
+msgstr "ਟੋਕਨ"
+
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:198
+msgid "Counter"
+msgstr "ਗਿਣਤੀ"
+
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:169
+msgid "Algorithm"
+msgstr "ਐਲੋਗਰਿਥਮ"
+
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:161
+msgid "Computing Method"
+msgstr "ਗਣਨਾ ਕਰਨ ਦਾ ਢੰਗ"
+
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:181
+msgid "Period"
+msgstr "ਅੰਤਰਾਲ"
+
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:182
+msgid "Duration in seconds until the next password update"
+msgstr "ਸਕਿੰਟਾਂ ਵਿੱਚ ਅੰਤਰਾਲ, ਜਦੋਂ ਤੱਕ ਕਿ ਅਗਲਾ ਪਾਸਵਰਡ ਅੱਪਡੇਟ ਹੁੰਦਾ ਹੈ"
+
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:215
+msgid "Digits"
+msgstr "ਅੰਕ"
+
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:216
+msgid "Length of the generated code"
+msgstr "ਤਿਆਰ ਕੀਤੇ ਕੋਡ ਦੀ ਲੰਬਾਈ"
+
+#: data/resources/ui/account_add.ui:219
+#: data/resources/ui/account_details_page.ui:62
+#: data/resources/ui/provider_page.ui:147
+msgid "Website"
+msgstr "ਵੈੱਬਸਾਈਟ"
+
+#: data/resources/ui/account_add.ui:225
+msgid "How to Set Up"
+msgstr "ਕਿਵੇਂ ਸੈਟਅੱਪ ਕਰੀਏ"
+
+#: data/resources/ui/account_row.ui:6
+msgid "D_etails"
+msgstr "ਵੇਰਵੇ(_e)"
+
+#: data/resources/ui/account_row.ui:12
+msgid "_Rename"
+msgstr "ਨਾਂ ਬਦਲੋ(_R)"
+
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:249
+msgid "_Delete"
+msgstr "ਹਟਾਓ(_D)"
+
+#: data/resources/ui/account_row.ui:65
+msgid "Copy PIN to clipboard"
+msgstr "ਪਿੰਨ ਕਲਿੱਪਬੋਰਡ ਵਿੱਚ ਕਾਪੀ ਕਰੋ"
+
+#: data/resources/ui/account_row.ui:105
+msgid "More"
+msgstr "ਹੋਰ"
+
+#: data/resources/ui/account_row.ui:137
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:53
+msgid "_Save"
+msgstr "ਸੰਭਾਲੋ(_S)"
+
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "ਕੋਈ ਕੈਮਰਾ ਨਹੀਂ ਲੱਭਿਆ"
+
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "ਸਕਰੀਨਸ਼ਾਟ ਤੋਂ(_F)"
+
+#: data/resources/ui/camera.ui:82
+msgid "Capture from a screenshot"
+msgstr "ਸਕਰੀਨਸ਼ਾਟ ਤੋਂ ਲਵੋ"
+
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "ਵਾਕ ਸੈਟਅੱਪ ਕਰੋ"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "ਵਾਕ ਸੈਟ ਕਰਨ ਦੇ ਬਾਅਦ ਅਥੈਂਟੀਕੇਟਰ ਲਾਕ ਵਜੋਂ ਸ਼ੁਰੂ ਹੋਵੇਗਾ।"
+
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "ਮੌਜੂਦਾ ਵਾਕ"
+
+#: data/resources/ui/preferences_password_page.ui:66
+msgid "New Passphrase"
+msgstr "ਨਵਾਂ ਵਾਕ"
+
+#: data/resources/ui/preferences_password_page.ui:79
+msgid "Repeat Passphrase"
+msgstr "ਵਾਕ ਨੂੰ ਦਹਰਾਓ"
+
+#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/provider_page.ui:98
+msgid "_Reset"
+msgstr "ਮੁੜ-ਸੈੱਟ ਕਰੋ(_R)"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "ਆਮ"
+
+#: data/resources/ui/preferences.ui:19
+msgid "Appearance"
+msgstr "ਦਿੱਖ"
+
+#: data/resources/ui/preferences.ui:22
+msgid "_Dark Theme"
+msgstr "ਗੂੜ੍ਹਾ ਥੀਮ(_D)"
+
+#: data/resources/ui/preferences.ui:25
+msgid "Whether the application should use a dark theme"
+msgstr "ਕੀ ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਗੂੜ੍ਹਾ ਥੀਮ ਵਰਤਣਾ ਚਾਹੀਦਾ ਹੈ"
+
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "ਪਰਦੇਦਾਰੀ"
+
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "ਵਾਕ(_P)"
+
+#: data/resources/ui/preferences.ui:42
+msgid "Set up a passphrase to lock the application with"
+msgstr "ਇਸ ਨਾਲ ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਲਾਕ ਕਰਨ ਵਾਸਤੇ ਵਾਕ ਸੈਟ ਅੱਪ ਕਰੋ"
+
+#: data/resources/ui/preferences.ui:54
+msgid "_Auto Lock the Application"
+msgstr "ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰੋ(_A)"
+
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr "ਕੀ ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰਨਾ ਹੈ"
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto Lock _Timeout"
+msgstr "ਆਪਣੇ-ਆਪ ਲਾਕ ਕਰਨ ਲਈ ਸਮਾਂ-ਸਮਾਪਤੀ(_T)"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "ਮਿੰਟਾਂ ਵਿੱਚ ਸਮਾਂ"
+
+#: data/resources/ui/preferences.ui:92
+msgid "Backup/Restore"
+msgstr "ਬੈਕਅੱਪ/ਬਹਾਲ"
+
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:299
+msgid "Backup"
+msgstr "ਬੈਕਅੱਪ"
+
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:306
+msgid "Restore"
+msgstr "ਬਹਾਲ ਕਰੋ"
+
+#: data/resources/ui/provider_page.ui:109
+msgid "Select a _File"
+msgstr "ਫਾਇਲ ਚੁਣੋ(_F)"
+
+#: data/resources/ui/provider_page.ui:133
+msgid "Name"
+msgstr "ਨਾਂ"
+
+#: data/resources/ui/provider_page.ui:148
+msgid "Used to fetch the provider icon"
+msgstr "ਪੂਰਕ ਆਈਕਾਨ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਵਰਤਿਆ"
+
+#: data/resources/ui/provider_page.ui:199
+msgid "The by default value for counter-based computing method"
+msgstr "ਗਿਣਤੀ-ਅਧਾਰਿਤ ਕੰਪਿਊਟਿੰਗ ਦੇ ਢੰਗ ਲਈ ਮੂਲ ਮੁੱਲ ਰਾਹੀਂ"
+
+#: data/resources/ui/provider_page.ui:233
+msgid "Help URL"
+msgstr "ਮਦਦ URL"
+
+#: data/resources/ui/provider_page.ui:234
+msgid "Provider setup instructions"
+msgstr "ਪੂਰਕ ਸੈਟਅੱਪ ਹਦਾਇਤਾਂ"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "ਪੂਰਕ"
+
+#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:206
+msgid "New Provider"
+msgstr "ਨਵਾਂ ਪੂਰਕ"
+
+#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
+msgid "Search"
+msgstr "ਖੋਜੋ"
+
+#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "ਕੋਈ ਨਤੀਜੇ ਨਹੀਂ"
+
+#: data/resources/ui/providers_dialog.ui:109
+msgid "No providers matching the query were found."
+msgstr "ਕਿਊਰੀ ਨਾਲ ਮਿਲਦਾ ਕੋਈ ਪੂਰਕ ਨਹੀਂ ਲੱਭਿਆ ਹੈ।"
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "ਕਿਊਰੀ ਨਾਲ ਮਿਲਦੇ ਕੋਈ ਖਾਤੇ ਜਾਂ ਪੂਰਕ ਲੱਭੇ ਨਹੀਂ ਹਨ।"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "ਆਮ"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "ਲਾਕ"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "ਪਸੰਦਾਂ"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "ਬਾਹਰ"
+
+#: data/resources/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "ਖਾਤੇ"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "New Account"
+msgstr "ਨਵਾਂ ਖਾਤਾ"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "ਖੋਜੋ"
+
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "ਪੂਰਕ ਸੂਚੀ ਵੇਖੋ"
+
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "ਐਪਲੀਕੇਸ਼ਨ ਨੂੰ ਲਾਕ ਕਰੋ(_L)"
+
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "ਪੂਰਕ(_r)"
+
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "ਪਸੰਦਾਂ(_P)"
+
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "ਕੀਬੋਰਡ ਸ਼ਾਰਟਕੱਟ(_K)"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "ਅਥੈਂਟੀਕੇਟਰ ਬਾਰੇ(_A)"
+
+#: data/resources/ui/window.ui:95
+msgid "Authenticator is Locked"
+msgstr "ਅਥੈਂਟੀਕੇਟਰ ਲਾਕ ਹੈ"
+
+#: data/resources/ui/window.ui:123
+msgid "_Unlock"
+msgstr "ਅਣ-ਲਾਕ ਕਰੋ(_U)"
+
+#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+msgid "New Account"
+msgstr "ਨਵਾਂ ਖਾਤਾ"
+
+#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+msgid "Menu"
+msgstr "ਮੇਨੂ"
+
+#: data/resources/ui/window.ui:192
+msgid "No Accounts"
+msgstr "ਕੋਈ ਖਾਤਾ ਨਹੀਂ ਹੈ"
+
+#: data/resources/ui/window.ui:193
+msgid "Add an account or scan a QR code first."
+msgstr "ਪਹਿਲਾਂ ਖਾਤਾ ਜੋੜੋ ਜਾਂ QR ਕੋਡ ਸਕੈਨ ਕਰੋ।"
+
+#: src/application.rs:165
+msgid "translator-credits"
+msgstr ""
+"ਅ ਸ ਆਲਮ (A S Alam) ੨੦੨੧\n"
+"Punjabi OpenSource Team (POST) www.satluj.org"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:66
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
+
+#: src/backup/andotp.rs:70
+msgid "Into a plain-text JSON file"
+msgstr "ਸਰਲ-ਲਿਖਤ JSON ਫਾਇਲ ਵਿੱਚ"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:128
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:132 src/backup/legacy.rs:36
+msgid "From a plain-text JSON file"
+msgstr "JSON ਫਾਇਲ ਤੋਂ"
+
+#: src/backup/freeotp.rs:18
+msgid "_Authenticator"
+msgstr "ਅਥੈਂਟੀਕੇਟਰ(_A)"
+
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "ਸਰਲ-ਲਿਖਤ ਫਾਇਲ ਵਿੱਚ, FreeOTP+ ਦੇ ਅਨੁਕੂਲ ਹੈ"
+
+#: src/backup/freeotp.rs:64
+msgid "A_uthenticator"
+msgstr "ਅਥੈਂਟੀਕੇਟਰ(_u)"
+
+#: src/backup/freeotp.rs:68
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "ਸਰਲ-ਲਿਖਤ ਫਾਇਲ ਤੋਂ, FreeOTP+ ਦੇ ਅਨੁਕੂਲ ਹੈ"
+
+#. Translators: this is for restoring a backup from the old Authenticator release
+#: src/backup/legacy.rs:32
+msgid "Au_thenticator (Legacy)"
+msgstr "ਅਥੈਂਟੀਕੇਟਰ (ਪੁਰਾਤਨ)(_t)"
+
+#: src/models/algorithm.rs:55
+msgid "Counter-based"
+msgstr "ਗਿਣਤੀ-ਅਧਾਰਿਤ"
+
+#: src/models/algorithm.rs:56
+msgid "Time-based"
+msgstr "ਸਮੇਂ-ਅਧਾਰਿਤ"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:58
+msgid "Steam"
+msgstr "ਸਟੀਮ"
+
+#: src/models/algorithm.rs:125
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:126
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:204
+msgid "Invalid Token"
+msgstr "ਗ਼ੈਰ-ਵਾਜਬ ਟੋਕਨ"
+
+#: src/widgets/window.rs:324
+msgid "Wrong Password"
+msgstr "ਗਲਤ ਪਾਸਵਰਡ"
+
+#: src/widgets/preferences/password_page.rs:231
+#: src/widgets/preferences/password_page.rs:262
+msgid "Wrong Passphrase"
+msgstr "ਗਲਤ ਵਾਕ"
+
+#: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
+#: src/widgets/providers/page.rs:312
+msgid "Select"
+msgstr "ਚੁਣੋ"
+
+#: src/widgets/preferences/window.rs:303 src/widgets/preferences/window.rs:310
+#: src/widgets/providers/page.rs:313
+msgid "Cancel"
+msgstr "ਰੱਦ ਕਰੋ"
+
+#: src/widgets/providers/page.rs:176
+msgid "Editing Provider: {}"
+msgstr "ਪੂਰਕ ਨੂੰ ਸੋਧਿਆ ਜਾ ਰਿਹਾ ਹੈ: {}"
+
+#: src/widgets/providers/page.rs:320
+msgid "Image"
+msgstr "ਚਿੱਤਰ"
+
+#: src/widgets/providers/page.rs:356
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "ਪੂਰਕ ਨੂੰ ਜਾਰੀ ਕੀਤੇ ਖਾਤੇ ਪਹਿਲਾਂ ਹਨ, ਪਹਿਲਾਂ ਉਹਨਾਂ ਨੂੰ ਹਟਾਓ"
