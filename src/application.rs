@@ -14,6 +14,8 @@ mod imp {
     use glib::{subclass, ParamSpec, WeakRef};
     use std::cell::{Cell, RefCell};
 
+    // The basic struct that holds our state and widgets
+    // (Ref)Cells are used for members which need to be mutable
     pub struct Application {
         pub window: RefCell<Option<WeakRef<Window>>>,
         pub model: ProvidersModel,
@@ -22,6 +24,8 @@ mod imp {
         pub can_be_locked: Cell<bool>,
         pub settings: gio::Settings,
     }
+
+    // Sets up the basics for the GObject
     impl ObjectSubclass for Application {
         const NAME: &'static str = "Application";
         type ParentType = gtk::Application;
@@ -30,8 +34,11 @@ mod imp {
         type Instance = subclass::simple::InstanceStruct<Self>;
         type Class = subclass::simple::ClassStruct<Self>;
 
+        // This macro implements some boilerplate code
+        // for the object setup, e.g. get_type()
         glib::object_subclass!();
 
+        // Initialize with default values
         fn new() -> Self {
             let model = ProvidersModel::new();
             let settings = gio::Settings::new(config::APP_ID);
@@ -47,6 +54,7 @@ mod imp {
         }
     }
 
+    // Overrides GObject vfuncs
     impl ObjectImpl for Application {
         fn properties() -> &'static [ParamSpec] {
             use once_cell::sync::Lazy;
@@ -99,7 +107,11 @@ mod imp {
         }
     }
 
+    // This is empty, but we still need to provide an
+    // empty implementation for each type we subclass.
     impl GtkApplicationImpl for Application {}
+
+    // Overrides GApplication vfuncs
     impl ApplicationImpl for Application {
         fn startup(&self, app: &Self::Type) {
             self.parent_startup(app);
@@ -118,6 +130,16 @@ mod imp {
                 theme.add_resource_path("/com/belmoussaoui/Authenticator/icons/");
             }
 
+            // - action! is a macro from gtk_macros
+            //   that creates a GSimpleAction with a callback.
+            //
+            // - clone! is a macro from glib-rs that allows
+            //   you to easily handle references in callbacks
+            //   without refcycles or leaks.
+            //   When you don't want the callback to keep the
+            //   Object alive, pass as @weak. Otherwise, pass
+            //   as @strong. Most of the time you will want
+            //   to use @weak.
             action!(app, "quit", clone!(@weak app => move |_, _| app.quit()));
 
             action!(
@@ -252,6 +274,10 @@ mod imp {
     }
 }
 
+// Creates a wrapper struct that inherits the functions
+// from objects listed it @extends or interfaces it @implements.
+// This is what allows us to do e.g. application.quit() on
+// Application without casting.
 glib::wrapper! {
     pub struct Application(ObjectSubclass<imp::Application>)
         @extends gio::Application, gtk::Application, gio::ActionMap;
