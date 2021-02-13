@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-01 19:32+0000\n"
-"PO-Revision-Date: 2021-02-02 19:20+0100\n"
+"POT-Creation-Date: 2021-02-13 20:41+0000\n"
+"PO-Revision-Date: 2021-02-14 00:46+0100\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/authenticator/"
 "translation/sv/>\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:160 src/main.rs:34
+#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
 msgid "Authenticator"
 msgstr "Authenticator"
 
@@ -33,7 +33,7 @@ msgstr "Tvåfaktorsautentisering"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:163
+#: src/application.rs:155
 msgid "Generate Two-Factor Codes"
 msgstr "Generera tvåfaktorskoder"
 
@@ -135,7 +135,7 @@ msgstr "Kontodetaljer"
 msgid "Backup/Restore formats support"
 msgstr "Formatstöd för säkerhetskopiering/återställning"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -150,7 +150,7 @@ msgstr "_Skärmbild"
 #: data/resources/ui/account_add.ui:44
 #: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/provider_page.ui:51
 msgid "Go Back"
 msgstr "Gå tillbaka"
 
@@ -169,7 +169,7 @@ msgstr "Leverantör"
 
 #: data/resources/ui/account_add.ui:101
 msgid "Token issuer"
-msgstr "Tokenutgivare"
+msgstr "Tokenutfärdare"
 
 #: data/resources/ui/account_add.ui:116
 #: data/resources/ui/account_details_page.ui:42
@@ -180,37 +180,37 @@ msgstr "Konto"
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:198
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
 msgid "Counter"
 msgstr "Räknare"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
 msgid "Algorithm"
 msgstr "Algoritm"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:161
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
 msgid "Computing Method"
 msgstr "Beräkningsmetod"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:181
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
 msgid "Period"
 msgstr "Period"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
 msgid "Duration in seconds until the next password update"
 msgstr "Varaktighet i sekunder tills nästa lösenordsuppdatering"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:215
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
 msgid "Digits"
 msgstr "Siffror"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
 msgid "Length of the generated code"
 msgstr "Längd på den genererade koden"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:147
+#: data/resources/ui/provider_page.ui:150
 msgid "Website"
 msgstr "Webbplats"
 
@@ -226,21 +226,21 @@ msgstr "D_etaljer"
 msgid "_Rename"
 msgstr "_Byt namn"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:249
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
 msgid "_Delete"
 msgstr "_Ta bort"
 
-#: data/resources/ui/account_row.ui:65
+#: data/resources/ui/account_row.ui:66
 msgid "Copy PIN to clipboard"
 msgstr "Kopiera PIN till urklipp"
 
-#: data/resources/ui/account_row.ui:105
+#: data/resources/ui/account_row.ui:106
 msgid "More"
 msgstr "Mer"
 
-#: data/resources/ui/account_row.ui:137
+#: data/resources/ui/account_row.ui:138
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:53
+#: data/resources/ui/provider_page.ui:56
 msgid "_Save"
 msgstr "_Spara"
 
@@ -277,7 +277,7 @@ msgid "Repeat Passphrase"
 msgstr "Upprepa lösenfras"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:98
+#: data/resources/ui/provider_page.ui:101
 msgid "_Reset"
 msgstr "_Återställ"
 
@@ -329,35 +329,35 @@ msgstr "Tiden i minuter"
 msgid "Backup/Restore"
 msgstr "Säkerhetskopiering/Återställ"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:299
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
 msgid "Backup"
 msgstr "Säkerhetskopiera"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:306
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
 msgid "Restore"
 msgstr "Återställ"
 
-#: data/resources/ui/provider_page.ui:109
+#: data/resources/ui/provider_page.ui:112
 msgid "Select a _File"
 msgstr "Välj en _fil"
 
-#: data/resources/ui/provider_page.ui:133
+#: data/resources/ui/provider_page.ui:136
 msgid "Name"
 msgstr "Namn"
 
-#: data/resources/ui/provider_page.ui:148
+#: data/resources/ui/provider_page.ui:151
 msgid "Used to fetch the provider icon"
 msgstr "Används för att hämta leverantörsikon"
 
-#: data/resources/ui/provider_page.ui:199
+#: data/resources/ui/provider_page.ui:202
 msgid "The by default value for counter-based computing method"
 msgstr "Standardvärdet för räknarbaserad beräkningsmetod"
 
-#: data/resources/ui/provider_page.ui:233
+#: data/resources/ui/provider_page.ui:236
 msgid "Help URL"
 msgstr "Hjälp-URL"
 
-#: data/resources/ui/provider_page.ui:234
+#: data/resources/ui/provider_page.ui:237
 msgid "Provider setup instructions"
 msgstr "Leverantörens instruktioner för inställningar"
 
@@ -475,7 +475,7 @@ msgstr "Inga konton"
 msgid "Add an account or scan a QR code first."
 msgstr "Lägg till ett konto eller skanna en QR-kod först."
 
-#: src/application.rs:167
+#: src/application.rs:159
 msgid "translator-credits"
 msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
@@ -495,9 +495,22 @@ msgstr "Till en JSON-fil i klartext"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
 msgid "From a plain-text JSON file"
 msgstr "Från en JSON-fil i klartext"
+
+#: src/backup/bitwarden.rs:35
+msgid "Unknown account"
+msgstr "Okänt konto"
+
+#: src/backup/bitwarden.rs:43
+msgid "Unknown issuer"
+msgstr "Okänd utfärdare"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:81
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
 
 #: src/backup/freeotp.rs:18
 msgid "_Authenticator"
@@ -553,17 +566,17 @@ msgstr "Ogiltig token"
 msgid "Wrong Password"
 msgstr "Fel lösenord"
 
-#: src/widgets/preferences/password_page.rs:231
-#: src/widgets/preferences/password_page.rs:262
+#: src/widgets/preferences/password_page.rs:228
+#: src/widgets/preferences/password_page.rs:259
 msgid "Wrong Passphrase"
 msgstr "Fel lösenfras"
 
-#: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
+#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
 #: src/widgets/providers/page.rs:312
 msgid "Select"
 msgstr "Välj"
 
-#: src/widgets/preferences/window.rs:303 src/widgets/preferences/window.rs:310
+#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
 #: src/widgets/providers/page.rs:313
 msgid "Cancel"
 msgstr "Avbryt"
@@ -643,9 +656,6 @@ msgstr "Leverantören har konton tilldelade. Ta bort dem först"
 #~ msgctxt "shortcut window"
 #~ msgid "Scan QR"
 #~ msgstr "Läs av QR"
-
-#~ msgid "_Bitwarden"
-#~ msgstr "_Bitwarden"
 
 #~ msgid "Add"
 #~ msgstr "Lägg till"
@@ -854,10 +864,6 @@ msgstr "Leverantören har konton tilldelade. Ta bort dem först"
 
 #~ msgid "Two Factor Authentication code generator"
 #~ msgstr "Generator för tvåfaktorsautentiseringskod"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Add a new account"
-#~ msgstr "Lägg till ett nytt konto"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Selection mode"
