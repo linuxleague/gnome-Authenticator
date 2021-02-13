@@ -1,27 +1,27 @@
 # Brazilian Portuguese translation of authenticator.
 # Copyright (C) 2021 Authenticator'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Authenticator package.
-# Enrico Nicoletto <liverig@gmail.com>, 2020.
+# Enrico Nicoletto <liverig@gmail.com>, 2020-2021.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2019-2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-01 16:02+0000\n"
-"PO-Revision-Date: 2021-02-02 07:56-0300\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"POT-Creation-Date: 2021-02-13 20:41+0000\n"
+"PO-Revision-Date: 2021-02-13 19:57-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:160 src/main.rs:34
+#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
 msgid "Authenticator"
 msgstr "Autenticador"
 
@@ -31,7 +31,7 @@ msgstr "Autenticação de dois fatores"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:163
+#: src/application.rs:155
 msgid "Generate Two-Factor Codes"
 msgstr "Gere códigos de dois fatores"
 
@@ -95,8 +95,7 @@ msgstr "Suporte a algoritmos SHA-1/SHA-256/SHA-512"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "QR code scanner using a camera or from a screenshot"
-msgstr ""
-"Leitor de código QR usando uma câmera ou a partir de uma captura de tela"
+msgstr "Leitor de código QR usando uma câmera ou a partir de uma captura de tela"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Lock the application with a password"
@@ -108,8 +107,7 @@ msgstr "Uma interface de usuário bonita"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
-msgstr ""
-"Faça backup/Restaure de/para aplicativos conhecidos como FreeOTP+ e andOTP"
+msgstr "Faça backup/Restaure de/para aplicativos conhecidos como FreeOTP+ e andOTP"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
 msgid "Main Window"
@@ -132,7 +130,7 @@ msgstr "Detalhes da conta"
 msgid "Backup/Restore formats support"
 msgstr "Suporte a formatos de backup/restauração"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -145,9 +143,9 @@ msgid "_Screenshot"
 msgstr "Captura de _tela"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:13
+#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/provider_page.ui:51
 msgid "Go Back"
 msgstr "Voltar"
 
@@ -177,37 +175,37 @@ msgstr "Conta"
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:198
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
 msgid "Counter"
 msgstr "Contador"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
 msgid "Algorithm"
 msgstr "Algoritmo"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:161
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
 msgid "Computing Method"
 msgstr "Método de computação"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:181
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
 msgid "Period"
 msgstr "Período"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
 msgid "Duration in seconds until the next password update"
 msgstr "Duração em segundos até a próxima atualização de senha"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:215
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
 msgid "Digits"
 msgstr "Dígitos"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
 msgid "Length of the generated code"
 msgstr "Comprimento do código gerado."
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:147
+#: data/resources/ui/provider_page.ui:150
 msgid "Website"
 msgstr "Site"
 
@@ -223,64 +221,58 @@ msgstr "D_etalhes"
 msgid "_Rename"
 msgstr "_Renomear"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:249
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
 msgid "_Delete"
 msgstr "_Excluir"
 
-#: data/resources/ui/account_row.ui:65
+#: data/resources/ui/account_row.ui:66
 msgid "Copy PIN to clipboard"
 msgstr "Copiar PIN pra área de transferência"
 
-#: data/resources/ui/account_row.ui:105
+#: data/resources/ui/account_row.ui:106
 msgid "More"
 msgstr "Mais"
 
-#: data/resources/ui/account_row.ui:137
+#: data/resources/ui/account_row.ui:138
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:53
+#: data/resources/ui/provider_page.ui:56
 msgid "_Save"
 msgstr "_Salvar"
 
-#: data/resources/ui/camera.ui:29
+#: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
 msgstr "Nenhuma câmera localizada"
 
-#: data/resources/ui/camera.ui:32
+#: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "_De uma captura de tela"
 
-#: data/resources/ui/camera.ui:65
+#: data/resources/ui/camera.ui:82
 msgid "Capture from a screenshot"
 msgstr "Captura de uma captura de tela"
 
 #: data/resources/ui/preferences_password_page.ui:32
-#| msgid "Set up a Password"
 msgid "Set up a Passphrase"
 msgstr "Definir uma frase secreta"
 
 #: data/resources/ui/preferences_password_page.ui:33
-#| msgid "Authenticator will start locked after a password is set."
 msgid "Authenticator will start locked after a passphrase is set."
-msgstr ""
-"O Autenticador vai iniciar bloqueado após uma frase secreta ser definida."
+msgstr "O Autenticador vai iniciar bloqueado após uma frase secreta ser definida."
 
 #: data/resources/ui/preferences_password_page.ui:52
-#| msgid "Current Password"
 msgid "Current Passphrase"
 msgstr "Frase secreta atual"
 
 #: data/resources/ui/preferences_password_page.ui:66
-#| msgid "New Password"
 msgid "New Passphrase"
 msgstr "Nova frase secreta"
 
 #: data/resources/ui/preferences_password_page.ui:79
-#| msgid "Repeat Password"
 msgid "Repeat Passphrase"
 msgstr "Repetir frase secreta"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:98
+#: data/resources/ui/provider_page.ui:101
 msgid "_Reset"
 msgstr "_Redefinir"
 
@@ -309,7 +301,6 @@ msgid "_Passphrase"
 msgstr "_Frase secreta"
 
 #: data/resources/ui/preferences.ui:42
-#| msgid "Set up a password to lock the application with"
 msgid "Set up a passphrase to lock the application with"
 msgstr "Defina uma frase secreta para bloquear o aplicativo"
 
@@ -333,35 +324,35 @@ msgstr "O tempo em minutos"
 msgid "Backup/Restore"
 msgstr "Backup/Restaurar"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:299
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
 msgid "Backup"
 msgstr "Cópia de segurança"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:306
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
 msgid "Restore"
 msgstr "Restaurar"
 
-#: data/resources/ui/provider_page.ui:109
+#: data/resources/ui/provider_page.ui:112
 msgid "Select a _File"
 msgstr "Selecionar um _arquivo"
 
-#: data/resources/ui/provider_page.ui:133
+#: data/resources/ui/provider_page.ui:136
 msgid "Name"
 msgstr "Nome"
 
-#: data/resources/ui/provider_page.ui:148
+#: data/resources/ui/provider_page.ui:151
 msgid "Used to fetch the provider icon"
 msgstr "Usado para obter o ícone do provedor"
 
-#: data/resources/ui/provider_page.ui:199
+#: data/resources/ui/provider_page.ui:202
 msgid "The by default value for counter-based computing method"
 msgstr "O valor por padrão para métodos de computação baseadas em contagem"
 
-#: data/resources/ui/provider_page.ui:233
+#: data/resources/ui/provider_page.ui:236
 msgid "Help URL"
 msgstr "URL de ajuda"
 
-#: data/resources/ui/provider_page.ui:234
+#: data/resources/ui/provider_page.ui:237
 msgid "Provider setup instructions"
 msgstr "Instruções de configuração do provedor"
 
@@ -479,7 +470,7 @@ msgstr "Nenhuma conta"
 msgid "Add an account or scan a QR code first."
 msgstr "Adicione uma conta ou leia um código QR primeiro."
 
-#: src/application.rs:167
+#: src/application.rs:159
 msgid "translator-credits"
 msgstr ""
 "Fúlvio Alves <fga.fulvio@gmail.com>\n"
@@ -500,9 +491,22 @@ msgstr "Em um arquivo de texto puro JSON"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
 msgid "From a plain-text JSON file"
 msgstr "De um arquivo de texto puro JSON"
+
+#: src/backup/bitwarden.rs:35
+msgid "Unknown account"
+msgstr "Conta desconhecida"
+
+#: src/backup/bitwarden.rs:43
+msgid "Unknown issuer"
+msgstr "Emissor desconhecido"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:81
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
 
 #: src/backup/freeotp.rs:18
 msgid "_Authenticator"
@@ -558,18 +562,17 @@ msgstr "Token inválido"
 msgid "Wrong Password"
 msgstr "Senha incorreta"
 
-#: src/widgets/preferences/password_page.rs:231
-#: src/widgets/preferences/password_page.rs:262
-#| msgid "Wrong Password"
+#: src/widgets/preferences/password_page.rs:228
+#: src/widgets/preferences/password_page.rs:259
 msgid "Wrong Passphrase"
 msgstr "Frase secreta incorreta"
 
-#: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
+#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
 #: src/widgets/providers/page.rs:312
 msgid "Select"
 msgstr "Selecionar"
 
-#: src/widgets/preferences/window.rs:303 src/widgets/preferences/window.rs:310
+#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
 #: src/widgets/providers/page.rs:313
 msgid "Cancel"
 msgstr "Cancelar"
@@ -611,9 +614,7 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgstr "Compartilhando uma conta"
 
 #~ msgid "By setting a password, Authenticator will from now on start locked."
-#~ msgstr ""
-#~ "Ao definir uma senha, o Autenticador iniciará bloqueado a partir desse "
-#~ "momento."
+#~ msgstr "Ao definir uma senha, o Autenticador iniciará bloqueado a partir desse momento."
 
 #~ msgid "There are no accounts currently"
 #~ msgstr "Não há contas atualmente"
@@ -644,10 +645,6 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgctxt "shortcut window"
 #~ msgid "Scan QR"
 #~ msgstr "Escanear QR"
-
-#~| msgid "Bitwarden"
-#~ msgid "_Bitwarden"
-#~ msgstr "_Bitwarden"
 
 #~ msgid "Add"
 #~ msgstr "Adicionar"
@@ -724,18 +721,11 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgid "Two-factor authentication code generator"
 #~ msgstr "Gerador de código de autenticação de dois fatores"
 
-#~ msgid ""
-#~ "HOTFIX: if you had an issue with your accounts being lost after the "
-#~ "latest update, please update to this one."
-#~ msgstr ""
-#~ "HOTFIX: se você teve um problema com suas contas perdidas após a "
-#~ "atualização mais recente, atualize para esta."
+#~ msgid "HOTFIX: if you had an issue with your accounts being lost after the latest update, please update to this one."
+#~ msgstr "HOTFIX: se você teve um problema com suas contas perdidas após a atualização mais recente, atualize para esta."
 
-#~ msgid ""
-#~ "Database migrations: ensure users won't lose their data in the future"
-#~ msgstr ""
-#~ "Migrações de banco de dados: garanta que os usuários não perderão seus "
-#~ "dados no futuro"
+#~ msgid "Database migrations: ensure users won't lose their data in the future"
+#~ msgstr "Migrações de banco de dados: garanta que os usuários não perderão seus dados no futuro"
 
 #~ msgid "Fix edit account issue"
 #~ msgstr "Correção de problema na edição de contas"
@@ -746,14 +736,8 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgid "Translations updates"
 #~ msgstr "Atualizações de traduções"
 
-#~ msgid ""
-#~ "Authenticator 3.32 is out! Here's an overview of what changed Please "
-#~ "backup your accounts before updating to the latest version and restore "
-#~ "the data after update."
-#~ msgstr ""
-#~ "O autenticador 3.32 está fora! Aqui está uma visão geral do que mudou. "
-#~ "Por favor, faça backup de suas contas antes de atualizar para a versão "
-#~ "mais recente e restaurar os dados após a atualização."
+#~ msgid "Authenticator 3.32 is out! Here's an overview of what changed Please backup your accounts before updating to the latest version and restore the data after update."
+#~ msgstr "O autenticador 3.32 está fora! Aqui está uma visão geral do que mudou. Por favor, faça backup de suas contas antes de atualizar para a versão mais recente e restaurar os dados após a atualização."
 
 #~| msgid "Settings Window"
 #~ msgid "New settings window"
@@ -765,19 +749,11 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgid "Night Light feature: not working yet!"
 #~ msgstr "Recurso de luz noturna: não está funcionando ainda!"
 
-#~ msgid ""
-#~ "The possibility to enable/disable a password without having to reset "
-#~ "everything"
-#~ msgstr ""
-#~ "A possibilidade de habilitar/desabilitar uma senha sem ter que redefinir "
-#~ "tudo"
+#~ msgid "The possibility to enable/disable a password without having to reset everything"
+#~ msgstr "A possibilidade de habilitar/desabilitar uma senha sem ter que redefinir tudo"
 
-#~ msgid ""
-#~ "You can now add new providers and set images for providers that we didn't "
-#~ "find an icon for"
-#~ msgstr ""
-#~ "Agora você pode adicionar novos provedores e definir imagens para "
-#~ "provedores para os quais não encontramos um ícone"
+#~ msgid "You can now add new providers and set images for providers that we didn't find an icon for"
+#~ msgstr "Agora você pode adicionar novos provedores e definir imagens para provedores para os quais não encontramos um ícone"
 
 #~ msgid "Mobile ready"
 #~ msgstr "Pronto para mobilidade"
@@ -786,27 +762,16 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgstr "Novo ícone por Tobias Bernard"
 
 #~ msgid "Click to copy the PIN on GNOME Shell Search provider results"
-#~ msgstr ""
-#~ "Clique para copiar o PIN nos resultados do provedor de Pesquisa do GNOME "
-#~ "Shell"
+#~ msgstr "Clique para copiar o PIN nos resultados do provedor de Pesquisa do GNOME Shell"
 
-#~ msgid ""
-#~ "Hide the results from Shell Search Provider if the application is locked"
-#~ msgstr ""
-#~ "Oculte os resultados do Provedor de Pesquisa do Shell se o aplicativo "
-#~ "estiver bloqueado"
+#~ msgid "Hide the results from Shell Search Provider if the application is locked"
+#~ msgstr "Oculte os resultados do Provedor de Pesquisa do Shell se o aplicativo estiver bloqueado"
 
 #~ msgid "Bunch of fixed bugs"
 #~ msgstr "Várias correções de erros"
 
-#~ msgid ""
-#~ "Since I have moved the application to GNOME Gitlab's World group, a "
-#~ "Flatpak build for each new commit is available to download from the "
-#~ "site's website."
-#~ msgstr ""
-#~ "Desde que eu mudei o aplicativo para o grupo World do GNOME GitLab, uma "
-#~ "versão Flatpak para cada novo commit está disponível para download no "
-#~ "site do site."
+#~ msgid "Since I have moved the application to GNOME Gitlab's World group, a Flatpak build for each new commit is available to download from the site's website."
+#~ msgstr "Desde que eu mudei o aplicativo para o grupo World do GNOME GitLab, uma versão Flatpak para cada novo commit está disponível para download no site do site."
 
 #~ msgid "Backup and restore from a basic JSON file"
 #~ msgstr "Backup e restauração de um arquivo JSON básico"
@@ -818,9 +783,7 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgstr "Adição de suporte a andOTP (aplicativo Android 2FA livre e aberto)"
 
 #~ msgid "New Settings window with 3 sections: appearance, behavior and backup"
-#~ msgstr ""
-#~ "Nova janela de Configurações com 3 seções: aparência, comportamento e "
-#~ "backup"
+#~ msgstr "Nova janela de Configurações com 3 seções: aparência, comportamento e backup"
 
 #~ msgid "Fix Flatpak Build with the latest GNOME Runtime"
 #~ msgstr "Correção de Flatpak Build com o GNOME Runtime mais recente"
@@ -837,12 +800,8 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgid "Revamped add a new account window to make it easier to use"
 #~ msgstr "Renovada a adição de uma nova janela de conta para facilitar o uso"
 
-#~ msgid ""
-#~ "Possibility to add an account from a provider not listed in the shipped "
-#~ "database"
-#~ msgstr ""
-#~ "Possibilidade de adicionar uma conta de um provedor não listado no banco "
-#~ "de dados enviado"
+#~ msgid "Possibility to add an account from a provider not listed in the shipped database"
+#~ msgstr "Possibilidade de adicionar uma conta de um provedor não listado no banco de dados enviado"
 
 #~ msgid "Possibility to edit an account"
 #~ msgstr "Possibilidade de editar uma conta"
@@ -934,8 +893,7 @@ msgstr "O provedor tem contas atribuídas a ele. Remova-as primeiro"
 #~ msgstr "Token secreto"
 
 #~ msgid "zbar library is not found. QRCode scanner will be disabled"
-#~ msgstr ""
-#~ "A biblioteca zbar não foi encontrada. O escaneador QRCode será desativado"
+#~ msgstr "A biblioteca zbar não foi encontrada. O escaneador QRCode será desativado"
 
 #~ msgid "Copy"
 #~ msgstr "Copiar"
