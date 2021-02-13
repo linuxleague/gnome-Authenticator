@@ -1,7 +1,8 @@
 use super::password_page::PasswordPage;
 use crate::{
     backup::{
-        AndOTP, Backupable, FreeOTP, LegacyAuthenticator, Operation, Restorable, RestorableItem,
+        AndOTP, Backupable, Bitwarden, FreeOTP, LegacyAuthenticator, Operation, Restorable,
+        RestorableItem,
     },
     config,
     models::ProvidersModel,
@@ -199,7 +200,7 @@ impl PreferencesWindow {
 
         self.register_restore::<FreeOTP>(&["text/plain"]);
         self.register_restore::<AndOTP>(&["application/json"]);
-        //self.register_restore::<Bitwarden>(&["application/json"]);
+        self.register_restore::<Bitwarden>(&["application/json"]);
         self.register_restore::<LegacyAuthenticator>(&["application/json"]);
     }
 

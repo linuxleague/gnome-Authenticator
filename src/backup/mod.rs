@@ -56,6 +56,9 @@ pub trait Backupable: Sized {
 }
 
 mod andotp;
+mod bitwarden;
 mod freeotp;
 mod legacy;
-pub use self::{andotp::AndOTP, freeotp::FreeOTP, legacy::LegacyAuthenticator};
+pub use self::{
+    andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP, legacy::LegacyAuthenticator,
+};
