@@ -324,6 +324,18 @@ impl PreferencesWindow {
     fn setup_actions(&self) {
         let self_ = imp::PreferencesWindow::from_instance(self);
 
+        self_
+            .password_page
+            .connect_map(clone!(@weak self as win => move |_| {
+                win.set_search_enabled(false);
+            }));
+
+        self_
+            .password_page
+            .connect_unmap(clone!(@weak self as win => move |_| {
+                win.set_search_enabled(true);
+            }));
+
         action!(
             self_.actions,
             "show_password_page",
