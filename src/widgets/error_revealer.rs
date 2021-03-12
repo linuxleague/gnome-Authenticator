@@ -5,7 +5,7 @@ mod imp {
     use glib::subclass;
     use gtk::CompositeTemplate;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/error_revealer.ui")]
     pub struct ErrorRevealer {
         #[template_child]
@@ -14,29 +14,18 @@ mod imp {
         pub revealer: TemplateChild<gtk::Revealer>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ErrorRevealer {
         const NAME: &'static str = "ErrorRevealer";
-        type ParentType = gtk::Widget;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
         type Type = super::ErrorRevealer;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                label: TemplateChild::default(),
-                revealer: TemplateChild::default(),
-            }
-        }
+        type ParentType = gtk::Widget;
 
         fn class_init(klass: &mut Self::Class) {
             klass.set_layout_manager_type::<gtk::BinLayout>();
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

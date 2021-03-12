@@ -29,15 +29,11 @@ mod imp {
         pub otp_label: TemplateChild<gtk::Label>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for AccountRow {
         const NAME: &'static str = "AccountRow";
         type Type = super::AccountRow;
         type ParentType = gtk::ListBoxRow;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let actions = gio::SimpleActionGroup::new();
@@ -57,7 +53,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -66,10 +62,10 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("removed", &[], <()>::static_type())
+                    Signal::builder("removed", &[], <()>::static_type().into())
                         .flags(glib::SignalFlags::ACTION)
                         .build(),
-                    Signal::builder("shared", &[], <()>::static_type())
+                    Signal::builder("shared", &[], <()>::static_type().into())
                         .flags(glib::SignalFlags::ACTION)
                         .build(),
                 ]
@@ -192,7 +188,7 @@ impl AccountRow {
             self_.actions,
             "details",
             clone!(@weak self as row => move |_, _| {
-                row.emit("shared", &[]).unwrap();
+                row.emit_by_name("shared", &[]).unwrap();
             })
         );
 
@@ -200,7 +196,7 @@ impl AccountRow {
             self_.actions,
             "delete",
             clone!(@weak self as row => move |_, _| {
-                row.emit("removed", &[]).unwrap();
+                row.emit_by_name("removed", &[]).unwrap();
             })
         );
 

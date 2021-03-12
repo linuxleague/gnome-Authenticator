@@ -110,22 +110,18 @@ mod imp {
         pub spinner: TemplateChild<gtk::Spinner>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for Camera {
         const NAME: &'static str = "Camera";
         type Type = super::Camera;
         type ParentType = gtk::Widget;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
             klass.set_layout_manager_type::<gtk::BinLayout>();
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
 
@@ -155,8 +151,8 @@ mod imp {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![Signal::builder(
                     "code-detected",
-                    &[String::static_type()],
-                    <()>::static_type(),
+                    &[String::static_type().into()],
+                    <()>::static_type().into(),
                 )
                 .run_first()
                 .build()]
@@ -311,7 +307,7 @@ impl Camera {
         let self_ = imp::Camera::from_instance(self);
         match event {
             CameraEvent::CodeDetected(code) => {
-                self.emit("code-detected", &[&code]).unwrap();
+                self.emit_by_name("code-detected", &[&code]).unwrap();
             }
             CameraEvent::DeviceAdded(device) => {
                 info!("Camera source added: {}", device.get_display_name());

@@ -48,15 +48,11 @@ mod imp {
         pub lock_timeout: TemplateChild<gtk::SpinButton>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for PreferencesWindow {
         const NAME: &'static str = "PreferencesWindow";
         type Type = super::PreferencesWindow;
         type ParentType = adw::PreferencesWindow;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let settings = gio::Settings::new(config::APP_ID);
@@ -83,7 +79,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -105,7 +101,7 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("restore-completed", &[], <()>::static_type())
+                    Signal::builder("restore-completed", &[], <()>::static_type().into())
                         .flags(glib::SignalFlags::ACTION)
                         .build(),
                 ]
@@ -282,7 +278,7 @@ impl PreferencesWindow {
                     warn!("Failed to restore item {}", err);
                 }
             });
-        self.emit("restore-completed", &[]).unwrap();
+        self.emit_by_name("restore-completed", &[]).unwrap();
     }
 
     fn select_file(

@@ -72,27 +72,19 @@ mod imp {
         });
     }
     use super::*;
-    use glib::subclass;
     use std::cell::RefCell;
+
+    #[derive(Debug, Default)]
     pub struct QRCodePaintable {
         pub qrcode: RefCell<Option<QRCodeData>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for QRCodePaintable {
         const NAME: &'static str = "QRCodePaintable";
         type Type = super::QRCodePaintable;
         type ParentType = glib::Object;
         type Interfaces = (gdk::Paintable,);
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                qrcode: RefCell::new(None),
-            }
-        }
     }
 
     impl ObjectImpl for QRCodePaintable {}

@@ -22,15 +22,11 @@ mod imp {
         pub qrcode_paintable: QRCodePaintable,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for AccountDetailsPage {
         const NAME: &'static str = "AccountDetailsPage";
         type Type = super::AccountDetailsPage;
         type ParentType = gtk::Box;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -47,7 +43,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

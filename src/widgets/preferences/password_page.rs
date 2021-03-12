@@ -32,15 +32,11 @@ mod imp {
         pub default_password_signal: RefCell<Option<glib::SignalHandlerId>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for PasswordPage {
         const NAME: &'static str = "PasswordPage";
         type Type = super::PasswordPage;
         type ParentType = gtk::Box;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -60,7 +56,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

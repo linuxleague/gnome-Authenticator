@@ -11,7 +11,7 @@ use std::env;
 
 mod imp {
     use super::*;
-    use glib::{subclass, ParamSpec, WeakRef};
+    use glib::{ParamSpec, WeakRef};
     use std::cell::{Cell, RefCell};
 
     // The basic struct that holds our state and widgets
@@ -26,17 +26,11 @@ mod imp {
     }
 
     // Sets up the basics for the GObject
+    #[glib::object_subclass]
     impl ObjectSubclass for Application {
         const NAME: &'static str = "Application";
         type ParentType = gtk::Application;
         type Type = super::Application;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        // This macro implements some boilerplate code
-        // for the object setup, e.g. get_type()
-        glib::object_subclass!();
 
         // Initialize with default values
         fn new() -> Self {
@@ -226,8 +220,9 @@ mod imp {
                 }
             });
 
-            self.settings
-                .connect_changed(clone!(@weak app => move |settings, key| {
+            self.settings.connect_changed(
+                None,
+                clone!(@weak app => move |settings, key| {
                     match key {
                         "auto-lock" => {
                             match settings.get_boolean(key) {
@@ -238,7 +233,8 @@ mod imp {
                         "auto-lock-timeout" => app.restart_lock_timeout(),
                         _ => ()
                     }
-                }));
+                }),
+            );
         }
 
         fn activate(&self, app: &Self::Type) {

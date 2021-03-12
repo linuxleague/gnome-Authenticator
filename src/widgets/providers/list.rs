@@ -26,15 +26,11 @@ mod imp {
         pub stack: TemplateChild<gtk::Stack>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ProvidersList {
         const NAME: &'static str = "ProvidersList";
         type Type = super::ProvidersList;
         type ParentType = gtk::Box;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
@@ -50,7 +46,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -64,11 +60,13 @@ mod imp {
         fn signals() -> &'static [Signal] {
             use once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![
-                    Signal::builder("shared", &[Account::static_type()], <()>::static_type())
-                        .flags(glib::SignalFlags::ACTION)
-                        .build(),
-                ]
+                vec![Signal::builder(
+                    "shared",
+                    &[Account::static_type().into()],
+                    <()>::static_type().into(),
+                )
+                .flags(glib::SignalFlags::ACTION)
+                .build()]
             });
             SIGNALS.as_ref()
         }
@@ -155,7 +153,7 @@ impl ProvidersList {
                 row.connect_local("shared", false, clone!(@weak list =>  move |args| {
                     let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
 
-                    list.emit("shared", &[&account]).unwrap();
+                    list.emit_by_name("shared", &[&account]).unwrap();
                     None
                 })).unwrap();
 

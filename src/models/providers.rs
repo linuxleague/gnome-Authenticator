@@ -5,25 +5,17 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use glib::subclass;
     use std::cell::RefCell;
 
-    #[derive(Debug)]
+    #[derive(Debug, Default)]
     pub struct ProvidersModel(pub RefCell<Vec<Provider>>);
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ProvidersModel {
         const NAME: &'static str = "ProvidersModel";
         type Type = super::ProvidersModel;
         type ParentType = glib::Object;
         type Interfaces = (gio::ListModel,);
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self(RefCell::new(Vec::new()))
-        }
     }
     impl ObjectImpl for ProvidersModel {}
     impl ListModelImpl for ProvidersModel {

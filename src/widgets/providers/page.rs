@@ -56,15 +56,11 @@ mod imp {
         pub selected_image: RefCell<Option<gio::File>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ProviderPage {
         const NAME: &'static str = "ProviderPage";
         type Type = super::ProviderPage;
         type ParentType = gtk::Box;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let methods_model = adw::EnumListModel::new(OTPMethod::static_type());
@@ -99,7 +95,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -109,12 +105,24 @@ mod imp {
             use once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("created", &[Provider::static_type()], <()>::static_type())
-                        .build(),
-                    Signal::builder("updated", &[Provider::static_type()], <()>::static_type())
-                        .build(),
-                    Signal::builder("deleted", &[Provider::static_type()], <()>::static_type())
-                        .build(),
+                    Signal::builder(
+                        "created",
+                        &[Provider::static_type().into()],
+                        <()>::static_type().into(),
+                    )
+                    .build(),
+                    Signal::builder(
+                        "updated",
+                        &[Provider::static_type().into()],
+                        <()>::static_type().into(),
+                    )
+                    .build(),
+                    Signal::builder(
+                        "deleted",
+                        &[Provider::static_type().into()],
+                        <()>::static_type().into(),
+                    )
+                    .build(),
                 ]
             });
             SIGNALS.as_ref()
@@ -286,7 +294,7 @@ impl ProviderPage {
                 algorithm: algorithm.to_string(),
                 method: method.to_string(),
             })?;
-            self.emit("updated", &[&provider]).unwrap();
+            self.emit_by_name("updated", &[&provider]).unwrap();
         } else {
             let provider = Provider::create(
                 &name,
@@ -299,7 +307,7 @@ impl ProviderPage {
                 Some(help_url),
                 image_uri,
             )?;
-            self.emit("created", &[&provider]).unwrap();
+            self.emit_by_name("created", &[&provider]).unwrap();
         }
         Ok(())
     }
@@ -356,7 +364,7 @@ impl ProviderPage {
                     "The provider has accounts assigned to it, please remove them first",
                 ));
             } else if provider.delete().is_ok() {
-                self.emit("deleted", &[&provider]).unwrap();
+                self.emit_by_name("deleted", &[&provider]).unwrap();
             }
         } else {
             anyhow::bail!("Can't remove a provider as none are selected");

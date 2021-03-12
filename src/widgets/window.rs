@@ -62,15 +62,11 @@ mod imp {
         pub title_stack: TemplateChild<gtk::Stack>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for Window {
         const NAME: &'static str = "Window";
         type Type = super::Window;
         type ParentType = adw::ApplicationWindow;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let settings = gio::Settings::new(config::APP_ID);
@@ -98,7 +94,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -347,7 +343,7 @@ impl Window {
         self_
             .password_entry
             .connect_activate(clone!(@weak self as win => move |_| {
-                win.activate_action("unlock", None);
+                WidgetExt::activate_action(&win, "unlock", None);
             }));
 
         // On each click or key pressed we restart the timeout.

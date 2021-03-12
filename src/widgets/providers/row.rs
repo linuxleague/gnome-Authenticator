@@ -31,15 +31,11 @@ mod imp {
         pub progress: TemplateChild<gtk::ProgressBar>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ProviderRow {
         const NAME: &'static str = "ProviderRow";
         type Type = super::ProviderRow;
         type ParentType = gtk::ListBoxRow;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             Self {
@@ -58,7 +54,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -91,12 +87,16 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("changed", &[], <()>::static_type())
+                    Signal::builder("changed", &[], <()>::static_type().into())
                         .flags(glib::SignalFlags::ACTION)
                         .build(),
-                    Signal::builder("shared", &[Account::static_type()], <()>::static_type())
-                        .flags(glib::SignalFlags::ACTION)
-                        .build(),
+                    Signal::builder(
+                        "shared",
+                        &[Account::static_type().into()],
+                        <()>::static_type().into(),
+                    )
+                    .flags(glib::SignalFlags::ACTION)
+                    .build(),
                 ]
             });
             SIGNALS.as_ref()
@@ -277,7 +277,7 @@ impl ProviderRow {
                 clone!(@weak provider, @weak account, @weak provider_row => move |_| {
                     account.delete().unwrap();
                     provider.remove_account(account);
-                    provider_row.emit("changed", &[]).unwrap();
+                    provider_row.emit_by_name("changed", &[]).unwrap();
                     None
                 }),
             ).unwrap();
@@ -286,7 +286,7 @@ impl ProviderRow {
                 "shared",
                 false,
                 clone!(@weak account, @weak provider_row => move |_| {
-                    provider_row.emit("shared", &[&account]).unwrap();
+                    provider_row.emit_by_name("shared", &[&account]).unwrap();
                     None
                 }),
             ).unwrap();
@@ -296,7 +296,7 @@ impl ProviderRow {
                 clone!(@weak provider_row, @weak sorter => move |_| {
                     // Re-sort in case the name was updated
                     sorter.changed(gtk::SorterChange::Different);
-                    provider_row.emit("changed", &[]).unwrap();
+                    provider_row.emit_by_name("changed", &[]).unwrap();
                     None
                 }),
             )

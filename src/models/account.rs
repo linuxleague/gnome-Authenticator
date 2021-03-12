@@ -39,7 +39,7 @@ pub struct DiAccount {
 #[doc(hidden)]
 mod imp {
     use super::*;
-    use glib::{subclass, ParamSpec};
+    use glib::ParamSpec;
 
     pub struct Account {
         pub id: Cell<u32>,
@@ -51,15 +51,11 @@ mod imp {
         pub provider: RefCell<Option<Provider>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for Account {
         const NAME: &'static str = "Account";
         type Type = super::Account;
         type ParentType = glib::Object;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             Self {

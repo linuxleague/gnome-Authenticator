@@ -36,15 +36,11 @@ mod imp {
         pub title_stack: TemplateChild<gtk::Stack>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ProvidersDialog {
         const NAME: &'static str = "ProvidersDialog";
         type Type = super::ProvidersDialog;
         type ParentType = adw::Window;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
@@ -65,7 +61,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -73,8 +69,9 @@ mod imp {
     impl ObjectImpl for ProvidersDialog {
         fn signals() -> &'static [Signal] {
             use once_cell::sync::Lazy;
-            static SIGNALS: Lazy<Vec<Signal>> =
-                Lazy::new(|| vec![Signal::builder("changed", &[], <()>::static_type()).build()]);
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![Signal::builder("changed", &[], <()>::static_type().into()).build()]
+            });
             SIGNALS.as_ref()
         }
         fn constructed(&self, obj: &Self::Type) {
@@ -185,7 +182,7 @@ impl ProvidersDialog {
                     let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
                     model.add_provider(&provider);
                     dialog.set_view(View::List);
-                    dialog.emit("changed", &[]).unwrap();
+                    dialog.emit_by_name("changed", &[]).unwrap();
                     None
                 }),
             )
@@ -198,7 +195,7 @@ impl ProvidersDialog {
                 false,
                 clone!(@weak self as dialog => move |_| {
                     dialog.set_view(View::List);
-                    dialog.emit("changed", &[]).unwrap();
+                    dialog.emit_by_name("changed", &[]).unwrap();
                     None
                 }),
             )
@@ -213,7 +210,7 @@ impl ProvidersDialog {
                     let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
                     model.delete_provider(&provider);
                     dialog.set_view(View::List);
-                    dialog.emit("changed", &[]).unwrap();
+                    dialog.emit_by_name("changed", &[]).unwrap();
                     None
                 }),
             )
@@ -300,7 +297,7 @@ mod row {
     use super::*;
     mod imp {
         use super::*;
-        use glib::{subclass, ParamSpec};
+        use glib::ParamSpec;
         use std::cell::RefCell;
 
         pub struct ProviderActionRow {
@@ -309,15 +306,11 @@ mod row {
             pub title_label: gtk::Label,
         }
 
+        #[glib::object_subclass]
         impl ObjectSubclass for ProviderActionRow {
             const NAME: &'static str = "ProviderActionRow";
             type Type = super::ProviderActionRow;
             type ParentType = adw::Bin;
-            type Interfaces = ();
-            type Instance = subclass::simple::InstanceStruct<Self>;
-            type Class = subclass::simple::ClassStruct<Self>;
-
-            glib::object_subclass!();
 
             fn new() -> Self {
                 let actions = gio::SimpleActionGroup::new();

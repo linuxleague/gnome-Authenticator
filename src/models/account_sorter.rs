@@ -3,26 +3,19 @@ use gtk::glib;
 
 mod imp {
     use super::*;
-    use glib::{subclass, subclass::prelude::*};
+    use glib::subclass::prelude::*;
     use gtk::subclass::sorter::SorterImpl;
 
-    #[derive(Debug)]
+    #[derive(Debug, Default)]
     pub struct AccountSorter;
 
+    #[glib::object_subclass]
     impl ObjectSubclass for AccountSorter {
         const NAME: &'static str = "AccountSorter";
         type Type = super::AccountSorter;
         type ParentType = gtk::Sorter;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {}
-        }
     }
+
     impl ObjectImpl for AccountSorter {}
     impl SorterImpl for AccountSorter {
         fn get_order(&self, _sorter: &Self::Type) -> gtk::SorterOrder {

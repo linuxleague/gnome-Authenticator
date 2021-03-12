@@ -63,7 +63,7 @@ pub struct DiProvider {
 }
 mod imp {
     use super::*;
-    use glib::{subclass, ParamSpec};
+    use glib::ParamSpec;
 
     pub struct Provider {
         pub id: Cell<u32>,
@@ -80,15 +80,12 @@ mod imp {
         pub filter_model: gtk::FilterListModel,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for Provider {
         const NAME: &'static str = "Provider";
         type Type = super::Provider;
         type ParentType = glib::Object;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
 
-        glib::object_subclass!();
         fn new() -> Self {
             let model = AccountsModel::new();
             Self {

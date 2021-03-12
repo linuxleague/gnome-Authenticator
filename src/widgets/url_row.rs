@@ -5,30 +5,20 @@ use gtk::{glib, subclass::prelude::*, WidgetExt};
 mod imp {
     use super::*;
     use adw::subclass::action_row::ActionRowImpl;
-    use glib::{subclass, ParamSpec};
+    use glib::ParamSpec;
     use std::cell::RefCell;
 
+    #[derive(Debug, Default)]
     pub struct UrlRow {
         pub uri: RefCell<Option<String>>,
         pub icon_name: RefCell<Option<String>>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for UrlRow {
         const NAME: &'static str = "UrlRow";
         type Type = super::UrlRow;
         type ParentType = adw::ActionRow;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
-
-        fn new() -> Self {
-            Self {
-                uri: RefCell::new(None),
-                icon_name: RefCell::new(None),
-            }
-        }
     }
 
     impl ObjectImpl for UrlRow {

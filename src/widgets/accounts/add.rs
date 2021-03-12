@@ -57,15 +57,11 @@ mod imp {
         pub error_revealer: TemplateChild<ErrorRevealer>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for AccountAddDialog {
         const NAME: &'static str = "AccountAddDialog";
         type Type = super::AccountAddDialog;
         type ParentType = adw::Window;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let actions = gio::SimpleActionGroup::new();
@@ -98,7 +94,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
@@ -107,7 +103,7 @@ mod imp {
         fn signals() -> &'static [Signal] {
             use once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder("added", &[], <()>::static_type())
+                vec![Signal::builder("added", &[], <()>::static_type().into())
                     .flags(glib::SignalFlags::ACTION)
                     .build()]
             });
@@ -208,7 +204,7 @@ impl AccountAddDialog {
             let account = Account::create(&username, &token, provider)?;
 
             self_.model.get().unwrap().add_account(&account, &provider);
-            self.emit("added", &[]).unwrap();
+            self.emit_by_name("added", &[]).unwrap();
         // TODO: display an error message saying there was an error form keyring
         } else {
             anyhow::bail!("Could not find provider");

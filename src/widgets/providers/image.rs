@@ -28,15 +28,11 @@ mod imp {
         pub spinner: TemplateChild<gtk::Spinner>,
     }
 
+    #[glib::object_subclass]
     impl ObjectSubclass for ProviderImage {
         const NAME: &'static str = "ProviderImage";
         type Type = super::ProviderImage;
         type ParentType = gtk::Box;
-        type Interfaces = ();
-        type Instance = subclass::simple::InstanceStruct<Self>;
-        type Class = subclass::simple::ClassStruct<Self>;
-
-        glib::object_subclass!();
 
         fn new() -> Self {
             let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
@@ -56,7 +52,7 @@ mod imp {
             Self::bind_template(klass);
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self::Type>) {
+        fn instance_init(obj: &subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
