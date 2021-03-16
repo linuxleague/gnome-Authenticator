@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-02 19:58+0000\n"
-"PO-Revision-Date: 2021-02-04 14:09+0100\n"
+"POT-Creation-Date: 2021-02-13 20:41+0000\n"
+"PO-Revision-Date: 2021-03-16 14:14+0100\n"
 "Last-Translator: Philipp Kiemle <philipp.kiemle@gmail.com>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:158 src/main.rs:34
+#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
 msgid "Authenticator"
 msgstr "Authenticator"
 
@@ -34,7 +34,7 @@ msgstr "Zwei-Faktor-Authentifizierung"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:161
+#: src/application.rs:155
 msgid "Generate Two-Factor Codes"
 msgstr "Zwei-Faktor-Codes generieren"
 
@@ -139,7 +139,7 @@ msgstr "Kontodetails"
 msgid "Backup/Restore formats support"
 msgstr "Unterstützung für Sicherungs-/Wiederherstellungs-Formate"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -154,7 +154,7 @@ msgstr "Bildschirm_foto"
 #: data/resources/ui/account_add.ui:44
 #: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/provider_page.ui:51
 msgid "Go Back"
 msgstr "Zurück"
 
@@ -184,37 +184,37 @@ msgstr "Konto"
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:198
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
 msgid "Counter"
 msgstr "Zähler"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
 msgid "Algorithm"
 msgstr "Algorithmus"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:161
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
 msgid "Computing Method"
 msgstr "Berechnungsmethode"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:181
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
 msgid "Period"
 msgstr "Zeitraum"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
 msgid "Duration in seconds until the next password update"
 msgstr "Dauer in Sekunden bis zur nächsten Passwort-Aktualisierung"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:215
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
 msgid "Digits"
 msgstr "Ziffern"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
 msgid "Length of the generated code"
 msgstr "Länge des generierten Codes"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:147
+#: data/resources/ui/provider_page.ui:150
 msgid "Website"
 msgstr "Internetseite"
 
@@ -230,21 +230,21 @@ msgstr "D_etails"
 msgid "_Rename"
 msgstr "_Umbenennen"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:249
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
 msgid "_Delete"
 msgstr "_Löschen"
 
-#: data/resources/ui/account_row.ui:65
+#: data/resources/ui/account_row.ui:66
 msgid "Copy PIN to clipboard"
 msgstr "PIN in die Zwischenablage kopieren"
 
-#: data/resources/ui/account_row.ui:105
+#: data/resources/ui/account_row.ui:106
 msgid "More"
 msgstr "Mehr"
 
-#: data/resources/ui/account_row.ui:137
+#: data/resources/ui/account_row.ui:138
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:53
+#: data/resources/ui/provider_page.ui:56
 msgid "_Save"
 msgstr "_Speichern"
 
@@ -283,7 +283,7 @@ msgid "Repeat Passphrase"
 msgstr "Passphrase wiederholen"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:98
+#: data/resources/ui/provider_page.ui:101
 msgid "_Reset"
 msgstr "_Zurücksetzen"
 
@@ -335,35 +335,35 @@ msgstr "Zeit in Minuten"
 msgid "Backup/Restore"
 msgstr "Sichern/Wiederherstellen"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:299
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
 msgid "Backup"
 msgstr "Sicherung"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:306
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
 msgid "Restore"
 msgstr "Wiederherstellen"
 
-#: data/resources/ui/provider_page.ui:109
+#: data/resources/ui/provider_page.ui:112
 msgid "Select a _File"
 msgstr "Eine _Datei wählen"
 
-#: data/resources/ui/provider_page.ui:133
+#: data/resources/ui/provider_page.ui:136
 msgid "Name"
 msgstr "Name"
 
-#: data/resources/ui/provider_page.ui:148
+#: data/resources/ui/provider_page.ui:151
 msgid "Used to fetch the provider icon"
 msgstr "Genutzt, um das Anbieter-Symbol zu holen"
 
-#: data/resources/ui/provider_page.ui:199
+#: data/resources/ui/provider_page.ui:202
 msgid "The by default value for counter-based computing method"
 msgstr "Der Standardwert für die zählerbasierte Berechnungsmethode"
 
-#: data/resources/ui/provider_page.ui:233
+#: data/resources/ui/provider_page.ui:236
 msgid "Help URL"
 msgstr "Hilfe-Seite"
 
-#: data/resources/ui/provider_page.ui:234
+#: data/resources/ui/provider_page.ui:237
 msgid "Provider setup instructions"
 msgstr "Einrichtungshinweise zu Anbietern"
 
@@ -481,7 +481,7 @@ msgstr "Keine Konten"
 msgid "Add an account or scan a QR code first."
 msgstr "Fügen Sie zuerst ein Konto hinzu oder scannen Sie einen QR-Code."
 
-#: src/application.rs:165
+#: src/application.rs:159
 msgid "translator-credits"
 msgstr ""
 "Joerg Schachner <jschachner@mailbox.org>, 2020.\n"
@@ -503,9 +503,22 @@ msgstr "In eine einfache JSON-Textdatei"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
 msgid "From a plain-text JSON file"
 msgstr "Aus einer einfachen JSON-Textdatei"
+
+#: src/backup/bitwarden.rs:35
+msgid "Unknown account"
+msgstr "Unbekanntes Konto"
+
+#: src/backup/bitwarden.rs:43
+msgid "Unknown issuer"
+msgstr "Unbekannter Aussteller"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:81
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
 
 #: src/backup/freeotp.rs:18
 msgid "_Authenticator"
@@ -561,17 +574,17 @@ msgstr "Ungültiges Token"
 msgid "Wrong Password"
 msgstr "Falsches Passwort"
 
-#: src/widgets/preferences/password_page.rs:231
-#: src/widgets/preferences/password_page.rs:262
+#: src/widgets/preferences/password_page.rs:228
+#: src/widgets/preferences/password_page.rs:259
 msgid "Wrong Passphrase"
 msgstr "Falsche Passphrase"
 
-#: src/widgets/preferences/window.rs:302 src/widgets/preferences/window.rs:309
+#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
 #: src/widgets/providers/page.rs:312
 msgid "Select"
 msgstr "Auswählen"
 
-#: src/widgets/preferences/window.rs:303 src/widgets/preferences/window.rs:310
+#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
 #: src/widgets/providers/page.rs:313
 msgid "Cancel"
 msgstr "Abbruch"
@@ -653,9 +666,6 @@ msgstr ""
 #~ msgctxt "shortcut window"
 #~ msgid "Scan QR"
 #~ msgstr "QR-Code scannen"
-
-#~ msgid "_Bitwarden"
-#~ msgstr "_Bitwarden"
 
 #~ msgid "A Two-Factor Authentication application"
 #~ msgstr "Eine Anwendung zur Zwei-Faktor-Authentifizierung"
