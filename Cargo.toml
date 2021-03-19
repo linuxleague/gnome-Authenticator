@@ -24,7 +24,7 @@ once_cell = "1.5"
 percent-encoding = "2.1"
 pretty_env_logger = "0.4"
 qrcode = {version = "0.12", features = ["image"]}
-quick-xml = "0.20"
+quick-xml = "0.22"
 rand = "0.8"
 ring = "0.16"
 rust-argon2 = "0.8"
