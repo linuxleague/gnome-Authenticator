@@ -62,7 +62,7 @@ impl Keyring {
 
     pub fn ensure_unlocked() -> Result<(), Error> {
         let collection = Self::get_default_collection()?;
-        collection.ensure_unlocked()?;
+        collection.unlock()?;
 
         Ok(())
     }
