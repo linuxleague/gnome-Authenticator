@@ -59,14 +59,15 @@
                 "--disable-video",
                 "--without-java",
                 "--without-python",
-                "--with-doc=no",
+                "--with-dbus=no",
+                "--enable-doc=no",
                 "--with-introspection=no",
                 "--enable-codes=qrcode"
             ],
             "sources": [{
                     "type": "git",
                     "url": "git://git.linuxtv.org/zbar.git",
-                    "tag": "0.20"
+                    "tag": "0.23"
                 },
                 {
                     "type": "script",
