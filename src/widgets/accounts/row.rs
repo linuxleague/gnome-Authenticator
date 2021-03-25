@@ -177,7 +177,7 @@ impl AccountRow {
             clone!(@weak self as row, @weak copy_btn_stack => move |_, _| {
                 copy_btn_stack.set_visible_child_name("ok");
                 row.account().copy_otp();
-                glib::source::timeout_add_seconds_local(1, clone!(@weak copy_btn_stack => move || {
+                glib::source::timeout_add_seconds_local(1, clone!(@weak copy_btn_stack => @default-return glib::Continue(false), move || {
                     copy_btn_stack.set_visible_child_name("copy");
                     glib::Continue(false)
                 }));

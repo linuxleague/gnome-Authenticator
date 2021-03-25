@@ -213,7 +213,7 @@ impl ProviderImage {
         let receiver = self_.receiver.borrow_mut().take().unwrap();
         receiver.attach(
             None,
-            clone!(@weak self as image => move |action| image.do_action(action)),
+            clone!(@weak self as image => @default-return glib::Continue(false), move |action| image.do_action(action)),
         );
         self.bind_property("size", &*self_.image, "pixel-size")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)

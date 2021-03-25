@@ -143,14 +143,14 @@ impl ProvidersList {
 
         self_.providers_list.bind_model(
             Some(&sort_model),
-            clone!(@weak self as list => move |obj| {
+            clone!(@strong self as list => move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
                 let row = ProviderRow::new(provider);
-                row.connect_local("changed", false, clone!(@weak list =>  move |_| {
+                row.connect_local("changed", false, clone!(@weak list => @default-return None,  move |_| {
                     list.refilter();
                     None
                 })).unwrap();
-                row.connect_local("shared", false, clone!(@weak list =>  move |args| {
+                row.connect_local("shared", false, clone!(@weak list => @default-return None,  move |args| {
                     let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
 
                     list.emit_by_name("shared", &[&account]).unwrap();

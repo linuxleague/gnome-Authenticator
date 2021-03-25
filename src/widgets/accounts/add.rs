@@ -305,8 +305,8 @@ impl AccountAddDialog {
             .set_model(Some(&self_.model.get().unwrap().completion_model()));
 
         self_.provider_completion.connect_match_selected(
-            clone!(@weak self as dialog, @strong self_.model as model => move |_, store, iter| {
-                let provider_id = store.get_value(iter, 0).get_some::<u32>().unwrap();
+            clone!(@weak self as dialog, @strong self_.model as model => @default-return Inhibit(false), move |_, store, iter| {
+                let provider_id = store.get(iter, 0).get_some::<u32>().unwrap();
                 let provider = model.get().unwrap().find_by_id(provider_id);
                 dialog.set_provider(provider);
 
@@ -319,7 +319,7 @@ impl AccountAddDialog {
             .connect_local(
                 "code-detected",
                 false,
-                clone!(@weak self as dialog => move |args| {
+                clone!(@weak self as dialog => @default-return None, move |args| {
                     let code = args.get(1).unwrap().get::<String>().unwrap().unwrap();
                     if let Ok(otp_uri) = OTPUri::from_str(&code) {
                         dialog.set_from_otp_uri(otp_uri);

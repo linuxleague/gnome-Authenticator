@@ -178,7 +178,7 @@ impl ProvidersDialog {
             .connect_local(
                 "created",
                 false,
-                clone!(@weak model, @weak self as dialog => move |args| {
+                clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
                     let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
                     model.add_provider(&provider);
                     dialog.set_view(View::List);
@@ -193,7 +193,7 @@ impl ProvidersDialog {
             .connect_local(
                 "updated",
                 false,
-                clone!(@weak self as dialog => move |_| {
+                clone!(@weak self as dialog => @default-return None, move |_| {
                     dialog.set_view(View::List);
                     dialog.emit_by_name("changed", &[]).unwrap();
                     None
@@ -206,7 +206,7 @@ impl ProvidersDialog {
             .connect_local(
                 "deleted",
                 false,
-                clone!(@weak model, @weak self as dialog => move |args| {
+                clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
                     let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
                     model.delete_provider(&provider);
                     dialog.set_view(View::List);

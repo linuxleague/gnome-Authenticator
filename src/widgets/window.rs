@@ -175,7 +175,7 @@ impl Window {
             .connect_local(
                 "added",
                 false,
-                clone!(@weak self as win => move |_| {
+                clone!(@weak self as win => @default-return None, move |_| {
                     win.providers().refilter();
                     None
                 }),
@@ -199,7 +199,7 @@ impl Window {
             .connect_local(
                 "shared",
                 false,
-                clone!(@weak self as win => move |args| {
+                clone!(@weak self as win => @default-return None, move |args| {
                     let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
                     win.set_view(View::Account(account));
                     None
@@ -223,7 +223,7 @@ impl Window {
         // load latest window state
         window_state::load(&self, &self_.settings);
         // save window state on delete event
-        self.connect_close_request(clone!(@weak self_.settings as settings => move |window| {
+        self.connect_close_request(clone!(@weak self_.settings as settings => @default-return Inhibit(false), move |window| {
             if let Err(err) = window_state::save(&window, &settings) {
                 warn!("Failed to save window state {:#?}", err);
             }
@@ -327,7 +327,7 @@ impl Window {
         app.connect_local(
             "notify::locked",
             false,
-            clone!(@weak app, @weak self as win => move |_| {
+            clone!(@weak app, @weak self as win => @default-return None, move |_| {
                 if app.locked(){
                     win.set_view(View::Login);
                 } else {
@@ -353,11 +353,11 @@ impl Window {
                 app.restart_lock_timeout();
             }));
 
-        self_
-            .key_gesture
-            .connect_key_pressed(clone!(@weak app => move |_, _, _, _| {
+        self_.key_gesture.connect_key_pressed(
+            clone!(@weak app => @default-return Inhibit(false), move |_, _, _, _| {
                 app.restart_lock_timeout();
                 Inhibit(false)
-            }));
+            }),
+        );
     }
 }

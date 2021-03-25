@@ -145,7 +145,7 @@ mod imp {
 
                     let preferences = PreferencesWindow::new(model);
                     preferences.set_has_set_password(app.can_be_locked());
-                    preferences.connect_local("restore-completed", false, clone!(@weak win => move |_| {
+                    preferences.connect_local("restore-completed", false, clone!(@weak win => @default-return None, move |_| {
                         win.providers().refilter();
                         None
                     })).unwrap();
@@ -188,7 +188,7 @@ mod imp {
                     let window = app.get_active_window().unwrap();
                     let providers = ProvidersDialog::new(model);
                     let win = window.downcast_ref::<Window>().unwrap();
-                    providers.connect_local("changed", false, clone!(@weak win => move |_| {
+                    providers.connect_local("changed", false, clone!(@weak win => @default-return None, move |_| {
                         win.providers().refilter();
                         None
                     })).unwrap();

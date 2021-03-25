@@ -367,7 +367,7 @@ impl Camera {
         let receiver = self_.receiver.borrow_mut().take().unwrap();
         receiver.attach(
             None,
-            clone!(@weak self as camera => move |action| camera.do_event(action)),
+            glib::clone!(@weak self as camera => @default-return glib::Continue(false), move |action| camera.do_event(action)),
         );
 
         let widget = self_
