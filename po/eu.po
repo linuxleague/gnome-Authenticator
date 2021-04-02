@@ -1,359 +1,689 @@
 # Basque translation for authenticator.
 # Copyright (C) 2019 authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
-# Asier Sarasua Garmendia <asier.sarasua@gmail.com>, 2019.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2019, 2021.
 #
 msgid ""
 msgstr "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2019-09-24 13:47+0000\n"
-"PO-Revision-Date: 2019-09-29 10:00+0100\n"
-"Last-Translator: Asier Sarasua Garmendia <asier.sarasua@gmail.com>\n"
+"POT-Creation-Date: 2021-02-13 20:41+0000\n"
+"PO-Revision-Date: 2021-04-02 10:00+0100\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:36
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
 msgid "Authenticator"
 msgstr "Authenticator"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "A Two-Factor Authentication application"
-msgstr "Bi faktoreko autentifikaziorako aplikazioa"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
-msgid ""
-"Simple application that generates a two-factor authentication code, created "
-"for GNOME."
-msgstr "Bi faktoreko autentifikazio-kodea sortzen duen aplikazio sinplea, GNOMErako sortua."
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
-msgid "Features:"
-msgstr "Eginbideak:"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
-msgid "QR code scanner"
-msgstr "QR kodeen eskanerra"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
-msgid "Beautiful UI"
-msgstr "Interfaze grafiko ederra"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
-msgid "Huge database of more than 560 supported services"
-msgstr "560 zerbitzu baino gehiago onartzen dituen datu-base erraldoia"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr "Gorde zure PIN tokenak seguru, aplikazioa pasahitz batekin blokeatuz"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "Automatically fetch an image for services using their favicon"
-msgstr "Atzitu automatikoki irudi bat zerbitzuetarako, haien ikono txikia erabilita"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
-msgid "The possibility to add new services"
-msgstr "Zerbitzu gehiago gehitzeko aukera"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
-msgid "Dark theme and night light"
-msgstr "Gai iluna eta gaueko argia"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
-msgid "Main Window - empty state"
-msgstr "Leiho nagusia - egoera hutsa"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-#: data/resources/gtk/ui/account_add.ui:15
-msgid "Add a new account"
-msgstr "Gehitu kontu berria"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
-msgid "Main Window - Accounts List"
-msgstr "Leiho nagusia - kontuen zerrenda"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid "Settings Window"
-msgstr "Ezarpenen leihoa"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
 msgstr "Bi faktoreko autentifikazioa"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;TwoFactor;"
-msgstr "Gnome;GTK;Egiaztapena;2FA;Autentifikazioa;BiFaktore;"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:155
+msgid "Generate Two-Factor Codes"
+msgstr "Sortu bi faktoreko kodeak"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "Leihoaren posizio lehenetsia"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "Gnome;GTK;Egiaztapena;2FA;Autentifikazioa;OTP;TOTP;"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: data/resources/gtk/ui/settings.ui.in:28
-msgid "Dark Theme"
-msgstr "Gai iluna"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Leihoaren zabalera lehenetsia"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: data/resources/gtk/ui/settings.ui.in:29
-#: data/resources/gtk/ui/settings.ui.in:76
-msgid "Whether the application should use a dark theme."
-msgstr "Aplikazioak gai iluna erabiliko duen ala ez"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Leihoaren altuera lehenetsia"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: data/resources/gtk/ui/settings.ui.in:83
-msgid "Auto lock timeout"
-msgstr "Blokeo automatikoaren denbora-muga"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-msgid "Lock the application on idle after X minutes"
-msgstr "Blokeatu aplikazioa X minutu ondoren inaktibo badago"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/gtk/ui/settings.ui.in:43
-msgid "Night Light"
-msgstr "Gaueko argia"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
-#: data/resources/gtk/ui/settings.ui.in:44
-#: data/resources/gtk/ui/settings.ui.in:84
-msgid "Automatically enable dark mode at night."
-msgstr "Gaitu automatikoki modu iluna gauean"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
 msgid "Default window maximized behaviour"
 msgstr "Maximizatutako leihoaren portaera lehenetsia"
 
-#: data/resources/gtk/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Asier Sarasua Garmendia <asier.sarasua@gmail.com>"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Theme"
+msgstr "Gai iluna"
 
-#: data/resources/gtk/ui/account_add.ui:33
-msgid "Add"
-msgstr "Gehitu"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark theme."
+msgstr "Aplikazioak gai iluna erabiliko duen ala ez"
 
-#: data/resources/gtk/ui/account_add.ui:53
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "Blokeo automatikoa"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "Aplikazioa automatikoki blokeatuko den ala ez"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "Blokeo automatikoaren denbora-muga"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "Blokeatu aplikazioa X minutu ondoren inaktibo badago"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "Bi faktoreko autentifikazio-kodeak sortzeko aplikazio sinplea."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "Eginbideak:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "Denboran oinarritua/Kontagailuan oinarritua/Steam metodoen euskarria"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "SHA-1/SHA-256/SHA-512 algoritmoen euskarria"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "QR kodeen eskanerra kamera bat erabilita edo pantaila-argazki bat erabilita"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "Blokeatu aplikazioa pasahitz batekin"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "Interfaze grafiko ederra"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
+msgstr "Babeskopia egin/leheneratu aplikazio ezagunetatik, adibidez FreeOTP+, andOTP"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+msgid "Main Window"
+msgstr "Leiho nagusia"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/resources/ui/account_add.ui:24
+msgid "Add a New Account"
+msgstr "Gehitu kontu berria"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+msgid "Add a New Provider"
+msgstr "Gehitu hornitzaile berria"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+msgid "Account Details"
+msgstr "Kontuaren xehetasunak"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+msgid "Backup/Restore formats support"
+msgstr "Babeskopien/leheneratzeen formatuen euskarria"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr "_Kamera"
+
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr "_Pantaila-argazkia"
+
+#: data/resources/ui/account_add.ui:44
+#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:51
+msgid "Go Back"
+msgstr "Joan atzera"
+
+#: data/resources/ui/account_add.ui:49
+msgid "_Add"
+msgstr "G_ehitu"
+
+#: data/resources/ui/account_add.ui:61
 msgid "Scan QR Code"
 msgstr "Eskaneatu QR kodea"
 
-#: data/resources/gtk/ui/account_config.ui:56
-msgid "Account Name"
-msgstr "Kontuaren izena"
-
-#: data/resources/gtk/ui/account_config.ui:78
+#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_details_page.ui:52
 msgid "Provider"
 msgstr "Hornitzailea"
 
-#: data/resources/gtk/ui/account_config.ui:95
-#: data/resources/gtk/ui/account_config.ui:96
-msgid "Enable 2FA for this account"
-msgstr "Gaitu 2FA kontu honetarako"
+#: data/resources/ui/account_add.ui:101
+msgid "Token issuer"
+msgstr "Token-jaulkitzailea"
 
-#: data/resources/gtk/ui/account_config.ui:97
-msgid "2FA Token"
-msgstr "2FA tokena"
+#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_details_page.ui:42
+msgid "Account"
+msgstr "Kontua"
 
-#: data/resources/gtk/ui/account_config.ui:111
-msgid "Provider Website"
-msgstr "Hornitzailearen webgunea"
+#: data/resources/ui/account_add.ui:130
+msgid "Token"
+msgstr "Tokena"
 
-#: data/resources/gtk/ui/account_edit.ui:31
-msgid "Save"
-msgstr "Gorde"
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
+msgid "Counter"
+msgstr "Kontagailua"
 
-#: data/resources/gtk/ui/account_row.ui:22
-msgid "Edit"
-msgstr "Editatu"
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
+msgid "Algorithm"
+msgstr "Algoritmoa"
 
-#: data/resources/gtk/ui/account_row.ui:40
-msgid "Delete"
-msgstr "Ezabatu"
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
+msgid "Computing Method"
+msgstr "Kalkulu-metodoa"
 
-#: data/resources/gtk/ui/account_row.ui:97
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
+msgid "Period"
+msgstr "Tartea"
+
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
+msgid "Duration in seconds until the next password update"
+msgstr "Iraupena segundotan pasahitza eguneratu arte"
+
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
+msgid "Digits"
+msgstr "Digituak"
+
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
+msgid "Length of the generated code"
+msgstr "Sortutako kodearen luzera"
+
+#: data/resources/ui/account_add.ui:219
+#: data/resources/ui/account_details_page.ui:62
+#: data/resources/ui/provider_page.ui:150
+msgid "Website"
+msgstr "Webgunea"
+
+#: data/resources/ui/account_add.ui:225
+msgid "How to Set Up"
+msgstr "Nola konfiguratu"
+
+#: data/resources/ui/account_row.ui:6
+msgid "D_etails"
+msgstr "_Xehetasunak"
+
+#: data/resources/ui/account_row.ui:12
+msgid "_Rename"
+msgstr "_Aldatu izena"
+
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
+msgid "_Delete"
+msgstr "E_zabatu"
+
+#: data/resources/ui/account_row.ui:66
 msgid "Copy PIN to clipboard"
 msgstr "Kopiat PINa arbelean"
 
-#: data/resources/gtk/ui/password_widget.ui:46
-msgid "Current Password:"
-msgstr "Uneko pasahitza:"
+#: data/resources/ui/account_row.ui:106
+msgid "More"
+msgstr "Gehiago"
 
-#: data/resources/gtk/ui/password_widget.ui:91
-msgid "New Password:"
-msgstr "Pasahitz berria:"
+#: data/resources/ui/account_row.ui:138
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:56
+msgid "_Save"
+msgstr "_Gorde"
 
-#: data/resources/gtk/ui/password_widget.ui:136
-msgid "Confirm New Password:"
-msgstr "Baieztatu pasahitz berria:"
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "Ez da kamerarik aurkitu"
 
-#: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:174
-msgid "Change Password"
-msgstr "Aldatu pasahitza"
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "_Pantaila-argazki batetik"
 
-#: data/resources/gtk/ui/password_widget.ui:205
-msgid "Delete Password"
-msgstr "Ezabatu pasahitza"
+#: data/resources/ui/camera.ui:82
+msgid "Capture from a screenshot"
+msgstr "Kaptura pantaila-argazki batetik"
 
-#: data/resources/gtk/ui/settings.ui.in:24
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "Konfiguratu pasaesaldi bat"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "Authenticator aplikazioa blokeatuta abiaraziko da pasaesaldia ezarri ondoren."
+
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "Uneko pasaesaldia"
+
+#: data/resources/ui/preferences_password_page.ui:66
+msgid "New Passphrase"
+msgstr "Pasaesaldi berria"
+
+#: data/resources/ui/preferences_password_page.ui:79
+msgid "Repeat Passphrase"
+msgstr "Errepikatu pasaesaldia"
+
+#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/provider_page.ui:101
+msgid "_Reset"
+msgstr "_Berrezarri"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "Orokorra"
+
+#: data/resources/ui/preferences.ui:19
 msgid "Appearance"
 msgstr "Itxura"
 
-#: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:106
-msgid "Lock the application"
-msgstr "Blokeatu aplikazioa"
+#: data/resources/ui/preferences.ui:22
+msgid "_Dark Theme"
+msgstr "Gai _iluna"
 
-#: data/resources/gtk/ui/shortcuts.ui:13
+#: data/resources/ui/preferences.ui:25
+msgid "Whether the application should use a dark theme"
+msgstr "Aplikazioak gai iluna erabiliko duen ala ez"
+
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "Pribatutasuna"
+
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "_Pasaesaldia"
+
+#: data/resources/ui/preferences.ui:42
+msgid "Set up a passphrase to lock the application with"
+msgstr "Konfiguratu pasaesaldi bat aplikazioa blokeatzeko"
+
+#: data/resources/ui/preferences.ui:54
+msgid "_Auto Lock the Application"
+msgstr "Blokeatu aplikazioa _automatikoki"
+
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr "Aplikazioa automatikoki blokeatuko den ala ez"
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto Lock _Timeout"
+msgstr "Blokeo automatikoaren _denbora-muga"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "Denbora minututan"
+
+#: data/resources/ui/preferences.ui:92
+msgid "Backup/Restore"
+msgstr "Babeskopia/Leheneratu"
+
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
+msgid "Backup"
+msgstr "Babeskopia"
+
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
+msgid "Restore"
+msgstr "Leheneratu"
+
+#: data/resources/ui/provider_page.ui:112
+msgid "Select a _File"
+msgstr "Hautatu _fitxategi bat"
+
+#: data/resources/ui/provider_page.ui:136
+msgid "Name"
+msgstr "Izena"
+
+#: data/resources/ui/provider_page.ui:151
+msgid "Used to fetch the provider icon"
+msgstr "Hornitzaile-ikonoa atzitzeko erabilia"
+
+#: data/resources/ui/provider_page.ui:202
+msgid "The by default value for counter-based computing method"
+msgstr "Kontagailuan oinarritutako kalkulu-metodorako balio lehenetsia"
+
+#: data/resources/ui/provider_page.ui:236
+msgid "Help URL"
+msgstr "Laguntzarako URLa"
+
+#: data/resources/ui/provider_page.ui:237
+msgid "Provider setup instructions"
+msgstr "Hornitzailea konfiguratzeko argibideak"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "Hornitzaileak"
+
+#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:206
+msgid "New Provider"
+msgstr "Hornitzaile berria"
+
+#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
+msgid "Search"
+msgstr "Bilatu"
+
+#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "Ez dago emaitzarik"
+
+#: data/resources/ui/providers_dialog.ui:109
+msgid "No providers matching the query were found."
+msgstr "Ez dago kontsultarekin bat datorren hornitzailerik."
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "Ez dago kontsultarekin bat datorren konturik edo hornitzailerik."
+
+#: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Orokorra"
 
-#: data/resources/gtk/ui/shortcuts.ui:17
+#: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Erakutsi lasterbideak"
+msgid "Keyboard Shortcuts"
+msgstr "Laster-teklak"
 
-#: data/resources/gtk/ui/shortcuts.ui:24
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Blokeatu"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Hobespenak"
 
-#: data/resources/gtk/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Irten"
 
-#: data/resources/gtk/ui/shortcuts.ui:40
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "Kontuak"
 
-#: data/resources/gtk/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
-msgid "Add"
-msgstr "Gehitu"
+msgid "New Account"
+msgstr "Kontu berria"
 
-#: data/resources/gtk/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Bilatu"
 
-#: data/resources/gtk/ui/window.ui.in:189
-msgid "There are no accounts yet…"
-msgstr "Ez dago konturik oraindik…"
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "Erakutsi hornitzaileen zerrenda"
 
-#: data/resources/gtk/ui/window.ui.in:218
-msgid "Add a new account from the menu"
-msgstr "Gehitu kontu berria menutik"
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "B_lokeatu aplikazioa"
 
-#: data/resources/gtk/ui/window.ui.in:234
-msgid "Scan a QR Code"
-msgstr "Eskaneatu QR kodea"
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "H_ornitzaileak"
 
-#: data/resources/gtk/ui/window.ui.in:366
-msgid "No results found"
-msgstr "Ez da emaitzarik aurkitu"
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_Hobespenak"
 
-#: data/resources/gtk/ui/window.ui.in:429
-msgid "Authenticator is locked"
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "Las_ter-teklak"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "Authenticator aplikazioari _buruz"
+
+#: data/resources/ui/window.ui:95
+msgid "Authenticator is Locked"
 msgstr "Authenticator blokeatuta dago"
 
-#: data/resources/gtk/ui/window.ui.in:468
-msgid "Unlock"
-msgstr "Desblokeatu"
+#: data/resources/ui/window.ui:123
+msgid "_Unlock"
+msgstr "_Desblokeatu"
 
-#: src/authenticator.py.in:49
-msgid "Start in debug mode"
-msgstr "Abiarazi arazteko modua"
+#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+msgid "New Account"
+msgstr "Kontu berria"
 
-#: src/Authenticator/application.py.in:114
-msgid "from a plain-text JSON file"
-msgstr "testu soileko JSON fitxategi batetik"
+#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+msgid "Menu"
+msgstr "Menua"
 
-#: src/Authenticator/application.py.in:115
-msgid "in a plain-text JSON file"
-msgstr "testu soileko JSON fitxategi batean"
+#: data/resources/ui/window.ui:192
+msgid "No Accounts"
+msgstr "Ez dago konturik"
 
-#: src/Authenticator/application.py.in:117
-msgid "Restore"
-msgstr "Leheneratu"
+#: data/resources/ui/window.ui:193
+msgid "Add an account or scan a QR code first."
+msgstr "Hasteko, gehitu kontu bat edo eskaneatu QR kode bat."
 
-#: src/Authenticator/application.py.in:118
-msgid "Backup"
-msgstr "Babeskopia"
+#: src/application.rs:159
+msgid "translator-credits"
+msgstr "translator-credits"
 
-#. Night mode action
-#: src/Authenticator/application.py.in:126
-msgid "Preferences"
-msgstr "Hobespenak"
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:66
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
 
-#: src/Authenticator/application.py.in:127
-msgid "Donate"
-msgstr "Egin dohaintza"
+#: src/backup/andotp.rs:70
+msgid "Into a plain-text JSON file"
+msgstr "Testu soileko JSON fitxategi batean"
 
-#: src/Authenticator/application.py.in:128
-msgid "Keyboard Shortcuts"
-msgstr "Laster-teklak"
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:128
+msgid "an_dOTP"
+msgstr "an_dOTP"
 
-#: src/Authenticator/application.py.in:129
-msgid "About Authenticator"
-msgstr "Authenticator aplikazioari buruz"
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+msgid "From a plain-text JSON file"
+msgstr "Testu soileko JSON fitxategi batetik"
 
-#: src/Authenticator/models/account.py:84
-msgid "Default"
-msgstr "Lehenetsia"
+#: src/backup/bitwarden.rs:35
+msgid "Unknown account"
+msgstr "Kontu ezezaguna"
 
-#: src/Authenticator/widgets/accounts/add.py:247
-msgid "Invalid QR code"
-msgstr "QR kode baliogabea"
+#: src/backup/bitwarden.rs:43
+msgid "Unknown issuer"
+msgstr "Jaulkitzaile ezezaguna"
 
-#: src/Authenticator/widgets/accounts/list.py:152
-msgid "The One-Time Passwords expire in {} seconds"
-msgstr "Denbora bateko pasahitzak {} segundotan iraungiko dira"
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:81
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
 
-#: src/Authenticator/widgets/accounts/row.py:90
-msgid "Couldn't generate the secret code"
-msgstr "Ezin izan da kode sekretua sortu"
+#: src/backup/freeotp.rs:18
+msgid "_Authenticator"
+msgstr "_Authenticator"
 
-#: src/Authenticator/widgets/accounts/row.py:100
-msgid "The PIN of {} was copied to the clipboard"
-msgstr "{} kontuaren PINa arbelean kopiatu da"
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "FreeOTP+ aplikazioarekin bateragarria den testu soilestu soileko JSON fitxategi batean"
 
-#: src/Authenticator/widgets/accounts/row.py:141
-msgid "The account was updated successfully"
-msgstr "Kontua ongi eguneratu da"
+#: src/backup/freeotp.rs:64
+msgid "A_uthenticator"
+msgstr "A_uthenticator"
 
-#: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:84
-msgid "Undo"
-msgstr "Desegin"
+#: src/backup/freeotp.rs:68
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "FreeOTP+ aplikazioarekin bateragarria den testu soilestu soileko JSON fitxategi batetik"
 
-#: src/Authenticator/widgets/notification.py:79
-msgid "Close the notification"
-msgstr "Itxi jakinarazpena"
+#. Translators: this is for restoring a backup from the old Authenticator release
+#: src/backup/legacy.rs:32
+msgid "Au_thenticator (Legacy)"
+msgstr "Au_thenticator (zaharra)"
 
-#: src/Authenticator/widgets/settings.py:170
-msgid "Save Password"
-msgstr "Gorde pasahitza"
+#: src/models/algorithm.rs:55
+msgid "Counter-based"
+msgstr "Kontagailuan oinarritua"
 
-#: src/Authenticator/widgets/settings.py:222
-msgid "Do you want to remove the authentication password?"
-msgstr "Autentifikazio-pasahitza kendu nahi duzu?"
+#: src/models/algorithm.rs:56
+msgid "Time-based"
+msgstr "Denboran oinarritua"
 
-#: src/Authenticator/widgets/settings.py:223
-msgid "Authentication password enforces the privacy of your accounts."
-msgstr "Autentifikazio-pasahitzak zure kontuen pribatutasuna sendotzen du."
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:58
+msgid "Steam"
+msgstr "Steam"
 
-#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
-msgid "JSON files"
-msgstr "JSON fitxategiak"
+#: src/models/algorithm.rs:125
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:126
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:204
+msgid "Invalid Token"
+msgstr "Token baliogabea"
+
+#: src/widgets/window.rs:324
+msgid "Wrong Password"
+msgstr "Pasahitz okerra"
+
+#: src/widgets/preferences/password_page.rs:228
+#: src/widgets/preferences/password_page.rs:259
+msgid "Wrong Passphrase"
+msgstr "Pasaesaldi okerra"
+
+#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
+#: src/widgets/providers/page.rs:312
+msgid "Select"
+msgstr "Hautatu"
+
+#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
+#: src/widgets/providers/page.rs:313
+msgid "Cancel"
+msgstr "Utzi"
+
+#: src/widgets/providers/page.rs:176
+msgid "Editing Provider: {}"
+msgstr "Hornitzailea editatzen: {}"
+
+#: src/widgets/providers/page.rs:320
+msgid "Image"
+msgstr "Irudia"
+
+#: src/widgets/providers/page.rs:356
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "Hornitzaileak kontuak esleituta ditu, kendu horiek lehenengo"
+
+#~ msgid "A Two-Factor Authentication application"
+#~ msgstr "Bi faktoreko autentifikaziorako aplikazioa"
+
+#~ msgid "QR code scanner"
+#~ msgstr "QR kodeen eskanerra"
+
+#~ msgid "Huge database of more than 560 supported services"
+#~ msgstr "560 zerbitzu baino gehiago onartzen dituen datu-base erraldoia"
+
+#~ msgid "Automatically fetch an image for services using their favicon"
+#~ msgstr ""
+#~ "Atzitu automatikoki irudi bat zerbitzuetarako, haien ikono txikia "
+#~ "erabilita"
+
+#~ msgid "The possibility to add new services"
+#~ msgstr "Zerbitzu gehiago gehitzeko aukera"
+
+#~ msgid "Dark theme and night light"
+#~ msgstr "Gai iluna eta gaueko argia"
+
+#~ msgid "Main Window - empty state"
+#~ msgstr "Leiho nagusia - egoera hutsa"
+
+#~ msgid "Main Window - Accounts List"
+#~ msgstr "Leiho nagusia - kontuen zerrenda"
+
+#~ msgid "Night Light"
+#~ msgstr "Gaueko argia"
+
+#~ msgid "Automatically enable dark mode at night."
+#~ msgstr "Gaitu automatikoki modu iluna gauean"
+
+#~ msgid "Add"
+#~ msgstr "Gehitu"
+
+#~ msgid "Account Name"
+#~ msgstr "Kontuaren izena"
+
+#~ msgid "Enable 2FA for this account"
+#~ msgstr "Gaitu 2FA kontu honetarako"
+
+#~ msgid "Edit"
+#~ msgstr "Editatu"
+
+#~ msgid "Confirm New Password:"
+#~ msgstr "Baieztatu pasahitz berria:"
+
+#~ msgid "Delete Password"
+#~ msgstr "Ezabatu pasahitza"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show Shortcuts"
+#~ msgstr "Erakutsi lasterbideak"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Add"
+#~ msgstr "Gehitu"
+
+#~ msgid "There are no accounts yet…"
+#~ msgstr "Ez dago konturik oraindik…"
+
+#~ msgid "Add a new account from the menu"
+#~ msgstr "Gehitu kontu berria menutik"
+
+#~ msgid "Scan a QR Code"
+#~ msgstr "Eskaneatu QR kodea"
+
+#~ msgid "Start in debug mode"
+#~ msgstr "Abiarazi arazteko modua"
+
+#~ msgid "Donate"
+#~ msgstr "Egin dohaintza"
+
+#~ msgid "Default"
+#~ msgstr "Lehenetsia"
+
+#~ msgid "The One-Time Passwords expire in {} seconds"
+#~ msgstr "Denbora bateko pasahitzak {} segundotan iraungiko dira"
+
+#~ msgid "Couldn't generate the secret code"
+#~ msgstr "Ezin izan da kode sekretua sortu"
+
+#~ msgid "The PIN of {} was copied to the clipboard"
+#~ msgstr "{} kontuaren PINa arbelean kopiatu da"
+
+#~ msgid "The account was updated successfully"
+#~ msgstr "Kontua ongi eguneratu da"
+
+#~ msgid "Undo"
+#~ msgstr "Desegin"
+
+#~ msgid "Close the notification"
+#~ msgstr "Itxi jakinarazpena"
+
+#~ msgid "Save Password"
+#~ msgstr "Gorde pasahitza"
+
+#~ msgid "Do you want to remove the authentication password?"
+#~ msgstr "Autentifikazio-pasahitza kendu nahi duzu?"
+
+#~ msgid "Authentication password enforces the privacy of your accounts."
+#~ msgstr "Autentifikazio-pasahitzak zure kontuen pribatutasuna sendotzen du."
+
+#~ msgid "JSON files"
+#~ msgstr "JSON fitxategiak"
