@@ -343,7 +343,7 @@ impl Window {
         self_
             .password_entry
             .connect_activate(clone!(@weak self as win => move |_| {
-                WidgetExt::activate_action(&win, "unlock", None);
+                WidgetExt::activate_action(&win, "win.unlock", None);
             }));
 
         // On each click or key pressed we restart the timeout.
