@@ -270,6 +270,7 @@ glib::wrapper! {
 }
 
 impl Provider {
+    #[allow(clippy::too_many_arguments)]
     pub fn create(
         name: &str,
         period: u32,

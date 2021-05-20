@@ -5,6 +5,7 @@ use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
 use serde::{Deserialize, Serialize};
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AndOTP {
     pub secret: String,

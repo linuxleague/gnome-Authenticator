@@ -5,6 +5,7 @@ use crate::{
 use percent_encoding::percent_decode_str;
 use std::str::FromStr;
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Clone)]
 pub struct OTPUri {
     pub algorithm: Algorithm,
@@ -129,28 +130,28 @@ impl FromStr for OTPUri {
     }
 }
 
-impl Into<String> for OTPUri {
-    fn into(self) -> String {
+impl From<OTPUri> for String {
+    fn from(val: OTPUri) -> Self {
         let mut otp_uri = format!(
             "otpauth://{}/{}?secret={}&issuer={}&algorithm={}",
-            self.method.to_string(),
-            self.label,
-            self.secret,
-            self.issuer,
-            self.algorithm.to_string(),
+            val.method.to_string(),
+            val.label,
+            val.secret,
+            val.issuer,
+            val.algorithm.to_string(),
         );
-        if let Some(digits) = self.digits {
+        if let Some(digits) = val.digits {
             otp_uri.push_str(&format!("&digits={}", digits));
         }
-        if self.method == OTPMethod::HOTP {
+        if val.method == OTPMethod::HOTP {
             otp_uri.push_str(&format!(
                 "&counter={}",
-                self.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER)
+                val.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER)
             ));
         } else {
             otp_uri.push_str(&format!(
                 "&period={}",
-                self.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD)
+                val.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD)
             ));
         }
         otp_uri

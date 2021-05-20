@@ -307,10 +307,11 @@ impl Window {
             "unlock",
             clone!(@weak self as win, @weak password_entry, @weak app => move |_, _| {
                 let password = password_entry.get_text();
-                if Keyring::is_current_password(&password).unwrap_or_else(|err| {
+                let is_current_password = Keyring::is_current_password(&password).unwrap_or_else(|err| {
                     debug!("Could not verify password: {:?}", err);
                     false
-                }) {
+                });
+                if is_current_password {
                     password_entry.set_text("");
                     app.set_locked(false);
                     app.restart_lock_timeout();

@@ -51,7 +51,7 @@ impl RestorableItem for LegacyAuthenticator {
     fn issuer(&self) -> String {
         self.tags
             .get(0)
-            .map(|s| s.clone())
+            .cloned()
             .unwrap_or_else(|| "Default".to_string())
     }
 

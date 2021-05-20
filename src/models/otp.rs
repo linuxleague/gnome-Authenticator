@@ -280,11 +280,11 @@ mod tests {
 
     #[test]
     fn test_otp_format() {
-        assert_eq!(format(01234, 5), "01 234");
-        assert_eq!(format(01234, 6), "001 234");
+        assert_eq!(format(1234, 5), "01 234");
+        assert_eq!(format(1234, 6), "001 234");
         assert_eq!(format(123456, 6), "123 456");
-        assert_eq!(format(01234, 7), "0 001 234");
-        assert_eq!(format(01234567, 8), "01 234 567");
+        assert_eq!(format(1234, 7), "0 001 234");
+        assert_eq!(format(1234567, 8), "01 234 567");
         assert_eq!(format(12345678, 8), "12 345 678");
     }
 }

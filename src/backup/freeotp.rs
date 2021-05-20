@@ -6,6 +6,7 @@ use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct FreeOTP {}
 

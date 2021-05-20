@@ -45,7 +45,7 @@ impl RestorableItem for BitwardenItem {
     }
 
     fn secret(&self) -> String {
-        self.login.clone().unwrap().totp.clone().unwrap()
+        self.login.clone().unwrap().totp.unwrap()
     }
 
     fn period(&self) -> Option<u32> {

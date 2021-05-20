@@ -253,7 +253,7 @@ impl ProviderPage {
                 .unwrap()
                 .split('.')
                 .last()
-                .unwrap_or_else(|| "png");
+                .unwrap_or("png");
 
             let icon_name = format!(
                 "{}.{}",

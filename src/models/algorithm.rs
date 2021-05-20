@@ -4,6 +4,7 @@ use ring::hmac;
 use serde::{de::Deserializer, ser::Serializer, Deserialize, Serialize};
 use std::{str::FromStr, string::ToString};
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
 #[repr(u32)]
 #[genum(type_name = "ProviderMethod")]
@@ -83,6 +84,7 @@ impl ToString for OTPMethod {
     }
 }
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
 #[repr(u32)]
 #[genum(type_name = "ProviderAlgorithm")]
