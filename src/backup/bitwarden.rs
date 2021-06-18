@@ -9,31 +9,51 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Bitwarden {
-    pub encrypted: bool,
-    pub items: Vec<BitwardenItem>,
+    items: Vec<BitwardenItem>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct BitwardenItem {
     #[serde(rename = "name")]
-    pub issuer: Option<String>,
-    pub login: Option<BitwardenDetails>,
-    #[serde(skip_serializing)]
-    pub algorithm: Algorithm,
-    #[serde(skip_serializing)]
-    pub method: OTPMethod,
-    #[serde(skip_serializing)]
-    pub digits: Option<u32>,
-    #[serde(skip_serializing)]
-    pub period: Option<u32>,
-    #[serde(skip_serializing)]
-    pub counter: Option<u32>,
+    issuer: Option<String>,
+    login: Option<BitwardenDetails>,
+    #[serde(skip)]
+    algorithm: Algorithm,
+    #[serde(skip)]
+    method: OTPMethod,
+    #[serde(skip)]
+    digits: Option<u32>,
+    #[serde(skip)]
+    period: Option<u32>,
+    #[serde(skip)]
+    counter: Option<u32>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct BitwardenDetails {
-    pub username: Option<String>,
-    pub totp: Option<String>,
+struct BitwardenDetails {
+    username: Option<String>,
+    totp: Option<String>,
+}
+
+impl Bitwarden {
+    fn restore_from_slice(data: &[u8]) -> Result<Vec<BitwardenItem>> {
+        let bitwarden_root: Bitwarden = serde_json::de::from_slice(&data)?;
+
+        let mut items = Vec::new();
+
+        for mut item in bitwarden_root.items {
+            if let Some(ref login) = item.login {
+                if let Some(ref totp) = login.totp {
+                    if let Ok(uri) = OTPUri::from_str(&totp) {
+                        item.overwrite_with(uri);
+                    }
+                    items.push(item);
+                }
+            }
+        }
+
+        Ok(items)
+    }
 }
 
 impl RestorableItem for BitwardenItem {
@@ -123,22 +143,96 @@ impl Restorable for Bitwarden {
 
     fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
+        Bitwarden::restore_from_slice(&data)
+    }
+}
 
-        let bitwarden_root: Bitwarden = serde_json::de::from_slice(&data)?;
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_bitwarden_restore_otpauth() {
+        let bitwarden_data = r#"{
+  "items": [
+    {
+      "id": "6095e880-06e0-4073-b38e-aade00f849d2",
+      "organizationId": null,
+      "folderId": null,
+      "type": 1,
+      "name": "test.com",
+      "notes": null,
+      "favorite": false,
+      "login": {
+        "uris": [
+          {
+            "match": null,
+            "uri": "https://test.com"
+          }
+        ],
+        "username": "test@testmail.com",
+        "password": "äö^ 4234",
+        "totp": "otpauth://totp/test.com:source.test_test%40testmail.com?secret=S22VG5VDNIUK2YIOMPNJ2ADNM3FNZSR2&issuer=test.com"
+      },
+      "collectionIds": null
+    }
+  ]
+}"#;
 
-        let mut items = Vec::new();
+        let bitwarden_items = Bitwarden::restore_from_slice(&bitwarden_data.as_bytes())
+            .expect("Restoring from json should work");
 
-        for mut item in bitwarden_root.items {
-            if let Some(ref login) = item.login {
-                if let Some(ref totp) = login.totp {
-                    if let Ok(uri) = OTPUri::from_str(&totp) {
-                        item.overwrite_with(uri);
-                    }
-                    items.push(item);
-                }
-            }
-        }
+        assert_eq!(bitwarden_items[0].account(), "test@testmail.com");
+        assert_eq!(bitwarden_items[0].issuer(), "test.com");
+        assert_eq!(
+            bitwarden_items[0].secret(),
+            "S22VG5VDNIUK2YIOMPNJ2ADNM3FNZSR2"
+        );
+        assert_eq!(bitwarden_items[0].period(), None);
+        assert_eq!(bitwarden_items[0].algorithm(), Algorithm::default());
+        assert_eq!(bitwarden_items[0].digits(), None);
+        assert_eq!(bitwarden_items[0].counter(), None);
+    }
 
-        Ok(items)
+    #[test]
+    fn test_bitwarden_restore_totp_number() {
+        let bitwarden_data = r#"{
+  "items": [
+    {
+      "id": "6095e880-06e0-4073-b38e-aade00f849d2",
+      "organizationId": null,
+      "folderId": null,
+      "type": 1,
+      "name": "test.com",
+      "notes": null,
+      "favorite": false,
+      "login": {
+        "uris": [
+          {
+            "match": null,
+            "uri": "https://test.com"
+          }
+        ],
+        "username": "test@testmail.com",
+        "password": "27ß4357ß2345%",
+        "totp": "xkbu m5fw xxaa jqml 64qh yhi2 xdyf wjz2"
+      },
+      "collectionIds": null
+    }
+  ]
+}"#;
+
+        let bitwarden_items = Bitwarden::restore_from_slice(&bitwarden_data.as_bytes())
+            .expect("Restoring from json should work");
+
+        assert_eq!(bitwarden_items[0].account(), "test@testmail.com");
+        assert_eq!(bitwarden_items[0].issuer(), "test.com");
+        assert_eq!(
+            bitwarden_items[0].secret(),
+            "xkbu m5fw xxaa jqml 64qh yhi2 xdyf wjz2"
+        );
+        assert_eq!(bitwarden_items[0].period(), None);
+        assert_eq!(bitwarden_items[0].algorithm(), Algorithm::default());
+        assert_eq!(bitwarden_items[0].digits(), None);
+        assert_eq!(bitwarden_items[0].counter(), None);
     }
 }
