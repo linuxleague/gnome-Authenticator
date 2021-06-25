@@ -4,7 +4,7 @@ name = "authenticator"
 version = "0.1.0"
 
 [dependencies]
-adw = {package = "libadwaita", git = "https://gitlab.gnome.org/bilelmoussaoui/libadwaita-rs"}
+adw = {package = "libadwaita", git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs"}
 anyhow = "1.0"
 ashpd = {git = "https://github.com/bilelmoussaoui/ashpd", features = ["feature_gtk4"]}
 async-std = "1.9"
@@ -12,11 +12,11 @@ binascii = "0.1"
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "1.4", features = ["sqlite"]}
 futures = "0.3"
-gettext-rs = {version = "0.6", features = ["gettext-system"]}
+gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs"}
 gst_base = {package = "gstreamer-base", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs"}
 gtk = {git = "https://github.com/gtk-rs/gtk4-rs", package = "gtk4"}
-gtk-macros = "0.2"
+gtk-macros = "0.3"
 hex = "0.4"
 image = "0.23"
 log = "0.4"
