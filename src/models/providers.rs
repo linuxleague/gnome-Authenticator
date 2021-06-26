@@ -19,13 +19,13 @@ mod imp {
     }
     impl ObjectImpl for ProvidersModel {}
     impl ListModelImpl for ProvidersModel {
-        fn get_item_type(&self, _list_model: &Self::Type) -> glib::Type {
+        fn item_type(&self, _list_model: &Self::Type) -> glib::Type {
             Provider::static_type()
         }
-        fn get_n_items(&self, _list_model: &Self::Type) -> u32 {
+        fn n_items(&self, _list_model: &Self::Type) -> u32 {
             self.0.borrow().len() as u32
         }
-        fn get_item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+        fn item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
             self.0
                 .borrow()
                 .get(position as usize)
@@ -81,8 +81,8 @@ impl ProvidersModel {
     }
 
     pub fn find_by_name(&self, name: &str) -> Option<Provider> {
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos)?;
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos)?;
             let provider = obj.downcast::<Provider>().unwrap();
             if provider.name() == name {
                 return Some(provider);
@@ -92,8 +92,8 @@ impl ProvidersModel {
     }
 
     pub fn find_by_id(&self, id: u32) -> Option<Provider> {
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos)?;
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos)?;
             let provider = obj.downcast::<Provider>().unwrap();
             if provider.id() == id {
                 return Some(provider);
@@ -104,8 +104,8 @@ impl ProvidersModel {
 
     pub fn has_providers(&self) -> bool {
         let mut found = false;
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos).unwrap();
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos).unwrap();
             let provider = obj.downcast::<Provider>().unwrap();
             if provider.has_accounts() {
                 found = true;
@@ -117,13 +117,12 @@ impl ProvidersModel {
 
     pub fn completion_model(&self) -> gtk::ListStore {
         let store = gtk::ListStore::new(&[u32::static_type(), String::static_type()]);
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos).unwrap();
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos).unwrap();
             let provider = obj.downcast_ref::<Provider>().unwrap();
             store.set(
                 &store.append(),
-                &[0, 1],
-                &[&provider.id(), &provider.name()],
+                &[(0, &provider.id()), (1, &provider.name())],
             );
         }
         store
@@ -142,8 +141,8 @@ impl ProvidersModel {
     pub fn delete_provider(&self, provider: &Provider) {
         let self_ = imp::ProvidersModel::from_instance(self);
         let mut provider_pos = None;
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos).unwrap();
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos).unwrap();
             let p = obj.downcast::<Provider>().unwrap();
             if p.id() == provider.id() {
                 provider_pos = Some(pos);
@@ -161,8 +160,8 @@ impl ProvidersModel {
 
     pub fn add_account(&self, account: &Account, provider: &Provider) {
         let mut found = false;
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos).unwrap();
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos).unwrap();
             let p = obj.downcast_ref::<Provider>().unwrap();
             if p.id() == provider.id() {
                 found = true;

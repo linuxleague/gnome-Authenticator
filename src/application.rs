@@ -7,7 +7,6 @@ use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use gtk_macros::{action, get_action};
-use std::env;
 
 mod imp {
     use super::*;
@@ -54,14 +53,14 @@ mod imp {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::boolean(
+                    ParamSpec::new_boolean(
                         "locked",
                         "locked",
                         "locked",
                         false,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::boolean(
+                    ParamSpec::new_boolean(
                         "can-be-locked",
                         "can_be_locked",
                         "can be locked",
@@ -79,21 +78,21 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "locked" => {
-                    let locked = value.get().unwrap().unwrap();
+                    let locked = value.get().unwrap();
                     self.locked.set(locked);
                 }
                 "can-be-locked" => {
-                    let can_be_locked = value.get().unwrap().unwrap();
+                    let can_be_locked = value.get().unwrap();
                     self.can_be_locked.set(can_be_locked);
                 }
                 _ => unimplemented!(),
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "locked" => self.locked.get().to_value(),
                 "can-be-locked" => self.can_be_locked.get().to_value(),
                 _ => unimplemented!(),
@@ -113,14 +112,14 @@ mod imp {
             adw::functions::init();
 
             let app = app.downcast_ref::<super::Application>().unwrap();
-            if let Some(ref display) = gtk::gdk::Display::get_default() {
+            if let Some(ref display) = gtk::gdk::Display::default() {
                 let p = gtk::CssProvider::new();
                 gtk::CssProvider::load_from_resource(
                     &p,
                     "/com/belmoussaoui/Authenticator/style.css",
                 );
                 gtk::StyleContext::add_provider_for_display(display, &p, 500);
-                let theme = gtk::IconTheme::get_for_display(display).unwrap();
+                let theme = gtk::IconTheme::for_display(display).unwrap();
                 theme.add_resource_path("/com/belmoussaoui/Authenticator/icons/");
             }
 
@@ -140,7 +139,7 @@ mod imp {
                 app,
                 "preferences",
                 clone!(@weak app, @weak self.model as model  => move |_,_| {
-                    let active_window = app.get_active_window().unwrap();
+                    let active_window = app.active_window().unwrap();
                     let win = active_window.downcast_ref::<Window>().unwrap();
 
                     let preferences = PreferencesWindow::new(model);
@@ -163,7 +162,7 @@ mod imp {
                 app,
                 "about",
                 clone!(@weak app => move |_, _| {
-                    let window = app.get_active_window().unwrap();
+                    let window = app.active_window().unwrap();
                     let about_dialog = gtk::AboutDialogBuilder::new()
                         .program_name(&gettext("Authenticator"))
                         .modal(true)
@@ -185,7 +184,7 @@ mod imp {
                 app,
                 "providers",
                 clone!(@weak app,@weak self.model as model => move |_, _| {
-                    let window = app.get_active_window().unwrap();
+                    let window = app.active_window().unwrap();
                     let providers = ProvidersDialog::new(model);
                     let win = window.downcast_ref::<Window>().unwrap();
                     providers.connect_local("changed", false, clone!(@weak win => @default-return None, move |_| {
@@ -225,7 +224,7 @@ mod imp {
                 clone!(@weak app => move |settings, key| {
                     match key {
                         "auto-lock" => {
-                            match settings.get_boolean(key) {
+                            match settings.boolean(key) {
                                 true => app.restart_lock_timeout(),
                                 false => app.cancel_lock_timeout(),
                             }
@@ -295,15 +294,11 @@ impl Application {
         ])
         .unwrap();
 
-        let args: Vec<String> = env::args().collect();
-        ApplicationExtManual::run(&app, &args);
+        ApplicationExtManual::run(&app);
     }
 
     pub fn locked(&self) -> bool {
-        self.get_property("locked")
-            .unwrap()
-            .get_some::<bool>()
-            .unwrap()
+        self.property("locked").unwrap().get::<bool>().unwrap()
     }
 
     pub fn set_locked(&self, state: bool) {
@@ -312,9 +307,9 @@ impl Application {
     }
 
     pub fn can_be_locked(&self) -> bool {
-        self.get_property("can-be-locked")
+        self.property("can-be-locked")
             .unwrap()
-            .get_some::<bool>()
+            .get::<bool>()
             .unwrap()
     }
 
@@ -331,8 +326,8 @@ impl Application {
     /// Starts or restarts the lock timeout.
     pub fn restart_lock_timeout(&self) {
         let self_ = imp::Application::from_instance(self);
-        let auto_lock = self_.settings.get_boolean("auto-lock");
-        let timeout = self_.settings.get_uint("auto-lock-timeout") * 60;
+        let auto_lock = self_.settings.boolean("auto-lock");
+        let timeout = self_.settings.uint("auto-lock-timeout") * 60;
 
         if !auto_lock {
             return;

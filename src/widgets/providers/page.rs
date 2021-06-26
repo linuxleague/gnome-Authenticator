@@ -2,9 +2,9 @@ use crate::{
     models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch, FAVICONS_PATH},
     widgets::{ErrorRevealer, ProviderImage},
 };
-use adw::ComboRowExt;
+use adw::prelude::*;
 use gettextrs::gettext;
-use glib::{clone, translate::ToGlib};
+use glib::{clone, translate::IntoGlib};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 
@@ -165,7 +165,7 @@ impl ProviderPage {
             self_.algorithm_comborow.set_selected(
                 self_
                     .algorithms_model
-                    .find_position(provider.algorithm().to_glib()),
+                    .find_position(provider.algorithm().into_glib()),
             );
 
             self_
@@ -176,7 +176,7 @@ impl ProviderPage {
             self_.method_comborow.set_selected(
                 self_
                     .methods_model
-                    .find_position(provider.method().to_glib()),
+                    .find_position(provider.method().into_glib()),
             );
             self_.image.set_provider(Some(&provider));
             self_
@@ -195,7 +195,7 @@ impl ProviderPage {
             self_.algorithm_comborow.set_selected(
                 self_
                     .algorithms_model
-                    .find_position(Algorithm::default().to_glib()),
+                    .find_position(Algorithm::default().into_glib()),
             );
 
             self_
@@ -208,7 +208,7 @@ impl ProviderPage {
             self_.method_comborow.set_selected(
                 self_
                     .methods_model
-                    .find_position(OTPMethod::default().to_glib()),
+                    .find_position(OTPMethod::default().into_glib()),
             );
             self_.image.set_provider(None);
             self_.title.set_text(&gettext("New Provider"));
@@ -221,9 +221,9 @@ impl ProviderPage {
     fn validate(&self) {
         let self_ = imp::ProviderPage::from_instance(self);
 
-        let provider_name = self_.name_entry.get_text();
-        let provider_website = self_.provider_website_entry.get_text();
-        let provider_help_url = self_.provider_help_entry.get_text();
+        let provider_name = self_.name_entry.text();
+        let provider_website = self_.provider_website_entry.text();
+        let provider_help_url = self_.provider_help_entry.text();
 
         let is_valid = !provider_name.is_empty()
             && (provider_website.is_empty() || url::Url::parse(&provider_website).is_ok())
@@ -236,17 +236,17 @@ impl ProviderPage {
     fn save(&self) -> anyhow::Result<()> {
         let self_ = imp::ProviderPage::from_instance(self);
 
-        let name = self_.name_entry.get_text();
-        let website = self_.provider_website_entry.get_text().to_string();
-        let help_url = self_.provider_help_entry.get_text().to_string();
-        let period = self_.period_spinbutton.get_value() as u32;
-        let digits = self_.digits_spinbutton.get_value() as u32;
-        let method = OTPMethod::from(self_.method_comborow.get_selected());
-        let algorithm = Algorithm::from(self_.algorithm_comborow.get_selected());
-        let default_counter = self_.default_counter_spinbutton.get_value() as u32;
+        let name = self_.name_entry.text();
+        let website = self_.provider_website_entry.text().to_string();
+        let help_url = self_.provider_help_entry.text().to_string();
+        let period = self_.period_spinbutton.value() as u32;
+        let digits = self_.digits_spinbutton.value() as u32;
+        let method = OTPMethod::from(self_.method_comborow.selected());
+        let algorithm = Algorithm::from(self_.algorithm_comborow.selected());
+        let default_counter = self_.default_counter_spinbutton.value() as u32;
 
         let image_uri = if let Some(file) = self_.selected_image.borrow().clone() {
-            let basename = file.get_basename().unwrap();
+            let basename = file.basename().unwrap();
             println!("{:#?}", basename);
             let extension = basename
                 .to_str()
@@ -263,7 +263,7 @@ impl ProviderPage {
 
             let image_dest = FAVICONS_PATH.join(icon_name.as_str());
 
-            let dest_file = gio::File::new_for_path(image_dest);
+            let dest_file = gio::File::for_path(image_dest);
             dest_file
                 .create(
                     gio::FileCreateFlags::REPLACE_DESTINATION,
@@ -277,7 +277,7 @@ impl ProviderPage {
                 None,
             )?;
 
-            Some(dest_file.get_uri().to_string())
+            Some(dest_file.uri().to_string())
         } else {
             None
         };
@@ -314,7 +314,7 @@ impl ProviderPage {
 
     fn open_select_image(&self) {
         let self_ = imp::ProviderPage::from_instance(self);
-        let parent = self.get_root().unwrap().downcast::<gtk::Window>().unwrap();
+        let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
 
         let file_chooser = gtk::FileChooserNativeBuilder::new()
             .accept_label(&gettext("Select"))
@@ -331,7 +331,7 @@ impl ProviderPage {
 
         file_chooser.connect_response(clone!(@weak self as page => move |dialog, response| {
             if response == gtk::ResponseType::Accept {
-                let file = dialog.get_file().unwrap();
+                let file = dialog.file().unwrap();
                 page.set_image(file);
             }
             let self_ = imp::ProviderPage::from_instance(&page);
@@ -416,11 +416,11 @@ impl ProviderPage {
             .algorithm_comborow
             .set_model(Some(&self_.algorithms_model));
 
-        self_.method_comborow.connect_property_selected_item_notify(
-            clone!(@weak self as page => move |_| {
+        self_
+            .method_comborow
+            .connect_selected_item_notify(clone!(@weak self as page => move |_| {
                 page.on_method_changed();
-            }),
-        );
+            }));
 
         let validate_cb = clone!(@weak self as page => move |_: &gtk::Entry| {
             page.validate();
@@ -438,7 +438,7 @@ impl ProviderPage {
     fn on_method_changed(&self) {
         let self_ = imp::ProviderPage::from_instance(self);
 
-        let selected = OTPMethod::from(self_.method_comborow.get_selected());
+        let selected = OTPMethod::from(self_.method_comborow.selected());
         match selected {
             OTPMethod::TOTP => {
                 self_.default_counter_row.hide();
@@ -471,7 +471,7 @@ impl ProviderPage {
                     .set_value(otp::STEAM_DEFAULT_PERIOD as f64);
                 self_
                     .algorithm_comborow
-                    .set_selected(Algorithm::default().to_glib() as u32);
+                    .set_selected(Algorithm::default().into_glib() as u32);
             }
         }
 

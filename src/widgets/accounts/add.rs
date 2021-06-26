@@ -133,8 +133,8 @@ impl AccountAddDialog {
 
     fn validate(&self) {
         let self_ = imp::AccountAddDialog::from_instance(self);
-        let username = self_.username_entry.get_text();
-        let token = self_.token_entry.get_text();
+        let username = self_.username_entry.text();
+        let token = self_.token_entry.text();
 
         let is_valid = !(username.is_empty() || token.is_empty());
         get_action!(self_.actions, @save).set_enabled(is_valid);
@@ -194,8 +194,8 @@ impl AccountAddDialog {
         let self_ = imp::AccountAddDialog::from_instance(self);
 
         if let Some(ref provider) = *self_.selected_provider.borrow() {
-            let username = self_.username_entry.get_text();
-            let token = self_.token_entry.get_text();
+            let username = self_.username_entry.text();
+            let token = self_.token_entry.text();
             if !otp::is_valid(&token) {
                 self_.error_revealer.popup(&gettext("Invalid Token"));
                 anyhow::bail!("Token {} is not a valid Base32 secret", &token);
@@ -261,7 +261,7 @@ impl AccountAddDialog {
             "previous",
             clone!(@weak self as dialog => move |_, _| {
                 let self_ = imp::AccountAddDialog::from_instance(&dialog);
-                if self_.deck.get_visible_child_name().unwrap() == "camera" {
+                if self_.deck.visible_child_name().unwrap() == "camera" {
                     self_.deck.set_visible_child_name("main");
                 } else {
                     dialog.close();
@@ -306,7 +306,7 @@ impl AccountAddDialog {
 
         self_.provider_completion.connect_match_selected(
             clone!(@weak self as dialog, @strong self_.model as model => @default-return Inhibit(false), move |_, store, iter| {
-                let provider_id = store.get(iter, 0).get_some::<u32>().unwrap();
+                let provider_id = store.get(iter, 0).get::<u32>().unwrap();
                 let provider = model.get().unwrap().find_by_id(provider_id);
                 dialog.set_provider(provider);
 
@@ -320,7 +320,7 @@ impl AccountAddDialog {
                 "code-detected",
                 false,
                 clone!(@weak self as dialog => @default-return None, move |args| {
-                    let code = args.get(1).unwrap().get::<String>().unwrap().unwrap();
+                    let code = args.get(1).unwrap().get::<String>().unwrap();
                     if let Ok(otp_uri) = OTPUri::from_str(&code) {
                         dialog.set_from_otp_uri(otp_uri);
                     }

@@ -74,16 +74,12 @@ impl Backupable for AndOTP {
     fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
         let mut items = Vec::new();
 
-        for i in 0..model.get_n_items() {
-            let provider = model.get_object(i).unwrap().downcast::<Provider>().unwrap();
+        for i in 0..model.n_items() {
+            let provider = model.item(i).unwrap().downcast::<Provider>().unwrap();
             let accounts = provider.accounts_model();
 
-            for j in 0..accounts.get_n_items() {
-                let account = accounts
-                    .get_object(j)
-                    .unwrap()
-                    .downcast::<Account>()
-                    .unwrap();
+            for j in 0..accounts.n_items() {
+                let account = accounts.item(j).unwrap().downcast::<Account>().unwrap();
 
                 let otp_item = AndOTP {
                     secret: account.token(),

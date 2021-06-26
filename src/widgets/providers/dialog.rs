@@ -106,7 +106,7 @@ impl ProvidersDialog {
         self_
             .filter_model
             .connect_items_changed(clone!(@weak stack => move |model, _, _, _| {
-                if model.get_n_items() == 0 {
+                if model.n_items() == 0 {
                     stack.set_visible_child_name("no-results");
                 } else {
                     stack.set_visible_child_name("results");
@@ -115,7 +115,7 @@ impl ProvidersDialog {
 
         let search_entry = &*self_.search_entry;
         search_entry.connect_search_changed(clone!(@weak self as dialog => move |entry| {
-            let text = entry.get_text().to_string();
+            let text = entry.text().to_string();
             dialog.search(text);
         }));
 
@@ -129,7 +129,7 @@ impl ProvidersDialog {
 
         let title_stack = &*self_.title_stack;
         search_btn.connect_toggled(clone!(@weak title_stack, @weak search_entry => move |btn| {
-            if btn.get_active() {
+            if btn.is_active() {
                 title_stack.set_visible_child_name("search");
                 search_entry.grab_focus();
             } else {
@@ -145,11 +145,11 @@ impl ProvidersDialog {
         });
         factory.connect_bind(|_, list_item| {
             let row = list_item
-                .get_child()
+                .child()
                 .unwrap()
                 .downcast::<ProviderActionRow>()
                 .unwrap();
-            let item = list_item.get_item().unwrap();
+            let item = list_item.item().unwrap();
             let provider = item.downcast::<Provider>().unwrap();
             row.set_provider(provider);
         });
@@ -163,9 +163,9 @@ impl ProvidersDialog {
 
         self_.providers_list.connect_activate(
             clone!(@weak self as dialog => move |listview, pos| {
-                let model = listview.get_model().unwrap();
+                let model = listview.model().unwrap();
                 let provider = model
-                    .get_object(pos)
+                    .item(pos)
                     .unwrap()
                     .downcast::<Provider>()
                     .unwrap();
@@ -179,7 +179,7 @@ impl ProvidersDialog {
                 "created",
                 false,
                 clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                    let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
+                    let provider = args.get(1).unwrap().get::<Provider>().unwrap();
                     model.add_provider(&provider);
                     dialog.set_view(View::List);
                     dialog.emit_by_name("changed", &[]).unwrap();
@@ -207,7 +207,7 @@ impl ProvidersDialog {
                 "deleted",
                 false,
                 clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                    let provider = args.get(1).unwrap().get::<Provider>().unwrap().unwrap();
+                    let provider = args.get(1).unwrap().get::<Provider>().unwrap();
                     model.delete_provider(&provider);
                     dialog.set_view(View::List);
                     dialog.emit_by_name("changed", &[]).unwrap();
@@ -244,7 +244,7 @@ impl ProvidersDialog {
             self_.actions,
             "search",
             clone!(@weak search_btn => move |_,_| {
-                search_btn.set_active(!search_btn.get_active());
+                search_btn.set_active(!search_btn.is_active());
             })
         );
 
@@ -328,7 +328,7 @@ mod row {
             fn properties() -> &'static [ParamSpec] {
                 use once_cell::sync::Lazy;
                 static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![ParamSpec::object(
+                    vec![ParamSpec::new_object(
                         "provider",
                         "Provider",
                         "The Provider",
@@ -346,7 +346,7 @@ mod row {
                 value: &glib::Value,
                 pspec: &ParamSpec,
             ) {
-                match pspec.get_name() {
+                match pspec.name() {
                     "provider" => {
                         let provider = value.get().unwrap();
                         self.provider.replace(provider);
@@ -355,13 +355,8 @@ mod row {
                 }
             }
 
-            fn get_property(
-                &self,
-                _obj: &Self::Type,
-                _id: usize,
-                pspec: &ParamSpec,
-            ) -> glib::Value {
-                match pspec.get_name() {
+            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+                match pspec.name() {
                     "provider" => self.provider.borrow().to_value(),
                     _ => unimplemented!(),
                 }
@@ -409,8 +404,8 @@ mod row {
         }
 
         pub fn provider(&self) -> Option<Provider> {
-            let provider = self.get_property("provider").unwrap();
-            provider.get::<Provider>().unwrap()
+            let provider = self.property("provider").unwrap();
+            provider.get::<Option<Provider>>().unwrap()
         }
     }
 }

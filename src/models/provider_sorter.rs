@@ -18,7 +18,7 @@ mod imp {
 
     impl ObjectImpl for ProviderSorter {}
     impl SorterImpl for ProviderSorter {
-        fn get_order(&self, _sorter: &Self::Type) -> gtk::SorterOrder {
+        fn order(&self, _sorter: &Self::Type) -> gtk::SorterOrder {
             gtk::SorterOrder::Total
         }
 

@@ -4,9 +4,9 @@ name = "authenticator"
 version = "0.1.0"
 
 [dependencies]
-adw = {package = "libadwaita", git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs"}
+adw = {package = "libadwaita", git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs", rev = "a6dd64ab9a42a1f3f37b65d434506c0bc7273464"}
 anyhow = "1.0"
-ashpd = {git = "https://github.com/bilelmoussaoui/ashpd", features = ["feature_gtk4"]}
+ashpd = {git = "https://github.com/bilelmoussaoui/ashpd", rev="01ff64c5adfb2eef225ac5b0f3d4128c8488229d", features = ["feature_gtk4"]}
 async-std = "1.9"
 binascii = "0.1"
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}

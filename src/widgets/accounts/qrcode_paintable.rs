@@ -39,9 +39,9 @@ impl From<&str> for QRCodeData {
 mod imp {
 
     fn snapshot_qrcode(snapshot: &gtk::Snapshot, qrcode: &QRCodeData, width: f64, height: f64) {
-        let is_dark_theme = gtk::Settings::get_default()
+        let is_dark_theme = gtk::Settings::default()
             .unwrap()
-            .get_property_gtk_application_prefer_dark_theme();
+            .is_gtk_application_prefer_dark_theme();
         let square_height = height as f32 / qrcode.height as f32;
         let square_width = width as f32 / qrcode.width as f32;
 

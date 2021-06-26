@@ -63,14 +63,14 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::object(
+                    ParamSpec::new_object(
                         "provider",
                         "Provider",
                         "The accounts provider",
                         Provider::static_type(),
                         glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
                     ),
-                    ParamSpec::uint64(
+                    ParamSpec::new_uint64(
                         "remaining-time",
                         "remaining time",
                         "the remaining time",
@@ -109,21 +109,21 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "provider" => {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
                 "remaining-time" => {
-                    let remaining_time = value.get().unwrap().unwrap();
+                    let remaining_time = value.get().unwrap();
                     self.remaining_time.set(remaining_time);
                 }
                 _ => unimplemented!(),
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "provider" => self.provider.borrow().to_value(),
                 "remaining-time" => self.remaining_time.get().to_value(),
                 _ => unimplemented!(),
@@ -158,8 +158,8 @@ impl ProviderRow {
     }
 
     fn provider(&self) -> Provider {
-        let provider = self.get_property("provider").unwrap();
-        provider.get::<Provider>().unwrap().unwrap()
+        let provider = self.property("provider").unwrap();
+        provider.get::<Provider>().unwrap()
     }
 
     fn restart(&self) {
@@ -178,8 +178,8 @@ impl ProviderRow {
 
         // Tell all of the accounts to regen
         let accounts = provider.accounts();
-        for i in 0..accounts.get_n_items() {
-            let item = accounts.get_object(i).unwrap();
+        for i in 0..accounts.n_items() {
+            let item = accounts.item(i).unwrap();
             let account = item.downcast_ref::<Account>().unwrap();
             account.generate_otp();
         }

@@ -67,14 +67,14 @@ mod imp {
 
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::object(
+                    ParamSpec::new_object(
                         "provider",
                         "provider",
                         "Provider",
                         Provider::static_type(),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::uint(
+                    ParamSpec::new_uint(
                         "size",
                         "size",
                         "Image size",
@@ -94,21 +94,21 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "provider" => {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
                 "size" => {
-                    let size = value.get().unwrap().unwrap();
+                    let size = value.get().unwrap();
                     self.size.set(size);
                 }
                 _ => unimplemented!(),
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "provider" => self.provider.borrow().to_value(),
                 "size" => self.size.get().to_value(),
                 _ => unimplemented!(),
@@ -159,13 +159,13 @@ impl ProviderImage {
                     return;
                 }
 
-                let file = gio::File::new_for_uri(&uri);
+                let file = gio::File::for_uri(&uri);
                 if !file.query_exists(gio::NONE_CANCELLABLE) {
                     self.fetch();
                     return;
                 }
 
-                self_.image.set_from_file(file.get_path().unwrap());
+                self_.image.set_from_file(file.path().unwrap());
                 self_.stack.set_visible_child_name("image");
             }
             _ => {
@@ -199,13 +199,13 @@ impl ProviderImage {
     pub fn set_from_file(&self, file: &gio::File) {
         let self_ = imp::ProviderImage::from_instance(self);
 
-        self_.image.set_from_file(file.get_path().unwrap());
+        self_.image.set_from_file(file.path().unwrap());
         self_.stack.set_visible_child_name("image");
     }
 
     fn provider(&self) -> Option<Provider> {
-        let provider = self.get_property("provider").unwrap();
-        provider.get::<Provider>().unwrap()
+        let provider = self.property("provider").unwrap();
+        provider.get::<Option<Provider>>().unwrap()
     }
 
     fn setup_widgets(&self) {
@@ -229,8 +229,8 @@ impl ProviderImage {
                 "invalid".to_string()
             }
             ImageAction::Ready(image) => {
-                self_.image.set_from_file(image.get_path().unwrap());
-                let image_uri = image.get_uri();
+                self_.image.set_from_file(image.path().unwrap());
+                let image_uri = image.uri();
                 image_uri.to_string()
             }
         };

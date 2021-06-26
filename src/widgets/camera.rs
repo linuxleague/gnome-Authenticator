@@ -7,7 +7,7 @@ use gtk::{
     subclass::prelude::*,
     CompositeTemplate,
 };
-use gtk_macros::send;
+use gtk_macros::{send, spawn};
 use once_cell::sync::Lazy;
 /// Fancy Camera with QR code detection using ZBar
 ///
@@ -24,10 +24,7 @@ static PIPELINE_NAME: Lazy<glib::GString> = Lazy::new(|| glib::GString::from("ca
 
 mod screenshot {
     use anyhow::Result;
-    use ashpd::{
-        desktop::screenshot::{Screenshot, ScreenshotOptions, ScreenshotProxy},
-        zbus, RequestProxy, Response, WindowIdentifier,
-    };
+    use ashpd::{desktop::screenshot::ScreenshotProxy, zbus, WindowIdentifier};
     use gtk::{gio, prelude::*};
     use image::GenericImageView;
     use zbar_rust::ZBarImageScanner;
@@ -53,19 +50,13 @@ mod screenshot {
         anyhow::bail!("Invalid QR code")
     }
 
-    pub fn capture<F: FnOnce(gio::File)>(window: gtk::Window, callback: F) -> Result<()> {
-        let connection = zbus::Connection::new_session()?;
-        let proxy = ScreenshotProxy::new(&connection)?;
-        let handle = proxy.screenshot(
-            WindowIdentifier::from(window),
-            ScreenshotOptions::default().interactive(true).modal(true),
-        )?;
-        let request = RequestProxy::new(&connection, &handle)?;
-        request.on_response(move |response: Response<Screenshot>| {
-            if let Ok(screenshot) = response {
-                callback(gio::File::new_for_uri(&screenshot.uri));
-            }
-        })?;
+    pub async fn capture<F: FnOnce(gio::File)>(window: gtk::Window, callback: F) -> Result<()> {
+        let connection = zbus::azync::Connection::new_session().await?;
+        let proxy = ScreenshotProxy::new(&connection).await?;
+        let screenshot = proxy
+            .screenshot(WindowIdentifier::from_window(&window).await, true, true)
+            .await?;
+        callback(gio::File::for_uri(&screenshot.uri()));
         Ok(())
     }
 }
@@ -189,16 +180,16 @@ impl Camera {
         self_.monitor.add_filter(Some("Video/Source"), Some(&caps));
 
         self_.monitor.start().unwrap();
-        let bus = self_.monitor.get_bus();
+        let bus = self_.monitor.bus();
         bus.add_watch_local(clone!(@strong self_.sender as sender => move |_, msg| {
                 use gst::MessageView;
                 match msg.view() {
                     MessageView::DeviceAdded(event) => {
-                        let device = event.get_device();
+                        let device = event.device();
                         send!(sender, CameraEvent::DeviceAdded(device));
                     }
                     MessageView::DeviceRemoved(event) => {
-                        let device = event.get_device();
+                        let device = event.device();
                         send!(sender, CameraEvent::DeviceRemoved(device));
                     }
                     _ => (),
@@ -247,23 +238,23 @@ impl Camera {
         tee.link_pads(None, &queue2, None).unwrap();
         gst::Element::link_many(&[&queue2, &glsinkbin]).unwrap();
 
-        let bus = self_.pipeline.get_bus().unwrap();
+        let bus = self_.pipeline.bus().unwrap();
         bus.add_watch_local(clone!(@strong self_.sender as sender => move |_, msg| {
             use gst::MessageView;
             match msg.view() {
                 MessageView::StateChanged(state) => {
-                    if Some(&*PIPELINE_NAME) == state.get_src().map(|s| s.get_name()).as_ref() {
-                        let structure = state.get_structure().unwrap();
+                    if Some(&*PIPELINE_NAME) == state.src().map(|s| s.name()).as_ref() {
+                        let structure = state.structure().unwrap();
                         let new_state = structure.get::<gst::State>("new-state")
-                            .unwrap().unwrap();
+                            .unwrap();
                         if new_state == gst::State::Playing {
                             send!(sender, CameraEvent::StreamStarted);
                         }
                     }
                 }
                 MessageView::Element(e) => {
-                    if let Some(s) = e.get_structure() {
-                        if let Ok(Some(symbol)) = s.get::<String>("symbol") {
+                    if let Some(s) = e.structure() {
+                        if let Ok(symbol) = s.get::<String>("symbol") {
                            send!(sender, CameraEvent::CodeDetected(symbol));
                         }
                     }
@@ -271,9 +262,9 @@ impl Camera {
                 MessageView::Error(err) => {
                     error!(
                         "Error from {:?}: {} ({:?})",
-                        err.get_src().map(|s| s.get_path_string()),
-                        err.get_error(),
-                        err.get_debug()
+                        err.src().map(|s| s.path_string()),
+                        err.error(),
+                        err.debug()
                     );
                 }
                 _ => (),
@@ -310,14 +301,14 @@ impl Camera {
                 self.emit_by_name("code-detected", &[&code]).unwrap();
             }
             CameraEvent::DeviceAdded(device) => {
-                info!("Camera source added: {}", device.get_display_name());
+                info!("Camera source added: {}", device.display_name());
                 self_.devices.append(&device);
                 if self_.selected_device.borrow_mut().is_none() {
                     send!(self_.sender, CameraEvent::DeviceSelected(device));
                 }
             }
             CameraEvent::DeviceSelected(device) => {
-                info!("Camera source selected: {}", device.get_display_name());
+                info!("Camera source selected: {}", device.display_name());
                 // TODO: allow selecting a device and update the sink on the pipeline
                 self.set_state(CameraState::Loading);
                 let element = device.create_element(None).unwrap();
@@ -325,7 +316,7 @@ impl Camera {
                 self_.selected_device.replace(Some(device));
             }
             CameraEvent::DeviceRemoved(device) => {
-                info!("Camera source removed: {}", device.get_display_name());
+                info!("Camera source removed: {}", device.display_name());
                 self_.devices.append(&device);
             }
             CameraEvent::StreamStarted => {
@@ -338,27 +329,34 @@ impl Camera {
 
     pub fn start(&self) {
         let self_ = imp::Camera::from_instance(self);
-        self_.pipeline.set_state(gst::State::Playing).unwrap();
+        if let Err(err) = self_.pipeline.set_state(gst::State::Playing) {
+            log::error!("Failed to start the camera stream: {}", err);
+        }
     }
 
     pub fn stop(&self) {
         let self_ = imp::Camera::from_instance(self);
         self.set_state(CameraState::Paused);
-        self_.pipeline.set_state(gst::State::Null).unwrap();
+        if let Err(err) = self_.pipeline.set_state(gst::State::Null) {
+            log::error!("Failed to stop the camera stream: {}", err);
+        }
     }
 
     pub fn from_screenshot(&self) {
-        let self_ = imp::Camera::from_instance(self);
-        let window = self.get_root().unwrap().downcast::<gtk::Window>().unwrap();
-        screenshot::capture(
-            window,
-            clone!(@strong self_.sender as sender => move |file| {
-                if let Ok(code) = screenshot::scan(&file) {
-                    send!(sender, CameraEvent::CodeDetected(code));
-                }
-            }),
-        )
-        .ok();
+        spawn!(clone!(@weak self as this => async move {
+            let self_ = imp::Camera::from_instance(&this);
+            let window = this.root().unwrap().downcast::<gtk::Window>().unwrap();
+            if let Err(err) = screenshot::capture(
+                window,
+                clone!(@strong self_.sender as sender => move |file| {
+                    if let Ok(code) = screenshot::scan(&file) {
+                        send!(sender, CameraEvent::CodeDetected(code));
+                    }
+                }),
+            ).await {
+                log::warn!("Failed to take a screenshot: {}", err);
+            }
+        }));
     }
 
     fn init_widgets(&self) {
@@ -372,10 +370,9 @@ impl Camera {
 
         let widget = self_
             .sink
-            .get_property("widget")
+            .property("widget")
             .unwrap()
             .get::<gtk::Widget>()
-            .unwrap()
             .unwrap();
         widget.set_property("force-aspect-ratio", &false).unwrap();
         self_.overlay.get().set_child(Some(&widget));

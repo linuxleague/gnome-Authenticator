@@ -1,6 +1,7 @@
-use adw::ActionRowExt;
-use glib::{clone, ObjectExt, ToValue};
-use gtk::{glib, subclass::prelude::*, WidgetExt};
+use adw::prelude::*;
+use glib::{clone, ToValue};
+use gtk::prelude::*;
+use gtk::{glib, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -26,14 +27,14 @@ mod imp {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "uri",
                         "uri",
                         "The Row URI",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "icon-name",
                         "icon name",
                         "The Icon Name",
@@ -52,7 +53,7 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "uri" => {
                     let uri = value.get().unwrap();
                     self.uri.replace(uri);
@@ -65,8 +66,8 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "uri" => self.uri.borrow().to_value(),
                 "icon-name" => self.icon_name.borrow().to_value(),
                 _ => unimplemented!(),

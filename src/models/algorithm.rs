@@ -51,8 +51,8 @@ impl From<u32> for OTPMethod {
 }
 
 impl OTPMethod {
-    pub fn to_locale_string(&self) -> String {
-        match *self {
+    pub fn to_locale_string(self) -> String {
+        match self {
             OTPMethod::HOTP => gettext("Counter-based"),
             OTPMethod::TOTP => gettext("Time-based"),
             // Translators: Steam refers to the gaming application by Valve.
@@ -122,8 +122,8 @@ impl<'de> Deserialize<'de> for Algorithm {
 }
 
 impl Algorithm {
-    pub fn to_locale_string(&self) -> String {
-        match *self {
+    pub fn to_locale_string(self) -> String {
+        match self {
             Algorithm::SHA1 => gettext("SHA-1"),
             Algorithm::SHA256 => gettext("SHA-256"),
             Algorithm::SHA512 => gettext("SHA-512"),

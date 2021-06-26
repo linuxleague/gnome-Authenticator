@@ -75,7 +75,7 @@ mod imp {
 
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpec::object(
+                vec![ParamSpec::new_object(
                     "account",
                     "Account",
                     "The account",
@@ -92,7 +92,7 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "account" => {
                     let account = value.get().unwrap();
                     self.account.replace(account);
@@ -101,8 +101,8 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "account" => self.account.borrow().to_value(),
                 _ => unimplemented!(),
             }
@@ -128,8 +128,8 @@ impl AccountRow {
     }
 
     fn account(&self) -> Account {
-        let account = self.get_property("account").unwrap();
-        account.get::<Account>().unwrap().unwrap()
+        let account = self.property("account").unwrap();
+        account.get::<Account>().unwrap()
     }
 
     fn setup_widgets(&self) {
@@ -157,7 +157,7 @@ impl AccountRow {
         self_
             .name_entry
             .connect_changed(clone!(@weak self_.actions as actions => move |entry| {
-                let name = entry.get_text();
+                let name = entry.text();
                 get_action!(actions, @save).set_enabled(!name.is_empty());
             }));
         self_
@@ -215,7 +215,7 @@ impl AccountRow {
             self_.actions,
             "save",
             clone!(@weak self as row, @weak edit_stack, @weak name_entry => move |_, _| {
-                let new_name = name_entry.get_text();
+                let new_name = name_entry.text();
                 if let Err(err) = row.account().set_name(&new_name) {
                     error!("Failed to update the account name {}", err);
                 }

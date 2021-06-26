@@ -10,8 +10,8 @@ use crate::{
 use anyhow::{Context, Result};
 use core::cmp::Ordering;
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
-use glib::{clone, Cast, ObjectExt, StaticType, ToValue};
-use gtk::{glib, subclass::prelude::*};
+use glib::{clone, Cast, StaticType, ToValue};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 use once_cell::sync::OnceCell;
 use std::cell::{Cell, RefCell};
 use unicase::UniCase;
@@ -76,7 +76,7 @@ mod imp {
 
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::uint(
+                    ParamSpec::new_uint(
                         "id",
                         "id",
                         "Id",
@@ -85,7 +85,7 @@ mod imp {
                         0,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::uint(
+                    ParamSpec::new_uint(
                         "counter",
                         "counter",
                         "Counter",
@@ -94,22 +94,28 @@ mod imp {
                         otp::HOTP_DEFAULT_COUNTER,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string("name", "name", "Name", None, glib::ParamFlags::READWRITE),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
+                        "name",
+                        "name",
+                        "Name",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::new_string(
                         "token-id",
                         "token-id",
                         "token id",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "otp",
                         "otp",
                         "The One Time Password",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::object(
+                    ParamSpec::new_object(
                         "provider",
                         "provider",
                         "The account provider",
@@ -128,25 +134,25 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "id" => {
-                    let id = value.get().unwrap().unwrap();
+                    let id = value.get().unwrap();
                     self.id.replace(id);
                 }
                 "name" => {
-                    let name = value.get().unwrap().unwrap();
+                    let name = value.get().unwrap();
                     self.name.replace(name);
                 }
                 "counter" => {
-                    let counter = value.get().unwrap().unwrap();
+                    let counter = value.get().unwrap();
                     self.counter.replace(counter);
                 }
                 "otp" => {
-                    let otp = value.get().unwrap().unwrap();
+                    let otp = value.get().unwrap();
                     self.otp.replace(otp);
                 }
                 "token-id" => {
-                    let token_id = value.get().unwrap().unwrap();
+                    let token_id = value.get().unwrap();
                     self.token_id.replace(token_id);
                 }
                 "provider" => {
@@ -157,8 +163,8 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "id" => self.id.get().to_value(),
                 "name" => self.name.borrow().to_value(),
                 "counter" => self.counter.get().to_value(),
@@ -322,8 +328,8 @@ impl Account {
     }
 
     pub fn copy_otp(&self) {
-        let display = gtk::gdk::Display::get_default().unwrap();
-        let clipboard = display.get_clipboard();
+        let display = gtk::gdk::Display::default().unwrap();
+        let clipboard = display.clipboard();
         let self_ = imp::Account::from_instance(self);
         // The codes come with the white space shown in the label.
         let code = &self_.otp.borrow().replace(' ', "");
@@ -341,8 +347,8 @@ impl Account {
     }
 
     pub fn provider(&self) -> Provider {
-        let provider = self.get_property("provider").unwrap();
-        provider.get::<Provider>().unwrap().unwrap()
+        let provider = self.property("provider").unwrap();
+        provider.get::<Provider>().unwrap()
     }
 
     pub fn counter(&self) -> u32 {

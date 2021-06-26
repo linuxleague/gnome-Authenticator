@@ -87,7 +87,7 @@ mod imp {
     impl ObjectImpl for PreferencesWindow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpec::boolean(
+                vec![ParamSpec::new_boolean(
                     "has-set-password",
                     "has set password",
                     "Has Set Password",
@@ -116,17 +116,17 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "has-set-password" => {
-                    let has_set_password = value.get().unwrap().unwrap();
+                    let has_set_password = value.get().unwrap();
                     self.has_set_password.set(has_set_password);
                 }
                 _ => unimplemented!(),
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
             }
@@ -158,10 +158,9 @@ impl PreferencesWindow {
     }
 
     pub fn has_set_password(&self) -> bool {
-        self.get_property("has-set-password")
+        self.property("has-set-password")
             .unwrap()
             .get::<bool>()
-            .unwrap()
             .unwrap()
     }
 
@@ -219,7 +218,7 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Backup);
                 dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        if let Err(err) = T::backup(&model, &d.get_file().unwrap()) {
+                        if let Err(err) = T::backup(&model, &d.file().unwrap()) {
                             warn!("Failed to create a backup {}", err);
                         }
                     }
@@ -249,7 +248,7 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Restore);
                 dialog.connect_response(clone!(@weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        match T::restore(&d.get_file().unwrap()) {
+                        match T::restore(&d.file().unwrap()) {
                             Ok(items) => {
                                 win.restore_items::<T, T::Item>(items);
                             },

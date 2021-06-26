@@ -19,13 +19,13 @@ mod imp {
 
     impl ObjectImpl for AccountsModel {}
     impl ListModelImpl for AccountsModel {
-        fn get_item_type(&self, _list_model: &Self::Type) -> glib::Type {
+        fn item_type(&self, _list_model: &Self::Type) -> glib::Type {
             Account::static_type()
         }
-        fn get_n_items(&self, _list_model: &Self::Type) -> u32 {
+        fn n_items(&self, _list_model: &Self::Type) -> u32 {
             self.0.borrow().len() as u32
         }
-        fn get_item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+        fn item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
             self.0
                 .borrow()
                 .get(position as usize)
@@ -61,8 +61,8 @@ impl AccountsModel {
     }
 
     pub fn find_by_id(&self, id: u32) -> Option<u32> {
-        for pos in 0..self.get_n_items() {
-            let obj = self.get_object(pos)?;
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos)?;
             let account = obj.downcast::<Account>().unwrap();
             if account.id() == id {
                 return Some(pos);

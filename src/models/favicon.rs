@@ -6,7 +6,7 @@ use std::io::Cursor;
 use url::Url;
 
 pub static FAVICONS_PATH: Lazy<std::path::PathBuf> = Lazy::new(|| {
-    gtk::glib::get_user_cache_dir()
+    gtk::glib::user_cache_dir()
         .join("authenticator")
         .join("favicons")
 });
@@ -59,7 +59,7 @@ impl Favicon {
         let mut largest_size = 0;
         let mut best = None;
         for url in self.0.iter() {
-            if let Some(size) = self.get_size(url).await {
+            if let Some(size) = self.size(url).await {
                 // Only store the width & assumes it has the same height here to simplify things
                 if size.0 > largest_size {
                     largest_size = size.0;
@@ -70,7 +70,7 @@ impl Favicon {
         best
     }
 
-    pub async fn get_size(&self, url: &Url) -> Option<(u32, u32)> {
+    pub async fn size(&self, url: &Url) -> Option<(u32, u32)> {
         let mut response = CLIENT.get(url).await.ok()?;
 
         let ext = std::path::Path::new(url.path())

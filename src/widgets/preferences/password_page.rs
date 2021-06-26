@@ -65,7 +65,7 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpec::boolean(
+                vec![ParamSpec::new_boolean(
                     "has-set-password",
                     "has set password",
                     "Has Set Password",
@@ -82,17 +82,17 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "has-set-password" => {
-                    let has_set_password = value.get().unwrap().unwrap();
+                    let has_set_password = value.get().unwrap();
                     self.has_set_password.set(has_set_password);
                 }
                 _ => unimplemented!(),
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
             }
@@ -122,9 +122,9 @@ impl PasswordPage {
     }
 
     pub fn has_set_password(&self) -> bool {
-        self.get_property("has-set-password")
+        self.property("has-set-password")
             .unwrap()
-            .get_some::<bool>()
+            .get::<bool>()
             .unwrap()
     }
 
@@ -135,9 +135,9 @@ impl PasswordPage {
     fn validate(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        let current_password = self_.current_password_entry.get_text();
-        let password = self_.password_entry.get_text();
-        let password_repeat = self_.confirm_password_entry.get_text();
+        let current_password = self_.current_password_entry.text();
+        let password = self_.password_entry.text();
+        let password_repeat = self_.confirm_password_entry.text();
 
         let is_valid = if self.has_set_password() {
             password_repeat == password && current_password != password && password != ""
@@ -216,7 +216,7 @@ impl PasswordPage {
     fn reset_password(&self) {
         let self_ = imp::PasswordPage::from_instance(self);
 
-        let current_password = self_.current_password_entry.get_text();
+        let current_password = self_.current_password_entry.text();
 
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
@@ -246,8 +246,8 @@ impl PasswordPage {
         let self_ = imp::PasswordPage::from_instance(self);
         let actions = self_.actions.get().unwrap();
 
-        let current_password = self_.current_password_entry.get_text();
-        let password = self_.password_entry.get_text();
+        let current_password = self_.current_password_entry.text();
+        let password = self_.password_entry.text();
 
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)

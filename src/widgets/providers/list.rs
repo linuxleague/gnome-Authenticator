@@ -113,7 +113,7 @@ impl ProvidersList {
     pub fn refilter(&self) {
         let self_ = imp::ProvidersList::from_instance(self);
 
-        if let Some(filter) = self_.filter_model.get_filter() {
+        if let Some(filter) = self_.filter_model.filter() {
             filter.changed(gtk::FilterChange::Different);
         }
         self_.sorter.changed(gtk::SorterChange::Different);
@@ -131,7 +131,7 @@ impl ProvidersList {
         let accounts_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.filter(text.clone());
-            provider.accounts().get_n_items() != 0
+            provider.accounts().n_items() != 0
         });
         self_.filter_model.set_filter(Some(&accounts_filter));
     }
@@ -151,7 +151,7 @@ impl ProvidersList {
                     None
                 })).unwrap();
                 row.connect_local("shared", false, clone!(@weak list => @default-return None,  move |args| {
-                    let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
+                    let account = args.get(1).unwrap().get::<Account>().unwrap();
 
                     list.emit_by_name("shared", &[&account]).unwrap();
                     None

@@ -117,7 +117,7 @@ impl Window {
         app.add_window(&window);
 
         if config::PROFILE == "Devel" {
-            window.get_style_context().add_class("devel");
+            window.style_context().add_class("devel");
         }
         window.init(model, app);
         window.setup_actions(app);
@@ -138,7 +138,7 @@ impl Window {
                 self_.main_stack.set_visible_child_name("unlocked");
                 self_.deck.set_visible_child_name("accounts");
                 self_.deck.set_can_swipe_back(false);
-                if self_.providers.model().get_n_items() == 0 {
+                if self_.providers.model().n_items() == 0 {
                     if self_.model.get().unwrap().has_providers() {
                         // We do have at least one provider
                         // the 0 items comes from the search filter, so let's show an empty search
@@ -200,7 +200,7 @@ impl Window {
                 "shared",
                 false,
                 clone!(@weak self as win => @default-return None, move |args| {
-                    let account = args.get(1).unwrap().get::<Account>().unwrap().unwrap();
+                    let account = args.get(1).unwrap().get::<Account>().unwrap();
                     win.set_view(View::Account(account));
                     None
                 }),
@@ -238,7 +238,7 @@ impl Window {
         let search_btn = &*self_.search_btn;
         let providers = &*self_.providers;
         search_entry.connect_search_changed(clone!(@weak providers => move |entry| {
-            let text = entry.get_text().to_string();
+            let text = entry.text().to_string();
             providers.search(text);
         }));
         search_entry.connect_search_started(clone!(@weak search_btn => move |_| {
@@ -250,7 +250,7 @@ impl Window {
 
         let title_stack = &*self_.title_stack;
         search_btn.connect_toggled(clone!(@weak search_entry, @weak title_stack => move |btn| {
-            if btn.get_active() {
+            if btn.is_active() {
                 title_stack.set_visible_child_name("search");
                 search_entry.grab_focus();
             } else {
@@ -259,7 +259,7 @@ impl Window {
             }
         }));
 
-        let gtk_settings = gtk::Settings::get_default().unwrap();
+        let gtk_settings = gtk::Settings::default().unwrap();
         self_
             .settings
             .bind(
@@ -277,7 +277,7 @@ impl Window {
             self,
             "search",
             clone!(@weak search_btn => move |_,_| {
-                search_btn.set_active(!search_btn.get_active());
+                search_btn.set_active(!search_btn.is_active());
             })
         );
 
@@ -306,7 +306,7 @@ impl Window {
             self,
             "unlock",
             clone!(@weak self as win, @weak password_entry, @weak app => move |_, _| {
-                let password = password_entry.get_text();
+                let password = password_entry.text();
                 let is_current_password = Keyring::is_current_password(&password).unwrap_or_else(|err| {
                     debug!("Could not verify password: {:?}", err);
                     false

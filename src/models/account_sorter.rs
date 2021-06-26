@@ -18,7 +18,7 @@ mod imp {
 
     impl ObjectImpl for AccountSorter {}
     impl SorterImpl for AccountSorter {
-        fn get_order(&self, _sorter: &Self::Type) -> gtk::SorterOrder {
+        fn order(&self, _sorter: &Self::Type) -> gtk::SorterOrder {
             gtk::SorterOrder::Total
         }
 

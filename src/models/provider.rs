@@ -110,7 +110,7 @@ mod imp {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::uint(
+                    ParamSpec::new_uint(
                         "id",
                         "id",
                         "Id",
@@ -119,15 +119,21 @@ mod imp {
                         0,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string("name", "name", "Name", None, glib::ParamFlags::READWRITE),
-                    ParamSpec::object(
+                    ParamSpec::new_string(
+                        "name",
+                        "name",
+                        "Name",
+                        None,
+                        glib::ParamFlags::READWRITE,
+                    ),
+                    ParamSpec::new_object(
                         "accounts",
                         "accounts",
                         "accounts",
                         AccountsModel::static_type(),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::uint(
+                    ParamSpec::new_uint(
                         "period",
                         "period",
                         "Period",
@@ -136,7 +142,7 @@ mod imp {
                         otp::TOTP_DEFAULT_PERIOD,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::uint(
+                    ParamSpec::new_uint(
                         "digits",
                         "digits",
                         "Digits",
@@ -145,7 +151,7 @@ mod imp {
                         otp::DEFAULT_DIGITS,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::uint(
+                    ParamSpec::new_uint(
                         "default-counter",
                         "default_counter",
                         "default_counter",
@@ -154,35 +160,35 @@ mod imp {
                         otp::HOTP_DEFAULT_COUNTER,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "algorithm",
                         "algorithm",
                         "Algorithm",
                         Some(&Algorithm::default().to_string()),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "method",
                         "method",
                         "Method",
                         Some(&OTPMethod::default().to_string()),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "website",
                         "website",
                         "Website",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "help-url",
                         "help url",
                         "Help URL",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::string(
+                    ParamSpec::new_string(
                         "image-uri",
                         "image uri",
                         "Image URI",
@@ -201,33 +207,33 @@ mod imp {
             value: &glib::Value,
             pspec: &ParamSpec,
         ) {
-            match pspec.get_name() {
+            match pspec.name() {
                 "id" => {
-                    let id = value.get().unwrap().unwrap();
+                    let id = value.get().unwrap();
                     self.id.replace(id);
                 }
                 "name" => {
-                    let name = value.get().unwrap().unwrap();
+                    let name = value.get().unwrap();
                     self.name.replace(name);
                 }
                 "period" => {
-                    let period = value.get_some().unwrap();
+                    let period = value.get().unwrap();
                     self.period.replace(period);
                 }
                 "method" => {
-                    let method = value.get().unwrap().unwrap();
+                    let method = value.get().unwrap();
                     self.method.replace(method);
                 }
                 "digits" => {
-                    let digits = value.get_some().unwrap();
+                    let digits = value.get().unwrap();
                     self.digits.replace(digits);
                 }
                 "algorithm" => {
-                    let algorithm = value.get().unwrap().unwrap();
+                    let algorithm = value.get().unwrap();
                     self.algorithm.replace(algorithm);
                 }
                 "default-counter" => {
-                    let default_counter = value.get_some().unwrap();
+                    let default_counter = value.get().unwrap();
                     self.default_counter.replace(default_counter);
                 }
                 "website" => {
@@ -246,8 +252,8 @@ mod imp {
             }
         }
 
-        fn get_property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
-            match pspec.get_name() {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            match pspec.name() {
                 "id" => self.id.get().to_value(),
                 "name" => self.name.borrow().to_value(),
                 "period" => self.period.get().to_value(),
@@ -373,7 +379,7 @@ impl Provider {
                 let body = res.body_bytes().await?;
                 dest.write_all(&body).await?;
 
-                return Ok(gio::File::new_for_path(cache_path));
+                return Ok(gio::File::for_path(cache_path));
             }
         }
         Err(Box::new(FaviconError::NoResults))
@@ -494,7 +500,7 @@ impl Provider {
 
     pub fn has_accounts(&self) -> bool {
         let self_ = imp::Provider::from_instance(self);
-        self_.accounts.get_n_items() != 0
+        self_.accounts.n_items() != 0
     }
 
     pub fn add_account(&self, account: &Account) {
