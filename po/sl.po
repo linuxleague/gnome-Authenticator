@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-03-26 15:30+0000\n"
-"PO-Revision-Date: 2021-04-15 18:14+0200\n"
+"POT-Creation-Date: 2021-06-29 08:45+0000\n"
+"PO-Revision-Date: 2021-08-11 13:50+0200\n"
 "Last-Translator: Matej Urban?i? <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: sl_SI\n"
@@ -19,13 +19,13 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:168 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:167 src/main.rs:41
 msgid "Authenticator"
-msgstr ""
+msgstr "Overjevalnik"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:4
 msgid "Two-Factor Authentication"
@@ -33,9 +33,9 @@ msgstr "Dvostopenjsko overjanje"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:171
+#: src/application.rs:170
 msgid "Generate Two-Factor Codes"
-msgstr "Ustvari dvostopenjske kode"
+msgstr "Ustvarjanje dvostopenjske overitvene kode"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
 msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
@@ -63,7 +63,7 @@ msgstr "Temna tema"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
 msgid "Whether the application should use a dark theme."
-msgstr ""
+msgstr "Ali na bo uporabljena temna tema programa."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
@@ -75,15 +75,15 @@ msgstr "Ali naj se program samodejno zaklene"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
 msgid "Auto lock timeout"
-msgstr ""
+msgstr "Časovni zamik zaklepanja"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
 msgid "Lock the application on idle after X minutes"
-msgstr ""
+msgstr "Zakleni program ob nedejavnosti po X minutah"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid "Simple application for generating Two-Factor Authentication Codes."
-msgstr ""
+msgstr "Program za ustvarjanje dvostopenjskih overitvenih kod."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
@@ -91,15 +91,15 @@ msgstr "Zmožnosti:"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "Time-based/Counter-based/Steam methods support"
-msgstr ""
+msgstr "Podpora za Steam, časovno, števčno zaklepanje"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "SHA-1/SHA-256/SHA-512 algorithms support"
-msgstr ""
+msgstr "Podpora algoritmom SHA1/SHA256/SHA512"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "QR code scanner using a camera or from a screenshot"
-msgstr ""
+msgstr "Bralnik kode QR s kamero ali prek zajete slike zaslona"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Lock the application with a password"
@@ -112,6 +112,7 @@ msgstr "Prefinjen grafični vmesnik"
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
 msgstr ""
+"Varnostno kopiranje/Obnovitev s podporo programov, kot sta FreeOTP+ in andOTP"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
 msgid "Main Window"
@@ -132,7 +133,7 @@ msgstr "Podrobnosti računa"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
 msgid "Backup/Restore formats support"
-msgstr ""
+msgstr "Podpora zapisom varnostnega kopiranja in obnovitve"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:210
 msgid "Bilal Elmoussaoui"
@@ -150,10 +151,8 @@ msgstr "_Zaslonska slika"
 #: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:51
-#, fuzzy
-#| msgid "Backup"
 msgid "Go Back"
-msgstr "Varnostna kopija"
+msgstr "Nazaj"
 
 #: data/resources/ui/account_add.ui:49
 msgid "_Add"
@@ -199,7 +198,7 @@ msgstr "Obdobje"
 
 #: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
 msgid "Duration in seconds until the next password update"
-msgstr ""
+msgstr "Čas v sekundah do naslednje posodobitve gesla"
 
 #: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
 msgid "Digits"
@@ -217,7 +216,7 @@ msgstr "Spletna stran"
 
 #: data/resources/ui/account_add.ui:225
 msgid "How to Set Up"
-msgstr ""
+msgstr "Kako nastaviti program"
 
 #: data/resources/ui/account_row.ui:6
 msgid "D_etails"
@@ -255,15 +254,15 @@ msgstr "_Iz zaslonske slike"
 
 #: data/resources/ui/camera.ui:82
 msgid "Capture from a screenshot"
-msgstr ""
+msgstr "Zajem iz zaslonske slike"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
-msgstr ""
+msgstr "Nastavi šifrirno geslo"
 
 #: data/resources/ui/preferences_password_page.ui:33
 msgid "Authenticator will start locked after a passphrase is set."
-msgstr ""
+msgstr "Program bo po nastavitvi šifrirnega gesla vedno zagnan zaklenjen."
 
 #: data/resources/ui/preferences_password_page.ui:52
 msgid "Current Passphrase"
@@ -275,7 +274,7 @@ msgstr "Novo šifrirno geslo"
 
 #: data/resources/ui/preferences_password_page.ui:79
 msgid "Repeat Passphrase"
-msgstr ""
+msgstr "Ponovi šifrirno geslo"
 
 #: data/resources/ui/preferences_password_page.ui:100
 #: data/resources/ui/provider_page.ui:101
@@ -296,7 +295,7 @@ msgstr "_Temna tema"
 
 #: data/resources/ui/preferences.ui:25
 msgid "Whether the application should use a dark theme"
-msgstr ""
+msgstr "Ali na bo uporabljena temna tema programa"
 
 #: data/resources/ui/preferences.ui:37
 msgid "Privacy"
@@ -308,15 +307,15 @@ msgstr "_Šifrirno geslo"
 
 #: data/resources/ui/preferences.ui:42
 msgid "Set up a passphrase to lock the application with"
-msgstr ""
+msgstr "Nastavi šifrirno geslo za zaklepanje uporabe programa"
 
 #: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
-msgstr ""
+msgstr "_Samodejno zakleni program"
 
 #: data/resources/ui/preferences.ui:57
 msgid "Whether to automatically lock the application"
-msgstr ""
+msgstr "Ali naj se program samodejno zaklene"
 
 #: data/resources/ui/preferences.ui:68
 msgid "Auto Lock _Timeout"
@@ -330,11 +329,11 @@ msgstr "Čas v minutah"
 msgid "Backup/Restore"
 msgstr "Ustvari kopijo/Obnovi"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:293
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:292
 msgid "Backup"
 msgstr "Varnostna kopija"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:300
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:299
 msgid "Restore"
 msgstr "Obnovi"
 
@@ -348,19 +347,19 @@ msgstr "Ime"
 
 #: data/resources/ui/provider_page.ui:151
 msgid "Used to fetch the provider icon"
-msgstr ""
+msgstr "Uporabljeno za pridobivanje ikone ponudnika"
 
 #: data/resources/ui/provider_page.ui:202
 msgid "The by default value for counter-based computing method"
-msgstr ""
+msgstr "Privzeta vrednost za števčni način"
 
 #: data/resources/ui/provider_page.ui:236
 msgid "Help URL"
-msgstr ""
+msgstr "Naslov URL pomoči"
 
 #: data/resources/ui/provider_page.ui:237
 msgid "Provider setup instructions"
-msgstr ""
+msgstr "Navodila ponudnika nastavitve"
 
 #: data/resources/ui/providers_dialog.ui:5
 msgid "Providers"
@@ -381,11 +380,11 @@ msgstr "Ni najdenih zadetkov"
 
 #: data/resources/ui/providers_dialog.ui:109
 msgid "No providers matching the query were found."
-msgstr ""
+msgstr "Ni mogoče najti ponudnika na poizvedbo."
 
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
-msgstr ""
+msgstr "Ni mogoče najti računa oziroma ponudnika za poizvedbo."
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -453,10 +452,8 @@ msgid "_About Authenticator"
 msgstr "_O Programu"
 
 #: data/resources/ui/window.ui:95
-#, fuzzy
-#| msgid "About Authenticator"
 msgid "Authenticator is Locked"
-msgstr "O Programu"
+msgstr "Overjevalnik je zaklenjen"
 
 #: data/resources/ui/window.ui:123
 msgid "_Unlock"
@@ -476,92 +473,86 @@ msgstr "Ni odprtih računov"
 
 #: data/resources/ui/window.ui:193
 msgid "Add an account or scan a QR code first."
-msgstr ""
+msgstr "Najprej dodajte račun oziroma uporabite kodo QR."
 
-#: src/application.rs:175
+#: src/application.rs:174
 msgid "translator-credits"
 msgstr "Matej Urbančič <mateju@src.gnome.org>"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:66
+#: src/backup/andotp.rs:67
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:71
 msgid "Into a plain-text JSON file"
 msgstr "V besedilno datoteko JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:125
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:129 src/backup/bitwarden.rs:141 src/backup/legacy.rs:36
 msgid "From a plain-text JSON file"
 msgstr "Iz besedne datoteke JSON"
 
-#: src/backup/bitwarden.rs:35
+#: src/backup/bitwarden.rs:68
 msgid "Unknown account"
 msgstr "Neznan račun"
 
-#: src/backup/bitwarden.rs:43
+#: src/backup/bitwarden.rs:76
 msgid "Unknown issuer"
 msgstr "Naznan izdajatelj"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:81
+#: src/backup/bitwarden.rs:137
 msgid "_Bitwarden"
-msgstr ""
+msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:18
-#, fuzzy
-#| msgid "About Authenticator"
+#: src/backup/freeotp.rs:19
 msgid "_Authenticator"
-msgstr "O Programu"
+msgstr "_Overjevalnik"
 
-#: src/backup/freeotp.rs:22
+#: src/backup/freeotp.rs:23
 msgid "Into a plain-text file, compatible with FreeOTP+"
-msgstr ""
+msgstr "V besedno datoteko, skladno z zapisom FreeTOP+"
 
-#: src/backup/freeotp.rs:64
-#, fuzzy
-#| msgid "About Authenticator"
+#: src/backup/freeotp.rs:61
 msgid "A_uthenticator"
-msgstr "O Programu"
+msgstr "O_verjevalnik"
 
-#: src/backup/freeotp.rs:68
+#: src/backup/freeotp.rs:65
 msgid "From a plain-text file, compatible with FreeOTP+"
-msgstr ""
+msgstr "Iz besedne datoteke, skladne z zapisom FreeTOP+"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
 #: src/backup/legacy.rs:32
-#, fuzzy
-#| msgid "About Authenticator"
 msgid "Au_thenticator (Legacy)"
-msgstr "O Programu"
-
-#: src/models/algorithm.rs:55
-msgid "Counter-based"
-msgstr ""
+msgstr "Ove_rjevalnik (opuščeno)"
 
 #: src/models/algorithm.rs:56
+msgid "Counter-based"
+msgstr "Števčno"
+
+#: src/models/algorithm.rs:57
 msgid "Time-based"
-msgstr ""
+msgstr "Časovno"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:58
+#: src/models/algorithm.rs:59
 msgid "Steam"
-msgstr ""
+msgstr "S Steam"
 
-#: src/models/algorithm.rs:125
+#: src/models/algorithm.rs:127
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:126
+#: src/models/algorithm.rs:128
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:129
 msgid "SHA-512"
 msgstr "SHA-512"
 
@@ -569,28 +560,28 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Neveljaven žeton"
 
-#: src/widgets/window.rs:320
+#: src/widgets/window.rs:321
 msgid "Wrong Password"
 msgstr "Napačno geslo"
 
 #: src/widgets/preferences/password_page.rs:224
 #: src/widgets/preferences/password_page.rs:255
 msgid "Wrong Passphrase"
-msgstr "Napačno šifrirno geslo."
+msgstr "Napačno šifrirno geslo"
 
-#: src/widgets/preferences/window.rs:296 src/widgets/preferences/window.rs:303
+#: src/widgets/preferences/window.rs:295 src/widgets/preferences/window.rs:302
 #: src/widgets/providers/page.rs:320
 msgid "Select"
 msgstr "Izbor"
 
-#: src/widgets/preferences/window.rs:297 src/widgets/preferences/window.rs:304
+#: src/widgets/preferences/window.rs:296 src/widgets/preferences/window.rs:303
 #: src/widgets/providers/page.rs:321
 msgid "Cancel"
 msgstr "Prekliči"
 
 #: src/widgets/providers/page.rs:184
 msgid "Editing Provider: {}"
-msgstr ""
+msgstr "Urejanje ponudnika: {}"
 
 #: src/widgets/providers/page.rs:328
 msgid "Image"
@@ -598,7 +589,7 @@ msgstr "Slika"
 
 #: src/widgets/providers/page.rs:364
 msgid "The provider has accounts assigned to it, please remove them first"
-msgstr ""
+msgstr "Ponudnik že ima dodeljene račune, najprej je treba te odstraniti."
 
 #~ msgid "Night Light"
 #~ msgstr "Nočna osvetlitev"
