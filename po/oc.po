@@ -7,25 +7,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-05-27 08:56+0000\n"
-"PO-Revision-Date: 2021-05-28 22:45+0200\n"
+"POT-Creation-Date: 2021-05-28 20:46+0000\n"
+"PO-Revision-Date: 2021-09-07 23:31+0200\n"
+"Last-Translator: Quentin PAGÈS\n"
 "Language-Team: \n"
+"Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
-"Last-Translator: Quentin PAGÈS\n"
-"Language: oc\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
 #: data/resources/ui/window.ui:34 src/application.rs:168 src/main.rs:41
 msgid "Authenticator"
-msgstr ""
+msgstr "Autentificador"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:4
 msgid "Two-Factor Authentication"
-msgstr ""
+msgstr "Autentificacion en dos temps"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
@@ -40,16 +40,16 @@ msgstr ""
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
 msgid "Default window width"
-msgstr ""
+msgstr "Largor per defaut de la fenèstra"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
 msgid "Default window height"
-msgstr ""
+msgstr "Nautor per defaut de la fenèstra"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
 msgid "Default window maximized behaviour"
-msgstr ""
+msgstr "Compòrtament per defaut de la fenèstra maximizada"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
 msgid "Dark Theme"
@@ -57,15 +57,15 @@ msgstr "Tèma escur"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
 msgid "Whether the application should use a dark theme."
-msgstr ""
+msgstr "Indica se l’aplicacion deu utilizar un tèma escur."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
-msgstr ""
+msgstr "Verrolhatge auto"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
 msgid "Whether to auto lock the application or not"
-msgstr ""
+msgstr "Indica se cal verrolhar automaticament l’aplicacion o non"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
 msgid "Auto lock timeout"
@@ -89,7 +89,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "SHA-1/SHA-256/SHA-512 algorithms support"
-msgstr ""
+msgstr "Algoritmes SHA-1/SHA-256/SHA-512 preses en cargar"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "QR code scanner using a camera or from a screenshot"
@@ -97,11 +97,11 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Lock the application with a password"
-msgstr ""
+msgstr "Verrolhar l’aplicacion amb un senhal"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Beautiful UI"
-msgstr ""
+msgstr "Interfàcia crana"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
@@ -114,11 +114,11 @@ msgstr "Fenèstra principala"
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
 #: data/resources/ui/account_add.ui:24
 msgid "Add a New Account"
-msgstr ""
+msgstr "Apondre un compte novèl"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
 msgid "Add a New Provider"
-msgstr ""
+msgstr "Apondre un provesidor novèl"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
 msgid "Account Details"
@@ -130,7 +130,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:210
 msgid "Bilal Elmoussaoui"
-msgstr ""
+msgstr "Bilal Elmoussaoui"
 
 #: data/resources/ui/account_add.ui:6
 msgid "_Camera"
@@ -153,7 +153,7 @@ msgstr "_Apondre"
 
 #: data/resources/ui/account_add.ui:61
 msgid "Scan QR Code"
-msgstr ""
+msgstr "Numerizar un còdis QR"
 
 #: data/resources/ui/account_add.ui:100
 #: data/resources/ui/account_details_page.ui:52
@@ -162,7 +162,7 @@ msgstr "Provesidor"
 
 #: data/resources/ui/account_add.ui:101
 msgid "Token issuer"
-msgstr ""
+msgstr "Emetedor de geton"
 
 #: data/resources/ui/account_add.ui:116
 #: data/resources/ui/account_details_page.ui:42
@@ -183,23 +183,23 @@ msgstr "Algoritme"
 
 #: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
 msgid "Computing Method"
-msgstr ""
+msgstr "Metòde de calcul"
 
 #: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
 msgid "Period"
-msgstr ""
+msgstr "Periòde"
 
 #: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
 msgid "Duration in seconds until the next password update"
-msgstr ""
+msgstr "Durada en segonda fins a l’actualizacion venenta del senhal"
 
 #: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
 msgid "Digits"
-msgstr ""
+msgstr "Chifras"
 
 #: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
 msgid "Length of the generated code"
-msgstr ""
+msgstr "Longor del còdi generat"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
@@ -209,7 +209,7 @@ msgstr "Site Web"
 
 #: data/resources/ui/account_add.ui:225
 msgid "How to Set Up"
-msgstr ""
+msgstr "Cossí configurar"
 
 #: data/resources/ui/account_row.ui:6
 msgid "D_etails"
@@ -225,7 +225,7 @@ msgstr "_Suprimir"
 
 #: data/resources/ui/account_row.ui:66
 msgid "Copy PIN to clipboard"
-msgstr ""
+msgstr "Copiar lo PIN al quichapapièrs"
 
 #: data/resources/ui/account_row.ui:106
 msgid "More"
@@ -243,7 +243,7 @@ msgstr "Cap de camèra pas trobada"
 
 #: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
-msgstr ""
+msgstr "_A partir d’una captura d’ecran"
 
 #: data/resources/ui/camera.ui:82
 msgid "Capture from a screenshot"
@@ -251,7 +251,7 @@ msgstr ""
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
-msgstr ""
+msgstr "Definir una frasa secreta"
 
 #: data/resources/ui/preferences_password_page.ui:33
 msgid "Authenticator will start locked after a passphrase is set."
@@ -259,20 +259,20 @@ msgstr ""
 
 #: data/resources/ui/preferences_password_page.ui:52
 msgid "Current Passphrase"
-msgstr ""
+msgstr "Frasa secreta actuala"
 
 #: data/resources/ui/preferences_password_page.ui:66
 msgid "New Passphrase"
-msgstr ""
+msgstr "Frasa secreta novèla"
 
 #: data/resources/ui/preferences_password_page.ui:79
 msgid "Repeat Passphrase"
-msgstr ""
+msgstr "Tornar escriure la frasa secreta"
 
 #: data/resources/ui/preferences_password_page.ui:100
 #: data/resources/ui/provider_page.ui:101
 msgid "_Reset"
-msgstr ""
+msgstr "_Reinicializar"
 
 #: data/resources/ui/preferences.ui:16
 msgid "General"
@@ -284,11 +284,11 @@ msgstr "Aparéncia"
 
 #: data/resources/ui/preferences.ui:22
 msgid "_Dark Theme"
-msgstr ""
+msgstr "_Tèma escur"
 
 #: data/resources/ui/preferences.ui:25
 msgid "Whether the application should use a dark theme"
-msgstr ""
+msgstr "Indica se l’aplicacion deu utilizar un tèma escur"
 
 #: data/resources/ui/preferences.ui:37
 msgid "Privacy"
@@ -296,19 +296,19 @@ msgstr "Confidencialitat"
 
 #: data/resources/ui/preferences.ui:40
 msgid "_Passphrase"
-msgstr ""
+msgstr "_Frasas secreta"
 
 #: data/resources/ui/preferences.ui:42
 msgid "Set up a passphrase to lock the application with"
-msgstr ""
+msgstr "Definir una frasa secreta utilizada per verrolhar l’aplicacion"
 
 #: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
-msgstr ""
+msgstr "_Verrolhar automaticament l’aplicacion"
 
 #: data/resources/ui/preferences.ui:57
 msgid "Whether to automatically lock the application"
-msgstr ""
+msgstr "Indica se cal verrolhar automaticament l’aplicacion"
 
 #: data/resources/ui/preferences.ui:68
 msgid "Auto Lock _Timeout"
@@ -316,11 +316,11 @@ msgstr ""
 
 #: data/resources/ui/preferences.ui:69
 msgid "The time in minutes"
-msgstr ""
+msgstr "Lo temps en minutas"
 
 #: data/resources/ui/preferences.ui:92
 msgid "Backup/Restore"
-msgstr ""
+msgstr "Salvagardar/Restaurar"
 
 #: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:293
 msgid "Backup"
@@ -340,7 +340,7 @@ msgstr "Nom"
 
 #: data/resources/ui/provider_page.ui:151
 msgid "Used to fetch the provider icon"
-msgstr ""
+msgstr "Utilizat per recuperar l’icòna del provesidor"
 
 #: data/resources/ui/provider_page.ui:202
 msgid "The by default value for counter-based computing method"
@@ -348,7 +348,7 @@ msgstr ""
 
 #: data/resources/ui/provider_page.ui:236
 msgid "Help URL"
-msgstr ""
+msgstr "URL d'Ajuda"
 
 #: data/resources/ui/provider_page.ui:237
 msgid "Provider setup instructions"
@@ -360,16 +360,16 @@ msgstr "Provesidors"
 
 #: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:214
 msgid "New Provider"
-msgstr ""
+msgstr "Provesidor novèl"
 
 #: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
 msgid "Search"
-msgstr ""
+msgstr "Recercar"
 
 #: data/resources/ui/providers_dialog.ui:108
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
-msgstr ""
+msgstr "Pas cap de resultat"
 
 #: data/resources/ui/providers_dialog.ui:109
 msgid "No providers matching the query were found."
@@ -392,7 +392,7 @@ msgstr "Acorchis clavièr"
 #: data/resources/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Lock"
-msgstr ""
+msgstr "Verrolhar"
 
 #: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
@@ -412,17 +412,17 @@ msgstr "Comptes"
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "New Account"
-msgstr ""
+msgstr "Compte novèl"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
-msgstr ""
+msgstr "Recercar"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "Show Providers List"
-msgstr ""
+msgstr "Afichar la lista dels provesidors"
 
 #: data/resources/ui/window.ui:6
 msgid "_Lock the Application"
@@ -430,7 +430,7 @@ msgstr ""
 
 #: data/resources/ui/window.ui:12
 msgid "P_roviders"
-msgstr ""
+msgstr "P_rovesidor"
 
 #: data/resources/ui/window.ui:16
 msgid "_Preferences"
@@ -438,7 +438,7 @@ msgstr "_Preferéncias"
 
 #: data/resources/ui/window.ui:22
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "Aco_rchis clavièr"
 
 #: data/resources/ui/window.ui:26
 msgid "_About Authenticator"
@@ -446,7 +446,7 @@ msgstr "_A prepaus d'Authenticator"
 
 #: data/resources/ui/window.ui:95
 msgid "Authenticator is Locked"
-msgstr ""
+msgstr "Autentificador es verrolhat"
 
 #: data/resources/ui/window.ui:123
 msgid "_Unlock"
@@ -470,7 +470,7 @@ msgstr ""
 
 #: src/application.rs:175
 msgid "translator-credits"
-msgstr ""
+msgstr "Quentin PAGÈS"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:67
@@ -496,7 +496,7 @@ msgstr "Compte desconegut"
 
 #: src/backup/bitwarden.rs:43
 msgid "Unknown issuer"
-msgstr ""
+msgstr "Emissor desconegut"
 
 #. Translators: This is for restoring a backup from Bitwarden.
 #: src/backup/bitwarden.rs:81
@@ -505,7 +505,7 @@ msgstr "_Bitwarden"
 
 #: src/backup/freeotp.rs:19
 msgid "_Authenticator"
-msgstr ""
+msgstr "_Autentificador"
 
 #: src/backup/freeotp.rs:23
 msgid "Into a plain-text file, compatible with FreeOTP+"
@@ -513,7 +513,7 @@ msgstr ""
 
 #: src/backup/freeotp.rs:65
 msgid "A_uthenticator"
-msgstr ""
+msgstr "A_utentificador"
 
 #: src/backup/freeotp.rs:69
 msgid "From a plain-text file, compatible with FreeOTP+"
@@ -560,7 +560,7 @@ msgstr "Senhal incorrècte"
 #: src/widgets/preferences/password_page.rs:224
 #: src/widgets/preferences/password_page.rs:255
 msgid "Wrong Passphrase"
-msgstr ""
+msgstr "Frasa secreta incorrècta."
 
 #: src/widgets/preferences/window.rs:296 src/widgets/preferences/window.rs:303
 #: src/widgets/providers/page.rs:320
