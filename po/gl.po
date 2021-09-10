@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-05 15:52+0000\n"
-"PO-Revision-Date: 2021-02-07 02:49+0100\n"
+"POT-Creation-Date: 2021-02-13 20:41+0000\n"
+"PO-Revision-Date: 2021-09-10 09:57+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -16,7 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"X-Generator: Gtranslator 40.0\n"
+"X-DL-Team: gl\n"
+"X-DL-Module: authenticator\n"
+"X-DL-Branch: master\n"
+"X-DL-Domain: po\n"
+"X-DL-State: Translating\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
@@ -131,7 +136,7 @@ msgstr "Detalles da conta"
 msgid "Backup/Restore formats support"
 msgstr "Compatibilidade de formatos de Respaldo/Restauración"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:193
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -327,11 +332,11 @@ msgstr "A hora en minutos"
 msgid "Backup/Restore"
 msgstr "Respaldar/Restaurar"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:296
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
 msgid "Backup"
 msgstr "Respaldar"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:303
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -491,9 +496,24 @@ msgstr "Nun ficheiro JSON de texto plano"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
 msgid "From a plain-text JSON file"
 msgstr "Desde un ficheiro JSON de texto plano"
+
+#: src/backup/bitwarden.rs:35
+#| msgid "New Account"
+msgid "Unknown account"
+msgstr "Conta descoñecida"
+
+#: src/backup/bitwarden.rs:43
+#| msgid "Token issuer"
+msgid "Unknown issuer"
+msgstr "Emisor descoñecido"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:81
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
 
 #: src/backup/freeotp.rs:18
 msgid "_Authenticator"
@@ -554,12 +574,12 @@ msgstr "Contrasinal incorrecto"
 msgid "Wrong Passphrase"
 msgstr "Contrasinal de frase de paso"
 
-#: src/widgets/preferences/window.rs:299 src/widgets/preferences/window.rs:306
+#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
 #: src/widgets/providers/page.rs:312
 msgid "Select"
 msgstr "Seleccionar"
 
-#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
+#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
 #: src/widgets/providers/page.rs:313
 msgid "Cancel"
 msgstr "Cancelar"
