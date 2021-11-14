@@ -122,14 +122,11 @@ impl PasswordPage {
     }
 
     pub fn has_set_password(&self) -> bool {
-        self.property("has-set-password")
-            .unwrap()
-            .get::<bool>()
-            .unwrap()
+        self.property::<bool>("has-set-password")
     }
 
     pub fn set_has_set_password(&self, new_value: bool) {
-        self.set_property("has-set-password", &new_value).unwrap();
+        self.set_property("has-set-password", &new_value);
     }
 
     fn validate(&self) {

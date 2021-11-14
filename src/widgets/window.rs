@@ -131,13 +131,13 @@ impl Window {
         match view {
             View::Login => {
                 self_.main_stack.set_visible_child_name("login");
-                self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
+                self_.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 self_.password_entry.grab_focus();
             }
             View::Accounts => {
                 self_.main_stack.set_visible_child_name("unlocked");
                 self_.deck.set_visible_child_name("accounts");
-                self_.deck.set_can_swipe_back(false);
+                self_.deck.set_can_navigate_back(false);
                 if self_.providers.model().n_items() == 0 {
                     if self_.model.get().unwrap().has_providers() {
                         // We do have at least one provider
@@ -146,7 +146,7 @@ impl Window {
                         self_.providers.set_view(ProvidersListView::NoSearchResults);
                     } else {
                         self_.accounts_stack.set_visible_child_name("empty");
-                        self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
+                        self_.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                     }
                 } else {
                     self_.providers.set_view(ProvidersListView::List);
@@ -157,7 +157,7 @@ impl Window {
             View::Account(account) => {
                 self_.main_stack.set_visible_child_name("unlocked");
                 self_.deck.set_visible_child_name("account");
-                self_.deck.set_can_swipe_back(true);
+                self_.deck.set_can_navigate_back(true);
                 self_.account_details.set_account(&account);
             }
         }
@@ -171,16 +171,14 @@ impl Window {
         let dialog = AccountAddDialog::new(model.clone());
         dialog.set_transient_for(Some(self));
 
-        dialog
-            .connect_local(
-                "added",
-                false,
-                clone!(@weak self as win => @default-return None, move |_| {
-                    win.providers().refilter();
-                    None
-                }),
-            )
-            .unwrap();
+        dialog.connect_local(
+            "added",
+            false,
+            clone!(@weak self as win => @default-return None, move |_| {
+                win.providers().refilter();
+                None
+            }),
+        );
 
         dialog.show();
     }
@@ -194,18 +192,15 @@ impl Window {
         let self_ = imp::Window::from_instance(self);
         self_.model.set(model.clone()).unwrap();
         self_.providers.set_model(model);
-        self_
-            .providers
-            .connect_local(
-                "shared",
-                false,
-                clone!(@weak self as win => @default-return None, move |args| {
-                    let account = args.get(1).unwrap().get::<Account>().unwrap();
-                    win.set_view(View::Account(account));
-                    None
-                }),
-            )
-            .unwrap();
+        self_.providers.connect_local(
+            "shared",
+            false,
+            clone!(@weak self as win => @default-return None, move |args| {
+                let account = args.get(1).unwrap().get::<Account>().unwrap();
+                win.set_view(View::Account(account));
+                None
+            }),
+        );
 
         self_.providers.model().connect_items_changed(
             clone!(@weak self as win, @weak app => move |_, _,_,_| {
@@ -336,8 +331,7 @@ impl Window {
                 };
                 None
             }),
-        )
-        .unwrap();
+        );
 
         let self_ = imp::Window::from_instance(self);
 

@@ -106,7 +106,7 @@ impl Backupable for AndOTP {
             None,
             false,
             gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
-            gtk::gio::NONE_CANCELLABLE,
+            gtk::gio::Cancellable::NONE,
         )?;
 
         Ok(())
@@ -130,7 +130,7 @@ impl Restorable for AndOTP {
     }
 
     fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
+        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
 
         let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;
         Ok(items)

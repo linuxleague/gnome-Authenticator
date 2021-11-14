@@ -140,7 +140,7 @@ mod imp {
                 id.remove();
             }
             if let Some(id) = self.schedule.borrow_mut().take() {
-                glib::source_remove(id);
+                id.remove();
             }
         }
     }
@@ -158,20 +158,18 @@ impl ProviderRow {
     }
 
     fn provider(&self) -> Provider {
-        let provider = self.property("provider").unwrap();
-        provider.get::<Provider>().unwrap()
+        self.property("provider")
     }
 
     fn restart(&self) {
         let provider = self.provider();
 
-        match self.provider().method() {
+        match provider.method() {
             OTPMethod::TOTP | OTPMethod::Steam => {
                 let self_ = imp::ProviderRow::from_instance(self);
 
                 self_.progress.set_fraction(1_f64);
-                self.set_property("remaining-time", &(self.provider().period() as u64))
-                    .unwrap();
+                self.set_property("remaining-time", &(provider.period() as u64));
             }
             _ => (),
         }
@@ -193,8 +191,7 @@ impl ProviderRow {
                 .as_secs()
                 % self.provider().period() as u64;
 
-        self.set_property("remaining-time", &remaining_time)
-            .unwrap();
+        self.set_property("remaining-time", &remaining_time);
     }
 
     fn tick_progressbar(&self) {
@@ -277,30 +274,29 @@ impl ProviderRow {
                 clone!(@weak provider, @weak account, @weak provider_row => @default-return None, move |_| {
                     account.delete().unwrap();
                     provider.remove_account(account);
-                    provider_row.emit_by_name("changed", &[]).unwrap();
+                    provider_row.emit_by_name("changed", &[]);
                     None
                 }),
-            ).unwrap();
+            );
 
             row.connect_local(
                 "shared",
                 false,
                 clone!(@weak account, @weak provider_row => @default-return None, move |_| {
-                    provider_row.emit_by_name("shared", &[&account]).unwrap();
+                    provider_row.emit_by_name("shared", &[&account]);
                     None
                 }),
-            ).unwrap();
+            );
 
             account.connect_local("notify::name",
                 false,
                 clone!(@weak provider_row, @weak sorter => @default-return None, move |_| {
                     // Re-sort in case the name was updated
                     sorter.changed(gtk::SorterChange::Different);
-                    provider_row.emit_by_name("changed", &[]).unwrap();
+                    provider_row.emit_by_name("changed", &[]);
                     None
                 }),
-            )
-            .unwrap();
+            );
             row.upcast::<gtk::Widget>()
         });
 

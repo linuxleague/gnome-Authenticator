@@ -49,17 +49,12 @@ mod imp {
             line.iter().enumerate().for_each(|(x, is_dark)| {
                 let color = if *is_dark {
                     if is_dark_theme {
-                        gdk::RGBA::white()
+                        gdk::RGBA::WHITE
                     } else {
-                        gdk::RGBA::black()
+                        gdk::RGBA::BLACK
                     }
                 } else {
-                    gdk::RGBA {
-                        red: 0.0,
-                        blue: 0.0,
-                        green: 0.0,
-                        alpha: 0.0,
-                    }
+                    gdk::RGBA::new(0.0, 0.0, 0.0, 0.0)
                 };
                 let position = graphene::Rect::new(
                     (x as f32) * square_width,
@@ -85,12 +80,10 @@ mod imp {
     impl ObjectSubclass for QRCodePaintable {
         const NAME: &'static str = "QRCodePaintable";
         type Type = super::QRCodePaintable;
-        type ParentType = glib::Object;
         type Interfaces = (gdk::Paintable,);
     }
 
     impl ObjectImpl for QRCodePaintable {}
-
     impl PaintableImpl for QRCodePaintable {
         fn snapshot(
             &self,

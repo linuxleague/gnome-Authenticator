@@ -30,7 +30,7 @@ mod screenshot {
     use zbar_rust::ZBarImageScanner;
 
     pub fn scan(screenshot: &gio::File) -> Result<String> {
-        let (data, _) = screenshot.load_contents(gio::NONE_CANCELLABLE)?;
+        let (data, _) = screenshot.load_contents(gio::Cancellable::NONE)?;
 
         let img = image::load_from_memory(&data)?;
 
@@ -51,12 +51,12 @@ mod screenshot {
     }
 
     pub async fn capture<F: FnOnce(gio::File)>(window: gtk::Window, callback: F) -> Result<()> {
-        let connection = zbus::azync::Connection::new_session().await?;
+        let connection = zbus::Connection::session().await?;
         let proxy = ScreenshotProxy::new(&connection).await?;
-        let screenshot = proxy
-            .screenshot(WindowIdentifier::from_window(&window).await, true, true)
+        let uri = proxy
+            .screenshot(&WindowIdentifier::from_native(&window).await, true, true)
             .await?;
-        callback(gio::File::for_uri(&screenshot.uri()));
+        callback(gio::File::for_uri(&uri));
         Ok(())
     }
 }
@@ -210,7 +210,7 @@ impl Camera {
         let fakesink = gst::ElementFactory::make("fakesink", None).unwrap();
         let queue2 = gst::ElementFactory::make("queue", None).unwrap();
         let glsinkbin = gst::ElementFactory::make("glsinkbin", None).unwrap();
-        glsinkbin.set_property("sink", &self_.sink).unwrap();
+        glsinkbin.set_property("sink", &self_.sink);
 
         self_
             .pipeline
@@ -298,7 +298,7 @@ impl Camera {
         let self_ = imp::Camera::from_instance(self);
         match event {
             CameraEvent::CodeDetected(code) => {
-                self.emit_by_name("code-detected", &[&code]).unwrap();
+                self.emit_by_name("code-detected", &[&code]);
             }
             CameraEvent::DeviceAdded(device) => {
                 info!("Camera source added: {}", device.display_name());
@@ -368,13 +368,8 @@ impl Camera {
             glib::clone!(@weak self as camera => @default-return glib::Continue(false), move |action| camera.do_event(action)),
         );
 
-        let widget = self_
-            .sink
-            .property("widget")
-            .unwrap()
-            .get::<gtk::Widget>()
-            .unwrap();
-        widget.set_property("force-aspect-ratio", &false).unwrap();
+        let widget = self_.sink.property::<gtk::Widget>("widget");
+        widget.set_property("force-aspect-ratio", &false);
         self_.overlay.get().set_child(Some(&widget));
     }
 }

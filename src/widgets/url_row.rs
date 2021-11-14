@@ -1,11 +1,10 @@
 use adw::prelude::*;
 use glib::{clone, ToValue};
-use gtk::prelude::*;
 use gtk::{glib, subclass::prelude::*};
 
 mod imp {
     use super::*;
-    use adw::subclass::action_row::ActionRowImpl;
+    use adw::subclass::prelude::*;
     use glib::ParamSpec;
     use std::cell::RefCell;
 
@@ -81,11 +80,12 @@ mod imp {
     }
     impl WidgetImpl for UrlRow {}
     impl ListBoxRowImpl for UrlRow {}
+    impl PreferencesRowImpl for UrlRow {}
     impl ActionRowImpl for UrlRow {}
 }
 
 glib::wrapper! {
-    pub struct UrlRow(ObjectSubclass<imp::UrlRow>) @extends gtk::Widget, gtk::ListBoxRow, adw::ActionRow;
+    pub struct UrlRow(ObjectSubclass<imp::UrlRow>) @extends gtk::Widget, gtk::ListBoxRow, adw::PreferencesRow, adw::ActionRow;
 }
 
 impl UrlRow {
@@ -116,12 +116,12 @@ impl UrlRow {
     fn open_uri(&self) {
         let self_ = imp::UrlRow::from_instance(self);
         if let Some(ref uri) = *self_.uri.borrow() {
-            gtk::show_uri(gtk::NONE_WINDOW, uri, 0);
+            gtk::show_uri(gtk::Window::NONE, uri, 0);
         }
     }
 
     pub fn set_uri(&self, uri: &str) {
-        self.set_subtitle(Some(uri));
+        self.set_subtitle(uri);
         let self_ = imp::UrlRow::from_instance(self);
         self_.uri.borrow_mut().replace(uri.to_string());
     }

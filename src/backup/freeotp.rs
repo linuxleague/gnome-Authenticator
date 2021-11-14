@@ -44,7 +44,7 @@ impl Backupable for FreeOTP {
             None,
             false,
             gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
-            gtk::gio::NONE_CANCELLABLE,
+            gtk::gio::Cancellable::NONE,
         )?;
 
         Ok(())
@@ -66,7 +66,7 @@ impl Restorable for FreeOTP {
     }
 
     fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
+        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
         let uris = String::from_utf8(data)?;
 
         let items = uris

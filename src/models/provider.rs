@@ -84,7 +84,6 @@ mod imp {
     impl ObjectSubclass for Provider {
         const NAME: &'static str = "Provider";
         type Type = super::Provider;
-        type ParentType = glib::Object;
 
         fn new() -> Self {
             let model = AccountsModel::new();
@@ -99,7 +98,7 @@ mod imp {
                 image_uri: RefCell::new(None),
                 method: RefCell::new(OTPMethod::default().to_string()),
                 period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
-                filter_model: gtk::FilterListModel::new(Some(&model), gtk::NONE_FILTER),
+                filter_model: gtk::FilterListModel::new(Some(&model), gtk::Filter::NONE),
                 accounts: model,
             }
         }
@@ -457,15 +456,17 @@ impl Provider {
             ))
             .execute(&conn)?;
 
-        self.set_property("image-uri", &patch.image_uri)?;
-        self.set_property("name", &patch.name)?;
-        self.set_property("website", &patch.website)?;
-        self.set_property("period", &(patch.period as u32))?;
-        self.set_property("method", &patch.method)?;
-        self.set_property("digits", &(patch.digits as u32))?;
-        self.set_property("algorithm", &patch.algorithm)?;
-        self.set_property("help-url", &patch.help_url)?;
-        self.set_property("default-counter", &(patch.default_counter as u32))?;
+        self.set_properties(&[
+            ("image-uri", &patch.image_uri),
+            ("name", &patch.name),
+            ("website", &patch.website),
+            ("period", &(patch.period as u32)),
+            ("method", &patch.method),
+            ("digits", &(patch.digits as u32)),
+            ("algorithm", &patch.algorithm),
+            ("help-url", &patch.help_url),
+            ("default-counter", &(patch.default_counter as u32)),
+        ]);
         Ok(())
     }
 
@@ -478,7 +479,7 @@ impl Provider {
             .set(providers::columns::image_uri.eq(uri))
             .execute(&conn)?;
 
-        self.set_property("image-uri", &uri)?;
+        self.set_property("image-uri", &uri);
         Ok(())
     }
 

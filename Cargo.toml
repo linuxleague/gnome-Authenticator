@@ -4,23 +4,23 @@ name = "authenticator"
 version = "0.1.0"
 
 [dependencies]
-adw = {package = "libadwaita", version = "0.1.0-alpha" }
+adw = {package = "libadwaita", git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs"}
 anyhow = "1.0"
-ashpd = {version = "0.2.0-alpha", features = ["feature_gtk4"]}
-async-std = "1.9"
+ashpd = {git = "https://github.com/bilelmoussaoui/ashpd", features = ["feature_gtk4"]}
+async-std = "1.10"
 binascii = "0.1"
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "1.4", features = ["sqlite"]}
 futures = "0.3"
 gettext-rs = {version = "0.7", features = ["gettext-system"]}
-gst = {package = "gstreamer", version = "0.17"}
-gst_base = {package = "gstreamer-base", version = "0.17"}
-gtk = {version = "0.1", package = "gtk4"}
+gst = {package = "gstreamer", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs.git"}
+gst_base = {package = "gstreamer-base", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs.git"}
+gtk = {git = "https://github.com/gtk-rs/gtk4-rs", package = "gtk4"}
 gtk-macros = "0.3"
 hex = "0.4"
 image = "0.23"
 log = "0.4"
-once_cell = "1.5"
+once_cell = "1.8"
 percent-encoding = "2.1"
 pretty_env_logger = "0.4"
 qrcode = {version = "0.12", features = ["image"]}
@@ -31,7 +31,7 @@ rust-argon2 = "0.8"
 secret-service = "2.0"
 serde = "1.0"
 serde_json = "1.0"
-surf = "2.1"
+surf = "2.3"
 unicase = "2.6"
 url = "2.2"
 zbar-rust = "0.0"

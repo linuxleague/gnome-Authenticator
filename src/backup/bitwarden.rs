@@ -142,7 +142,7 @@ impl Restorable for Bitwarden {
     }
 
     fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
+        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
         Bitwarden::restore_from_slice(&data)
     }
 }

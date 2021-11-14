@@ -33,7 +33,7 @@ mod imp {
         type ParentType = gtk::Box;
 
         fn new() -> Self {
-            let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
+            let filter_model = gtk::FilterListModel::new(gio::ListModel::NONE, gtk::Filter::NONE);
             Self {
                 providers_list: TemplateChild::default(),
                 stack: TemplateChild::default(),
@@ -149,13 +149,13 @@ impl ProvidersList {
                 row.connect_local("changed", false, clone!(@weak list => @default-return None,  move |_| {
                     list.refilter();
                     None
-                })).unwrap();
+                }));
                 row.connect_local("shared", false, clone!(@weak list => @default-return None,  move |args| {
                     let account = args.get(1).unwrap().get::<Account>().unwrap();
 
-                    list.emit_by_name("shared", &[&account]).unwrap();
+                    list.emit_by_name("shared", &[&account]);
                     None
-                })).unwrap();
+                }));
 
                 row.upcast::<gtk::Widget>()
             }),

@@ -11,7 +11,7 @@ use adw::prelude::*;
 use anyhow::Result;
 use gettextrs::gettext;
 use glib::clone;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::action;
 use once_cell::sync::OnceCell;
 
@@ -159,13 +159,10 @@ impl PreferencesWindow {
 
     pub fn has_set_password(&self) -> bool {
         self.property("has-set-password")
-            .unwrap()
-            .get::<bool>()
-            .unwrap()
     }
 
     pub fn set_has_set_password(&self, state: bool) {
-        self.set_property("has-set-password", &state).unwrap()
+        self.set_property("has-set-password", &state)
     }
 
     fn setup_widgets(&self) {
@@ -277,7 +274,7 @@ impl PreferencesWindow {
                     warn!("Failed to restore item {}", err);
                 }
             });
-        self.emit_by_name("restore-completed", &[]).unwrap();
+        self.emit_by_name("restore-completed", &[]);
     }
 
     fn select_file(
@@ -290,14 +287,14 @@ impl PreferencesWindow {
         let native = match operation {
             Operation::Backup => gtk::FileChooserNative::new(
                 Some(&gettext("Backup")),
-                gtk::NONE_WINDOW,
+                gtk::Window::NONE,
                 gtk::FileChooserAction::Save,
                 Some(&gettext("Select")),
                 Some(&gettext("Cancel")),
             ),
             Operation::Restore => gtk::FileChooserNative::new(
                 Some(&gettext("Restore")),
-                gtk::NONE_WINDOW,
+                gtk::Window::NONE,
                 gtk::FileChooserAction::Open,
                 Some(&gettext("Select")),
                 Some(&gettext("Cancel")),

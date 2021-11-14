@@ -55,7 +55,6 @@ mod imp {
     impl ObjectSubclass for Account {
         const NAME: &'static str = "Account";
         type Type = super::Account;
-        type ParentType = glib::Object;
 
         fn new() -> Self {
             Self {
@@ -308,7 +307,7 @@ impl Account {
             }
         };
 
-        self.set_property("otp", &label).unwrap();
+        self.set_property("otp", &label);
     }
 
     fn increment_counter(&self) -> Result<()> {
@@ -347,8 +346,7 @@ impl Account {
     }
 
     pub fn provider(&self) -> Provider {
-        let provider = self.property("provider").unwrap();
-        provider.get::<Provider>().unwrap()
+        self.property("provider")
     }
 
     pub fn counter(&self) -> u32 {
@@ -389,7 +387,7 @@ impl Account {
             .set(accounts::columns::name.eq(name))
             .execute(&conn)?;
 
-        self.set_property("name", &name)?;
+        self.set_property("name", &name);
         Ok(())
     }
 

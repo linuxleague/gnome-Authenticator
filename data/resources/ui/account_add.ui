@@ -25,7 +25,7 @@
     <child>
       <object class="AdwLeaflet" id="deck">
         <property name="can-unfold">False</property>
-        <property name="can-swipe-back">True</property>
+        <property name="can-navigate-back">True</property>
         <child>
           <object class="AdwLeafletPage">
             <property name="name">main</property>

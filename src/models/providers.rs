@@ -14,7 +14,6 @@ mod imp {
     impl ObjectSubclass for ProvidersModel {
         const NAME: &'static str = "ProvidersModel";
         type Type = super::ProvidersModel;
-        type ParentType = glib::Object;
         type Interfaces = (gio::ListModel,);
     }
     impl ObjectImpl for ProvidersModel {}

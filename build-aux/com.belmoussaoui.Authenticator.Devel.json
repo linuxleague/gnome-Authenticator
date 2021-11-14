@@ -24,11 +24,7 @@
         "test-args": [
             "--socket=x11",
             "--share=network"
-        ],
-        "env": {
-            "CARGO_HOME": "/run/build/authenticator/cargo",
-            "RUST_BACKTRACE": "1"
-        }
+        ]
     },
     "modules": [
         {
@@ -48,7 +44,7 @@
             "sources" : [{
                 "type": "git",
                 "url": "https://gitlab.gnome.org/GNOME/libadwaita.git",
-                "tag": "1.0.0-alpha.1"
+                "branch": "main"
             }],
             "modules": [
                 {
@@ -91,7 +87,7 @@
             "sources": [{
                     "type": "git",
                     "url": "git://git.linuxtv.org/zbar.git",
-                    "tag": "0.23"
+                    "commit": "468f6bda627d683b3f40dbaf242c158409666f7e"
                 },
                 {
                     "type": "script",
@@ -99,40 +95,6 @@
                     "commands": [
                         "autoreconf -vfi -W none"
                     ]
-                }
-            ]
-        },
-        {
-            "name" : "gstreamer",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dexamples=disabled",
-                "-Dtests=disabled",
-                "-Ddoc=disabled"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "branch" : "1.18",
-                    "url" : "https://gitlab.freedesktop.org/gstreamer/gstreamer.git"
-                }
-            ]
-        },
-        {
-            "name" : "gst-plugins-base",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Ddoc=disabled",
-                "-Dexamples=disabled",
-                "-Dtests=disabled",
-                "-Dorc=enabled",
-                "--wrap-mode=nodownload"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "branch" : "1.18",
-                    "url" : "https://gitlab.freedesktop.org/gstreamer/gst-plugins-base.git"
                 }
             ]
         },

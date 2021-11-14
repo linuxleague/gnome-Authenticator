@@ -133,7 +133,7 @@ impl ProviderImage {
         if let Some(provider) = provider {
             self_.stack.set_visible_child_name("loading");
             self_.spinner.start();
-            self.set_property("provider", &provider.clone()).unwrap();
+            self.set_property("provider", &provider);
             self.on_provider_image_changed();
             provider.connect_notify_local(
                 Some("image-uri"),
@@ -160,12 +160,12 @@ impl ProviderImage {
                 }
 
                 let file = gio::File::for_uri(&uri);
-                if !file.query_exists(gio::NONE_CANCELLABLE) {
+                if !file.query_exists(gio::Cancellable::NONE) {
                     self.fetch();
                     return;
                 }
 
-                self_.image.set_from_file(file.path().unwrap());
+                self_.image.set_from_file(file.path());
                 self_.stack.set_visible_child_name("image");
             }
             _ => {
@@ -199,13 +199,12 @@ impl ProviderImage {
     pub fn set_from_file(&self, file: &gio::File) {
         let self_ = imp::ProviderImage::from_instance(self);
 
-        self_.image.set_from_file(file.path().unwrap());
+        self_.image.set_from_file(file.path());
         self_.stack.set_visible_child_name("image");
     }
 
     fn provider(&self) -> Option<Provider> {
-        let provider = self.property("provider").unwrap();
-        provider.get::<Option<Provider>>().unwrap()
+        self.property("provider")
     }
 
     fn setup_widgets(&self) {
@@ -229,7 +228,7 @@ impl ProviderImage {
                 "invalid".to_string()
             }
             ImageAction::Ready(image) => {
-                self_.image.set_from_file(image.path().unwrap());
+                self_.image.set_from_file(image.path());
                 let image_uri = image.uri();
                 image_uri.to_string()
             }

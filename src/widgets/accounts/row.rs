@@ -128,8 +128,7 @@ impl AccountRow {
     }
 
     fn account(&self) -> Account {
-        let account = self.property("account").unwrap();
-        account.get::<Account>().unwrap()
+        self.property("account")
     }
 
     fn setup_widgets(&self) {
@@ -188,7 +187,7 @@ impl AccountRow {
             self_.actions,
             "details",
             clone!(@weak self as row => move |_, _| {
-                row.emit_by_name("shared", &[]).unwrap();
+                row.emit_by_name("shared", &[]);
             })
         );
 
@@ -196,7 +195,7 @@ impl AccountRow {
             self_.actions,
             "delete",
             clone!(@weak self as row => move |_, _| {
-                row.emit_by_name("removed", &[]).unwrap();
+                row.emit_by_name("removed", &[]);
             })
         );
 

@@ -204,7 +204,7 @@ impl AccountAddDialog {
             let account = Account::create(&username, &token, provider)?;
 
             self_.model.get().unwrap().add_account(&account, &provider);
-            self.emit_by_name("added", &[]).unwrap();
+            self.emit_by_name("added", &[]);
         // TODO: display an error message saying there was an error form keyring
         } else {
             anyhow::bail!("Could not find provider");
@@ -306,7 +306,7 @@ impl AccountAddDialog {
 
         self_.provider_completion.connect_match_selected(
             clone!(@weak self as dialog, @strong self_.model as model => @default-return Inhibit(false), move |_, store, iter| {
-                let provider_id = store.get(iter, 0).get::<u32>().unwrap();
+                let provider_id = store.get::<u32>(iter, 0);
                 let provider = model.get().unwrap().find_by_id(provider_id);
                 dialog.set_provider(provider);
 
@@ -314,20 +314,17 @@ impl AccountAddDialog {
             }),
         );
 
-        self_
-            .camera
-            .connect_local(
-                "code-detected",
-                false,
-                clone!(@weak self as dialog => @default-return None, move |args| {
-                    let code = args.get(1).unwrap().get::<String>().unwrap();
-                    if let Ok(otp_uri) = OTPUri::from_str(&code) {
-                        dialog.set_from_otp_uri(otp_uri);
-                    }
+        self_.camera.connect_local(
+            "code-detected",
+            false,
+            clone!(@weak self as dialog => @default-return None, move |args| {
+                let code = args.get(1).unwrap().get::<String>().unwrap();
+                if let Ok(otp_uri) = OTPUri::from_str(&code) {
+                    dialog.set_from_otp_uri(otp_uri);
+                }
 
-                    None
-                }),
-            )
-            .unwrap();
+                None
+            }),
+        );
     }
 }

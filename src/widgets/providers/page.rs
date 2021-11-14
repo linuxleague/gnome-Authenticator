@@ -5,7 +5,7 @@ use crate::{
 use adw::prelude::*;
 use gettextrs::gettext;
 use glib::{clone, translate::IntoGlib};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 
 mod imp {
@@ -267,13 +267,13 @@ impl ProviderPage {
             dest_file
                 .create(
                     gio::FileCreateFlags::REPLACE_DESTINATION,
-                    gio::NONE_CANCELLABLE,
+                    gio::Cancellable::NONE,
                 )
                 .ok();
             file.copy(
                 &dest_file,
                 gio::FileCopyFlags::OVERWRITE,
-                gio::NONE_CANCELLABLE,
+                gio::Cancellable::NONE,
                 None,
             )?;
 
@@ -294,7 +294,7 @@ impl ProviderPage {
                 algorithm: algorithm.to_string(),
                 method: method.to_string(),
             })?;
-            self.emit_by_name("updated", &[&provider]).unwrap();
+            self.emit_by_name("updated", &[&provider]);
         } else {
             let provider = Provider::create(
                 &name,
@@ -307,7 +307,7 @@ impl ProviderPage {
                 Some(help_url),
                 image_uri,
             )?;
-            self.emit_by_name("created", &[&provider]).unwrap();
+            self.emit_by_name("created", &[&provider]);
         }
         Ok(())
     }
@@ -364,7 +364,7 @@ impl ProviderPage {
                     "The provider has accounts assigned to it, please remove them first",
                 ));
             } else if provider.delete().is_ok() {
-                self.emit_by_name("deleted", &[&provider]).unwrap();
+                self.emit_by_name("deleted", &[&provider]);
             }
         } else {
             anyhow::bail!("Can't remove a provider as none are selected");

@@ -147,7 +147,7 @@ mod imp {
                     preferences.connect_local("restore-completed", false, clone!(@weak win => @default-return None, move |_| {
                         win.providers().refilter();
                         None
-                    })).unwrap();
+                    }));
                     preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, _| {
                         let state = preferences.has_set_password();
                         app.set_can_be_locked(state);
@@ -190,7 +190,7 @@ mod imp {
                     providers.connect_local("changed", false, clone!(@weak win => @default-return None, move |_| {
                         win.providers().refilter();
                         None
-                    })).unwrap();
+                    }));
                     providers.set_transient_for(Some(&window));
                     providers.show();
                 })
@@ -298,24 +298,19 @@ impl Application {
     }
 
     pub fn locked(&self) -> bool {
-        self.property("locked").unwrap().get::<bool>().unwrap()
+        self.property("locked")
     }
 
     pub fn set_locked(&self, state: bool) {
-        self.set_property("locked", &state)
-            .expect("Failed to set locked property");
+        self.set_property("locked", &state);
     }
 
     pub fn can_be_locked(&self) -> bool {
         self.property("can-be-locked")
-            .unwrap()
-            .get::<bool>()
-            .unwrap()
     }
 
     pub fn set_can_be_locked(&self, state: bool) {
-        self.set_property("can-be-locked", &state)
-            .expect("Failed to set can-be-locked property");
+        self.set_property("can-be-locked", &state);
     }
 
     fn create_window(&self) -> Window {
@@ -351,7 +346,7 @@ impl Application {
         let self_ = imp::Application::from_instance(self);
 
         if let Some(id) = self_.lock_timeout_id.borrow_mut().take() {
-            glib::source_remove(id);
+            id.remove();
         }
     }
 }

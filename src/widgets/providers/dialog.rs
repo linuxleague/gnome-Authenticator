@@ -2,7 +2,7 @@ use super::ProviderPage;
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use adw::{prelude::*, subclass::prelude::*};
 use glib::clone;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::action;
 use row::ProviderActionRow;
 
@@ -43,7 +43,7 @@ mod imp {
         type ParentType = adw::Window;
 
         fn new() -> Self {
-            let filter_model = gtk::FilterListModel::new(gio::NONE_LIST_MODEL, gtk::NONE_FILTER);
+            let filter_model = gtk::FilterListModel::new(gio::ListModel::NONE, gtk::Filter::NONE);
             Self {
                 deck: TemplateChild::default(),
                 providers_list: TemplateChild::default(),
@@ -173,48 +173,39 @@ impl ProvidersDialog {
             }),
         );
 
-        self_
-            .page
-            .connect_local(
-                "created",
-                false,
-                clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                    let provider = args.get(1).unwrap().get::<Provider>().unwrap();
-                    model.add_provider(&provider);
-                    dialog.set_view(View::List);
-                    dialog.emit_by_name("changed", &[]).unwrap();
-                    None
-                }),
-            )
-            .unwrap();
+        self_.page.connect_local(
+            "created",
+            false,
+            clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
+                let provider = args.get(1).unwrap().get::<Provider>().unwrap();
+                model.add_provider(&provider);
+                dialog.set_view(View::List);
+                dialog.emit_by_name("changed", &[]);
+                None
+            }),
+        );
 
-        self_
-            .page
-            .connect_local(
-                "updated",
-                false,
-                clone!(@weak self as dialog => @default-return None, move |_| {
-                    dialog.set_view(View::List);
-                    dialog.emit_by_name("changed", &[]).unwrap();
-                    None
-                }),
-            )
-            .unwrap();
+        self_.page.connect_local(
+            "updated",
+            false,
+            clone!(@weak self as dialog => @default-return None, move |_| {
+                dialog.set_view(View::List);
+                dialog.emit_by_name("changed", &[]);
+                None
+            }),
+        );
 
-        self_
-            .page
-            .connect_local(
-                "deleted",
-                false,
-                clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                    let provider = args.get(1).unwrap().get::<Provider>().unwrap();
-                    model.delete_provider(&provider);
-                    dialog.set_view(View::List);
-                    dialog.emit_by_name("changed", &[]).unwrap();
-                    None
-                }),
-            )
-            .unwrap();
+        self_.page.connect_local(
+            "deleted",
+            false,
+            clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
+                let provider = args.get(1).unwrap().get::<Provider>().unwrap();
+                model.delete_provider(&provider);
+                dialog.set_view(View::List);
+                dialog.emit_by_name("changed", &[]);
+                None
+            }),
+        );
         let deck_page = self_.deck.append(&self_.page).unwrap();
         deck_page.set_name(Some("provider"));
         self.set_view(View::List);
@@ -282,7 +273,7 @@ impl ProvidersDialog {
         match view {
             View::Form => {
                 self_.deck.set_visible_child_name("provider");
-                self_.search_entry.set_key_capture_widget(gtk::NONE_WIDGET);
+                self_.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 self_.search_entry.emit_stop_search();
             }
             View::List => {
@@ -399,13 +390,12 @@ mod row {
         pub fn set_provider(&self, provider: Provider) {
             let self_ = imp::ProviderActionRow::from_instance(self);
 
-            self.set_property("provider", &provider).unwrap();
+            self.set_property("provider", &provider);
             self_.title_label.set_text(&provider.name());
         }
 
         pub fn provider(&self) -> Option<Provider> {
-            let provider = self.property("provider").unwrap();
-            provider.get::<Option<Provider>>().unwrap()
+            self.property("provider")
         }
     }
 }

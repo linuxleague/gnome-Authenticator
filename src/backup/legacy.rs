@@ -37,7 +37,7 @@ impl Restorable for LegacyAuthenticator {
     }
 
     fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::NONE_CANCELLABLE)?;
+        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
         let items: Vec<LegacyAuthenticator> = serde_json::de::from_slice(&data)?;
         Ok(items)
     }

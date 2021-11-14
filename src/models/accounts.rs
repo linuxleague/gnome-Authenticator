@@ -13,7 +13,6 @@ mod imp {
     impl ObjectSubclass for AccountsModel {
         const NAME: &'static str = "AccountsModel";
         type Type = super::AccountsModel;
-        type ParentType = glib::Object;
         type Interfaces = (gio::ListModel,);
     }
 
