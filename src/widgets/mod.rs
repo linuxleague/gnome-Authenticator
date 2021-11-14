@@ -5,6 +5,7 @@ mod preferences;
 mod providers;
 mod url_row;
 mod window;
+mod progress_icon;
 
 pub use self::{
     accounts::{AccountAddDialog, QRCodeData},
@@ -13,5 +14,6 @@ pub use self::{
     preferences::PreferencesWindow,
     providers::{ProviderImage, ProvidersDialog, ProvidersList},
     url_row::UrlRow,
+    progress_icon::{ProgressIcon, ProgressIconExt},
     window::{View, Window},
 };

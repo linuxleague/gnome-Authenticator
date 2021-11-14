@@ -12,7 +12,7 @@ mod imp {
     };
     use once_cell::sync::Lazy;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_row.ui")]
     pub struct AccountRow {
         pub account: RefCell<Option<Account>>,
@@ -24,8 +24,6 @@ mod imp {
         #[template_child]
         pub edit_stack: TemplateChild<gtk::Stack>,
         #[template_child]
-        pub copy_btn_stack: TemplateChild<gtk::Stack>,
-        #[template_child]
         pub otp_label: TemplateChild<gtk::Label>,
     }
 
@@ -34,20 +32,6 @@ mod imp {
         const NAME: &'static str = "AccountRow";
         type Type = super::AccountRow;
         type ParentType = gtk::ListBoxRow;
-
-        fn new() -> Self {
-            let actions = gio::SimpleActionGroup::new();
-
-            Self {
-                actions,
-                name_label: TemplateChild::default(),
-                name_entry: TemplateChild::default(),
-                edit_stack: TemplateChild::default(),
-                otp_label: TemplateChild::default(),
-                copy_btn_stack: TemplateChild::default(),
-                account: RefCell::new(None),
-            }
-        }
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
@@ -133,6 +117,10 @@ impl AccountRow {
 
     fn setup_widgets(&self) {
         let self_ = imp::AccountRow::from_instance(self);
+        self.connect_activate(move |row| {
+            row.activate_action("account.details", None);
+        });
+
         self.account()
             .bind_property("name", &*self_.name_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
@@ -169,17 +157,11 @@ impl AccountRow {
     fn setup_actions(&self) {
         let self_ = imp::AccountRow::from_instance(self);
         self.insert_action_group("account", Some(&self_.actions));
-        let copy_btn_stack = &*self_.copy_btn_stack;
         action!(
             self_.actions,
             "copy-otp",
-            clone!(@weak self as row, @weak copy_btn_stack => move |_, _| {
-                copy_btn_stack.set_visible_child_name("ok");
+            clone!(@weak self as row => move |_, _| {
                 row.account().copy_otp();
-                glib::source::timeout_add_seconds_local(1, clone!(@weak copy_btn_stack => @default-return glib::Continue(false), move || {
-                    copy_btn_stack.set_visible_child_name("copy");
-                    glib::Continue(false)
-                }));
             })
         );
 

@@ -12,10 +12,13 @@
           <object class="GtkBox">
             <property name="orientation">horizontal</property>
             <property name="hexpand">True</property>
+            <property name="margin-bottom">6</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
             <child>
               <object class="ProviderImage" id="image">
                 <property name="halign">start</property>
-                <property name="size">48</property>
+                <property name="size">24</property>
               </object>
             </child>
             <child>
@@ -24,34 +27,25 @@
                 <property name="margin-start">6</property>
                 <property name="margin-bottom">6</property>
                 <style>
-                  <class name="title-3" />
+                  <class name="heading" />
                 </style>
               </object>
+            </child>
+            <child>
+                <object class="ProgressIcon" id="progress_icon">
+                  <property name="halign">end</property>
+                  <property name="hexpand">True</property>
+                  <property name="width-request">12</property>
+                  <property name="height-request">12</property>
+                </object>
             </child>
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">vertical</property>
-            <property name="overflow">hidden</property>
-            <child>
-              <object class="GtkListBox" id="accounts_list">
-                <property name="vexpand">True</property>
-                <style>
-                  <class name="boxed-list" />
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkProgressBar" id="progress">
-                <property name="pulse-step">0.0001</property>
-                <style>
-                  <class name="totp-progress" />
-                </style>
-              </object>
-            </child>
+          <object class="GtkListBox" id="accounts_list">
+            <property name="vexpand">True</property>
             <style>
-              <class name="provider-row-content" />
+              <class name="boxed-list" />
             </style>
           </object>
         </child>

@@ -1,6 +1,6 @@
 use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
-    widgets::{accounts::AccountRow, ProviderImage},
+    widgets::{accounts::AccountRow, ProviderImage, ProgressIcon, ProgressIconExt},
 };
 use gtk::{glib, glib::clone, prelude::*, subclass::prelude::*, CompositeTemplate};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -28,7 +28,7 @@ mod imp {
         #[template_child]
         pub accounts_list: TemplateChild<gtk::ListBox>,
         #[template_child]
-        pub progress: TemplateChild<gtk::ProgressBar>,
+        pub progress_icon: TemplateChild<ProgressIcon>,
     }
 
     #[glib::object_subclass]
@@ -43,7 +43,7 @@ mod imp {
                 image: TemplateChild::default(),
                 name_label: TemplateChild::default(),
                 accounts_list: TemplateChild::default(),
-                progress: TemplateChild::default(),
+                progress_icon: TemplateChild::default(),
                 provider: RefCell::new(None),
                 callback_id: RefCell::default(),
                 schedule: RefCell::default(),
@@ -168,7 +168,7 @@ impl ProviderRow {
             OTPMethod::TOTP | OTPMethod::Steam => {
                 let self_ = imp::ProviderRow::from_instance(self);
 
-                self_.progress.set_fraction(1_f64);
+                self_.progress_icon.set_progress(1_f32);
                 self.set_property("remaining-time", &(provider.period() as u64));
             }
             _ => (),
@@ -205,7 +205,7 @@ impl ProviderRow {
 
         let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
-        self_.progress.set_fraction(progress_fraction);
+        self_.progress_icon.set_progress(progress_fraction as f32);
         if remaining_time <= 1000 && self_.schedule.borrow().is_none() {
             let id = glib::timeout_add_local(
                 Duration::from_millis(remaining_time as u64),
@@ -218,12 +218,6 @@ impl ProviderRow {
                 }),
             );
             self_.schedule.replace(Some(id));
-        }
-        // When there is left than 1/5 of the time remaining, turn the bar red.
-        if progress_fraction < 0.2 {
-            self_.progress.add_css_class("red-progress")
-        } else {
-            self_.progress.remove_css_class("red-progress")
         }
     }
 
@@ -252,7 +246,7 @@ impl ProviderRow {
                         glib::Continue(true)
                     })));
             }
-            _ => self_.progress.hide(),
+            _ => self_.progress_icon.hide(),
         }
 
         self.provider()

@@ -58,6 +58,7 @@ sources = files(
   'widgets/camera.rs',
   'widgets/error_revealer.rs',
 	'widgets/mod.rs',
+	'widgets/progress_icon.rs',
 	'widgets/url_row.rs',
 	'widgets/window.rs',
 	'application.rs',

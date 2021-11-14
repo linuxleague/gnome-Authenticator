@@ -7,10 +7,7 @@
 .providers-list {
   background-color: @theme_base_bg;
 }
-.provider-row-content{
-  border-radius: 8px;
-  border-bottom: 1px solid @borders;
-}
+
 .provider-row {
   margin-top: 12px;
   margin-bottom: 12px;
@@ -30,12 +27,6 @@
 .totp-progress trough {
   margin-left: 0px;
   margin-right: 0px;
-}
-
-row .content row.account-row:last-child {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-bottom: 0;
 }
 
 .red-progress trough progress {
