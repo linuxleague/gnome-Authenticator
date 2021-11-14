@@ -162,16 +162,26 @@
                     <child>
                       <object class="AdwComboRow" id="method_comborow">
                         <property name="title" translatable="yes">Computing Method</property>
+                        <property name="model">
+                          <object class="AdwEnumListModel">
+                            <property name="enum-type">OTPMethod</property>
+                          </object>
+                        </property>
                         <property name="expression">
-                          <lookup type="OTPMethod" name="name"/>
+                          <lookup type="AdwEnumListItem" name="name"/>
                         </property>
                       </object>
                     </child>
                     <child>
                       <object class="AdwComboRow" id="algorithm_comborow">
                         <property name="title" translatable="yes">Algorithm</property>
+                        <property name="model">
+                          <object class="AdwEnumListModel">
+                            <property name="enum-type">Algorithm</property>
+                          </object>
+                        </property>
                         <property name="expression">
-                          <lookup type="Algorithm" name="name"/>
+                          <lookup type="AdwEnumListItem" name="name"/>
                         </property>
                       </object>
                     </child>

@@ -7,7 +7,7 @@ use std::{str::FromStr, string::ToString};
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
 #[repr(u32)]
-#[genum(type_name = "ProviderMethod")]
+#[genum(type_name = "OTPMethod")]
 pub enum OTPMethod {
     #[genum(name = "TOTP")]
     TOTP = 0,
@@ -87,7 +87,7 @@ impl ToString for OTPMethod {
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
 #[repr(u32)]
-#[genum(type_name = "ProviderAlgorithm")]
+#[genum(type_name = "Algorithm")]
 pub enum Algorithm {
     #[genum(name = "SHA1")]
     SHA1 = 0,
