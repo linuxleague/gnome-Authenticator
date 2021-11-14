@@ -163,7 +163,7 @@
                       <object class="AdwComboRow" id="method_comborow">
                         <property name="title" translatable="yes">Computing Method</property>
                         <property name="expression">
-                          <lookup type="AdwEnumValueObject" name="name"/>
+                          <lookup type="OTPMethod" name="name"/>
                         </property>
                       </object>
                     </child>
@@ -171,12 +171,12 @@
                       <object class="AdwComboRow" id="algorithm_comborow">
                         <property name="title" translatable="yes">Algorithm</property>
                         <property name="expression">
-                          <lookup type="AdwEnumValueObject" name="name"/>
+                          <lookup type="Algorithm" name="name"/>
                         </property>
                       </object>
                     </child>
                     <style>
-                      <class name="content"/>
+                      <class name="boxed-list"/>
                     </style>
                     <child>
                       <object class="AdwActionRow" id="period_row">

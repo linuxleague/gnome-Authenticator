@@ -64,7 +64,7 @@
                   </object>
                 </child>
                 <style>
-                  <class name="content"/>
+                  <class name="boxed-list"/>
                 </style>
               </object>
             </child>

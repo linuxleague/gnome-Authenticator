@@ -225,10 +225,6 @@ impl Window {
             Inhibit(false)
         }));
 
-        let builder = gtk::Builder::from_resource("/com/belmoussaoui/Authenticator/shortcuts.ui");
-        gtk_macros::get_widget!(builder, gtk::ShortcutsWindow, shortcuts);
-        self.set_help_overlay(Some(&shortcuts));
-
         let search_entry = &*self_.search_entry;
         let search_btn = &*self_.search_btn;
         let providers = &*self_.providers;

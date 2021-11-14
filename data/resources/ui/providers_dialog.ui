@@ -89,7 +89,7 @@
                                         <property name="vexpand">true</property>
                                         <property name="single-click-activate">True</property>
                                         <style>
-                                          <class name="content" />
+                                          <class name="boxed-list" />
                                         </style>
                                       </object>
                                     </child>

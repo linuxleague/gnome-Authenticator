@@ -92,6 +92,8 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
+            OTPMethod::static_type();
+            Algorithm::static_type();
             Self::bind_template(klass);
         }
 

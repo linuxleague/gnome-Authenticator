@@ -22,7 +22,7 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="camera.ui">resources/ui/camera.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="error_revealer.ui">resources/ui/error_revealer.ui</file>
 
-    <file compressed="true" preprocess="xml-stripblanks" alias="shortcuts.ui">resources/ui/shortcuts.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">resources/ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="window.ui">resources/ui/window.ui</file>
   </gresource>
 

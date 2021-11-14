@@ -38,7 +38,7 @@
               <object class="GtkListBox" id="accounts_list">
                 <property name="vexpand">True</property>
                 <style>
-                  <class name="content" />
+                  <class name="boxed-list" />
                 </style>
               </object>
             </child>

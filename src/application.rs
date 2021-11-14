@@ -10,6 +10,7 @@ use gtk_macros::{action, get_action};
 
 mod imp {
     use super::*;
+    use adw::subclass::prelude::*;
     use glib::{ParamSpec, WeakRef};
     use std::cell::{Cell, RefCell};
 
@@ -28,7 +29,7 @@ mod imp {
     #[glib::object_subclass]
     impl ObjectSubclass for Application {
         const NAME: &'static str = "Application";
-        type ParentType = gtk::Application;
+        type ParentType = adw::Application;
         type Type = super::Application;
 
         // Initialize with default values
@@ -100,39 +101,11 @@ mod imp {
         }
     }
 
-    // This is empty, but we still need to provide an
-    // empty implementation for each type we subclass.
-    impl GtkApplicationImpl for Application {}
-
     // Overrides GApplication vfuncs
     impl ApplicationImpl for Application {
         fn startup(&self, app: &Self::Type) {
             self.parent_startup(app);
 
-            adw::functions::init();
-
-            let app = app.downcast_ref::<super::Application>().unwrap();
-            if let Some(ref display) = gtk::gdk::Display::default() {
-                let p = gtk::CssProvider::new();
-                gtk::CssProvider::load_from_resource(
-                    &p,
-                    "/com/belmoussaoui/Authenticator/style.css",
-                );
-                gtk::StyleContext::add_provider_for_display(display, &p, 500);
-                let theme = gtk::IconTheme::for_display(display).unwrap();
-                theme.add_resource_path("/com/belmoussaoui/Authenticator/icons/");
-            }
-
-            // - action! is a macro from gtk_macros
-            //   that creates a GSimpleAction with a callback.
-            //
-            // - clone! is a macro from glib-rs that allows
-            //   you to easily handle references in callbacks
-            //   without refcycles or leaks.
-            //   When you don't want the callback to keep the
-            //   Object alive, pass as @weak. Otherwise, pass
-            //   as @strong. Most of the time you will want
-            //   to use @weak.
             action!(app, "quit", clone!(@weak app => move |_, _| app.quit()));
 
             action!(
@@ -243,14 +216,11 @@ mod imp {
                 return;
             }
 
-            let app = app.downcast_ref::<super::Application>().unwrap();
             let window = app.create_window();
             window.present();
             self.window.replace(Some(window.downgrade()));
 
             let has_set_password = Keyring::has_set_password().unwrap_or(false);
-
-            app.set_resource_base_path(Some("/com/belmoussaoui/Authenticator"));
             app.set_accels_for_action("app.quit", &["<primary>q"]);
             app.set_accels_for_action("app.lock", &["<primary>l"]);
             app.set_accels_for_action("app.providers", &["<primary>p"]);
@@ -267,6 +237,11 @@ mod imp {
             app.restart_lock_timeout();
         }
     }
+    // This is empty, but we still need to provide an
+    // empty implementation for each type we subclass.
+    impl GtkApplicationImpl for Application {}
+
+    impl AdwApplicationImpl for Application {}
 }
 
 // Creates a wrapper struct that inherits the functions
@@ -275,7 +250,8 @@ mod imp {
 // Application without casting.
 glib::wrapper! {
     pub struct Application(ObjectSubclass<imp::Application>)
-        @extends gio::Application, gtk::Application, gio::ActionMap;
+        @extends gio::Application, gtk::Application, adw::Application,
+        @implements gio::ActionMap;
 }
 
 impl Application {
@@ -291,6 +267,7 @@ impl Application {
         let app = glib::Object::new::<Application>(&[
             ("application-id", &Some(config::APP_ID)),
             ("flags", &gio::ApplicationFlags::empty()),
+            ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
         ])
         .unwrap();
 
