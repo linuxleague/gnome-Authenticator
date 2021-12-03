@@ -33,12 +33,14 @@ service.load_collections_sync(None)
 collections = service.get_collections()
 service.unlock_sync(collections, None)
 
-default_collection = list(filter(lambda x: x.get_label() == "Login", collections))[0]
+default_collection = Secret.Collection.for_alias_sync(
+    service, "default", Secret.CollectionFlags.NONE, None
+)
 
 
 def get_token(token_id):
 
-    item = default_collection.search_sync(
+    items = default_collection.search_sync(
         None,
         {
             "type": "token",
@@ -47,10 +49,12 @@ def get_token(token_id):
         },
         Secret.SearchFlags.NONE,
         None,
-    )[0]
-    item.load_secret_sync(None)
+    )
+    if items:
+        item = items[0]
+        item.load_secret_sync(None)
 
-    return item.get_secret().get_text()
+        return item.get_secret().get_text()
 
 
 accounts_otp_uri = []
@@ -58,6 +62,9 @@ accounts_otp_uri = []
 for account in accounts:
     token_id = account[3]
     token = get_token(token_id)
+    if not token:
+        print(f"Couldn't find token for {account[1]}")
+        continue
     method = account[-1]
 
     uri = f"otpauth://{method}/{account[1]}?secret={token}&issuer={account[6]}&algorithm={account[-2]}&digits={account[-5]}"
