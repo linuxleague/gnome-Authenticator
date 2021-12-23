@@ -1,361 +1,646 @@
 # Hungarian translation for authenticator.
-# Copyright (C) 2019, 2020 Free Software Foundation, Inc.
+# Copyright (C) 2019, 2020, 2021 Free Software Foundation, Inc.
 # This file is distributed under the same license as the authenticator package.
 #
-# Balázs Úr <ur.balazs at fsf dot hu>, 2019, 2020.
+# Balázs Meskó <mesko.balazs at fsf dot hu>, 2021.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2019, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-02-27 23:13+0000\n"
-"PO-Revision-Date: 2020-03-01 14:58+0100\n"
-"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"POT-Creation-Date: 2021-02-13 20:41+0000\n"
+"PO-Revision-Date: 2021-12-23 18:07+0100\n"
+"Last-Translator: Balázs Úr <mesko.balazs at fsf dot hu>\n"
 "Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.04.3\n"
+"X-Generator: Lokalize 19.12.3\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:36
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
 msgid "Authenticator"
 msgstr "Hitelesítő"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:8
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "A Two-Factor Authentication application"
-msgstr "Egy kétlépcsős hitelesítő alkalmazás"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
-msgid ""
-"Simple application that generates a two-factor authentication code, created "
-"for GNOME."
-msgstr ""
-"Egyszerű alkalmazása a GNOME asztali környezethez, amely kétlépcsős "
-"hitelesítő kódot állít elő."
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:11
-msgid "Features:"
-msgstr "Funkciók:"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
-msgid "QR code scanner"
-msgstr "QR-kód beolvasó"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
-msgid "Beautiful UI"
-msgstr "Gyönyörű felhasználói felület"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
-msgid "Huge database of more than 560 supported services"
-msgstr "Hatalmas adatbázis több mint 560 támogatott szolgáltatással"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr ""
-"Tartsa a PIN tokenjeit biztonságban és zárolja az alkalmazást jelszóval"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-#| msgid "Automatically fetch an image for services using their favicon"
-msgid "Automatically fetch an image for services"
-msgstr "Egy kép automatikus lekérése a szolgáltatásokhoz"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:18
-msgid "The possibility to add new services"
-msgstr "A lehetőség új szolgáltatások hozzáadásához"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:19
-msgid "Dark theme and night light"
-msgstr "Sötét téma és nappali fény"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:25
-msgid "Main Window - empty state"
-msgstr "Főablak – üres állapot"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:29
-msgid "Add a new account"
-msgstr "Új fiók hozzáadása"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:33
-msgid "Main Window - Accounts List"
-msgstr "Főablak – Fiókok listája"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid "Settings Window"
-msgstr "Beállítások ablak"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:170
-msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+#| msgid "Two-factor Authentication"
+msgid "Two-Factor Authentication"
 msgstr "Kétlépcsős hitelesítés"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
-msgstr "GNOME;GTK;Ellenőrzés;2FA;Hitelesítés;OTP;Kétlépcsős;"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:155
+msgid "Generate Two-Factor Codes"
+msgstr "Kétlépcsős kódok előállítása"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "Alapértelmezett ablakhelyzet"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+#| msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "GNOME;GTK;Ellenőrzés;2FA;Hitelesítés;OTP;TOTP;Kétlépcsős;"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: data/resources/gtk/ui/settings.ui.in:28
-msgid "Dark Theme"
-msgstr "Sötét téma"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+#| msgid "Default window position"
+msgid "Default window width"
+msgstr "Alapértelmezett ablakszélesség"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: data/resources/gtk/ui/settings.ui.in:29
-#: data/resources/gtk/ui/settings.ui.in:76
-msgid "Whether the application should use a dark theme."
-msgstr "Az alkalmazás használjon-e sötét témát."
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+#| msgid "Default window position"
+msgid "Default window height"
+msgstr "Alapértelmezett ablakmagasság"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: data/resources/gtk/ui/settings.ui.in:83
-msgid "Auto lock timeout"
-msgstr "Automatikus zárolás időtúllépése"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-msgid "Lock the application on idle after X minutes"
-msgstr "Az alkalmazás zárolása X perc tétlenség után"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/gtk/ui/settings.ui.in:43
-msgid "Night Light"
-msgstr "Nappali fény"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
-#: data/resources/gtk/ui/settings.ui.in:44
-#: data/resources/gtk/ui/settings.ui.in:84
-msgid "Automatically enable dark mode at night."
-msgstr "Sötét mód automatikus engedélyezése éjszaka."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
 msgid "Default window maximized behaviour"
 msgstr "Alapértelmezett ablak maximalizált viselkedés"
 
-#: data/resources/gtk/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Úr Balázs <ur.balazs@fsf.hu>, 2018, 2019."
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Theme"
+msgstr "Sötét téma"
 
-#: data/resources/gtk/ui/account_config.ui:57
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark theme."
+msgstr "Az alkalmazás sötét témát használjon-e."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+#| msgid "Auto lock timeout"
+msgid "Auto lock"
+msgstr "Automatikus zárolás"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+#| msgid "Whether the application should use a dark theme."
+msgid "Whether to auto lock the application or not"
+msgstr "Automatikusan zárolja-e az alkalmazást"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "Automatikus zárolás időtúllépése"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "Az alkalmazás zárolása X perc tétlenség után"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+#| msgid ""
+#| "Simple application that generates a two-factor authentication code, "
+#| "created for GNOME."
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "Egyszerű alkalmazás kétlépcsős hitelesítő kódok előállítására."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "Funkciók:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "Időalapú/számlálóalapú/Steam módszerek támogatása"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "SHA-1/SHA-256/SHA-512 algoritmusok támogatása"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "QR-kód leolvasó kamera használatával vagy képernyőképről"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+#| msgid "Lock the application"
+msgid "Lock the application with a password"
+msgstr "Az alkalmazás jelszavas zárolása"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "Gyönyörű felhasználói felület"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
+msgstr ""
+"Biztonsági mentés/helyreállítás biztosítása olyan ismert alkalmazásokhoz "
+"mint a FreeOTP+ és az andOTP"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+#| msgid "Settings Window"
+msgid "Main Window"
+msgstr "Főablak"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/resources/ui/account_add.ui:24
+#| msgid "Add a new account"
+msgid "Add a New Account"
+msgstr "Új fiók hozzáadása"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#| msgid "Provider"
+msgid "Add a New Provider"
+msgstr "Új szolgáltató hozzáadása"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#| msgctxt "shortcut window"
+#| msgid "Accounts"
+msgid "Account Details"
+msgstr "Fiók részletei"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+msgid "Backup/Restore formats support"
+msgstr "Biztonsági mentési/helyreállítási formátumok támogatása"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr "_Kamera"
+
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr "Ké_pernyőkép"
+
+#: data/resources/ui/account_add.ui:44
+#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:51
+#| msgid "Backup"
+msgid "Go Back"
+msgstr "Ugrás vissza"
+
+#: data/resources/ui/account_add.ui:49
+msgid "_Add"
+msgstr "_Hozzáadás"
+
+#: data/resources/ui/account_add.ui:61
+#| msgid "Scan a QR Code"
+msgid "Scan QR Code"
+msgstr "QR-kód beolvasása"
+
+#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_details_page.ui:52
 msgid "Provider"
 msgstr "Szolgáltató"
 
-#: data/resources/gtk/ui/account_config.ui:85
-#| msgid "Provider Website"
-msgid "Website"
-msgstr "Weboldal"
+#: data/resources/ui/account_add.ui:101
+msgid "Token issuer"
+msgstr "Tokenkibocsátó"
 
-#: data/resources/gtk/ui/account_config.ui:105
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
+#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_details_page.ui:42
 msgid "Account"
 msgstr "Fiók"
 
-#: data/resources/gtk/ui/account_config.ui:124
-#| msgid "2FA Token"
+#: data/resources/ui/account_add.ui:130
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/gtk/ui/account_config.ui:134
-#: data/resources/gtk/ui/account_config.ui:135
-msgid "Enable 2FA for this account"
-msgstr "2FA engedélyezése ehhez a fiókhoz"
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
+msgid "Counter"
+msgstr "Számláló"
 
-#: data/resources/gtk/ui/account_row.ui:48
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
+msgid "Algorithm"
+msgstr "Algoritmus"
+
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
+msgid "Computing Method"
+msgstr "Számítási módszer"
+
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
+msgid "Period"
+msgstr "Időszak"
+
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
+msgid "Duration in seconds until the next password update"
+msgstr "A következő jelszófrissítésig lévő időtartam másodpercben"
+
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
+msgid "Digits"
+msgstr "Számjegyek"
+
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
+msgid "Length of the generated code"
+msgstr "Az előállított kód hossza"
+
+#: data/resources/ui/account_add.ui:219
+#: data/resources/ui/account_details_page.ui:62
+#: data/resources/ui/provider_page.ui:150
+msgid "Website"
+msgstr "Weboldal"
+
+#: data/resources/ui/account_add.ui:225
+msgid "How to Set Up"
+msgstr "Hogyan állítsa be"
+
+#: data/resources/ui/account_row.ui:6
+msgid "D_etails"
+msgstr "_Részletek"
+
+#: data/resources/ui/account_row.ui:12
+msgid "_Rename"
+msgstr "Át_nevezés"
+
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
+#| msgid "Delete"
+msgid "_Delete"
+msgstr "_Törlés"
+
+#: data/resources/ui/account_row.ui:66
 msgid "Copy PIN to clipboard"
 msgstr "PIN-kód másolása a vágólapra"
 
-#: data/resources/gtk/ui/account_row.ui:158
-msgid "Edit"
-msgstr "Szerkesztés"
+#: data/resources/ui/account_row.ui:106
+msgid "More"
+msgstr "Továbbiak"
 
-#: data/resources/gtk/ui/account_row.ui:176
-msgid "Delete"
-msgstr "Törlés"
+#: data/resources/ui/account_row.ui:138
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:56
+#| msgid "Save"
+msgid "_Save"
+msgstr "Menté_s"
 
-#: data/resources/gtk/ui/password_widget.ui:46
-msgid "Current Password:"
-msgstr "Jelenlegi jelszó:"
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "Nem található kamera"
 
-#: data/resources/gtk/ui/password_widget.ui:91
-msgid "New Password:"
-msgstr "Új jelszó:"
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "Ké_pernyőképről"
 
-#: data/resources/gtk/ui/password_widget.ui:136
-msgid "Confirm New Password:"
-msgstr "Új jelszó megerősítése:"
+#: data/resources/ui/camera.ui:82
+msgid "Capture from a screenshot"
+msgstr "Beolvasás képernyőképről"
 
-#: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:174
-msgid "Change Password"
-msgstr "Jelszó megváltoztatása"
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "Jelmondat beállítása"
 
-#: data/resources/gtk/ui/password_widget.ui:205
-msgid "Delete Password"
-msgstr "Jelszó törlése"
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "A hitelesítő zárolva fog elindulni, miután megadott egy jelmondatot."
 
-#: data/resources/gtk/ui/settings.ui.in:24
+#: data/resources/ui/preferences_password_page.ui:52
+#| msgid "Current Password:"
+msgid "Current Passphrase"
+msgstr "Jelenlegi jelmondat"
+
+#: data/resources/ui/preferences_password_page.ui:66
+#| msgid "New Password:"
+msgid "New Passphrase"
+msgstr "Új jelmondat"
+
+#: data/resources/ui/preferences_password_page.ui:79
+msgid "Repeat Passphrase"
+msgstr "Jelmondat megismétlése"
+
+#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/provider_page.ui:101
+msgid "_Reset"
+msgstr "_Visszaállítás"
+
+#: data/resources/ui/preferences.ui:16
+#| msgctxt "shortcut window"
+#| msgid "General"
+msgid "General"
+msgstr "Általános"
+
+#: data/resources/ui/preferences.ui:19
 msgid "Appearance"
 msgstr "Megjelenés"
 
-#: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:102
-msgid "Lock the application"
-msgstr "Az alkalmazás zárolása"
+#: data/resources/ui/preferences.ui:22
+#| msgid "Dark Theme"
+msgid "_Dark Theme"
+msgstr "_Sötét téma"
 
-#: data/resources/gtk/ui/shortcuts.ui:13
+#: data/resources/ui/preferences.ui:25
+#| msgid "Whether the application should use a dark theme."
+msgid "Whether the application should use a dark theme"
+msgstr "Az alkalmazás sötét témát használjon-e."
+
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "Adatvédelem"
+
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "_Jelmondat"
+
+#: data/resources/ui/preferences.ui:42
+#| msgid ""
+#| "Keep your PIN tokens secure by locking the application with a password"
+msgid "Set up a passphrase to lock the application with"
+msgstr "Állítson be jelmondatot, hogy zárolja vele az alkalmazást"
+
+#: data/resources/ui/preferences.ui:54
+#| msgid "Lock the application"
+msgid "_Auto Lock the Application"
+msgstr "Alkalmazás _automatikus zárolása"
+
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr "Automatikusan zárolja-e az alkalmazást"
+
+#: data/resources/ui/preferences.ui:68
+#| msgid "Auto lock timeout"
+msgid "Auto Lock _Timeout"
+msgstr "Automatikus zárolás idő_korlátja"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "Az idő percben"
+
+#: data/resources/ui/preferences.ui:92
+#| msgid "Restore"
+msgid "Backup/Restore"
+msgstr "Biztonsági mentési/helyreállítás"
+
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
+msgid "Backup"
+msgstr "Biztonsági mentés"
+
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
+msgid "Restore"
+msgstr "Helyreállítás"
+
+#: data/resources/ui/provider_page.ui:112
+msgid "Select a _File"
+msgstr "Válasszon egy _fájlt"
+
+#: data/resources/ui/provider_page.ui:136
+msgid "Name"
+msgstr "Név"
+
+#: data/resources/ui/provider_page.ui:151
+msgid "Used to fetch the provider icon"
+msgstr "A szolgáltató ikonjának lekérésére szolgál"
+
+#: data/resources/ui/provider_page.ui:202
+msgid "The by default value for counter-based computing method"
+msgstr "A számlálóalapú számítási módszer alapértelmezett értéke"
+
+#: data/resources/ui/provider_page.ui:236
+msgid "Help URL"
+msgstr "Súgó URL"
+
+#: data/resources/ui/provider_page.ui:237
+msgid "Provider setup instructions"
+msgstr "Szolgáltató beállítási utasításai"
+
+#: data/resources/ui/providers_dialog.ui:5
+#| msgid "Provider"
+msgid "Providers"
+msgstr "Szolgáltatók"
+
+#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:206
+#| msgid "Provider"
+msgid "New Provider"
+msgstr "Új szolgáltató"
+
+#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
+#| msgctxt "shortcut window"
+#| msgid "Search"
+msgid "Search"
+msgstr "Keresés"
+
+#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_list.ui:42
+#| msgid "No results found"
+msgid "No Results"
+msgstr "Nincs találat"
+
+#: data/resources/ui/providers_dialog.ui:109
+msgid "No providers matching the query were found."
+msgstr "Nem található a lekérdezésnek megfelelő szolgáltató."
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "Nem található a lekérdezésnek megfelelő fiók vagy szolgáltató."
+
+#: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Általános"
 
-#: data/resources/gtk/ui/shortcuts.ui:17
+#: data/resources/ui/shortcuts.ui:14
+#| msgid "Keyboard Shortcuts"
 msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Gyorsbillentyűk megjelenítése"
+msgid "Keyboard Shortcuts"
+msgstr "Gyorsbillentyűk"
 
-#: data/resources/gtk/ui/shortcuts.ui:24
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Zárolás"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Beállítások"
 
-#: data/resources/gtk/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Kilépés"
 
-#: data/resources/gtk/ui/shortcuts.ui:40
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "Fiókok"
 
-#: data/resources/gtk/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
+#| msgid "Account"
 msgctxt "shortcut window"
-msgid "Add"
-msgstr "Hozzáadás"
+msgid "New Account"
+msgstr "Új fiók"
 
-#: data/resources/gtk/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Keresés"
 
-#: data/resources/gtk/ui/window.ui.in:189
-msgid "There are no accounts yet…"
-msgstr "Még nincsenek fiókok…"
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "Szolgáltatók listájának megjelenítése"
 
-#: data/resources/gtk/ui/window.ui.in:218
-msgid "Add a new account from the menu"
-msgstr "Új fiók hozzáadása a menüből"
+#: data/resources/ui/window.ui:6
+#| msgid "Lock the application"
+msgid "_Lock the Application"
+msgstr "Az alkalmazás _zárolása"
 
-#: data/resources/gtk/ui/window.ui.in:234
-msgid "Scan a QR Code"
-msgstr "QR-kód beolvasása"
+#: data/resources/ui/window.ui:12
+#| msgid "Provider"
+msgid "P_roviders"
+msgstr "_Szolgáltatók"
 
-#: data/resources/gtk/ui/window.ui.in:366
-msgid "No results found"
-msgstr "Nincsenek találatok"
+#: data/resources/ui/window.ui:16
+#| msgid "Preferences"
+msgid "_Preferences"
+msgstr "_Beállítások"
 
-#: data/resources/gtk/ui/window.ui.in:429
-msgid "Authenticator is locked"
+#: data/resources/ui/window.ui:22
+#| msgid "Keyboard Shortcuts"
+msgid "_Keyboard Shortcuts"
+msgstr "_Gyorsbillentyűk"
+
+#: data/resources/ui/window.ui:26
+#| msgid "About Authenticator"
+msgid "_About Authenticator"
+msgstr "A Hitelesítő _névjegye"
+
+#: data/resources/ui/window.ui:95
+#| msgid "Authenticator is locked"
+msgid "Authenticator is Locked"
 msgstr "A Hitelesítő zárolva van"
 
-#: data/resources/gtk/ui/window.ui.in:469
-msgid "Unlock"
-msgstr "Feloldás"
+#: data/resources/ui/window.ui:123
+#| msgid "Unlock"
+msgid "_Unlock"
+msgstr "Fel_oldás"
 
-#: src/authenticator.py.in:49
-msgid "Start in debug mode"
-msgstr "Indítás hibakeresési módban"
+#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#| msgid "Account"
+msgid "New Account"
+msgstr "Új fiók"
 
-#: src/Authenticator/application.py.in:110
-msgid "from a plain-text JSON file"
-msgstr "egyszerű szöveges JSON-fájlból"
+#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+msgid "Menu"
+msgstr "Menü"
 
-#: src/Authenticator/application.py.in:111
-msgid "in a plain-text JSON file"
-msgstr "egyszerű szöveges JSON-fájlba"
+#: data/resources/ui/window.ui:192
+#| msgctxt "shortcut window"
+#| msgid "Accounts"
+msgid "No Accounts"
+msgstr "Nincsenek fiókok"
 
-#: src/Authenticator/application.py.in:113
-msgid "Restore"
-msgstr "Visszaállítás"
+#: data/resources/ui/window.ui:193
+msgid "Add an account or scan a QR code first."
+msgstr "Előbb adjon hozzá egy fiókot vagy olvasson le egy QR-kódot."
 
-#: src/Authenticator/application.py.in:114
-msgid "Backup"
-msgstr "Biztonsági mentés"
+#: src/application.rs:159
+msgid "translator-credits"
+msgstr ""
+"Meskó Balázs <mesko.balazs@fsf.hu>, 2021.\n"
+"Úr Balázs <ur.balazs@fsf.hu>, 2018, 2019."
 
-#. Night mode action
-#: src/Authenticator/application.py.in:122
-msgid "Preferences"
-msgstr "Beállítások"
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:66
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
 
-#: src/Authenticator/application.py.in:123
-msgid "Keyboard Shortcuts"
-msgstr "Gyorsbillentyűk"
+#: src/backup/andotp.rs:70
+#| msgid "in a plain-text JSON file"
+msgid "Into a plain-text JSON file"
+msgstr "Egyszerű szöveges JSON-fájlba"
 
-#: src/Authenticator/application.py.in:124
-msgid "About Authenticator"
-msgstr "A Hitelesítő névjegye"
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:128
+msgid "an_dOTP"
+msgstr "an_dOTP"
 
-#: src/Authenticator/models/account.py:87
-msgid "Default"
-msgstr "Alapértelmezett"
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+#| msgid "from a plain-text JSON file"
+msgid "From a plain-text JSON file"
+msgstr "Egyszerű szöveges JSON-fájlból"
 
-#: src/Authenticator/widgets/accounts/add.py:36
-msgid "Add"
-msgstr "Hozzáadás"
+#: src/backup/bitwarden.rs:35
+#| msgid "Add a new account"
+msgid "Unknown account"
+msgstr "Ismeretlen fiók"
 
-#: src/Authenticator/widgets/accounts/add.py:257
-msgid "Invalid QR code"
-msgstr "Érvénytelen QR-kód"
+#: src/backup/bitwarden.rs:43
+msgid "Unknown issuer"
+msgstr "Ismeretlen kibocsátó"
 
-#: src/Authenticator/widgets/accounts/edit.py:37
-msgid "Save"
-msgstr "Mentés"
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:81
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
 
-#: src/Authenticator/widgets/accounts/list.py:152
-msgid "The One-Time Passwords expire in {} seconds"
-msgstr "Az egyszer használatos jelszavak {} másodperc múlva lejárnak"
+#: src/backup/freeotp.rs:18
+#| msgid "Authenticator"
+msgid "_Authenticator"
+msgstr "_Hitelesítő"
 
-#: src/Authenticator/widgets/accounts/row.py:90
-msgid "Couldn't generate the secret code"
-msgstr "Nem sikerült előállítani a titkos kódot"
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "Egyszerű szöveges fájlba, kompatibilis a FreeOTP+ alkalmazással"
 
-#: src/Authenticator/widgets/accounts/row.py:100
-msgid "The PIN of {} was copied to the clipboard"
-msgstr "A(z) {} PIN-kódja a vágólapra lett másolva"
+#: src/backup/freeotp.rs:64
+#| msgid "Authenticator"
+msgid "A_uthenticator"
+msgstr "Hi_telesítő"
 
-#: src/Authenticator/widgets/accounts/row.py:139
-msgid "The account was updated successfully"
-msgstr "A fiók sikeresen frissítve lett"
+#: src/backup/freeotp.rs:68
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Egyszerű szöveges fájlból, kompatibilis a FreeOTP+ alkalmazással"
 
-#: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:86
-msgid "Undo"
-msgstr "Visszavonás"
+#. Translators: this is for restoring a backup from the old Authenticator release
+#: src/backup/legacy.rs:32
+#| msgid "Authenticator"
+msgid "Au_thenticator (Legacy)"
+msgstr "Hite_lesítő (örökölt)"
 
-#: src/Authenticator/widgets/notification.py:81
-msgid "Close the notification"
-msgstr "Az értesítés bezárása"
+#: src/models/algorithm.rs:55
+msgid "Counter-based"
+msgstr "Számlálóalapú"
 
-#: src/Authenticator/widgets/settings.py:170
-msgid "Save Password"
-msgstr "Jelszó mentése"
+#: src/models/algorithm.rs:56
+msgid "Time-based"
+msgstr "Időalapú"
 
-#: src/Authenticator/widgets/settings.py:222
-msgid "Do you want to remove the authentication password?"
-msgstr "El szeretné távolítani a hitelesítési jelszót?"
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:58
+msgid "Steam"
+msgstr "Steam"
 
-#: src/Authenticator/widgets/settings.py:223
-msgid "Authentication password enforces the privacy of your accounts."
-msgstr "A hitelesítési jelszó megerősíti a fiókjai védelmét."
+#: src/models/algorithm.rs:125
+msgid "SHA-1"
+msgstr "SHA-1"
 
-#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
-msgid "JSON files"
-msgstr "JSON-fájlok"
+#: src/models/algorithm.rs:126
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:204
+#| msgid "Invalid QR code"
+msgid "Invalid Token"
+msgstr "Érvénytelen token"
+
+#: src/widgets/window.rs:324
+#| msgid "Change Password"
+msgid "Wrong Password"
+msgstr "Hibás jelszó"
+
+#: src/widgets/preferences/password_page.rs:228
+#: src/widgets/preferences/password_page.rs:259
+msgid "Wrong Passphrase"
+msgstr "Hibás jelmondat"
+
+#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
+#: src/widgets/providers/page.rs:312
+msgid "Select"
+msgstr "Kiválasztás"
+
+#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
+#: src/widgets/providers/page.rs:313
+msgid "Cancel"
+msgstr "Mégse"
+
+#: src/widgets/providers/page.rs:176
+msgid "Editing Provider: {}"
+msgstr "Szolgáltató szerkesztése: {}"
+
+#: src/widgets/providers/page.rs:320
+msgid "Image"
+msgstr "Kép"
+
+#: src/widgets/providers/page.rs:356
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "A szolgáltatóhoz tartoznak fiókok, először távolítsa el azokat"
