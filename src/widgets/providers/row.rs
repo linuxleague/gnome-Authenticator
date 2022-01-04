@@ -243,7 +243,7 @@ impl ProviderRow {
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        let sorter = AccountSorter::new();
+        let sorter = AccountSorter::default();
         let sort_model = gtk::SortListModel::new(Some(self.provider().accounts()), Some(&sorter));
 
         let provider = self.provider();

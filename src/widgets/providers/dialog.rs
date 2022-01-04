@@ -16,7 +16,7 @@ mod imp {
     use adw::subclass::window::AdwWindowImpl;
     use glib::subclass::{self, Signal};
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
     pub struct ProvidersDialog {
         pub page: ProviderPage,
@@ -41,21 +41,6 @@ mod imp {
         const NAME: &'static str = "ProvidersDialog";
         type Type = super::ProvidersDialog;
         type ParentType = adw::Window;
-
-        fn new() -> Self {
-            let filter_model = gtk::FilterListModel::new(gio::ListModel::NONE, gtk::Filter::NONE);
-            Self {
-                deck: TemplateChild::default(),
-                providers_list: TemplateChild::default(),
-                search_entry: TemplateChild::default(),
-                search_btn: TemplateChild::default(),
-                page: ProviderPage::new(),
-                actions: gio::SimpleActionGroup::new(),
-                filter_model,
-                stack: TemplateChild::default(),
-                title_stack: TemplateChild::default(),
-            }
-        }
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
@@ -154,7 +139,7 @@ impl ProvidersDialog {
         });
 
         imp.providers_list.set_factory(Some(&factory));
-        let sorter = ProviderSorter::new();
+        let sorter = ProviderSorter::default();
         let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&sorter));
 
         let selection_model = gtk::NoSelection::new(Some(&sort_model));

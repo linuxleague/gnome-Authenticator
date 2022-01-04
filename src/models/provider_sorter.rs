@@ -37,9 +37,8 @@ glib::wrapper! {
     pub struct ProviderSorter(ObjectSubclass<imp::ProviderSorter>) @extends gtk::Sorter;
 }
 
-impl ProviderSorter {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl Default for ProviderSorter {
+    fn default() -> Self {
         glib::Object::new(&[]).expect("Failed to create ProviderSorter")
     }
 }

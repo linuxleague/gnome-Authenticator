@@ -15,7 +15,7 @@ mod imp {
     use glib::subclass::{self, Signal};
     use std::cell::RefCell;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
     pub struct AccountAddDialog {
         pub model: OnceCell<ProvidersModel>,
@@ -62,33 +62,6 @@ mod imp {
         const NAME: &'static str = "AccountAddDialog";
         type Type = super::AccountAddDialog;
         type ParentType = adw::Window;
-
-        fn new() -> Self {
-            let actions = gio::SimpleActionGroup::new();
-
-            Self {
-                actions,
-                model: OnceCell::new(),
-                selected_provider: RefCell::new(None),
-                image: TemplateChild::default(),
-                provider_website_row: TemplateChild::default(),
-                provider_help_row: TemplateChild::default(),
-                token_entry: TemplateChild::default(),
-                username_entry: TemplateChild::default(),
-                more_list: TemplateChild::default(),
-                period_label: TemplateChild::default(),
-                digits_label: TemplateChild::default(),
-                provider_entry: TemplateChild::default(),
-                method_label: TemplateChild::default(),
-                provider_completion: TemplateChild::default(),
-                algorithm_label: TemplateChild::default(),
-                counter_row: TemplateChild::default(),
-                period_row: TemplateChild::default(),
-                deck: TemplateChild::default(),
-                camera: TemplateChild::default(),
-                error_revealer: TemplateChild::default(),
-            }
-        }
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);

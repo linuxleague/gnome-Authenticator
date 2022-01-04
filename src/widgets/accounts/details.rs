@@ -6,7 +6,7 @@ mod imp {
     use super::*;
     use glib::subclass;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_details_page.ui")]
     pub struct AccountDetailsPage {
         #[template_child]
@@ -27,17 +27,6 @@ mod imp {
         const NAME: &'static str = "AccountDetailsPage";
         type Type = super::AccountDetailsPage;
         type ParentType = gtk::Box;
-
-        fn new() -> Self {
-            Self {
-                qrcode_picture: TemplateChild::default(),
-                account_label: TemplateChild::default(),
-                provider_label: TemplateChild::default(),
-                website_row: TemplateChild::default(),
-                listbox: TemplateChild::default(),
-                qrcode_paintable: QRCodePaintable::new(),
-            }
-        }
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);

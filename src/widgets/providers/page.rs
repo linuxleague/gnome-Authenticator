@@ -144,11 +144,6 @@ glib::wrapper! {
     pub struct ProviderPage(ObjectSubclass<imp::ProviderPage>) @extends gtk::Widget, gtk::Box;
 }
 impl ProviderPage {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create ProviderPage")
-    }
-
     pub fn set_provider(&self, provider: Option<Provider>) {
         let imp = self.imp();
         if let Some(provider) = provider {
@@ -458,5 +453,11 @@ impl ProviderPage {
             .set_sensitive(selected != OTPMethod::Steam);
         imp.period_row.set_sensitive(selected != OTPMethod::Steam);
         imp.digits_row.set_sensitive(selected != OTPMethod::Steam);
+    }
+}
+
+impl Default for ProviderPage {
+    fn default() -> Self {
+        glib::Object::new(&[]).expect("Failed to create ProviderPage")
     }
 }

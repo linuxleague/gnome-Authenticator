@@ -3,7 +3,7 @@ use crate::{
     widgets::providers::ProviderRow,
 };
 use glib::clone;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
 #[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
 pub enum ProvidersListView {
@@ -15,7 +15,7 @@ mod imp {
     use super::*;
     use glib::subclass::{self, Signal};
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_list.ui")]
     pub struct ProvidersList {
         pub filter_model: gtk::FilterListModel,
@@ -31,16 +31,6 @@ mod imp {
         const NAME: &'static str = "ProvidersList";
         type Type = super::ProvidersList;
         type ParentType = gtk::Box;
-
-        fn new() -> Self {
-            let filter_model = gtk::FilterListModel::new(gio::ListModel::NONE, gtk::Filter::NONE);
-            Self {
-                providers_list: TemplateChild::default(),
-                stack: TemplateChild::default(),
-                sorter: ProviderSorter::new(),
-                filter_model,
-            }
-        }
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);

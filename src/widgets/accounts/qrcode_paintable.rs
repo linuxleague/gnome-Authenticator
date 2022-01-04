@@ -106,13 +106,14 @@ glib::wrapper! {
 }
 
 impl QRCodePaintable {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create a QRCodePaintable")
-    }
-
     pub fn set_qrcode(&self, qrcode: QRCodeData) {
         self.imp().qrcode.replace(Some(qrcode));
         self.invalidate_contents();
+    }
+}
+
+impl Default for QRCodePaintable {
+    fn default() -> Self {
+        glib::Object::new(&[]).expect("Failed to create a QRCodePaintable")
     }
 }

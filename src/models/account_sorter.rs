@@ -37,9 +37,8 @@ glib::wrapper! {
     pub struct AccountSorter(ObjectSubclass<imp::AccountSorter>) @extends gtk::Sorter;
 }
 
-impl AccountSorter {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
+impl Default for AccountSorter {
+    fn default() -> Self {
         glib::Object::new(&[]).expect("Failed to create AccountSorter")
     }
 }
