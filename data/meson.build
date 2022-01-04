@@ -32,7 +32,6 @@ endif
 desktop_conf = configuration_data()
 desktop_conf.set('icon', application_id)
 desktop_file = i18n.merge_file(
-  'desktop',
   input: configure_file(
     input: 'com.belmoussaoui.Authenticator.desktop.in.in',
     output: '@BASENAME@',
@@ -59,7 +58,6 @@ metainfo_conf = configuration_data()
 metainfo_conf.set('app-id', application_id)
 metainfo_conf.set('gettext-package', gettext_package)
 metainfo_file = i18n.merge_file(
-  'metainfo',
   input: configure_file(
     input: 'com.belmoussaoui.Authenticator.metainfo.xml.in.in',
     output: '@BASENAME@',
