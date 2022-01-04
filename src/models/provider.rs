@@ -63,7 +63,7 @@ pub struct DiProvider {
 }
 mod imp {
     use super::*;
-    use glib::ParamSpec;
+    use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
 
     pub struct Provider {
         pub id: Cell<u32>,
@@ -109,7 +109,7 @@ mod imp {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_uint(
+                    ParamSpecUInt::new(
                         "id",
                         "id",
                         "Id",
@@ -118,21 +118,15 @@ mod imp {
                         0,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
-                        "name",
-                        "name",
-                        "Name",
-                        None,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                    ParamSpec::new_object(
+                    ParamSpecString::new("name", "name", "Name", None, glib::ParamFlags::READWRITE),
+                    ParamSpecObject::new(
                         "accounts",
                         "accounts",
                         "accounts",
                         AccountsModel::static_type(),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_uint(
+                    ParamSpecUInt::new(
                         "period",
                         "period",
                         "Period",
@@ -141,7 +135,7 @@ mod imp {
                         otp::TOTP_DEFAULT_PERIOD,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_uint(
+                    ParamSpecUInt::new(
                         "digits",
                         "digits",
                         "Digits",
@@ -150,7 +144,7 @@ mod imp {
                         otp::DEFAULT_DIGITS,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_uint(
+                    ParamSpecUInt::new(
                         "default-counter",
                         "default_counter",
                         "default_counter",
@@ -159,35 +153,35 @@ mod imp {
                         otp::HOTP_DEFAULT_COUNTER,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "algorithm",
                         "algorithm",
                         "Algorithm",
                         Some(&Algorithm::default().to_string()),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "method",
                         "method",
                         "Method",
                         Some(&OTPMethod::default().to_string()),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "website",
                         "website",
                         "Website",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "help-url",
                         "help url",
                         "Help URL",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "image-uri",
                         "image uri",
                         "Image URI",
@@ -199,13 +193,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "id" => {
                     let id = value.get().unwrap();
@@ -251,7 +239,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "id" => self.id.get().to_value(),
                 "name" => self.name.borrow().to_value(),

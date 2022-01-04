@@ -11,7 +11,7 @@ use gtk_macros::{action, get_action};
 mod imp {
     use super::*;
     use adw::subclass::prelude::*;
-    use glib::{ParamSpec, WeakRef};
+    use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
     use std::cell::{Cell, RefCell};
 
     // The basic struct that holds our state and widgets
@@ -54,14 +54,14 @@ mod imp {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_boolean(
+                    ParamSpecBoolean::new(
                         "locked",
                         "locked",
                         "locked",
                         false,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_boolean(
+                    ParamSpecBoolean::new(
                         "can-be-locked",
                         "can_be_locked",
                         "can be locked",
@@ -72,13 +72,7 @@ mod imp {
             });
             PROPERTIES.as_ref()
         }
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "locked" => {
                     let locked = value.get().unwrap();
@@ -92,7 +86,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "locked" => self.locked.get().to_value(),
                 "can-be-locked" => self.can_be_locked.get().to_value(),
@@ -136,7 +130,7 @@ mod imp {
                 "about",
                 clone!(@weak app => move |_, _| {
                     let window = app.active_window().unwrap();
-                    let about_dialog = gtk::AboutDialogBuilder::new()
+                    gtk::AboutDialog::builder()
                         .program_name(&gettext("Authenticator"))
                         .modal(true)
                         .version(config::VERSION)
@@ -148,9 +142,8 @@ mod imp {
                         .logo_icon_name(config::APP_ID)
                         .license_type(gtk::License::Gpl30)
                         .transient_for(&window)
-                        .build();
-
-                    about_dialog.show();
+                        .build()
+                        .show();
                 })
             );
             action!(

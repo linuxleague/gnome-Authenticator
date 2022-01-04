@@ -212,8 +212,7 @@ impl Camera {
         let glsinkbin = gst::ElementFactory::make("glsinkbin", None).unwrap();
         glsinkbin.set_property("sink", &imp.sink);
 
-        imp
-            .pipeline
+        imp.pipeline
             .add_many(&[
                 &source_element,
                 &tee,
@@ -298,7 +297,7 @@ impl Camera {
         let imp = self.imp();
         match event {
             CameraEvent::CodeDetected(code) => {
-                self.emit_by_name("code-detected", &[&code]);
+                self.emit_by_name::<()>("code-detected", &[&code]);
             }
             CameraEvent::DeviceAdded(device) => {
                 info!("Camera source added: {}", device.display_name());

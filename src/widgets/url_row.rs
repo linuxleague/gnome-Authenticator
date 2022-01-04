@@ -5,7 +5,7 @@ use gtk::{glib, subclass::prelude::*};
 mod imp {
     use super::*;
     use adw::subclass::prelude::*;
-    use glib::ParamSpec;
+    use glib::{ParamSpec, ParamSpecString, Value};
     use std::cell::RefCell;
 
     #[derive(Debug, Default)]
@@ -26,14 +26,14 @@ mod imp {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "uri",
                         "uri",
                         "The Row URI",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "icon-name",
                         "icon name",
                         "The Icon Name",
@@ -45,13 +45,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "uri" => {
                     let uri = value.get().unwrap();
@@ -65,7 +59,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "uri" => self.uri.borrow().to_value(),
                 "icon-name" => self.icon_name.borrow().to_value(),
@@ -102,13 +96,13 @@ impl UrlRow {
 
         self.add_controller(&gesture);
 
-        let image_prefix = gtk::Image::from_icon_name(Some("image-missing-symbolic"));
+        let image_prefix = gtk::Image::from_icon_name("image-missing-symbolic");
         self.bind_property("icon-name", &image_prefix, "icon-name")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
         self.add_prefix(&image_prefix);
 
-        let image_suffix = gtk::Image::from_icon_name(Some("link-symbolic"));
+        let image_suffix = gtk::Image::from_icon_name("link-symbolic");
         image_suffix.add_css_class("dim-label");
         self.add_suffix(&image_suffix);
     }

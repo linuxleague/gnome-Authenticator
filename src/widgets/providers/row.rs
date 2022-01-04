@@ -1,6 +1,6 @@
 use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
-    widgets::{accounts::AccountRow, ProviderImage, ProgressIcon, ProgressIconExt},
+    widgets::{accounts::AccountRow, ProgressIcon, ProgressIconExt, ProviderImage},
 };
 use gtk::{glib, glib::clone, prelude::*, subclass::prelude::*, CompositeTemplate};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
@@ -9,7 +9,7 @@ mod imp {
     use super::*;
     use glib::{
         subclass::{self, Signal},
-        ParamSpec,
+        ParamSpec, ParamSpecObject, ParamSpecUInt64, Value,
     };
     use once_cell::sync::Lazy;
     use std::cell::{Cell, RefCell};
@@ -63,14 +63,14 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_object(
+                    ParamSpecObject::new(
                         "provider",
                         "Provider",
                         "The accounts provider",
                         Provider::static_type(),
                         glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
                     ),
-                    ParamSpec::new_uint64(
+                    ParamSpecUInt64::new(
                         "remaining-time",
                         "remaining time",
                         "the remaining time",
@@ -102,13 +102,7 @@ mod imp {
             SIGNALS.as_ref()
         }
 
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "provider" => {
                     let provider = value.get().unwrap();
@@ -122,7 +116,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "provider" => self.provider.borrow().to_value(),
                 "remaining-time" => self.remaining_time.get().to_value(),
@@ -235,8 +229,7 @@ impl ProviderRow {
                     }),
                 );
 
-                imp
-                    .callback_id
+                imp.callback_id
                     .replace(Some(self.add_tick_callback(|row, _| {
                         row.tick_progressbar();
                         glib::Continue(true)
@@ -264,7 +257,7 @@ impl ProviderRow {
                 clone!(@weak provider, @weak account, @weak provider_row => @default-return None, move |_| {
                     account.delete().unwrap();
                     provider.remove_account(account);
-                    provider_row.emit_by_name("changed", &[]);
+                    provider_row.emit_by_name::<()>("changed", &[]);
                     None
                 }),
             );
@@ -273,7 +266,7 @@ impl ProviderRow {
                 "shared",
                 false,
                 clone!(@weak account, @weak provider_row => @default-return None, move |_| {
-                    provider_row.emit_by_name("shared", &[&account]);
+                    provider_row.emit_by_name::<()>("shared", &[&account]);
                     None
                 }),
             );
@@ -283,15 +276,14 @@ impl ProviderRow {
                 clone!(@weak provider_row, @weak sorter => @default-return None, move |_| {
                     // Re-sort in case the name was updated
                     sorter.changed(gtk::SorterChange::Different);
-                    provider_row.emit_by_name("changed", &[]);
+                    provider_row.emit_by_name::<()>("changed", &[]);
                     None
                 }),
             );
             row.upcast::<gtk::Widget>()
         });
 
-        imp
-            .accounts_list
+        imp.accounts_list
             .bind_model(Some(&sort_model), create_callback);
     }
 }

@@ -20,7 +20,7 @@ mod imp {
     use adw::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
     use glib::{
         subclass::{self, Signal},
-        ParamSpec,
+        ParamSpec, ParamSpecBoolean, Value,
     };
     use once_cell::sync::Lazy;
     use std::cell::{Cell, RefCell};
@@ -87,7 +87,7 @@ mod imp {
     impl ObjectImpl for PreferencesWindow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpec::new_boolean(
+                vec![ParamSpecBoolean::new(
                     "has-set-password",
                     "has set password",
                     "Has Set Password",
@@ -109,13 +109,7 @@ mod imp {
             SIGNALS.as_ref()
         }
 
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "has-set-password" => {
                     let has_set_password = value.get().unwrap();
@@ -125,7 +119,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
@@ -150,7 +144,7 @@ glib::wrapper! {
 
 impl PreferencesWindow {
     pub fn new(model: ProvidersModel) -> Self {
-        let window = glib::Object::new(&[]).expect("Failed to create PreferencesWindow");
+        let window = glib::Object::new::<Self>(&[]).expect("Failed to create PreferencesWindow");
         window.imp().model.set(model).unwrap();
         window.setup_widgets();
         window
@@ -167,21 +161,17 @@ impl PreferencesWindow {
     fn setup_widgets(&self) {
         let imp = self.imp();
 
-        imp
-            .settings
+        imp.settings
             .bind("dark-theme", &*imp.dark_theme, "active")
             .build();
-        imp
-            .settings
+        imp.settings
             .bind("auto-lock", &*imp.auto_lock, "active")
             .build();
-        imp
-            .settings
+        imp.settings
             .bind("auto-lock-timeout", &*imp.lock_timeout, "value")
             .build();
 
-        imp
-            .password_page
+        imp.password_page
             .bind_property("has-set-password", self, "has-set-password")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
@@ -198,7 +188,7 @@ impl PreferencesWindow {
     fn register_backup<T: Backupable>(&self, filters: &'static [&str]) {
         let imp = self.imp();
 
-        let row = adw::ActionRowBuilder::new()
+        let row = adw::ActionRow::builder()
             .title(&T::title())
             .subtitle(&T::subtitle())
             .activatable(true)
@@ -229,7 +219,7 @@ impl PreferencesWindow {
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
         let imp = self.imp();
 
-        let row = adw::ActionRowBuilder::new()
+        let row = adw::ActionRow::builder()
             .title(&T::title())
             .subtitle(&T::subtitle())
             .activatable(true)
@@ -272,7 +262,7 @@ impl PreferencesWindow {
                     warn!("Failed to restore item {}", err);
                 }
             });
-        self.emit_by_name("restore-completed", &[]);
+        self.emit_by_name::<()>("restore-completed", &[]);
     }
 
     fn select_file(
@@ -316,14 +306,12 @@ impl PreferencesWindow {
     fn setup_actions(&self) {
         let imp = self.imp();
 
-        imp
-            .password_page
+        imp.password_page
             .connect_map(clone!(@weak self as win => move |_| {
                 win.set_search_enabled(false);
             }));
 
-        imp
-            .password_page
+        imp.password_page
             .connect_unmap(clone!(@weak self as win => move |_| {
                 win.set_search_enabled(true);
             }));

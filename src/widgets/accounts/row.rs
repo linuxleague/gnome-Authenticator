@@ -8,7 +8,7 @@ mod imp {
     use super::*;
     use glib::{
         subclass::{self, Signal},
-        ParamSpec,
+        ParamSpec, ParamSpecObject, Value,
     };
     use once_cell::sync::Lazy;
 
@@ -59,7 +59,7 @@ mod imp {
 
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpec::new_object(
+                vec![ParamSpecObject::new(
                     "account",
                     "Account",
                     "The account",
@@ -69,13 +69,7 @@ mod imp {
             });
             PROPERTIES.as_ref()
         }
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "account" => {
                     let account = value.get().unwrap();
@@ -85,7 +79,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "account" => self.account.borrow().to_value(),
                 _ => unimplemented!(),
@@ -118,7 +112,7 @@ impl AccountRow {
     fn setup_widgets(&self) {
         let imp = self.imp();
         self.connect_activate(move |row| {
-            row.activate_action("account.details", None);
+            row.activate_action("account.details", None).unwrap();
         });
 
         self.account()
@@ -141,14 +135,12 @@ impl AccountRow {
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        imp
-            .name_entry
+        imp.name_entry
             .connect_changed(clone!(@weak imp.actions as actions => move |entry| {
                 let name = entry.text();
                 get_action!(actions, @save).set_enabled(!name.is_empty());
             }));
-        imp
-            .name_entry
+        imp.name_entry
             .connect_activate(clone!(@weak imp.actions as actions => move |_| {
                    actions.activate_action("save", None);
             }));
@@ -169,7 +161,7 @@ impl AccountRow {
             imp.actions,
             "details",
             clone!(@weak self as row => move |_, _| {
-                row.emit_by_name("shared", &[]);
+                row.emit_by_name::<()>("shared", &[]);
             })
         );
 
@@ -177,7 +169,7 @@ impl AccountRow {
             imp.actions,
             "delete",
             clone!(@weak self as row => move |_, _| {
-                row.emit_by_name("removed", &[]);
+                row.emit_by_name::<()>("removed", &[]);
             })
         );
 

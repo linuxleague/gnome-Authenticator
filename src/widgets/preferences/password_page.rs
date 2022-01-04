@@ -8,7 +8,7 @@ use std::cell::Cell;
 
 mod imp {
     use super::*;
-    use glib::{subclass, ParamSpec};
+    use glib::{subclass, ParamSpec, ParamSpecBoolean, Value};
     use gtk::subclass::widget::WidgetImplExt;
     use std::cell::RefCell;
 
@@ -65,7 +65,7 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpec::new_boolean(
+                vec![ParamSpecBoolean::new(
                     "has-set-password",
                     "has set password",
                     "Has Set Password",
@@ -75,13 +75,7 @@ mod imp {
             });
             PROPERTIES.as_ref()
         }
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "has-set-password" => {
                     let has_set_password = value.get().unwrap();
@@ -91,7 +85,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
@@ -113,7 +107,7 @@ glib::wrapper! {
 
 impl PasswordPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
-        let page = glib::Object::new(&[]).expect("Failed to create PasswordPage");
+        let page = glib::Object::new::<Self>(&[]).expect("Failed to create PasswordPage");
         page.imp().actions.set(actions).unwrap();
         page.setup_widgets();
         page.setup_actions();
@@ -149,11 +143,9 @@ impl PasswordPage {
 
         imp.status_page.set_icon_name(Some(config::APP_ID));
 
-        imp
-            .password_entry
+        imp.password_entry
             .connect_changed(clone!(@weak self as page=> move |_| page.validate()));
-        imp
-            .confirm_password_entry
+        imp.confirm_password_entry
             .connect_changed(clone!(@weak self as page => move |_| page.validate()));
 
         self.reset_validation();
@@ -171,8 +163,7 @@ impl PasswordPage {
     fn reset_validation(&self) {
         let imp = self.imp();
         if self.has_set_password() {
-            imp
-                .current_password_entry
+            imp.current_password_entry
                 .connect_changed(clone!(@weak self as page => move |_| page.validate()));
         } else if let Some(handler_id) = imp.default_password_signal.borrow_mut().take() {
             imp.current_password_entry.disconnect(handler_id);

@@ -69,8 +69,7 @@ impl AccountDetailsPage {
 
     fn init_widgets(&self) {
         let imp = self.imp();
-        imp
-            .qrcode_picture
+        imp.qrcode_picture
             .set_paintable(Some(&imp.qrcode_paintable));
     }
 

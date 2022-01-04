@@ -10,7 +10,7 @@ pub enum ImageAction {
 
 mod imp {
     use super::*;
-    use glib::{subclass, ParamSpec};
+    use glib::{subclass, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
     use std::cell::{Cell, RefCell};
 
     #[derive(Debug, CompositeTemplate)]
@@ -67,14 +67,14 @@ mod imp {
 
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_object(
+                    ParamSpecObject::new(
                         "provider",
                         "provider",
                         "Provider",
                         Provider::static_type(),
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_uint(
+                    ParamSpecUInt::new(
                         "size",
                         "size",
                         "Image size",
@@ -87,13 +87,7 @@ mod imp {
             });
             PROPERTIES.as_ref()
         }
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "provider" => {
                     let provider = value.get().unwrap();
@@ -107,7 +101,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "provider" => self.provider.borrow().to_value(),
                 "size" => self.size.get().to_value(),
@@ -190,7 +184,9 @@ impl ProviderImage {
     }
 
     pub fn reset(&self) {
-        self.imp().image.set_from_icon_name(Some("provider-fallback"));
+        self.imp()
+            .image
+            .set_from_icon_name(Some("provider-fallback"));
         self.fetch();
     }
 

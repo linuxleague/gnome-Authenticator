@@ -150,7 +150,7 @@ impl ProvidersList {
                 row.connect_local("shared", false, clone!(@weak list => @default-return None,  move |args| {
                     let account = args.get(1).unwrap().get::<Account>().unwrap();
 
-                    list.emit_by_name("shared", &[&account]);
+                    list.emit_by_name::<()>("shared", &[&account]);
                     None
                 }));
 

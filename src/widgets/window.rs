@@ -188,7 +188,7 @@ impl Window {
     }
 
     fn init(&self, model: ProvidersModel, app: &Application) {
-        let imp =self.imp();
+        let imp = self.imp();
         imp.model.set(model.clone()).unwrap();
         imp.providers.set_model(model);
         imp.providers.connect_local(
@@ -217,12 +217,14 @@ impl Window {
         // load latest window state
         window_state::load(&self, &imp.settings);
         // save window state on delete event
-        self.connect_close_request(clone!(@weak imp.settings as settings => @default-return Inhibit(false), move |window| {
-            if let Err(err) = window_state::save(&window, &settings) {
-                warn!("Failed to save window state {:#?}", err);
-            }
-            Inhibit(false)
-        }));
+        self.connect_close_request(
+            clone!(@weak imp.settings as settings => @default-return Inhibit(false), move |window| {
+                if let Err(err) = window_state::save(&window, &settings) {
+                    warn!("Failed to save window state {:#?}", err);
+                }
+                Inhibit(false)
+            }),
+        );
 
         let search_entry = &*imp.search_entry;
         let search_btn = &*imp.search_btn;
@@ -250,8 +252,7 @@ impl Window {
         }));
 
         let gtk_settings = gtk::Settings::default().unwrap();
-        imp
-            .settings
+        imp.settings
             .bind(
                 "dark-theme",
                 &gtk_settings,
@@ -261,7 +262,7 @@ impl Window {
     }
 
     fn setup_actions(&self, app: &Application) {
-        let imp =self.imp();
+        let imp = self.imp();
         let search_btn = &*imp.search_btn;
         action!(
             self,
@@ -327,17 +328,15 @@ impl Window {
             }),
         );
 
-        let imp =self.imp();
+        let imp = self.imp();
 
-        imp
-            .password_entry
+        imp.password_entry
             .connect_activate(clone!(@weak self as win => move |_| {
-                WidgetExt::activate_action(&win, "win.unlock", None);
+                WidgetExt::activate_action(&win, "win.unlock", None).unwrap();
             }));
 
         // On each click or key pressed we restart the timeout.
-        imp
-            .click_gesture
+        imp.click_gesture
             .connect_pressed(clone!(@weak app => move |_, _, _, _| {
                 app.restart_lock_timeout();
             }));

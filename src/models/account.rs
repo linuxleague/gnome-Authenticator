@@ -39,7 +39,7 @@ pub struct DiAccount {
 #[doc(hidden)]
 mod imp {
     use super::*;
-    use glib::ParamSpec;
+    use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
 
     pub struct Account {
         pub id: Cell<u32>,
@@ -75,7 +75,7 @@ mod imp {
 
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpec::new_uint(
+                    ParamSpecUInt::new(
                         "id",
                         "id",
                         "Id",
@@ -84,7 +84,7 @@ mod imp {
                         0,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_uint(
+                    ParamSpecUInt::new(
                         "counter",
                         "counter",
                         "Counter",
@@ -93,28 +93,22 @@ mod imp {
                         otp::HOTP_DEFAULT_COUNTER,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
-                        "name",
-                        "name",
-                        "Name",
-                        None,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new("name", "name", "Name", None, glib::ParamFlags::READWRITE),
+                    ParamSpecString::new(
                         "token-id",
                         "token-id",
                         "token id",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_string(
+                    ParamSpecString::new(
                         "otp",
                         "otp",
                         "The One Time Password",
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
-                    ParamSpec::new_object(
+                    ParamSpecObject::new(
                         "provider",
                         "provider",
                         "The account provider",
@@ -126,13 +120,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn set_property(
-            &self,
-            _obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &ParamSpec,
-        ) {
+        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "id" => {
                     let id = value.get().unwrap();
@@ -162,7 +150,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "id" => self.id.get().to_value(),
                 "name" => self.name.borrow().to_value(),
@@ -250,7 +238,7 @@ impl Account {
         provider: Provider,
         token: Option<&str>,
     ) -> Result<Account> {
-        let account = glib::Object::new(&[
+        let account = glib::Object::new::<Self>(&[
             ("id", &id),
             ("name", &name),
             ("token-id", &token_id),

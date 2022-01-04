@@ -120,7 +120,7 @@ glib::wrapper! {
 
 impl AccountAddDialog {
     pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new(&[]).expect("Failed to create AccountAddDialog");
+        let dialog = glib::Object::new::<Self>(&[]).expect("Failed to create AccountAddDialog");
 
         dialog.imp().model.set(model).unwrap();
         dialog.setup_actions();
@@ -141,11 +141,9 @@ impl AccountAddDialog {
     fn setup_signals(&self) {
         let imp = self.imp();
 
-        imp
-            .username_entry
+        imp.username_entry
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
-        imp
-            .token_entry
+        imp.token_entry
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
     }
 
@@ -201,7 +199,7 @@ impl AccountAddDialog {
             let account = Account::create(&username, &token, provider)?;
 
             imp.model.get().unwrap().add_account(&account, &provider);
-            self.emit_by_name("added", &[]);
+            self.emit_by_name::<()>("added", &[]);
         // TODO: display an error message saying there was an error form keyring
         } else {
             anyhow::bail!("Could not find provider");
@@ -218,12 +216,10 @@ impl AccountAddDialog {
 
             imp.image.set_provider(Some(&provider));
 
-            imp
-                .method_label
+            imp.method_label
                 .set_text(&provider.method().to_locale_string());
 
-            imp
-                .algorithm_label
+            imp.algorithm_label
                 .set_text(&provider.algorithm().to_locale_string());
 
             imp.digits_label.set_text(&provider.digits().to_string());
@@ -297,8 +293,7 @@ impl AccountAddDialog {
 
     fn setup_widgets(&self) {
         let imp = self.imp();
-        imp
-            .provider_completion
+        imp.provider_completion
             .set_model(Some(&imp.model.get().unwrap().completion_model()));
 
         imp.provider_completion.connect_match_selected(

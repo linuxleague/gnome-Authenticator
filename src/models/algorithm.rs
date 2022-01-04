@@ -1,17 +1,17 @@
 use gettextrs::gettext;
-use gtk::{glib, glib::GEnum};
+use gtk::glib;
 use ring::hmac;
 use serde::{de::Deserializer, ser::Serializer, Deserialize, Serialize};
 use std::{str::FromStr, string::ToString};
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
+#[derive(Debug, Eq, PartialEq, Clone, Copy, glib::Enum)]
 #[repr(u32)]
-#[genum(type_name = "OTPMethod")]
+#[enum_type(name = "OTPMethod")]
 pub enum OTPMethod {
-    #[genum(name = "TOTP")]
+    #[enum_value(name = "TOTP")]
     TOTP = 0,
-    #[genum(name = "HOTP")]
+    #[enum_value(name = "HOTP")]
     HOTP = 1,
     Steam = 2,
 }
@@ -85,15 +85,15 @@ impl ToString for OTPMethod {
 }
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Debug, Eq, PartialEq, Clone, Copy, GEnum)]
+#[derive(Debug, Eq, PartialEq, Clone, Copy, glib::Enum)]
 #[repr(u32)]
-#[genum(type_name = "Algorithm")]
+#[enum_type(name = "Algorithm")]
 pub enum Algorithm {
-    #[genum(name = "SHA1")]
+    #[enum_value(name = "SHA1")]
     SHA1 = 0,
-    #[genum(name = "SHA256")]
+    #[enum_value(name = "SHA256")]
     SHA256 = 1,
-    #[genum(name = "SHA512")]
+    #[enum_value(name = "SHA512")]
     SHA512 = 2,
 }
 

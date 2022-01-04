@@ -1,19 +1,19 @@
-use gtk::{glib, gdk};
 use gtk::prelude::*;
 use gtk::subclass::prelude::*;
+use gtk::{gdk, glib};
 
 pub(crate) mod imp {
     use super::*;
+    use glib::{ParamSpec, ParamSpecBoolean, ParamSpecFloat, Value};
     use gtk::{graphene, gsk};
-
     use once_cell::sync::Lazy;
-    use std::cell::RefCell;
+    use std::cell::Cell;
 
     #[derive(Debug, Default)]
     pub struct ProgressIcon {
-        pub progress: RefCell<f32>,
-        pub inverted: RefCell<bool>,
-        pub clockwise: RefCell<bool>,
+        pub progress: Cell<f32>,
+        pub inverted: Cell<bool>,
+        pub clockwise: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -24,18 +24,18 @@ pub(crate) mod imp {
 
         fn new() -> Self {
             Self {
-                progress: RefCell::new(0.0),
-                inverted: RefCell::new(false),
-                clockwise: RefCell::new(true),
+                progress: Cell::new(0.0),
+                inverted: Cell::new(false),
+                clockwise: Cell::new(true),
             }
         }
     }
 
     impl ObjectImpl for ProgressIcon {
-        fn properties() -> &'static [glib::ParamSpec] {
-            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+        fn properties() -> &'static [ParamSpec] {
+            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    glib::ParamSpec::new_float(
+                    ParamSpecFloat::new(
                         "progress",
                         "Progress",
                         "Progress of the icon",
@@ -44,14 +44,14 @@ pub(crate) mod imp {
                         0.0,
                         glib::ParamFlags::READWRITE | glib::ParamFlags::EXPLICIT_NOTIFY,
                     ),
-                    glib::ParamSpec::new_boolean(
+                    ParamSpecBoolean::new(
                         "inverted",
                         "Inverted",
                         "Invert icon colors",
                         false,
                         glib::ParamFlags::READWRITE | glib::ParamFlags::EXPLICIT_NOTIFY,
                     ),
-                    glib::ParamSpec::new_boolean(
+                    ParamSpecBoolean::new(
                         "clockwise",
                         "Clockwise",
                         "Direction of the icon",
@@ -63,7 +63,7 @@ pub(crate) mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn property(&self, obj: &Self::Type, _id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+        fn property(&self, obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "progress" => obj.progress().to_value(),
                 "inverted" => obj.inverted().to_value(),
@@ -72,13 +72,7 @@ pub(crate) mod imp {
             }
         }
 
-        fn set_property(
-            &self,
-            obj: &Self::Type,
-            _id: usize,
-            value: &glib::Value,
-            pspec: &glib::ParamSpec,
-        ) {
+        fn set_property(&self, obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "progress" => obj.set_progress(value.get().unwrap()),
                 "inverted" => obj.set_inverted(value.get().unwrap()),
@@ -161,7 +155,6 @@ impl Default for ProgressIcon {
 }
 
 impl ProgressIcon {
-
     /// Creates a new [`ProgressIcon`].
     pub fn new() -> Self {
         Self::default()
@@ -203,7 +196,7 @@ pub trait ProgressIconExt {
 
 impl<W: IsA<ProgressIcon>> ProgressIconExt for W {
     fn progress(&self) -> f32 {
-        *self.as_ref().imp().progress.borrow()
+        self.as_ref().imp().progress.get()
     }
     fn set_progress(&self, progress: f32) {
         if (progress - self.progress()).abs() < f32::EPSILON {
@@ -216,7 +209,7 @@ impl<W: IsA<ProgressIcon>> ProgressIconExt for W {
     }
 
     fn inverted(&self) -> bool {
-        *self.as_ref().imp().inverted.borrow()
+        self.as_ref().imp().inverted.get()
     }
     fn set_inverted(&self, inverted: bool) {
         if inverted == self.inverted() {
@@ -228,7 +221,7 @@ impl<W: IsA<ProgressIcon>> ProgressIconExt for W {
     }
 
     fn clockwise(&self) -> bool {
-        *self.as_ref().imp().clockwise.borrow()
+        self.as_ref().imp().clockwise.get()
     }
 
     fn set_clockwise(&self, clockwise: bool) {
@@ -256,4 +249,3 @@ impl<W: IsA<ProgressIcon>> ProgressIconExt for W {
         })
     }
 }
-

@@ -103,8 +103,7 @@ impl ProvidersDialog {
         imp.filter_model.set_model(Some(&model));
 
         let stack = &*imp.stack;
-        imp
-            .filter_model
+        imp.filter_model
             .connect_items_changed(clone!(@weak stack => move |model, _, _, _| {
                 if model.n_items() == 0 {
                     stack.set_visible_child_name("no-results");
@@ -161,8 +160,8 @@ impl ProvidersDialog {
         let selection_model = gtk::NoSelection::new(Some(&sort_model));
         imp.providers_list.set_model(Some(&selection_model));
 
-        imp.providers_list.connect_activate(
-            clone!(@weak self as dialog => move |listview, pos| {
+        imp.providers_list
+            .connect_activate(clone!(@weak self as dialog => move |listview, pos| {
                 let model = listview.model().unwrap();
                 let provider = model
                     .item(pos)
@@ -170,8 +169,7 @@ impl ProvidersDialog {
                     .downcast::<Provider>()
                     .unwrap();
                 dialog.edit_provider(provider);
-            }),
-        );
+            }));
 
         imp.page.connect_local(
             "created",
@@ -180,7 +178,7 @@ impl ProvidersDialog {
                 let provider = args.get(1).unwrap().get::<Provider>().unwrap();
                 model.add_provider(&provider);
                 dialog.set_view(View::List);
-                dialog.emit_by_name("changed", &[]);
+                dialog.emit_by_name::<()>("changed", &[]);
                 None
             }),
         );
@@ -190,7 +188,7 @@ impl ProvidersDialog {
             false,
             clone!(@weak self as dialog => @default-return None, move |_| {
                 dialog.set_view(View::List);
-                dialog.emit_by_name("changed", &[]);
+                dialog.emit_by_name::<()>("changed", &[]);
                 None
             }),
         );
@@ -202,11 +200,11 @@ impl ProvidersDialog {
                 let provider = args.get(1).unwrap().get::<Provider>().unwrap();
                 model.delete_provider(&provider);
                 dialog.set_view(View::List);
-                dialog.emit_by_name("changed", &[]);
+                dialog.emit_by_name::<()>("changed", &[]);
                 None
             }),
         );
-        let deck_page = imp.deck.append(&imp.page).unwrap();
+        let deck_page = imp.deck.append(&imp.page);
         deck_page.set_name(Some("provider"));
         self.set_view(View::List);
     }
@@ -284,7 +282,7 @@ mod row {
     use super::*;
     mod imp {
         use super::*;
-        use glib::ParamSpec;
+        use glib::{ParamSpec, ParamSpecObject, Value};
         use std::cell::RefCell;
 
         pub struct ProviderActionRow {
@@ -315,7 +313,7 @@ mod row {
             fn properties() -> &'static [ParamSpec] {
                 use once_cell::sync::Lazy;
                 static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![ParamSpec::new_object(
+                    vec![ParamSpecObject::new(
                         "provider",
                         "Provider",
                         "The Provider",
@@ -330,7 +328,7 @@ mod row {
                 &self,
                 _obj: &Self::Type,
                 _id: usize,
-                value: &glib::Value,
+                value: &Value,
                 pspec: &ParamSpec,
             ) {
                 match pspec.name() {
@@ -342,7 +340,7 @@ mod row {
                 }
             }
 
-            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> glib::Value {
+            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
                 match pspec.name() {
                     "provider" => self.provider.borrow().to_value(),
                     _ => unimplemented!(),
@@ -370,7 +368,7 @@ mod row {
 
         fn setup_widgets(&self) {
             let imp = self.imp();
-            let hbox = gtk::BoxBuilder::new()
+            let hbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Horizontal)
                 .margin_bottom(16)
                 .margin_end(16)

@@ -165,51 +165,41 @@ impl ProviderPage {
             }
 
             imp.algorithm_comborow.set_selected(
-                imp
-                    .algorithms_model
+                imp.algorithms_model
                     .find_position(provider.algorithm().into_glib()),
             );
 
-            imp
-                .default_counter_spinbutton
+            imp.default_counter_spinbutton
                 .set_value(provider.default_counter() as f64);
             imp.digits_spinbutton.set_value(provider.digits() as f64);
 
             imp.method_comborow.set_selected(
-                imp
-                    .methods_model
+                imp.methods_model
                     .find_position(provider.method().into_glib()),
             );
             imp.image.set_provider(Some(&provider));
-            imp
-                .title
+            imp.title
                 .set_text(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
             imp.selected_provider.replace(Some(provider));
         } else {
             imp.name_entry.set_text("");
             imp.delete_button.hide();
-            imp
-                .period_spinbutton
+            imp.period_spinbutton
                 .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
             imp.provider_website_entry.set_text("");
             imp.provider_help_entry.set_text("");
 
             imp.algorithm_comborow.set_selected(
-                imp
-                    .algorithms_model
+                imp.algorithms_model
                     .find_position(Algorithm::default().into_glib()),
             );
 
-            imp
-                .default_counter_spinbutton
+            imp.default_counter_spinbutton
                 .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
-            imp
-                .digits_spinbutton
-                .set_value(otp::DEFAULT_DIGITS as f64);
+            imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
 
             imp.method_comborow.set_selected(
-                imp
-                    .methods_model
+                imp.methods_model
                     .find_position(OTPMethod::default().into_glib()),
             );
             imp.image.set_provider(None);
@@ -296,7 +286,7 @@ impl ProviderPage {
                 algorithm: algorithm.to_string(),
                 method: method.to_string(),
             })?;
-            self.emit_by_name("updated", &[&provider]);
+            self.emit_by_name::<()>("updated", &[&provider]);
         } else {
             let provider = Provider::create(
                 &name,
@@ -309,7 +299,7 @@ impl ProviderPage {
                 Some(help_url),
                 image_uri,
             )?;
-            self.emit_by_name("created", &[&provider]);
+            self.emit_by_name::<()>("created", &[&provider]);
         }
         Ok(())
     }
@@ -318,7 +308,7 @@ impl ProviderPage {
         let imp = self.imp();
         let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
 
-        let file_chooser = gtk::FileChooserNativeBuilder::new()
+        let file_chooser = gtk::FileChooserNative::builder()
             .accept_label(&gettext("Select"))
             .cancel_label(&gettext("Cancel"))
             .modal(true)
@@ -365,7 +355,7 @@ impl ProviderPage {
                     "The provider has accounts assigned to it, please remove them first",
                 ));
             } else if provider.delete().is_ok() {
-                self.emit_by_name("deleted", &[&provider]);
+                self.emit_by_name::<()>("deleted", &[&provider]);
             }
         } else {
             anyhow::bail!("Can't remove a provider as none are selected");
@@ -413,12 +403,10 @@ impl ProviderPage {
 
     fn setup_widgets(&self) {
         let imp = self.imp();
-        imp
-            .algorithm_comborow
+        imp.algorithm_comborow
             .set_model(Some(&imp.algorithms_model));
 
-        imp
-            .method_comborow
+        imp.method_comborow
             .connect_selected_item_notify(clone!(@weak self as page => move |_| {
                 page.on_method_changed();
             }));
@@ -428,8 +416,7 @@ impl ProviderPage {
         });
 
         imp.name_entry.connect_changed(validate_cb.clone());
-        imp
-            .provider_website_entry
+        imp.provider_website_entry
             .connect_changed(validate_cb.clone());
         imp.provider_help_entry.connect_changed(validate_cb);
 
@@ -444,40 +431,30 @@ impl ProviderPage {
             OTPMethod::TOTP => {
                 imp.default_counter_row.hide();
                 imp.period_row.show();
-                imp
-                    .digits_spinbutton
-                    .set_value(otp::DEFAULT_DIGITS as f64);
-                imp
-                    .period_spinbutton
+                imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
+                imp.period_spinbutton
                     .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
             }
             OTPMethod::HOTP => {
                 imp.default_counter_row.show();
                 imp.period_row.hide();
-                imp
-                    .default_counter_spinbutton
+                imp.default_counter_spinbutton
                     .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
-                imp
-                    .digits_spinbutton
-                    .set_value(otp::DEFAULT_DIGITS as f64);
+                imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
             }
             OTPMethod::Steam => {
                 imp.default_counter_row.hide();
                 imp.period_row.show();
-                imp
-                    .digits_spinbutton
+                imp.digits_spinbutton
                     .set_value(otp::STEAM_DEFAULT_DIGITS as f64);
-                imp
-                    .period_spinbutton
+                imp.period_spinbutton
                     .set_value(otp::STEAM_DEFAULT_PERIOD as f64);
-                imp
-                    .algorithm_comborow
+                imp.algorithm_comborow
                     .set_selected(Algorithm::default().into_glib() as u32);
             }
         }
 
-        imp
-            .algorithm_comborow
+        imp.algorithm_comborow
             .set_sensitive(selected != OTPMethod::Steam);
         imp.period_row.set_sensitive(selected != OTPMethod::Steam);
         imp.digits_row.set_sensitive(selected != OTPMethod::Steam);
