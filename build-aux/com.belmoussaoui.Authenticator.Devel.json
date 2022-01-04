@@ -3,7 +3,9 @@
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
-    "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
     "command": "authenticator",
     "finish-args": [
         "--socket=pulseaudio",
@@ -20,55 +22,15 @@
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
-        "build-args": ["--share=network"],
+        "build-args": [
+            "--share=network"
+        ],
         "test-args": [
             "--socket=x11",
             "--share=network"
         ]
     },
     "modules": [
-        {
-            "name" : "libadwaita",
-            "buildsystem" : "meson",
-            "config-opts": [
-                "-Dintrospection=disabled",
-                "-Dgtk_doc=false",
-                "-Dtests=false",
-                "-Dexamples=false",
-                "-Dvapi=false"
-            ],
-            "cleanup": [
-                "/include",
-                "/lib/pkgconfig"
-            ],
-            "sources" : [{
-                "type": "git",
-                "url": "https://gitlab.gnome.org/GNOME/libadwaita.git",
-                "branch": "main"
-            }],
-            "modules": [
-                {
-                    "name" : "libsass",
-                    "buildsystem" : "meson",
-                    "cleanup": ["*"],
-                    "sources" : [{
-                        "type" : "git",
-                        "url" : "https://github.com/lazka/libsass.git",
-                        "branch" : "meson"
-                    }]
-                },
-                {
-                    "name" : "sassc",
-                    "buildsystem" : "meson",
-                    "cleanup": ["*"],
-                    "sources" : [{
-                        "type" : "git",
-                        "url" : "https://github.com/lazka/sassc.git",
-                        "branch" : "meson"
-                    }]
-                }
-            ]
-        },
         {
             "name": "zbar",
             "config-opts": [
@@ -84,7 +46,8 @@
                 "--with-introspection=no",
                 "--enable-codes=qrcode"
             ],
-            "sources": [{
+            "sources": [
+                {
                     "type": "git",
                     "url": "git://git.linuxtv.org/zbar.git",
                     "commit": "468f6bda627d683b3f40dbaf242c158409666f7e"
@@ -99,9 +62,9 @@
             ]
         },
         {
-            "name" : "gst-plugins-good",
-            "buildsystem" : "meson",
-            "config-opts" : [
+            "name": "gst-plugins-good",
+            "buildsystem": "meson",
+            "config-opts": [
                 "-Dgtk3=disabled",
                 "-Dgtk4=enabled",
                 "-Dgtk4-experiments=true",
@@ -109,34 +72,34 @@
                 "-Dexamples=disabled",
                 "-Dtests=disabled"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "branch" : "1.18",
-                    "url" : "https://gitlab.freedesktop.org/gstreamer/gst-plugins-good.git"
+                    "type": "git",
+                    "branch": "1.18",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-good.git"
                 },
                 {
-                    "type" : "patch",
-                    "path" : "767.patch"
+                    "type": "patch",
+                    "path": "767.patch"
                 }
             ]
-	    },
+        },
         {
-            "name" : "gst-bad-plugins",
+            "name": "gst-bad-plugins",
             "buildsystem": "meson",
-            "config-opts" : [
-            	"-Dzbar=enabled",
-            	"-Drsvg=disabled",
-            	"-Dvulkan=disabled",
-            	"-Dexamples=disabled",
-            	"-Dtests=disabled",
-            	"-Dintrospection=disabled"
+            "config-opts": [
+                "-Dzbar=enabled",
+                "-Drsvg=disabled",
+                "-Dvulkan=disabled",
+                "-Dexamples=disabled",
+                "-Dtests=disabled",
+                "-Dintrospection=disabled"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad.git",
-                    "branch" : "1.18"
+                    "type": "git",
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad.git",
+                    "branch": "1.18"
                 }
             ]
         },
@@ -144,7 +107,9 @@
             "name": "authenticator",
             "buildsystem": "meson",
             "run-tests": true,
-            "config-opts": ["-Dprofile=development"],
+            "config-opts": [
+                "-Dprofile=development"
+            ],
             "sources": [
                 {
                     "type": "dir",
