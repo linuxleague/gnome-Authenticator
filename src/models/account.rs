@@ -265,8 +265,7 @@ impl Account {
             Keyring::token(token_id)?.context("Could not get item from keyring")?
         };
 
-        let self_ = imp::Account::from_instance(&account);
-        self_.token.set(token).unwrap();
+        account.imp().token.set(token).unwrap();
         Ok(account)
     }
 
@@ -312,9 +311,8 @@ impl Account {
 
     fn increment_counter(&self) -> Result<()> {
         // For security reasons, never re-use the same counter for HOTP
-        let self_ = imp::Account::from_instance(self);
         let new_value = self.counter() + 1;
-        self_.counter.set(new_value);
+        self.imp().counter.set(new_value);
 
         let db = database::connection();
         let conn = db.get()?;
@@ -329,9 +327,8 @@ impl Account {
     pub fn copy_otp(&self) {
         let display = gtk::gdk::Display::default().unwrap();
         let clipboard = display.clipboard();
-        let self_ = imp::Account::from_instance(self);
         // The codes come with the white space shown in the label.
-        let code = &self_.otp.borrow().replace(' ', "");
+        let code = &self.imp().otp.borrow().replace(' ', "");
         clipboard.set_text(&code);
 
         // Indirectly increment the counter once the token was copied
@@ -341,8 +338,7 @@ impl Account {
     }
 
     pub fn id(&self) -> u32 {
-        let self_ = imp::Account::from_instance(self);
-        self_.id.get()
+        self.imp().id.get()
     }
 
     pub fn provider(&self) -> Provider {
@@ -350,23 +346,19 @@ impl Account {
     }
 
     pub fn counter(&self) -> u32 {
-        let self_ = imp::Account::from_instance(self);
-        self_.counter.get()
+        self.imp().counter.get()
     }
 
     pub fn name(&self) -> String {
-        let self_ = imp::Account::from_instance(self);
-        self_.name.borrow().clone()
+        self.imp().name.borrow().clone()
     }
 
     pub fn token(&self) -> String {
-        let self_ = imp::Account::from_instance(self);
-        self_.token.get().unwrap().clone()
+        self.imp().token.get().unwrap().clone()
     }
 
     pub fn token_id(&self) -> String {
-        let self_ = imp::Account::from_instance(self);
-        self_.token_id.borrow().clone()
+        self.imp().token_id.borrow().clone()
     }
 
     pub fn otp_uri(&self) -> OTPUri {

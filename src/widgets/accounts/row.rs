@@ -116,49 +116,49 @@ impl AccountRow {
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::AccountRow::from_instance(self);
+        let imp = self.imp();
         self.connect_activate(move |row| {
             row.activate_action("account.details", None);
         });
 
         self.account()
-            .bind_property("name", &*self_.name_label, "label")
+            .bind_property("name", &*imp.name_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
         self.account()
-            .bind_property("name", &*self_.name_label, "tooltip-text")
+            .bind_property("name", &*imp.name_label, "tooltip-text")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
         self.account()
-            .bind_property("name", &*self_.name_entry, "text")
+            .bind_property("name", &*imp.name_entry, "text")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
         self.account()
-            .bind_property("otp", &*self_.otp_label, "label")
+            .bind_property("otp", &*imp.otp_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        self_
+        imp
             .name_entry
-            .connect_changed(clone!(@weak self_.actions as actions => move |entry| {
+            .connect_changed(clone!(@weak imp.actions as actions => move |entry| {
                 let name = entry.text();
                 get_action!(actions, @save).set_enabled(!name.is_empty());
             }));
-        self_
+        imp
             .name_entry
-            .connect_activate(clone!(@weak self_.actions as actions => move |_| {
+            .connect_activate(clone!(@weak imp.actions as actions => move |_| {
                    actions.activate_action("save", None);
             }));
     }
 
     fn setup_actions(&self) {
-        let self_ = imp::AccountRow::from_instance(self);
-        self.insert_action_group("account", Some(&self_.actions));
+        let imp = self.imp();
+        self.insert_action_group("account", Some(&imp.actions));
         action!(
-            self_.actions,
+            imp.actions,
             "copy-otp",
             clone!(@weak self as row => move |_, _| {
                 row.account().copy_otp();
@@ -166,7 +166,7 @@ impl AccountRow {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "details",
             clone!(@weak self as row => move |_, _| {
                 row.emit_by_name("shared", &[]);
@@ -174,17 +174,17 @@ impl AccountRow {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "delete",
             clone!(@weak self as row => move |_, _| {
                 row.emit_by_name("removed", &[]);
             })
         );
 
-        let edit_stack = &*self_.edit_stack;
-        let name_entry = &*self_.name_entry;
+        let edit_stack = &*imp.edit_stack;
+        let name_entry = &*imp.name_entry;
         action!(
-            self_.actions,
+            imp.actions,
             "rename",
             clone!(@weak edit_stack, @weak name_entry => move |_, _| {
                 edit_stack.set_visible_child_name("edit");
@@ -193,7 +193,7 @@ impl AccountRow {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "save",
             clone!(@weak self as row, @weak edit_stack, @weak name_entry => move |_, _| {
                 let new_name = name_entry.text();

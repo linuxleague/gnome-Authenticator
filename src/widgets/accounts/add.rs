@@ -122,9 +122,7 @@ impl AccountAddDialog {
     pub fn new(model: ProvidersModel) -> Self {
         let dialog = glib::Object::new(&[]).expect("Failed to create AccountAddDialog");
 
-        let self_ = imp::AccountAddDialog::from_instance(&dialog);
-        self_.model.set(model).unwrap();
-
+        dialog.imp().model.set(model).unwrap();
         dialog.setup_actions();
         dialog.setup_signals();
         dialog.setup_widgets();
@@ -132,45 +130,44 @@ impl AccountAddDialog {
     }
 
     fn validate(&self) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
-        let username = self_.username_entry.text();
-        let token = self_.token_entry.text();
+        let imp = self.imp();
+        let username = imp.username_entry.text();
+        let token = imp.token_entry.text();
 
         let is_valid = !(username.is_empty() || token.is_empty());
-        get_action!(self_.actions, @save).set_enabled(is_valid);
+        get_action!(imp.actions, @save).set_enabled(is_valid);
     }
 
     fn setup_signals(&self) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
+        let imp = self.imp();
 
-        self_
+        imp
             .username_entry
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
-        self_
+        imp
             .token_entry
             .connect_changed(clone!(@weak self as win => move |_| win.validate()));
     }
 
     fn scan_from_screenshot(&self) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
-        self_.camera.from_screenshot();
+        self.imp().camera.from_screenshot();
     }
 
     fn scan_from_camera(&self) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
-        self_.deck.set_visible_child_name("camera");
+        let imp = self.imp();
+        imp.deck.set_visible_child_name("camera");
 
-        self_.camera.start();
+        imp.camera.start();
     }
 
     fn set_from_otp_uri(&self, otp_uri: OTPUri) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
-        self_.deck.set_visible_child_name("main"); // Switch back the form view
+        let imp = self.imp();
+        imp.deck.set_visible_child_name("main"); // Switch back the form view
 
-        self_.token_entry.set_text(&otp_uri.secret);
-        self_.username_entry.set_text(&otp_uri.label);
+        imp.token_entry.set_text(&otp_uri.secret);
+        imp.username_entry.set_text(&otp_uri.label);
 
-        let provider = self_
+        let provider = imp
             .model
             .get()
             .unwrap()
@@ -191,19 +188,19 @@ impl AccountAddDialog {
     }
 
     fn save(&self) -> Result<()> {
-        let self_ = imp::AccountAddDialog::from_instance(self);
+        let imp = self.imp();
 
-        if let Some(ref provider) = *self_.selected_provider.borrow() {
-            let username = self_.username_entry.text();
-            let token = self_.token_entry.text();
+        if let Some(ref provider) = *imp.selected_provider.borrow() {
+            let username = imp.username_entry.text();
+            let token = imp.token_entry.text();
             if !otp::is_valid(&token) {
-                self_.error_revealer.popup(&gettext("Invalid Token"));
+                imp.error_revealer.popup(&gettext("Invalid Token"));
                 anyhow::bail!("Token {} is not a valid Base32 secret", &token);
             }
 
             let account = Account::create(&username, &token, provider)?;
 
-            self_.model.get().unwrap().add_account(&account, &provider);
+            imp.model.get().unwrap().add_account(&account, &provider);
             self.emit_by_name("added", &[]);
         // TODO: display an error message saying there was an error form keyring
         } else {
@@ -213,56 +210,56 @@ impl AccountAddDialog {
     }
 
     fn set_provider(&self, provider: Option<Provider>) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
+        let imp = self.imp();
         if let Some(provider) = provider {
-            self_.more_list.show();
-            self_.provider_entry.set_text(&provider.name());
-            self_.period_label.set_text(&provider.period().to_string());
+            imp.more_list.show();
+            imp.provider_entry.set_text(&provider.name());
+            imp.period_label.set_text(&provider.period().to_string());
 
-            self_.image.set_provider(Some(&provider));
+            imp.image.set_provider(Some(&provider));
 
-            self_
+            imp
                 .method_label
                 .set_text(&provider.method().to_locale_string());
 
-            self_
+            imp
                 .algorithm_label
                 .set_text(&provider.algorithm().to_locale_string());
 
-            self_.digits_label.set_text(&provider.digits().to_string());
+            imp.digits_label.set_text(&provider.digits().to_string());
 
             match provider.method() {
                 OTPMethod::TOTP | OTPMethod::Steam => {
-                    self_.counter_row.hide();
-                    self_.period_row.show();
+                    imp.counter_row.hide();
+                    imp.period_row.show();
                 }
                 OTPMethod::HOTP => {
-                    self_.counter_row.show();
-                    self_.period_row.hide();
+                    imp.counter_row.show();
+                    imp.period_row.hide();
                 }
             };
 
             if let Some(ref website) = provider.website() {
-                self_.provider_website_row.set_uri(website);
+                imp.provider_website_row.set_uri(website);
             }
             if let Some(ref help_url) = provider.help_url() {
-                self_.provider_help_row.set_uri(help_url);
+                imp.provider_help_row.set_uri(help_url);
             }
-            self_.selected_provider.borrow_mut().replace(provider);
+            imp.selected_provider.borrow_mut().replace(provider);
         } else {
-            self_.selected_provider.borrow_mut().take();
+            imp.selected_provider.borrow_mut().take();
         }
     }
 
     fn setup_actions(&self) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
+        let imp = self.imp();
         action!(
-            self_.actions,
+            imp.actions,
             "previous",
             clone!(@weak self as dialog => move |_, _| {
-                let self_ = imp::AccountAddDialog::from_instance(&dialog);
-                if self_.deck.visible_child_name().unwrap() == "camera" {
-                    self_.deck.set_visible_child_name("main");
+                let imp = dialog.imp();
+                if imp.deck.visible_child_name().unwrap() == "camera" {
+                    imp.deck.set_visible_child_name("main");
                 } else {
                     dialog.close();
                 }
@@ -270,7 +267,7 @@ impl AccountAddDialog {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "save",
             clone!(@weak self as dialog => move |_, _| {
                 if dialog.save().is_ok() {
@@ -280,7 +277,7 @@ impl AccountAddDialog {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "camera",
             clone!(@weak self as dialog => move |_, _| {
                 dialog.scan_from_camera();
@@ -288,24 +285,24 @@ impl AccountAddDialog {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "screenshot",
             clone!(@weak self as dialog => move |_, _| {
                 dialog.scan_from_screenshot();
             })
         );
-        self.insert_action_group("add", Some(&self_.actions));
-        get_action!(self_.actions, @save).set_enabled(false);
+        self.insert_action_group("add", Some(&imp.actions));
+        get_action!(imp.actions, @save).set_enabled(false);
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::AccountAddDialog::from_instance(self);
-        self_
+        let imp = self.imp();
+        imp
             .provider_completion
-            .set_model(Some(&self_.model.get().unwrap().completion_model()));
+            .set_model(Some(&imp.model.get().unwrap().completion_model()));
 
-        self_.provider_completion.connect_match_selected(
-            clone!(@weak self as dialog, @strong self_.model as model => @default-return Inhibit(false), move |_, store, iter| {
+        imp.provider_completion.connect_match_selected(
+            clone!(@weak self as dialog, @strong imp.model as model => @default-return Inhibit(false), move |_, store, iter| {
                 let provider_id = store.get::<u32>(iter, 0);
                 let provider = model.get().unwrap().find_by_id(provider_id);
                 dialog.set_provider(provider);
@@ -314,7 +311,7 @@ impl AccountAddDialog {
             }),
         );
 
-        self_.camera.connect_local(
+        imp.camera.connect_local(
             "code-detected",
             false,
             clone!(@weak self as dialog => @default-return None, move |args| {

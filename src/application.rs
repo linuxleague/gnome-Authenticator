@@ -291,15 +291,14 @@ impl Application {
     }
 
     fn create_window(&self) -> Window {
-        let self_ = imp::Application::from_instance(self);
-        Window::new(self_.model.clone(), &self.clone())
+        Window::new(self.imp().model.clone(), &self.clone())
     }
 
     /// Starts or restarts the lock timeout.
     pub fn restart_lock_timeout(&self) {
-        let self_ = imp::Application::from_instance(self);
-        let auto_lock = self_.settings.boolean("auto-lock");
-        let timeout = self_.settings.uint("auto-lock-timeout") * 60;
+        let imp = self.imp();
+        let auto_lock = imp.settings.boolean("auto-lock");
+        let timeout = imp.settings.uint("auto-lock-timeout") * 60;
 
         if !auto_lock {
             return;
@@ -315,14 +314,12 @@ impl Application {
                     glib::Continue(false)
                 }),
             );
-            self_.lock_timeout_id.replace(Some(id));
+            imp.lock_timeout_id.replace(Some(id));
         }
     }
 
     pub fn cancel_lock_timeout(&self) {
-        let self_ = imp::Application::from_instance(self);
-
-        if let Some(id) = self_.lock_timeout_id.borrow_mut().take() {
+        if let Some(id) = self.imp().lock_timeout_id.borrow_mut().take() {
             id.remove();
         }
     }

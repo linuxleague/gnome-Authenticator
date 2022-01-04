@@ -385,48 +385,39 @@ impl Provider {
     }
 
     pub fn id(&self) -> u32 {
-        let self_ = imp::Provider::from_instance(self);
-        self_.id.get()
+        self.imp().id.get()
     }
 
     pub fn name(&self) -> String {
-        let self_ = imp::Provider::from_instance(self);
-        self_.name.borrow().clone()
+        self.imp().name.borrow().clone()
     }
 
     pub fn digits(&self) -> u32 {
-        let self_ = imp::Provider::from_instance(self);
-        self_.digits.get()
+        self.imp().digits.get()
     }
 
     pub fn default_counter(&self) -> u32 {
-        let self_ = imp::Provider::from_instance(self);
-        self_.default_counter.get()
+        self.imp().default_counter.get()
     }
 
     pub fn period(&self) -> u32 {
-        let self_ = imp::Provider::from_instance(self);
-        self_.period.get()
+        self.imp().period.get()
     }
 
     pub fn algorithm(&self) -> Algorithm {
-        let self_ = imp::Provider::from_instance(self);
-        Algorithm::from_str(&self_.algorithm.borrow().clone()).unwrap()
+        Algorithm::from_str(&self.imp().algorithm.borrow().clone()).unwrap()
     }
 
     pub fn method(&self) -> OTPMethod {
-        let self_ = imp::Provider::from_instance(self);
-        OTPMethod::from_str(&self_.method.borrow().clone()).unwrap()
+        OTPMethod::from_str(&self.imp().method.borrow().clone()).unwrap()
     }
 
     pub fn website(&self) -> Option<String> {
-        let self_ = imp::Provider::from_instance(self);
-        self_.website.borrow().clone()
+        self.imp().website.borrow().clone()
     }
 
     pub fn help_url(&self) -> Option<String> {
-        let self_ = imp::Provider::from_instance(self);
-        self_.help_url.borrow().clone()
+        self.imp().help_url.borrow().clone()
     }
 
     pub fn delete(&self) -> Result<()> {
@@ -484,8 +475,7 @@ impl Provider {
     }
 
     pub fn image_uri(&self) -> Option<String> {
-        let self_ = imp::Provider::from_instance(self);
-        self_.image_uri.borrow().clone()
+        self.imp().image_uri.borrow().clone()
     }
 
     pub fn open_help(&self) {
@@ -495,32 +485,26 @@ impl Provider {
     }
 
     pub fn has_account(&self, account: &Account) -> Option<u32> {
-        let self_ = imp::Provider::from_instance(self);
-        self_.accounts.find_by_id(account.id())
+        self.imp().accounts.find_by_id(account.id())
     }
 
     pub fn has_accounts(&self) -> bool {
-        let self_ = imp::Provider::from_instance(self);
-        self_.accounts.n_items() != 0
+        self.imp().accounts.n_items() != 0
     }
 
     pub fn add_account(&self, account: &Account) {
-        let self_ = imp::Provider::from_instance(self);
-        self_.accounts.insert(account);
+        self.imp().accounts.insert(account);
     }
 
     pub fn accounts_model(&self) -> &AccountsModel {
-        let self_ = imp::Provider::from_instance(self);
-        &self_.accounts
+        &self.imp().accounts
     }
 
     pub fn accounts(&self) -> &gtk::FilterListModel {
-        let self_ = imp::Provider::from_instance(self);
-        &self_.filter_model
+        &self.imp().filter_model
     }
 
     pub fn filter(&self, text: String) {
-        let self_ = imp::Provider::from_instance(self);
         let filter = gtk::CustomFilter::new(
             glib::clone!(@weak self as provider => @default-return false, move |obj| {
                 let account = obj.downcast_ref::<Account>().unwrap();
@@ -532,13 +516,13 @@ impl Provider {
                     .contains(query) || provider_match
             }),
         );
-        self_.filter_model.set_filter(Some(&filter));
+        self.imp().filter_model.set_filter(Some(&filter));
     }
 
     pub fn remove_account(&self, account: Account) {
-        let self_ = imp::Provider::from_instance(self);
-        if let Some(pos) = self_.accounts.find_by_id(account.id()) {
-            self_.accounts.remove(pos);
+        let imp = self.imp();
+        if let Some(pos) = imp.accounts.find_by_id(account.id()) {
+            imp.accounts.remove(pos);
         }
     }
 }

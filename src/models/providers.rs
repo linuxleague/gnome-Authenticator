@@ -128,9 +128,8 @@ impl ProvidersModel {
     }
 
     pub fn add_provider(&self, provider: &Provider) {
-        let self_ = imp::ProvidersModel::from_instance(self);
         let pos = {
-            let mut data = self_.0.borrow_mut();
+            let mut data = self.imp().0.borrow_mut();
             data.push(provider.clone());
             (data.len() - 1) as u32
         };
@@ -138,7 +137,6 @@ impl ProvidersModel {
     }
 
     pub fn delete_provider(&self, provider: &Provider) {
-        let self_ = imp::ProvidersModel::from_instance(self);
         let mut provider_pos = None;
         for pos in 0..self.n_items() {
             let obj = self.item(pos).unwrap();
@@ -150,7 +148,7 @@ impl ProvidersModel {
         }
         if let Some(pos) = provider_pos {
             {
-                let mut data = self_.0.borrow_mut();
+                let mut data = self.imp().0.borrow_mut();
                 data.remove(pos as usize);
             }
             self.items_changed(pos, 1, 0);

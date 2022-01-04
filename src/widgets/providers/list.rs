@@ -85,13 +85,13 @@ impl ProvidersList {
     }
 
     pub fn set_view(&self, view: ProvidersListView) {
-        let self_ = imp::ProvidersList::from_instance(self);
+        let imp = self.imp();
         match view {
             ProvidersListView::NoSearchResults => {
-                self_.stack.set_visible_child_name("no-results");
+                imp.stack.set_visible_child_name("no-results");
             }
             ProvidersListView::List => {
-                self_.stack.set_visible_child_name("results");
+                imp.stack.set_visible_child_name("results");
             }
         }
     }
@@ -101,47 +101,44 @@ impl ProvidersList {
     /// The model contains initially all the providers and are filtered
     /// to keep only the ones that have at least an account.
     pub fn set_model(&self, model: ProvidersModel) {
-        let self_ = imp::ProvidersList::from_instance(self);
+        let imp = self.imp();
         let accounts_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.has_accounts()
         });
-        self_.filter_model.set_filter(Some(&accounts_filter));
-        self_.filter_model.set_model(Some(&model));
+        imp.filter_model.set_filter(Some(&accounts_filter));
+        imp.filter_model.set_model(Some(&model));
     }
 
     pub fn refilter(&self) {
-        let self_ = imp::ProvidersList::from_instance(self);
+        let imp = self.imp();
 
-        if let Some(filter) = self_.filter_model.filter() {
+        if let Some(filter) = imp.filter_model.filter() {
             filter.changed(gtk::FilterChange::Different);
         }
-        self_.sorter.changed(gtk::SorterChange::Different);
+        imp.sorter.changed(gtk::SorterChange::Different);
     }
 
     /// Returns an instance of the filtered initial model
     pub fn model(&self) -> gtk::FilterListModel {
-        let self_ = imp::ProvidersList::from_instance(self);
-        self_.filter_model.clone()
+        self.imp().filter_model.clone()
     }
 
     pub fn search(&self, text: String) {
-        let self_ = imp::ProvidersList::from_instance(self);
-
         let accounts_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider.filter(text.clone());
             provider.accounts().n_items() != 0
         });
-        self_.filter_model.set_filter(Some(&accounts_filter));
+        self.imp().filter_model.set_filter(Some(&accounts_filter));
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::ProvidersList::from_instance(self);
+        let imp = self.imp();
 
-        let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&self_.sorter));
+        let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&imp.sorter));
 
-        self_.providers_list.bind_model(
+        imp.providers_list.bind_model(
             Some(&sort_model),
             clone!(@strong self as list => move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();

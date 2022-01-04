@@ -114,15 +114,13 @@ impl UrlRow {
     }
 
     fn open_uri(&self) {
-        let self_ = imp::UrlRow::from_instance(self);
-        if let Some(ref uri) = *self_.uri.borrow() {
+        if let Some(ref uri) = *self.imp().uri.borrow() {
             gtk::show_uri(gtk::Window::NONE, uri, 0);
         }
     }
 
     pub fn set_uri(&self, uri: &str) {
         self.set_subtitle(uri);
-        let self_ = imp::UrlRow::from_instance(self);
-        self_.uri.borrow_mut().replace(uri.to_string());
+        self.imp().uri.borrow_mut().replace(uri.to_string());
     }
 }

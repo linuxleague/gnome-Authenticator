@@ -112,8 +112,7 @@ impl QRCodePaintable {
     }
 
     pub fn set_qrcode(&self, qrcode: QRCodeData) {
-        let self_ = imp::QRCodePaintable::from_instance(self);
-        self_.qrcode.replace(Some(qrcode));
+        self.imp().qrcode.replace(Some(qrcode));
         self.invalidate_contents();
     }
 }

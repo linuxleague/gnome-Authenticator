@@ -68,25 +68,25 @@ impl AccountDetailsPage {
     }
 
     fn init_widgets(&self) {
-        let self_ = imp::AccountDetailsPage::from_instance(self);
-        self_
+        let imp = self.imp();
+        imp
             .qrcode_picture
-            .set_paintable(Some(&self_.qrcode_paintable));
+            .set_paintable(Some(&imp.qrcode_paintable));
     }
 
     pub fn set_account(&self, account: &Account) {
-        let self_ = imp::AccountDetailsPage::from_instance(self);
+        let imp = self.imp();
         let qr_code = account.qr_code();
-        self_.qrcode_paintable.set_qrcode(qr_code);
+        imp.qrcode_paintable.set_qrcode(qr_code);
 
-        self_.account_label.set_text(&account.name());
-        self_.provider_label.set_text(&account.provider().name());
+        imp.account_label.set_text(&account.name());
+        imp.provider_label.set_text(&account.provider().name());
 
         if let Some(ref website) = account.provider().website() {
-            self_.website_row.set_uri(website);
-            self_.website_row.show();
+            imp.website_row.set_uri(website);
+            imp.website_row.show();
         } else {
-            self_.website_row.hide();
+            imp.website_row.hide();
         }
     }
 }

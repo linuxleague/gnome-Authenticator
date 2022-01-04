@@ -166,9 +166,7 @@ impl ProviderRow {
 
         match provider.method() {
             OTPMethod::TOTP | OTPMethod::Steam => {
-                let self_ = imp::ProviderRow::from_instance(self);
-
-                self_.progress_icon.set_progress(1_f32);
+                self.imp().progress_icon.set_progress(1_f32);
                 self.set_property("remaining-time", &(provider.period() as u64));
             }
             _ => (),
@@ -195,7 +193,7 @@ impl ProviderRow {
     }
 
     fn tick_progressbar(&self) {
-        let self_ = imp::ProviderRow::from_instance(self);
+        let imp = self.imp();
         let period_millis = self.provider().period() as u128 * 1000;
         let now: u128 = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -205,28 +203,26 @@ impl ProviderRow {
 
         let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
-        self_.progress_icon.set_progress(progress_fraction as f32);
-        if remaining_time <= 1000 && self_.schedule.borrow().is_none() {
+        imp.progress_icon.set_progress(progress_fraction as f32);
+        if remaining_time <= 1000 && imp.schedule.borrow().is_none() {
             let id = glib::timeout_add_local(
                 Duration::from_millis(remaining_time as u64),
                 clone!(@weak self as row  => @default-return glib::Continue(false), move || {
                     row.restart();
-                    let row_ = imp::ProviderRow::from_instance(&row);
-                    row_.schedule.replace(None);
-
+                    row.imp().schedule.replace(None);
                     glib::Continue(false)
                 }),
             );
-            self_.schedule.replace(Some(id));
+            imp.schedule.replace(Some(id));
         }
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::ProviderRow::from_instance(self);
+        let imp = self.imp();
 
         self.add_css_class(&self.provider().method().to_string());
 
-        self_.image.set_provider(Some(&self.provider()));
+        imp.image.set_provider(Some(&self.provider()));
 
         self.restart();
         match self.provider().method() {
@@ -239,18 +235,18 @@ impl ProviderRow {
                     }),
                 );
 
-                self_
+                imp
                     .callback_id
                     .replace(Some(self.add_tick_callback(|row, _| {
                         row.tick_progressbar();
                         glib::Continue(true)
                     })));
             }
-            _ => self_.progress_icon.hide(),
+            _ => imp.progress_icon.hide(),
         }
 
         self.provider()
-            .bind_property("name", &*self_.name_label, "label")
+            .bind_property("name", &*imp.name_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
@@ -294,7 +290,7 @@ impl ProviderRow {
             row.upcast::<gtk::Widget>()
         });
 
-        self_
+        imp
             .accounts_list
             .bind_model(Some(&sort_model), create_callback);
     }

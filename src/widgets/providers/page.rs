@@ -150,104 +150,104 @@ impl ProviderPage {
     }
 
     pub fn set_provider(&self, provider: Option<Provider>) {
-        let self_ = imp::ProviderPage::from_instance(self);
+        let imp = self.imp();
         if let Some(provider) = provider {
-            self_.delete_button.show();
-            self_.name_entry.set_text(&provider.name());
-            self_.period_spinbutton.set_value(provider.period() as f64);
+            imp.delete_button.show();
+            imp.name_entry.set_text(&provider.name());
+            imp.period_spinbutton.set_value(provider.period() as f64);
 
             if let Some(ref website) = provider.website() {
-                self_.provider_website_entry.set_text(website);
+                imp.provider_website_entry.set_text(website);
             }
 
             if let Some(ref website) = provider.help_url() {
-                self_.provider_help_entry.set_text(website);
+                imp.provider_help_entry.set_text(website);
             }
 
-            self_.algorithm_comborow.set_selected(
-                self_
+            imp.algorithm_comborow.set_selected(
+                imp
                     .algorithms_model
                     .find_position(provider.algorithm().into_glib()),
             );
 
-            self_
+            imp
                 .default_counter_spinbutton
                 .set_value(provider.default_counter() as f64);
-            self_.digits_spinbutton.set_value(provider.digits() as f64);
+            imp.digits_spinbutton.set_value(provider.digits() as f64);
 
-            self_.method_comborow.set_selected(
-                self_
+            imp.method_comborow.set_selected(
+                imp
                     .methods_model
                     .find_position(provider.method().into_glib()),
             );
-            self_.image.set_provider(Some(&provider));
-            self_
+            imp.image.set_provider(Some(&provider));
+            imp
                 .title
                 .set_text(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
-            self_.selected_provider.replace(Some(provider));
+            imp.selected_provider.replace(Some(provider));
         } else {
-            self_.name_entry.set_text("");
-            self_.delete_button.hide();
-            self_
+            imp.name_entry.set_text("");
+            imp.delete_button.hide();
+            imp
                 .period_spinbutton
                 .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
-            self_.provider_website_entry.set_text("");
-            self_.provider_help_entry.set_text("");
+            imp.provider_website_entry.set_text("");
+            imp.provider_help_entry.set_text("");
 
-            self_.algorithm_comborow.set_selected(
-                self_
+            imp.algorithm_comborow.set_selected(
+                imp
                     .algorithms_model
                     .find_position(Algorithm::default().into_glib()),
             );
 
-            self_
+            imp
                 .default_counter_spinbutton
                 .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
-            self_
+            imp
                 .digits_spinbutton
                 .set_value(otp::DEFAULT_DIGITS as f64);
 
-            self_.method_comborow.set_selected(
-                self_
+            imp.method_comborow.set_selected(
+                imp
                     .methods_model
                     .find_position(OTPMethod::default().into_glib()),
             );
-            self_.image.set_provider(None);
-            self_.title.set_text(&gettext("New Provider"));
-            self_.selected_provider.replace(None);
+            imp.image.set_provider(None);
+            imp.title.set_text(&gettext("New Provider"));
+            imp.selected_provider.replace(None);
         }
     }
 
     // Validate the information typed by the user in order to enable/disable the save action
     // Note that we don't validate the urls other than: does `url` crate can parse it or not
     fn validate(&self) {
-        let self_ = imp::ProviderPage::from_instance(self);
+        let imp = self.imp();
 
-        let provider_name = self_.name_entry.text();
-        let provider_website = self_.provider_website_entry.text();
-        let provider_help_url = self_.provider_help_entry.text();
+        let provider_name = imp.name_entry.text();
+        let provider_website = imp.provider_website_entry.text();
+        let provider_help_url = imp.provider_help_entry.text();
 
         let is_valid = !provider_name.is_empty()
             && (provider_website.is_empty() || url::Url::parse(&provider_website).is_ok())
             && (provider_help_url.is_empty() || url::Url::parse(&provider_help_url).is_ok());
 
-        get_action!(self_.actions, @save).set_enabled(is_valid);
+        get_action!(imp.actions, @save).set_enabled(is_valid);
     }
 
     // Save the provider & emit a signal when one is created/updated
     fn save(&self) -> anyhow::Result<()> {
-        let self_ = imp::ProviderPage::from_instance(self);
+        let imp = self.imp();
 
-        let name = self_.name_entry.text();
-        let website = self_.provider_website_entry.text().to_string();
-        let help_url = self_.provider_help_entry.text().to_string();
-        let period = self_.period_spinbutton.value() as u32;
-        let digits = self_.digits_spinbutton.value() as u32;
-        let method = OTPMethod::from(self_.method_comborow.selected());
-        let algorithm = Algorithm::from(self_.algorithm_comborow.selected());
-        let default_counter = self_.default_counter_spinbutton.value() as u32;
+        let name = imp.name_entry.text();
+        let website = imp.provider_website_entry.text().to_string();
+        let help_url = imp.provider_help_entry.text().to_string();
+        let period = imp.period_spinbutton.value() as u32;
+        let digits = imp.digits_spinbutton.value() as u32;
+        let method = OTPMethod::from(imp.method_comborow.selected());
+        let algorithm = Algorithm::from(imp.algorithm_comborow.selected());
+        let default_counter = imp.default_counter_spinbutton.value() as u32;
 
-        let image_uri = if let Some(file) = self_.selected_image.borrow().clone() {
+        let image_uri = if let Some(file) = imp.selected_image.borrow().clone() {
             let basename = file.basename().unwrap();
             println!("{:#?}", basename);
             let extension = basename
@@ -284,7 +284,7 @@ impl ProviderPage {
             None
         };
 
-        if let Some(provider) = self_.selected_provider.borrow().clone() {
+        if let Some(provider) = imp.selected_provider.borrow().clone() {
             provider.update(&ProviderPatch {
                 name: name.to_string(),
                 website: Some(website),
@@ -315,7 +315,7 @@ impl ProviderPage {
     }
 
     fn open_select_image(&self) {
-        let self_ = imp::ProviderPage::from_instance(self);
+        let imp = self.imp();
         let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
 
         let file_chooser = gtk::FileChooserNativeBuilder::new()
@@ -336,33 +336,32 @@ impl ProviderPage {
                 let file = dialog.file().unwrap();
                 page.set_image(file);
             }
-            let self_ = imp::ProviderPage::from_instance(&page);
-            self_.file_chooser.replace(None);
+            page.imp().file_chooser.replace(None);
             dialog.destroy();
         }));
 
         file_chooser.show();
-        self_.file_chooser.replace(Some(file_chooser));
+        imp.file_chooser.replace(Some(file_chooser));
     }
 
     fn set_image(&self, file: gio::File) {
-        let self_ = imp::ProviderPage::from_instance(self);
+        let imp = self.imp();
 
-        self_.image.set_from_file(&file);
-        self_.selected_image.replace(Some(file));
+        imp.image.set_from_file(&file);
+        imp.selected_image.replace(Some(file));
     }
 
     fn reset_image(&self) {
-        let self_ = imp::ProviderPage::from_instance(self);
-        self_.image.reset();
-        self_.selected_image.replace(None);
+        let imp = self.imp();
+        imp.image.reset();
+        imp.selected_image.replace(None);
     }
 
     fn delete_provider(&self) -> anyhow::Result<()> {
-        let self_ = imp::ProviderPage::from_instance(self);
-        if let Some(provider) = self_.selected_provider.borrow().clone() {
+        let imp = self.imp();
+        if let Some(provider) = imp.selected_provider.borrow().clone() {
             if provider.has_accounts() {
-                self_.error_revealer.popup(&gettext(
+                imp.error_revealer.popup(&gettext(
                     "The provider has accounts assigned to it, please remove them first",
                 ));
             } else if provider.delete().is_ok() {
@@ -374,9 +373,9 @@ impl ProviderPage {
         Ok(())
     }
     fn setup_actions(&self) {
-        let self_ = imp::ProviderPage::from_instance(self);
+        let imp = self.imp();
         action!(
-            self_.actions,
+            imp.actions,
             "save",
             clone!(@weak self as page => move |_, _| {
                 if let Err(err) = page.save() {
@@ -385,7 +384,7 @@ impl ProviderPage {
             })
         );
         action!(
-            self_.actions,
+            imp.actions,
             "delete",
             clone!(@weak self as page => move |_, _| {
                 if let Err(err) = page.delete_provider() {
@@ -395,30 +394,30 @@ impl ProviderPage {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "reset_image",
             clone!(@weak self as page => move |_, _| {
                 page.reset_image();
             })
         );
         action!(
-            self_.actions,
+            imp.actions,
             "select_image",
             clone!(@weak self as page => move |_, _| {
                 page.open_select_image();
             })
         );
-        self.insert_action_group("providers", Some(&self_.actions));
-        get_action!(self_.actions, @save).set_enabled(false);
+        self.insert_action_group("providers", Some(&imp.actions));
+        get_action!(imp.actions, @save).set_enabled(false);
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::ProviderPage::from_instance(self);
-        self_
+        let imp = self.imp();
+        imp
             .algorithm_comborow
-            .set_model(Some(&self_.algorithms_model));
+            .set_model(Some(&imp.algorithms_model));
 
-        self_
+        imp
             .method_comborow
             .connect_selected_item_notify(clone!(@weak self as page => move |_| {
                 page.on_method_changed();
@@ -428,59 +427,59 @@ impl ProviderPage {
             page.validate();
         });
 
-        self_.name_entry.connect_changed(validate_cb.clone());
-        self_
+        imp.name_entry.connect_changed(validate_cb.clone());
+        imp
             .provider_website_entry
             .connect_changed(validate_cb.clone());
-        self_.provider_help_entry.connect_changed(validate_cb);
+        imp.provider_help_entry.connect_changed(validate_cb);
 
-        self_.method_comborow.set_model(Some(&self_.methods_model));
+        imp.method_comborow.set_model(Some(&imp.methods_model));
     }
 
     fn on_method_changed(&self) {
-        let self_ = imp::ProviderPage::from_instance(self);
+        let imp = self.imp();
 
-        let selected = OTPMethod::from(self_.method_comborow.selected());
+        let selected = OTPMethod::from(imp.method_comborow.selected());
         match selected {
             OTPMethod::TOTP => {
-                self_.default_counter_row.hide();
-                self_.period_row.show();
-                self_
+                imp.default_counter_row.hide();
+                imp.period_row.show();
+                imp
                     .digits_spinbutton
                     .set_value(otp::DEFAULT_DIGITS as f64);
-                self_
+                imp
                     .period_spinbutton
                     .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
             }
             OTPMethod::HOTP => {
-                self_.default_counter_row.show();
-                self_.period_row.hide();
-                self_
+                imp.default_counter_row.show();
+                imp.period_row.hide();
+                imp
                     .default_counter_spinbutton
                     .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
-                self_
+                imp
                     .digits_spinbutton
                     .set_value(otp::DEFAULT_DIGITS as f64);
             }
             OTPMethod::Steam => {
-                self_.default_counter_row.hide();
-                self_.period_row.show();
-                self_
+                imp.default_counter_row.hide();
+                imp.period_row.show();
+                imp
                     .digits_spinbutton
                     .set_value(otp::STEAM_DEFAULT_DIGITS as f64);
-                self_
+                imp
                     .period_spinbutton
                     .set_value(otp::STEAM_DEFAULT_PERIOD as f64);
-                self_
+                imp
                     .algorithm_comborow
                     .set_selected(Algorithm::default().into_glib() as u32);
             }
         }
 
-        self_
+        imp
             .algorithm_comborow
             .set_sensitive(selected != OTPMethod::Steam);
-        self_.period_row.set_sensitive(selected != OTPMethod::Steam);
-        self_.digits_row.set_sensitive(selected != OTPMethod::Steam);
+        imp.period_row.set_sensitive(selected != OTPMethod::Steam);
+        imp.digits_row.set_sensitive(selected != OTPMethod::Steam);
     }
 }

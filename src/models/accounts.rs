@@ -44,9 +44,8 @@ impl AccountsModel {
     }
 
     pub fn insert(&self, account: &Account) {
-        let self_ = imp::AccountsModel::from_instance(self);
         let pos = {
-            let mut data = self_.0.borrow_mut();
+            let mut data = self.imp().0.borrow_mut();
             data.push(account.clone());
             (data.len() - 1) as u32
         };
@@ -54,8 +53,7 @@ impl AccountsModel {
     }
 
     pub fn remove(&self, pos: u32) {
-        let self_ = imp::AccountsModel::from_instance(self);
-        self_.0.borrow_mut().remove(pos as usize);
+        self.imp().0.borrow_mut().remove(pos as usize);
         self.items_changed(pos, 1, 0);
     }
 

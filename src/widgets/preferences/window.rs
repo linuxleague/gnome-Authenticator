@@ -151,8 +151,7 @@ glib::wrapper! {
 impl PreferencesWindow {
     pub fn new(model: ProvidersModel) -> Self {
         let window = glib::Object::new(&[]).expect("Failed to create PreferencesWindow");
-        let self_ = imp::PreferencesWindow::from_instance(&window);
-        self_.model.set(model).unwrap();
+        window.imp().model.set(model).unwrap();
         window.setup_widgets();
         window
     }
@@ -166,22 +165,22 @@ impl PreferencesWindow {
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::PreferencesWindow::from_instance(self);
+        let imp = self.imp();
 
-        self_
+        imp
             .settings
-            .bind("dark-theme", &*self_.dark_theme, "active")
+            .bind("dark-theme", &*imp.dark_theme, "active")
             .build();
-        self_
+        imp
             .settings
-            .bind("auto-lock", &*self_.auto_lock, "active")
+            .bind("auto-lock", &*imp.auto_lock, "active")
             .build();
-        self_
+        imp
             .settings
-            .bind("auto-lock-timeout", &*self_.lock_timeout, "value")
+            .bind("auto-lock-timeout", &*imp.lock_timeout, "value")
             .build();
 
-        self_
+        imp
             .password_page
             .bind_property("has-set-password", self, "has-set-password")
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
@@ -197,7 +196,7 @@ impl PreferencesWindow {
     }
 
     fn register_backup<T: Backupable>(&self, filters: &'static [&str]) {
-        let self_ = imp::PreferencesWindow::from_instance(self);
+        let imp = self.imp();
 
         let row = adw::ActionRowBuilder::new()
             .title(&T::title())
@@ -207,9 +206,9 @@ impl PreferencesWindow {
             .action_name(&format!("backup.{}", T::identifier()))
             .build();
 
-        let model = self_.model.get().unwrap().clone();
+        let model = imp.model.get().unwrap().clone();
         action!(
-            self_.backup_actions,
+            imp.backup_actions,
             &T::identifier(),
             clone!(@weak self as win, @weak model => move |_, _| {
                 let dialog = win.select_file(filters, Operation::Backup);
@@ -224,11 +223,11 @@ impl PreferencesWindow {
             })
         );
 
-        self_.backup_group.add(&row);
+        imp.backup_group.add(&row);
     }
 
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
-        let self_ = imp::PreferencesWindow::from_instance(self);
+        let imp = self.imp();
 
         let row = adw::ActionRowBuilder::new()
             .title(&T::title())
@@ -239,7 +238,7 @@ impl PreferencesWindow {
             .build();
 
         action!(
-            self_.restore_actions,
+            imp.restore_actions,
             &T::identifier(),
             clone!(@weak self as win => move |_, _| {
                 let dialog = win.select_file(filters, Operation::Restore);
@@ -259,12 +258,11 @@ impl PreferencesWindow {
             })
         );
 
-        self_.restore_group.add(&row);
+        imp.restore_group.add(&row);
     }
 
     fn restore_items<T: Restorable<Item = Q>, Q: RestorableItem>(&self, items: Vec<Q>) {
-        let self_ = imp::PreferencesWindow::from_instance(self);
-        let model = self_.model.get().unwrap();
+        let model = self.imp().model.get().unwrap();
         items
             .iter()
             .map(move |item| T::restore_item(item, model))
@@ -282,8 +280,6 @@ impl PreferencesWindow {
         filters: &'static [&str],
         operation: Operation,
     ) -> gtk::FileChooserNative {
-        let self_ = imp::PreferencesWindow::from_instance(self);
-
         let native = match operation {
             Operation::Backup => gtk::FileChooserNative::new(
                 Some(&gettext("Backup")),
@@ -312,42 +308,42 @@ impl PreferencesWindow {
         });
 
         // Hold a reference to the file chooser
-        self_.file_chooser.replace(Some(native.clone()));
+        self.imp().file_chooser.replace(Some(native.clone()));
         native.show();
         native
     }
 
     fn setup_actions(&self) {
-        let self_ = imp::PreferencesWindow::from_instance(self);
+        let imp = self.imp();
 
-        self_
+        imp
             .password_page
             .connect_map(clone!(@weak self as win => move |_| {
                 win.set_search_enabled(false);
             }));
 
-        self_
+        imp
             .password_page
             .connect_unmap(clone!(@weak self as win => move |_| {
                 win.set_search_enabled(true);
             }));
 
         action!(
-            self_.actions,
+            imp.actions,
             "show_password_page",
-            clone!(@weak self as win, @weak self_.password_page as password_page => move |_, _| {
+            clone!(@weak self as win, @weak imp.password_page as password_page => move |_, _| {
                 win.present_subpage(&password_page);
             })
         );
         action!(
-            self_.actions,
+            imp.actions,
             "close_page",
             clone!(@weak self as win => move |_, _| {
                 win.close_subpage();
             })
         );
-        self.insert_action_group("preferences", Some(&self_.actions));
-        self.insert_action_group("backup", Some(&self_.backup_actions));
-        self.insert_action_group("restore", Some(&self_.restore_actions));
+        self.insert_action_group("preferences", Some(&imp.actions));
+        self.insert_action_group("backup", Some(&imp.backup_actions));
+        self.insert_action_group("restore", Some(&imp.restore_actions));
     }
 }

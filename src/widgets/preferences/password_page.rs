@@ -114,8 +114,7 @@ glib::wrapper! {
 impl PasswordPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
         let page = glib::Object::new(&[]).expect("Failed to create PasswordPage");
-        let self_ = imp::PasswordPage::from_instance(&page);
-        self_.actions.set(actions).unwrap();
+        page.imp().actions.set(actions).unwrap();
         page.setup_widgets();
         page.setup_actions();
         page
@@ -130,11 +129,11 @@ impl PasswordPage {
     }
 
     fn validate(&self) {
-        let self_ = imp::PasswordPage::from_instance(self);
+        let imp = self.imp();
 
-        let current_password = self_.current_password_entry.text();
-        let password = self_.password_entry.text();
-        let password_repeat = self_.confirm_password_entry.text();
+        let current_password = imp.current_password_entry.text();
+        let password = imp.password_entry.text();
+        let password_repeat = imp.confirm_password_entry.text();
 
         let is_valid = if self.has_set_password() {
             password_repeat == password && current_password != password && password != ""
@@ -142,18 +141,18 @@ impl PasswordPage {
             password_repeat == password && password != ""
         };
 
-        get_action!(self_.actions.get().unwrap(), @save_password).set_enabled(is_valid);
+        get_action!(imp.actions.get().unwrap(), @save_password).set_enabled(is_valid);
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::PasswordPage::from_instance(self);
+        let imp = self.imp();
 
-        self_.status_page.set_icon_name(Some(config::APP_ID));
+        imp.status_page.set_icon_name(Some(config::APP_ID));
 
-        self_
+        imp
             .password_entry
             .connect_changed(clone!(@weak self as page=> move |_| page.validate()));
-        self_
+        imp
             .confirm_password_entry
             .connect_changed(clone!(@weak self as page => move |_| page.validate()));
 
@@ -170,20 +169,20 @@ impl PasswordPage {
     // Called when either the user sets/resets the password to bind/unbind the
     // the validation callback on the password entry
     fn reset_validation(&self) {
-        let self_ = imp::PasswordPage::from_instance(self);
+        let imp = self.imp();
         if self.has_set_password() {
-            self_
+            imp
                 .current_password_entry
                 .connect_changed(clone!(@weak self as page => move |_| page.validate()));
-        } else if let Some(handler_id) = self_.default_password_signal.borrow_mut().take() {
-            self_.current_password_entry.disconnect(handler_id);
+        } else if let Some(handler_id) = imp.default_password_signal.borrow_mut().take() {
+            imp.current_password_entry.disconnect(handler_id);
         }
     }
 
     fn setup_actions(&self) {
-        let self_ = imp::PasswordPage::from_instance(self);
+        let imp = self.imp();
 
-        let actions = self_.actions.get().unwrap();
+        let actions = imp.actions.get().unwrap();
         action!(
             actions,
             "save_password",
@@ -211,19 +210,19 @@ impl PasswordPage {
     }
 
     fn reset_password(&self) {
-        let self_ = imp::PasswordPage::from_instance(self);
+        let imp = self.imp();
 
-        let current_password = self_.current_password_entry.text();
+        let current_password = imp.current_password_entry.text();
 
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
         {
-            self_.error_revealer.popup(&gettext("Wrong Passphrase"));
+            imp.error_revealer.popup(&gettext("Wrong Passphrase"));
             return;
         }
         if Keyring::reset_password().is_ok() {
-            let self_ = imp::PasswordPage::from_instance(self);
-            let actions = self_.actions.get().unwrap();
+            let imp = self.imp();
+            let actions = imp.actions.get().unwrap();
 
             get_action!(actions, @close_page).activate(None);
             get_action!(actions, @save_password).set_enabled(false);
@@ -232,24 +231,24 @@ impl PasswordPage {
     }
 
     pub fn reset(&self) {
-        let self_ = imp::PasswordPage::from_instance(self);
+        let imp = self.imp();
 
-        self_.current_password_entry.get().set_text("");
-        self_.password_entry.get().set_text("");
-        self_.confirm_password_entry.get().set_text("");
+        imp.current_password_entry.get().set_text("");
+        imp.password_entry.get().set_text("");
+        imp.confirm_password_entry.get().set_text("");
     }
 
     fn save(&self) {
-        let self_ = imp::PasswordPage::from_instance(self);
-        let actions = self_.actions.get().unwrap();
+        let imp = self.imp();
+        let actions = imp.actions.get().unwrap();
 
-        let current_password = self_.current_password_entry.text();
-        let password = self_.password_entry.text();
+        let current_password = imp.current_password_entry.text();
+        let password = imp.password_entry.text();
 
         if self.has_set_password()
             && !Keyring::is_current_password(&current_password).unwrap_or(false)
         {
-            self_.error_revealer.popup(&gettext("Wrong Passphrase"));
+            imp.error_revealer.popup(&gettext("Wrong Passphrase"));
             return;
         }
 

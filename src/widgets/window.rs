@@ -127,46 +127,46 @@ impl Window {
     }
 
     pub fn set_view(&self, view: View) {
-        let self_ = imp::Window::from_instance(self);
+        let imp = self.imp();
         match view {
             View::Login => {
-                self_.main_stack.set_visible_child_name("login");
-                self_.search_entry.set_key_capture_widget(gtk::Widget::NONE);
-                self_.password_entry.grab_focus();
+                imp.main_stack.set_visible_child_name("login");
+                imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
+                imp.password_entry.grab_focus();
             }
             View::Accounts => {
-                self_.main_stack.set_visible_child_name("unlocked");
-                self_.deck.set_visible_child_name("accounts");
-                self_.deck.set_can_navigate_back(false);
-                if self_.providers.model().n_items() == 0 {
-                    if self_.model.get().unwrap().has_providers() {
+                imp.main_stack.set_visible_child_name("unlocked");
+                imp.deck.set_visible_child_name("accounts");
+                imp.deck.set_can_navigate_back(false);
+                if imp.providers.model().n_items() == 0 {
+                    if imp.model.get().unwrap().has_providers() {
                         // We do have at least one provider
                         // the 0 items comes from the search filter, so let's show an empty search
                         // page instead
-                        self_.providers.set_view(ProvidersListView::NoSearchResults);
+                        imp.providers.set_view(ProvidersListView::NoSearchResults);
                     } else {
-                        self_.accounts_stack.set_visible_child_name("empty");
-                        self_.search_entry.set_key_capture_widget(gtk::Widget::NONE);
+                        imp.accounts_stack.set_visible_child_name("empty");
+                        imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                     }
                 } else {
-                    self_.providers.set_view(ProvidersListView::List);
-                    self_.accounts_stack.set_visible_child_name("accounts");
-                    self_.search_entry.set_key_capture_widget(Some(self));
+                    imp.providers.set_view(ProvidersListView::List);
+                    imp.accounts_stack.set_visible_child_name("accounts");
+                    imp.search_entry.set_key_capture_widget(Some(self));
                 }
             }
             View::Account(account) => {
-                self_.main_stack.set_visible_child_name("unlocked");
-                self_.deck.set_visible_child_name("account");
-                self_.deck.set_can_navigate_back(true);
-                self_.account_details.set_account(&account);
+                imp.main_stack.set_visible_child_name("unlocked");
+                imp.deck.set_visible_child_name("account");
+                imp.deck.set_can_navigate_back(true);
+                imp.account_details.set_account(&account);
             }
         }
     }
 
     fn open_add_account(&self) {
-        let self_ = imp::Window::from_instance(self);
+        let imp = self.imp();
 
-        let model = self_.model.get().unwrap();
+        let model = imp.model.get().unwrap();
 
         let dialog = AccountAddDialog::new(model.clone());
         dialog.set_transient_for(Some(self));
@@ -184,15 +184,14 @@ impl Window {
     }
 
     pub fn providers(&self) -> ProvidersList {
-        let self_ = imp::Window::from_instance(self);
-        self_.providers.clone()
+        self.imp().providers.clone()
     }
 
     fn init(&self, model: ProvidersModel, app: &Application) {
-        let self_ = imp::Window::from_instance(self);
-        self_.model.set(model.clone()).unwrap();
-        self_.providers.set_model(model);
-        self_.providers.connect_local(
+        let imp =self.imp();
+        imp.model.set(model.clone()).unwrap();
+        imp.providers.set_model(model);
+        imp.providers.connect_local(
             "shared",
             false,
             clone!(@weak self as win => @default-return None, move |args| {
@@ -202,7 +201,7 @@ impl Window {
             }),
         );
 
-        self_.providers.model().connect_items_changed(
+        imp.providers.model().connect_items_changed(
             clone!(@weak self as win, @weak app => move |_, _,_,_| {
             // We do a check on set_view to ensure we always use the right page
             if !app.locked() {
@@ -212,22 +211,22 @@ impl Window {
         );
 
         self.set_icon_name(Some(config::APP_ID));
-        self_.empty_status_page.set_icon_name(Some(config::APP_ID));
-        self_.locked_img.set_from_icon_name(Some(config::APP_ID));
+        imp.empty_status_page.set_icon_name(Some(config::APP_ID));
+        imp.locked_img.set_from_icon_name(Some(config::APP_ID));
 
         // load latest window state
-        window_state::load(&self, &self_.settings);
+        window_state::load(&self, &imp.settings);
         // save window state on delete event
-        self.connect_close_request(clone!(@weak self_.settings as settings => @default-return Inhibit(false), move |window| {
+        self.connect_close_request(clone!(@weak imp.settings as settings => @default-return Inhibit(false), move |window| {
             if let Err(err) = window_state::save(&window, &settings) {
                 warn!("Failed to save window state {:#?}", err);
             }
             Inhibit(false)
         }));
 
-        let search_entry = &*self_.search_entry;
-        let search_btn = &*self_.search_btn;
-        let providers = &*self_.providers;
+        let search_entry = &*imp.search_entry;
+        let search_btn = &*imp.search_btn;
+        let providers = &*imp.providers;
         search_entry.connect_search_changed(clone!(@weak providers => move |entry| {
             let text = entry.text().to_string();
             providers.search(text);
@@ -239,7 +238,7 @@ impl Window {
             search_btn.set_active(false);
         }));
 
-        let title_stack = &*self_.title_stack;
+        let title_stack = &*imp.title_stack;
         search_btn.connect_toggled(clone!(@weak search_entry, @weak title_stack => move |btn| {
             if btn.is_active() {
                 title_stack.set_visible_child_name("search");
@@ -251,7 +250,7 @@ impl Window {
         }));
 
         let gtk_settings = gtk::Settings::default().unwrap();
-        self_
+        imp
             .settings
             .bind(
                 "dark-theme",
@@ -262,8 +261,8 @@ impl Window {
     }
 
     fn setup_actions(&self, app: &Application) {
-        let self_ = imp::Window::from_instance(self);
-        let search_btn = &*self_.search_btn;
+        let imp =self.imp();
+        let search_btn = &*imp.search_btn;
         action!(
             self,
             "search",
@@ -292,7 +291,7 @@ impl Window {
             .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        let password_entry = &*self_.password_entry;
+        let password_entry = &*imp.password_entry;
         action!(
             self,
             "unlock",
@@ -308,8 +307,7 @@ impl Window {
                     app.restart_lock_timeout();
                     win.set_view(View::Accounts);
                 } else {
-                    let win_ = imp::Window::from_instance(&win);
-                    win_.error_revealer.popup(&gettext("Wrong Password"));
+                    win.imp().error_revealer.popup(&gettext("Wrong Password"));
                 }
             })
         );
@@ -329,22 +327,22 @@ impl Window {
             }),
         );
 
-        let self_ = imp::Window::from_instance(self);
+        let imp =self.imp();
 
-        self_
+        imp
             .password_entry
             .connect_activate(clone!(@weak self as win => move |_| {
                 WidgetExt::activate_action(&win, "win.unlock", None);
             }));
 
         // On each click or key pressed we restart the timeout.
-        self_
+        imp
             .click_gesture
             .connect_pressed(clone!(@weak app => move |_, _, _, _| {
                 app.restart_lock_timeout();
             }));
 
-        self_.key_gesture.connect_key_pressed(
+        imp.key_gesture.connect_key_pressed(
             clone!(@weak app => @default-return Inhibit(false), move |_, _, _, _| {
                 app.restart_lock_timeout();
                 Inhibit(false)

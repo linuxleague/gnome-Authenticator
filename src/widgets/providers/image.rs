@@ -129,10 +129,10 @@ impl ProviderImage {
     }
 
     pub fn set_provider(&self, provider: Option<&Provider>) {
-        let self_ = imp::ProviderImage::from_instance(self);
+        let imp = self.imp();
         if let Some(provider) = provider {
-            self_.stack.set_visible_child_name("loading");
-            self_.spinner.start();
+            imp.stack.set_visible_child_name("loading");
+            imp.spinner.start();
             self.set_property("provider", &provider);
             self.on_provider_image_changed();
             provider.connect_notify_local(
@@ -142,20 +142,20 @@ impl ProviderImage {
                 }),
             );
         } else {
-            self_.image.set_from_icon_name(Some("provider-fallback"));
+            imp.image.set_from_icon_name(Some("provider-fallback"));
         }
     }
 
     fn on_provider_image_changed(&self) {
-        let self_ = imp::ProviderImage::from_instance(self);
+        let imp = self.imp();
         let provider = self.provider().unwrap();
         match provider.image_uri() {
             Some(uri) => {
                 // Very dirty hack to store that we couldn't find an icon
                 // to avoid re-hitting the website every time we have to display it
                 if uri == "invalid" {
-                    self_.image.set_from_icon_name(Some("provider-fallback"));
-                    self_.stack.set_visible_child_name("image");
+                    imp.image.set_from_icon_name(Some("provider-fallback"));
+                    imp.stack.set_visible_child_name("image");
                     return;
                 }
 
@@ -165,8 +165,8 @@ impl ProviderImage {
                     return;
                 }
 
-                self_.image.set_from_file(file.path());
-                self_.stack.set_visible_child_name("image");
+                imp.image.set_from_file(file.path());
+                imp.stack.set_visible_child_name("image");
             }
             _ => {
                 self.fetch();
@@ -175,11 +175,11 @@ impl ProviderImage {
     }
 
     fn fetch(&self) {
-        let self_ = imp::ProviderImage::from_instance(self);
+        let imp = self.imp();
         if let Some(provider) = self.provider() {
-            let sender = self_.sender.clone();
-            self_.stack.set_visible_child_name("loading");
-            self_.spinner.start();
+            let sender = imp.sender.clone();
+            imp.stack.set_visible_child_name("loading");
+            imp.spinner.start();
             spawn!(async move {
                 match provider.favicon().await {
                     Ok(file) => send!(sender, ImageAction::Ready(file)),
@@ -190,17 +190,15 @@ impl ProviderImage {
     }
 
     pub fn reset(&self) {
-        let self_ = imp::ProviderImage::from_instance(self);
-        self_.image.set_from_icon_name(Some("provider-fallback"));
-
+        self.imp().image.set_from_icon_name(Some("provider-fallback"));
         self.fetch();
     }
 
     pub fn set_from_file(&self, file: &gio::File) {
-        let self_ = imp::ProviderImage::from_instance(self);
+        let imp = self.imp();
 
-        self_.image.set_from_file(file.path());
-        self_.stack.set_visible_child_name("image");
+        imp.image.set_from_file(file.path());
+        imp.stack.set_visible_child_name("image");
     }
 
     fn provider(&self) -> Option<Provider> {
@@ -208,27 +206,27 @@ impl ProviderImage {
     }
 
     fn setup_widgets(&self) {
-        let self_ = imp::ProviderImage::from_instance(self);
-        let receiver = self_.receiver.borrow_mut().take().unwrap();
+        let imp = self.imp();
+        let receiver = imp.receiver.borrow_mut().take().unwrap();
         receiver.attach(
             None,
             clone!(@weak self as image => @default-return glib::Continue(false), move |action| image.do_action(action)),
         );
-        self.bind_property("size", &*self_.image, "pixel-size")
+        self.bind_property("size", &*imp.image, "pixel-size")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
     }
 
     fn do_action(&self, action: ImageAction) -> glib::Continue {
-        let self_ = imp::ProviderImage::from_instance(self);
+        let imp = self.imp();
         let image_path = match action {
             //TODO: handle network failure and other errors differently
             ImageAction::Failed => {
-                self_.image.set_from_icon_name(Some("provider-fallback"));
+                imp.image.set_from_icon_name(Some("provider-fallback"));
                 "invalid".to_string()
             }
             ImageAction::Ready(image) => {
-                self_.image.set_from_file(image.path());
+                imp.image.set_from_file(image.path());
                 let image_uri = image.uri();
                 image_uri.to_string()
             }
@@ -239,8 +237,8 @@ impl ProviderImage {
             }
         }
 
-        self_.stack.set_visible_child_name("image");
-        self_.spinner.stop();
+        imp.stack.set_visible_child_name("image");
+        imp.spinner.stop();
         glib::Continue(true)
     }
 }

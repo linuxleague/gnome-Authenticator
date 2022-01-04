@@ -175,13 +175,13 @@ impl Camera {
     }
 
     fn init_monitor(&self) {
-        let self_ = imp::Camera::from_instance(self);
+        let imp = self.imp();
         let caps = gst::Caps::new_simple("video/x-raw", &[]);
-        self_.monitor.add_filter(Some("Video/Source"), Some(&caps));
+        imp.monitor.add_filter(Some("Video/Source"), Some(&caps));
 
-        self_.monitor.start().unwrap();
-        let bus = self_.monitor.bus();
-        bus.add_watch_local(clone!(@strong self_.sender as sender => move |_, msg| {
+        imp.monitor.start().unwrap();
+        let bus = imp.monitor.bus();
+        bus.add_watch_local(clone!(@strong imp.sender as sender => move |_, msg| {
                 use gst::MessageView;
                 match msg.view() {
                     MessageView::DeviceAdded(event) => {
@@ -201,7 +201,7 @@ impl Camera {
     }
 
     fn init_pipelines(&self, source_element: gst::Element) {
-        let self_ = imp::Camera::from_instance(self);
+        let imp = self.imp();
 
         let tee = gst::ElementFactory::make("tee", None).unwrap();
         let queue = gst::ElementFactory::make("queue", None).unwrap();
@@ -210,9 +210,9 @@ impl Camera {
         let fakesink = gst::ElementFactory::make("fakesink", None).unwrap();
         let queue2 = gst::ElementFactory::make("queue", None).unwrap();
         let glsinkbin = gst::ElementFactory::make("glsinkbin", None).unwrap();
-        glsinkbin.set_property("sink", &self_.sink);
+        glsinkbin.set_property("sink", &imp.sink);
 
-        self_
+        imp
             .pipeline
             .add_many(&[
                 &source_element,
@@ -238,8 +238,8 @@ impl Camera {
         tee.link_pads(None, &queue2, None).unwrap();
         gst::Element::link_many(&[&queue2, &glsinkbin]).unwrap();
 
-        let bus = self_.pipeline.bus().unwrap();
-        bus.add_watch_local(clone!(@strong self_.sender as sender => move |_, msg| {
+        let bus = imp.pipeline.bus().unwrap();
+        bus.add_watch_local(clone!(@strong imp.sender as sender => move |_, msg| {
             use gst::MessageView;
             match msg.view() {
                 MessageView::StateChanged(state) => {
@@ -276,35 +276,35 @@ impl Camera {
     }
 
     fn set_state(&self, state: CameraState) {
-        let self_ = imp::Camera::from_instance(self);
+        let imp = self.imp();
         info!("The camera state changed to {:#?}", state);
         match state {
             CameraState::NotFound => {
-                self_.stack.get().set_visible_child_name("not-found");
+                imp.stack.get().set_visible_child_name("not-found");
             }
             CameraState::Ready => {
-                self_.stack.get().set_visible_child_name("stream");
-                self_.spinner.get().stop();
+                imp.stack.get().set_visible_child_name("stream");
+                imp.spinner.get().stop();
             }
             CameraState::Loading => {
-                self_.stack.get().set_visible_child_name("loading");
-                self_.spinner.get().start();
+                imp.stack.get().set_visible_child_name("loading");
+                imp.spinner.get().start();
             }
             CameraState::Paused => {}
         }
     }
 
     fn do_event(&self, event: CameraEvent) -> glib::Continue {
-        let self_ = imp::Camera::from_instance(self);
+        let imp = self.imp();
         match event {
             CameraEvent::CodeDetected(code) => {
                 self.emit_by_name("code-detected", &[&code]);
             }
             CameraEvent::DeviceAdded(device) => {
                 info!("Camera source added: {}", device.display_name());
-                self_.devices.append(&device);
-                if self_.selected_device.borrow_mut().is_none() {
-                    send!(self_.sender, CameraEvent::DeviceSelected(device));
+                imp.devices.append(&device);
+                if imp.selected_device.borrow_mut().is_none() {
+                    send!(imp.sender, CameraEvent::DeviceSelected(device));
                 }
             }
             CameraEvent::DeviceSelected(device) => {
@@ -313,11 +313,11 @@ impl Camera {
                 self.set_state(CameraState::Loading);
                 let element = device.create_element(None).unwrap();
                 self.init_pipelines(element);
-                self_.selected_device.replace(Some(device));
+                imp.selected_device.replace(Some(device));
             }
             CameraEvent::DeviceRemoved(device) => {
                 info!("Camera source removed: {}", device.display_name());
-                self_.devices.append(&device);
+                imp.devices.append(&device);
             }
             CameraEvent::StreamStarted => {
                 self.set_state(CameraState::Ready);
@@ -328,27 +328,27 @@ impl Camera {
     }
 
     pub fn start(&self) {
-        let self_ = imp::Camera::from_instance(self);
-        if let Err(err) = self_.pipeline.set_state(gst::State::Playing) {
+        let imp = self.imp();
+        if let Err(err) = imp.pipeline.set_state(gst::State::Playing) {
             log::error!("Failed to start the camera stream: {}", err);
         }
     }
 
     pub fn stop(&self) {
-        let self_ = imp::Camera::from_instance(self);
+        let imp = self.imp();
         self.set_state(CameraState::Paused);
-        if let Err(err) = self_.pipeline.set_state(gst::State::Null) {
+        if let Err(err) = imp.pipeline.set_state(gst::State::Null) {
             log::error!("Failed to stop the camera stream: {}", err);
         }
     }
 
     pub fn from_screenshot(&self) {
         spawn!(clone!(@weak self as this => async move {
-            let self_ = imp::Camera::from_instance(&this);
+            let imp = this.imp();
             let window = this.root().unwrap().downcast::<gtk::Window>().unwrap();
             if let Err(err) = screenshot::capture(
                 window,
-                clone!(@strong self_.sender as sender => move |file| {
+                clone!(@strong imp.sender as sender => move |file| {
                     if let Ok(code) = screenshot::scan(&file) {
                         send!(sender, CameraEvent::CodeDetected(code));
                     }
@@ -360,16 +360,16 @@ impl Camera {
     }
 
     fn init_widgets(&self) {
-        let self_ = imp::Camera::from_instance(self);
+        let imp = self.imp();
         self.set_state(CameraState::NotFound);
-        let receiver = self_.receiver.borrow_mut().take().unwrap();
+        let receiver = imp.receiver.borrow_mut().take().unwrap();
         receiver.attach(
             None,
             glib::clone!(@weak self as camera => @default-return glib::Continue(false), move |action| camera.do_event(action)),
         );
 
-        let widget = self_.sink.property::<gtk::Widget>("widget");
+        let widget = imp.sink.property::<gtk::Widget>("widget");
         widget.set_property("force-aspect-ratio", &false);
-        self_.overlay.get().set_child(Some(&widget));
+        imp.overlay.get().set_child(Some(&widget));
     }
 }

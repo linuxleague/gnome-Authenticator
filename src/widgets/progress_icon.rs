@@ -203,45 +203,39 @@ pub trait ProgressIconExt {
 
 impl<W: IsA<ProgressIcon>> ProgressIconExt for W {
     fn progress(&self) -> f32 {
-        let this = imp::ProgressIcon::from_instance(self.as_ref());
-        *this.progress.borrow()
+        *self.as_ref().imp().progress.borrow()
     }
     fn set_progress(&self, progress: f32) {
         if (progress - self.progress()).abs() < f32::EPSILON {
             return;
         }
-        let this = imp::ProgressIcon::from_instance(self.as_ref());
         let clamped = progress.clamp(0.0, 1.0);
-        this.progress.replace(clamped);
+        self.as_ref().imp().progress.replace(clamped);
         self.as_ref().queue_draw();
         self.notify("progress");
     }
 
     fn inverted(&self) -> bool {
-        let this = imp::ProgressIcon::from_instance(self.as_ref());
-        *this.inverted.borrow()
+        *self.as_ref().imp().inverted.borrow()
     }
     fn set_inverted(&self, inverted: bool) {
         if inverted == self.inverted() {
             return;
         }
-        let this = imp::ProgressIcon::from_instance(self.as_ref());
-        this.inverted.replace(inverted);
+        self.as_ref().imp().inverted.replace(inverted);
         self.as_ref().queue_draw();
         self.notify("inverted");
     }
 
     fn clockwise(&self) -> bool {
-        let this = imp::ProgressIcon::from_instance(self.as_ref());
-        *this.clockwise.borrow()
+        *self.as_ref().imp().clockwise.borrow()
     }
 
     fn set_clockwise(&self, clockwise: bool) {
         if clockwise == self.clockwise() {
             return;
         }
-        let this = imp::ProgressIcon::from_instance(self.as_ref());
-        this.clockwise.replace(clockwise);
+        self.as_ref().imp().clockwise.replace(clockwise);
         self.as_ref().queue_draw();
         self.notify("clockwise");
     }

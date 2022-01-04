@@ -98,12 +98,12 @@ impl ProvidersDialog {
     }
 
     fn setup_widgets(&self, model: ProvidersModel) {
-        let self_ = imp::ProvidersDialog::from_instance(self);
+        let imp = self.imp();
 
-        self_.filter_model.set_model(Some(&model));
+        imp.filter_model.set_model(Some(&model));
 
-        let stack = &*self_.stack;
-        self_
+        let stack = &*imp.stack;
+        imp
             .filter_model
             .connect_items_changed(clone!(@weak stack => move |model, _, _, _| {
                 if model.n_items() == 0 {
@@ -113,13 +113,13 @@ impl ProvidersDialog {
                 }
             }));
 
-        let search_entry = &*self_.search_entry;
+        let search_entry = &*imp.search_entry;
         search_entry.connect_search_changed(clone!(@weak self as dialog => move |entry| {
             let text = entry.text().to_string();
             dialog.search(text);
         }));
 
-        let search_btn = &*self_.search_btn;
+        let search_btn = &*imp.search_btn;
         search_entry.connect_search_started(clone!(@weak search_btn => move |_| {
             search_btn.set_active(true);
         }));
@@ -127,7 +127,7 @@ impl ProvidersDialog {
             search_btn.set_active(false);
         }));
 
-        let title_stack = &*self_.title_stack;
+        let title_stack = &*imp.title_stack;
         search_btn.connect_toggled(clone!(@weak title_stack, @weak search_entry => move |btn| {
             if btn.is_active() {
                 title_stack.set_visible_child_name("search");
@@ -154,14 +154,14 @@ impl ProvidersDialog {
             row.set_provider(provider);
         });
 
-        self_.providers_list.set_factory(Some(&factory));
+        imp.providers_list.set_factory(Some(&factory));
         let sorter = ProviderSorter::new();
-        let sort_model = gtk::SortListModel::new(Some(&self_.filter_model), Some(&sorter));
+        let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&sorter));
 
         let selection_model = gtk::NoSelection::new(Some(&sort_model));
-        self_.providers_list.set_model(Some(&selection_model));
+        imp.providers_list.set_model(Some(&selection_model));
 
-        self_.providers_list.connect_activate(
+        imp.providers_list.connect_activate(
             clone!(@weak self as dialog => move |listview, pos| {
                 let model = listview.model().unwrap();
                 let provider = model
@@ -173,7 +173,7 @@ impl ProvidersDialog {
             }),
         );
 
-        self_.page.connect_local(
+        imp.page.connect_local(
             "created",
             false,
             clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
@@ -185,7 +185,7 @@ impl ProvidersDialog {
             }),
         );
 
-        self_.page.connect_local(
+        imp.page.connect_local(
             "updated",
             false,
             clone!(@weak self as dialog => @default-return None, move |_| {
@@ -195,7 +195,7 @@ impl ProvidersDialog {
             }),
         );
 
-        self_.page.connect_local(
+        imp.page.connect_local(
             "deleted",
             false,
             clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
@@ -206,16 +206,16 @@ impl ProvidersDialog {
                 None
             }),
         );
-        let deck_page = self_.deck.append(&self_.page).unwrap();
+        let deck_page = imp.deck.append(&imp.page).unwrap();
         deck_page.set_name(Some("provider"));
         self.set_view(View::List);
     }
 
     fn setup_actions(&self) {
-        let self_ = imp::ProvidersDialog::from_instance(self);
+        let imp = self.imp();
 
         action!(
-            self_.actions,
+            imp.actions,
             "back",
             clone!(@weak self as dialog => move |_ , _| {
                 dialog.set_view(View::List);
@@ -223,28 +223,26 @@ impl ProvidersDialog {
         );
 
         action!(
-            self_.actions,
+            imp.actions,
             "add",
             clone!(@weak self as dialog => move |_, _| {
                 dialog.add_provider();
             })
         );
 
-        let search_btn = &*self_.search_btn;
+        let search_btn = &*imp.search_btn;
         action!(
-            self_.actions,
+            imp.actions,
             "search",
             clone!(@weak search_btn => move |_,_| {
                 search_btn.set_active(!search_btn.is_active());
             })
         );
 
-        self.insert_action_group("providers", Some(&self_.actions));
+        self.insert_action_group("providers", Some(&imp.actions));
     }
 
     fn search(&self, text: String) {
-        let self_ = imp::ProvidersDialog::from_instance(self);
-
         let providers_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
             provider
@@ -252,33 +250,31 @@ impl ProvidersDialog {
                 .to_ascii_lowercase()
                 .contains(&text.to_ascii_lowercase())
         });
-        self_.filter_model.set_filter(Some(&providers_filter));
+        self.imp().filter_model.set_filter(Some(&providers_filter));
     }
 
     fn add_provider(&self) {
-        let self_ = imp::ProvidersDialog::from_instance(self);
         self.set_view(View::Form);
         // By not setting the current provider we implicitly say it's for creating a new one
-        self_.page.set_provider(None);
+        self.imp().page.set_provider(None);
     }
 
     fn edit_provider(&self, provider: Provider) {
-        let self_ = imp::ProvidersDialog::from_instance(self);
         self.set_view(View::Form);
-        self_.page.set_provider(Some(provider));
+        self.imp().page.set_provider(Some(provider));
     }
 
     fn set_view(&self, view: View) {
-        let self_ = imp::ProvidersDialog::from_instance(self);
+        let imp = self.imp();
         match view {
             View::Form => {
-                self_.deck.set_visible_child_name("provider");
-                self_.search_entry.set_key_capture_widget(gtk::Widget::NONE);
-                self_.search_entry.emit_stop_search();
+                imp.deck.set_visible_child_name("provider");
+                imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
+                imp.search_entry.emit_stop_search();
             }
             View::List => {
-                self_.deck.set_visible_child_name("providers");
-                self_.search_entry.set_key_capture_widget(Some(self));
+                imp.deck.set_visible_child_name("providers");
+                imp.search_entry.set_key_capture_widget(Some(self));
             }
         }
     }
@@ -373,7 +369,7 @@ mod row {
         }
 
         fn setup_widgets(&self) {
-            let self_ = imp::ProviderActionRow::from_instance(self);
+            let imp = self.imp();
             let hbox = gtk::BoxBuilder::new()
                 .orientation(gtk::Orientation::Horizontal)
                 .margin_bottom(16)
@@ -381,17 +377,15 @@ mod row {
                 .margin_top(16)
                 .margin_start(16)
                 .build();
-            self_.title_label.set_valign(gtk::Align::Center);
-            self_.title_label.set_halign(gtk::Align::Start);
-            hbox.append(&self_.title_label);
+            imp.title_label.set_valign(gtk::Align::Center);
+            imp.title_label.set_halign(gtk::Align::Start);
+            hbox.append(&imp.title_label);
             self.set_child(Some(&hbox));
         }
 
         pub fn set_provider(&self, provider: Provider) {
-            let self_ = imp::ProviderActionRow::from_instance(self);
-
             self.set_property("provider", &provider);
-            self_.title_label.set_text(&provider.name());
+            self.imp().title_label.set_text(&provider.name());
         }
 
         pub fn provider(&self) -> Option<Provider> {
