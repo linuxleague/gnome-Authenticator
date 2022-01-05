@@ -71,10 +71,30 @@ mod imp {
             width: f64,
             height: f64,
         ) {
+            let snapshot = snapshot.downcast_ref::<gtk::Snapshot>().unwrap();
             if let Some(ref image) = *self.sink_paintable.borrow() {
-                image.snapshot(snapshot, width, height);
+                // Transformation to avoid stretching the camera. We translate and scale the image.
+                let aspect = width / height.max(std::f64::EPSILON); // Do not divide by zero.
+                let image_aspect = image.intrinsic_aspect_ratio();
+
+                if image_aspect == 0.0 {
+                    image.snapshot(snapshot.upcast_ref(), width, height);
+                    return;
+                };
+
+                let (new_width, new_height) = match aspect <= image_aspect {
+                    true => (height * image_aspect, height), // Mobile view
+                    false => (width, width / image_aspect),  // Landscape
+                };
+
+                let p = graphene::Point::new(
+                    ((width - new_width) / 2.0) as f32,
+                    ((height - new_height) / 2.0) as f32,
+                );
+                snapshot.translate(&p);
+
+                image.snapshot(snapshot.upcast_ref(), new_width, new_height);
             } else {
-                let snapshot = snapshot.downcast_ref::<gtk::Snapshot>().unwrap();
                 snapshot.append_color(
                     &gdk::RGBA::BLACK,
                     &graphene::Rect::new(0f32, 0f32, width as f32, height as f32),
