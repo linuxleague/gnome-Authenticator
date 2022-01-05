@@ -45,14 +45,9 @@ mod imp {
     impl ObjectImpl for AccountRow {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![
-                    Signal::builder("removed", &[], <()>::static_type().into())
-                        .flags(glib::SignalFlags::ACTION)
-                        .build(),
-                    Signal::builder("shared", &[], <()>::static_type().into())
-                        .flags(glib::SignalFlags::ACTION)
-                        .build(),
-                ]
+                vec![Signal::builder("shared", &[], <()>::static_type().into())
+                    .flags(glib::SignalFlags::ACTION)
+                    .build()]
             });
             SIGNALS.as_ref()
         }
@@ -162,14 +157,6 @@ impl AccountRow {
             "details",
             clone!(@weak self as row => move |_, _| {
                 row.emit_by_name::<()>("shared", &[]);
-            })
-        );
-
-        action!(
-            imp.actions,
-            "delete",
-            clone!(@weak self as row => move |_, _| {
-                row.emit_by_name::<()>("removed", &[]);
             })
         );
 

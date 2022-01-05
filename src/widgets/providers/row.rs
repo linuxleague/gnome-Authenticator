@@ -251,16 +251,6 @@ impl ProviderRow {
         let create_callback = clone!(@strong self as provider_row, @strong sorter, @strong provider => move |account: &glib::Object| {
             let account = account.clone().downcast::<Account>().unwrap();
             let row = AccountRow::new(account.clone());
-            row.connect_local(
-                "removed",
-                false,
-                clone!(@weak provider, @weak account, @weak provider_row => @default-return None, move |_| {
-                    account.delete().unwrap();
-                    provider.remove_account(account);
-                    provider_row.emit_by_name::<()>("changed", &[]);
-                    None
-                }),
-            );
 
             row.connect_local(
                 "shared",

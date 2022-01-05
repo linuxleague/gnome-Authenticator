@@ -338,5 +338,19 @@ impl Window {
                 Inhibit(false)
             }),
         );
+
+        imp.account_details.connect_local(
+            "removed",
+            false,
+            clone!(@weak self as win => @default-return None, move |args| {
+                let account = args[1].get::<Account>().unwrap();
+                let provider = account.provider();
+                account.delete().unwrap();
+                provider.remove_account(account);
+                win.providers().refilter();
+                win.set_view(View::Accounts);
+                None
+            }),
+        );
     }
 }
