@@ -250,15 +250,6 @@ impl Window {
                 title_stack.set_visible_child_name("title");
             }
         }));
-
-        let gtk_settings = gtk::Settings::default().unwrap();
-        imp.settings
-            .bind(
-                "dark-theme",
-                &gtk_settings,
-                "gtk-application-prefer-dark-theme",
-            )
-            .build();
     }
 
     fn setup_actions(&self, app: &Application) {

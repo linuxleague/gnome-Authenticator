@@ -3,9 +3,10 @@ use crate::{
     models::{Keyring, ProvidersModel, FAVICONS_PATH},
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
+use adw::prelude::*;
 use gettextrs::gettext;
 use glib::clone;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::{action, get_action};
 
 mod imp {
@@ -196,10 +197,12 @@ mod imp {
                             }
                         },
                         "auto-lock-timeout" => app.restart_lock_timeout(),
+                        "dark-mode" => app.update_color_scheme(),
                         _ => ()
                     }
                 }),
             );
+            app.update_color_scheme();
         }
 
         fn activate(&self, app: &Self::Type) {
@@ -314,6 +317,18 @@ impl Application {
     pub fn cancel_lock_timeout(&self) {
         if let Some(id) = self.imp().lock_timeout_id.borrow_mut().take() {
             id.remove();
+        }
+    }
+
+    fn update_color_scheme(&self) {
+        let manager = self.style_manager();
+        if !manager.system_supports_color_schemes() {
+            let color_scheme = if self.imp().settings.boolean("dark-mode") {
+                adw::ColorScheme::PreferDark
+            } else {
+                adw::ColorScheme::PreferLight
+            };
+            manager.set_color_scheme(color_scheme);
         }
     }
 }
