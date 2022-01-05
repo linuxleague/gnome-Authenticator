@@ -143,7 +143,7 @@ mod imp {
             obj.init_widgets();
             self.parent_constructed(obj);
         }
-        fn dispose(&self, paintable: &Self::Type) {
+        fn dispose(&self, _obj: &Self::Type) {
             self.paintable.close_pipeline();
             self.stack.unparent();
         }

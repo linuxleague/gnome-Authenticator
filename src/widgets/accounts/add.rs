@@ -282,6 +282,13 @@ impl AccountAddDialog {
             }),
         );
 
+        imp.deck
+            .connect_visible_child_name_notify(clone!(@weak self as page => move |deck| {
+                if deck.visible_child_name().as_ref().map(|s|s.as_str()) != Some("camera") {
+                    page.imp().camera.stop();
+                }
+            }));
+
         imp.camera.connect_local(
             "code-detected",
             false,
