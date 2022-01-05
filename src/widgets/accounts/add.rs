@@ -6,7 +6,7 @@ use anyhow::Result;
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::{action, get_action};
+use gtk_macros::{action, get_action, spawn};
 use once_cell::sync::OnceCell;
 use std::str::FromStr;
 
@@ -121,7 +121,11 @@ impl AccountAddDialog {
     }
 
     fn scan_from_screenshot(&self) {
-        self.imp().camera.from_screenshot();
+        spawn!(clone!(@weak self as page => async move {
+           if let Err(err) = page.imp().camera.from_screenshot().await {
+                log::error!("Failed to scan from screenshot {}", err);
+           }
+        }));
     }
 
     fn scan_from_camera(&self) {

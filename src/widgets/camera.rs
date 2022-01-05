@@ -18,9 +18,10 @@ mod screenshot {
     use image::GenericImageView;
     use zbar_rust::ZBarImageScanner;
 
-    pub fn scan(screenshot: &gio::File) -> Result<String> {
-        let (data, _) = screenshot.load_contents(gio::Cancellable::NONE)?;
-
+    pub async fn scan(screenshot: &gio::File) -> Result<String> {
+        let (data, _) = screenshot.load_contents_future().await?;
+        // remove the file after reading the data
+        screenshot.delete_future(glib::source::PRIORITY_LOW).await?;
         let img = image::load_from_memory(&data)?;
 
         let (width, height) = img.dimensions();
@@ -212,16 +213,13 @@ impl Camera {
         }));
     }
 
-    pub fn from_screenshot(&self) {
-        spawn!(clone!(@weak self as this => async move {
-            let window = this.root().unwrap().downcast::<gtk::Window>().unwrap();
-            let screenshot_file = screenshot::capture(
-                window,
-            ).await.unwrap();
-            if let Ok(code) = screenshot::scan(&screenshot_file) {
-                this.emit_by_name::<()>("code-detected", &[&code]);
-            }
-        }));
+    pub async fn from_screenshot(&self) -> anyhow::Result<()> {
+        let window = self.root().unwrap().downcast::<gtk::Window>().unwrap();
+        let screenshot_file = screenshot::capture(window).await?;
+        let code = screenshot::scan(&screenshot_file).await?;
+        self.emit_by_name::<()>("code-detected", &[&code]);
+
+        Ok(())
     }
 
     fn init_widgets(&self) {
