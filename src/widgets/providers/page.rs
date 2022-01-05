@@ -21,6 +21,8 @@ mod imp {
         pub methods_model: adw::EnumListModel,
         pub algorithms_model: adw::EnumListModel,
         #[template_child]
+        pub revealer: TemplateChild<gtk::Revealer>,
+        #[template_child]
         pub error_revealer: TemplateChild<ErrorRevealer>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
@@ -69,6 +71,7 @@ mod imp {
             Self {
                 actions: gio::SimpleActionGroup::new(),
                 image: TemplateChild::default(),
+                revealer: TemplateChild::default(),
                 error_revealer: TemplateChild::default(),
                 name_entry: TemplateChild::default(),
                 period_spinbutton: TemplateChild::default(),

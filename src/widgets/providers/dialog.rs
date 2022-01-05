@@ -23,7 +23,7 @@ mod imp {
         pub actions: gio::SimpleActionGroup,
         pub filter_model: gtk::FilterListModel,
         #[template_child]
-        pub providers_list: TemplateChild<gtk::ListView>,
+        pub providers_list: TemplateChild<gtk::ListBox>,
         #[template_child]
         pub deck: TemplateChild<adw::Leaflet>,
         #[template_child]
@@ -122,39 +122,27 @@ impl ProvidersDialog {
             }
         }));
 
-        let factory = gtk::SignalListItemFactory::new();
-        factory.connect_setup(|_, list_item| {
-            let row = ProviderActionRow::new();
-            list_item.set_child(Some(&row));
-        });
-        factory.connect_bind(|_, list_item| {
-            let row = list_item
-                .child()
-                .unwrap()
-                .downcast::<ProviderActionRow>()
-                .unwrap();
-            let item = list_item.item().unwrap();
-            let provider = item.downcast::<Provider>().unwrap();
-            row.set_provider(provider);
-        });
-
-        imp.providers_list.set_factory(Some(&factory));
         let sorter = ProviderSorter::default();
         let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&sorter));
 
         let selection_model = gtk::NoSelection::new(Some(&sort_model));
-        imp.providers_list.set_model(Some(&selection_model));
-
         imp.providers_list
-            .connect_activate(clone!(@weak self as dialog => move |listview, pos| {
-                let model = listview.model().unwrap();
-                let provider = model
-                    .item(pos)
-                    .unwrap()
-                    .downcast::<Provider>()
-                    .unwrap();
+            .bind_model(Some(&selection_model), move |obj| {
+                let provider = obj.clone().downcast::<Provider>().unwrap();
+
+                let row = ProviderActionRow::new();
+                row.set_provider(provider);
+
+                row.upcast::<gtk::Widget>()
+            });
+
+        imp.providers_list.connect_row_activated(
+            clone!(@weak self as dialog => move |_list, row| {
+                let row = row.downcast_ref::<ProviderActionRow>().unwrap();
+                let provider = row.provider();
                 dialog.edit_provider(provider);
-            }));
+            }),
+        );
 
         imp.page.connect_local(
             "created",
@@ -192,6 +180,11 @@ impl ProvidersDialog {
         let deck_page = imp.deck.append(&imp.page);
         deck_page.set_name(Some("provider"));
         self.set_view(View::List);
+
+        imp.deck
+            .bind_property("folded", &*imp.page.imp().revealer, "reveal-child")
+            .flags(glib::BindingFlags::SYNC_CREATE)
+            .build();
     }
 
     fn setup_actions(&self) {
@@ -280,7 +273,7 @@ mod row {
         impl ObjectSubclass for ProviderActionRow {
             const NAME: &'static str = "ProviderActionRow";
             type Type = super::ProviderActionRow;
-            type ParentType = adw::Bin;
+            type ParentType = gtk::ListBoxRow;
 
             fn new() -> Self {
                 let actions = gio::SimpleActionGroup::new();
@@ -338,11 +331,11 @@ mod row {
             }
         }
         impl WidgetImpl for ProviderActionRow {}
-        impl BinImpl for ProviderActionRow {}
+        impl ListBoxRowImpl for ProviderActionRow {}
     }
 
     glib::wrapper! {
-        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, adw::Bin;
+        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, gtk::ListBoxRow;
     }
 
     impl ProviderActionRow {
@@ -371,7 +364,7 @@ mod row {
             self.imp().title_label.set_text(&provider.name());
         }
 
-        pub fn provider(&self) -> Option<Provider> {
+        pub fn provider(&self) -> Provider {
             self.property("provider")
         }
     }
