@@ -126,9 +126,8 @@ impl AccountAddDialog {
 
     fn scan_from_camera(&self) {
         let imp = self.imp();
+        imp.camera.from_camera();
         imp.deck.set_visible_child_name("camera");
-
-        imp.camera.start();
     }
 
     fn set_from_otp_uri(&self, otp_uri: OTPUri) {

@@ -6,7 +6,7 @@ version = "0.1.0"
 [dependencies]
 adw = {package = "libadwaita", git = "https://gitlab.gnome.org/World/Rust/libadwaita-rs"}
 anyhow = "1.0"
-ashpd = {git = "https://github.com/bilelmoussaoui/ashpd", features = ["feature_gtk4"]}
+ashpd = {git = "https://github.com/bilelmoussaoui/ashpd", features = ["feature_pipewire", "feature_gtk4"]}
 async-std = "1.10"
 binascii = "0.1"
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
@@ -14,7 +14,7 @@ diesel_migrations = {version = "1.4", features = ["sqlite"]}
 futures = "0.3"
 gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs.git"}
-gst_base = {package = "gstreamer-base", git = "https://gitlab.freedesktop.org/gstreamer/gstreamer-rs.git"}
+gst4gtk = { package = "gst-plugin-gtk4", git = "https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/"}
 gtk = {git = "https://github.com/gtk-rs/gtk4-rs", package = "gtk4"}
 gtk-macros = "0.3"
 hex = "0.4"

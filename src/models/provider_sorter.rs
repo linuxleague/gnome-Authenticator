@@ -3,8 +3,7 @@ use gtk::glib;
 
 mod imp {
     use super::*;
-    use glib::subclass::prelude::*;
-    use gtk::subclass::sorter::SorterImpl;
+    use gtk::subclass::prelude::*;
 
     #[derive(Debug, Default)]
     pub struct ProviderSorter;

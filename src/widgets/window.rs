@@ -24,7 +24,7 @@ pub enum View {
 
 mod imp {
     use super::*;
-    use adw::subclass::application_window::AdwApplicationWindowImpl;
+    use adw::subclass::prelude::*;
     use glib::subclass;
 
     #[derive(Debug, CompositeTemplate)]

@@ -56,6 +56,7 @@ sources = files(
   'widgets/providers/page.rs',
   'widgets/providers/row.rs',
   'widgets/camera.rs',
+  'widgets/camera_paintable.rs',
   'widgets/error_revealer.rs',
 	'widgets/mod.rs',
 	'widgets/progress_icon.rs',

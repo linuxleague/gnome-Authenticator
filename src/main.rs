@@ -29,6 +29,7 @@ fn main() {
     pretty_env_logger::init();
     gtk::init().expect("failed to init gtk");
     gst::init().expect("failed to init gstreamer");
+    gst4gtk::plugin_register_static().expect("Failed to register gstgtk4 plugin");
 
     if let Err(err) = init_i18n() {
         error!("Failed to initialize i18n {}", err);

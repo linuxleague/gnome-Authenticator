@@ -4,24 +4,24 @@
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.rust-stable"
+        "org.freedesktop.Sdk.Extension.rust-stable",
+        "org.freedesktop.Sdk.Extension.llvm12"
     ],
     "command": "authenticator",
     "finish-args": [
-        "--socket=pulseaudio",
-        "--device=all",
         "--share=network",
         "--share=ipc",
         "--socket=fallback-x11",
         "--socket=wayland",
-        "--talk-name=org.a11y.Bus",
+        "--device=dri",
         "--talk-name=org.freedesktop.secrets",
-        "--env=RUST_LOG=authenticator=debug",
-        "--env=G_MESSAGES_DEBUG=none",
-        "--env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0"
+        "--env=RUST_LOG=authenticator=debug,ashpd=debug",
+        "--env=G_MESSAGES_DEBUG=none"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
+        "prepend-path": "/usr/lib/sdk/llvm12/bin",
+        "prepend-ld-library-path": "/usr/lib/sdk/llvm12/lib",
         "build-args": [
             "--share=network"
         ],
@@ -58,29 +58,6 @@
                     "commands": [
                         "autoreconf -vfi -W none"
                     ]
-                }
-            ]
-        },
-        {
-            "name": "gst-plugins-good",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dgtk3=disabled",
-                "-Dgtk4=enabled",
-                "-Dgtk4-experiments=true",
-                "-Ddoc=disabled",
-                "-Dexamples=disabled",
-                "-Dtests=disabled"
-            ],
-            "sources": [
-                {
-                    "type": "git",
-                    "branch": "1.18",
-                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-good.git"
-                },
-                {
-                    "type": "patch",
-                    "path": "767.patch"
                 }
             ]
         },
