@@ -1,7 +1,7 @@
 project('authenticator', 'rust',
 	version: '4.0.3',
   meson_version: '>= 0.50',
-  license: 'GPL+-3.0'
+  license: 'GPL-3.0-or-later'
 )
 
 dependency('glib-2.0', version: '>= 2.56')
