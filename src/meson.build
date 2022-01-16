@@ -94,7 +94,7 @@ test (
   'Cargo tests',
   cargo,
   args: ['test'],
-  timeout: 300, # cargo might take a bit of time sometimes
+  timeout: 600, # cargo might take a bit of time sometimes
   env: ['CARGO_TARGET_DIR=@0@'.format(cargo_target_dir), 'CARGO_HOME=@0@'.format(cargo_home)]
 )
 
