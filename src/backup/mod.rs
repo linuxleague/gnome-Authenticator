@@ -59,6 +59,7 @@ mod andotp;
 mod bitwarden;
 mod freeotp;
 mod legacy;
+mod aegis;
 pub use self::{
-    andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP, legacy::LegacyAuthenticator,
+    andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP, legacy::LegacyAuthenticator, aegis::Aegis
 };

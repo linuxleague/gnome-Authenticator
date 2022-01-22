@@ -197,7 +197,7 @@ mod imp {
                             }
                         },
                         "auto-lock-timeout" => app.restart_lock_timeout(),
-                        "dark-mode" => app.update_color_scheme(),
+                        "dark-theme" => app.update_color_scheme(),
                         _ => ()
                     }
                 }),
@@ -323,7 +323,7 @@ impl Application {
     fn update_color_scheme(&self) {
         let manager = self.style_manager();
         if !manager.system_supports_color_schemes() {
-            let color_scheme = if self.imp().settings.boolean("dark-mode") {
+            let color_scheme = if self.imp().settings.boolean("dark-theme") {
                 adw::ColorScheme::PreferDark
             } else {
                 adw::ColorScheme::PreferLight

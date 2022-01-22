@@ -22,6 +22,7 @@ run_command(
 )
 
 sources = files(
+  'backup/aegis.rs',
   'backup/andotp.rs',
   'backup/bitwarden.rs',
   'backup/freeotp.rs',
