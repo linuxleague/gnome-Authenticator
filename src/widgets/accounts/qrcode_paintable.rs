@@ -1,3 +1,4 @@
+use adw;
 use gtk::{gdk, glib, graphene, prelude::*, subclass::prelude::*};
 
 #[allow(clippy::upper_case_acronyms)]
@@ -39,16 +40,14 @@ impl From<&str> for QRCodeData {
 mod imp {
 
     fn snapshot_qrcode(snapshot: &gtk::Snapshot, qrcode: &QRCodeData, width: f64, height: f64) {
-        let is_dark_theme = gtk::Settings::default()
-            .unwrap()
-            .is_gtk_application_prefer_dark_theme();
+        let is_dark_mode = adw::StyleManager::default().is_dark();
         let square_height = height as f32 / qrcode.height as f32;
         let square_width = width as f32 / qrcode.width as f32;
 
         qrcode.items.iter().enumerate().for_each(|(y, line)| {
             line.iter().enumerate().for_each(|(x, is_dark)| {
                 let color = if *is_dark {
-                    if is_dark_theme {
+                    if is_dark_mode {
                         gdk::RGBA::WHITE
                     } else {
                         gdk::RGBA::BLACK
