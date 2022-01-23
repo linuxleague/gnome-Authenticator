@@ -55,11 +55,12 @@ pub trait Backupable: Sized {
     fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()>;
 }
 
+mod aegis;
 mod andotp;
 mod bitwarden;
 mod freeotp;
 mod legacy;
-mod aegis;
 pub use self::{
-    andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP, legacy::LegacyAuthenticator, aegis::Aegis
+    aegis::Aegis, andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP,
+    legacy::LegacyAuthenticator,
 };
