@@ -1,4 +1,4 @@
-gnome.compile_resources(
+resources = gnome.compile_resources(
   meson.project_name(),
   'resources.gresource.xml',
   gresource_bundle: true,

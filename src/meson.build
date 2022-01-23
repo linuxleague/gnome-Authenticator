@@ -21,70 +21,36 @@ run_command(
   check: true
 )
 
-sources = files(
-  'backup/andotp.rs',
-  'backup/bitwarden.rs',
-  'backup/freeotp.rs',
-  'backup/legacy.rs',
-  'backup/mod.rs',
-  'models/account_sorter.rs',
-  'models/account.rs',
-  'models/accounts.rs',
-  'models/algorithm.rs',
-  'models/database.rs',
-  'models/favicon.rs',
-  'models/i18n.rs',
-  'models/keyring.rs',
-  'models/mod.rs',
-  'models/otp.rs',
-  'models/otp_uri.rs',
-  'models/provider_sorter.rs',
-  'models/provider.rs',
-  'models/providers.rs',
-  'widgets/accounts/add.rs',
-  'widgets/accounts/details.rs',
-  'widgets/accounts/mod.rs',
-  'widgets/accounts/qrcode_paintable.rs',
-  'widgets/accounts/row.rs',
-  'widgets/preferences/mod.rs',
-  'widgets/preferences/password_page.rs',
-  'widgets/preferences/window.rs',
-  'widgets/providers/dialog.rs',
-  'widgets/providers/image.rs',
-  'widgets/providers/list.rs',
-  'widgets/providers/mod.rs',
-  'widgets/providers/page.rs',
-  'widgets/providers/row.rs',
-  'widgets/camera.rs',
-  'widgets/camera_paintable.rs',
-  'widgets/error_revealer.rs',
-	'widgets/mod.rs',
-	'widgets/progress_icon.rs',
-	'widgets/url_row.rs',
-	'widgets/window.rs',
-	'application.rs',
-  'config.rs',
-  'main.rs',
-  'schema.rs',
-  'window_state.rs'
-)
+cargo_options = [ '--manifest-path', meson.source_root() / 'Cargo.toml' ]
+cargo_options += [ '--target-dir', meson.build_root() / 'src' ]
 
-cargo_script = find_program(join_paths(meson.source_root(), 'build-aux/cargo.sh'))
-cargo_release = custom_target(
+if get_option('profile') == 'default'
+  cargo_options += [ '--release' ]
+  rust_target = 'release'
+  message('Building in release mode')
+else
+  rust_target = 'debug'
+  message('Building in debug mode')
+endif
+
+cargo_env = [ 'CARGO_HOME=' + meson.build_root() / 'cargo-home' ]
+
+cargo_build = custom_target(
   'cargo-build',
   build_by_default: true,
-  input: sources,
+  build_always_stale: true,
   output: meson.project_name(),
   console: true,
   install: true,
-  install_dir: get_option('bindir'),
+  install_dir: bindir,
+  depends: resources,
   command: [
-    cargo_script,
-    meson.build_root(),
-    meson.source_root(),
-    '@OUTPUT@',
-    get_option('buildtype'),
-    meson.project_name(),
+    'env',
+    cargo_env,
+    cargo, 'build',
+    cargo_options,
+    '&&',
+    'cp', 'src' / rust_target / meson.project_name(), '@OUTPUT@',
   ]
 )
 
