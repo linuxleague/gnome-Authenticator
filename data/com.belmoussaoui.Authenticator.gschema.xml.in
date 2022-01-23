@@ -18,8 +18,8 @@
     </key>
     <key name="dark-theme" type="b">
       <default>false</default>
-      <summary>Dark Theme</summary>
-      <description>Whether the application should use a dark theme.</description>
+      <summary>Dark Mode</summary>
+      <description>Whether the application should use a dark mode.</description>
     </key>
     <key name="auto-lock" type="b">
       <default>false</default>

@@ -42,10 +42,10 @@ mod imp {
         pub restore_group: TemplateChild<adw::PreferencesGroup>,
         #[template_child(id = "auto_lock_switch")]
         pub auto_lock: TemplateChild<gtk::Switch>,
-        #[template_child(id = "dark_theme_switch")]
-        pub dark_theme: TemplateChild<gtk::Switch>,
+        #[template_child(id = "dark_mode_switch")]
+        pub dark_mode: TemplateChild<gtk::Switch>,
         #[template_child]
-        pub dark_theme_group: TemplateChild<adw::PreferencesGroup>,
+        pub dark_mode_group: TemplateChild<adw::PreferencesGroup>,
         #[template_child(id = "lock_timeout_spin_btn")]
         pub lock_timeout: TemplateChild<gtk::SpinButton>,
     }
@@ -69,11 +69,11 @@ mod imp {
                 backup_actions: gio::SimpleActionGroup::new(),
                 restore_actions: gio::SimpleActionGroup::new(),
                 auto_lock: TemplateChild::default(),
-                dark_theme: TemplateChild::default(),
+                dark_mode: TemplateChild::default(),
                 lock_timeout: TemplateChild::default(),
                 backup_group: TemplateChild::default(),
                 restore_group: TemplateChild::default(),
-                dark_theme_group: TemplateChild::default(),
+                dark_mode_group: TemplateChild::default(),
                 file_chooser: RefCell::new(None),
             }
         }
@@ -165,11 +165,11 @@ impl PreferencesWindow {
         let imp = self.imp();
 
         let style_manager = adw::StyleManager::default();
-        imp.dark_theme_group
+        imp.dark_mode_group
             .set_visible(!style_manager.system_supports_color_schemes());
 
         imp.settings
-            .bind("dark-theme", &*imp.dark_theme, "active")
+            .bind("dark-theme", &*imp.dark_mode, "active")
             .build();
         imp.settings
             .bind("auto-lock", &*imp.auto_lock, "active")
