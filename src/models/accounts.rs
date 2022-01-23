@@ -57,10 +57,21 @@ impl AccountsModel {
         self.items_changed(pos, 1, 0);
     }
 
-    pub fn find_by_id(&self, id: u32) -> Option<u32> {
+    pub fn find_by_id(&self, id: u32) -> Option<Account> {
         for pos in 0..self.n_items() {
             let obj = self.item(pos)?;
             let account = obj.downcast::<Account>().unwrap();
+            if account.id() == id {
+                return Some(account);
+            }
+        }
+        None
+    }
+
+    pub fn find_position_by_id(&self, id: u32) -> Option<u32> {
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos)?;
+            let account = obj.downcast_ref::<Account>().unwrap();
             if account.id() == id {
                 return Some(pos);
             }

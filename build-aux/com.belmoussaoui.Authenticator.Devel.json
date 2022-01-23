@@ -16,7 +16,8 @@
         "--device=dri",
         "--talk-name=org.freedesktop.secrets",
         "--env=RUST_LOG=authenticator=debug,ashpd=debug",
-        "--env=G_MESSAGES_DEBUG=none"
+        "--env=G_MESSAGES_DEBUG=none",
+        "--own-name=com.belmoussaoui.Authenticator.Devel.SearchProvider"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",

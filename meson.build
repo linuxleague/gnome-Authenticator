@@ -40,10 +40,13 @@ if get_option('profile') == 'development'
   else
     version_suffix = '-@0@'.format (vcs_tag)
   endif
+  object_path = '/com/belmoussaoui/Authenticator/Devel/SearchProvider'
 else
   profile = ''
   version_suffix = ''
   application_id = 'com.belmoussaoui.Authenticator'
+  object_path = '/com/belmoussaoui/Authenticator/SearchProvider'
+
 endif
 
 i18n = import('i18n')

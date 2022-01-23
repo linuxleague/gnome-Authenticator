@@ -78,4 +78,26 @@ if appstream_util.found()
   )
 endif
 
+
+# Search Provider
+service_conf = configuration_data()
+service_conf.set('appid', application_id)
+service_conf.set('name', meson.project_name())
+service_conf.set('bindir', bindir)
+configure_file(
+  input: 'com.belmoussaoui.Authenticator.SearchProvider.service.in',
+  output: '@0@.SearchProvider.service'.format(application_id),
+  configuration: service_conf,
+  install_dir: datadir / 'dbus-1' / 'services'
+)
+search_conf = configuration_data()
+search_conf.set('appid', application_id)
+search_conf.set('object_path', object_path)
+configure_file(
+  input: 'com.belmoussaoui.Authenticator.search-provider.ini',
+  output: '@0@.search-provider.ini'.format(application_id),
+  configuration: search_conf,
+  install_dir: datadir / 'gnome-shell' / 'search-providers',
+)
+
 subdir('icons')

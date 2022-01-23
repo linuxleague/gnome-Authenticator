@@ -168,7 +168,12 @@ glib::wrapper! {
 }
 
 impl Account {
-    pub fn create(name: &str, token: &str, counter: Option<u32>, provider: &Provider) -> Result<Account> {
+    pub fn create(
+        name: &str,
+        token: &str,
+        counter: Option<u32>,
+        provider: &Provider,
+    ) -> Result<Account> {
         let db = database::connection();
         let conn = db.get()?;
 
@@ -310,6 +315,10 @@ impl Account {
             .set(accounts::columns::counter.eq(new_value as i32))
             .execute(&conn)?;
         Ok(())
+    }
+
+    pub fn otp(&self) -> String {
+        self.property("otp")
     }
 
     pub fn copy_otp(&self) {

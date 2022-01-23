@@ -172,6 +172,18 @@ impl ProvidersModel {
         }
     }
 
+    pub fn find_accounts(&self, terms: &[String]) -> Vec<Account> {
+        let mut results = vec![];
+
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos).unwrap();
+            let provider = obj.downcast_ref::<Provider>().unwrap();
+            let accounts = provider.find_accounts(terms);
+            results.extend(accounts);
+        }
+        results
+    }
+
     fn init(&self) {
         // fill in the providers from the database
         Provider::load()

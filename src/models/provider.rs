@@ -473,7 +473,7 @@ impl Provider {
     }
 
     pub fn has_account(&self, account: &Account) -> Option<u32> {
-        self.imp().accounts.find_by_id(account.id())
+        self.imp().accounts.find_position_by_id(account.id())
     }
 
     pub fn has_accounts(&self) -> bool {
@@ -486,6 +486,22 @@ impl Provider {
 
     pub fn accounts_model(&self) -> &AccountsModel {
         &self.imp().accounts
+    }
+
+    pub fn find_accounts(&self, terms: &[String]) -> Vec<Account> {
+        let mut results = vec![];
+        let model = self.accounts_model();
+
+        for pos in 0..model.n_items() {
+            let obj = model.item(pos).unwrap();
+            let account = obj.downcast::<Account>().unwrap();
+            let account_name = account.name();
+
+            if terms.iter().any(|term| account_name.contains(term)) {
+                results.push(account);
+            }
+        }
+        results
     }
 
     pub fn accounts(&self) -> &gtk::FilterListModel {
@@ -509,7 +525,7 @@ impl Provider {
 
     pub fn remove_account(&self, account: Account) {
         let imp = self.imp();
-        if let Some(pos) = imp.accounts.find_by_id(account.id()) {
+        if let Some(pos) = imp.accounts.find_position_by_id(account.id()) {
             imp.accounts.remove(pos);
         }
     }
