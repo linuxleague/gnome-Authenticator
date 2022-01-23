@@ -1,6 +1,6 @@
 project('authenticator', 'rust',
 	version: '4.0.3',
-  meson_version: '>= 0.50',
+  meson_version: '>= 0.59',
   license: 'GPL-3.0-or-later'
 )
 
@@ -15,12 +15,9 @@ dependency('gstreamer-base-1.0', version: '>= 1.18')
 dependency('gstreamer-plugins-base-1.0', version: '>= 1.18')
 dependency('gstreamer-plugins-bad-1.0', version: '>= 1.18')
 
-
 cargo = find_program('cargo', required: true)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)
 glib_compile_resources = find_program('glib-compile-resources', required: true)
-
-cargo_script = find_program('build-aux/cargo.sh')
 
 version = meson.project_version()
 
@@ -49,8 +46,6 @@ else
   application_id = 'com.belmoussaoui.Authenticator'
 endif
 
-
-
 i18n = import('i18n')
 gnome = import('gnome')
 
@@ -70,6 +65,8 @@ if get_option('profile') == 'development'
     run_command('cp', '-f', 'hooks/pre-commit.hook', '.git/hooks/pre-commit')
 endif
 
-
-meson.add_install_script('build-aux/meson_post_install.py')
-
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
+  update_desktop_database: true
+)
