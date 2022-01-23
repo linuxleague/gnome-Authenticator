@@ -194,14 +194,47 @@ impl PreferencesWindow {
 
     fn register_backup<T: Backupable>(&self, filters: &'static [&str]) {
         let imp = self.imp();
+        if T::ENCRYPTABLE {
+            let row = adw::ExpanderRow::builder()
+                .title(&T::title())
+                .subtitle(&T::subtitle())
+                .show_enable_switch(false)
+                .enable_expansion(true)
+                .use_underline(true)
+                .build();
+            let key_row = adw::ActionRow::builder()
+                .title(&gettext("Key / Passphrase"))
+                .subtitle(&gettext("The key that will be used to decrypt the vault"))
+                .build();
 
-        let row = adw::ActionRow::builder()
-            .title(&T::title())
-            .subtitle(&T::subtitle())
-            .activatable(true)
-            .use_underline(true)
-            .action_name(&format!("backup.{}", T::identifier()))
-            .build();
+            let key_entry = gtk::PasswordEntry::builder()
+                .valign(gtk::Align::Center)
+                .build();
+            key_row.add_suffix(&key_entry);
+            row.add_row(&key_row);
+
+            let button_row = adw::ActionRow::new();
+            let key_button = gtk::Button::builder()
+                .valign(gtk::Align::Center)
+                .halign(gtk::Align::End)
+                .label(&gettext("Select File"))
+                .action_name(&format!("backup.{}", T::identifier()))
+                .build();
+            button_row.add_suffix(&key_button);
+            row.add_row(&button_row);
+
+            imp.backup_group.add(&row);
+        } else {
+            let row = adw::ActionRow::builder()
+                .title(&T::title())
+                .subtitle(&T::subtitle())
+                .activatable(true)
+                .use_underline(true)
+                .action_name(&format!("backup.{}", T::identifier()))
+                .build();
+
+            imp.backup_group.add(&row);
+        }
 
         let model = imp.model.get().unwrap().clone();
         action!(
@@ -219,21 +252,50 @@ impl PreferencesWindow {
                 }));
             })
         );
-
-        imp.backup_group.add(&row);
     }
 
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
         let imp = self.imp();
 
-        let row = adw::ActionRow::builder()
-            .title(&T::title())
-            .subtitle(&T::subtitle())
-            .activatable(true)
-            .use_underline(true)
-            .action_name(&format!("restore.{}", T::identifier()))
-            .build();
+        if T::ENCRYPTABLE {
+            let row = adw::ExpanderRow::builder()
+                .title(&T::title())
+                .subtitle(&T::subtitle())
+                .show_enable_switch(false)
+                .enable_expansion(true)
+                .use_underline(true)
+                .build();
+            let key_row = adw::ActionRow::builder()
+                .title(&gettext("Key / Passphrase"))
+                .subtitle(&gettext("The key used to encrypt the valut"))
+                .build();
+            let key_entry = gtk::PasswordEntry::builder()
+                .valign(gtk::Align::Center)
+                .build();
+            key_row.add_suffix(&key_entry);
+            row.add_row(&key_row);
 
+            let button_row = adw::ActionRow::new();
+            let key_button = gtk::Button::builder()
+                .valign(gtk::Align::Center)
+                .halign(gtk::Align::End)
+                .label(&gettext("Select File"))
+                .action_name(&format!("restore.{}", T::identifier()))
+                .build();
+            button_row.add_suffix(&key_button);
+            row.add_row(&button_row);
+            imp.restore_group.add(&row);
+        } else {
+            let row = adw::ActionRow::builder()
+                .title(&T::title())
+                .subtitle(&T::subtitle())
+                .activatable(true)
+                .use_underline(true)
+                .action_name(&format!("restore.{}", T::identifier()))
+                .build();
+
+            imp.restore_group.add(&row);
+        }
         action!(
             imp.restore_actions,
             &T::identifier(),
@@ -254,8 +316,6 @@ impl PreferencesWindow {
                 }));
             })
         );
-
-        imp.restore_group.add(&row);
     }
 
     fn restore_items<T: Restorable<Item = Q>, Q: RestorableItem>(&self, items: Vec<Q>) {
