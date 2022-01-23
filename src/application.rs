@@ -1,6 +1,6 @@
 use crate::{
     config,
-    models::{Keyring, ProvidersModel, FAVICONS_PATH},
+    models::{Keyring, OTPUri, ProvidersModel, FAVICONS_PATH},
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use adw::prelude::*;
@@ -8,6 +8,7 @@ use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::{action, get_action};
+use std::str::FromStr;
 
 mod imp {
     use super::*;
@@ -232,6 +233,20 @@ mod imp {
             // setting is enabled.
             app.restart_lock_timeout();
         }
+
+        fn open(&self, application: &Self::Type, files: &[gio::File], _hint: &str) {
+            self.activate(application);
+            let uris = files
+                .into_iter()
+                .map(|f| OTPUri::from_str(&f.uri()).ok())
+                .flatten()
+                .collect::<Vec<OTPUri>>();
+            // We only handle a signle URI (see the desktop file)
+            if let Some(uri) = uris.get(0) {
+                let window = self.window.borrow().as_ref().unwrap().upgrade().unwrap();
+                window.open_add_account(Some(uri))
+            }
+        }
     }
     // This is empty, but we still need to provide an
     // empty implementation for each type we subclass.
@@ -262,7 +277,7 @@ impl Application {
 
         let app = glib::Object::new::<Application>(&[
             ("application-id", &Some(config::APP_ID)),
-            ("flags", &gio::ApplicationFlags::empty()),
+            ("flags", &gio::ApplicationFlags::HANDLES_OPEN),
             ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
         ])
         .unwrap();

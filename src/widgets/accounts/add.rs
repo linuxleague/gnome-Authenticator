@@ -134,7 +134,7 @@ impl AccountAddDialog {
         imp.deck.set_visible_child_name("camera");
     }
 
-    fn set_from_otp_uri(&self, otp_uri: OTPUri) {
+    pub fn set_from_otp_uri(&self, otp_uri: &OTPUri) {
         let imp = self.imp();
         imp.deck.set_visible_child_name("main"); // Switch back the form view
 
@@ -295,7 +295,7 @@ impl AccountAddDialog {
             clone!(@weak self as dialog => @default-return None, move |args| {
                 let code = args.get(1).unwrap().get::<String>().unwrap();
                 if let Ok(otp_uri) = OTPUri::from_str(&code) {
-                    dialog.set_from_otp_uri(otp_uri);
+                    dialog.set_from_otp_uri(&otp_uri);
                 }
 
                 None

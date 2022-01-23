@@ -1,7 +1,7 @@
 use crate::{
     application::Application,
     config,
-    models::{Account, Keyring, ProvidersModel},
+    models::{Account, Keyring, OTPUri, ProvidersModel},
     widgets::{
         accounts::AccountDetailsPage,
         providers::{ProvidersList, ProvidersListView},
@@ -163,13 +163,16 @@ impl Window {
         }
     }
 
-    fn open_add_account(&self) {
+    pub fn open_add_account(&self, otp_uri: Option<&OTPUri>) {
         let imp = self.imp();
 
         let model = imp.model.get().unwrap();
 
         let dialog = AccountAddDialog::new(model.clone());
         dialog.set_transient_for(Some(self));
+        if let Some(uri) = otp_uri {
+            dialog.set_from_otp_uri(uri);
+        }
 
         dialog.connect_local(
             "added",
@@ -276,7 +279,7 @@ impl Window {
             self,
             "add_account",
             clone!(@weak self as win => move |_,_| {
-                win.open_add_account();
+                win.open_add_account(None);
             })
         );
         app.bind_property("locked", &get_action!(self, @add_account), "enabled")
