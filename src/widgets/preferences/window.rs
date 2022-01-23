@@ -185,6 +185,7 @@ impl PreferencesWindow {
 
         self.register_backup::<FreeOTP>(&["text/plain"]);
         self.register_backup::<AndOTP>(&["application/json"]);
+        self.register_backup::<Aegis>(&["application/json"]);
 
         self.register_restore::<FreeOTP>(&["text/plain"]);
         self.register_restore::<AndOTP>(&["application/json"]);

@@ -5,7 +5,6 @@
 
 use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
-use anyhow::Context;
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
@@ -14,7 +13,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Aegis {
     pub version: u32,
-    #[serde(flatten)]
     pub header: std::collections::HashMap<String, serde_json::Value>,
     pub db: AegisDatabase,
 }
@@ -38,7 +36,7 @@ pub struct AegisItem {
     pub label: String,
     pub issuer: String,
     // Groups in aegis are imported as tags. Is this what we want?
-    // TODO tags are not importet/exported right now.
+    // TODO tags are not imported/exported right now.
     #[serde(rename = "group")]
     pub tags: Option<String>,
     // Note is omitted
@@ -80,9 +78,7 @@ impl Aegis {
             AegisDatabase::Encrypted(_) => anyhow::bail!(
                 "Aegis file is encrypted. Authenticator supports only plaintext files."
             ),
-            AegisDatabase::Plaintext { version, entries } if version == 2 => {
-                return Ok(entries)
-            }
+            AegisDatabase::Plaintext { version, entries } if version == 2 => return Ok(entries),
             AegisDatabase::Plaintext { version, .. } => anyhow::bail!(
                 "Aegis file version expected to be 2. Found {} instead.",
                 version
@@ -125,61 +121,78 @@ impl RestorableItem for AegisItem {
     }
 }
 
-//impl Backupable for Aegis {
-//    fn identifier() -> String {
-//        "aegis".to_string()
-//    }
-//
-//    fn title() -> String {
-//        // Translators: This is for making a backup for the andOTP Android app.
-//        gettext("a_ndOTP")
-//    }
-//
-//    fn subtitle() -> String {
-//        gettext("Into a plain-text JSON file")
-//    }
-//
-//    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
-//        let mut items = Vec::new();
-//
-//        for i in 0..model.n_items() {
-//            let provider = model.item(i).unwrap().downcast::<Provider>().unwrap();
-//            let accounts = provider.accounts_model();
-//
-//            for j in 0..accounts.n_items() {
-//                let account = accounts.item(j).unwrap().downcast::<Account>().unwrap();
-//
-//                let otp_item = AndOTP {
-//                    secret: account.token(),
-//                    issuer: provider.name(),
-//                    label: account.name(),
-//                    digits: provider.digits(),
-//                    method: provider.method(),
-//                    algorithm: provider.algorithm(),
-//                    thumbnail: "".to_string(),
-//                    last_used: 0,
-//                    used_frequency: 0,
-//                    counter: Some(account.counter()),
-//                    tags: vec![],
-//                    period: Some(provider.period()),
-//                };
-//                items.push(otp_item);
-//            }
-//        }
-//
-//        let content = serde_json::ser::to_string_pretty(&items)?;
-//
-//        into.replace_contents(
-//            content.as_bytes(),
-//            None,
-//            false,
-//            gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
-//            gtk::gio::Cancellable::NONE,
-//        )?;
-//
-//        Ok(())
-//    }
-//}
+impl Backupable for Aegis {
+    fn identifier() -> String {
+        "aegis".to_string()
+    }
+
+    fn title() -> String {
+        // Translators: This is for making a backup for the aegis Android app.
+        gettext("aegis")
+    }
+
+    fn subtitle() -> String {
+        gettext("Into a plain-text JSON file")
+    }
+
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
+        let mut items = Vec::new();
+
+        for i in 0..model.n_items() {
+            let provider = model.item(i).unwrap().downcast::<Provider>().unwrap();
+            let accounts = provider.accounts_model();
+
+            for j in 0..accounts.n_items() {
+                let account = accounts.item(j).unwrap().downcast::<Account>().unwrap();
+
+                let aegis_detail = AegisDetail {
+                    secret: account.token(),
+                    algorithm: provider.algorithm(),
+                    digits: provider.digits(),
+                    period: Some(provider.period()),
+                    counter: Some(account.counter()),
+                };
+
+                let aegis_item = AegisItem {
+                    method: provider.method(),
+                    label: account.name(),
+                    issuer: provider.name(),
+                    tags: None,
+                    thumbnail: None,
+                    info: aegis_detail,
+                };
+
+                items.push(aegis_item);
+            }
+        }
+
+        // Create structure around items
+        let aegis_db = AegisDatabase::Plaintext {
+            version: 2,
+            entries: items,
+        };
+        let aegis_root = Aegis {
+            version: 1,
+            header: std::collections::HashMap::from([
+                (String::from("slots"), serde_json::Value::Null),
+                (String::from("params"), serde_json::Value::Null),
+            ]),
+            db: aegis_db,
+        };
+
+        let content = serde_json::ser::to_string_pretty(&aegis_root)?;
+
+        into.replace_contents(
+            content.as_bytes(),
+            None,
+            false,
+            gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
+            gtk::gio::Cancellable::NONE,
+        )?;
+
+        Ok(())
+    }
+}
 
 impl Restorable for Aegis {
     type Item = AegisItem;
@@ -307,4 +320,6 @@ mod tests {
         let aegis_items = Aegis::restore_from_slice(&aegis_data.as_bytes())
             .expect("Reading encrypted file should fail.");
     }
+
+    // TODO: add tests for importing
 }
