@@ -168,7 +168,7 @@ glib::wrapper! {
 }
 
 impl Account {
-    pub fn create(name: &str, token: &str, provider: &Provider) -> Result<Account> {
+    pub fn create(name: &str, token: &str, counter: Option<u32>, provider: &Provider) -> Result<Account> {
         let db = database::connection();
         let conn = db.get()?;
 
@@ -180,7 +180,7 @@ impl Account {
                 name: name.to_string(),
                 token_id,
                 provider_id: provider.id() as i32,
-                counter: provider.default_counter() as i32,
+                counter: counter.unwrap_or(provider.default_counter()) as i32,
             })
             .execute(&conn)?;
 

@@ -33,7 +33,7 @@ pub trait Restorable: Sized {
             None,
         )?;
 
-        let account = Account::create(&item.account(), &item.secret(), &provider)?;
+        let account = Account::create(&item.account(), &item.secret(), item.counter(), &provider)?;
         provider.add_account(&account);
         Ok(())
     }

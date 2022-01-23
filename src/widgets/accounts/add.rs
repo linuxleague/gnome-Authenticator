@@ -172,7 +172,7 @@ impl AccountAddDialog {
                 anyhow::bail!("Token {} is not a valid Base32 secret", &token);
             }
 
-            let account = Account::create(&username, &token, provider)?;
+            let account = Account::create(&username, &token, None, provider)?;
 
             imp.model.get().unwrap().add_account(&account, &provider);
             self.emit_by_name::<()>("added", &[]);
