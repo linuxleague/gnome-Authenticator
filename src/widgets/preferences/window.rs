@@ -211,7 +211,7 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Backup);
                 dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        if let Err(err) = T::backup(&model, &d.file().unwrap()) {
+                        if let Err(err) = T::backup(&model, &d.file().unwrap(), None) {
                             warn!("Failed to create a backup {}", err);
                         }
                     }
@@ -241,7 +241,7 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Restore);
                 dialog.connect_response(clone!(@weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        match T::restore(&d.file().unwrap()) {
+                        match T::restore(&d.file().unwrap(), None) {
                             Ok(items) => {
                                 win.restore_items::<T, T::Item>(items);
                             },
