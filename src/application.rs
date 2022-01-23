@@ -252,7 +252,7 @@ mod imp {
         fn open(&self, application: &Self::Type, files: &[gio::File], _hint: &str) {
             self.activate(application);
             let uris = files
-                .into_iter()
+                .iter()
                 .map(|f| OTPUri::from_str(&f.uri()).ok())
                 .flatten()
                 .collect::<Vec<OTPUri>>();
@@ -425,7 +425,7 @@ impl SearchProviderImpl for Application {
 
     fn result_metas(&self, identifiers: &[ResultID]) -> Vec<ResultMeta> {
         identifiers
-            .into_iter()
+            .iter()
             .map(|id| {
                 self.account_provider_by_identifier(id)
                     .map(|(provider, account)| {

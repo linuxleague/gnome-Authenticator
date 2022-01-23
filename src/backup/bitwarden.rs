@@ -37,14 +37,14 @@ struct BitwardenDetails {
 
 impl Bitwarden {
     fn restore_from_slice(data: &[u8]) -> Result<Vec<BitwardenItem>> {
-        let bitwarden_root: Bitwarden = serde_json::de::from_slice(&data)?;
+        let bitwarden_root: Bitwarden = serde_json::de::from_slice(data)?;
 
         let mut items = Vec::new();
 
         for mut item in bitwarden_root.items {
             if let Some(ref login) = item.login {
                 if let Some(ref totp) = login.totp {
-                    if let Ok(uri) = OTPUri::from_str(&totp) {
+                    if let Ok(uri) = OTPUri::from_str(totp) {
                         item.overwrite_with(uri);
                     }
                     items.push(item);

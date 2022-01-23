@@ -13,7 +13,6 @@ mod config;
 mod models;
 mod schema;
 mod widgets;
-mod window_state;
 
 use application::Application;
 

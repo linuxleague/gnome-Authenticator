@@ -1,4 +1,3 @@
-use adw;
 use gtk::{gdk, glib, graphene, prelude::*, subclass::prelude::*};
 
 #[allow(clippy::upper_case_acronyms)]

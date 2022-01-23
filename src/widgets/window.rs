@@ -7,7 +7,6 @@ use crate::{
         providers::{ProvidersList, ProvidersListView},
         AccountAddDialog, ErrorRevealer,
     },
-    window_state,
 };
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
@@ -218,15 +217,25 @@ impl Window {
         imp.locked_img.set_from_icon_name(Some(config::APP_ID));
 
         // load latest window state
-        window_state::load(&self, &imp.settings);
+        let width = imp.settings.int("window-width");
+        let height = imp.settings.int("window-height");
+
+        if width > -1 && height > -1 {
+            self.set_default_size(width, height);
+        }
+
+        let is_maximized = imp.settings.boolean("is-maximized");
+        if is_maximized {
+            self.maximize();
+        }
+
         // save window state on delete event
-        self.connect_close_request(
-            clone!(@weak imp.settings as settings => @default-return Inhibit(false), move |window| {
-                if let Err(err) = window_state::save(&window, &settings) {
+        self.connect_close_request(move |window| {
+                if let Err(err) = window.save_window_state() {
                     warn!("Failed to save window state {:#?}", err);
                 }
                 Inhibit(false)
-            }),
+            }
         );
 
         let search_entry = &*imp.search_entry;
@@ -355,5 +364,16 @@ impl Window {
                 None
             }),
         );
+    }
+
+    fn save_window_state(&self) -> anyhow::Result<()> {
+    let settings = &self.imp().settings;
+    let size = self.default_size();
+    settings.set_int("window-width", size.0)?;
+    settings.set_int("window-height", size.1)?;
+
+    settings.set_boolean("is-maximized", self.is_maximized())?;
+    Ok(())
+
     }
 }

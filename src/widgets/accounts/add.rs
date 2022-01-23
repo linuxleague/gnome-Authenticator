@@ -174,7 +174,7 @@ impl AccountAddDialog {
 
             let account = Account::create(&username, &token, None, provider)?;
 
-            imp.model.get().unwrap().add_account(&account, &provider);
+            imp.model.get().unwrap().add_account(&account, provider);
             self.emit_by_name::<()>("added", &[]);
         // TODO: display an error message saying there was an error form keyring
         } else {

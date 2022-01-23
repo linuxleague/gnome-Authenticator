@@ -177,7 +177,7 @@ impl Account {
         let db = database::connection();
         let conn = db.get()?;
 
-        let token_id = Keyring::store(&format!("{} - {}", provider.name(), name), &token)
+        let token_id = Keyring::store(&format!("{} - {}", provider.name(), name), token)
             .context("Failed to save token")?;
 
         diesel::insert_into(accounts::table)
@@ -185,7 +185,7 @@ impl Account {
                 name: name.to_string(),
                 token_id,
                 provider_id: provider.id() as i32,
-                counter: counter.unwrap_or(provider.default_counter()) as i32,
+                counter: counter.unwrap_or_else(|| provider.default_counter()) as i32,
             })
             .execute(&conn)?;
 
@@ -326,7 +326,7 @@ impl Account {
         let clipboard = display.clipboard();
         // The codes come with the white space shown in the label.
         let code = &self.imp().otp.borrow().replace(' ', "");
-        clipboard.set_text(&code);
+        clipboard.set_text(code);
 
         // Indirectly increment the counter once the token was copied
         if self.provider().method() == OTPMethod::HOTP {

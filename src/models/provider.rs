@@ -417,6 +417,20 @@ impl Provider {
     }
 
     pub fn update(&self, patch: &ProviderPatch) -> Result<()> {
+        // Can't implement PartialEq because of how GObject works
+        if patch.name == self.name()
+            && patch.website == self.website()
+            && patch.help_url == self.help_url()
+            && patch.image_uri == self.image_uri()
+            && patch.period == self.period() as i32
+            && patch.digits == self.digits() as i32
+            && patch.default_counter == self.default_counter() as i32
+            && patch.algorithm == self.algorithm().to_string()
+            && patch.method == self.method().to_string()
+        {
+            return Ok(());
+        }
+
         let db = database::connection();
         let conn = db.get()?;
 

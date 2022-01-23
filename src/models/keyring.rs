@@ -14,7 +14,7 @@ fn token_attributes(token_id: &str) -> HashMap<&str, &str> {
     let mut attributes = HashMap::new();
     attributes.insert("application", config::APP_ID);
     attributes.insert("type", "token");
-    attributes.insert("token_id", &token_id);
+    attributes.insert("token_id", token_id);
     attributes
 }
 
