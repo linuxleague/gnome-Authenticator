@@ -24,6 +24,7 @@ mod imp {
     };
     use once_cell::sync::Lazy;
     use std::cell::{Cell, RefCell};
+    use std::collections::HashMap;
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences.ui")]
@@ -48,6 +49,7 @@ mod imp {
         pub dark_mode_group: TemplateChild<adw::PreferencesGroup>,
         #[template_child(id = "lock_timeout_spin_btn")]
         pub lock_timeout: TemplateChild<gtk::SpinButton>,
+        pub key_entries: RefCell<HashMap<String, gtk::PasswordEntry>>,
     }
 
     #[glib::object_subclass]
@@ -74,7 +76,8 @@ mod imp {
                 backup_group: TemplateChild::default(),
                 restore_group: TemplateChild::default(),
                 dark_mode_group: TemplateChild::default(),
-                file_chooser: RefCell::new(None),
+                file_chooser: RefCell::default(),
+                key_entries: RefCell::default(),
             }
         }
 
@@ -211,6 +214,9 @@ impl PreferencesWindow {
                 .valign(gtk::Align::Center)
                 .build();
             key_row.add_suffix(&key_entry);
+            imp.key_entries
+                .borrow_mut()
+                .insert(format!("backup.{}", T::identifier()), key_entry);
             row.add_row(&key_row);
 
             let button_row = adw::ActionRow::new();
@@ -244,7 +250,10 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Backup);
                 dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        if let Err(err) = T::backup(&model, &d.file().unwrap(), None) {
+                        let key = T::ENCRYPTABLE.then(|| {
+                            win.encyption_key(Operation::Backup, &T::identifier())
+                        }).flatten();
+                        if let Err(err) = T::backup(&model, &d.file().unwrap(), key.as_deref()) {
                             warn!("Failed to create a backup {}", err);
                         }
                     }
@@ -256,7 +265,6 @@ impl PreferencesWindow {
 
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
         let imp = self.imp();
-
         if T::ENCRYPTABLE {
             let row = adw::ExpanderRow::builder()
                 .title(&T::title())
@@ -273,6 +281,9 @@ impl PreferencesWindow {
                 .valign(gtk::Align::Center)
                 .build();
             key_row.add_suffix(&key_entry);
+            imp.key_entries
+                .borrow_mut()
+                .insert(format!("restore.{}", T::identifier()), key_entry);
             row.add_row(&key_row);
 
             let button_row = adw::ActionRow::new();
@@ -303,7 +314,11 @@ impl PreferencesWindow {
                 let dialog = win.select_file(filters, Operation::Restore);
                 dialog.connect_response(clone!(@weak win => move |d, response| {
                     if response == gtk::ResponseType::Accept {
-                        match T::restore(&d.file().unwrap(), None) {
+                        let key = T::ENCRYPTABLE.then(|| {
+                            win.encyption_key(Operation::Restore, &T::identifier())
+                        }).flatten();
+
+                        match T::restore(&d.file().unwrap(), key.as_deref()) {
                             Ok(items) => {
                                 win.restore_items::<T, T::Item>(items);
                             },
@@ -316,6 +331,18 @@ impl PreferencesWindow {
                 }));
             })
         );
+    }
+
+    fn encyption_key(&self, mode: Operation, identifier: &str) -> Option<glib::GString> {
+        let identifier = match mode {
+            Operation::Backup => format!("backup.{}", identifier),
+            Operation::Restore => format!("restore.{}", identifier),
+        };
+        self.imp()
+            .key_entries
+            .borrow()
+            .get(&identifier)
+            .map(|entry| entry.text())
     }
 
     fn restore_items<T: Restorable<Item = Q>, Q: RestorableItem>(&self, items: Vec<Q>) {
