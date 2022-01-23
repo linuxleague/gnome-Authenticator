@@ -38,6 +38,7 @@
                     <property name="valign">center</property>
                     <property name="ellipsize">end</property>
                     <property name="selectable">True</property>
+                    <property name="can-focus">False</property>
                     <style>
                       <class name="account-name"/>
                     </style>
