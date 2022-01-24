@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-22 12:31+0000\n"
-"PO-Revision-Date: 2022-01-22 18:28+0200\n"
+"POT-Creation-Date: 2022-01-23 16:08+0000\n"
+"PO-Revision-Date: 2022-01-24 17:27+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -55,12 +55,10 @@ msgid "Default window maximized behaviour"
 msgstr "Типова поведінка щодо максимізації вікна"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-#| msgid "Dark Theme"
 msgid "Dark Mode"
 msgstr "Темний режим"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-#| msgid "Whether the application should use a dark theme."
 msgid "Whether the application should use a dark mode."
 msgstr "Чи слід віддавати перевагу у програмі темному режиму."
 
@@ -281,12 +279,10 @@ msgid "Appearance"
 msgstr "Вигляд"
 
 #: data/resources/ui/preferences.ui:22
-#| msgid "_Dark Theme"
 msgid "_Dark Mode"
 msgstr "_Темний режим"
 
 #: data/resources/ui/preferences.ui:25
-#| msgid "Whether the application should use a dark theme"
 msgid "Whether the application should use a dark mode"
 msgstr "Чи слід віддавати перевагу у програмі темному режиму"
 
@@ -322,11 +318,11 @@ msgstr "Час у хвилинах"
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:282
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:289
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
 msgid "Restore"
 msgstr "Відновити"
 
@@ -475,20 +471,20 @@ msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:67
+#: src/backup/andotp.rs:69
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:71
+#: src/backup/andotp.rs:73
 msgid "Into a plain-text JSON file"
 msgstr "До звичайного текстового файла JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:125
+#: src/backup/andotp.rs:128
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:129 src/backup/bitwarden.rs:141 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
 
@@ -501,28 +497,28 @@ msgid "Unknown issuer"
 msgstr "Невідомий видавець"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:137
+#: src/backup/bitwarden.rs:138
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:19
+#: src/backup/freeotp.rs:20
 msgid "_Authenticator"
 msgstr "_Розпізнавач"
 
-#: src/backup/freeotp.rs:23
+#: src/backup/freeotp.rs:24
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "До звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/backup/freeotp.rs:61
+#: src/backup/freeotp.rs:63
 msgid "A_uthenticator"
 msgstr "Р_озпізнавач"
 
-#: src/backup/freeotp.rs:65
+#: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Зі звичайного текстового файла, сумісного з FreeOTP+"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:32
+#: src/backup/legacy.rs:33
 msgid "Au_thenticator (Legacy)"
 msgstr "Роз_пізнавач (застарілий)"
 
@@ -564,12 +560,32 @@ msgstr "Помилковий пароль"
 msgid "Wrong Passphrase"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/window.rs:285 src/widgets/preferences/window.rs:292
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+#| msgid "New Passphrase"
+msgid "Key / Passphrase"
+msgstr "Ключ / Пароль"
+
+#: src/widgets/preferences/window.rs:210
+msgid "The key that will be used to decrypt the vault"
+msgstr ""
+"Ключ, який буде використано для розшифрування сховища"
+
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+#| msgid "Select a _File"
+msgid "Select File"
+msgstr "Вибір файла"
+
+#: src/widgets/preferences/window.rs:278
+msgid "The key used to encrypt the valut"
+msgstr ""
+"Ключ, який використовується для розшифрування сховища"
+
+#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
 #: src/widgets/providers/page.rs:310
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/widgets/preferences/window.rs:286 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
 #: src/widgets/providers/page.rs:311
 msgid "Cancel"
 msgstr "Скасувати"
