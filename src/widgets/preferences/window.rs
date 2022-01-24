@@ -275,7 +275,7 @@ impl PreferencesWindow {
                 .build();
             let key_row = adw::ActionRow::builder()
                 .title(&gettext("Key / Passphrase"))
-                .subtitle(&gettext("The key used to encrypt the valut"))
+                .subtitle(&gettext("The key used to encrypt the vault"))
                 .build();
             let key_entry = gtk::PasswordEntry::builder()
                 .valign(gtk::Align::Center)
