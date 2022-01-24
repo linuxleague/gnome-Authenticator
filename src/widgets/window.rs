@@ -231,12 +231,11 @@ impl Window {
 
         // save window state on delete event
         self.connect_close_request(move |window| {
-                if let Err(err) = window.save_window_state() {
-                    warn!("Failed to save window state {:#?}", err);
-                }
-                Inhibit(false)
+            if let Err(err) = window.save_window_state() {
+                warn!("Failed to save window state {:#?}", err);
             }
-        );
+            Inhibit(false)
+        });
 
         let search_entry = &*imp.search_entry;
         let search_btn = &*imp.search_btn;
@@ -367,13 +366,12 @@ impl Window {
     }
 
     fn save_window_state(&self) -> anyhow::Result<()> {
-    let settings = &self.imp().settings;
-    let size = self.default_size();
-    settings.set_int("window-width", size.0)?;
-    settings.set_int("window-height", size.1)?;
+        let settings = &self.imp().settings;
+        let size = self.default_size();
+        settings.set_int("window-width", size.0)?;
+        settings.set_int("window-height", size.1)?;
 
-    settings.set_boolean("is-maximized", self.is_maximized())?;
-    Ok(())
-
+        settings.set_boolean("is-maximized", self.is_maximized())?;
+        Ok(())
     }
 }
