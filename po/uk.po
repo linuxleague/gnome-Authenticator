@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-23 16:08+0000\n"
-"PO-Revision-Date: 2022-01-24 17:27+0200\n"
+"POT-Creation-Date: 2022-01-24 19:01+0000\n"
+"PO-Revision-Date: 2022-01-25 09:56+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:135 src/main.rs:42
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -30,7 +30,7 @@ msgstr "Двофакторне розпізнавання"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:138
+#: src/application.rs:141
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
@@ -135,7 +135,7 @@ msgstr "Параметри облікового запису"
 msgid "Backup/Restore formats support"
 msgstr "Підтримка форматів резервного копіювання/відновлення"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:210
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -231,7 +231,7 @@ msgstr "П_одробиці"
 msgid "_Rename"
 msgstr "Перей_менувати"
 
-#: data/resources/ui/account_row.ui:85
+#: data/resources/ui/account_row.ui:86
 #: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:61
 msgid "_Save"
@@ -466,7 +466,7 @@ msgstr "Немає облікових записів"
 msgid "Add an account or scan a QR code first."
 msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду."
 
-#: src/application.rs:142
+#: src/application.rs:145
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
@@ -551,7 +551,7 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
-#: src/widgets/window.rs:302
+#: src/widgets/window.rs:313
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
@@ -561,24 +561,21 @@ msgid "Wrong Passphrase"
 msgstr "Помилковий пароль"
 
 #: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
-#| msgid "New Passphrase"
 msgid "Key / Passphrase"
 msgstr "Ключ / Пароль"
 
 #: src/widgets/preferences/window.rs:210
 msgid "The key that will be used to decrypt the vault"
-msgstr ""
-"Ключ, який буде використано для розшифрування сховища"
+msgstr "Ключ, який буде використано для розшифрування сховища"
 
 #: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
-#| msgid "Select a _File"
 msgid "Select File"
 msgstr "Вибір файла"
 
 #: src/widgets/preferences/window.rs:278
-msgid "The key used to encrypt the valut"
-msgstr ""
-"Ключ, який використовується для розшифрування сховища"
+#| msgid "The key used to encrypt the valut"
+msgid "The key used to encrypt the vault"
+msgstr "Ключ, який використовується для розшифрування сховища"
 
 #: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
 #: src/widgets/providers/page.rs:310
