@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <object class="GtkAdjustment" id="period_adjustment">
-    <property name="lower">30</property>
+    <property name="lower">1</property>
     <property name="upper">90</property>
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>

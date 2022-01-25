@@ -11,6 +11,7 @@ use std::str::FromStr;
 pub struct FreeOTP {}
 
 impl Backupable for FreeOTP {
+    const ENCRYPTABLE: bool = false;
     fn identifier() -> String {
         "authenticator".to_string()
     }
@@ -23,7 +24,7 @@ impl Backupable for FreeOTP {
         gettext("Into a plain-text file, compatible with FreeOTP+")
     }
 
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File, _key: Option<&str>) -> Result<()> {
         let mut items: Vec<String> = Vec::new();
 
         for i in 0..model.n_items() {
@@ -52,6 +53,7 @@ impl Backupable for FreeOTP {
 }
 
 impl Restorable for FreeOTP {
+    const ENCRYPTABLE: bool = false;
     type Item = OTPUri;
     fn identifier() -> String {
         "authenticator".to_string()
@@ -65,7 +67,7 @@ impl Restorable for FreeOTP {
         gettext("From a plain-text file, compatible with FreeOTP+")
     }
 
-    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
+    fn restore(from: &gtk::gio::File, _key: Option<&str>) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
         let uris = String::from_utf8(data)?;
 

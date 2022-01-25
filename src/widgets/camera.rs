@@ -33,7 +33,7 @@ mod screenshot {
             .scan_y800(&img_data, width, height)
             .map_err(|e| anyhow::format_err!(e))?;
 
-        if let Some(ref result) = results.get(0) {
+        if let Some(result) = results.get(0) {
             let content = String::from_utf8(result.data.clone())?;
             return Ok(content);
         }
@@ -49,19 +49,17 @@ mod screenshot {
         Ok(gio::File::for_uri(&uri))
     }
 
-    pub async fn stream() -> Result<(RawFd, u32)> {
+    pub async fn stream() -> Result<Option<(RawFd, u32)>> {
         let connection = zbus::Connection::session().await?;
         let proxy = ashpd::desktop::camera::CameraProxy::new(&connection).await?;
+        if !proxy.is_camera_present().await? {
+            return Ok(None);
+        }
         proxy.access_camera().await?;
+
         let stream_fd = proxy.open_pipe_wire_remote().await?;
         let node_id = ashpd::desktop::camera::pipewire_node_id(stream_fd).await?;
-        Ok((stream_fd, node_id))
-    }
-
-    pub async fn camera_available() -> Result<bool> {
-        let connection = zbus::Connection::session().await?;
-        let proxy = ashpd::desktop::camera::CameraProxy::new(&connection).await?;
-        Ok(proxy.is_camera_present().await?)
+        Ok(Some((stream_fd, node_id)))
     }
 }
 
@@ -75,7 +73,6 @@ pub enum CameraEvent {
 pub enum CameraState {
     NotFound,
     Ready,
-    Loading,
 }
 
 mod imp {
@@ -172,10 +169,6 @@ impl Camera {
                 imp.stack.set_visible_child_name("stream");
                 imp.spinner.stop();
             }
-            CameraState::Loading => {
-                imp.stack.set_visible_child_name("loading");
-                imp.spinner.start();
-            }
         }
     }
 
@@ -204,10 +197,13 @@ impl Camera {
     pub fn from_camera(&self) {
         spawn!(clone!(@weak self as camera => async move {
             match screenshot::stream().await {
-                Ok((stream_fd, node_id)) => {
+                Ok(Some((stream_fd, node_id))) => {
                     camera.imp().paintable.set_pipewire_node_id(stream_fd, node_id);
                     camera.start();
                 },
+                Ok(None) => {
+                    camera.set_state(CameraState::NotFound);
+                }
                 Err(e) => log::error!("Failed to stream {}", e),
             }
         }));

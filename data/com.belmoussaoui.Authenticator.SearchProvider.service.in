@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=@appid@.SearchProvider
+Exec=@bindir@/@name@ --gapplication-service
+

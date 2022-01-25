@@ -4,6 +4,7 @@
     <property name="activatable">False</property>
     <property name="valign">center</property>
     <property name="selectable">False</property>
+    <property name="focusable">False</property>
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>

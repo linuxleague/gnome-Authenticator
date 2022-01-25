@@ -1,13 +1,15 @@
 use crate::{
     config,
-    models::{Keyring, ProvidersModel, FAVICONS_PATH},
-    widgets::{PreferencesWindow, ProvidersDialog, Window},
+    models::{Account, Keyring, OTPUri, Provider, ProvidersModel, FAVICONS_PATH},
+    widgets::{PreferencesWindow, ProvidersDialog, View, Window},
 };
 use adw::prelude::*;
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::{action, get_action};
+use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
+use std::str::FromStr;
 
 mod imp {
     use super::*;
@@ -24,6 +26,7 @@ mod imp {
         pub lock_timeout_id: RefCell<Option<glib::SourceId>>,
         pub can_be_locked: Cell<bool>,
         pub settings: gio::Settings,
+        pub search_provider: RefCell<Option<SearchProvider<super::Application>>>,
     }
 
     // Sets up the basics for the GObject
@@ -45,6 +48,7 @@ mod imp {
                 can_be_locked: Cell::new(false),
                 lock_timeout_id: RefCell::default(),
                 locked: Cell::new(false),
+                search_provider: RefCell::default(),
             }
         }
     }
@@ -107,20 +111,19 @@ mod imp {
                 app,
                 "preferences",
                 clone!(@weak app, @weak self.model as model  => move |_,_| {
-                    let active_window = app.active_window().unwrap();
-                    let win = active_window.downcast_ref::<Window>().unwrap();
+                    let window = app.active_window();
 
                     let preferences = PreferencesWindow::new(model);
                     preferences.set_has_set_password(app.can_be_locked());
-                    preferences.connect_local("restore-completed", false, clone!(@weak win => @default-return None, move |_| {
-                        win.providers().refilter();
+                    preferences.connect_local("restore-completed", false, clone!(@weak window => @default-return None, move |_| {
+                        window.providers().refilter();
                         None
                     }));
                     preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, _| {
                         let state = preferences.has_set_password();
                         app.set_can_be_locked(state);
                     }));
-                    preferences.set_transient_for(Some(&active_window));
+                    preferences.set_transient_for(Some(&window));
                     preferences.show();
                 })
             );
@@ -130,7 +133,7 @@ mod imp {
                 app,
                 "about",
                 clone!(@weak app => move |_, _| {
-                    let window = app.active_window().unwrap();
+                    let window = app.active_window();
                     gtk::AboutDialog::builder()
                         .program_name(&gettext("Authenticator"))
                         .modal(true)
@@ -151,11 +154,10 @@ mod imp {
                 app,
                 "providers",
                 clone!(@weak app,@weak self.model as model => move |_, _| {
-                    let window = app.active_window().unwrap();
+                    let window = app.active_window();
                     let providers = ProvidersDialog::new(model);
-                    let win = window.downcast_ref::<Window>().unwrap();
-                    providers.connect_local("changed", false, clone!(@weak win => @default-return None, move |_| {
-                        win.providers().refilter();
+                    providers.connect_local("changed", false, clone!(@weak window => @default-return None, move |_| {
+                        window.providers().refilter();
                         None
                     }));
                     providers.set_transient_for(Some(&window));
@@ -203,6 +205,20 @@ mod imp {
                 }),
             );
             app.update_color_scheme();
+
+            let search_provider_path = config::OBJECT_PATH;
+            let search_provider_name = format!("{}.SearchProvider", config::APP_ID);
+
+            let ctx = glib::MainContext::default();
+            ctx.spawn_local(clone!(@strong app as application => async move {
+                let imp = application.imp();
+                match SearchProvider::new(application.clone(), search_provider_name, search_provider_path).await {
+                    Ok(search_provider) => {
+                        imp.search_provider.replace(Some(search_provider));
+                    },
+                    Err(err) => log::debug!("Could not start search provider: {}", err),
+                };
+            }));
         }
 
         fn activate(&self, app: &Self::Type) {
@@ -231,6 +247,20 @@ mod imp {
             // Start the timeout to lock the app if the auto-lock
             // setting is enabled.
             app.restart_lock_timeout();
+        }
+
+        fn open(&self, application: &Self::Type, files: &[gio::File], _hint: &str) {
+            self.activate(application);
+            let uris = files
+                .iter()
+                .map(|f| OTPUri::from_str(&f.uri()).ok())
+                .flatten()
+                .collect::<Vec<OTPUri>>();
+            // We only handle a signle URI (see the desktop file)
+            if let Some(uri) = uris.get(0) {
+                let window = application.active_window();
+                window.open_add_account(Some(uri))
+            }
         }
     }
     // This is empty, but we still need to provide an
@@ -262,12 +292,22 @@ impl Application {
 
         let app = glib::Object::new::<Application>(&[
             ("application-id", &Some(config::APP_ID)),
-            ("flags", &gio::ApplicationFlags::empty()),
+            ("flags", &gio::ApplicationFlags::HANDLES_OPEN),
             ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
         ])
         .unwrap();
 
         ApplicationExtManual::run(&app);
+    }
+
+    pub fn active_window(&self) -> Window {
+        self.imp()
+            .window
+            .borrow()
+            .as_ref()
+            .unwrap()
+            .upgrade()
+            .unwrap()
     }
 
     pub fn locked(&self) -> bool {
@@ -330,5 +370,72 @@ impl Application {
             };
             manager.set_color_scheme(color_scheme);
         }
+    }
+
+    fn account_provider_by_identifier(&self, id: &str) -> Option<(Provider, Account)> {
+        let identifier = id.split(':').collect::<Vec<&str>>();
+        let provider_id = identifier.get(0)?.parse::<u32>().ok()?;
+        let account_id = identifier.get(1)?.parse::<u32>().ok()?;
+
+        let provider = self.imp().model.find_by_id(provider_id)?;
+        let account = provider.accounts_model().find_by_id(account_id)?;
+
+        Some((provider, account))
+    }
+}
+
+impl SearchProviderImpl for Application {
+    fn launch_search(&self, terms: &[String], timestamp: u32) {
+        self.activate();
+        let window = self.active_window();
+        window.imp().search_entry.set_text(&terms.join(" "));
+        window.imp().search_btn.set_active(true);
+        window.present_with_time(timestamp);
+    }
+
+    fn activate_result(&self, identifier: ResultID, _terms: &[String], timestamp: u32) {
+        self.activate();
+
+        let identifier = identifier.split(':').collect::<Vec<&str>>();
+        let provider_id = identifier[0].parse::<u32>().unwrap();
+        let account_id = identifier[1].parse::<u32>().unwrap();
+
+        let provider = self.imp().model.find_by_id(provider_id).unwrap();
+        let account = provider.accounts_model().find_by_id(account_id).unwrap();
+        account.copy_otp();
+
+        let window = self.active_window();
+        window.set_view(View::Account(account));
+        window.present_with_time(timestamp);
+    }
+
+    fn initial_result_set(&self, terms: &[String]) -> Vec<ResultID> {
+        // don't show any results if the application is locked
+        if self.property::<bool>("locked") {
+            vec![]
+        } else {
+            self.imp()
+                .model
+                .find_accounts(terms)
+                .into_iter()
+                .map(|account| format!("{}:{}", account.provider().id(), account.id()))
+                .collect::<Vec<_>>()
+        }
+    }
+
+    fn result_metas(&self, identifiers: &[ResultID]) -> Vec<ResultMeta> {
+        identifiers
+            .iter()
+            .map(|id| {
+                self.account_provider_by_identifier(id)
+                    .map(|(provider, account)| {
+                        ResultMeta::builder(id.to_owned(), &account.name())
+                            .description(&provider.name())
+                            .clipboard_text(&account.otp())
+                            .build()
+                    })
+            })
+            .flatten()
+            .collect::<Vec<_>>()
     }
 }

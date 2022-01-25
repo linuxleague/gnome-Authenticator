@@ -10,20 +10,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-03-26 15:30+0000\n"
-"PO-Revision-Date: 2021-04-06 22:35+0800\n"
-"Last-Translator: Dingzhong Chen <wsxy162@gmail.com>\n"
+"POT-Creation-Date: 2022-01-24 19:01+0000\n"
+"PO-Revision-Date: 2022-01-24 14:56-0500\n"
+"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Gtranslator 3.38.0\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:168 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
 msgid "Authenticator"
 msgstr "验证器"
 
@@ -33,7 +33,7 @@ msgstr "双重认证"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:171
+#: src/application.rs:141
 msgid "Generate Two-Factor Codes"
 msgstr "生成双因素验证码"
 
@@ -58,12 +58,12 @@ msgid "Default window maximized behaviour"
 msgstr "默认窗口最大化行为"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Theme"
-msgstr "深色主题"
+msgid "Dark Mode"
+msgstr "深色模式"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark theme."
-msgstr "应用程序是否应当使用深色主题。"
+msgid "Whether the application should use a dark mode."
+msgstr "应用程序是否应当使用深色模式。"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
@@ -102,7 +102,6 @@ msgid "QR code scanner using a camera or from a screenshot"
 msgstr "使用摄像头或者截图的二维码扫描器"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
-#| msgid "_Lock the application"
 msgid "Lock the application with a password"
 msgstr "可使用密码锁定应用程序"
 
@@ -120,27 +119,22 @@ msgstr "主窗口"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
 #: data/resources/ui/account_add.ui:24
-#| msgid "Add a new account"
 msgid "Add a New Account"
 msgstr "添加新帐号"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
-#| msgid "Provider"
 msgid "Add a New Provider"
 msgstr "添加新提供方"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "Account Details"
 msgstr "帐号详情"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
-#| msgid "Backup/Restore"
 msgid "Backup/Restore formats support"
 msgstr "支持的备份/恢复格式"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:210
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -155,8 +149,7 @@ msgstr "截图(_S)"
 #: data/resources/ui/account_add.ui:44
 #: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:51
-#| msgid "Backup"
+#: data/resources/ui/provider_page.ui:54
 msgid "Go Back"
 msgstr "返回"
 
@@ -186,45 +179,48 @@ msgstr "帐号"
 msgid "Token"
 msgstr "令牌"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
 msgid "Counter"
 msgstr "计数器"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
 msgid "Algorithm"
 msgstr "算法"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
 msgid "Computing Method"
 msgstr "运算方式"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
 msgid "Period"
 msgstr "周期"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
 msgid "Duration in seconds until the next password update"
 msgstr "下次密码更新的间隔秒数"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
 msgid "Digits"
 msgstr "位数"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
-#| msgid "Length of the generated code. The recommended value is 6"
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
 msgid "Length of the generated code"
 msgstr "生成验证码的长度"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:150
+#: data/resources/ui/provider_page.ui:155
 msgid "Website"
 msgstr "网站"
 
 #: data/resources/ui/account_add.ui:225
-#| msgid "How to setup"
 msgid "How to Set Up"
 msgstr "如何设置"
+
+#: data/resources/ui/account_details_page.ui:73
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+msgid "_Delete"
+msgstr "删除(_D)"
 
 #: data/resources/ui/account_row.ui:6
 msgid "D_etails"
@@ -234,21 +230,9 @@ msgstr "详情(_E)"
 msgid "_Rename"
 msgstr "重命名(_R)"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
-msgid "_Delete"
-msgstr "删除(_D)"
-
-#: data/resources/ui/account_row.ui:66
-msgid "Copy PIN to clipboard"
-msgstr "复制验证码到剪贴板"
-
-#: data/resources/ui/account_row.ui:106
-msgid "More"
-msgstr "更多"
-
-#: data/resources/ui/account_row.ui:138
+#: data/resources/ui/account_row.ui:86
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:56
+#: data/resources/ui/provider_page.ui:61
 msgid "_Save"
 msgstr "保存(_S)"
 
@@ -257,16 +241,10 @@ msgid "No Camera Found"
 msgstr "未找到摄像头"
 
 #: data/resources/ui/camera.ui:47
-#| msgid "_From A Screenshot"
 msgid "_From a Screenshot"
 msgstr "从截图(_F)"
 
-#: data/resources/ui/camera.ui:82
-msgid "Capture from a screenshot"
-msgstr "从屏幕截图中捕获"
-
 #: data/resources/ui/preferences_password_page.ui:32
-#| msgid "Set up a password"
 msgid "Set up a Passphrase"
 msgstr "设置密码"
 
@@ -275,22 +253,19 @@ msgid "Authenticator will start locked after a passphrase is set."
 msgstr "验证器将在密码设定后锁定。"
 
 #: data/resources/ui/preferences_password_page.ui:52
-#| msgid "Current Password"
 msgid "Current Passphrase"
 msgstr "当前密码"
 
 #: data/resources/ui/preferences_password_page.ui:66
-#| msgid "New Password"
 msgid "New Passphrase"
 msgstr "新密码"
 
 #: data/resources/ui/preferences_password_page.ui:79
-#| msgid "Repeat Password"
 msgid "Repeat Passphrase"
 msgstr "重复密码"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:101
+#: data/resources/ui/provider_page.ui:106
 msgid "_Reset"
 msgstr "重置(_R)"
 
@@ -303,24 +278,22 @@ msgid "Appearance"
 msgstr "外观"
 
 #: data/resources/ui/preferences.ui:22
-msgid "_Dark Theme"
-msgstr "深色主题(_D)"
+msgid "_Dark Mode"
+msgstr "深色模式(_D)"
 
 #: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark theme"
-msgstr "应用程序是否应该使用深色主题"
+msgid "Whether the application should use a dark mode"
+msgstr "应用程序是否应该使用深色模式"
 
 #: data/resources/ui/preferences.ui:37
 msgid "Privacy"
 msgstr "隐私"
 
 #: data/resources/ui/preferences.ui:40
-#| msgid "_Password"
 msgid "_Passphrase"
 msgstr "密码(_P)"
 
 #: data/resources/ui/preferences.ui:42
-#| msgid "Set up a password to lock the application with"
 msgid "Set up a passphrase to lock the application with"
 msgstr "设置密码以锁定本应用程序"
 
@@ -333,7 +306,6 @@ msgid "Whether to automatically lock the application"
 msgstr "是否自动锁定本应用程序"
 
 #: data/resources/ui/preferences.ui:68
-#| msgid "Auto lock _Timeout"
 msgid "Auto Lock _Timeout"
 msgstr "自动锁定时间(_T)"
 
@@ -345,37 +317,35 @@ msgstr "超时时间，单位为分钟"
 msgid "Backup/Restore"
 msgstr "备份/恢复"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:293
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
 msgid "Backup"
 msgstr "备份"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:300
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
 msgid "Restore"
 msgstr "恢复"
 
-#: data/resources/ui/provider_page.ui:112
-#| msgid "Select"
+#: data/resources/ui/provider_page.ui:117
 msgid "Select a _File"
 msgstr "选择文件(_F)"
 
-#: data/resources/ui/provider_page.ui:136
+#: data/resources/ui/provider_page.ui:141
 msgid "Name"
 msgstr "名称"
 
-#: data/resources/ui/provider_page.ui:151
-#| msgid "Used to fetch the website icon if possible"
+#: data/resources/ui/provider_page.ui:156
 msgid "Used to fetch the provider icon"
 msgstr "用于获取提供方图标"
 
-#: data/resources/ui/provider_page.ui:202
+#: data/resources/ui/provider_page.ui:217
 msgid "The by default value for counter-based computing method"
 msgstr "基于计数器的运算方式所使用的默认值"
 
-#: data/resources/ui/provider_page.ui:236
+#: data/resources/ui/provider_page.ui:251
 msgid "Help URL"
 msgstr "帮助页面"
 
-#: data/resources/ui/provider_page.ui:237
+#: data/resources/ui/provider_page.ui:252
 msgid "Provider setup instructions"
 msgstr "提供方设置说明"
 
@@ -383,24 +353,20 @@ msgstr "提供方设置说明"
 msgid "Providers"
 msgstr "提供方"
 
-#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:214
-#| msgid "Provider"
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
 msgid "New Provider"
 msgstr "新建提供方"
 
-#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
-#| msgctxt "shortcut window"
-#| msgid "Search"
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
 msgid "Search"
 msgstr "搜索"
 
-#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_dialog.ui:101
 #: data/resources/ui/providers_list.ui:42
-#| msgid "No results found"
 msgid "No Results"
 msgstr "无结果"
 
-#: data/resources/ui/providers_dialog.ui:109
+#: data/resources/ui/providers_dialog.ui:102
 msgid "No providers matching the query were found."
 msgstr "未找到与查询匹配的提供方。"
 
@@ -414,7 +380,6 @@ msgid "General"
 msgstr "常规"
 
 #: data/resources/ui/shortcuts.ui:14
-#| msgid "_Keyboard Shortcuts"
 msgctxt "shortcut window"
 msgid "Keyboard Shortcuts"
 msgstr "快捷键"
@@ -440,7 +405,6 @@ msgid "Accounts"
 msgstr "帐号"
 
 #: data/resources/ui/shortcuts.ui:43
-#| msgid "Account"
 msgctxt "shortcut window"
 msgid "New Account"
 msgstr "新增帐号"
@@ -451,13 +415,11 @@ msgid "Search"
 msgstr "搜索"
 
 #: data/resources/ui/shortcuts.ui:55
-#| msgid "Providers"
 msgctxt "shortcut window"
 msgid "Show Providers List"
 msgstr "显示提供方列表"
 
 #: data/resources/ui/window.ui:6
-#| msgid "_Lock the application"
 msgid "_Lock the Application"
 msgstr "锁定应用程序(_L)"
 
@@ -478,7 +440,6 @@ msgid "_About Authenticator"
 msgstr "关于验证器(_A)"
 
 #: data/resources/ui/window.ui:95
-#| msgid "Authenticator is locked"
 msgid "Authenticator is Locked"
 msgstr "验证器已锁定"
 
@@ -487,7 +448,6 @@ msgid "_Unlock"
 msgstr "解锁(_U)"
 
 #: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
-#| msgid "Account"
 msgid "New Account"
 msgstr "新增帐号"
 
@@ -496,8 +456,6 @@ msgid "Menu"
 msgstr "菜单"
 
 #: data/resources/ui/window.ui:192
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "No Accounts"
 msgstr "无帐号"
 
@@ -505,7 +463,7 @@ msgstr "无帐号"
 msgid "Add an account or scan a QR code first."
 msgstr "请先添加帐号或扫描二维码。"
 
-#: src/application.rs:175
+#: src/application.rs:145
 msgid "translator-credits"
 msgstr ""
 "Boyuan Yang <073plan@gmail.com>, 2020\n"
@@ -514,11 +472,11 @@ msgstr ""
 "Dingzhong Chen <wsxy162@gmail.com>, 2021"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:66
+#: src/backup/andotp.rs:69
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:73
 msgid "Into a plain-text JSON file"
 msgstr "导出到 JSON 纯文本文件"
 
@@ -527,108 +485,128 @@ msgstr "导出到 JSON 纯文本文件"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
 msgid "From a plain-text JSON file"
 msgstr "从 JSON 纯文本文件导入"
 
-#: src/backup/bitwarden.rs:35
-#| msgid "Add a new account"
+#: src/backup/bitwarden.rs:68
 msgid "Unknown account"
 msgstr "未知帐号"
 
-#: src/backup/bitwarden.rs:43
+#: src/backup/bitwarden.rs:76
 msgid "Unknown issuer"
 msgstr "未知颁发者"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:81
+#: src/backup/bitwarden.rs:138
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:18
+#: src/backup/freeotp.rs:20
 msgid "_Authenticator"
 msgstr "验证器(_A)"
 
-#: src/backup/freeotp.rs:22
+#: src/backup/freeotp.rs:24
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "导出到纯文本文件，与 FreeOTP+ 兼容"
 
-#: src/backup/freeotp.rs:64
+#: src/backup/freeotp.rs:63
 msgid "A_uthenticator"
 msgstr "验证器(_U)"
 
-#: src/backup/freeotp.rs:68
+#: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "从纯文本文件导入，与 FreeOTP+ 兼容"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:32
-#| msgid "Au_thenticator (Old)"
+#: src/backup/legacy.rs:33
 msgid "Au_thenticator (Legacy)"
 msgstr "旧版验证器(_T)"
 
-#: src/models/algorithm.rs:55
-#| msgid "Counter"
+#: src/models/algorithm.rs:56
 msgid "Counter-based"
 msgstr "基于计数器"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:57
 msgid "Time-based"
 msgstr "基于时间"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:58
+#: src/models/algorithm.rs:59
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:125
+#: src/models/algorithm.rs:127
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:126
+#: src/models/algorithm.rs:128
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:129
 msgid "SHA-512"
 msgstr "SHA-256"
 
-#: src/widgets/accounts/add.rs:200
-#| msgid "Invalid QR code"
+#: src/widgets/accounts/add.rs:171
 msgid "Invalid Token"
 msgstr "无效的令牌"
 
-#: src/widgets/window.rs:320
-#| msgid "Change Password"
+#: src/widgets/window.rs:313
 msgid "Wrong Password"
 msgstr "错误的密码"
 
-#: src/widgets/preferences/password_page.rs:224
-#: src/widgets/preferences/password_page.rs:255
+#: src/widgets/preferences/password_page.rs:211
+#: src/widgets/preferences/password_page.rs:242
 msgid "Wrong Passphrase"
 msgstr "错误的密码"
 
-#: src/widgets/preferences/window.rs:296 src/widgets/preferences/window.rs:303
-#: src/widgets/providers/page.rs:320
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+msgid "Key / Passphrase"
+msgstr "密钥/密码"
+
+#: src/widgets/preferences/window.rs:210
+msgid "The key that will be used to decrypt the vault"
+msgstr ""
+
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+msgid "Select File"
+msgstr "选择文件"
+
+#: src/widgets/preferences/window.rs:278
+msgid "The key used to encrypt the vault"
+msgstr ""
+
+#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
+#: src/widgets/providers/page.rs:310
 msgid "Select"
 msgstr "选择"
 
-#: src/widgets/preferences/window.rs:297 src/widgets/preferences/window.rs:304
-#: src/widgets/providers/page.rs:321
+#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
+#: src/widgets/providers/page.rs:311
 msgid "Cancel"
 msgstr "取消"
 
-#: src/widgets/providers/page.rs:184
+#: src/widgets/providers/page.rs:180
 msgid "Editing Provider: {}"
 msgstr "编辑提供方：{}"
 
-#: src/widgets/providers/page.rs:328
+#: src/widgets/providers/page.rs:318
 msgid "Image"
 msgstr "图像"
 
-#: src/widgets/providers/page.rs:364
+#: src/widgets/providers/page.rs:353
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
+
+#~ msgid "Copy PIN to clipboard"
+#~ msgstr "复制验证码到剪贴板"
+
+#~ msgid "More"
+#~ msgstr "更多"
+
+#~ msgid "Capture from a screenshot"
+#~ msgstr "从屏幕截图中捕获"
 
 #~ msgid "QR code scanner"
 #~ msgstr "二维码扫描器"

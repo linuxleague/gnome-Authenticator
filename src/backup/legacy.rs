@@ -21,6 +21,7 @@ pub struct LegacyAuthenticator {
 }
 
 impl Restorable for LegacyAuthenticator {
+    const ENCRYPTABLE: bool = false;
     type Item = Self;
 
     fn identifier() -> String {
@@ -36,7 +37,7 @@ impl Restorable for LegacyAuthenticator {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
+    fn restore(from: &gtk::gio::File, _key: Option<&str>) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
         let items: Vec<LegacyAuthenticator> = serde_json::de::from_slice(&data)?;
         Ok(items)

@@ -10,13 +10,16 @@ pub enum Operation {
 }
 
 pub trait Restorable: Sized {
+    // Needed for displaying a password/key entry
+    const ENCRYPTABLE: bool;
     type Item: RestorableItem;
 
     fn title() -> String;
     fn subtitle() -> String;
     // Used to define the `restore.$identifier` action
     fn identifier() -> String;
-    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>>;
+    /// If no key is provided, the restore code should assume it is not encrypted
+    fn restore(from: &gtk::gio::File, key: Option<&str>) -> Result<Vec<Self::Item>>;
     fn restore_item(item: &Self::Item, model: &ProvidersModel) -> Result<()> {
         let provider = model.find_or_create(
             &item.issuer(),
@@ -30,7 +33,7 @@ pub trait Restorable: Sized {
             None,
         )?;
 
-        let account = Account::create(&item.account(), &item.secret(), &provider)?;
+        let account = Account::create(&item.account(), &item.secret(), item.counter(), &provider)?;
         provider.add_account(&account);
         Ok(())
     }
@@ -48,11 +51,15 @@ pub trait RestorableItem: Debug {
 }
 
 pub trait Backupable: Sized {
+    // Needed for displaying a password/key entry
+    const ENCRYPTABLE: bool;
+
     fn title() -> String;
     fn subtitle() -> String;
     // Used to define the `backup.$identifier` action
     fn identifier() -> String;
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()>;
+    // if no key is provided the backup code should save it as plain text
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File, key: Option<&str>) -> Result<()>;
 }
 
 mod aegis;

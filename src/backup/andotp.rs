@@ -58,6 +58,8 @@ impl RestorableItem for AndOTP {
 }
 
 impl Backupable for AndOTP {
+    const ENCRYPTABLE: bool = false;
+
     fn identifier() -> String {
         "andotp".to_string()
     }
@@ -71,7 +73,7 @@ impl Backupable for AndOTP {
         gettext("Into a plain-text JSON file")
     }
 
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File, _key: Option<&str>) -> Result<()> {
         let mut items = Vec::new();
 
         for i in 0..model.n_items() {
@@ -114,6 +116,7 @@ impl Backupable for AndOTP {
 }
 
 impl Restorable for AndOTP {
+    const ENCRYPTABLE: bool = false;
     type Item = Self;
 
     fn identifier() -> String {
@@ -129,7 +132,7 @@ impl Restorable for AndOTP {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
+    fn restore(from: &gtk::gio::File, _key: Option<&str>) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
 
         let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;

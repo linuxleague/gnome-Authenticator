@@ -168,11 +168,16 @@ glib::wrapper! {
 }
 
 impl Account {
-    pub fn create(name: &str, token: &str, provider: &Provider) -> Result<Account> {
+    pub fn create(
+        name: &str,
+        token: &str,
+        counter: Option<u32>,
+        provider: &Provider,
+    ) -> Result<Account> {
         let db = database::connection();
         let conn = db.get()?;
 
-        let token_id = Keyring::store(&format!("{} - {}", provider.name(), name), &token)
+        let token_id = Keyring::store(&format!("{} - {}", provider.name(), name), token)
             .context("Failed to save token")?;
 
         diesel::insert_into(accounts::table)
@@ -180,7 +185,7 @@ impl Account {
                 name: name.to_string(),
                 token_id,
                 provider_id: provider.id() as i32,
-                counter: provider.default_counter() as i32,
+                counter: counter.unwrap_or_else(|| provider.default_counter()) as i32,
             })
             .execute(&conn)?;
 
@@ -312,12 +317,16 @@ impl Account {
         Ok(())
     }
 
+    pub fn otp(&self) -> String {
+        self.property("otp")
+    }
+
     pub fn copy_otp(&self) {
         let display = gtk::gdk::Display::default().unwrap();
         let clipboard = display.clipboard();
         // The codes come with the white space shown in the label.
         let code = &self.imp().otp.borrow().replace(' ', "");
-        clipboard.set_text(&code);
+        clipboard.set_text(code);
 
         // Indirectly increment the counter once the token was copied
         if self.provider().method() == OTPMethod::HOTP {

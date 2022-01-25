@@ -3,10 +3,13 @@ Name=Authenticator
 GenericName=Two-Factor Authentication
 Comment=Generate Two-Factor Codes
 Type=Application
-Exec=authenticator
+Exec=authenticator %u
 Terminal=false
 Categories=GNOME;GTK;Security;Utility;
 Keywords=Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;
 # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
 Icon=@icon@
 StartupNotify=true
+MimeType=x-scheme-handler/otpauth
+# Translators: Do NOT translate or transliterate this text (these are enum types)!
+X-Purism-FormFactor=Workstation;Mobile;

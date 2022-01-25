@@ -1,4 +1,4 @@
-use super::{otp, Account, Algorithm, OTPMethod, Provider};
+use super::{otp, Account, Algorithm, OTPMethod, Provider, ProviderPatch};
 use anyhow::Result;
 use glib::StaticType;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
@@ -59,7 +59,22 @@ impl ProvidersModel {
         image_uri: Option<String>,
     ) -> Result<Provider> {
         let provider = match self.find_by_name(name) {
-            Some(p) => p,
+            Some(p) => {
+                // Update potenitally different properties than what we have in the pre-shipped database
+                // Note this does a comparaison first to avoid a uselesss rewrite
+                p.update(&ProviderPatch {
+                    name: name.to_owned(),
+                    website,
+                    help_url,
+                    image_uri,
+                    period: period.unwrap_or_else(|| p.period()) as i32,
+                    digits: digits.unwrap_or_else(|| p.digits()) as i32,
+                    default_counter: default_counter.unwrap_or_else(|| p.default_counter()) as i32,
+                    algorithm: algorithm.to_string(),
+                    method: method.to_string(),
+                })?;
+                p
+            }
             None => {
                 let p = Provider::create(
                     name,
@@ -170,6 +185,18 @@ impl ProvidersModel {
             provider.add_account(account);
             self.add_provider(provider);
         }
+    }
+
+    pub fn find_accounts(&self, terms: &[String]) -> Vec<Account> {
+        let mut results = vec![];
+
+        for pos in 0..self.n_items() {
+            let obj = self.item(pos).unwrap();
+            let provider = obj.downcast_ref::<Provider>().unwrap();
+            let accounts = provider.find_accounts(terms);
+            results.extend(accounts);
+        }
+        results
     }
 
     fn init(&self) {

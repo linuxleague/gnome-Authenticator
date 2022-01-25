@@ -17,6 +17,7 @@ gst = {package = "gstreamer", version = "0.18"}
 gst4gtk = { package = "gst-plugin-gtk4", version = "0.1"}
 gtk = {package = "gtk4", version = "0.4"}
 gtk-macros = "0.3"
+search-provider = "0.3"
 hex = "0.4"
 image = "0.23"
 log = "0.4"

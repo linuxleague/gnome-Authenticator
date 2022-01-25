@@ -101,7 +101,7 @@ pub(crate) mod imp {
             };
 
             let rect = graphene::Rect::new(0.0, 0.0, size, size);
-            let circle = gsk::RoundedRect::from_rect(rect.clone(), radius);
+            let circle = gsk::RoundedRect::from_rect(rect, radius);
             let center = graphene::Point::new(size / 2.0, size / 2.0);
 
             if widget.inverted() {
