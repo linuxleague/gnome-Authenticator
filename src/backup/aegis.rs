@@ -9,7 +9,9 @@ use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
 use serde::{Deserialize, Serialize};
+use log;
 
+/// Root of the Aegis JSON Backup Format
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Aegis {
     pub version: u32,
@@ -17,6 +19,19 @@ pub struct Aegis {
     pub db: AegisDatabase,
 }
 
+/// Header of the Aegis JSON File
+///
+/// Contains all necessary information for encrypting / decrypting the vault (db field).
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct AegisHeader {
+    pub slots: Vec<std::collections::HashMap<String, serde_json::Value>>,
+    pub params: std::collections::HashMap<String, serde_json::Value>
+}
+
+
+/// Contains All OTP Entries
+///
+/// This database can be either encrypted or in plaintext format.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AegisDatabase {
@@ -27,6 +42,7 @@ pub enum AegisDatabase {
     },
 }
 
+/// An OTP Entry
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AegisItem {
     #[serde(rename = "type")]
@@ -48,6 +64,7 @@ pub struct AegisItem {
     pub info: AegisDetail,
 }
 
+/// OTP Entry Details
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct AegisDetail {
     pub secret: String,
@@ -66,6 +83,7 @@ impl Aegis {
         // Check for correct aegis file version and correct database version.
         // Additionally, we check whether the file is encrypted. We can't open / decrypt them yet,
         // because there is no UI possibility to enter the password.
+        log::info!("Found aegis database version {}", aegis_root.version);
         if aegis_root.version != 1 {
             anyhow::bail!(
                 "Aegis file version expected to be 1. Found {} instead.",
@@ -121,20 +139,22 @@ impl RestorableItem for AegisItem {
 }
 
 impl Backupable for Aegis {
+    const ENCRYPTABLE: bool = false;
+
     fn identifier() -> String {
-        "aegis".to_string()
+        "Aegis".to_string()
     }
 
     fn title() -> String {
         // Translators: This is for making a backup for the aegis Android app.
-        gettext("aegis")
+        gettext("Aegis")
     }
 
     fn subtitle() -> String {
         gettext("Into a plain-text JSON file")
     }
 
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File) -> Result<()> {
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File, _key: Option<&str>) -> Result<()> {
         let mut items = Vec::new();
 
         for i in 0..model.n_items() {
@@ -194,22 +214,23 @@ impl Backupable for Aegis {
 }
 
 impl Restorable for Aegis {
+    const ENCRYPTABLE: bool = true;
     type Item = AegisItem;
 
     fn identifier() -> String {
-        "aegis".to_string()
+        "Aegis".to_string()
     }
 
     fn title() -> String {
         // Translators: This is for restoring a backup from the aegis Android app.
-        gettext("aegis")
+        gettext("Aegis")
     }
 
     fn subtitle() -> String {
-        gettext("From a plain-text JSON file")
+        gettext("From a JSON file containing plain-text or encrypted fields.")
     }
 
-    fn restore(from: &gtk::gio::File) -> Result<Vec<Self::Item>> {
+    fn restore(from: &gtk::gio::File, _key: Option<&str>) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
         Aegis::restore_from_slice(&data)
     }
@@ -244,17 +265,28 @@ mod tests {
                 }
             },
             {
-                "type": "totp",
-                "uuid": "01234567-89ab-cdef-0123-456789abcdef",
-                "name": "Alice",
-                "issuer": "Element One",
-                "group": "social",
-                "note": "",
+                "type": "hotp",
+                "uuid": "03e572f2-8ebd-44b0-a57e-e958af74815d",
+                "name": "Benjamin",
+                "issuer": "Air Canada",
                 "icon": null,
                 "info": {
-                    "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+                    "secret": "KUVJJOM753IHTNDSZVCNKL7GII",
+                    "algo": "SHA256",
+                    "digits": 7,
+                    "counter": 50
+                }
+            }, 
+            {
+                "type": "steam",
+                "uuid": "5b11ae3b-6fc3-4d46-8ca7-cf0aea7de920",
+                "name": "Sophia",
+                "issuer": "Boeing",
+                "icon": null,
+                "info": {
+                    "secret": "JRZCL47CMXVOQMNPZR2F7J4RGI",
                     "algo": "SHA1",
-                    "digits": 6,
+                    "digits": 5,
                     "period": 30
                 }
             }
@@ -274,14 +306,23 @@ mod tests {
         assert_eq!(aegis_items[0].counter(), None);
         assert_eq!(aegis_items[0].method(), OTPMethod::TOTP);
 
-        assert_eq!(aegis_items[1].account(), "Alice");
-        assert_eq!(aegis_items[1].issuer(), "Element One");
-        assert_eq!(aegis_items[1].secret(), "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567");
-        assert_eq!(aegis_items[1].period(), Some(30));
-        assert_eq!(aegis_items[1].algorithm(), Algorithm::SHA1);
-        assert_eq!(aegis_items[1].digits(), Some(6));
-        assert_eq!(aegis_items[1].counter(), None);
-        assert_eq!(aegis_items[1].method(), OTPMethod::TOTP);
+        assert_eq!(aegis_items[1].account(), "Benjamin");
+        assert_eq!(aegis_items[1].issuer(), "Air Canada");
+        assert_eq!(aegis_items[1].secret(), "KUVJJOM753IHTNDSZVCNKL7GII");
+        assert_eq!(aegis_items[1].period(), None);
+        assert_eq!(aegis_items[1].algorithm(), Algorithm::SHA256);
+        assert_eq!(aegis_items[1].digits(), Some(7));
+        assert_eq!(aegis_items[1].counter(), Some(50));
+        assert_eq!(aegis_items[1].method(), OTPMethod::HOTP);
+
+        assert_eq!(aegis_items[2].account(), "Sophia");
+        assert_eq!(aegis_items[2].issuer(), "Boeing");
+        assert_eq!(aegis_items[2].secret(), "JRZCL47CMXVOQMNPZR2F7J4RGI");
+        assert_eq!(aegis_items[2].period(), Some(30));
+        assert_eq!(aegis_items[2].algorithm(), Algorithm::SHA1);
+        assert_eq!(aegis_items[2].digits(), Some(5));
+        assert_eq!(aegis_items[2].counter(), None);
+        assert_eq!(aegis_items[2].method(), OTPMethod::Steam);
     }
 
     #[test]
