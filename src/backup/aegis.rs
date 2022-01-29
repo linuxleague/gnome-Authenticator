@@ -7,6 +7,7 @@ use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use aes_gcm::aead::Aead;
 use aes_gcm::NewAead;
+use anyhow::Context;
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
@@ -166,7 +167,7 @@ impl Aegis {
 
                 // Ciphertext is stored in base64, we have to decode it.
                 let mut ciphertext =
-                    base64::decode(db).expect("Cannot decode (base64) encrypted database");
+                    base64::decode(db).context("Cannot decode (base64) encoded database")?;
 
                 // Add the encryption tag
                 ciphertext.append(&mut header.params.tag.into());
@@ -180,17 +181,19 @@ impl Aegis {
                         HeaderSlot::Password(slot) => slot,
                         _ => unreachable!("All biometric slots are filtered by serde."),
                     })
-                    .map(|slot| {
+                    .map(|slot| -> Result<Vec<u8>> {
                         log::info!("Found possible master key with UUID {}.", slot.uuid);
 
                         // Create parameters for scrypt function and derive decryption key for master key
+                        //
+                        // Somehow, scrypt errors do not implement StdErr and cannot be converted to anyhow::Error. Should be possible but don't know why it doesn't work.
                         let params = scrypt::Params::new(
                             // TODO log2 for u64 is not stable yet. Change this in the future.
                             (slot.n as f64).log2() as u8, // Defaults to 15 by aegis
                             slot.r,                       // Defaults to 8 by aegis
                             slot.p,                       // Defaults to 1 by aegis
                         )
-                        .expect("Invalid scrypt params in header");
+                        .map_err(|_| anyhow::anyhow!("Invalid scrypt parameters"))?;
                         let mut temp_key: [u8; 32] = [0u8; 32];
                         scrypt::scrypt(
                             password.unwrap().as_bytes(),
@@ -198,41 +201,59 @@ impl Aegis {
                             &params,
                             &mut temp_key,
                         )
-                        .expect("Scrypt key derivation failed");
+                        .map_err(|_| anyhow::anyhow!("Scrypt key derivation failed"))?;
 
                         // Now, try to decrypt the master key.
                         let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&temp_key));
                         let mut ciphertext: Vec<u8> = slot.key.to_vec();
                         ciphertext.append(&mut slot.key_params.tag.to_vec());
-                        let master_key = cipher
+
+                        // Here we get the master key. The decrypt function does not return an error implementing std error. Thus, we have to convert it.
+                        cipher
                             .decrypt(
                                 aes_gcm::Nonce::from_slice(&slot.key_params.nonce),
                                 ciphertext.as_ref(),
                             )
-                            .expect("failed decrypting master key");
-
-                        master_key
+                            .map_err(|_| anyhow::anyhow!("Cannot decrypt master key"))
+                    })
+                    // Here, we don't want to fail the whole function because one key slot failed to get the correct master key. Maybe there is another slot we were able to decrypt.
+                    .filter_map(|x| match x {
+                        Ok(x) => Some(x),
+                        Err(e) => {
+                            log::error!("Decrypting master key failed: {:?}", e);
+                            None
+                        }
                     })
                     .collect();
 
                 // Choose the first valid master key. I don't think there are aegis installations with two valid password slots.
                 log::info!(
-                    "Found {} valid password slots / master keys. Using only the first one.",
+                    "Found {} valid password slots / master keys.",
                     master_keys.len()
                 );
-                let master_key = &master_keys[0];
+                let master_key = match master_keys.first() {
+                    Some(x) => {
+                        log::info!("Using only the first valid key slot / master key.");
+                        x
+                    }
+                    None => anyhow::bail!(
+                        "Did not find at least one slot with a valid key. Wrong password?"
+                    ),
+                };
 
-                // Try to decrypt the database with this master key
+                // Try to decrypt the database with this master key.
                 let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(master_key));
                 let plaintext = cipher
                     .decrypt(
                         aes_gcm::Nonce::from_slice(&header.params.nonce),
                         ciphertext.as_ref(),
                     )
-                    .expect("failed decrypting database");
+                    // Decrypt does not return an error implementing std error, thus we convert it.
+                    .map_err(|_| anyhow::anyhow!("Cannot decrypt database"))?;
 
                 // Now, we have the decrypted string. Trying to load it with JSON.
-                let db: Database = serde_json::de::from_slice(&plaintext).unwrap();
+                let db: Database = serde_json::de::from_slice(&plaintext)
+                    .context("Deserialize decrypted database failed")?;
 
                 // Check version of the database
                 log::info!("Found aegis database with version {}.", db.version);
