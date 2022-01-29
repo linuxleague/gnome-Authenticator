@@ -48,7 +48,7 @@ pub struct HeaderEncrypted {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum HeaderSlot {
-    // We are not interested in this field. Thus, we omit the other information.
+    // We are not interested in biometric slots at the moment. Thus, we omit these information. However, in the future, authenticator app might be able to lock / unlock the database using fingerprint sensors (see https://gitlab.gnome.org/World/Authenticator/-/issues/106 for more information). Thus, it might be possible to read also these biometric slots and unlock them with a fingerprint reader used by authenticar. However, it would be ncessary that aegis android app (thus the android system) and authenticator use the same mechanisms to derive keys from biometric input. This has to be checked beforehand.
     #[serde(rename = "2")]
     Biometric,
     #[serde(rename = "1")]
