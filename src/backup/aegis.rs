@@ -18,11 +18,8 @@ use anyhow::Context;
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
-use hex;
-use log;
 use rand::RngCore;
 use serde::{Deserialize, Serialize};
-use uuid;
 
 /// Root of the Aegis JSON Backup Format
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
