@@ -2,6 +2,13 @@
 //!
 //! See https://github.com/beemdevelopment/Aegis/blob/master/docs/vault.md for a description of the
 //! aegis vault format.
+//!
+//! This module does not convert all information from aegis (note, icon, group are lost). When
+//! exporting to the aegis json format the icon, url, help url, and tags are lost.
+//!
+//! Exported files by this module cannot be decrypted by the python script provided in the aegis
+//! repository (https://github.com/beemdevelopment/Aegis/blob/master/docs/decrypt.py). However,
+//! aegis android app is able to read the files! See line 173 for a discussion.
 
 use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
@@ -13,7 +20,9 @@ use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
 use hex;
 use log;
+use rand::RngCore;
 use serde::{Deserialize, Serialize};
+use uuid;
 
 /// Root of the Aegis JSON Backup Format
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -25,12 +34,107 @@ pub enum Aegis {
         header: std::collections::HashMap<String, serde_json::Value>,
         db: Database,
     },
-    /// Encrypted version of the JSON format. `db` is simply a base64 encoded string with encrypted AegisDatabase.
+    /// Encrypted version of the JSON format. `db` is simply a base64 encoded string with an encrypted AegisDatabase.
     Encrypted {
         version: u32,
         header: HeaderEncrypted,
         db: String,
     },
+}
+
+impl Default for Aegis {
+    fn default() -> Self {
+        Self::Plaintext {
+            version: 1,
+            header: std::collections::HashMap::from([
+                (String::from("slots"), serde_json::Value::Null),
+                (String::from("params"), serde_json::Value::Null),
+            ]),
+            db: Database::default(),
+        }
+    }
+}
+
+impl Aegis {
+    pub fn add_item(&mut self, item: Item) {
+        if let Self::Plaintext { db, .. } = self {
+            db.entries.push(item);
+        } else {
+            // This is an implementation error. Thus, panic is here okay.
+            panic!("Trying to add an OTP item to an encrypted aegis database.")
+        }
+    }
+
+    pub fn encrypt(&mut self, password: &str) -> Result<()> {
+        // Create a new master key
+        let mut rng = rand::thread_rng();
+        let mut master_key = [0u8; 32];
+        rng.fill_bytes(&mut master_key);
+
+        // Create a new header (including defaults for a password slot)
+        let mut header = HeaderEncrypted::default();
+
+        if let HeaderSlot::Password(ref mut password_slot) = header.slots[0] {
+            // Derive key from given password
+            let mut derived_key: [u8; 32] = [0u8; 32];
+            let params = scrypt::Params::new(
+                // TODO log2 for u64 is not stable yet. Change this in the future.
+                (password_slot.n as f64).log2() as u8,
+                password_slot.r,
+                password_slot.p,
+            )
+            // All parameters are default values. Thus, this should always work and unwrap is okay.
+            .expect("Scrypt params creation");
+            scrypt::scrypt(
+                password.as_bytes(),
+                &password_slot.salt,
+                &params,
+                &mut derived_key,
+            )
+            .map_err(|_| anyhow::anyhow!("Scrypt key derivation"))?;
+
+            // Encrypt new master key with derived key
+            let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&derived_key));
+            let mut ciphertext: Vec<u8> = cipher
+                .encrypt(
+                    aes_gcm::Nonce::from_slice(&password_slot.key_params.nonce),
+                    master_key.as_ref(),
+                )
+                .map_err(|_| anyhow::anyhow!("Encrypter master key"))?;
+
+            // Add encrypted master key and tag to our password slot. If this assignment fails, we have a mistake in our logic, thus unwrap is okay.
+            password_slot.key_params.tag = ciphertext.split_off(32).try_into().unwrap();
+            password_slot.key = ciphertext.try_into().unwrap();
+        }
+
+        // Finally, we get the JSON string for the database and encrypt it.
+        if let Self::Plaintext { version, db, .. } = self {
+            let db_json: Vec<u8> = serde_json::ser::to_string_pretty(&db)?.as_bytes().to_vec();
+            let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&master_key));
+            let mut ciphertext: Vec<u8> = cipher
+                .encrypt(
+                    aes_gcm::Nonce::from_slice(&header.params.nonce),
+                    db_json.as_ref(),
+                )
+                .map_err(|_| anyhow::anyhow!("Encrypting aegis database"))?;
+            header.params.tag = ciphertext
+                .split_off(ciphertext.len() - 16)
+                .try_into()
+                .unwrap();
+            let db_encrypted = ciphertext;
+
+            *self = Self::Encrypted {
+                version: *version,
+                header,
+                db: base64::encode(db_encrypted),
+            };
+        } else {
+            // This is an implementation error. Thus, panic is okay.
+            panic!("Encrypt can only be called on a plaintext object.")
+        }
+
+        Ok(())
+    }
 }
 
 /// Header of the Encrypted Aegis JSON File
@@ -42,19 +146,49 @@ pub struct HeaderEncrypted {
     pub params: HeaderParam,
 }
 
+impl Default for HeaderEncrypted {
+    fn default() -> Self {
+        Self {
+            slots: vec![HeaderSlot::default()],
+            params: HeaderParam::default(),
+        }
+    }
+}
+
 /// Header Slots
 ///
 /// Containts information to decrypt the master key.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum HeaderSlot {
-    // We are not interested in biometric slots at the moment. Thus, we omit these information. However, in the future, authenticator app might be able to lock / unlock the database using fingerprint sensors (see https://gitlab.gnome.org/World/Authenticator/-/issues/106 for more information). Thus, it might be possible to read also these biometric slots and unlock them with a fingerprint reader used by authenticar. However, it would be ncessary that aegis android app (thus the android system) and authenticator use the same mechanisms to derive keys from biometric input. This has to be checked beforehand.
+    // We are not interested in biometric slots at the moment. Thus, we omit these information.
+    // However, in the future, authenticator app might be able to lock / unlock the database using
+    // fingerprint sensors (see https://gitlab.gnome.org/World/Authenticator/-/issues/106 for more
+    // information). Thus, it might be possible to read also these biometric slots and unlock them
+    // with a fingerprint reader used by authenticar. However, it would be ncessary that aegis
+    // android app (thus the android system) and authenticator use the same mechanisms to derive
+    // keys from biometric input. This has to be checked beforehand.
+    //
+    // TODO rename should be changed to `rename = 2`. However this does not work yet with serde,
+    // see: https://github.com/serde-rs/serde/issues/745. This allows decrypting the exported file
+    // with the python script provided in the aegis repository. The python script expects an integer
+    // but we provide a string. Thus, change the string in header / slots / password slot / `type = "1"`
+    // to `type = 1` to use the python script.
     #[serde(rename = "2")]
     Biometric,
     #[serde(rename = "1")]
     Password(HeaderSlotPassword),
 }
 
+impl Default for HeaderSlot {
+    fn default() -> Self {
+        Self::Password(HeaderSlotPassword::default())
+    }
+}
+
+/// Password Header Slot
+///
+/// Header slot for password key derivation.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct HeaderSlotPassword {
     pub uuid: String,
@@ -69,6 +203,24 @@ pub struct HeaderSlotPassword {
     pub salt: [u8; 32],
 }
 
+impl Default for HeaderSlotPassword {
+    fn default() -> Self {
+        let mut rng = rand::thread_rng();
+        let mut salt = [0u8; 32];
+        rng.fill_bytes(&mut salt);
+
+        Self {
+            uuid: uuid::Uuid::new_v4().to_string(),
+            key: [0u8; 32],
+            key_params: HeaderParam::default(),
+            n: 2_u32.pow(15),
+            r: 8,
+            p: 1,
+            salt,
+        }
+    }
+}
+
 /// Parameters to Database Encryption
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct HeaderParam {
@@ -78,11 +230,33 @@ pub struct HeaderParam {
     pub tag: [u8; 16],
 }
 
+impl Default for HeaderParam {
+    fn default() -> Self {
+        let mut rng = rand::thread_rng();
+        let mut nonce = [0u8; 12];
+        rng.fill_bytes(&mut nonce);
+
+        Self {
+            nonce,
+            tag: [0u8; 16],
+        }
+    }
+}
+
 /// Contains All OTP Entries
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Database {
     pub version: u32,
     pub entries: Vec<Item>,
+}
+
+impl Default for Database {
+    fn default() -> Self {
+        Self {
+            version: 2,
+            entries: std::vec::Vec::new(),
+        }
+    }
 }
 
 /// An OTP Entry
@@ -105,6 +279,32 @@ pub struct Item {
     #[serde(rename = "icon")]
     pub thumbnail: Option<String>,
     pub info: Detail,
+}
+
+impl Item {
+    pub fn new(account: &Account) -> Self {
+        let provider = account.provider();
+
+        // First, create a detail struct
+        let detail = Detail {
+            secret: account.token(),
+            algorithm: provider.algorithm(),
+            digits: provider.digits(),
+            // TODO should be none for hotp
+            period: Some(provider.period()),
+            // TODO should be none for totp
+            counter: Some(account.counter()),
+        };
+
+        Self {
+            method: provider.method(),
+            label: account.name(),
+            issuer: provider.name(),
+            tags: None,
+            thumbnail: None,
+            info: detail,
+        }
+    }
 }
 
 /// OTP Entry Details
@@ -306,7 +506,7 @@ impl RestorableItem for Item {
 }
 
 impl Backupable for Aegis {
-    const ENCRYPTABLE: bool = false;
+    const ENCRYPTABLE: bool = true;
 
     fn identifier() -> String {
         "Aegis".to_string()
@@ -318,11 +518,12 @@ impl Backupable for Aegis {
     }
 
     fn subtitle() -> String {
-        gettext("Into a plain-text JSON file")
+        gettext("Into a JSON file containing plain-text or encrypted fields.")
     }
 
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File, _key: Option<&str>) -> Result<()> {
-        let mut items = Vec::new();
+    fn backup(model: &ProvidersModel, into: &gtk::gio::File, key: Option<&str>) -> Result<()> {
+        // Create structure
+        let mut aegis_root = Aegis::default();
 
         for i in 0..model.n_items() {
             let provider = model.item(i).unwrap().downcast::<Provider>().unwrap();
@@ -330,47 +531,14 @@ impl Backupable for Aegis {
 
             for j in 0..accounts.n_items() {
                 let account = accounts.item(j).unwrap().downcast::<Account>().unwrap();
-
-                let aegis_detail = Detail {
-                    secret: account.token(),
-                    algorithm: provider.algorithm(),
-                    digits: provider.digits(),
-                    // TODO should be none for hotp
-                    period: Some(provider.period()),
-                    // TODO should be none for totp
-                    counter: Some(account.counter()),
-                };
-
-                let aegis_item = Item {
-                    method: provider.method(),
-                    label: account.name(),
-                    issuer: provider.name(),
-                    tags: None,
-                    thumbnail: None,
-                    info: aegis_detail,
-                };
-
-                items.push(aegis_item);
+                let otp_item = Item::new(&account);
+                aegis_root.add_item(otp_item);
             }
         }
 
-        // Create structure around items
-        let aegis_db = Database {
-            version: 2,
-            entries: items,
-        };
-        // let aegis_header = AegisHeader {
-        //    slots: vec![],
-        //     params: std::collections::HashMap::new(),
-        // };
-        let aegis_root = Aegis::Plaintext {
-            version: 1,
-            header: std::collections::HashMap::from([
-                (String::from("slots"), serde_json::Value::Null),
-                (String::from("params"), serde_json::Value::Null),
-            ]),
-            db: aegis_db,
-        };
+        if let Some(password) = key {
+            aegis_root.encrypt(password)?;
+        }
 
         let content = serde_json::ser::to_string_pretty(&aegis_root)?;
 
