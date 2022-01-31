@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-22 12:31+0000\n"
-"PO-Revision-Date: 2022-01-23 12:48+0100\n"
+"POT-Creation-Date: 2022-01-24 19:01+0000\n"
+"PO-Revision-Date: 2022-01-30 12:50+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:135 src/main.rs:42
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
 msgid "Authenticator"
 msgstr "Authenticator"
 
@@ -32,7 +32,7 @@ msgstr "Uwierzytelnianie dwuetapowe"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:138
+#: src/application.rs:141
 msgid "Generate Two-Factor Codes"
 msgstr "Generowanie kodów uwierzytelniania dwuetapowego"
 
@@ -135,7 +135,7 @@ msgstr "Informacje o koncie"
 msgid "Backup/Restore formats support"
 msgstr "Obsługa formatów kopii zapasowej/przywracania"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:210
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -231,7 +231,7 @@ msgstr "_Informacje"
 msgid "_Rename"
 msgstr "Z_mień nazwę"
 
-#: data/resources/ui/account_row.ui:85
+#: data/resources/ui/account_row.ui:86
 #: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:61
 msgid "_Save"
@@ -318,11 +318,11 @@ msgstr "Czas w minutach"
 msgid "Backup/Restore"
 msgstr "Kopia zapasowa/przywracanie"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:282
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
 msgid "Backup"
 msgstr "Kopia zapasowa"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:289
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
 msgid "Restore"
 msgstr "Przywracanie"
 
@@ -464,7 +464,7 @@ msgstr "Nie ma kont"
 msgid "Add an account or scan a QR code first."
 msgstr "Należy najpierw dodać konto lub zeskanować kod QR."
 
-#: src/application.rs:142
+#: src/application.rs:145
 msgid "translator-credits"
 msgstr ""
 "WaldiS <admin@sto.ugu.pl>, 2018\n"
@@ -472,20 +472,20 @@ msgstr ""
 "Aviary.pl <community-poland@mozilla.org>, 2019-2022"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:67
+#: src/backup/andotp.rs:69
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:71
+#: src/backup/andotp.rs:73
 msgid "Into a plain-text JSON file"
 msgstr "Do tekstowego pliku JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:125
+#: src/backup/andotp.rs:128
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:129 src/backup/bitwarden.rs:141 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
 msgid "From a plain-text JSON file"
 msgstr "Z tekstowego pliku JSON"
 
@@ -498,28 +498,28 @@ msgid "Unknown issuer"
 msgstr "Nieznany wystawca"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:137
+#: src/backup/bitwarden.rs:138
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:19
+#: src/backup/freeotp.rs:20
 msgid "_Authenticator"
 msgstr "_Authenticator"
 
-#: src/backup/freeotp.rs:23
+#: src/backup/freeotp.rs:24
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Do pliku tekstowego, zgodne z programem FreeOTP+"
 
-#: src/backup/freeotp.rs:61
+#: src/backup/freeotp.rs:63
 msgid "A_uthenticator"
 msgstr "A_uthenticator"
 
-#: src/backup/freeotp.rs:65
+#: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Z pliku tekstowego, zgodne z programem FreeOTP+"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:32
+#: src/backup/legacy.rs:33
 msgid "Au_thenticator (Legacy)"
 msgstr "Aut_henticator (poprzednia wersja)"
 
@@ -552,7 +552,7 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Nieprawidłowy token"
 
-#: src/widgets/window.rs:302
+#: src/widgets/window.rs:313
 msgid "Wrong Password"
 msgstr "Błędne hasło"
 
@@ -561,12 +561,28 @@ msgstr "Błędne hasło"
 msgid "Wrong Passphrase"
 msgstr "Błędne hasło"
 
-#: src/widgets/preferences/window.rs:285 src/widgets/preferences/window.rs:292
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+msgid "Key / Passphrase"
+msgstr "Klucz/hasło"
+
+#: src/widgets/preferences/window.rs:210
+msgid "The key that will be used to decrypt the vault"
+msgstr "Klucz, który będzie używany do odszyfrowywania sejfu"
+
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+msgid "Select File"
+msgstr "Wybierz plik"
+
+#: src/widgets/preferences/window.rs:278
+msgid "The key used to encrypt the vault"
+msgstr "Klucz użyty do zaszyfrowania sejfu"
+
+#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
 #: src/widgets/providers/page.rs:310
 msgid "Select"
 msgstr "Wybierz"
 
-#: src/widgets/preferences/window.rs:286 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
 #: src/widgets/providers/page.rs:311
 msgid "Cancel"
 msgstr "Anuluj"

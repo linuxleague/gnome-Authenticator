@@ -5,21 +5,22 @@
 # Tranquilo Chan <cdh4227@qq.com>, 2020.
 # McLapngap <mclapngap@icloud.com>, 2020.
 # Dingzhong Chen <wsxy162@gmail.com>, 2021.
+# lumingzh <lumingzh@qq.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-24 19:01+0000\n"
-"PO-Revision-Date: 2022-01-24 14:56-0500\n"
-"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
+"POT-Creation-Date: 2022-01-24 19:57+0000\n"
+"PO-Revision-Date: 2022-01-31 16:19+0800\n"
+"Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 41.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
@@ -567,7 +568,7 @@ msgstr "密钥/密码"
 
 #: src/widgets/preferences/window.rs:210
 msgid "The key that will be used to decrypt the vault"
-msgstr ""
+msgstr "用于解密保险库的密钥"
 
 #: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
 msgid "Select File"
@@ -575,7 +576,7 @@ msgstr "选择文件"
 
 #: src/widgets/preferences/window.rs:278
 msgid "The key used to encrypt the vault"
-msgstr ""
+msgstr "用于加密保险库的密钥"
 
 #: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
 #: src/widgets/providers/page.rs:310
