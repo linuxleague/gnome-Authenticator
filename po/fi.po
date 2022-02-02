@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-13 20:41+0000\n"
-"PO-Revision-Date: 2021-02-22 17:26+0200\n"
+"POT-Creation-Date: 2022-01-24 19:01+0000\n"
+"PO-Revision-Date: 2022-02-02 20:55+0200\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
 msgid "Authenticator"
 msgstr "Todennin"
 
@@ -30,7 +30,7 @@ msgstr "Kaksivaiheinen todennus"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:155
+#: src/application.rs:141
 msgid "Generate Two-Factor Codes"
 msgstr "Luo kaksivaiheisen todennuksen koodeja"
 
@@ -55,11 +55,11 @@ msgid "Default window maximized behaviour"
 msgstr "Suurennetun ikkunan oletusarvoinen toiminta"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Theme"
-msgstr "Tumma teema"
+msgid "Dark Mode"
+msgstr "Tumma tila"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark theme."
+msgid "Whether the application should use a dark mode."
 msgstr "Tuleeko sovelluksen käyttää tummaa teemaa."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
@@ -133,7 +133,7 @@ msgstr "Tilin tiedot"
 msgid "Backup/Restore formats support"
 msgstr "Varmuuskopioinnin ja palautuksen muotojen tuki"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -148,7 +148,7 @@ msgstr "K_uvakaappaus"
 #: data/resources/ui/account_add.ui:44
 #: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:51
+#: data/resources/ui/provider_page.ui:54
 msgid "Go Back"
 msgstr "Siirry takaisin"
 
@@ -178,43 +178,48 @@ msgstr "Tili"
 msgid "Token"
 msgstr "Poletti"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
 msgid "Counter"
 msgstr "Laskuri"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
 msgid "Algorithm"
 msgstr "Algoritmi"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
 msgid "Computing Method"
 msgstr "Laskentatapa"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
 msgid "Period"
 msgstr "Jakso"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
 msgid "Duration in seconds until the next password update"
 msgstr "Kesto sekunneissa seuraavan salasanan päivitykseen"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
 msgid "Digits"
 msgstr "Numerot"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
 msgid "Length of the generated code"
 msgstr "Luodun koodin pituus"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:150
+#: data/resources/ui/provider_page.ui:155
 msgid "Website"
 msgstr "Verkkosivusto"
 
 #: data/resources/ui/account_add.ui:225
 msgid "How to Set Up"
 msgstr "Määritysohjeet"
+
+#: data/resources/ui/account_details_page.ui:73
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+msgid "_Delete"
+msgstr "_Poista"
 
 #: data/resources/ui/account_row.ui:6
 msgid "D_etails"
@@ -224,21 +229,9 @@ msgstr "Tie_dot"
 msgid "_Rename"
 msgstr "_Nimeä uudelleen"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
-msgid "_Delete"
-msgstr "_Poista"
-
-#: data/resources/ui/account_row.ui:66
-msgid "Copy PIN to clipboard"
-msgstr "Kopioi PIN leikepöydälle"
-
-#: data/resources/ui/account_row.ui:106
-msgid "More"
-msgstr "Lisää"
-
-#: data/resources/ui/account_row.ui:138
+#: data/resources/ui/account_row.ui:86
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:56
+#: data/resources/ui/provider_page.ui:61
 msgid "_Save"
 msgstr "_Tallenna"
 
@@ -249,10 +242,6 @@ msgstr "Kameraa ei löytynyt"
 #: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "K_uvakaappauksesta"
-
-#: data/resources/ui/camera.ui:82
-msgid "Capture from a screenshot"
-msgstr "Kaappaa kuvakaappauksesta"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
@@ -275,7 +264,7 @@ msgid "Repeat Passphrase"
 msgstr "Toista tunnuslause"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:101
+#: data/resources/ui/provider_page.ui:106
 msgid "_Reset"
 msgstr "_Nollaa"
 
@@ -288,11 +277,11 @@ msgid "Appearance"
 msgstr "Ulkoasu"
 
 #: data/resources/ui/preferences.ui:22
-msgid "_Dark Theme"
-msgstr "_Tumma teema"
+msgid "_Dark Mode"
+msgstr "_Tumma tila"
 
 #: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark theme"
+msgid "Whether the application should use a dark mode"
 msgstr "Tuleeko sovelluksen käyttää tummaa teemaa"
 
 #: data/resources/ui/preferences.ui:37
@@ -327,35 +316,35 @@ msgstr "Aika minuutteina"
 msgid "Backup/Restore"
 msgstr "Varmuuskopioi/palauta"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
 msgid "Backup"
 msgstr "Varmuuskopioi"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
 msgid "Restore"
 msgstr "Palauta"
 
-#: data/resources/ui/provider_page.ui:112
+#: data/resources/ui/provider_page.ui:117
 msgid "Select a _File"
 msgstr "_Valitse tiedosto"
 
-#: data/resources/ui/provider_page.ui:136
+#: data/resources/ui/provider_page.ui:141
 msgid "Name"
 msgstr "Nimi"
 
-#: data/resources/ui/provider_page.ui:151
+#: data/resources/ui/provider_page.ui:156
 msgid "Used to fetch the provider icon"
 msgstr "Käytetään palveluntarjoajan kuvakkeen noutamiseen"
 
-#: data/resources/ui/provider_page.ui:202
+#: data/resources/ui/provider_page.ui:217
 msgid "The by default value for counter-based computing method"
 msgstr "Oletuksena käytettävä arvo laskuriperusteille laskentatavalle"
 
-#: data/resources/ui/provider_page.ui:236
+#: data/resources/ui/provider_page.ui:251
 msgid "Help URL"
 msgstr "Ohjeen URL-osoite"
 
-#: data/resources/ui/provider_page.ui:237
+#: data/resources/ui/provider_page.ui:252
 msgid "Provider setup instructions"
 msgstr "Palveluntarjoajan määritysohjeet"
 
@@ -363,20 +352,20 @@ msgstr "Palveluntarjoajan määritysohjeet"
 msgid "Providers"
 msgstr "Palveluntarjoajat"
 
-#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:206
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
 msgid "New Provider"
 msgstr "Uusi palveluntarjoaja"
 
-#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
 msgid "Search"
 msgstr "Etsi"
 
-#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_dialog.ui:101
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Ei tuloksia"
 
-#: data/resources/ui/providers_dialog.ui:109
+#: data/resources/ui/providers_dialog.ui:102
 msgid "No providers matching the query were found."
 msgstr "Kyselyä vastaavia palveluntarjoajia ei löytynyt."
 
@@ -473,16 +462,16 @@ msgstr "Ei tilejä"
 msgid "Add an account or scan a QR code first."
 msgstr "Lisää ensin tili tai lue QR-koodi."
 
-#: src/application.rs:159
+#: src/application.rs:145
 msgid "translator-credits"
 msgstr "Jiri Grönroos"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:66
+#: src/backup/andotp.rs:69
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:73
 msgid "Into a plain-text JSON file"
 msgstr "Raakatekstipohjaiseen JSON-tiedostoon"
 
@@ -491,103 +480,128 @@ msgstr "Raakatekstipohjaiseen JSON-tiedostoon"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
 msgid "From a plain-text JSON file"
 msgstr "Raakatekstipohjaisesta JSON-tiedostosta"
 
-#: src/backup/bitwarden.rs:35
+#: src/backup/bitwarden.rs:68
 msgid "Unknown account"
 msgstr "Tuntematon tili"
 
-#: src/backup/bitwarden.rs:43
+#: src/backup/bitwarden.rs:76
 msgid "Unknown issuer"
 msgstr "Tuntematon myöntäjä"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:81
+#: src/backup/bitwarden.rs:138
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:18
+#: src/backup/freeotp.rs:20
 msgid "_Authenticator"
 msgstr "_Todennin"
 
-#: src/backup/freeotp.rs:22
+#: src/backup/freeotp.rs:24
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Raakatekstitiedostoon, yhteensopiva FreeOTP+:n kanssa"
 
-#: src/backup/freeotp.rs:64
+#: src/backup/freeotp.rs:63
 msgid "A_uthenticator"
 msgstr "T_odennin"
 
-#: src/backup/freeotp.rs:68
+#: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Raakatekstitiedostosta, yhteensopiva FreeOTP+:n kanssa"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:32
+#: src/backup/legacy.rs:33
 msgid "Au_thenticator (Legacy)"
 msgstr "To_dennin (vanha)"
 
-#: src/models/algorithm.rs:55
+#: src/models/algorithm.rs:56
 msgid "Counter-based"
 msgstr "Laskuriperusteinen"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:57
 msgid "Time-based"
 msgstr "Aikaperusteinen"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:58
+#: src/models/algorithm.rs:59
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:125
+#: src/models/algorithm.rs:127
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:126
+#: src/models/algorithm.rs:128
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:129
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:204
+#: src/widgets/accounts/add.rs:171
 msgid "Invalid Token"
 msgstr "Virheellinen poletti"
 
-#: src/widgets/window.rs:324
+#: src/widgets/window.rs:313
 msgid "Wrong Password"
 msgstr "Väärä salasana"
 
-#: src/widgets/preferences/password_page.rs:228
-#: src/widgets/preferences/password_page.rs:259
+#: src/widgets/preferences/password_page.rs:211
+#: src/widgets/preferences/password_page.rs:242
 msgid "Wrong Passphrase"
 msgstr "Väärä tunnuslause"
 
-#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
-#: src/widgets/providers/page.rs:312
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+msgid "Key / Passphrase"
+msgstr "Avain / tunnuslause"
+
+#: src/widgets/preferences/window.rs:210
+msgid "The key that will be used to decrypt the vault"
+msgstr "Avain, jota käytetään holvin salauksen purkamiseen"
+
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+msgid "Select File"
+msgstr "Valitse tiedosto"
+
+#: src/widgets/preferences/window.rs:278
+msgid "The key used to encrypt the vault"
+msgstr "Holvin salauksen purkamiseen käytettävä avain"
+
+#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
+#: src/widgets/providers/page.rs:310
 msgid "Select"
 msgstr "Valitse"
 
-#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
-#: src/widgets/providers/page.rs:313
+#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
+#: src/widgets/providers/page.rs:311
 msgid "Cancel"
 msgstr "Peru"
 
-#: src/widgets/providers/page.rs:176
+#: src/widgets/providers/page.rs:180
 msgid "Editing Provider: {}"
 msgstr "Muokataan palveluntarjoajaa: {}"
 
-#: src/widgets/providers/page.rs:320
+#: src/widgets/providers/page.rs:318
 msgid "Image"
 msgstr "Kuva"
 
-#: src/widgets/providers/page.rs:356
+#: src/widgets/providers/page.rs:353
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Palveluntarjoajaan on määritelty tilejä, poista ne ensin"
+
+#~ msgid "Copy PIN to clipboard"
+#~ msgstr "Kopioi PIN leikepöydälle"
+
+#~ msgid "More"
+#~ msgstr "Lisää"
+
+#~ msgid "Capture from a screenshot"
+#~ msgstr "Kaappaa kuvakaappauksesta"
 
 #~ msgid "A Two-Factor Authentication application"
 #~ msgstr "Kaksivaiheisen todennuksen sovellus"
