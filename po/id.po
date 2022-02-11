@@ -2,14 +2,14 @@
 # Copyright (C) 2020 THE authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
 # Andika Triwidada <andika@gmail.com>, 2020.
-# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021.
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-13 20:41+0000\n"
-"PO-Revision-Date: 2021-03-05 19:03+0700\n"
+"POT-Creation-Date: 2022-01-24 19:01+0000\n"
+"PO-Revision-Date: 2022-02-11 14:22+0700\n"
 "Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/authenticator/"
 "translation/id/>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Poedit 2.4.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
 msgid "Authenticator"
 msgstr "Autentikator"
 
@@ -32,7 +32,7 @@ msgstr "Autentikasi Dua Faktor"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:155
+#: src/application.rs:141
 msgid "Generate Two-Factor Codes"
 msgstr "Hasilkan Kode Dua Faktor"
 
@@ -55,12 +55,12 @@ msgid "Default window maximized behaviour"
 msgstr "Perilaku baku jendela dimaksimalkan"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Theme"
-msgstr "Tema Gelap"
+msgid "Dark Mode"
+msgstr "Mode Gelap"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark theme."
-msgstr "Apakah aplikasi harus menggunakan tema gelap."
+msgid "Whether the application should use a dark mode."
+msgstr "Apakah aplikasi harus menggunakan mode gelap."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
@@ -134,7 +134,7 @@ msgstr "Detail Akun"
 msgid "Backup/Restore formats support"
 msgstr "Dukungan format Pencadangan/Pemulihan"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -149,7 +149,7 @@ msgstr "_Cuplikan layar"
 #: data/resources/ui/account_add.ui:44
 #: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:51
+#: data/resources/ui/provider_page.ui:54
 msgid "Go Back"
 msgstr "Kembali"
 
@@ -179,43 +179,48 @@ msgstr "Akun"
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
 msgid "Counter"
 msgstr "Pencacah"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
 msgid "Algorithm"
 msgstr "Algoritma"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
 msgid "Computing Method"
 msgstr "Metode Komputasi"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
 msgid "Period"
 msgstr "Periode"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
 msgid "Duration in seconds until the next password update"
 msgstr "Durasi dalam detik hingga pemutakhiran kata sandi berikutnya"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
 msgid "Digits"
 msgstr "Angka"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
 msgid "Length of the generated code"
 msgstr "Panjang kode yang dihasilkan"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:150
+#: data/resources/ui/provider_page.ui:155
 msgid "Website"
 msgstr "Situs Web"
 
 #: data/resources/ui/account_add.ui:225
 msgid "How to Set Up"
 msgstr "Cara Mengatur"
+
+#: data/resources/ui/account_details_page.ui:73
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+msgid "_Delete"
+msgstr "_Hapus"
 
 #: data/resources/ui/account_row.ui:6
 msgid "D_etails"
@@ -225,21 +230,9 @@ msgstr "D_etail"
 msgid "_Rename"
 msgstr "_Ganti Nama"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
-msgid "_Delete"
-msgstr "_Hapus"
-
-#: data/resources/ui/account_row.ui:66
-msgid "Copy PIN to clipboard"
-msgstr "Salin PIN ke papan klip"
-
-#: data/resources/ui/account_row.ui:106
-msgid "More"
-msgstr "Selengkapnya"
-
-#: data/resources/ui/account_row.ui:138
+#: data/resources/ui/account_row.ui:86
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:56
+#: data/resources/ui/provider_page.ui:61
 msgid "_Save"
 msgstr "_Simpan"
 
@@ -250,10 +243,6 @@ msgstr "Tidak Ditemukan Kamera"
 #: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "_Dari Cuplikan Layar"
-
-#: data/resources/ui/camera.ui:82
-msgid "Capture from a screenshot"
-msgstr "Ambil dari cuplikan layar"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
@@ -276,7 +265,7 @@ msgid "Repeat Passphrase"
 msgstr "Ulangi Frasa Sandi"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:101
+#: data/resources/ui/provider_page.ui:106
 msgid "_Reset"
 msgstr "Atu_r Ulang"
 
@@ -289,12 +278,12 @@ msgid "Appearance"
 msgstr "Penampilan"
 
 #: data/resources/ui/preferences.ui:22
-msgid "_Dark Theme"
-msgstr "_Tema Gelap"
+msgid "_Dark Mode"
+msgstr "Mo_de Gelap"
 
 #: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark theme"
-msgstr "Apakah aplikasi mesti menggunakan tema gelap"
+msgid "Whether the application should use a dark mode"
+msgstr "Apakah aplikasi harus menggunakan mode gelap"
 
 #: data/resources/ui/preferences.ui:37
 msgid "Privacy"
@@ -328,35 +317,35 @@ msgstr "Waktu dalam menit"
 msgid "Backup/Restore"
 msgstr "Cadangkan/Pulihkan"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
 msgid "Backup"
 msgstr "Cadangan"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
 msgid "Restore"
 msgstr "Pulihkan"
 
-#: data/resources/ui/provider_page.ui:112
+#: data/resources/ui/provider_page.ui:117
 msgid "Select a _File"
 msgstr "Pilih _Berkas"
 
-#: data/resources/ui/provider_page.ui:136
+#: data/resources/ui/provider_page.ui:141
 msgid "Name"
 msgstr "Nama"
 
-#: data/resources/ui/provider_page.ui:151
+#: data/resources/ui/provider_page.ui:156
 msgid "Used to fetch the provider icon"
 msgstr "Digunakan untuk mengambil ikon penyedia"
 
-#: data/resources/ui/provider_page.ui:202
+#: data/resources/ui/provider_page.ui:217
 msgid "The by default value for counter-based computing method"
 msgstr "Nilai bawaan untuk metode komputasi berbasis pencacah"
 
-#: data/resources/ui/provider_page.ui:236
+#: data/resources/ui/provider_page.ui:251
 msgid "Help URL"
 msgstr "URL Bantuan"
 
-#: data/resources/ui/provider_page.ui:237
+#: data/resources/ui/provider_page.ui:252
 msgid "Provider setup instructions"
 msgstr "Instruksi penyetelan penyedia"
 
@@ -364,20 +353,20 @@ msgstr "Instruksi penyetelan penyedia"
 msgid "Providers"
 msgstr "Penyedia"
 
-#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:206
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
 msgid "New Provider"
 msgstr "Penyedia Baru"
 
-#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
 msgid "Search"
 msgstr "Cari"
 
-#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_dialog.ui:101
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Tidak Ada Hasil"
 
-#: data/resources/ui/providers_dialog.ui:109
+#: data/resources/ui/providers_dialog.ui:102
 msgid "No providers matching the query were found."
 msgstr "Tidak ada penyedia yang cocok dengan kueri yang ditemukan."
 
@@ -474,18 +463,18 @@ msgstr "Tidak Ada Akun"
 msgid "Add an account or scan a QR code first."
 msgstr "Tambah akun atau pindai kode QR terlebih dahulu."
 
-#: src/application.rs:159
+#: src/application.rs:145
 msgid "translator-credits"
 msgstr ""
 "Andika Triwidada <andika@gmail.com>, 2020\n"
-"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021"
+"Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021-2022"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:66
+#: src/backup/andotp.rs:69
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:73
 msgid "Into a plain-text JSON file"
 msgstr "Ke dalam berkas JSON teks polos"
 
@@ -494,105 +483,130 @@ msgstr "Ke dalam berkas JSON teks polos"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
 msgid "From a plain-text JSON file"
 msgstr "Dari berkas JSON teks polos"
 
-#: src/backup/bitwarden.rs:35
+#: src/backup/bitwarden.rs:68
 msgid "Unknown account"
 msgstr "Akun tidak diketahui"
 
-#: src/backup/bitwarden.rs:43
+#: src/backup/bitwarden.rs:76
 msgid "Unknown issuer"
 msgstr "Penerbit tidak diketahui"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:81
+#: src/backup/bitwarden.rs:138
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:18
+#: src/backup/freeotp.rs:20
 msgid "_Authenticator"
 msgstr "_Autentikator"
 
-#: src/backup/freeotp.rs:22
+#: src/backup/freeotp.rs:24
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Ke dalam berkas teks polos, kompatibel dengan FreeOTP+"
 
-#: src/backup/freeotp.rs:64
+#: src/backup/freeotp.rs:63
 msgid "A_uthenticator"
 msgstr "A_utentikator"
 
-#: src/backup/freeotp.rs:68
+#: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Dari berkas teks polos, kompatibel dengan FreeOTP+"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:32
+#: src/backup/legacy.rs:33
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_tentikator (Lama)"
 
-#: src/models/algorithm.rs:55
+#: src/models/algorithm.rs:56
 msgid "Counter-based"
 msgstr "Berbasis Pencacah"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:57
 msgid "Time-based"
 msgstr "Berbasis waktu"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:58
+#: src/models/algorithm.rs:59
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:125
+#: src/models/algorithm.rs:127
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:126
+#: src/models/algorithm.rs:128
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:129
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:204
+#: src/widgets/accounts/add.rs:171
 msgid "Invalid Token"
 msgstr "Token Tidak Valid"
 
-#: src/widgets/window.rs:324
+#: src/widgets/window.rs:313
 msgid "Wrong Password"
 msgstr "Kata Sandi Salah"
 
-#: src/widgets/preferences/password_page.rs:228
-#: src/widgets/preferences/password_page.rs:259
+#: src/widgets/preferences/password_page.rs:211
+#: src/widgets/preferences/password_page.rs:242
 msgid "Wrong Passphrase"
 msgstr "Frasa Sandi Salah"
 
-#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
-#: src/widgets/providers/page.rs:312
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+msgid "Key / Passphrase"
+msgstr "Kunci / Frasa Sandi"
+
+#: src/widgets/preferences/window.rs:210
+msgid "The key that will be used to decrypt the vault"
+msgstr "Kunci yang akan digunakan untuk mendekripsi vault"
+
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+msgid "Select File"
+msgstr "Pilih Berkas"
+
+#: src/widgets/preferences/window.rs:278
+msgid "The key used to encrypt the vault"
+msgstr "Kunci yang digunakan untuk mengenkripsi vault"
+
+#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
+#: src/widgets/providers/page.rs:310
 msgid "Select"
 msgstr "Pilih"
 
-#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
-#: src/widgets/providers/page.rs:313
+#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
+#: src/widgets/providers/page.rs:311
 msgid "Cancel"
 msgstr "Batal"
 
-#: src/widgets/providers/page.rs:176
+#: src/widgets/providers/page.rs:180
 msgid "Editing Provider: {}"
 msgstr "Penyedia Penyuntingan: {}"
 
-#: src/widgets/providers/page.rs:320
+#: src/widgets/providers/page.rs:318
 msgid "Image"
 msgstr "Gambar"
 
-#: src/widgets/providers/page.rs:356
+#: src/widgets/providers/page.rs:353
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Penyedia memiliki akun yang ditugaskan untuk itu, silakan hapus terlebih "
 "dahulu"
+
+#~ msgid "Copy PIN to clipboard"
+#~ msgstr "Salin PIN ke papan klip"
+
+#~ msgid "More"
+#~ msgstr "Selengkapnya"
+
+#~ msgid "Capture from a screenshot"
+#~ msgstr "Ambil dari cuplikan layar"
 
 #~ msgid "There Are no Accounts Currently"
 #~ msgstr "Saat Ini Belum Ada Akun"
