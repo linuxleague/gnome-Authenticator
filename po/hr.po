@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
 "POT-Creation-Date: 2022-03-02 16:41+0000\n"
-"PO-Revision-Date: 2022-03-03 21:48+0100\n"
+"PO-Revision-Date: 2022-03-03 21:54+0100\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -310,7 +310,7 @@ msgstr "Vrijeme u minutama"
 
 #: data/resources/ui/preferences.ui:92
 msgid "Backup/Restore"
-msgstr "Siurnosno kopiraj/Obnovi"
+msgstr "Sigurnosno kopiraj/Obnovi"
 
 #: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
@@ -590,4 +590,4 @@ msgstr "Slika"
 
 #: src/widgets/providers/page.rs:353
 msgid "The provider has accounts assigned to it, please remove them first"
-msgstr "Pružatelj usluge ima dodijeljene račune, najprije ih uklonite"
+msgstr "Pružatelj usluge ima dodijeljene račune, najprije ih ukloniteSiurnosno"
