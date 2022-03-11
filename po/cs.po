@@ -1,15 +1,16 @@
 # Czech translation for authenticator.
 # Copyright (C) 2019 authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
-# Zdeněk Hataš <zdenek.hatas@gmail.com>, 2019 - 2021
+# Zdeněk Hataš <zdenek.hatas@gmail.com>, 2019 - 2021.
+# Marek Černocký <marek@manet.cz>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-05-20 19:43+0000\n"
-"PO-Revision-Date: 2021-03-25 16:07+0100\n"
-"Last-Translator: Zdeněk Hataš <zdenek.hatas@gmail.com>\n"
+"POT-Creation-Date: 2022-01-24 19:01+0000\n"
+"PO-Revision-Date: 2022-03-11 09:37+0100\n"
+"Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +21,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:168 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
 msgid "Authenticator"
 msgstr "Autentikátor"
 
@@ -30,13 +31,13 @@ msgstr "Dvoufaktorová autentizace"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:171
+#: src/application.rs:141
 msgid "Generate Two-Factor Codes"
-msgstr "Generovat dvoufaktorové kódy"
+msgstr "Generujte dvoufaktorové kódy"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
 msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
-msgstr "Gnome;GTK;ověření;2FA;autentizace;OTP;TOTP;"
+msgstr "Gnome;GTK;ověření;verifikace;2FA;autentizace;OTP;TOTP;"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
@@ -50,15 +51,15 @@ msgstr "Výchozí výška okna"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
 msgid "Default window maximized behaviour"
-msgstr "Výchozí chování maximalizovaného okna"
+msgstr "Výchozí chování maximalizace okna"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Theme"
-msgstr "Tmavé téma"
+msgid "Dark Mode"
+msgstr "Tmavý motiv"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark theme."
-msgstr "Zda má aplikace použít tmavé téma."
+msgid "Whether the application should use a dark mode."
+msgstr "Zda má aplikace použít tmavý motiv."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
@@ -66,19 +67,19 @@ msgstr "Automatický zámek"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
 msgid "Whether to auto lock the application or not"
-msgstr "Zda se má aplikace automaticky uzamknout či ne"
+msgstr "Zda se má aplikace automaticky uzamknout či ne."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
 msgid "Auto lock timeout"
-msgstr "Časový limit automatického uzamčení"
+msgstr "Časový limit do automatického uzamčení"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
 msgid "Lock the application on idle after X minutes"
-msgstr "Uzamkne aplikace po X minutách nečinnosti"
+msgstr "Uzamknout aplikaci po X minutách nečinnosti."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid "Simple application for generating Two-Factor Authentication Codes."
-msgstr "Jednoduchá aplikace, která generuje dvoufaktorové autentizační kódy."
+msgstr "Jednoduchá aplikace pro generování dvoufaktorových autentizačních kódů."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
@@ -90,23 +91,23 @@ msgstr "Podpora časových/čítačových/Steam metod"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "SHA-1/SHA-256/SHA-512 algorithms support"
-msgstr "Podpora SHA-1/SHA-256/SHA-512 algoritmů"
+msgstr "Podpora algoritmů SHA-1/SHA-256/SHA-512"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "QR code scanner using a camera or from a screenshot"
-msgstr "Sken QR kódů pomocí fotoaparátu nebo ze snímku obrazovky"
+msgstr "Čtení QR kódů pomocí kamery/fotoaparátu nebo ze snímku obrazovky"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Lock the application with a password"
-msgstr "Uzamknout aplikaci heslem"
+msgstr "Uzamykání aplikaci heslem"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Beautiful UI"
-msgstr "Krásné UI"
+msgstr "Hezké uživatelské rozhraní"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
-msgstr "Záloha/obnova z/do známých aplikací jako FreeOTP+ a andOTP"
+msgstr "Záloha/obnova z/do známých aplikací, jako jsou FreeOTP+ a andOTP"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
 msgid "Main Window"
@@ -129,13 +130,13 @@ msgstr "Podrobnosti účtu"
 msgid "Backup/Restore formats support"
 msgstr "Podpora formátů zálohy/obnovy"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:210
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
 #: data/resources/ui/account_add.ui:6
 msgid "_Camera"
-msgstr "_Fotoaparát"
+msgstr "_Kamera"
 
 #: data/resources/ui/account_add.ui:10
 msgid "_Screenshot"
@@ -144,7 +145,7 @@ msgstr "_Snímek obrazovky"
 #: data/resources/ui/account_add.ui:44
 #: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:51
+#: data/resources/ui/provider_page.ui:54
 msgid "Go Back"
 msgstr "Jít zpět"
 
@@ -163,7 +164,7 @@ msgstr "Poskytovatel"
 
 #: data/resources/ui/account_add.ui:101
 msgid "Token issuer"
-msgstr "Vydavatel tokenu"
+msgstr "Vydavatel tiketu"
 
 #: data/resources/ui/account_add.ui:116
 #: data/resources/ui/account_details_page.ui:42
@@ -172,45 +173,50 @@ msgstr "Účet"
 
 #: data/resources/ui/account_add.ui:130
 msgid "Token"
-msgstr "Token"
+msgstr "Tiket"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
 msgid "Counter"
 msgstr "Čítač"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
 msgid "Algorithm"
 msgstr "Algoritmus"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
 msgid "Computing Method"
 msgstr "Metoda výpočtu"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
 msgid "Period"
 msgstr "Perioda"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
 msgid "Duration in seconds until the next password update"
 msgstr "Doba v sekundách do další aktualizace hesla"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
 msgid "Digits"
-msgstr "Číslice"
+msgstr "Číslic"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
 msgid "Length of the generated code"
 msgstr "Délka generovaného kódu"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:150
+#: data/resources/ui/provider_page.ui:155
 msgid "Website"
-msgstr "Webová stránka"
+msgstr "Webové stránky"
 
 #: data/resources/ui/account_add.ui:225
 msgid "How to Set Up"
 msgstr "Jak na nastavení"
+
+#: data/resources/ui/account_details_page.ui:73
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+msgid "_Delete"
+msgstr "O_dstranit"
 
 #: data/resources/ui/account_row.ui:6
 msgid "D_etails"
@@ -220,35 +226,19 @@ msgstr "P_odrobnosti"
 msgid "_Rename"
 msgstr "_Přejmenovat"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
-msgid "_Delete"
-msgstr "O_dstranit"
-
-#: data/resources/ui/account_row.ui:66
-msgid "Copy PIN to clipboard"
-msgstr "Zkopírovat PIN do schránky"
-
-#: data/resources/ui/account_row.ui:106
-msgid "More"
-msgstr "Další"
-
-#: data/resources/ui/account_row.ui:138
+#: data/resources/ui/account_row.ui:86
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:56
+#: data/resources/ui/provider_page.ui:61
 msgid "_Save"
 msgstr "_Uložit"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
-msgstr "Nebyl nalezen fotoaparát"
+msgstr "Nebyla nalezena žádná kamera"
 
 #: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "_Ze snímku obrazovky"
-
-#: data/resources/ui/camera.ui:82
-msgid "Capture from a screenshot"
-msgstr "Získat ze snímku obrazovky"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
@@ -268,12 +258,12 @@ msgstr "Nové heslo"
 
 #: data/resources/ui/preferences_password_page.ui:79
 msgid "Repeat Passphrase"
-msgstr "Opakovat heslo"
+msgstr "Zopakovat heslo"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:101
+#: data/resources/ui/provider_page.ui:106
 msgid "_Reset"
-msgstr "_Resetovat"
+msgstr "_Výchozí"
 
 #: data/resources/ui/preferences.ui:16
 msgid "General"
@@ -284,12 +274,12 @@ msgid "Appearance"
 msgstr "Vzhled"
 
 #: data/resources/ui/preferences.ui:22
-msgid "_Dark Theme"
-msgstr "_Tmavé téma"
+msgid "_Dark Mode"
+msgstr "_Tmavý motiv"
 
 #: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark theme"
-msgstr "Zda má aplikace použít tmavé téma"
+msgid "Whether the application should use a dark mode"
+msgstr "Jestli má aplikace používat tmavý motiv"
 
 #: data/resources/ui/preferences.ui:37
 msgid "Privacy"
@@ -301,19 +291,19 @@ msgstr "_Heslo"
 
 #: data/resources/ui/preferences.ui:42
 msgid "Set up a passphrase to lock the application with"
-msgstr "Nastavte heslo a uzamkněte aplikaci s"
+msgstr "Nastavte heslo pro uzamykání aplikace"
 
 #: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
-msgstr "_Automaticky uzamknout aplikaci"
+msgstr "_Automaticky uzamykat aplikaci"
 
 #: data/resources/ui/preferences.ui:57
 msgid "Whether to automatically lock the application"
-msgstr "Zda automaticky uzamknout aplikaci"
+msgstr "Jestli se má aplikace automaticky uzamykat"
 
 #: data/resources/ui/preferences.ui:68
 msgid "Auto Lock _Timeout"
-msgstr "Časový limit automatického uzamčení"
+msgstr "Časový limi_t do automatického uzamčení"
 
 #: data/resources/ui/preferences.ui:69
 msgid "The time in minutes"
@@ -321,37 +311,37 @@ msgstr "Čas v minutách"
 
 #: data/resources/ui/preferences.ui:92
 msgid "Backup/Restore"
-msgstr "Zálohovat/Obnovit"
+msgstr "Zálohovat / obnovit"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:293
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
 msgid "Backup"
 msgstr "Zálohovat"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:300
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
 msgid "Restore"
 msgstr "Obnovit"
 
-#: data/resources/ui/provider_page.ui:112
+#: data/resources/ui/provider_page.ui:117
 msgid "Select a _File"
-msgstr "Zvolte _soubor"
+msgstr "Vybrat _soubor"
 
-#: data/resources/ui/provider_page.ui:136
+#: data/resources/ui/provider_page.ui:141
 msgid "Name"
-msgstr "Jméno"
+msgstr "Název"
 
-#: data/resources/ui/provider_page.ui:151
+#: data/resources/ui/provider_page.ui:156
 msgid "Used to fetch the provider icon"
-msgstr "Použito pro získání ikony poskytovatele"
+msgstr "Použije se pro získání ikony poskytovatele"
 
-#: data/resources/ui/provider_page.ui:202
+#: data/resources/ui/provider_page.ui:217
 msgid "The by default value for counter-based computing method"
 msgstr "Výchozí hodnota pro výpočetní metodu založenou na čítači"
 
-#: data/resources/ui/provider_page.ui:236
+#: data/resources/ui/provider_page.ui:251
 msgid "Help URL"
 msgstr "URL nápovědy"
 
-#: data/resources/ui/provider_page.ui:237
+#: data/resources/ui/provider_page.ui:252
 msgid "Provider setup instructions"
 msgstr "Instrukce pro nastavení poskytovatele"
 
@@ -359,20 +349,20 @@ msgstr "Instrukce pro nastavení poskytovatele"
 msgid "Providers"
 msgstr "Poskytovatelé"
 
-#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:214
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
 msgid "New Provider"
 msgstr "Nový poskytovatel"
 
-#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
 msgid "Search"
 msgstr "Vyhledat"
 
-#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_dialog.ui:101
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Žádné výsledky"
 
-#: data/resources/ui/providers_dialog.ui:109
+#: data/resources/ui/providers_dialog.ui:102
 msgid "No providers matching the query were found."
 msgstr "Nebyli nalezeni žádní poskytovatelé odpovídající dotazu."
 
@@ -427,7 +417,7 @@ msgstr "Zobrazit seznam poskytovatelů"
 
 #: data/resources/ui/window.ui:6
 msgid "_Lock the Application"
-msgstr "Uzamknout apli_kaci"
+msgstr "Uzamknout ap_likaci"
 
 #: data/resources/ui/window.ui:12
 msgid "P_roviders"
@@ -467,63 +457,65 @@ msgstr "Žádné účty"
 
 #: data/resources/ui/window.ui:193
 msgid "Add an account or scan a QR code first."
-msgstr "Nejprve přidejte účet nebo oskenujte QR kód."
+msgstr "Nejprve přidejte účet nebo naskenujte QR kód."
 
-#: src/application.rs:175
+#: src/application.rs:145
 msgid "translator-credits"
-msgstr "Zdeněk Hataš <zdenek.hatas@gmail.com>"
+msgstr ""
+"Zdeněk Hataš <zdenek.hatas@gmail.com>"
+"Marek Černocký <marek@manet.cz>"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:67
+#: src/backup/andotp.rs:69
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:71
+#: src/backup/andotp.rs:73
 msgid "Into a plain-text JSON file"
-msgstr "Do souboru prostého textu JSON"
+msgstr "Do textového souboru JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:129
+#: src/backup/andotp.rs:128
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:133 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
 msgid "From a plain-text JSON file"
-msgstr "Ze souboru prostého textu JSON"
+msgstr "Z textového souboru JSON"
 
-#: src/backup/bitwarden.rs:35
+#: src/backup/bitwarden.rs:68
 msgid "Unknown account"
 msgstr "Neznámý účet"
 
-#: src/backup/bitwarden.rs:43
+#: src/backup/bitwarden.rs:76
 msgid "Unknown issuer"
 msgstr "Neznámý poskytovatel"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:81
+#: src/backup/bitwarden.rs:138
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:19
+#: src/backup/freeotp.rs:20
 msgid "_Authenticator"
 msgstr "_Autentikátor"
 
-#: src/backup/freeotp.rs:23
+#: src/backup/freeotp.rs:24
 msgid "Into a plain-text file, compatible with FreeOTP+"
-msgstr "Do souboru prostého textu, kompatibilní s FreeOTP+"
+msgstr "Do textového souboru kompatibilního s FreeOTP+"
 
-#: src/backup/freeotp.rs:65
+#: src/backup/freeotp.rs:63
 msgid "A_uthenticator"
 msgstr "A_utentikátor"
 
-#: src/backup/freeotp.rs:69
+#: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
-msgstr "Ze souboru prostého textu, kompatibilní s FreeOTP+"
+msgstr "Z textového souboru kompatibilního s FreeOTP+"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:32
+#: src/backup/legacy.rs:33
 msgid "Au_thenticator (Legacy)"
-msgstr "Au_tentikátor"
+msgstr "Au_tentikátor (zastaralý)"
 
 #: src/models/algorithm.rs:56
 msgid "Counter-based"
@@ -531,7 +523,7 @@ msgstr "Založené na čítači"
 
 #: src/models/algorithm.rs:57
 msgid "Time-based"
-msgstr "Časově založené"
+msgstr "Založené na čase"
 
 #. Translators: Steam refers to the gaming application by Valve.
 #: src/models/algorithm.rs:59
@@ -550,141 +542,53 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:200
+#: src/widgets/accounts/add.rs:171
 msgid "Invalid Token"
-msgstr "Neplatný token"
+msgstr "Neplatný tiket"
 
-#: src/widgets/window.rs:321
+#: src/widgets/window.rs:313
 msgid "Wrong Password"
-msgstr "Chybné heslo"
+msgstr "Nesprávné heslo"
 
-#: src/widgets/preferences/password_page.rs:224
-#: src/widgets/preferences/password_page.rs:255
+#: src/widgets/preferences/password_page.rs:211
+#: src/widgets/preferences/password_page.rs:242
 msgid "Wrong Passphrase"
-msgstr "Neplatné heslo"
+msgstr "Nesprávná heslová fráze"
 
-#: src/widgets/preferences/window.rs:296 src/widgets/preferences/window.rs:303
-#: src/widgets/providers/page.rs:320
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+msgid "Key / Passphrase"
+msgstr "Klíč / heslová fráze"
+
+#: src/widgets/preferences/window.rs:210
+msgid "The key that will be used to decrypt the vault"
+msgstr "Klíč, který bude použit k dešifrování klíčenky"
+
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+msgid "Select File"
+msgstr "Výběr souboru"
+
+#: src/widgets/preferences/window.rs:278
+msgid "The key used to encrypt the vault"
+msgstr "Klíč použitý k šifrování klíčenky"
+
+#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
+#: src/widgets/providers/page.rs:310
 msgid "Select"
 msgstr "Vybrat"
 
-#: src/widgets/preferences/window.rs:297 src/widgets/preferences/window.rs:304
-#: src/widgets/providers/page.rs:321
+#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
+#: src/widgets/providers/page.rs:311
 msgid "Cancel"
 msgstr "Storno"
 
-#: src/widgets/providers/page.rs:184
+#: src/widgets/providers/page.rs:180
 msgid "Editing Provider: {}"
-msgstr "Upravje se  poskytovatel: {}"
+msgstr "Upravuje se  poskytovatel: {}"
 
-#: src/widgets/providers/page.rs:328
+#: src/widgets/providers/page.rs:318
 msgid "Image"
 msgstr "Obrázek"
 
-#: src/widgets/providers/page.rs:364
+#: src/widgets/providers/page.rs:353
 msgid "The provider has accounts assigned to it, please remove them first"
-msgstr "Poskytovatel má přiřazené účty. Nejprve je prosím odstraňte"
-
-#~ msgid "A Two-Factor Authentication application"
-#~ msgstr "Aplikace dvoufaktorové autentizace"
-
-#~ msgid "Night Light"
-#~ msgstr "Noční světlo"
-
-#~ msgid "Automatically enable dark mode at night."
-#~ msgstr "Automaticky zapne v noci tmavý režim."
-
-#~ msgid "QR code scanner"
-#~ msgstr "Skener QR kódu"
-
-#~ msgid "Huge database of more than 560 supported services"
-#~ msgstr "Obrovská databáze s více než 560 podporovanými službami"
-
-#~ msgid "Automatically fetch an image for services"
-#~ msgstr "Automaticky získejte obrázek pro služby"
-
-#~ msgid "The possibility to add new services"
-#~ msgstr "Možnost přidání nových služeb"
-
-#~ msgid "Dark theme and night light"
-#~ msgstr "Tmavé téma a noční světlo"
-
-#~ msgid "Main Window - empty state"
-#~ msgstr "Hlavní okno - prázdný stav"
-
-#~ msgid "Main Window - Accounts List"
-#~ msgstr "Hlavní okno - seznam účtů"
-
-#~ msgid "Enable 2FA for this account"
-#~ msgstr "Povolit pro tento účet 2FA"
-
-#~ msgid "Edit"
-#~ msgstr "Upravit"
-
-#~ msgid "Confirm New Password:"
-#~ msgstr "Potvrdit nové heslo:"
-
-#~ msgid "Delete Password"
-#~ msgstr "Odstranit heslo"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Show Shortcuts"
-#~ msgstr "Zobrazit zkratky"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Add"
-#~ msgstr "Přidat"
-
-#~ msgid "There are no accounts yet…"
-#~ msgstr "Zatím nejsou vytvořeny žádné účty…"
-
-#~ msgid "Add a new account from the menu"
-#~ msgstr "Přidat nový účet z nabídky"
-
-#~ msgid "Scan a QR Code"
-#~ msgstr "Skenovat QR kód"
-
-#~ msgid "Start in debug mode"
-#~ msgstr "Spustit v ladícím reřimu"
-
-#~ msgid "Default"
-#~ msgstr "Výchozí"
-
-#~ msgid "Add"
-#~ msgstr "Přidat"
-
-#~ msgid "The One-Time Passwords expire in {} seconds"
-#~ msgstr "Jednorázové heslo vyprší za {} sekund"
-
-#~ msgid "Couldn't generate the secret code"
-#~ msgstr "Nelze generovat tajný kód"
-
-#~ msgid "The PIN of {} was copied to the clipboard"
-#~ msgstr "PIN {} byl zkopírován do schránky"
-
-#~ msgid "The account was updated successfully"
-#~ msgstr "Účet byl úspěšně aktualizován"
-
-#~ msgid "Undo"
-#~ msgstr "Zpět"
-
-#~ msgid "Close the notification"
-#~ msgstr "Uzavřít oznámení"
-
-#~ msgid "Save Password"
-#~ msgstr "Uložit heslo"
-
-#~ msgid "Do you want to remove the authentication password?"
-#~ msgstr "Chcete odstranit autentizační heslo?"
-
-#~ msgid "Authentication password enforces the privacy of your accounts."
-#~ msgstr "Autentizační heslo zajistí soukromí Vašich účtů."
-
-#~ msgid "JSON files"
-#~ msgstr "Soubory JSON"
-
-#~ msgid "Account Name"
-#~ msgstr "Název účtu"
-
-#~ msgid "Donate"
-#~ msgstr "Přispět"
+msgstr "Poskytovatel má přiřazené účty. Nejprve je prosím odstraňte."
