@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-24 19:01+0000\n"
+"POT-Creation-Date: 2022-03-11 08:57+0000\n"
 "PO-Revision-Date: 2022-03-11 09:37+0100\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -55,11 +55,11 @@ msgstr "Výchozí chování maximalizace okna"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
 msgid "Dark Mode"
-msgstr "Tmavý motiv"
+msgstr "Tmavý režim"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
 msgid "Whether the application should use a dark mode."
-msgstr "Zda má aplikace použít tmavý motiv."
+msgstr "Zda má aplikace použít tmavý režim."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
@@ -79,7 +79,8 @@ msgstr "Uzamknout aplikaci po X minutách nečinnosti."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid "Simple application for generating Two-Factor Authentication Codes."
-msgstr "Jednoduchá aplikace pro generování dvoufaktorových autentizačních kódů."
+msgstr ""
+"Jednoduchá aplikace pro generování dvoufaktorových autentizačních kódů."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
@@ -275,11 +276,11 @@ msgstr "Vzhled"
 
 #: data/resources/ui/preferences.ui:22
 msgid "_Dark Mode"
-msgstr "_Tmavý motiv"
+msgstr "_Tmavý režim"
 
 #: data/resources/ui/preferences.ui:25
 msgid "Whether the application should use a dark mode"
-msgstr "Jestli má aplikace používat tmavý motiv"
+msgstr "Jestli má aplikace používat tmavý režim"
 
 #: data/resources/ui/preferences.ui:37
 msgid "Privacy"
@@ -313,11 +314,11 @@ msgstr "Čas v minutách"
 msgid "Backup/Restore"
 msgstr "Zálohovat / obnovit"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
 msgstr "Zálohovat"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
 msgid "Restore"
 msgstr "Obnovit"
 
@@ -461,9 +462,7 @@ msgstr "Nejprve přidejte účet nebo naskenujte QR kód."
 
 #: src/application.rs:145
 msgid "translator-credits"
-msgstr ""
-"Zdeněk Hataš <zdenek.hatas@gmail.com>"
-"Marek Černocký <marek@manet.cz>"
+msgstr "Zdeněk Hataš <zdenek.hatas@gmail.com>Marek Černocký <marek@manet.cz>"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -555,28 +554,28 @@ msgstr "Nesprávné heslo"
 msgid "Wrong Passphrase"
 msgstr "Nesprávná heslová fráze"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
 msgid "Key / Passphrase"
 msgstr "Klíč / heslová fráze"
 
-#: src/widgets/preferences/window.rs:210
+#: src/widgets/preferences/window.rs:212
 msgid "The key that will be used to decrypt the vault"
 msgstr "Klíč, který bude použit k dešifrování klíčenky"
 
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
 msgid "Select File"
 msgstr "Výběr souboru"
 
-#: src/widgets/preferences/window.rs:278
+#: src/widgets/preferences/window.rs:280
 msgid "The key used to encrypt the vault"
 msgstr "Klíč použitý k šifrování klíčenky"
 
-#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
 #: src/widgets/providers/page.rs:310
 msgid "Select"
 msgstr "Vybrat"
 
-#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
 #: src/widgets/providers/page.rs:311
 msgid "Cancel"
 msgstr "Storno"
