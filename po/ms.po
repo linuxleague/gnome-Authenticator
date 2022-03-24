@@ -1,0 +1,596 @@
+# Malay translation for authenticator.
+# Copyright (C) 2022 authenticator's COPYRIGHT HOLDER
+# This file is distributed under the same license as the authenticator package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Shamel Elham <shamelelham@gmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: authenticator master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2022-02-21 15:37+0000\n"
+"PO-Revision-Date: 2022-03-02 08:59+0800\n"
+"Last-Translator: Shamel Elham <shamelelham@gmail.com>\n"
+"Language-Team: Malay <ms@li.org>\n"
+"Language: ms\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 40.0\n"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+msgid "Authenticator"
+msgstr "Pengesah"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "Dua Langkah Pengesahan"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:141
+msgid "Generate Two-Factor Codes"
+msgstr "Janakan Kod Dua Langkah Pengesahan"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "Gnome;GTK;Verifikasi;2FA;Pengesah;OTP;TOTP;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Lebar tetingkap lalai"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Ketinggian tetingkap lalai"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Tingkah laku dimaksimumkan tetingkap lalai"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Mode"
+msgstr "Mod gelap"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark mode."
+msgstr "Sama ada aplikasi perlu menggunakan mod gelap"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "Kunci automatik"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "Sama ada untuk mengunci aplikasi secara automatik atau tidak"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "Tamat masa kunci automatik"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "Kunci aplikasi setelah dibiar selama X minit"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "Aplikasi mudah untuk menjana Kod Pengesahan Dua Langkah"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "Ciri-ciri:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "Sokongan Berdasarkan masa/Berdasarkan pembilang/Kaedah Steam"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "Sokongan algoritma SHA-1/SHA-256/SHA-512"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "Pengimbas kod QR menggunakan kamera atau tangkapan skrin"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "Kunci aplikasi dengan kata kunci"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "UI yang cantik"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
+msgstr ""
+"Sandarkan/Pulihkan kepada/dari aplikasi yang dikenali seperti FreeOTP+, "
+"andOTP"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+msgid "Main Window"
+msgstr "Tetingkap utama"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/resources/ui/account_add.ui:24
+msgid "Add a New Account"
+msgstr "Tambah Akaun Baharu"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+msgid "Add a New Provider"
+msgstr "Tambah Pembekal Baharu"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+msgid "Account Details"
+msgstr "Butiran akaun"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+msgid "Backup/Restore formats support"
+msgstr "Sokongan format Sandarkan/Pulihkan"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr "_Kamera"
+
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr "_Tangkapan skrin"
+
+#: data/resources/ui/account_add.ui:44
+#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:54
+msgid "Go Back"
+msgstr "Pergi Balik"
+
+#: data/resources/ui/account_add.ui:49
+msgid "_Add"
+msgstr "_Tambah"
+
+#: data/resources/ui/account_add.ui:61
+msgid "Scan QR Code"
+msgstr "Imbas Kod QR"
+
+#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_details_page.ui:52
+msgid "Provider"
+msgstr "Pembekal"
+
+#: data/resources/ui/account_add.ui:101
+msgid "Token issuer"
+msgstr "Penerbit token"
+
+#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_details_page.ui:42
+msgid "Account"
+msgstr "Akaun"
+
+#: data/resources/ui/account_add.ui:130
+msgid "Token"
+msgstr "Token"
+
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
+msgid "Counter"
+msgstr "Pembilang"
+
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
+msgid "Algorithm"
+msgstr "Algoritma"
+
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
+msgid "Computing Method"
+msgstr "Kaedah Pengiraan"
+
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
+msgid "Period"
+msgstr "Tempoh"
+
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
+msgid "Duration in seconds until the next password update"
+msgstr "Durasi dalam saat sehingga kata kunci seterusnya kemas kini"
+
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
+msgid "Digits"
+msgstr "Digit-digit"
+
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
+msgid "Length of the generated code"
+msgstr "Panjang kod yang dijana"
+
+#: data/resources/ui/account_add.ui:219
+#: data/resources/ui/account_details_page.ui:62
+#: data/resources/ui/provider_page.ui:155
+msgid "Website"
+msgstr "Laman web"
+
+#: data/resources/ui/account_add.ui:225
+msgid "How to Set Up"
+msgstr "Bagaimana untuk menetapkan"
+
+#: data/resources/ui/account_details_page.ui:73
+#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+msgid "_Delete"
+msgstr "_Padam"
+
+#: data/resources/ui/account_row.ui:6
+msgid "D_etails"
+msgstr "B_utiran"
+
+#: data/resources/ui/account_row.ui:12
+msgid "_Rename"
+msgstr "_Namakan semula"
+
+#: data/resources/ui/account_row.ui:86
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:61
+msgid "_Save"
+msgstr "_Simpan"
+
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "Tiada Kamera Dijumpai"
+
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "_Dari tangkapan skrin"
+
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "Tetapkan sebuah frasa laluan"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "Pengesah akan mula dikunci setelah frasa laluan ditetapkan"
+
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "Frasa laluan terkini"
+
+#: data/resources/ui/preferences_password_page.ui:66
+msgid "New Passphrase"
+msgstr "Frasa laluan baru"
+
+#: data/resources/ui/preferences_password_page.ui:79
+msgid "Repeat Passphrase"
+msgstr "Ulang frasa laluan"
+
+#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/provider_page.ui:106
+msgid "_Reset"
+msgstr "_Set semula"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "Umum"
+
+#: data/resources/ui/preferences.ui:19
+msgid "Appearance"
+msgstr "Penampilan"
+
+#: data/resources/ui/preferences.ui:22
+msgid "_Dark Mode"
+msgstr "_Mod gelap"
+
+#: data/resources/ui/preferences.ui:25
+msgid "Whether the application should use a dark mode"
+msgstr "Sama ada aplikasi perlu menggunakan mod gelap"
+
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "Privasi"
+
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "_Frasa laluan"
+
+#: data/resources/ui/preferences.ui:42
+msgid "Set up a passphrase to lock the application with"
+msgstr "Sediakan frasa laluan untuk kunci aplikasi dengan"
+
+#: data/resources/ui/preferences.ui:54
+msgid "_Auto Lock the Application"
+msgstr "_Kunci aplikasi secara automatik"
+
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr "Sama ada untuk mengunci aplikasi secara automatik"
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto Lock _Timeout"
+msgstr "Kunci automatik_Masa tamat"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "Masa dalam minit"
+
+#: data/resources/ui/preferences.ui:92
+msgid "Backup/Restore"
+msgstr "Sandarkan/Pulihkan"
+
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+msgid "Backup"
+msgstr "Sandarkan"
+
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+msgid "Restore"
+msgstr "Pulihkan"
+
+#: data/resources/ui/provider_page.ui:117
+msgid "Select a _File"
+msgstr "Pilih sebuah_Fail"
+
+#: data/resources/ui/provider_page.ui:141
+msgid "Name"
+msgstr "Nama"
+
+#: data/resources/ui/provider_page.ui:156
+msgid "Used to fetch the provider icon"
+msgstr "Digunakan untuk mendapatkan ikon pembekal"
+
+#: data/resources/ui/provider_page.ui:217
+msgid "The by default value for counter-based computing method"
+msgstr "Nilai lalai untuk kaedah pengkomputeran berasaskan kaunter"
+
+#: data/resources/ui/provider_page.ui:251
+msgid "Help URL"
+msgstr "URL bantuan"
+
+#: data/resources/ui/provider_page.ui:252
+msgid "Provider setup instructions"
+msgstr "Arahan persediaan pembekal"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "Pembekal"
+
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+msgid "New Provider"
+msgstr "Pembekal Baru"
+
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
+msgid "Search"
+msgstr "Cari"
+
+#: data/resources/ui/providers_dialog.ui:101
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "Tiada keputusan"
+
+#: data/resources/ui/providers_dialog.ui:102
+msgid "No providers matching the query were found."
+msgstr "Tiada pembekal yang sepadan dengan pertanyaan yang ditemui."
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "Tiada akaun atau pembekal yang sepadan dengan pertanyaan yang ditemui."
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Umum"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "Pintasan Papan kekunci"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Kunci"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Keutamaan"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Berhenti"
+
+#: data/resources/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "Akaun"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "New Account"
+msgstr "Akaun Baharu"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Cari"
+
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "Tunjukkan Senarai Pembekal"
+
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "_Kunci Aplikasi"
+
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "P_embekal"
+
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_Keutamaan"
+
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "_Pintasan Papan kekunci"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "_Tentang Pengesah"
+
+#: data/resources/ui/window.ui:95
+msgid "Authenticator is Locked"
+msgstr "Pengesah dikunci"
+
+#: data/resources/ui/window.ui:123
+msgid "_Unlock"
+msgstr "_Buka kunci"
+
+#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+msgid "New Account"
+msgstr "Akaun Baharu"
+
+#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+msgid "Menu"
+msgstr "Menu"
+
+#: data/resources/ui/window.ui:192
+msgid "No Accounts"
+msgstr "Tiada Akaun"
+
+#: data/resources/ui/window.ui:193
+msgid "Add an account or scan a QR code first."
+msgstr "Tambah akaun atau imbas kod QR dahulu"
+
+#: src/application.rs:145
+msgid "translator-credits"
+msgstr "kredit-penterjemah"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:69
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
+
+#: src/backup/andotp.rs:73
+msgid "Into a plain-text JSON file"
+msgstr "Ke fail teks kosong JSON"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:128
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+msgid "From a plain-text JSON file"
+msgstr "Dari fail teks kosong JSON"
+
+#: src/backup/bitwarden.rs:68
+msgid "Unknown account"
+msgstr "Akaun tidak dikenali"
+
+#: src/backup/bitwarden.rs:76
+msgid "Unknown issuer"
+msgstr "Penerbit tidak dikenali"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:138
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
+
+#: src/backup/freeotp.rs:20
+msgid "_Authenticator"
+msgstr "_Pengesah"
+
+#: src/backup/freeotp.rs:24
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "Ke fail teks kosong, disokong oleh FreeOTP+"
+
+#: src/backup/freeotp.rs:63
+msgid "A_uthenticator"
+msgstr "P_engesahan"
+
+#: src/backup/freeotp.rs:67
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Dari fail teks kosong, disokong oleh FreeOTP+"
+
+#. Translators: this is for restoring a backup from the old Authenticator release
+#: src/backup/legacy.rs:33
+msgid "Au_thenticator (Legacy)"
+msgstr "Pe_ngesahan (Legasi)"
+
+#: src/models/algorithm.rs:56
+msgid "Counter-based"
+msgstr "Berdasarkan pembilang"
+
+#: src/models/algorithm.rs:57
+msgid "Time-based"
+msgstr "Berdasarkan masa"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:59
+msgid "Steam"
+msgstr "Steam"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:128
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:129
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:171
+msgid "Invalid Token"
+msgstr "Token Tidak sah"
+
+#: src/widgets/window.rs:313
+msgid "Wrong Password"
+msgstr "Salah Kata kunci"
+
+#: src/widgets/preferences/password_page.rs:211
+#: src/widgets/preferences/password_page.rs:242
+msgid "Wrong Passphrase"
+msgstr "Salah Frasa laluan"
+
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+msgid "Key / Passphrase"
+msgstr "Kunci / Frasa laluan"
+
+#: src/widgets/preferences/window.rs:212
+msgid "The key that will be used to decrypt the vault"
+msgstr "Kunci yang digunakan untuk nyahsulitkan peti besi"
+
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+msgid "Select File"
+msgstr "Pilih Fail"
+
+#: src/widgets/preferences/window.rs:280
+msgid "The key used to encrypt the vault"
+msgstr "Kunci yang digunakan untuk menyulitkan peti besi"
+
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:310
+msgid "Select"
+msgstr "Pilih"
+
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:311
+msgid "Cancel"
+msgstr "Batal"
+
+#: src/widgets/providers/page.rs:180
+msgid "Editing Provider: {}"
+msgstr "Menyunting Pembekal: {}"
+
+#: src/widgets/providers/page.rs:318
+msgid "Image"
+msgstr "Imej"
+
+#: src/widgets/providers/page.rs:353
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr ""
+"Pembekal ini ada akaun yang diperuntukkan kepadanya, sila alih keluar mereka "
+"dahulu"
