@@ -115,12 +115,16 @@ impl CameraPaintable {
         paintable
     }
 
-    pub fn set_pipewire_node_id<F: AsRawFd>(&self, fd: F, node_id: u32) {
+    pub fn set_pipewire_node_id<F: AsRawFd>(&self, fd: F, node_id: Option<u32>) {
         let raw_fd = fd.as_raw_fd();
-        log::debug!("Loading PipeWire Node ID: {} with FD: {}", node_id, raw_fd);
         let pipewire_element = gst::ElementFactory::make("pipewiresrc", None).unwrap();
         pipewire_element.set_property("fd", &raw_fd);
-        pipewire_element.set_property("path", &node_id.to_string());
+        if let Some(node_id) = node_id {
+            pipewire_element.set_property("path", &node_id.to_string());
+            log::debug!("Loading PipeWire Node ID: {} with FD: {}", node_id, raw_fd);
+        } else {
+            log::debug!("Loading PipeWire with FD: {}", raw_fd);
+        }
         self.init_pipeline(pipewire_element);
     }
 

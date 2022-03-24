@@ -6,7 +6,7 @@ version = "0.1.0"
 [dependencies]
 adw = {package = "libadwaita", version = "0.1.0"}
 anyhow = "1.0"
-ashpd = {version = "0.2.0-beta-1", features = ["feature_pipewire", "feature_gtk4"]}
+ashpd = {version = "0.3", features = ["feature_pipewire", "feature_gtk4"]}
 async-std = "1.10"
 binascii = "0.1"
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
@@ -19,7 +19,7 @@ gtk = {package = "gtk4", version = "0.4"}
 gtk-macros = "0.3"
 search-provider = "0.3"
 hex = { version = "0.4.3", features = [ "serde" ] }
-image = "0.23"
+image = "0.24"
 log = "0.4"
 once_cell = "1.9"
 percent-encoding = "2.1"
@@ -37,7 +37,7 @@ unicase = "2.6"
 url = "2.2"
 zbar-rust = "0.0"
 svg_metadata = "0.4"
-scrypt = { version = "0.8.1", default-features = false }
+scrypt = { version = "0.10", default-features = false }
 aes-gcm = "0.9.4"
 base64 = "0.13.0"
-uuid = { version = "0.8.2", features = ["v4"] }
+uuid = { version = "0.8", features = ["v4"] }

@@ -49,7 +49,7 @@ mod screenshot {
         Ok(gio::File::for_uri(&uri))
     }
 
-    pub async fn stream() -> Result<Option<(RawFd, u32)>> {
+    pub async fn stream() -> Result<Option<(RawFd, Option<u32>)>> {
         let connection = zbus::Connection::session().await?;
         let proxy = ashpd::desktop::camera::CameraProxy::new(&connection).await?;
         if !proxy.is_camera_present().await? {
