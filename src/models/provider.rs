@@ -364,7 +364,17 @@ impl Provider {
             if let Some(best_favicon) = favicon.find_best().await {
                 let mut res = CLIENT.get(best_favicon).await?;
                 let body = res.body_bytes().await?;
-                dest.write_all(&body).await?;
+
+                // TODO This check might fail. One should look for a more robust
+                // solution that does not involve trying to decode each favicon.
+                if best_favicon.as_str().ends_with(".ico") {
+                    let ico = image::load_from_memory_with_format(&body, image::ImageFormat::Ico)?;
+                    let mut cursor = std::io::Cursor::new(vec![]);
+                    ico.write_to(&mut cursor, image::ImageOutputFormat::Png)?;
+                    dest.write_all(cursor.get_ref()).await?;
+                } else {
+                    dest.write_all(&body).await?;
+                }
 
                 return Ok(gio::File::for_path(cache_path));
             }
