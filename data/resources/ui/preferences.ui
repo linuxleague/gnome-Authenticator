@@ -7,8 +7,8 @@
     <property name="page-increment">10</property>
   </object>
   <template class="PreferencesWindow" parent="AdwPreferencesWindow">
-    <property name="default-width">820</property>
-    <property name="default-height">760</property>
+    <property name="default-width">550</property>
+    <property name="default-height">570</property>
     <property name="can-navigate-back">True</property>
     <child>
       <object class="AdwPreferencesPage">
