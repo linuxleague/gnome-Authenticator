@@ -58,7 +58,7 @@ impl Aegis {
             db.entries.push(item);
         } else {
             // This is an implementation error. Thus, panic is here okay.
-            panic!("Trying to add an OTP item to an encrypted aegis database.")
+            panic!("Trying to add an OTP item to an encrypted aegis database")
         }
     }
 
@@ -515,7 +515,7 @@ impl Backupable for Aegis {
     }
 
     fn subtitle() -> String {
-        gettext("Into a JSON file containing plain-text or encrypted fields.")
+        gettext("Into a JSON file containing plain-text or encrypted fields")
     }
 
     fn backup(model: &ProvidersModel, into: &gtk::gio::File, key: Option<&str>) -> Result<()> {
@@ -614,7 +614,7 @@ mod tests {
                     "digits": 7,
                     "counter": 50
                 }
-            }, 
+            },
             {
                 "type": "steam",
                 "uuid": "5b11ae3b-6fc3-4d46-8ca7-cf0aea7de920",
