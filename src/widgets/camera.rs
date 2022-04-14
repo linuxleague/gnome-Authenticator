@@ -21,7 +21,6 @@ mod screenshot {
     pub async fn scan(screenshot: &gio::File) -> Result<String> {
         let (data, _) = screenshot.load_contents_future().await?;
         // remove the file after reading the data
-        screenshot.delete_future(glib::source::PRIORITY_LOW).await?;
         let img = image::load_from_memory(&data)?;
 
         let (width, height) = img.dimensions();
@@ -213,6 +212,7 @@ impl Camera {
         let window = self.root().unwrap().downcast::<gtk::Window>().unwrap();
         let screenshot_file = screenshot::capture(window).await?;
         let code = screenshot::scan(&screenshot_file).await?;
+        screenshot_file.trash_future(glib::source::PRIORITY_LOW).await?;
         self.emit_by_name::<()>("code-detected", &[&code]);
 
         Ok(())
