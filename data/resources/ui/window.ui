@@ -109,7 +109,6 @@
                             <child>
                               <object class="GtkPasswordEntry" id="password_entry">
                                 <property name="halign">center</property>
-                                <property name="activates-default">True</property>
                                 <property name="show-peek-icon">True</property>
                               </object>
                             </child>
@@ -119,7 +118,7 @@
                               </object>
                             </child>
                             <child>
-                              <object class="GtkButton">
+                              <object class="GtkButton" id="unlock_button">
                                 <property name="label" translatable="yes">_Unlock</property>
                                 <property name="use-underline">True</property>
                                 <property name="action-name">win.unlock</property>
@@ -167,7 +166,6 @@
                                     <property name="show-title-buttons">True</property>
                                     <child type="start">
                                       <object class="GtkButton">
-                                        <property name="receives-default">True</property>
                                         <property name="action-name">win.add_account</property>
                                         <property name="icon-name">list-add-symbolic</property>
                                         <property name="tooltip-text" translatable="yes">New Account</property>
@@ -175,7 +173,6 @@
                                     </child>
                                     <child type="end">
                                       <object class="GtkMenuButton">
-                                        <property name="receives-default">True</property>
                                         <property name="menu-model">menu</property>
                                         <property name="icon-name">open-menu-symbolic</property>
                                         <property name="tooltip-text" translatable="yes">Menu</property>
@@ -208,7 +205,6 @@
                                     <property name="show-title-buttons">True</property>
                                     <child type="start">
                                       <object class="GtkButton">
-                                        <property name="receives-default">True</property>
                                         <property name="action-name">win.add_account</property>
                                         <property name="icon-name">list-add-symbolic</property>
                                         <property name="tooltip-text" translatable="yes">New Account</property>
@@ -246,7 +242,6 @@
                                     </child>
                                     <child type="end">
                                       <object class="GtkMenuButton">
-                                        <property name="receives-default">True</property>
                                         <property name="menu-model">menu</property>
                                         <property name="icon-name">open-menu-symbolic</property>
                                         <property name="tooltip-text" translatable="yes">Menu</property>
@@ -254,7 +249,6 @@
                                     </child>
                                     <child type="end">
                                       <object class="GtkToggleButton" id="search_btn">
-                                        <property name="receives-default">True</property>
                                         <property name="icon-name">system-search-symbolic</property>
                                         <property name="tooltip-text" translatable="yes">Search</property>
                                       </object>

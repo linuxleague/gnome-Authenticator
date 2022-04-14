@@ -59,6 +59,8 @@ mod imp {
         pub empty_status_page: TemplateChild<adw::StatusPage>,
         #[template_child]
         pub title_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub unlock_button: TemplateChild<gtk::Button>,
     }
 
     #[glib::object_subclass]
@@ -86,6 +88,7 @@ mod imp {
                 locked_img: TemplateChild::default(),
                 title_stack: TemplateChild::default(),
                 main_stack: TemplateChild::default(),
+                unlock_button: TemplateChild::default(),
             }
         }
 
@@ -129,11 +132,13 @@ impl Window {
         let imp = self.imp();
         match view {
             View::Login => {
+                self.set_default_widget(Some(&*imp.unlock_button));
                 imp.main_stack.set_visible_child_name("login");
                 imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 imp.password_entry.grab_focus();
             }
             View::Accounts => {
+                self.set_default_widget(gtk::Widget::NONE);
                 imp.main_stack.set_visible_child_name("unlocked");
                 imp.deck.set_visible_child_name("accounts");
                 imp.deck.set_can_navigate_back(false);
@@ -154,6 +159,7 @@ impl Window {
                 }
             }
             View::Account(account) => {
+                self.set_default_widget(gtk::Widget::NONE);
                 imp.main_stack.set_visible_child_name("unlocked");
                 imp.deck.set_visible_child_name("account");
                 imp.deck.set_can_navigate_back(true);
