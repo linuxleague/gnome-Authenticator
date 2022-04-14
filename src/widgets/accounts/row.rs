@@ -1,6 +1,6 @@
 use crate::models::Account;
 use glib::clone;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{gio, gdk, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use std::cell::RefCell;
 
@@ -35,6 +35,13 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
+
+            klass.add_binding_action(
+                gdk::Key::c,
+                gdk::ModifierType::CONTROL_MASK,
+                "account.copy-otp",
+                None,
+            );
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {

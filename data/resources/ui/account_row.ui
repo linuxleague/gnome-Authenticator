@@ -55,7 +55,7 @@
                         <property name="valign">center</property>
                         <property name="selectable">True</property>
                         <style>
-                          <class name="account-otp"/>
+                          <class name="numeric" />
                         </style>
                       </object>
                     </child>
