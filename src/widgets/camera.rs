@@ -212,7 +212,9 @@ impl Camera {
         let window = self.root().unwrap().downcast::<gtk::Window>().unwrap();
         let screenshot_file = screenshot::capture(window).await?;
         let code = screenshot::scan(&screenshot_file).await?;
-        screenshot_file.trash_future(glib::source::PRIORITY_LOW).await?;
+        screenshot_file
+            .trash_future(glib::source::PRIORITY_LOW)
+            .await?;
         self.emit_by_name::<()>("code-detected", &[&code]);
 
         Ok(())

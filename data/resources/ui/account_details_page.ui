@@ -60,7 +60,6 @@
                 <child>
                   <object class="UrlRow" id="website_row">
                     <property name="title" translatable="yes">Website</property>
-                    <property name="icon-name">globe-symbolic</property>
                   </object>
                 </child>
                 <style>

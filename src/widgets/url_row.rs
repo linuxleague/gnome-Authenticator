@@ -11,7 +11,6 @@ mod imp {
     #[derive(Debug, Default)]
     pub struct UrlRow {
         pub uri: RefCell<Option<String>>,
-        pub icon_name: RefCell<Option<String>>,
     }
 
     #[glib::object_subclass]
@@ -25,22 +24,13 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecString::new(
-                        "uri",
-                        "uri",
-                        "The Row URI",
-                        None,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                    ParamSpecString::new(
-                        "icon-name",
-                        "icon name",
-                        "The Icon Name",
-                        None,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                ]
+                vec![ParamSpecString::new(
+                    "uri",
+                    "uri",
+                    "The Row URI",
+                    None,
+                    glib::ParamFlags::READWRITE,
+                )]
             });
             PROPERTIES.as_ref()
         }
@@ -51,10 +41,6 @@ mod imp {
                     let uri = value.get().unwrap();
                     self.uri.replace(uri);
                 }
-                "icon-name" => {
-                    let icon_name = value.get().unwrap();
-                    self.icon_name.replace(icon_name);
-                }
                 _ => unimplemented!(),
             }
         }
@@ -62,7 +48,6 @@ mod imp {
         fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "uri" => self.uri.borrow().to_value(),
-                "icon-name" => self.icon_name.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }
@@ -95,16 +80,6 @@ impl UrlRow {
         }));
 
         self.add_controller(&gesture);
-
-        let image_prefix = gtk::Image::from_icon_name("image-missing-symbolic");
-        self.bind_property("icon-name", &image_prefix, "icon-name")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-            .build();
-        self.add_prefix(&image_prefix);
-
-        let image_suffix = gtk::Image::from_icon_name("link-symbolic");
-        image_suffix.add_css_class("dim-label");
-        self.add_suffix(&image_suffix);
     }
 
     fn open_uri(&self) {

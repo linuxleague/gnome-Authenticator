@@ -217,13 +217,11 @@
                                 <child>
                                   <object class="UrlRow" id="provider_website_row">
                                     <property name="title" translatable="yes">Website</property>
-                                    <property name="icon-name">globe-symbolic</property>
                                   </object>
                                 </child>
                                 <child>
                                   <object class="UrlRow" id="provider_help_row">
                                     <property name="title" translatable="yes">How to Set Up</property>
-                                    <property name="icon-name">help-page-symbolic</property>
                                   </object>
                                 </child>
                                 <style>
