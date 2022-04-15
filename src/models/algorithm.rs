@@ -135,7 +135,7 @@ impl FromStr for Algorithm {
     type Err = anyhow::Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().as_ref() {
-            "sha1" | "otp" => Ok(Self::SHA1),
+            "sha1" => Ok(Self::SHA1),
             "sha256" => Ok(Self::SHA256),
             "sha512" => Ok(Self::SHA512),
             _ => anyhow::bail!("Unsupported HMAC-algorithm"),
