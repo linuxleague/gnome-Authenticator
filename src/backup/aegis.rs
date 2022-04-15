@@ -565,7 +565,7 @@ impl Restorable for Aegis {
     }
 
     fn subtitle() -> String {
-        gettext("From a JSON file containing plain-text or encrypted fields.")
+        gettext("From a JSON file containing plain-text or encrypted fields")
     }
 
     fn restore(from: &gtk::gio::File, key: Option<&str>) -> Result<Vec<Self::Item>> {
