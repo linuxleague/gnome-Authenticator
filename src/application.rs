@@ -393,20 +393,10 @@ impl SearchProviderImpl for Application {
         window.present_with_time(timestamp);
     }
 
-    fn activate_result(&self, identifier: ResultID, _terms: &[String], timestamp: u32) {
-        self.activate();
-
-        let identifier = identifier.split(':').collect::<Vec<&str>>();
-        let provider_id = identifier[0].parse::<u32>().unwrap();
-        let account_id = identifier[1].parse::<u32>().unwrap();
-
-        let provider = self.imp().model.find_by_id(provider_id).unwrap();
-        let account = provider.accounts_model().find_by_id(account_id).unwrap();
-        account.copy_otp();
-
-        let window = self.active_window();
-        window.set_view(View::Account(account));
-        window.present_with_time(timestamp);
+    fn activate_result(&self, _identifier: ResultID, _terms: &[String], _timestamp: u32) {
+        let notification = gio::Notification::new(&gettext("One-Time password copied"));
+        notification.set_body(Some(&gettext("Password was copied successfully")));
+        self.send_notification(None, &notification);
     }
 
     fn initial_result_set(&self, terms: &[String]) -> Vec<ResultID> {
