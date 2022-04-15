@@ -1,7 +1,7 @@
 use crate::{
     config,
     models::{Account, Keyring, OTPUri, Provider, ProvidersModel, FAVICONS_PATH},
-    widgets::{PreferencesWindow, ProvidersDialog, View, Window},
+    widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use adw::prelude::*;
 use gettextrs::gettext;
@@ -401,7 +401,7 @@ impl SearchProviderImpl for Application {
 
     fn initial_result_set(&self, terms: &[String]) -> Vec<ResultID> {
         // don't show any results if the application is locked
-        if self.property::<bool>("locked") {
+        if self.locked() {
             vec![]
         } else {
             self.imp()
@@ -419,9 +419,17 @@ impl SearchProviderImpl for Application {
             .map(|id| {
                 self.account_provider_by_identifier(id)
                     .map(|(provider, account)| {
+                        // Workaround the fact accounts has to be set in a widget
+                        // for them to have a generated OTP
+                        // TODO: move this the time ticking to the Provider type
+                        // and propagate the update to it accounts
+                        if account.otp().is_empty() {
+                            account.generate_otp();
+                        }
+
                         ResultMeta::builder(id.to_owned(), &account.name())
                             .description(&provider.name())
-                            .clipboard_text(&account.otp())
+                            .clipboard_text(&account.otp().replace(" ", ""))
                             .build()
                     })
             })
