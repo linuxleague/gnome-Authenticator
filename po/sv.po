@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-31 17:31+0000\n"
-"PO-Revision-Date: 2022-01-26 14:30+0100\n"
-"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
+"POT-Creation-Date: 2022-04-15 00:33+0000\n"
+"PO-Revision-Date: 2022-04-15 21:18+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/authenticator/"
 "translation/sv/>\n"
 "Language: sv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
@@ -180,62 +180,48 @@ msgstr "Konto"
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:214
 msgid "Counter"
 msgstr "Räknare"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:180
 msgid "Algorithm"
 msgstr "Algoritm"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:167
 msgid "Computing Method"
 msgstr "Beräkningsmetod"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:197
 msgid "Period"
 msgstr "Period"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:198
 msgid "Duration in seconds until the next password update"
 msgstr "Varaktighet i sekunder tills nästa lösenordsuppdatering"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:231
 msgid "Digits"
 msgstr "Siffror"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:232
 msgid "Length of the generated code"
 msgstr "Längd på den genererade koden"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:155
+#: data/resources/ui/provider_page.ui:153
 msgid "Website"
 msgstr "Webbplats"
 
-#: data/resources/ui/account_add.ui:225
+#: data/resources/ui/account_add.ui:224
 msgid "How to Set Up"
 msgstr "Hur man konfigurerar"
 
-#: data/resources/ui/account_details_page.ui:73
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+#: data/resources/ui/account_details_page.ui:72
+#: data/resources/ui/provider_page.ui:265
 msgid "_Delete"
 msgstr "_Ta bort"
-
-#: data/resources/ui/account_row.ui:6
-msgid "D_etails"
-msgstr "D_etaljer"
-
-#: data/resources/ui/account_row.ui:12
-msgid "_Rename"
-msgstr "_Byt namn"
-
-#: data/resources/ui/account_row.ui:86
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:61
-msgid "_Save"
-msgstr "_Spara"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -244,6 +230,11 @@ msgstr "Ingen kamera hittades"
 #: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "_Från en skärmbild"
+
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:61
+msgid "_Save"
+msgstr "_Spara"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
@@ -326,27 +317,27 @@ msgstr "Säkerhetskopiera"
 msgid "Restore"
 msgstr "Återställ"
 
-#: data/resources/ui/provider_page.ui:117
+#: data/resources/ui/provider_page.ui:116
 msgid "Select a _File"
 msgstr "Välj en _fil"
 
-#: data/resources/ui/provider_page.ui:141
+#: data/resources/ui/provider_page.ui:139
 msgid "Name"
 msgstr "Namn"
 
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/provider_page.ui:154
 msgid "Used to fetch the provider icon"
 msgstr "Används för att hämta leverantörsikon"
 
-#: data/resources/ui/provider_page.ui:217
+#: data/resources/ui/provider_page.ui:215
 msgid "The by default value for counter-based computing method"
 msgstr "Standardvärdet för räknarbaserad beräkningsmetod"
 
-#: data/resources/ui/provider_page.ui:251
+#: data/resources/ui/provider_page.ui:249
 msgid "Help URL"
 msgstr "Hjälp-URL"
 
-#: data/resources/ui/provider_page.ui:252
+#: data/resources/ui/provider_page.ui:250
 msgid "Provider setup instructions"
 msgstr "Leverantörens instruktioner för inställningar"
 
@@ -358,7 +349,7 @@ msgstr "Leverantörer"
 msgid "New Provider"
 msgstr "Ny leverantör"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:252
 msgid "Search"
 msgstr "Sök"
 
@@ -444,23 +435,23 @@ msgstr "_Om Authenticator"
 msgid "Authenticator is Locked"
 msgstr "Authenticator är låst"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.ui:122
 msgid "_Unlock"
 msgstr "Lås _upp"
 
-#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#: data/resources/ui/window.ui:170 data/resources/ui/window.ui:209
 msgid "New Account"
 msgstr "Nytt konto"
 
-#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:246
 msgid "Menu"
 msgstr "Meny"
 
-#: data/resources/ui/window.ui:192
+#: data/resources/ui/window.ui:188
 msgid "No Accounts"
 msgstr "Inga konton"
 
-#: data/resources/ui/window.ui:193
+#: data/resources/ui/window.ui:189
 msgid "Add an account or scan a QR code first."
 msgstr "Lägg till ett konto eller skanna en QR-kod först."
 
@@ -469,6 +460,14 @@ msgid "translator-credits"
 msgstr ""
 "Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Luna Jernberg <droidbittin@gmail.com>"
+
+#: src/application.rs:397
+msgid "One-Time password copied"
+msgstr "Engångslösenord kopierat"
+
+#: src/application.rs:398
+msgid "Password was copied successfully"
+msgstr "Lyckades kopiera lösenordet"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -551,7 +550,7 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "Ogiltig token"
 
-#: src/widgets/window.rs:313
+#: src/widgets/window.rs:319
 msgid "Wrong Password"
 msgstr "Fel lösenord"
 
@@ -597,6 +596,12 @@ msgstr "Bild"
 #: src/widgets/providers/page.rs:353
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Leverantören har konton tilldelade. Ta bort dem först"
+
+#~ msgid "D_etails"
+#~ msgstr "D_etaljer"
+
+#~ msgid "_Rename"
+#~ msgstr "_Byt namn"
 
 #~ msgid "Copy PIN to clipboard"
 #~ msgstr "Kopiera PIN till urklipp"
@@ -710,17 +715,11 @@ msgstr "Leverantören har konton tilldelade. Ta bort dem först"
 #~ msgid "Default"
 #~ msgstr "Standard"
 
-#~ msgid "The One-Time Passwords expire in {} seconds"
-#~ msgstr "Engångslösenorden upphör att gälla om {} sekunder"
-
 #~ msgid "Couldn't generate the secret code"
 #~ msgstr "Kunde inte generera den hemliga koden"
 
 #~ msgid "The PIN of {} was copied to the clipboard"
 #~ msgstr "PIN för {} kopierades till urklipp"
-
-#~ msgid "The account was updated successfully"
-#~ msgstr "Kontot uppdaterades framgångsrikt"
 
 #~ msgid "Undo"
 #~ msgstr "Ångra"
