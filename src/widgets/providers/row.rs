@@ -2,7 +2,8 @@ use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
     widgets::{accounts::AccountRow, ProgressIcon, ProgressIconExt, ProviderImage},
 };
-use gtk::{glib, glib::clone, prelude::*, subclass::prelude::*, CompositeTemplate};
+use adw::prelude::*;
+use gtk::{glib, glib::clone, subclass::prelude::*, CompositeTemplate};
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
 mod imp {
@@ -252,12 +253,9 @@ impl ProviderRow {
             let account = account.clone().downcast::<Account>().unwrap();
             let row = AccountRow::new(account.clone());
 
-            row.connect_local(
-                "shared",
-                false,
-                clone!(@weak account, @weak provider_row => @default-return None, move |_| {
+            row.connect_activated(
+                clone!(@weak account, @weak provider_row => move |_| {
                     provider_row.emit_by_name::<()>("shared", &[&account]);
-                    None
                 }),
             );
 
