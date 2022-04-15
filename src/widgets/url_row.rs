@@ -80,6 +80,10 @@ impl UrlRow {
         }));
 
         self.add_controller(&gesture);
+
+        let image_suffix = gtk::Image::from_icon_name("link-symbolic");
+        image_suffix.add_css_class("dim-label");
+        self.add_suffix(&image_suffix);
     }
 
     fn open_uri(&self) {
