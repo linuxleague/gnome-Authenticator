@@ -74,8 +74,7 @@
                 <property name="action-name">account.delete</property>
                 <property name="halign">end</property>
                 <style>
-                  <class name="large-button" />
-                  <class name="pill-button" />
+                  <class name="pill" />
                   <class name="destructive-action" />
                 </style>
               </object>

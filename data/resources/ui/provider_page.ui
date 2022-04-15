@@ -107,8 +107,7 @@
                             <property name="use-underline">True</property>
                             <property name="action-name">providers.reset_image</property>
                             <style>
-                              <class name="large-button" />
-                              <class name="pill-button"/>
+                              <class name="pill"/>
                             </style>
                           </object>
                         </child>
@@ -118,8 +117,7 @@
                             <property name="use-underline">True</property>
                             <property name="action-name">providers.select_image</property>
                             <style>
-                              <class name="large-button" />
-                              <class name="pill-button"/>
+                              <class name="pill"/>
                             </style>
                           </object>
                         </child>
@@ -269,8 +267,7 @@
                     <property name="action-name">providers.delete</property>
                     <property name="halign">end</property>
                     <style>
-                      <class name="large-button" />
-                      <class name="pill-button" />
+                      <class name="pill" />
                       <class name="destructive-action" />
                     </style>
                   </object>

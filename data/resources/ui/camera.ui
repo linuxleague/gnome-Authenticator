@@ -50,8 +50,7 @@
                         <property name="margin-top">24</property>
                         <property name="use-underline">True</property>
                         <style>
-                          <class name="large-button" />
-                          <class name="pill-button" />
+                          <class name="pill" />
                           <class name="suggested-action" />
                         </style>
                       </object>
