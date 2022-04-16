@@ -13,3 +13,4 @@ builddir/
 .flatpak-builder/
 app/
 vendor/
+*.flatpak

@@ -1,7 +1,8 @@
 use crate::models::Provider;
+use crate::models::RUNTIME;
 use glib::{clone, Receiver, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::{send, spawn};
+use gtk_macros::send;
 
 pub enum ImageAction {
     Ready(gio::File),
@@ -171,15 +172,34 @@ impl ProviderImage {
     fn fetch(&self) {
         let imp = self.imp();
         if let Some(provider) = self.provider() {
-            let sender = imp.sender.clone();
             imp.stack.set_visible_child_name("loading");
             imp.spinner.start();
-            spawn!(async move {
-                match provider.favicon().await {
-                    Ok(file) => send!(sender, ImageAction::Ready(file)),
-                    Err(_) => send!(sender, ImageAction::Failed),
-                }
-            });
+
+            if let Some(website) = provider.website() {
+                let id = provider.id();
+                let name = provider.name();
+                let (sender, receiver) = futures::channel::oneshot::channel();
+                RUNTIME.spawn(async move {
+                    match Provider::favicon(website, name, id).await {
+                        Ok(file) => {
+                            sender.send(Some(file)).unwrap();
+                        }
+                        Err(err) => {
+                            log::error!("Failed to load favicon {}", err);
+                            sender.send(None).unwrap();
+                        }
+                    }
+                });
+                glib::MainContext::default().spawn_local(clone!(@weak self as this => async move {
+                   let imp = this.imp();
+                    let response = receiver.await.unwrap();
+                    if let Some(file) = response {
+                        send!(imp.sender.clone(), ImageAction::Ready(file));
+                    } else {
+                        send!(imp.sender.clone(), ImageAction::Failed);
+                    }
+                }));
+            }
         }
     }
 

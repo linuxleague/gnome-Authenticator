@@ -7,7 +7,6 @@ version = "0.1.0"
 adw = {package = "libadwaita", version = "0.1.0"}
 anyhow = "1.0"
 ashpd = {version = "0.3", features = ["feature_pipewire", "feature_gtk4"]}
-async-std = "1.10"
 binascii = "0.1"
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "1.4", features = ["sqlite"]}
@@ -32,7 +31,8 @@ rust-argon2 = "1.0"
 secret-service = "2.0"
 serde = "1.0"
 serde_json = "1.0"
-surf = "2.3"
+reqwest =  "0.11"
+tokio = { version = "1.0", features = ["rt-multi-thread", "fs", "io-util"] }
 unicase = "2.6"
 url = "2.2"
 zbar-rust = "0.0"

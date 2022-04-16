@@ -13,8 +13,9 @@ mod provider;
 mod provider_sorter;
 mod providers;
 
-pub static CLIENT: Lazy<surf::Client> =
-    Lazy::new(|| surf::Client::new().with(surf::middleware::Redirect::default()));
+pub static CLIENT: Lazy<reqwest::Client> = Lazy::new(reqwest::Client::new);
+pub static RUNTIME: Lazy<tokio::runtime::Runtime> =
+    Lazy::new(|| tokio::runtime::Runtime::new().unwrap());
 
 pub use self::{
     account::Account,

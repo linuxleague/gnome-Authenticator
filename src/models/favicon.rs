@@ -23,14 +23,14 @@ const SUPPORTED_RELS: [&[u8]; 7] = [
 
 #[derive(Debug)]
 pub enum FaviconError {
-    Surf(surf::Error),
+    Reqwest(reqwest::Error),
     Url(url::ParseError),
     NoResults,
 }
 
-impl From<surf::Error> for FaviconError {
-    fn from(e: surf::Error) -> Self {
-        Self::Surf(e)
+impl From<reqwest::Error> for FaviconError {
+    fn from(e: reqwest::Error) -> Self {
+        Self::Reqwest(e)
     }
 }
 
@@ -51,8 +51,15 @@ impl std::fmt::Display for FaviconError {
     }
 }
 
-#[derive(Debug)]
 pub struct Favicon(Vec<Url>);
+
+impl std::fmt::Debug for Favicon {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_list()
+            .entries(self.0.iter().map(|u| u.as_str()))
+            .finish()
+    }
+}
 
 impl Favicon {
     pub async fn find_best(&self) -> Option<&Url> {
@@ -67,22 +74,22 @@ impl Favicon {
                 }
             }
         }
-        best
+        best.or_else(|| self.0.get(0))
     }
 
     pub async fn size(&self, url: &Url) -> Option<(u32, u32)> {
-        let mut response = CLIENT.get(url).await.ok()?;
+        let response = CLIENT.get(url.as_str()).send().await.ok()?;
 
         let ext = std::path::Path::new(url.path())
             .extension()
             .map(|e| e.to_str().unwrap())?;
 
         if ext == "svg" {
-            let body = response.body_string().await.ok()?;
+            let body = response.text().await.ok()?;
 
             self.svg_dimensions(body)
         } else {
-            let bytes = response.body_bytes().await.ok()?;
+            let bytes = response.bytes().await.ok()?;
 
             let mut image = ImageReader::new(Cursor::new(bytes));
 
@@ -106,13 +113,17 @@ pub struct FaviconScrapper;
 
 impl FaviconScrapper {
     pub async fn from_url(url: Url) -> Result<Favicon, FaviconError> {
-        let mut res = CLIENT.get(&url).header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15").await?;
-        let body = res.body_string().await?;
+        let res = CLIENT.get(url.as_str())
+            .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15")
+            .send()
+            .await?;
+        let body = res.text().await?;
         let mut reader = quick_xml::Reader::from_str(&body);
         reader.check_end_names(false);
         reader.trim_markup_names_in_closing_tags(true);
 
-        let icons = Self::from_reader(&mut reader, &url);
+        let mut icons = Self::from_reader(&mut reader, &url);
+        icons.push(url.join("favicon.ico")?);
         if icons.is_empty() {
             return Err(FaviconError::NoResults);
         }
