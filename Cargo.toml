@@ -32,7 +32,7 @@ secret-service = "2.0"
 serde = "1.0"
 serde_json = "1.0"
 reqwest =  "0.11"
-tokio = { version = "1.0", features = ["rt-multi-thread", "fs", "io-util"] }
+tokio = { version = "1.0", features = ["rt-multi-thread", "fs", "io-util", "macros"] }
 unicase = "2.6"
 url = "2.2"
 zbar-rust = "0.0"
