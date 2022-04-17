@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-15 00:33+0000\n"
-"PO-Revision-Date: 2022-04-15 21:50+0300\n"
+"POT-Creation-Date: 2022-04-17 14:04+0000\n"
+"PO-Revision-Date: 2022-04-17 18:18+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -346,7 +346,7 @@ msgstr "Настанови щодо налаштування надавача д
 msgid "Providers"
 msgstr "Надавачі даних"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:221
 msgid "New Provider"
 msgstr "Новий надавач даних"
 
@@ -462,15 +462,27 @@ msgstr "Спочатку додайте обліковий запис або в�
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/application.rs:397
-#| msgid "The One-Time Passwords expire in {} seconds"
+#: src/application.rs:398
 msgid "One-Time password copied"
 msgstr "Одноразовий пароль скопійовано"
 
-#: src/application.rs:398
-#| msgid "The account was updated successfully"
+#: src/application.rs:399
 msgid "Password was copied successfully"
 msgstr "Пароль успішно скопійовано"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:514 src/backup/aegis.rs:564
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:518
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "До файла JSON, який містить прості текстові або зашифровані поля"
+
+#: src/backup/aegis.rs:568
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "З файла JSON, який містить прості текстові або зашифровані поля"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -549,7 +561,7 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:197
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
@@ -579,24 +591,24 @@ msgid "The key used to encrypt the vault"
 msgstr "Ключ, який використовується для розшифрування сховища"
 
 #: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
-#: src/widgets/providers/page.rs:310
+#: src/widgets/providers/page.rs:326
 msgid "Select"
 msgstr "Вибрати"
 
 #: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
-#: src/widgets/providers/page.rs:311
+#: src/widgets/providers/page.rs:327
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/page.rs:197
 msgid "Editing Provider: {}"
 msgstr "Редагування надавача даних: {}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:334
 msgid "Image"
 msgstr "Зображення"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:369
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку "
