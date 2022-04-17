@@ -5,8 +5,8 @@ use crate::{
 use anyhow::Result;
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::{action, get_action, spawn};
+use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk_macros::spawn;
 use once_cell::sync::OnceCell;
 use std::str::FromStr;
 
@@ -20,7 +20,6 @@ mod imp {
     pub struct AccountAddDialog {
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: RefCell<Option<Provider>>,
-        pub actions: gio::SimpleActionGroup,
         #[template_child]
         pub camera: TemplateChild<Camera>,
         #[template_child]
@@ -65,6 +64,29 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
+
+            klass.install_action("add.previous", None, move |dialog, _, _| {
+                let imp = dialog.imp();
+                if imp.deck.visible_child_name().unwrap() == "camera" {
+                    imp.deck.set_visible_child_name("main");
+                } else {
+                    dialog.close();
+                }
+            });
+
+            klass.install_action("add.save", None, move |dialog, _, _| {
+                if dialog.save().is_ok() {
+                    dialog.close();
+                }
+            });
+
+            klass.install_action("add.camera", None, move |dialog, _, _| {
+                dialog.scan_from_camera();
+            });
+
+            klass.install_action("add.screenshot", None, move |dialog, _, _| {
+                dialog.scan_from_screenshot();
+            });
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -82,6 +104,11 @@ mod imp {
             });
             SIGNALS.as_ref()
         }
+
+        fn constructed(&self, obj: &Self::Type) {
+            obj.action_set_enabled("add.save", false);
+            self.parent_constructed(obj);
+        }
     }
     impl WidgetImpl for AccountAddDialog {}
     impl WindowImpl for AccountAddDialog {}
@@ -96,7 +123,6 @@ impl AccountAddDialog {
         let dialog = glib::Object::new::<Self>(&[]).expect("Failed to create AccountAddDialog");
 
         dialog.imp().model.set(model).unwrap();
-        dialog.setup_actions();
         dialog.setup_signals();
         dialog.setup_widgets();
         dialog
@@ -108,7 +134,7 @@ impl AccountAddDialog {
         let token = imp.token_entry.text();
 
         let is_valid = !(username.is_empty() || token.is_empty());
-        get_action!(imp.actions, @save).set_enabled(is_valid);
+        self.action_set_enabled("add.save", is_valid);
     }
 
     fn setup_signals(&self) {
@@ -221,50 +247,6 @@ impl AccountAddDialog {
         } else {
             imp.selected_provider.borrow_mut().take();
         }
-    }
-
-    fn setup_actions(&self) {
-        let imp = self.imp();
-        action!(
-            imp.actions,
-            "previous",
-            clone!(@weak self as dialog => move |_, _| {
-                let imp = dialog.imp();
-                if imp.deck.visible_child_name().unwrap() == "camera" {
-                    imp.deck.set_visible_child_name("main");
-                } else {
-                    dialog.close();
-                }
-            })
-        );
-
-        action!(
-            imp.actions,
-            "save",
-            clone!(@weak self as dialog => move |_, _| {
-                if dialog.save().is_ok() {
-                    dialog.close();
-                }
-            })
-        );
-
-        action!(
-            imp.actions,
-            "camera",
-            clone!(@weak self as dialog => move |_, _| {
-                dialog.scan_from_camera();
-            })
-        );
-
-        action!(
-            imp.actions,
-            "screenshot",
-            clone!(@weak self as dialog => move |_, _| {
-                dialog.scan_from_screenshot();
-            })
-        );
-        self.insert_action_group("add", Some(&imp.actions));
-        get_action!(imp.actions, @save).set_enabled(false);
     }
 
     fn setup_widgets(&self) {

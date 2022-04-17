@@ -193,9 +193,10 @@ mod imp {
                 clone!(@weak app => move |settings, key| {
                     match key {
                         "auto-lock" => {
-                            match settings.boolean(key) {
-                                true => app.restart_lock_timeout(),
-                                false => app.cancel_lock_timeout(),
+                            if settings.boolean(key) {
+                                app.restart_lock_timeout();
+                            } else {
+                                app.cancel_lock_timeout();
                             }
                         },
                         "auto-lock-timeout" => app.restart_lock_timeout(),

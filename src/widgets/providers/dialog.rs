@@ -2,8 +2,7 @@ use super::ProviderPage;
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use adw::{prelude::*, subclass::prelude::*};
 use glib::clone;
-use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::action;
+use gtk::{glib, subclass::prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 enum View {
@@ -20,7 +19,6 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
     pub struct ProvidersDialog {
         pub page: ProviderPage,
-        pub actions: gio::SimpleActionGroup,
         pub filter_model: gtk::FilterListModel,
         #[template_child]
         pub providers_list: TemplateChild<gtk::ListBox>,
@@ -44,6 +42,18 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             Self::bind_template(klass);
+            klass.install_action("providers.back", None, move |dialog, _, _| {
+                dialog.set_view(View::List);
+            });
+
+            klass.install_action("providers.add", None, move |dialog, _, _| {
+                dialog.add_provider();
+            });
+
+            klass.install_action("providers.search", None, move |dialog, _, _| {
+                let search_btn = &*dialog.imp().search_btn;
+                search_btn.set_active(!search_btn.is_active());
+            });
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -78,7 +88,6 @@ impl ProvidersDialog {
             glib::Object::new::<ProvidersDialog>(&[]).expect("Failed to create ProvidersDialog");
 
         dialog.setup_widgets(model);
-        dialog.setup_actions();
         dialog
     }
 
@@ -187,37 +196,6 @@ impl ProvidersDialog {
             .build();
     }
 
-    fn setup_actions(&self) {
-        let imp = self.imp();
-
-        action!(
-            imp.actions,
-            "back",
-            clone!(@weak self as dialog => move |_ , _| {
-                dialog.set_view(View::List);
-            })
-        );
-
-        action!(
-            imp.actions,
-            "add",
-            clone!(@weak self as dialog => move |_, _| {
-                dialog.add_provider();
-            })
-        );
-
-        let search_btn = &*imp.search_btn;
-        action!(
-            imp.actions,
-            "search",
-            clone!(@weak search_btn => move |_,_| {
-                search_btn.set_active(!search_btn.is_active());
-            })
-        );
-
-        self.insert_action_group("providers", Some(&imp.actions));
-    }
-
     fn search(&self, text: String) {
         let providers_filter = gtk::CustomFilter::new(move |object| {
             let provider = object.downcast_ref::<Provider>().unwrap();
@@ -263,9 +241,9 @@ mod row {
         use glib::{ParamSpec, ParamSpecObject, Value};
         use std::cell::RefCell;
 
+        #[derive(Debug, Default)]
         pub struct ProviderActionRow {
             pub provider: RefCell<Option<Provider>>,
-            pub actions: gio::SimpleActionGroup,
             pub title_label: gtk::Label,
         }
 
@@ -274,17 +252,6 @@ mod row {
             const NAME: &'static str = "ProviderActionRow";
             type Type = super::ProviderActionRow;
             type ParentType = gtk::ListBoxRow;
-
-            fn new() -> Self {
-                let actions = gio::SimpleActionGroup::new();
-                let title_label = gtk::Label::new(None);
-
-                Self {
-                    actions,
-                    title_label,
-                    provider: RefCell::new(None),
-                }
-            }
         }
 
         impl ObjectImpl for ProviderActionRow {

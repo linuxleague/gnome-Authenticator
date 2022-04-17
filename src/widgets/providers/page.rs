@@ -6,7 +6,6 @@ use adw::prelude::*;
 use gettextrs::gettext;
 use glib::{clone, translate::IntoGlib};
 use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::{action, get_action};
 
 mod imp {
     use super::*;
@@ -98,6 +97,24 @@ mod imp {
             OTPMethod::static_type();
             Algorithm::static_type();
             Self::bind_template(klass);
+
+            klass.install_action("providers.save", None, move |page, _, _| {
+                if let Err(err) = page.save() {
+                    warn!("Failed to save provider {}", err);
+                }
+            });
+            klass.install_action("providers.delete", None, move |page, _, _| {
+                if let Err(err) = page.delete_provider() {
+                    warn!("Failed to delete the provider {}", err);
+                }
+            });
+
+            klass.install_action("providers.reset_image", None, move |page, _, _| {
+                page.reset_image();
+            });
+            klass.install_action("providers.select_image", None, move |page, _, _| {
+                page.open_select_image();
+            });
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -135,7 +152,7 @@ mod imp {
 
         fn constructed(&self, obj: &Self::Type) {
             obj.setup_widgets();
-            obj.setup_actions();
+            obj.action_set_enabled("providers.save", false);
             self.parent_constructed(obj);
         }
     }
@@ -219,7 +236,7 @@ impl ProviderPage {
             && (provider_website.is_empty() || url::Url::parse(&provider_website).is_ok())
             && (provider_help_url.is_empty() || url::Url::parse(&provider_help_url).is_ok());
 
-        get_action!(imp.actions, @save).set_enabled(is_valid);
+        self.action_set_enabled("providers.save", is_valid);
     }
 
     // Save the provider & emit a signal when one is created/updated
@@ -358,44 +375,6 @@ impl ProviderPage {
             anyhow::bail!("Can't remove a provider as none are selected");
         }
         Ok(())
-    }
-    fn setup_actions(&self) {
-        let imp = self.imp();
-        action!(
-            imp.actions,
-            "save",
-            clone!(@weak self as page => move |_, _| {
-                if let Err(err) = page.save() {
-                    warn!("Failed to save provider {}", err);
-                }
-            })
-        );
-        action!(
-            imp.actions,
-            "delete",
-            clone!(@weak self as page => move |_, _| {
-                if let Err(err) = page.delete_provider() {
-                    warn!("Failed to delete the provider {}", err);
-                }
-            })
-        );
-
-        action!(
-            imp.actions,
-            "reset_image",
-            clone!(@weak self as page => move |_, _| {
-                page.reset_image();
-            })
-        );
-        action!(
-            imp.actions,
-            "select_image",
-            clone!(@weak self as page => move |_, _| {
-                page.open_select_image();
-            })
-        );
-        self.insert_action_group("providers", Some(&imp.actions));
-        get_action!(imp.actions, @save).set_enabled(false);
     }
 
     fn setup_widgets(&self) {
