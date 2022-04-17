@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-25 07:57+0000\n"
-"PO-Revision-Date: 2022-01-25 16:03+0300\n"
+"POT-Creation-Date: 2022-04-17 14:04+0000\n"
+"PO-Revision-Date: 2022-04-17 19:09+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/authenticator/"
 "translation/ru/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
@@ -178,62 +178,48 @@ msgstr "Аккаунт"
 msgid "Token"
 msgstr "Токен"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:214
 msgid "Counter"
 msgstr "Счетчик"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:180
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:167
 msgid "Computing Method"
 msgstr "Метод Вычислений"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
+#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:197
 msgid "Period"
 msgstr "Период"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:198
 msgid "Duration in seconds until the next password update"
 msgstr "Продолжительность в секундах до следующего обновления пароля"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
+#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:231
 msgid "Digits"
 msgstr "Цифры"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:232
 msgid "Length of the generated code"
 msgstr "Длина генерируемого кода"
 
 #: data/resources/ui/account_add.ui:219
 #: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:155
+#: data/resources/ui/provider_page.ui:153
 msgid "Website"
 msgstr "Веб-сайт"
 
-#: data/resources/ui/account_add.ui:225
+#: data/resources/ui/account_add.ui:224
 msgid "How to Set Up"
 msgstr "Как Настроить"
 
-#: data/resources/ui/account_details_page.ui:73
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+#: data/resources/ui/account_details_page.ui:72
+#: data/resources/ui/provider_page.ui:265
 msgid "_Delete"
 msgstr "_Удалить"
-
-#: data/resources/ui/account_row.ui:6
-msgid "D_etails"
-msgstr "П_одробно"
-
-#: data/resources/ui/account_row.ui:12
-msgid "_Rename"
-msgstr "_Переименовать"
-
-#: data/resources/ui/account_row.ui:86
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:61
-msgid "_Save"
-msgstr "_Сохранить"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -242,6 +228,11 @@ msgstr "Камера Не Найдена"
 #: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "_Из Скриншота"
+
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:61
+msgid "_Save"
+msgstr "_Сохранить"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
@@ -316,35 +307,35 @@ msgstr "Время в минутах"
 msgid "Backup/Restore"
 msgstr "Резервное копирование/Восстановление"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
 msgstr "Резервное копирование"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
 msgid "Restore"
 msgstr "Восстановление"
 
-#: data/resources/ui/provider_page.ui:117
+#: data/resources/ui/provider_page.ui:116
 msgid "Select a _File"
 msgstr "Выбрать _Файл"
 
-#: data/resources/ui/provider_page.ui:141
+#: data/resources/ui/provider_page.ui:139
 msgid "Name"
 msgstr "Имя"
 
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/provider_page.ui:154
 msgid "Used to fetch the provider icon"
 msgstr "Служит для получения значка провайдера"
 
-#: data/resources/ui/provider_page.ui:217
+#: data/resources/ui/provider_page.ui:215
 msgid "The by default value for counter-based computing method"
 msgstr "Значение по умолчанию для метода вычислений на основе счетчика"
 
-#: data/resources/ui/provider_page.ui:251
+#: data/resources/ui/provider_page.ui:249
 msgid "Help URL"
 msgstr "URL Справки"
 
-#: data/resources/ui/provider_page.ui:252
+#: data/resources/ui/provider_page.ui:250
 msgid "Provider setup instructions"
 msgstr "Инструкции по настройке провайдера"
 
@@ -352,11 +343,11 @@ msgstr "Инструкции по настройке провайдера"
 msgid "Providers"
 msgstr "Провайдеры"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:221
 msgid "New Provider"
 msgstr "Новый Провайдер"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:252
 msgid "Search"
 msgstr "Поиск"
 
@@ -442,29 +433,51 @@ msgstr "_О Программе"
 msgid "Authenticator is Locked"
 msgstr "Аутентификатор Заблокирован"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.ui:122
 msgid "_Unlock"
 msgstr "_Разблокировать"
 
-#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#: data/resources/ui/window.ui:170 data/resources/ui/window.ui:209
 msgid "New Account"
 msgstr "Новый Аккаунт"
 
-#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:246
 msgid "Menu"
 msgstr "Меню"
 
-#: data/resources/ui/window.ui:192
+#: data/resources/ui/window.ui:188
 msgid "No Accounts"
 msgstr "Нет Аккаунтов"
 
-#: data/resources/ui/window.ui:193
+#: data/resources/ui/window.ui:189
 msgid "Add an account or scan a QR code first."
 msgstr "Сначала добавьте аккаунт или отсканируйте QR-Код."
 
 #: src/application.rs:145
 msgid "translator-credits"
 msgstr "Aleksandr Melman <alexmelman88@gmail.com>, 2022"
+
+#: src/application.rs:398
+msgid "One-Time password copied"
+msgstr "Одноразовый пароль скопирован"
+
+#: src/application.rs:399
+msgid "Password was copied successfully"
+msgstr "Пароль был успешно скопирован"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:514 src/backup/aegis.rs:564
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:518
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "В JSON-файл, содержащий открытый текст или зашифрованные поля"
+
+#: src/backup/aegis.rs:568
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Из JSON-файла, содержащего открытый текст или зашифрованные поля"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -543,11 +556,11 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:197
 msgid "Invalid Token"
 msgstr "Некорректный Токен"
 
-#: src/widgets/window.rs:313
+#: src/widgets/window.rs:319
 msgid "Wrong Password"
 msgstr "Неверный Пароль"
 
@@ -556,40 +569,46 @@ msgstr "Неверный Пароль"
 msgid "Wrong Passphrase"
 msgstr "Неверная Кодовая фраза"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
 msgid "Key / Passphrase"
 msgstr "Ключ / Кодовая фраза"
 
-#: src/widgets/preferences/window.rs:210
+#: src/widgets/preferences/window.rs:212
 msgid "The key that will be used to decrypt the vault"
 msgstr "Ключ, который будет использоваться для расшифровки хранилища"
 
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
 msgid "Select File"
 msgstr "Выбрать Файл"
 
-#: src/widgets/preferences/window.rs:278
+#: src/widgets/preferences/window.rs:280
 msgid "The key used to encrypt the vault"
 msgstr "Ключ, используемый для шифрования хранилища"
 
-#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
-#: src/widgets/providers/page.rs:310
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:326
 msgid "Select"
 msgstr "Выбрать"
 
-#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
-#: src/widgets/providers/page.rs:311
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:327
 msgid "Cancel"
 msgstr "Отменить"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/page.rs:197
 msgid "Editing Provider: {}"
 msgstr "Редактирование Провайдера: {}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:334
 msgid "Image"
 msgstr "Изображение"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:369
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Провайдеру присвоены аккаунты, сначала удалите их"
+
+#~ msgid "D_etails"
+#~ msgstr "П_одробно"
+
+#~ msgid "_Rename"
+#~ msgstr "_Переименовать"
