@@ -3,6 +3,7 @@ use image::io::Reader as ImageReader;
 use once_cell::sync::Lazy;
 use percent_encoding::percent_decode_str;
 use quick_xml::events::{attributes::Attribute, BytesStart, Event};
+use reqwest::IntoUrl;
 use std::{fmt, io::Cursor, path::PathBuf};
 use tokio::io::AsyncWriteExt;
 use url::Url;
@@ -26,38 +27,38 @@ const SUPPORTED_RELS: [&[u8]; 7] = [
 const SUPPORTED_META: [&[u8]; 1] = [b"msapplication-TileImage"];
 
 #[derive(Debug, PartialEq, Eq)]
-pub enum FaviconType {
+pub enum Type {
     Png,
     Svg,
     Ico,
 }
 
-impl FaviconType {
-    /// Convert a file extension to a FaviconType and default to png if none can be
+impl Type {
+    /// Convert a file extension to a Type and default to png if none can be
     /// detected
     pub fn from_url(url: &Url) -> Self {
         let ext = std::path::Path::new(url.path())
             .extension()
             .map(|e| e.to_str().unwrap());
         match ext {
-            Some("png") => FaviconType::Png,
-            Some("ico") => FaviconType::Ico,
-            Some("svg") => FaviconType::Svg,
+            Some("png") => Type::Png,
+            Some("ico") => Type::Ico,
+            Some("svg") => Type::Svg,
             _ => Self::default(),
         }
     }
 
     pub fn from_mimetype(mimetype: &str) -> Self {
         match mimetype {
-            "image/x-icon" => FaviconType::Ico,
-            "image/png" => FaviconType::Png,
-            "image/svg+xml" => FaviconType::Svg,
+            "image/x-icon" => Type::Ico,
+            "image/png" => Type::Png,
+            "image/svg+xml" => Type::Svg,
             _ => Self::default(),
         }
     }
 }
 
-impl fmt::Display for FaviconType {
+impl fmt::Display for Type {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             Self::Png => f.write_str("png"),
@@ -67,36 +68,74 @@ impl fmt::Display for FaviconType {
     }
 }
 
-impl Default for FaviconType {
+impl Default for Type {
     fn default() -> Self {
         Self::Png
     }
 }
 
+#[derive(Debug, Default, PartialEq)]
+pub struct Metadata {
+    type_: Type,
+    size: Option<(u32, u32)>,
+}
+
+impl Metadata {
+    pub fn new(type_: Type) -> Self {
+        Self { type_, size: None }
+    }
+
+    #[allow(dead_code)]
+    pub fn with_size(type_: Type, size: (u32, u32)) -> Self {
+        Self {
+            type_,
+            size: Some(size),
+        }
+    }
+
+    pub fn type_(&self) -> &Type {
+        &self.type_
+    }
+
+    pub fn size(&self) -> Option<(u32, u32)> {
+        self.size
+    }
+}
+
 #[derive(PartialEq)]
 pub enum Favicon {
-    Data(Vec<u8>, FaviconType),
-    Url(Url, FaviconType),
+    Data(Vec<u8>, Metadata),
+    Url(Url, Metadata),
 }
 
 impl fmt::Debug for Favicon {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Data(bytes, f_type) => f
+            Self::Data(bytes, metadata) => f
                 .debug_struct("Favicon")
                 .field("data", bytes)
-                .field("type", f_type)
+                .field("type", &metadata.type_())
+                .field("size", &metadata.size())
                 .finish(),
-            Self::Url(url, f_type) => f
+            Self::Url(url, metadata) => f
                 .debug_struct("Favicon")
                 .field("url", &url.as_str())
-                .field("type", f_type)
+                .field("type", &metadata.type_())
+                .field("size", &metadata.size())
                 .finish(),
         }
     }
 }
 
 impl Favicon {
+    pub fn for_url<U: IntoUrl>(url: U, metadata: Metadata) -> Self {
+        Self::Url(url.into_url().expect("Invalid URL"), metadata)
+    }
+
+    pub fn for_data(data: Vec<u8>, metadata: Metadata) -> Self {
+        Self::Data(data, metadata)
+    }
+
     #[allow(dead_code)]
     pub fn is_data(&self) -> bool {
         matches!(self, Self::Data(_, _))
@@ -107,10 +146,10 @@ impl Favicon {
         matches!(self, Self::Url(_, _))
     }
 
-    pub fn mime_type(&self) -> &FaviconType {
+    pub fn metadata(&self) -> &Metadata {
         match self {
-            Self::Data(_, f_type) => f_type,
-            Self::Url(_, f_type) => f_type,
+            Self::Data(_, metadata) => metadata,
+            Self::Url(_, metadata) => metadata,
         }
     }
 
@@ -123,7 +162,7 @@ impl Favicon {
             }
         };
 
-        if self.mime_type() == &FaviconType::Ico {
+        if self.metadata().type_() == &Type::Ico {
             log::debug!("Found a .ico favicon, converting to PNG");
 
             let cache_path = FAVICONS_PATH.join(format!("{}.png", icon_name));
@@ -149,22 +188,26 @@ impl Favicon {
     }
 
     async fn size(&self) -> Option<(u32, u32)> {
+        let type_ = self.metadata().type_();
         match self {
-            Self::Data(data, f_type) => {
-                if f_type == &FaviconType::Svg {
+            Self::Data(data, metadata) => metadata.size().or_else(|| {
+                if type_ == &Type::Svg {
                     self.svg_dimensions(std::str::from_utf8(data).ok().unwrap())
                 } else {
-                    self.bitmap_dimensions(data, f_type)
+                    self.bitmap_dimensions(data, type_)
                 }
-            }
-            Self::Url(url, f_type) => {
-                let response = CLIENT.get(url.as_str()).send().await.ok()?;
-
-                if f_type == &FaviconType::Svg {
-                    self.svg_dimensions(&response.text().await.ok()?)
+            }),
+            Self::Url(url, metadata) => {
+                if let Some(size) = metadata.size() {
+                    Some(size)
                 } else {
-                    let bytes = response.bytes().await.ok()?;
-                    self.bitmap_dimensions(&bytes, f_type)
+                    let response = CLIENT.get(url.as_str()).send().await.ok()?;
+                    if type_ == &Type::Svg {
+                        self.svg_dimensions(&response.text().await.ok()?)
+                    } else {
+                        let bytes = response.bytes().await.ok()?;
+                        self.bitmap_dimensions(&bytes, type_)
+                    }
                 }
             }
         }
@@ -178,7 +221,7 @@ impl Favicon {
         Some((width, height))
     }
 
-    fn bitmap_dimensions(&self, body: &[u8], format: &FaviconType) -> Option<(u32, u32)> {
+    fn bitmap_dimensions(&self, body: &[u8], format: &Type) -> Option<(u32, u32)> {
         let mut image = ImageReader::new(Cursor::new(body));
 
         let format = image::ImageFormat::from_extension(format.to_string())?;
@@ -251,7 +294,10 @@ impl FaviconScrapper {
 
         let mut icons = Self::from_reader(&mut reader, base_url.as_ref());
         if let Some(base) = base_url {
-            icons.push(Favicon::Url(base.join("favicon.ico")?, FaviconType::Ico));
+            icons.push(Favicon::for_url(
+                base.join("favicon.ico")?,
+                Metadata::new(Type::Ico),
+            ));
         }
         if icons.is_empty() {
             return Err(FaviconError::NoResults);
@@ -349,17 +395,20 @@ impl FaviconScrapper {
         }
         if has_proper_meta {
             if let Some(u) = url {
-                let ext = FaviconType::from_url(&u);
-                return Some(Favicon::Url(u, ext));
+                let ext = Type::from_url(&u);
+                return Some(Favicon::Url(u, Metadata::new(ext)));
             }
         }
         None
     }
 
     fn from_link(e: &BytesStart, base_url: Option<&Url>) -> Option<Favicon> {
-        let mut url = None;
+        let mut data = None;
+        let mut icon_url = None;
+        let mut metadata = Metadata::default();
 
         let mut has_proper_rel = false;
+
         for attr in e.html_attributes() {
             match attr {
                 Ok(Attribute {
@@ -369,7 +418,7 @@ impl FaviconScrapper {
                     let mut href = String::from_utf8(value.into_owned()).unwrap();
                     if href.starts_with("data:") {
                         // only bitmap icons contain ';' as a separator, svgs uses ','
-                        let mut icon_data = if href.contains(";") {
+                        let mut icon_data = if href.contains(';') {
                             href.trim_start_matches("data:").split(';')
                         } else {
                             href.trim_start_matches("data:").split(',')
@@ -377,9 +426,9 @@ impl FaviconScrapper {
 
                         let favicon_type = icon_data
                             .next()
-                            .map(FaviconType::from_mimetype)
+                            .map(Type::from_mimetype)
                             .unwrap_or_default();
-                        let data = icon_data
+                        data = icon_data
                             .next()
                             .map(|data| {
                                 if data.starts_with("base64") {
@@ -395,27 +444,40 @@ impl FaviconScrapper {
                                 }
                             })
                             .flatten();
-
-                        url = data.map(|d| Favicon::Data(d, favicon_type));
+                        metadata.type_ = favicon_type;
                     } else {
                         if href.starts_with("//") {
                             href = format!("https:{}", href);
                         }
-                        url = match Url::parse(&href) {
+                        match Url::parse(&href) {
                             Ok(url) => {
-                                let ext = FaviconType::from_url(&url);
-                                Some(Favicon::Url(url, ext))
+                                metadata.type_ = Type::from_url(&url);
+                                icon_url = Some(url);
                             }
                             Err(url::ParseError::RelativeUrlWithoutBase) => {
                                 base_url.and_then(|base| {
-                                    base.join(&href).ok().map(|u| {
-                                        let ext = FaviconType::from_url(&u);
-                                        Favicon::Url(u, ext)
+                                    base.join(&href).ok().map(|url| {
+                                        metadata.type_ = Type::from_url(&url);
+                                        icon_url = Some(url);
                                     })
-                                })
+                                });
                             }
-                            Err(_) => None,
+                            Err(_) => (),
                         };
+                    }
+                }
+                Ok(Attribute {
+                    key: b"sizes",
+                    value,
+                }) => {
+                    let size_inner = String::from_utf8(value.into_owned())
+                        .unwrap()
+                        .to_lowercase();
+                    let mut size_inner = size_inner.split('x');
+                    let width = size_inner.next().and_then(|w| w.parse::<u32>().ok());
+                    let height = size_inner.next().and_then(|h| h.parse::<u32>().ok());
+                    if let (Some(w), Some(h)) = (width, height) {
+                        metadata.size = Some((w, h));
                     }
                 }
                 Ok(Attribute { key: b"rel", value }) => {
@@ -425,14 +487,26 @@ impl FaviconScrapper {
                 }
                 _ => (),
             }
-            if has_proper_rel && url.is_some() {
+            if has_proper_rel && (data.is_some() || icon_url.is_some()) {
                 break;
             }
         }
         if has_proper_rel {
-            return url;
+            if let Some(data) = data {
+                return Some(Favicon::for_data(data, metadata));
+            } else if let Some(url) = icon_url {
+                return Some(Favicon::for_url(url, metadata));
+            }
         }
         None
+    }
+}
+
+impl std::ops::Index<usize> for FaviconScrapper {
+    type Output = Favicon;
+
+    fn index(&self, idx: usize) -> &Self::Output {
+        &self.0[idx]
     }
 }
 
@@ -440,14 +514,14 @@ impl FaviconScrapper {
 mod tests {
     use super::FaviconScrapper;
     use super::Url;
-    use super::{Favicon, FaviconType};
+    use super::{Favicon, Metadata, Type};
 
     #[tokio::test]
     async fn from_file() {
         let base_url = Url::parse("https://github.com").unwrap();
-        let expected_output = Favicon::Url(
-            Url::parse("https://github.githubassets.com/favicon.ico").unwrap(),
-            FaviconType::Ico,
+        let expected_output = Favicon::for_url(
+            "https://github.githubassets.com/favicon.ico",
+            Metadata::new(Type::Ico),
         );
 
         let scrapper = FaviconScrapper::from_file(
@@ -499,7 +573,7 @@ mod tests {
     #[tokio::test]
     async fn meta_tag() {
         let base_url = Url::parse("https://gitlab.com").unwrap();
-        let expected_output = Favicon::Url(Url::parse("https://assets.gitlab-static.net/assets/msapplication-tile-1196ec67452f618d39cdd85e2e3a542f76574c071051ae7effbfde01710eb17d.png").unwrap(), FaviconType::Png);
+        let expected_output = Favicon::for_url("https://assets.gitlab-static.net/assets/msapplication-tile-1196ec67452f618d39cdd85e2e3a542f76574c071051ae7effbfde01710eb17d.png", Metadata::new(Type::Png));
         let scrapper =
             FaviconScrapper::from_file("./tests/favicon/meta_tag.html".into(), Some(base_url))
                 .await
@@ -511,9 +585,9 @@ mod tests {
     #[tokio::test]
     async fn url_with_port() {
         let base_url = Url::parse("http://127.0.0.1:8000/index.html").unwrap();
-        let expected_output = Favicon::Url(
-            Url::parse("http://127.0.0.1:8000/favicon.ico").unwrap(),
-            FaviconType::Ico,
+        let expected_output = Favicon::for_url(
+            "http://127.0.0.1:8000/favicon.ico",
+            Metadata::new(Type::Ico),
         );
         let scrapper =
             FaviconScrapper::from_file("./tests/favicon/url_with_port.html".into(), Some(base_url))
@@ -532,7 +606,7 @@ mod tests {
         assert_eq!(scrapper.len(), 1);
         let best = scrapper.find_best().await.unwrap();
 
-        assert_eq!(best.mime_type(), &FaviconType::Ico);
+        assert_eq!(best.metadata().type_(), &Type::Ico);
         assert!(best.is_data());
         assert_eq!(best.size().await, Some((16, 16)));
     }
@@ -546,7 +620,101 @@ mod tests {
         assert_eq!(scrapper.len(), 1);
         let best = scrapper.find_best().await.unwrap();
 
-        assert_eq!(best.mime_type(), &FaviconType::Svg);
+        assert_eq!(best.metadata().type_(), &Type::Svg);
         assert!(best.is_data());
+    }
+
+    #[tokio::test]
+    async fn size() {
+        let base_url = Url::parse("https://about.gitlab.com").ok();
+        let scrapper = FaviconScrapper::from_file("./tests/favicon/size.html".into(), base_url)
+            .await
+            .unwrap();
+        assert!(!scrapper.is_empty());
+        // There are 16 but we always add the favicon.ico to try in case it exists as well
+        assert_eq!(scrapper.len(), 16 + 1);
+
+        assert_eq!(
+            scrapper[0],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/mstile-144x144.png?cache=20220413",
+                Metadata::new(Type::Png)
+            )
+        );
+        assert_eq!(
+            scrapper[1],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/favicon.ico?cache=20220413",
+                Metadata::new(Type::Ico),
+            )
+        );
+        assert_eq!(
+            scrapper[2],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/favicon-192x192.png?cache=2022041",
+                Metadata::with_size(Type::Png, (192, 192)),
+            )
+        );
+        assert_eq!(
+            scrapper[3],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/favicon-160x160.png?cache=2022041",
+                Metadata::with_size(Type::Png, (160, 160))
+            )
+        );
+        assert_eq!(
+            scrapper[4],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/favicon-96x96.png?cache=2022041",
+                Metadata::with_size(Type::Png, (96, 96))
+            )
+        );
+        assert_eq!(
+            scrapper[5],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/favicon-32x32.png?cache=2022041",
+                Metadata::with_size(Type::Png, (32, 32))
+            )
+        );
+        assert_eq!(
+            scrapper[6],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/favicon-16x16.png?cache=2022041",
+                Metadata::with_size(Type::Png, (16, 16))
+            )
+        );
+        assert_eq!(
+            scrapper[7],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-57x57.png?cache=2022041",
+                Metadata::with_size(Type::Png, (57, 57))
+            )
+        );
+        assert_eq!(
+            scrapper[8],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-60x60.png?cache=2022041",
+                Metadata::with_size(Type::Png, (60, 60))
+            )
+        );
+        assert_eq!(
+            scrapper[9],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-72x72.png?cache=2022041",
+                Metadata::with_size(Type::Png, (72, 72))
+            )
+        );
+        assert_eq!(
+            scrapper[10],
+            Favicon::for_url(
+                "https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-76x76.png?cache=2022041",
+                Metadata::with_size(Type::Png, (76, 76))
+            )
+        );
+        assert_eq!(scrapper[11], Favicon::for_url("https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-114x114.png?cache=2022041", Metadata::with_size(Type::Png, (114, 114 ))));
+        assert_eq!(scrapper[12], Favicon::for_url("https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-120x120.png?cache=2022041", Metadata::with_size(Type::Png, (120, 120 ))));
+        assert_eq!(scrapper[13], Favicon::for_url("https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-144x144.png?cache=2022041", Metadata::with_size(Type::Png, (144, 144 ))));
+        assert_eq!(scrapper[14], Favicon::for_url("https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-152x152.png?cache=2022041", Metadata::with_size(Type::Png, (152, 152 ))));
+        assert_eq!(scrapper[15], Favicon::for_url("https://about.gitlab.com/nuxt-images/ico/apple-touch-icon-180x180.png?cache=2022041", Metadata::with_size(Type::Png, (180, 180 ))));
     }
 }

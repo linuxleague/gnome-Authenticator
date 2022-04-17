@@ -22,7 +22,7 @@ pub use self::{
     account_sorter::AccountSorter,
     accounts::AccountsModel,
     algorithm::{Algorithm, OTPMethod},
-    favicon::{Favicon, FaviconError, FaviconScrapper, FaviconType, FAVICONS_PATH},
+    favicon::{Favicon, FaviconError, FaviconScrapper, Metadata, Type, FAVICONS_PATH},
     keyring::Keyring,
     otp_uri::OTPUri,
     provider::{Provider, ProviderPatch},
