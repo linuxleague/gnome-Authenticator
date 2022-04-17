@@ -14,6 +14,7 @@ data/resources/ui/shortcuts.ui
 data/resources/ui/window.ui
 src/application.rs
 src/main.rs
+src/backup/aegis.rs
 src/backup/andotp.rs
 src/backup/bitwarden.rs
 src/backup/freeotp.rs
