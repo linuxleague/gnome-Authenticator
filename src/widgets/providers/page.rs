@@ -237,7 +237,6 @@ impl ProviderPage {
 
         let image_uri = if let Some(file) = imp.selected_image.borrow().clone() {
             let basename = file.basename().unwrap();
-            println!("{:#?}", basename);
             let extension = basename
                 .to_str()
                 .unwrap()

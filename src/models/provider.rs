@@ -1,9 +1,6 @@
-use super::{
-    algorithm::{Algorithm, OTPMethod},
-    CLIENT,
-};
+use super::algorithm::{Algorithm, OTPMethod};
 use crate::{
-    models::{database, otp, Account, AccountsModel, FaviconError, FaviconScrapper, FAVICONS_PATH},
+    models::{database, otp, Account, AccountsModel, FaviconError, FaviconScrapper},
     schema::providers,
 };
 use anyhow::Result;
@@ -16,7 +13,6 @@ use std::{
     str::FromStr,
     string::ToString,
 };
-use tokio::io::AsyncWriteExt;
 use unicase::UniCase;
 use url::Url;
 
@@ -365,36 +361,8 @@ impl Provider {
 
         log::debug!("Trying to find the highest resolution favicon");
         if let Some(best_favicon) = favicon.find_best().await {
-            log::debug!("Best favicon found is {}", best_favicon);
-            let res = CLIENT.get(best_favicon.as_str()).send().await?;
-            let body = res.bytes().await?;
-
-            // TODO This check might fail. One should look for a more robust
-            // solution that does not involve trying to decode each favicon.
-            let cache_path = if best_favicon.as_str().ends_with(".ico") {
-                log::debug!("Found a .ico favicon, converting to PNG");
-
-                let cache_path = FAVICONS_PATH.join(format!("{}.png", icon_name.as_str()));
-                let mut dest = tokio::fs::File::create(cache_path.clone()).await?;
-
-                if let Ok(ico) = image::load_from_memory_with_format(&body, image::ImageFormat::Ico)
-                {
-                    let mut cursor = std::io::Cursor::new(vec![]);
-                    ico.write_to(&mut cursor, image::ImageOutputFormat::Png)?;
-                    dest.write_all(cursor.get_ref()).await?;
-                } else {
-                    log::debug!("It seems to not be a .ICO favicon, fallback to PNG");
-                    dest.write_all(&body).await?;
-                }
-
-                cache_path
-            } else {
-                let cache_path = FAVICONS_PATH.join(icon_name.as_str());
-                let mut dest = tokio::fs::File::create(cache_path.clone()).await?;
-                dest.write_all(&body).await?;
-
-                cache_path
-            };
+            log::debug!("Best favicon found is {:#?}", best_favicon);
+            let cache_path = best_favicon.cache(&icon_name).await?;
             Ok(gio::File::for_path(cache_path))
         } else {
             Err(Box::new(FaviconError::NoResults))
