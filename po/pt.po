@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-15 00:33+0000\n"
-"PO-Revision-Date: 2022-04-16 17:22+0100\n"
+"POT-Creation-Date: 2022-04-17 14:04+0000\n"
+"PO-Revision-Date: 2022-04-17 21:26+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (https://l10n.gnome.org/teams/pt/)\n"
 "Language: pt\n"
@@ -343,7 +343,7 @@ msgstr "Instruções de configuração do provedor"
 msgid "Providers"
 msgstr "Provedores"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:221
 msgid "New Provider"
 msgstr "Novo provedor"
 
@@ -460,13 +460,27 @@ msgstr ""
 "Manuela Silva <mmsrs@sky.com>\n"
 "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: src/application.rs:397
+#: src/application.rs:398
 msgid "One-Time password copied"
 msgstr "Palavra-passe única copiada"
 
-#: src/application.rs:398
+#: src/application.rs:399
 msgid "Password was copied successfully"
 msgstr "A palavra-passe foi copiada com sucesso"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:514 src/backup/aegis.rs:564
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:518
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "Num ficheiro JSON contendo texto simples ou campos encriptados"
+
+#: src/backup/aegis.rs:568
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "De um ficheiro JSON contendo texto simples ou campos encriptados"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -545,7 +559,7 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:197
 msgid "Invalid Token"
 msgstr "Token inválido"
 
@@ -575,24 +589,24 @@ msgid "The key used to encrypt the vault"
 msgstr "A chave utilizada para encriptar o cofre"
 
 #: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
-#: src/widgets/providers/page.rs:310
+#: src/widgets/providers/page.rs:326
 msgid "Select"
 msgstr "Selecionar"
 
 #: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
-#: src/widgets/providers/page.rs:311
+#: src/widgets/providers/page.rs:327
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/page.rs:197
 msgid "Editing Provider: {}"
 msgstr "A editar provedor: {}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:334
 msgid "Image"
 msgstr "Imagem"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:369
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "O provedor tem contas atribuídas. Remova-as primeiro"
 
