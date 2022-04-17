@@ -37,7 +37,7 @@ mod imp {
         type ParentType = gtk::Box;
 
         fn class_init(klass: &mut Self::Class) {
-            Self::bind_template(klass);
+            klass.bind_template();
             klass.install_action("account.delete", None, move |page, _, _| {
                 page.delete_account();
             });

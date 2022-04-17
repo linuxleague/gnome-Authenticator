@@ -50,7 +50,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            Self::bind_template(klass);
+            klass.bind_template();
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {

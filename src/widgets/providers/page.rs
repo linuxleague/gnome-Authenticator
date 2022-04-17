@@ -96,7 +96,7 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             OTPMethod::static_type();
             Algorithm::static_type();
-            Self::bind_template(klass);
+            klass.bind_template();
 
             klass.install_action("providers.save", None, move |page, _, _| {
                 if let Err(err) = page.save() {

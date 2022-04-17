@@ -63,7 +63,7 @@ mod imp {
         type ParentType = adw::Window;
 
         fn class_init(klass: &mut Self::Class) {
-            Self::bind_template(klass);
+            klass.bind_template();
 
             klass.install_action("add.previous", None, move |dialog, _, _| {
                 let imp = dialog.imp();

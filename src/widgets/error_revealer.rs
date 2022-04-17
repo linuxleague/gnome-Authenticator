@@ -22,7 +22,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.set_layout_manager_type::<gtk::BinLayout>();
-            Self::bind_template(klass);
+            klass.bind_template();
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
