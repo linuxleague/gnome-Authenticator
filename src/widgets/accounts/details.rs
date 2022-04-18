@@ -146,7 +146,7 @@ impl AccountDetailsPage {
         let imp = self.imp();
         imp.qrcode_picture
             .set_paintable(Some(&imp.qrcode_paintable));
-        imp.counter_label.set_adjustment(0, u32::MAX);
+        imp.counter_label.set_adjustment(1, u32::MAX);
     }
 
     fn delete_account(&self) {

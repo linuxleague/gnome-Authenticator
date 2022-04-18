@@ -296,8 +296,8 @@ impl Account {
         self.set_property("otp", &label);
     }
 
-    fn increment_counter(&self) -> Result<()> {
-        // For security reasons, never re-use the same counter for HOTP
+    /// Increment the internal counter in case of a HOTP account
+    pub fn increment_counter(&self) -> Result<()> {
         let new_value = self.counter() + 1;
         self.imp().counter.set(new_value);
 

@@ -1,4 +1,4 @@
-use crate::models::Account;
+use crate::models::{Account, OTPMethod};
 use gtk::{gdk, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use std::cell::RefCell;
 
@@ -12,6 +12,8 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/Authenticator/account_row.ui")]
     pub struct AccountRow {
         pub account: RefCell<Option<Account>>,
+        #[template_child]
+        pub increment_btn: TemplateChild<gtk::Button>,
         #[template_child]
         pub otp_label: TemplateChild<gtk::Label>,
     }
@@ -34,7 +36,13 @@ mod imp {
 
             klass.install_action("account.copy-otp", None, move |row, _, _| {
                 row.account().copy_otp();
-            })
+            });
+            klass.install_action("account.increment-counter", None, move |row, _, _| {
+                match row.account().increment_counter() {
+                    Ok(_) => row.account().generate_otp(),
+                    Err(err) => log::error!("Failed to increment the counter {err}"),
+                };
+            });
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -114,5 +122,9 @@ impl AccountRow {
             .bind_property("otp", &*imp.otp_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
+
+        // Only display the increment button if it is a HOTP account
+        imp.increment_btn
+            .set_visible(account.provider().method() == OTPMethod::HOTP);
     }
 }

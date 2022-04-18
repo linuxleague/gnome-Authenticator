@@ -14,8 +14,21 @@
       </object>
     </child>
     <child type="suffix">
+      <object class="GtkButton" id="increment_btn">
+        <property name="visible">False</property>
+        <property name="valign">center</property>
+        <property name="action-name">account.increment-counter</property>
+        <property name="icon-name">refresh-symbolic</property>
+        <property name="tooltip-text" translatable="yes">Increment the counter</property>
+        <style>
+          <class name="flat" />
+        </style>
+      </object>
+    </child>
+    <child type="suffix">
       <object class="GtkImage">
         <property name="icon_name">go-next-symbolic</property>
+        <property name="tooltip-text">Account details</property>
       </object>
     </child>
   </template>
