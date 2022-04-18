@@ -380,6 +380,19 @@ impl Account {
         Ok(())
     }
 
+    pub fn set_counter(&self, counter: u32) -> Result<()> {
+        let db = database::connection();
+        let conn = db.get()?;
+
+        let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
+        diesel::update(target)
+            .set(accounts::columns::counter.eq(counter as i32))
+            .execute(&conn)?;
+
+        self.set_property("counter", &counter);
+        Ok(())
+    }
+
     pub fn delete(&self) -> Result<()> {
         let token_id = self.token_id();
         std::thread::spawn(move || {

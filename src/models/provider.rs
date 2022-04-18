@@ -458,11 +458,19 @@ impl Provider {
     }
 
     pub fn website(&self) -> Option<String> {
-        self.imp().website.borrow().clone()
+        self.imp()
+            .website
+            .borrow()
+            .clone()
+            .and_then(|w| if w.is_empty() { None } else { Some(w) })
     }
 
     pub fn help_url(&self) -> Option<String> {
-        self.imp().help_url.borrow().clone()
+        self.imp()
+            .help_url
+            .borrow()
+            .clone()
+            .and_then(|h| if h.is_empty() { None } else { Some(h) })
     }
 
     pub fn delete(&self) -> Result<()> {

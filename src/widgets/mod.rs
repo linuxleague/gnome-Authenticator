@@ -1,6 +1,7 @@
 mod accounts;
 mod camera;
 mod camera_paintable;
+mod editable_label;
 mod error_revealer;
 mod preferences;
 mod progress_icon;
@@ -12,6 +13,7 @@ pub use self::{
     accounts::{AccountAddDialog, QRCodeData},
     camera::{Camera, CameraEvent},
     camera_paintable::CameraPaintable,
+    editable_label::EditableLabel,
     error_revealer::ErrorRevealer,
     preferences::PreferencesWindow,
     progress_icon::{ProgressIcon, ProgressIconExt},

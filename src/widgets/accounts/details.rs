@@ -1,13 +1,19 @@
 use super::qrcode_paintable::QRCodePaintable;
-use crate::{models::Account, widgets::UrlRow};
+use crate::{
+    models::{Account, OTPMethod},
+    widgets::UrlRow,
+};
 use gettextrs::gettext;
 use gtk::{
+    gdk,
     glib::{self, clone},
     prelude::*,
     subclass::prelude::*,
     CompositeTemplate,
 };
 mod imp {
+    use crate::widgets::{editable_label::EditableSpin, EditableLabel};
+
     use super::*;
     use glib::subclass::{self, Signal};
     use once_cell::sync::Lazy;
@@ -23,9 +29,27 @@ mod imp {
         #[template_child]
         pub provider_label: TemplateChild<gtk::Label>,
         #[template_child]
-        pub account_label: TemplateChild<gtk::Label>,
+        pub account_label: TemplateChild<EditableLabel>,
         #[template_child(id = "list")]
         pub listbox: TemplateChild<gtk::ListBox>,
+        #[template_child]
+        pub algorithm_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub method_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub counter_label: TemplateChild<EditableSpin>,
+        #[template_child]
+        pub period_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub digits_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub counter_row: TemplateChild<adw::ActionRow>,
+        #[template_child]
+        pub period_row: TemplateChild<adw::ActionRow>,
+        #[template_child]
+        pub help_row: TemplateChild<UrlRow>,
+        #[template_child]
+        pub edit_stack: TemplateChild<gtk::Stack>,
         pub qrcode_paintable: QRCodePaintable,
         pub account: RefCell<Option<Account>>,
     }
@@ -38,9 +62,39 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            EditableLabel::static_type();
+            EditableSpin::static_type();
+
             klass.install_action("account.delete", None, move |page, _, _| {
                 page.delete_account();
             });
+            klass.install_action("account.edit", None, move |page, _, _| {
+                page.set_edit_mode();
+            });
+            klass.install_action("account.save", None, move |page, _, _| {
+                if let Err(err) = page.save() {
+                    log::error!("Failed to save account details {}", err);
+                }
+            });
+
+            klass.install_action("account.back", None, move |page, _, _| {
+                let imp = page.imp();
+                if imp.edit_stack.visible_child_name().as_deref() == Some("save") {
+                    imp.edit_stack.set_visible_child_name("edit");
+                    imp.account_label.stop_editing(false);
+                    imp.counter_label.stop_editing(false);
+                    imp.edit_stack.grab_focus();
+                } else {
+                    page.activate_action("win.back", None).unwrap();
+                }
+            });
+
+            klass.add_binding_action(
+                gdk::Key::Escape,
+                gdk::ModifierType::empty(),
+                "account.back",
+                None,
+            );
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -67,7 +121,14 @@ mod imp {
             self.parent_constructed(obj);
         }
     }
-    impl WidgetImpl for AccountDetailsPage {}
+    impl WidgetImpl for AccountDetailsPage {
+        fn unmap(&self, widget: &Self::Type) {
+            self.edit_stack.set_visible_child_name("edit");
+            self.account_label.stop_editing(false);
+            self.counter_label.stop_editing(false);
+            self.parent_unmap(widget);
+        }
+    }
     impl BoxImpl for AccountDetailsPage {}
 }
 
@@ -85,6 +146,7 @@ impl AccountDetailsPage {
         let imp = self.imp();
         imp.qrcode_picture
             .set_paintable(Some(&imp.qrcode_paintable));
+        imp.counter_label.set_adjustment(0, u32::MAX);
     }
 
     fn delete_account(&self) {
@@ -114,9 +176,30 @@ impl AccountDetailsPage {
         let qr_code = account.qr_code();
         imp.qrcode_paintable.set_qrcode(qr_code);
 
-        imp.account_label.set_text(&account.name());
-        imp.provider_label.set_text(&account.provider().name());
+        let provider = account.provider();
 
+        imp.account_label.set_text(&account.name());
+        imp.provider_label.set_text(&provider.name());
+        imp.algorithm_label
+            .set_text(&provider.algorithm().to_locale_string());
+        imp.method_label
+            .set_text(&provider.method().to_locale_string());
+        if provider.method() == OTPMethod::HOTP {
+            imp.counter_row.show();
+            imp.period_row.hide();
+            imp.counter_label.set_text(account.counter());
+        } else {
+            imp.counter_row.hide();
+            imp.period_row.show();
+            imp.period_label.set_text(&provider.period().to_string());
+        }
+        imp.digits_label.set_text(&provider.digits().to_string());
+        if let Some(ref help) = provider.help_url() {
+            imp.help_row.set_uri(help);
+            imp.help_row.show();
+        } else {
+            imp.help_row.hide();
+        }
         if let Some(ref website) = account.provider().website() {
             imp.website_row.set_uri(website);
             imp.website_row.show();
@@ -124,5 +207,33 @@ impl AccountDetailsPage {
             imp.website_row.hide();
         }
         imp.account.replace(Some(account.clone()));
+    }
+
+    fn set_edit_mode(&self) {
+        let imp = self.imp();
+        imp.edit_stack.set_visible_child_name("save");
+        imp.account_label.start_editing();
+        imp.counter_label.start_editing();
+
+        imp.account_label.grab_focus();
+    }
+
+    fn save(&self) -> anyhow::Result<()> {
+        let imp = self.imp();
+        imp.edit_stack.set_visible_child_name("edit");
+        imp.account_label.stop_editing(true);
+        imp.counter_label.stop_editing(true);
+
+        if let Some(account) = imp.account.borrow().as_ref() {
+            account.set_name(&imp.account_label.text())?;
+
+            let old_counter = account.counter();
+            account.set_counter(imp.counter_label.value())?;
+            // regenerate the otp value if the counter value was changed
+            if old_counter != account.counter() && account.provider().method() == OTPMethod::HOTP {
+                account.generate_otp();
+            }
+        }
+        Ok(())
     }
 }

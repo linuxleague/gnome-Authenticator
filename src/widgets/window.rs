@@ -160,6 +160,7 @@ impl Window {
             }
             View::Account(account) => {
                 self.set_default_widget(gtk::Widget::NONE);
+                imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 imp.main_stack.set_visible_child_name("unlocked");
                 imp.deck.set_visible_child_name("account");
                 imp.deck.set_can_navigate_back(true);

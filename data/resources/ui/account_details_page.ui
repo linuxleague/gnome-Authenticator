@@ -16,80 +16,182 @@
       </object>
     </child>
     <child>
-      <object class="GtkPicture" id="qrcode_picture">
-        <property name="halign">center</property>
-        <property name="margin-top">36</property>
-        <property name="width-request">200</property>
-        <property name="height-request">200</property>
-      </object>
-    </child>
-    <child>
-      <object class="AdwClamp">
-        <property name="margin-top">36</property>
-        <property name="margin-bottom">12</property>
-        <property name="vexpand">True</property>
+      <object class="GtkScrolledWindow">
         <child>
           <object class="GtkBox">
             <property name="orientation">vertical</property>
-            <property name="spacing">42</property>
-            <property name="margin-start">6</property>
-            <property name="margin-end">6</property>
             <child>
-              <object class="GtkListBox" id="list">
-                <property name="selection-mode">none</property>
+              <object class="GtkPicture" id="qrcode_picture">
+                <property name="halign">center</property>
+                <property name="margin-top">36</property>
+                <property name="width-request">200</property>
+                <property name="height-request">200</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="halign">center</property>
+                <property name="margin-top">36</property>
+                <property name="margin-bottom">36</property>
+                <property name="spacing">12</property>
                 <child>
-                  <object class="AdwActionRow">
-                    <property name="title" translatable="yes">Account</property>
+                  <object class="GtkStack" id="edit_stack">
+                    <property name="transition-type">crossfade</property>
                     <child>
-                      <object class="GtkLabel" id="account_label">
-                        <property name="halign">end</property>
+                      <object class="GtkStackPage">
+                        <property name="name">edit</property>
+                        <property name="child">
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">_Edit</property>
+                            <property name="use-underline">True</property>
+                            <property name="action-name">account.edit</property>
+                            <style>
+                              <class name="pill" />
+                            </style>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">save</property>
+                        <property name="child">
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">_Save</property>
+                            <property name="use-underline">True</property>
+                            <property name="action-name">account.save</property>
+                            <style>
+                              <class name="pill" />
+                              <class name="suggested-action" />
+                            </style>
+                          </object>
+                        </property>
                       </object>
                     </child>
                   </object>
                 </child>
                 <child>
-                  <object class="AdwActionRow">
-                    <property name="title" translatable="yes">Provider</property>
+                  <object class="GtkButton">
+                    <property name="label" translatable="yes">_Delete</property>
+                    <property name="use-underline">True</property>
+                    <property name="action-name">account.delete</property>
+                    <style>
+                      <class name="pill" />
+                      <class name="destructive-action" />
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwClamp">
+                <property name="vexpand">True</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="spacing">42</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
                     <child>
-                      <object class="GtkLabel" id="provider_label">
-                        <property name="halign">end</property>
+                      <object class="GtkListBox" id="list">
+                        <property name="selection-mode">none</property>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property name="title" translatable="yes">Account</property>
+                            <child>
+                              <object class="EditableLabel" id="account_label">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property name="title" translatable="yes">Provider</property>
+                            <child>
+                              <object class="GtkLabel" id="provider_label">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="boxed-list" />
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkListBox">
+                        <property name="selection-mode">none</property>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property name="title" translatable="yes">Algorithm</property>
+                            <child>
+                              <object class="GtkLabel" id="algorithm_label">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property name="title" translatable="yes">Computing Method</property>
+                            <child>
+                              <object class="GtkLabel" id="method_label">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwActionRow" id="counter_row">
+                            <property name="title" translatable="yes">Counter</property>
+                            <child>
+                              <object class="EditableSpin" id="counter_label">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwActionRow" id="period_row">
+                            <property name="title" translatable="yes">Period</property>
+                            <child>
+                              <object class="GtkLabel" id="period_label">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property name="title" translatable="yes">Digits</property>
+                            <child>
+                              <object class="GtkLabel" id="digits_label">
+                                <property name="halign">end</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="UrlRow" id="website_row">
+                            <property name="title" translatable="yes">Website</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="UrlRow" id="help_row">
+                            <property name="title" translatable="yes">Help</property>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="boxed-list" />
+                        </style>
                       </object>
                     </child>
                   </object>
                 </child>
-                <child>
-                  <object class="UrlRow" id="website_row">
-                    <property name="title" translatable="yes">Website</property>
-                  </object>
-                </child>
-                <style>
-                  <class name="boxed-list"/>
-                </style>
               </object>
             </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label" translatable="yes">_Delete</property>
-                <property name="use-underline">True</property>
-                <property name="action-name">account.delete</property>
-                <property name="halign">end</property>
-                <style>
-                  <class name="pill" />
-                  <class name="destructive-action" />
-                </style>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class='GtkShortcutController'>
-        <property name='scope'>local</property>
-        <child>
-          <object class='GtkShortcut'>
-            <property name='trigger'>Escape</property>
-            <property name='action'>action(win.back)</property>
           </object>
         </child>
       </object>
