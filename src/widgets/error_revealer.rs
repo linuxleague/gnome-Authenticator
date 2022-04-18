@@ -53,12 +53,13 @@ impl ErrorRevealer {
     pub fn popup(&self, text: &str) {
         let imp = self.imp();
         imp.label.set_text(text);
-
+        self.show();
         imp.revealer.set_reveal_child(true);
         glib::timeout_add_seconds_local(
             2,
             glib::clone!(@weak self as error_revealer => @default-return glib::Continue(false), move || {
                 error_revealer.imp().revealer.set_reveal_child(false);
+                error_revealer.hide();
                 glib::Continue(false)
             }),
         );

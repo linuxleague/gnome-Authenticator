@@ -5,7 +5,7 @@ use crate::{
 use adw::prelude::*;
 use gettextrs::gettext;
 use glib::{clone, translate::IntoGlib};
-use gtk::{gio, gdk_pixbuf, glib, subclass::prelude::*, CompositeTemplate};
+use gtk::{gdk_pixbuf, gio, glib, subclass::prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;
@@ -48,7 +48,7 @@ mod imp {
         #[template_child]
         pub default_counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
-        pub title: TemplateChild<gtk::Label>,
+        pub title: TemplateChild<adw::WindowTitle>,
         #[template_child]
         pub delete_button: TemplateChild<gtk::Button>,
         pub selected_provider: RefCell<Option<Provider>>,
@@ -194,7 +194,7 @@ impl ProviderPage {
             );
             imp.image.set_provider(Some(&provider));
             imp.title
-                .set_text(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
+                .set_title(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
             imp.selected_provider.replace(Some(provider));
         } else {
             imp.name_entry.set_text("");
@@ -218,7 +218,7 @@ impl ProviderPage {
                     .find_position(OTPMethod::default().into_glib()),
             );
             imp.image.set_provider(None);
-            imp.title.set_text(&gettext("New Provider"));
+            imp.title.set_title(&gettext("New Provider"));
             imp.selected_provider.replace(None);
         }
     }

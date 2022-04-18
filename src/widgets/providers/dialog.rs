@@ -2,7 +2,7 @@ use super::ProviderPage;
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use adw::{prelude::*, subclass::prelude::*};
 use glib::clone;
-use gtk::{glib, subclass::prelude::*, CompositeTemplate};
+use gtk::{glib, pango, subclass::prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
 
 enum View {
@@ -32,6 +32,8 @@ mod imp {
         pub stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub title_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub page_stack: TemplateChild<gtk::Stack>,
     }
 
     #[glib::object_subclass]
@@ -186,14 +188,15 @@ impl ProvidersDialog {
                 None
             }),
         );
-        let deck_page = imp.deck.append(&imp.page);
-        deck_page.set_name(Some("provider"));
+        imp.page_stack.add_named(&imp.page, Some("provider"));
         self.set_view(View::List);
 
         imp.deck
             .bind_property("folded", &*imp.page.imp().revealer, "reveal-child")
             .flags(glib::BindingFlags::SYNC_CREATE)
             .build();
+
+        imp.page_stack.set_visible_child_name("welcome");
     }
 
     fn search(&self, text: String) {
@@ -222,7 +225,8 @@ impl ProvidersDialog {
         let imp = self.imp();
         match view {
             View::Form => {
-                imp.deck.set_visible_child_name("provider");
+                imp.deck.set_visible_child_name("page");
+                imp.page_stack.set_visible_child_name("provider");
                 imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 imp.search_entry.emit_stop_search();
             }
@@ -315,13 +319,15 @@ mod row {
             let imp = self.imp();
             let hbox = gtk::Box::builder()
                 .orientation(gtk::Orientation::Horizontal)
-                .margin_bottom(16)
-                .margin_end(16)
-                .margin_top(16)
-                .margin_start(16)
+                .margin_bottom(12)
+                .margin_end(6)
+                .margin_top(12)
+                .margin_start(6)
                 .build();
             imp.title_label.set_valign(gtk::Align::Center);
             imp.title_label.set_halign(gtk::Align::Start);
+            imp.title_label.set_wrap(true);
+            imp.title_label.set_ellipsize(pango::EllipsizeMode::End);
             hbox.append(&imp.title_label);
             self.set_child(Some(&hbox));
         }

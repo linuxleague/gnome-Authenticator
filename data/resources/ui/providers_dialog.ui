@@ -14,13 +14,13 @@
             <property name="name">providers</property>
             <property name="child">
               <object class="GtkBox">
-                <property name="width-request">240</property>
+                <property name="width-request">200</property>
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="AdwHeaderBar">
-                      <binding name="show-end-title-buttons">
-                        <lookup name="folded">deck</lookup>
-                      </binding>
+                    <binding name="show-end-title-buttons">
+                      <lookup name="folded">deck</lookup>
+                    </binding>
                     <child type="start">
                       <object class="GtkButton">
                         <property name="receives-default">True</property>
@@ -38,7 +38,7 @@
                             <property name="name">title</property>
                             <property name="child">
                               <object class="AdwWindowTitle" id="window_title">
-                                <property name="title" bind-source="ProvidersDialog" bind-property="title" bind-flags="bidirectional|sync-create"/>
+                                <property name="title" bind-source="ProvidersDialog" bind-property="title" bind-flags="bidirectional|sync-create" />
                               </object>
                             </property>
                           </object>
@@ -47,7 +47,7 @@
                           <object class="GtkStackPage">
                             <property name="name">search</property>
                             <property name="child">
-                                <object class="GtkSearchEntry" id="search_entry"/>
+                              <object class="GtkSearchEntry" id="search_entry" />
                             </property>
                           </object>
                         </child>
@@ -61,7 +61,7 @@
                       </object>
                     </child>
                     <style>
-                      <class name="titlebar"/>
+                      <class name="titlebar" />
                     </style>
                   </object>
                 </child>
@@ -73,16 +73,17 @@
                         <property name="name">results</property>
                         <property name="child">
                           <object class="GtkScrolledWindow">
+                            <property name="hexpand">false</property>
+                            <property name="hscrollbar-policy">never</property>
                             <child>
                               <object class="AdwClamp">
                                 <child>
                                   <object class="GtkListBox" id="providers_list">
                                     <property name="vexpand">true</property>
-                                    <property name="width-request">240</property>
                                     <property name="activate-on-single-click">True</property>
                                     <property name="selection-mode">browse</property>
                                     <style>
-                                      <class name="navigation-sidebar"/>
+                                      <class name="navigation-sidebar" />
                                     </style>
                                   </object>
                                 </child>
@@ -111,7 +112,7 @@
             </property>
           </object>
         </child>
-         <child>
+        <child>
           <object class="AdwLeafletPage">
             <property name="navigatable">False</property>
             <property name="child">
@@ -123,7 +124,7 @@
                       <object class="GtkSeparator">
                         <property name="orientation">vertical</property>
                         <style>
-                          <class name="sidebar"/>
+                          <class name="sidebar" />
                         </style>
                       </object>
                     </child>
@@ -134,8 +135,41 @@
                     <property name="orientation">vertical</property>
                     <property name="vexpand">True</property>
                     <style>
-                      <class name="sidebar"/>
+                      <class name="sidebar" />
                     </style>
+                  </object>
+                </child>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwLeafletPage">
+            <property name="name">page</property>
+            <property name="child">
+              <object class="GtkStack" id="page_stack">
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">welcome</property>
+                    <property name="child">
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkHeaderBar">
+                            <property name="title-widget">
+                              <object class="GtkLabel" />
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="AdwStatusPage">
+                            <property name="vexpand">True</property>
+                            <property name="title" translatable="yes">Select a provider</property>
+                            <property name="icon-name">provider-fallback</property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
                   </object>
                 </child>
               </object>
