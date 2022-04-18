@@ -132,8 +132,9 @@ impl AccountAddDialog {
         let imp = self.imp();
         let username = imp.username_entry.text();
         let token = imp.token_entry.text();
+        let has_provider = imp.selected_provider.borrow().is_some();
 
-        let is_valid = !(username.is_empty() || token.is_empty());
+        let is_valid = !username.is_empty() && !token.is_empty() && has_provider;
         self.action_set_enabled("add.save", is_valid);
     }
 
@@ -247,6 +248,7 @@ impl AccountAddDialog {
         } else {
             imp.selected_provider.borrow_mut().take();
         }
+        self.validate();
     }
 
     fn setup_widgets(&self) {
