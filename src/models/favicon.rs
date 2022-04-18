@@ -157,6 +157,7 @@ impl Favicon {
             Self::Data(bytes, _) => bytes.to_owned(),
             Self::Url(url, _) => {
                 let res = CLIENT.get(url.as_str()).send().await?;
+                res.error_for_status_ref()?;
                 res.bytes().await?.to_vec()
             }
         };
@@ -193,6 +194,7 @@ impl Favicon {
                     Some(size)
                 } else {
                     let response = CLIENT.get(url.as_str()).send().await.ok()?;
+                    response.error_for_status_ref().ok()?;
                     if type_ == &Type::Svg {
                         self.svg_dimensions(&response.text().await.ok()?)
                     } else {
@@ -266,6 +268,7 @@ impl FaviconScrapper {
             .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15")
             .send()
             .await?;
+        res.error_for_status_ref()?;
         let body = res.text().await?;
         Self::from_string(body, Some(base_url))
     }
