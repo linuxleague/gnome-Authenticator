@@ -1,13 +1,15 @@
 use super::algorithm::{Algorithm, OTPMethod};
 use crate::{
-    models::{database, otp, Account, AccountsModel, FaviconError, FaviconScrapper},
+    models::{
+        database, otp, Account, AccountsModel, FaviconError, FaviconScrapper, Type, FAVICONS_PATH,
+    },
     schema::providers,
 };
 use anyhow::Result;
 use core::cmp::Ordering;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use glib::{Cast, StaticType, ToValue};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{gdk_pixbuf, gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::{Cell, RefCell},
     str::FromStr,
@@ -351,19 +353,77 @@ impl Provider {
         website: String,
         name: String,
         id: u32,
-    ) -> Result<gio::File, Box<dyn std::error::Error>> {
+    ) -> Result<String, Box<dyn std::error::Error>> {
         let website_url = Url::parse(&website)?;
         let favicon = FaviconScrapper::from_url(website_url).await?;
         log::debug!("Found the following icons {:#?} for {}", favicon, name);
 
         let icon_name = format!("{}_{}", id, name.replace(' ', "_"));
         let icon_name = glib::base64_encode(icon_name.as_bytes());
+        let small_icon_name = format!("{icon_name}_32x32");
+        let large_icon_name = format!("{icon_name}_96x96");
+        // We need two sizes:
+        // - 32x32 for the accounts lists
+        // - 96x96 elsewhere
+        // either we find them in the list of available icons
+        // or we scale down the "best" one we find.
+        let mut found_small = false;
+        let mut found_large = false;
 
-        log::debug!("Trying to find the highest resolution favicon");
+        match (favicon.find_size(32).await, favicon.find_size(96).await) {
+            (Some(small), Some(large)) => {
+                if small.cache(&small_icon_name).await.is_ok()
+                    && large.cache(&large_icon_name).await.is_ok()
+                {
+                    return Ok(icon_name.to_string());
+                }
+            }
+            (Some(small), _) => {
+                log::debug!("Found a 32x32 variant with no 96x96 variant");
+                found_small = true;
+                small.cache(&small_icon_name).await?;
+            }
+            (_, Some(large)) => {
+                log::debug!("Found a 96x96 variant with no 32x32 variant");
+                found_large = true;
+                large.cache(&large_icon_name).await?;
+            }
+            // We found none, we fallback to getting the best icon
+            _ => (),
+        };
+
         if let Some(best_favicon) = favicon.find_best().await {
-            log::debug!("Best favicon found is {:#?}", best_favicon);
-            let cache_path = best_favicon.cache(&icon_name).await?;
-            Ok(gio::File::for_path(cache_path))
+            log::debug!("Largest favicon found is {:#?}", best_favicon);
+            best_favicon.cache(&icon_name).await?;
+            let cache_path = FAVICONS_PATH.join(&*icon_name);
+            // Don't try to scale down svg variants
+            if best_favicon.metadata().type_() != &Type::Svg {
+                log::debug!("Creating scaled down variants for {:#?}", cache_path);
+                {
+                    let pixbuf = gdk_pixbuf::Pixbuf::from_file(cache_path.clone())?;
+                    if !found_small {
+                        log::debug!("Creating a 32x32 variant of the favicon");
+                        let small_pixbuf = pixbuf
+                            .scale_simple(32, 32, gdk_pixbuf::InterpType::Bilinear)
+                            .unwrap();
+
+                        let mut small_cache = cache_path.clone();
+                        small_cache.set_file_name(small_icon_name);
+                        small_pixbuf.savev(small_cache.clone(), "png", &[])?;
+                    }
+                    if !found_large {
+                        log::debug!("Creating a 96x96 variant of the favicon");
+                        let large_pixbuf = pixbuf
+                            .scale_simple(96, 96, gdk_pixbuf::InterpType::Bilinear)
+                            .unwrap();
+                        let mut large_cache = cache_path.clone();
+                        large_cache.set_file_name(large_icon_name);
+                        large_pixbuf.savev(large_cache.clone(), "png", &[])?;
+                    }
+                };
+                tokio::fs::remove_file(cache_path).await?;
+            }
+            Ok(icon_name.to_string())
         } else {
             Err(Box::new(FaviconError::NoResults))
         }

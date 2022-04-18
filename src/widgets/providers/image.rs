@@ -1,11 +1,11 @@
-use crate::models::Provider;
 use crate::models::RUNTIME;
+use crate::models::{Provider, FAVICONS_PATH};
 use glib::{clone, Receiver, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::send;
 
 pub enum ImageAction {
-    Ready(gio::File),
+    Ready(String),
     Failed,
 }
 
@@ -79,7 +79,7 @@ mod imp {
                         "size",
                         "size",
                         "Image size",
-                        24,
+                        32,
                         96,
                         48,
                         glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
@@ -154,13 +154,19 @@ impl ProviderImage {
                     return;
                 }
 
-                let file = gio::File::for_uri(&uri);
-                if !file.query_exists(gio::Cancellable::NONE) {
+                let small_file = gio::File::for_path(&FAVICONS_PATH.join(format!("{uri}_32x32")));
+                let large_file = gio::File::for_path(&FAVICONS_PATH.join(format!("{uri}_96x96")));
+                if !small_file.query_exists(gio::Cancellable::NONE)
+                    || !large_file.query_exists(gio::Cancellable::NONE)
+                {
                     self.fetch();
                     return;
                 }
-
-                imp.image.set_from_file(file.path());
+                if imp.size.get() == 32 {
+                    imp.image.set_from_file(small_file.path());
+                } else {
+                    imp.image.set_from_file(large_file.path());
+                }
                 imp.stack.set_visible_child_name("image");
             }
             _ => {
@@ -181,8 +187,8 @@ impl ProviderImage {
                 let (sender, receiver) = futures::channel::oneshot::channel();
                 RUNTIME.spawn(async move {
                     match Provider::favicon(website, name, id).await {
-                        Ok(file) => {
-                            sender.send(Some(file)).unwrap();
+                        Ok(cache_name) => {
+                            sender.send(Some(cache_name)).unwrap();
                         }
                         Err(err) => {
                             log::error!("Failed to load favicon {}", err);
@@ -193,8 +199,8 @@ impl ProviderImage {
                 glib::MainContext::default().spawn_local(clone!(@weak self as this => async move {
                    let imp = this.imp();
                     let response = receiver.await.unwrap();
-                    if let Some(file) = response {
-                        send!(imp.sender.clone(), ImageAction::Ready(file));
+                    if let Some(cache_name) = response {
+                        send!(imp.sender.clone(), ImageAction::Ready(cache_name));
                     } else {
                         send!(imp.sender.clone(), ImageAction::Failed);
                     }
@@ -241,10 +247,15 @@ impl ProviderImage {
                 imp.image.set_from_icon_name(Some("provider-fallback"));
                 "invalid".to_string()
             }
-            ImageAction::Ready(image) => {
-                imp.image.set_from_file(image.path());
-                let image_uri = image.uri();
-                image_uri.to_string()
+            ImageAction::Ready(cache_name) => {
+                if imp.size.get() == 32 {
+                    imp.image
+                        .set_from_file(Some(&FAVICONS_PATH.join(format!("{cache_name}_32x32"))));
+                } else {
+                    imp.image
+                        .set_from_file(Some(&FAVICONS_PATH.join(format!("{cache_name}_96x96"))));
+                }
+                cache_name
             }
         };
         if let Some(provider) = self.provider() {

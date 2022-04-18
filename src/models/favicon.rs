@@ -111,9 +111,8 @@ pub enum Favicon {
 impl fmt::Debug for Favicon {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Self::Data(bytes, metadata) => f
+            Self::Data(_, metadata) => f
                 .debug_struct("Favicon")
-                .field("data", bytes)
                 .field("type", &metadata.type_())
                 .field("size", &metadata.size())
                 .finish(),
@@ -153,7 +152,7 @@ impl Favicon {
         }
     }
 
-    pub async fn cache(&self, icon_name: &str) -> anyhow::Result<PathBuf> {
+    pub async fn cache(&self, icon_name: &str) -> anyhow::Result<()> {
         let body = match self {
             Self::Data(bytes, _) => bytes.to_owned(),
             Self::Url(url, _) => {
@@ -161,30 +160,22 @@ impl Favicon {
                 res.bytes().await?.to_vec()
             }
         };
+        let cache_path = FAVICONS_PATH.join(icon_name);
+        let mut dest = tokio::fs::File::create(cache_path.clone()).await?;
 
         if self.metadata().type_() == &Type::Ico {
             log::debug!("Found a .ico favicon, converting to PNG");
-
-            let cache_path = FAVICONS_PATH.join(format!("{}.png", icon_name));
-            let mut dest = tokio::fs::File::create(cache_path.clone()).await?;
-
             if let Ok(ico) = image::load_from_memory_with_format(&body, image::ImageFormat::Ico) {
                 let mut cursor = std::io::Cursor::new(vec![]);
                 ico.write_to(&mut cursor, image::ImageOutputFormat::Png)?;
                 dest.write_all(cursor.get_ref()).await?;
+                return Ok(());
             } else {
                 log::debug!("It seems to not be a .ICO favicon, fallback to PNG");
-                dest.write_all(&body).await?;
             };
-
-            Ok(cache_path)
-        } else {
-            let cache_path = FAVICONS_PATH.join(icon_name);
-            let mut dest = tokio::fs::File::create(cache_path.clone()).await?;
-            dest.write_all(&body).await?;
-
-            Ok(cache_path)
         }
+        dest.write_all(&body).await?;
+        Ok(())
     }
 
     async fn size(&self) -> Option<(u32, u32)> {
@@ -267,7 +258,6 @@ impl std::fmt::Display for FaviconError {
     }
 }
 
-#[derive(Debug)]
 pub struct FaviconScrapper(Vec<Favicon>);
 
 impl FaviconScrapper {
@@ -313,6 +303,20 @@ impl FaviconScrapper {
     #[allow(dead_code)]
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
+    }
+
+    pub async fn find_size(&self, size: u32) -> Option<&Favicon> {
+        let mut best = None;
+        for favicon in self.0.iter() {
+            if let Some(current_size) = favicon.size().await {
+                // Only store the width & assumes it has the same height here to simplify things
+                if current_size.0 == size {
+                    best = Some(favicon);
+                    break;
+                }
+            }
+        }
+        best
     }
 
     pub async fn find_best(&self) -> Option<&Favicon> {
@@ -499,6 +503,12 @@ impl FaviconScrapper {
             }
         }
         None
+    }
+}
+
+impl fmt::Debug for FaviconScrapper {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_list().entries(&self.0).finish()
     }
 }
 

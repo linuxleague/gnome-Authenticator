@@ -5,7 +5,7 @@ use crate::{
 use adw::prelude::*;
 use gettextrs::gettext;
 use glib::{clone, translate::IntoGlib};
-use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
+use gtk::{gio, gdk_pixbuf, glib, subclass::prelude::*, CompositeTemplate};
 
 mod imp {
     use super::*;
@@ -254,36 +254,26 @@ impl ProviderPage {
 
         let image_uri = if let Some(file) = imp.selected_image.borrow().clone() {
             let basename = file.basename().unwrap();
-            let extension = basename
-                .to_str()
-                .unwrap()
-                .split('.')
-                .last()
-                .unwrap_or("png");
+            let icon_name = glib::base64_encode(basename.to_str().unwrap().as_bytes());
+            let small_icon_name = format!("{icon_name}_32x32");
+            let large_icon_name = format!("{icon_name}_96x96");
 
-            let icon_name = format!(
-                "{}.{}",
-                glib::base64_encode(basename.to_str().unwrap().as_bytes()),
-                extension
-            );
+            // Create a 96x96 & 32x32 variants
+            let stream = file.read(gio::Cancellable::NONE)?;
+            let pixbuf = gdk_pixbuf::Pixbuf::from_stream(&stream, gio::Cancellable::NONE)?;
+            log::debug!("Creating a 32x32 variant of the selected favicon");
+            let small_pixbuf = pixbuf
+                .scale_simple(32, 32, gdk_pixbuf::InterpType::Bilinear)
+                .unwrap();
+            small_pixbuf.savev(FAVICONS_PATH.join(small_icon_name), "png", &[])?;
 
-            let image_dest = FAVICONS_PATH.join(icon_name.as_str());
+            log::debug!("Creating a 96x96 variant of the selected favicon");
+            let large_pixbuf = pixbuf
+                .scale_simple(96, 96, gdk_pixbuf::InterpType::Bilinear)
+                .unwrap();
+            large_pixbuf.savev(FAVICONS_PATH.join(large_icon_name), "png", &[])?;
 
-            let dest_file = gio::File::for_path(image_dest);
-            dest_file
-                .create(
-                    gio::FileCreateFlags::REPLACE_DESTINATION,
-                    gio::Cancellable::NONE,
-                )
-                .ok();
-            file.copy(
-                &dest_file,
-                gio::FileCopyFlags::OVERWRITE,
-                gio::Cancellable::NONE,
-                None,
-            )?;
-
-            Some(dest_file.uri().to_string())
+            Some(icon_name.to_string())
         } else {
             None
         };
