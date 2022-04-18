@@ -267,13 +267,7 @@ impl Account {
 
         let counter = match provider.method() {
             OTPMethod::TOTP => otp::time_based_counter(provider.period()),
-            OTPMethod::HOTP => {
-                let old_counter = self.counter();
-                if let Err(err) = self.increment_counter() {
-                    error!("Failed to increment HOTP counter {}", err);
-                }
-                old_counter as u64
-            }
+            OTPMethod::HOTP => self.counter() as u64,
             OTPMethod::Steam => otp::time_based_counter(otp::STEAM_DEFAULT_PERIOD),
         };
 
