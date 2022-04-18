@@ -32,8 +32,6 @@ mod imp {
         pub stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub title_stack: TemplateChild<gtk::Stack>,
-        #[template_child]
-        pub page_stack: TemplateChild<gtk::Stack>,
     }
 
     #[glib::object_subclass]
@@ -188,15 +186,16 @@ impl ProvidersDialog {
                 None
             }),
         );
-        imp.page_stack.add_named(&imp.page, Some("provider"));
+        let page = imp.deck.append(&imp.page);
+        page.set_name(Some("provider"));
         self.set_view(View::List);
 
         imp.deck
             .bind_property("folded", &*imp.page.imp().revealer, "reveal-child")
             .flags(glib::BindingFlags::SYNC_CREATE)
             .build();
-
-        imp.page_stack.set_visible_child_name("welcome");
+        let row = imp.providers_list.row_at_index(0).unwrap();
+        row.activate();
     }
 
     fn search(&self, text: String) {
@@ -225,8 +224,7 @@ impl ProvidersDialog {
         let imp = self.imp();
         match view {
             View::Form => {
-                imp.deck.set_visible_child_name("page");
-                imp.page_stack.set_visible_child_name("provider");
+                imp.deck.set_visible_child_name("provider");
                 imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 imp.search_entry.emit_stop_search();
             }
