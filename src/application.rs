@@ -420,14 +420,6 @@ impl SearchProviderImpl for Application {
             .map(|id| {
                 self.account_provider_by_identifier(id)
                     .map(|(provider, account)| {
-                        // Workaround the fact accounts has to be set in a widget
-                        // for them to have a generated OTP
-                        // TODO: move this the time ticking to the Provider type
-                        // and propagate the update to it accounts
-                        if account.otp().is_empty() {
-                            account.generate_otp();
-                        }
-
                         ResultMeta::builder(id.to_owned(), &account.name())
                             .description(&provider.name())
                             .clipboard_text(&account.otp().replace(" ", ""))

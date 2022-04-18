@@ -8,12 +8,13 @@ use crate::{
 use anyhow::Result;
 use core::cmp::Ordering;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use glib::{Cast, StaticType, ToValue};
+use glib::{clone, Cast, StaticType, ToValue};
 use gtk::{gdk_pixbuf, gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::{Cell, RefCell},
     str::FromStr,
     string::ToString,
+    time::{SystemTime, UNIX_EPOCH},
 };
 use unicase::UniCase;
 use url::Url;
@@ -62,6 +63,7 @@ pub struct DiProvider {
 mod imp {
     use super::*;
     use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
+    use gst::glib::{ParamSpecUInt64, SourceId};
 
     pub struct Provider {
         pub id: Cell<u32>,
@@ -74,8 +76,10 @@ mod imp {
         pub website: RefCell<Option<String>>,
         pub help_url: RefCell<Option<String>>,
         pub image_uri: RefCell<Option<String>>,
+        pub remaining_time: Cell<u64>,
         pub accounts: AccountsModel,
         pub filter_model: gtk::FilterListModel,
+        pub tick_callback: RefCell<Option<SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -98,6 +102,8 @@ mod imp {
                 period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
                 filter_model: gtk::FilterListModel::new(Some(&model), gtk::Filter::NONE),
                 accounts: model,
+                tick_callback: RefCell::default(),
+                remaining_time: Cell::new(0),
             }
         }
     }
@@ -186,6 +192,15 @@ mod imp {
                         None,
                         glib::ParamFlags::READWRITE,
                     ),
+                    ParamSpecUInt64::new(
+                        "remaining-time",
+                        "remaining time",
+                        "the remaining time",
+                        0,
+                        u64::MAX,
+                        0,
+                        glib::ParamFlags::READWRITE,
+                    ),
                 ]
             });
             PROPERTIES.as_ref()
@@ -233,6 +248,10 @@ mod imp {
                     let image_uri = value.get().unwrap();
                     self.image_uri.replace(image_uri);
                 }
+                "remaining-time" => {
+                    let remaining_time = value.get().unwrap();
+                    self.remaining_time.set(remaining_time);
+                }
                 _ => unimplemented!(),
             }
         }
@@ -250,7 +269,15 @@ mod imp {
                 "help-url" => self.help_url.borrow().to_value(),
                 "image-uri" => self.image_uri.borrow().to_value(),
                 "accounts" => self.accounts.to_value(),
+                "remaining-time" => self.remaining_time.get().to_value(),
                 _ => unimplemented!(),
+            }
+        }
+
+        fn dispose(&self, _obj: &Self::Type) {
+            // Stop ticking
+            if let Some(source_id) = self.tick_callback.borrow_mut().take() {
+                source_id.remove();
             }
         }
     }
@@ -317,7 +344,6 @@ impl Provider {
                 Account::load(&p).unwrap().for_each(|a| p.add_account(&a));
                 p
             });
-
         Ok(results)
     }
 
@@ -551,6 +577,47 @@ impl Provider {
         }
     }
 
+    fn tick(&self) {
+        let period = self.period() as u64;
+        let remaining_time: u64 = period
+            - SystemTime::now()
+                .duration_since(UNIX_EPOCH)
+                .unwrap()
+                .as_secs()
+                % period;
+        if period == remaining_time {
+            self.regenerate_otp();
+        }
+        self.set_property("remaining-time", &remaining_time);
+    }
+
+    fn setup_tick_callback(&self) {
+        self.set_property("remaining-time", &(self.period() as u64));
+
+        match self.method() {
+            OTPMethod::TOTP | OTPMethod::Steam => {
+                let source_id = glib::timeout_add_seconds_local(
+                    1,
+                    clone!(@weak self as provider => @default-return glib::Continue(false), move || {
+                        provider.tick();
+                        glib::Continue(true)
+                    }),
+                );
+                self.imp().tick_callback.replace(Some(source_id));
+            }
+            _ => (),
+        };
+    }
+
+    fn regenerate_otp(&self) {
+        let accounts = self.accounts();
+        for i in 0..accounts.n_items() {
+            let item = accounts.item(i).unwrap();
+            let account = item.downcast_ref::<Account>().unwrap();
+            account.generate_otp();
+        }
+    }
+
     pub fn has_account(&self, account: &Account) -> Option<u32> {
         self.imp().accounts.find_position_by_id(account.id())
     }
@@ -561,6 +628,9 @@ impl Provider {
 
     pub fn add_account(&self, account: &Account) {
         self.imp().accounts.insert(account);
+        if self.imp().tick_callback.borrow().is_none() && self.method().is_time_based() {
+            self.setup_tick_callback();
+        }
     }
 
     pub fn accounts_model(&self) -> &AccountsModel {
@@ -606,6 +676,12 @@ impl Provider {
         let imp = self.imp();
         if let Some(pos) = imp.accounts.find_position_by_id(account.id()) {
             imp.accounts.remove(pos);
+            if !self.has_accounts() && self.method().is_time_based() {
+                // Stop ticking
+                if let Some(source_id) = imp.tick_callback.borrow_mut().take() {
+                    source_id.remove();
+                }
+            }
         }
     }
 }

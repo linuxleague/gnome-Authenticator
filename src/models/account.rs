@@ -257,8 +257,8 @@ impl Account {
         } else {
             Keyring::token(token_id)?.context("Could not get item from keyring")?
         };
-
         account.imp().token.set(token).unwrap();
+        account.generate_otp();
         Ok(account)
     }
 

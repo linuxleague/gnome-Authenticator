@@ -51,6 +51,10 @@ impl From<u32> for OTPMethod {
 }
 
 impl OTPMethod {
+    pub fn is_time_based(&self) -> bool {
+        self != &Self::HOTP
+    }
+
     pub fn to_locale_string(self) -> String {
         match self {
             OTPMethod::HOTP => gettext("Counter-based"),

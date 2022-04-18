@@ -4,24 +4,21 @@ use crate::{
 };
 use adw::prelude::*;
 use gtk::{glib, glib::clone, subclass::prelude::*, CompositeTemplate};
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::time::{SystemTime, UNIX_EPOCH};
 
 mod imp {
     use super::*;
     use glib::{
         subclass::{self, Signal},
-        ParamSpec, ParamSpecObject, ParamSpecUInt64, Value,
+        ParamSpec, ParamSpecObject, Value,
     };
     use once_cell::sync::Lazy;
-    use std::cell::{Cell, RefCell};
+    use std::cell::RefCell;
 
-    #[derive(CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_row.ui")]
     pub struct ProviderRow {
-        pub remaining_time: Cell<u64>,
         pub provider: RefCell<Option<Provider>>,
-        pub callback_id: RefCell<Option<gtk::TickCallbackId>>,
-        pub schedule: RefCell<Option<glib::SourceId>>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -38,19 +35,6 @@ mod imp {
         type Type = super::ProviderRow;
         type ParentType = gtk::ListBoxRow;
 
-        fn new() -> Self {
-            Self {
-                remaining_time: Cell::new(0),
-                image: TemplateChild::default(),
-                name_label: TemplateChild::default(),
-                accounts_list: TemplateChild::default(),
-                progress_icon: TemplateChild::default(),
-                provider: RefCell::new(None),
-                callback_id: RefCell::default(),
-                schedule: RefCell::default(),
-            }
-        }
-
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
         }
@@ -63,24 +47,13 @@ mod imp {
     impl ObjectImpl for ProviderRow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecObject::new(
-                        "provider",
-                        "Provider",
-                        "The accounts provider",
-                        Provider::static_type(),
-                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
-                    ),
-                    ParamSpecUInt64::new(
-                        "remaining-time",
-                        "remaining time",
-                        "the remaining time",
-                        0,
-                        u64::MAX,
-                        0,
-                        glib::ParamFlags::READWRITE,
-                    ),
-                ]
+                vec![ParamSpecObject::new(
+                    "provider",
+                    "Provider",
+                    "The accounts provider",
+                    Provider::static_type(),
+                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
+                )]
             });
             PROPERTIES.as_ref()
         }
@@ -109,10 +82,6 @@ mod imp {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
-                "remaining-time" => {
-                    let remaining_time = value.get().unwrap();
-                    self.remaining_time.set(remaining_time);
-                }
                 _ => unimplemented!(),
             }
         }
@@ -120,7 +89,6 @@ mod imp {
         fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "provider" => self.provider.borrow().to_value(),
-                "remaining-time" => self.remaining_time.get().to_value(),
                 _ => unimplemented!(),
             }
         }
@@ -128,15 +96,6 @@ mod imp {
         fn constructed(&self, obj: &Self::Type) {
             obj.setup_widgets();
             self.parent_constructed(obj);
-        }
-
-        fn dispose(&self, _obj: &Self::Type) {
-            if let Some(id) = self.callback_id.borrow_mut().take() {
-                id.remove();
-            }
-            if let Some(id) = self.schedule.borrow_mut().take() {
-                id.remove();
-            }
         }
     }
     impl WidgetImpl for ProviderRow {}
@@ -156,37 +115,6 @@ impl ProviderRow {
         self.property("provider")
     }
 
-    fn restart(&self) {
-        let provider = self.provider();
-
-        match provider.method() {
-            OTPMethod::TOTP | OTPMethod::Steam => {
-                self.imp().progress_icon.set_progress(1_f32);
-                self.set_property("remaining-time", &(provider.period() as u64));
-            }
-            _ => (),
-        }
-
-        // Tell all of the accounts to regen
-        let accounts = provider.accounts();
-        for i in 0..accounts.n_items() {
-            let item = accounts.item(i).unwrap();
-            let account = item.downcast_ref::<Account>().unwrap();
-            account.generate_otp();
-        }
-    }
-
-    fn tick(&self) {
-        let remaining_time: u64 = self.provider().period() as u64
-            - SystemTime::now()
-                .duration_since(UNIX_EPOCH)
-                .unwrap()
-                .as_secs()
-                % self.provider().period() as u64;
-
-        self.set_property("remaining-time", &remaining_time);
-    }
-
     fn tick_progressbar(&self) {
         let imp = self.imp();
         let period_millis = self.provider().period() as u128 * 1000;
@@ -199,55 +127,35 @@ impl ProviderRow {
         let progress_fraction: f64 = (remaining_time as f64) / (period_millis as f64);
 
         imp.progress_icon.set_progress(progress_fraction as f32);
-        if remaining_time <= 1000 && imp.schedule.borrow().is_none() {
-            let id = glib::timeout_add_local(
-                Duration::from_millis(remaining_time as u64),
-                clone!(@weak self as row  => @default-return glib::Continue(false), move || {
-                    row.restart();
-                    row.imp().schedule.replace(None);
-                    glib::Continue(false)
-                }),
-            );
-            imp.schedule.replace(Some(id));
-        }
     }
 
     fn setup_widgets(&self) {
         let imp = self.imp();
+        let provider = self.provider();
 
-        self.add_css_class(&self.provider().method().to_string());
+        self.add_css_class(&provider.method().to_string());
 
-        imp.image.set_provider(Some(&self.provider()));
-
-        self.restart();
-        match self.provider().method() {
-            OTPMethod::TOTP | OTPMethod::Steam => {
-                glib::timeout_add_seconds_local(
-                    1,
-                    clone!(@weak self as row => @default-return glib::Continue(false), move || {
-                        row.tick();
-                        glib::Continue(true)
-                    }),
-                );
-
-                imp.callback_id
-                    .replace(Some(self.add_tick_callback(|row, _| {
-                        row.tick_progressbar();
-                        glib::Continue(true)
-                    })));
-            }
-            _ => imp.progress_icon.hide(),
+        imp.image.set_provider(Some(&provider));
+        if provider.method() == OTPMethod::HOTP {
+            imp.progress_icon.hide();
+        } else {
+            // Update the progress bar whnever the remaining-time is updated
+            self.tick_progressbar();
+            provider.connect_notify_local(
+                Some("remaining-time"),
+                clone!(@weak self as row => move |_, _| {
+                    row.tick_progressbar();
+                }),
+            );
         }
 
-        self.provider()
+        provider
             .bind_property("name", &*imp.name_label, "label")
             .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
             .build();
 
         let sorter = AccountSorter::default();
-        let sort_model = gtk::SortListModel::new(Some(self.provider().accounts()), Some(&sorter));
-
-        let provider = self.provider();
+        let sort_model = gtk::SortListModel::new(Some(provider.accounts()), Some(&sorter));
 
         let create_callback = clone!(@strong self as provider_row, @strong sorter, @strong provider => move |account: &glib::Object| {
             let account = account.clone().downcast::<Account>().unwrap();
