@@ -39,96 +39,100 @@
       <object class="GtkEventControllerKey" id="key_gesture" />
     </child>
     <child>
-      <object class="GtkStack" id="main_stack">
-        <property name="transition-type">crossfade</property>
-        <child>
-          <object class="GtkStackPage">
-            <property name="name">login</property>
-            <property name="child">
-              <object class="GtkWindowHandle">
-                <child>
-                  <object class="GtkBox">
-                    <property name="orientation">vertical</property>
+      <object class="AdwToastOverlay" id="toast_overlay">
+        <property name="child">
+          <object class="GtkStack" id="main_stack">
+            <property name="transition-type">crossfade</property>
+            <child>
+              <object class="GtkStackPage">
+                <property name="name">login</property>
+                <property name="child">
+                  <object class="GtkWindowHandle">
                     <child>
                       <object class="GtkBox">
-                        <child>
-                          <object class="GtkWindowControls">
-                            <property name="side">start</property>
-                            <property name="halign">start</property>
-                            <property name="hexpand">true</property>
-                            <property name="margin-top">9</property>
-                            <property name="margin-bottom">6</property>
-                            <property name="margin-start">6</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkWindowControls">
-                            <property name="side">end</property>
-                            <property name="halign">end</property>
-                            <property name="hexpand">true</property>
-                            <property name="margin-top">9</property>
-                            <property name="margin-bottom">6</property>
-                            <property name="margin-end">6</property>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkBox">
-                        <property name="halign">center</property>
-                        <property name="valign">center</property>
-                        <property name="hexpand">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="spacing">24</property>
                         <property name="orientation">vertical</property>
                         <child>
-                          <object class="GtkImage" id="locked_img">
-                            <property name="halign">center</property>
-                            <property name="hexpand">True</property>
-                            <property name="pixel-size">128</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkLabel">
-                            <property name="halign">center</property>
-                            <property name="margin-top">12</property>
-                            <property name="label" translatable="yes">Authenticator is Locked</property>
-                            <style>
-                              <class name="large-title" />
-                            </style>
+                          <object class="GtkBox">
+                            <child>
+                              <object class="GtkWindowControls">
+                                <property name="side">start</property>
+                                <property name="halign">start</property>
+                                <property name="hexpand">true</property>
+                                <property name="margin-top">9</property>
+                                <property name="margin-bottom">6</property>
+                                <property name="margin-start">6</property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkWindowControls">
+                                <property name="side">end</property>
+                                <property name="halign">end</property>
+                                <property name="hexpand">true</property>
+                                <property name="margin-top">9</property>
+                                <property name="margin-bottom">6</property>
+                                <property name="margin-end">6</property>
+                              </object>
+                            </child>
                           </object>
                         </child>
                         <child>
                           <object class="GtkBox">
                             <property name="halign">center</property>
-                            <property name="valign">start</property>
-                            <property name="margin-top">24</property>
+                            <property name="valign">center</property>
                             <property name="hexpand">True</property>
                             <property name="vexpand">True</property>
+                            <property name="spacing">24</property>
                             <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkPasswordEntry" id="password_entry">
+                              <object class="GtkImage" id="locked_img">
                                 <property name="halign">center</property>
-                                <property name="show-peek-icon">True</property>
+                                <property name="hexpand">True</property>
+                                <property name="pixel-size">128</property>
                               </object>
                             </child>
                             <child>
-                              <object class="ErrorRevealer" id="error_revealer">
-                                <property name="margin-top">6</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="unlock_button">
-                                <property name="label" translatable="yes">_Unlock</property>
-                                <property name="use-underline">True</property>
-                                <property name="action-name">win.unlock</property>
-                                <property name="receives-default">True</property>
+                              <object class="GtkLabel">
                                 <property name="halign">center</property>
                                 <property name="margin-top">12</property>
+                                <property name="label" translatable="yes">Authenticator is Locked</property>
                                 <style>
-                                  <class name="suggested-action" />
-                                  <class name="pill" />
+                                  <class name="large-title" />
                                 </style>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="halign">center</property>
+                                <property name="valign">start</property>
+                                <property name="margin-top">24</property>
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <property name="orientation">vertical</property>
+                                <child>
+                                  <object class="GtkPasswordEntry" id="password_entry">
+                                    <property name="halign">center</property>
+                                    <property name="show-peek-icon">True</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="ErrorRevealer" id="error_revealer">
+                                    <property name="margin-top">6</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="unlock_button">
+                                    <property name="label" translatable="yes">_Unlock</property>
+                                    <property name="use-underline">True</property>
+                                    <property name="action-name">win.unlock</property>
+                                    <property name="receives-default">True</property>
+                                    <property name="halign">center</property>
+                                    <property name="margin-top">12</property>
+                                    <style>
+                                      <class name="suggested-action" />
+                                      <class name="pill" />
+                                    </style>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
@@ -136,150 +140,150 @@
                       </object>
                     </child>
                   </object>
-                </child>
+                </property>
               </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="GtkStackPage">
-            <property name="name">unlocked</property>
-            <property name="child">
-              <object class="AdwLeaflet" id="deck">
-                <property name="can-unfold">False</property>
-                <property name="can-navigate-back">True</property>
-                <child>
-                  <object class="AdwLeafletPage">
-                    <property name="name">accounts</property>
-                    <property name="child">
-                      <object class="GtkStack" id="accounts_stack">
-                        <property name="transition-type">crossfade</property>
-                        <child>
-                          <object class="GtkStackPage">
-                            <property name="name">empty</property>
-                            <property name="child">
-                              <object class="GtkBox">
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkHeaderBar">
-                                    <property name="show-title-buttons">True</property>
-                                    <child type="start">
-                                      <object class="GtkButton">
-                                        <property name="action-name">win.add_account</property>
-                                        <property name="icon-name">list-add-symbolic</property>
-                                        <property name="tooltip-text" translatable="yes">New Account</property>
-                                      </object>
-                                    </child>
-                                    <child type="end">
-                                      <object class="GtkMenuButton">
-                                        <property name="menu-model">menu</property>
-                                        <property name="icon-name">open-menu-symbolic</property>
-                                        <property name="tooltip-text" translatable="yes">Menu</property>
-                                      </object>
-                                    </child>
-                                    <style>
-                                      <class name="titlebar" />
-                                    </style>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="AdwStatusPage" id="empty_status_page">
-                                    <property name="vexpand">True</property>
-                                    <property name="title" translatable="yes">No Accounts</property>
-                                    <property name="description" translatable="yes">Add an account or scan a QR code first.</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkStackPage">
-                            <property name="name">accounts</property>
-                            <property name="child">
-                              <object class="GtkBox">
-                                <property name="orientation">vertical</property>
-                                <child>
-                                  <object class="GtkHeaderBar">
-                                    <property name="show-title-buttons">True</property>
-                                    <child type="start">
-                                      <object class="GtkButton">
-                                        <property name="action-name">win.add_account</property>
-                                        <property name="icon-name">list-add-symbolic</property>
-                                        <property name="tooltip-text" translatable="yes">New Account</property>
-                                      </object>
-                                    </child>
-                                    <child type="title">
-                                      <object class="GtkStack" id="title_stack">
-                                        <property name="hexpand">True</property>
-                                        <property name="transition-type">crossfade</property>
-                                        <child>
-                                          <object class="GtkStackPage">
-                                            <property name="name">title</property>
-                                            <property name="child">
-                                              <object class="AdwWindowTitle" id="window_title">
-                                                <property name="title" bind-source="Window" bind-property="title" bind-flags="bidirectional|sync-create" />
-                                              </object>
-                                            </property>
+            </child>
+            <child>
+              <object class="GtkStackPage">
+                <property name="name">unlocked</property>
+                <property name="child">
+                  <object class="AdwLeaflet" id="deck">
+                    <property name="can-unfold">False</property>
+                    <property name="can-navigate-back">True</property>
+                    <child>
+                      <object class="AdwLeafletPage">
+                        <property name="name">accounts</property>
+                        <property name="child">
+                          <object class="GtkStack" id="accounts_stack">
+                            <property name="transition-type">crossfade</property>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">empty</property>
+                                <property name="child">
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkHeaderBar">
+                                        <property name="show-title-buttons">True</property>
+                                        <child type="start">
+                                          <object class="GtkButton">
+                                            <property name="action-name">win.add_account</property>
+                                            <property name="icon-name">list-add-symbolic</property>
+                                            <property name="tooltip-text" translatable="yes">New Account</property>
                                           </object>
                                         </child>
-                                        <child>
-                                          <object class="GtkStackPage">
-                                            <property name="name">search</property>
-                                            <property name="child">
-                                              <object class="AdwClamp">
-                                                <property name="tightening-threshold">300</property>
-                                                <property name="maximum-size">400</property>
+                                        <child type="end">
+                                          <object class="GtkMenuButton">
+                                            <property name="menu-model">menu</property>
+                                            <property name="icon-name">open-menu-symbolic</property>
+                                            <property name="tooltip-text" translatable="yes">Menu</property>
+                                          </object>
+                                        </child>
+                                        <style>
+                                          <class name="titlebar" />
+                                        </style>
+                                      </object>
+                                    </child>
+                                    <child>
+                                      <object class="AdwStatusPage" id="empty_status_page">
+                                        <property name="vexpand">True</property>
+                                        <property name="title" translatable="yes">No Accounts</property>
+                                        <property name="description" translatable="yes">Add an account or scan a QR code first.</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkStackPage">
+                                <property name="name">accounts</property>
+                                <property name="child">
+                                  <object class="GtkBox">
+                                    <property name="orientation">vertical</property>
+                                    <child>
+                                      <object class="GtkHeaderBar">
+                                        <property name="show-title-buttons">True</property>
+                                        <child type="start">
+                                          <object class="GtkButton">
+                                            <property name="action-name">win.add_account</property>
+                                            <property name="icon-name">list-add-symbolic</property>
+                                            <property name="tooltip-text" translatable="yes">New Account</property>
+                                          </object>
+                                        </child>
+                                        <child type="title">
+                                          <object class="GtkStack" id="title_stack">
+                                            <property name="hexpand">True</property>
+                                            <property name="transition-type">crossfade</property>
+                                            <child>
+                                              <object class="GtkStackPage">
+                                                <property name="name">title</property>
                                                 <property name="child">
-                                                  <object class="GtkSearchEntry" id="search_entry" />
+                                                  <object class="AdwWindowTitle" id="window_title">
+                                                    <property name="title" bind-source="Window" bind-property="title" bind-flags="bidirectional|sync-create" />
+                                                  </object>
                                                 </property>
                                               </object>
-                                            </property>
+                                            </child>
+                                            <child>
+                                              <object class="GtkStackPage">
+                                                <property name="name">search</property>
+                                                <property name="child">
+                                                  <object class="AdwClamp">
+                                                    <property name="tightening-threshold">300</property>
+                                                    <property name="maximum-size">400</property>
+                                                    <property name="child">
+                                                      <object class="GtkSearchEntry" id="search_entry" />
+                                                    </property>
+                                                  </object>
+                                                </property>
+                                              </object>
+                                            </child>
                                           </object>
                                         </child>
+                                        <child type="end">
+                                          <object class="GtkMenuButton">
+                                            <property name="menu-model">menu</property>
+                                            <property name="icon-name">open-menu-symbolic</property>
+                                            <property name="tooltip-text" translatable="yes">Menu</property>
+                                          </object>
+                                        </child>
+                                        <child type="end">
+                                          <object class="GtkToggleButton" id="search_btn">
+                                            <property name="icon-name">system-search-symbolic</property>
+                                            <property name="tooltip-text" translatable="yes">Search</property>
+                                          </object>
+                                        </child>
+                                        <style>
+                                          <class name="titlebar" />
+                                        </style>
                                       </object>
                                     </child>
-                                    <child type="end">
-                                      <object class="GtkMenuButton">
-                                        <property name="menu-model">menu</property>
-                                        <property name="icon-name">open-menu-symbolic</property>
-                                        <property name="tooltip-text" translatable="yes">Menu</property>
-                                      </object>
+                                    <child>
+                                      <object class="ProvidersList" id="providers" />
                                     </child>
-                                    <child type="end">
-                                      <object class="GtkToggleButton" id="search_btn">
-                                        <property name="icon-name">system-search-symbolic</property>
-                                        <property name="tooltip-text" translatable="yes">Search</property>
-                                      </object>
-                                    </child>
-                                    <style>
-                                      <class name="titlebar" />
-                                    </style>
                                   </object>
-                                </child>
-                                <child>
-                                  <object class="ProvidersList" id="providers" />
-                                </child>
+                                </property>
                               </object>
-                            </property>
+                            </child>
                           </object>
-                        </child>
+                        </property>
                       </object>
-                    </property>
+                    </child>
+                    <child>
+                      <object class="AdwLeafletPage">
+                        <property name="name">account</property>
+                        <property name="child">
+                          <object class="AccountDetailsPage" id="account_details" />
+                        </property>
+                      </object>
+                    </child>
                   </object>
-                </child>
-                <child>
-                  <object class="AdwLeafletPage">
-                    <property name="name">account</property>
-                    <property name="child">
-                      <object class="AccountDetailsPage" id="account_details" />
-                    </property>
-                  </object>
-                </child>
+                </property>
               </object>
-            </property>
+            </child>
           </object>
-        </child>
+        </property>
       </object>
     </child>
   </template>

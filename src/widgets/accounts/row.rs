@@ -3,8 +3,11 @@ use gtk::{gdk, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use std::cell::RefCell;
 
 mod imp {
+    use crate::widgets::Window;
+
     use super::*;
     use adw::subclass::prelude::*;
+    use gettextrs::gettext;
     use glib::{subclass, ParamSpec, ParamSpecObject, Value};
     use once_cell::sync::Lazy;
 
@@ -36,6 +39,10 @@ mod imp {
 
             klass.install_action("account.copy-otp", None, move |row, _, _| {
                 row.account().copy_otp();
+                let window = row.root().unwrap().downcast::<Window>().unwrap();
+                let toast = adw::Toast::new(&gettext("One-Time password copied"));
+                toast.set_timeout(3);
+                window.add_toast(toast);
             });
             klass.install_action("account.increment-counter", None, move |row, _, _| {
                 match row.account().increment_counter() {

@@ -61,6 +61,8 @@ mod imp {
         pub title_stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub unlock_button: TemplateChild<gtk::Button>,
+        #[template_child]
+        pub toast_overlay: TemplateChild<adw::ToastOverlay>,
     }
 
     #[glib::object_subclass]
@@ -89,6 +91,7 @@ mod imp {
                 title_stack: TemplateChild::default(),
                 main_stack: TemplateChild::default(),
                 unlock_button: TemplateChild::default(),
+                toast_overlay: TemplateChild::default(),
             }
         }
 
@@ -110,7 +113,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct Window(ObjectSubclass<imp::Window>)
-        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow, gio::ActionMap, gio::ActionGroup;
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,
+        @implements gio::ActionMap, gio::ActionGroup, gtk::Native, gtk::Root;
 }
 
 impl Window {
@@ -167,6 +171,10 @@ impl Window {
                 imp.account_details.set_account(&account);
             }
         }
+    }
+
+    pub fn add_toast(&self, toast: adw::Toast) {
+        self.imp().toast_overlay.add_toast(&toast);
     }
 
     pub fn open_add_account(&self, otp_uri: Option<&OTPUri>) {
