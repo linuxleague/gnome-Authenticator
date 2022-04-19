@@ -15,7 +15,8 @@
       <li>QR code scanner using a camera or from a screenshot</li>
       <li>Lock the application with a password</li>
       <li>Beautiful UI</li>
-      <li>Backup/Restore from/into known applications like FreeOTP+, andOTP</li>
+      <li>GNOME Shell search provider</li>
+      <li>Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis (encrypted / plain-text)</li>
     </ul>
   </description>
   <screenshots>
@@ -46,6 +47,20 @@
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.1.0" date="2021-04-19">
+      <description>Encrypted backups are finally here!</description>
+      <ul>
+        <li>Port to GTK 4</li>
+        <li>Encrypted backup support</li>
+        <li>Use the camera portal for scanning QR codes</li>
+        <li>GNOME Shell search provider</li>
+        <li>Allow editing accounts provider</li>
+        <li>Better favicons detection</li>
+        <li>Refined user interface</li>
+        <li>Translations updates</li>
+        <li>Updated providers database</li>
+      </ul>
+    </release>
     <release version="4.0.3" date="2021-03-26">
       <description>
         <ul>
@@ -199,9 +214,11 @@
   <kudos>
     <!--
         GNOME Software kudos:
-        https://gitlab.gnome.org/GNOME/gnome-software/blob/master/doc/kudos.md
+        https://gitlab.gnome.org/GNOME/gnome-software/blob/main/doc/kudos.md
       -->
     <kudo>ModernToolkit</kudo>
+    <kudo>SearchProvider</kudo>
+    <kudo>HighContrast</kudo>
     <kudo>HiDpiIcon</kudo>
   </kudos>
   <recommends>
