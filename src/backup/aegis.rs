@@ -21,41 +21,52 @@ use gtk::{glib::Cast, prelude::*};
 use rand::RngCore;
 use serde::{Deserialize, Serialize};
 
-/// Root of the Aegis JSON Backup Format
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Aegis {
-    /// Plaintext version of the JSON format.
-    Plaintext {
-        version: u32,
-        header: std::collections::HashMap<String, serde_json::Value>,
-        db: Database,
-    },
-    /// Encrypted version of the JSON format. `db` is simply a base64 encoded string with an encrypted AegisDatabase.
-    Encrypted {
-        version: u32,
-        header: HeaderEncrypted,
-        db: String,
-    },
+    Encrypted(AegisEncrypted),
+    Plaintext(AegisPlainText),
+}
+
+/// Plaintext version of the JSON format.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct AegisPlainText {
+    version: u32,
+    header: Header,
+    db: Database,
+}
+
+impl Default for AegisPlainText {
+    fn default() -> Self {
+        Self {
+            version: 1,
+            header: Header {
+                params: None,
+                slots: Default::default(),
+            },
+            db: Default::default(),
+        }
+    }
+}
+
+/// Encrypted version of the JSON format. `db` is simply a base64 encoded string with an encrypted AegisDatabase.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct AegisEncrypted {
+    version: u32,
+    header: Header,
+    db: String,
 }
 
 impl Default for Aegis {
     fn default() -> Self {
-        Self::Plaintext {
-            version: 1,
-            header: std::collections::HashMap::from([
-                (String::from("slots"), serde_json::Value::Null),
-                (String::from("params"), serde_json::Value::Null),
-            ]),
-            db: Database::default(),
-        }
+        Self::Plaintext(AegisPlainText::default())
     }
 }
 
 impl Aegis {
     pub fn add_item(&mut self, item: Item) {
-        if let Self::Plaintext { db, .. } = self {
-            db.entries.push(item);
+        if let Self::Plaintext(plain_text) = self {
+            plain_text.db.entries.push(item);
         } else {
             // This is an implementation error. Thus, panic is here okay.
             panic!("Trying to add an OTP item to an encrypted aegis database")
@@ -69,62 +80,68 @@ impl Aegis {
         rng.fill_bytes(&mut master_key);
 
         // Create a new header (including defaults for a password slot)
-        let mut header = HeaderEncrypted::default();
+        let mut header = Header {
+            params: Some(HeaderParam::default()),
+            slots: Some(vec![HeaderSlot::default()]),
+        };
 
-        if let HeaderSlot::Password(ref mut password_slot) = header.slots[0] {
-            // Derive key from given password
-            let mut derived_key: [u8; 32] = [0u8; 32];
-            let params = scrypt::Params::new(
-                // TODO log2 for u64 is not stable yet. Change this in the future.
-                (password_slot.n as f64).log2() as u8,
-                password_slot.r,
-                password_slot.p,
+        // We only support password encrypted database so far so we don't have to do any checks
+        // for the slot type
+        let mut password_slot = &mut header.slots.as_mut().unwrap().get_mut(0).unwrap();
+        // Derive key from given password
+        let mut derived_key: [u8; 32] = [0u8; 32];
+        let params = scrypt::Params::new(
+            // TODO log2 for u64 is not stable yet. Change this in the future.
+            (password_slot.n() as f64).log2() as u8,
+            password_slot.r(),
+            password_slot.p(),
+        )
+        // All parameters are default values. Thus, this should always work and unwrap is okay.
+        .expect("Scrypt params creation");
+        scrypt::scrypt(
+            password.as_bytes(),
+            password_slot.salt(),
+            &params,
+            &mut derived_key,
+        )
+        .map_err(|_| anyhow::anyhow!("Scrypt key derivation"))?;
+
+        // Encrypt new master key with derived key
+        let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&derived_key));
+        let mut ciphertext: Vec<u8> = cipher
+            .encrypt(
+                aes_gcm::Nonce::from_slice(&password_slot.key_params.nonce),
+                master_key.as_ref(),
             )
-            // All parameters are default values. Thus, this should always work and unwrap is okay.
-            .expect("Scrypt params creation");
-            scrypt::scrypt(
-                password.as_bytes(),
-                &password_slot.salt,
-                &params,
-                &mut derived_key,
-            )
-            .map_err(|_| anyhow::anyhow!("Scrypt key derivation"))?;
+            .map_err(|_| anyhow::anyhow!("Encrypter master key"))?;
 
-            // Encrypt new master key with derived key
-            let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&derived_key));
-            let mut ciphertext: Vec<u8> = cipher
-                .encrypt(
-                    aes_gcm::Nonce::from_slice(&password_slot.key_params.nonce),
-                    master_key.as_ref(),
-                )
-                .map_err(|_| anyhow::anyhow!("Encrypter master key"))?;
-
-            // Add encrypted master key and tag to our password slot. If this assignment fails, we have a mistake in our logic, thus unwrap is okay.
-            password_slot.key_params.tag = ciphertext.split_off(32).try_into().unwrap();
-            password_slot.key = ciphertext.try_into().unwrap();
-        }
+        // Add encrypted master key and tag to our password slot. If this assignment fails, we have a mistake in our logic, thus unwrap is okay.
+        password_slot.key_params.tag = ciphertext.split_off(32).try_into().unwrap();
+        password_slot.key = ciphertext.try_into().unwrap();
 
         // Finally, we get the JSON string for the database and encrypt it.
-        if let Self::Plaintext { version, db, .. } = self {
-            let db_json: Vec<u8> = serde_json::ser::to_string_pretty(&db)?.as_bytes().to_vec();
+        if let Self::Plaintext(plain_text) = self {
+            let db_json: Vec<u8> = serde_json::ser::to_string_pretty(&plain_text.db)?
+                .as_bytes()
+                .to_vec();
             let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&master_key));
             let mut ciphertext: Vec<u8> = cipher
                 .encrypt(
-                    aes_gcm::Nonce::from_slice(&header.params.nonce),
+                    aes_gcm::Nonce::from_slice(&header.params.as_ref().unwrap().nonce),
                     db_json.as_ref(),
                 )
                 .map_err(|_| anyhow::anyhow!("Encrypting aegis database"))?;
-            header.params.tag = ciphertext
+            header.params.as_mut().unwrap().tag = ciphertext
                 .split_off(ciphertext.len() - 16)
                 .try_into()
                 .unwrap();
             let db_encrypted = ciphertext;
 
-            *self = Self::Encrypted {
-                version: *version,
+            *self = Self::Encrypted(AegisEncrypted {
+                version: plain_text.version,
                 header,
                 db: base64::encode(db_encrypted),
-            };
+            });
         } else {
             // This is an implementation error. Thus, panic is okay.
             panic!("Encrypt can only be called on a plaintext object.")
@@ -132,32 +149,182 @@ impl Aegis {
 
         Ok(())
     }
+
+    fn restore_from_slice(data: &[u8], password: Option<&str>) -> Result<Vec<Item>> {
+        // TODO check whether file / database is encrypted by aegis
+        let aegis_root: Aegis = serde_json::de::from_slice(data)?;
+
+        // Check whether file is encrypted or in plaintext
+        match aegis_root {
+            Aegis::Plaintext(plain_text) => {
+                log::info!(
+                    "Found unencrypted aegis vault with version {} and database version {}.",
+                    plain_text.version,
+                    plain_text.db.version
+                );
+
+                // Check for correct aegis vault version and correct database version.
+                if plain_text.version != 1 {
+                    anyhow::bail!(
+                        "Aegis vault version expected to be 1. Found {} instead.",
+                        plain_text.version
+                    );
+                // There is no version 0. So this should be okay ...
+                } else if plain_text.db.version > 2 {
+                    anyhow::bail!(
+                        "Aegis database version expected to be 1 or 2. Found {} instead.",
+                        plain_text.db.version
+                    );
+                } else {
+                    Ok(plain_text.db.entries)
+                }
+            }
+            Aegis::Encrypted(encrypted) => {
+                log::info!(
+                    "Found encrypted aegis vault with version {}.",
+                    encrypted.version
+                );
+
+                // Check for correct aegis vault version and whether a password was supplied.
+                if encrypted.version != 1 {
+                    anyhow::bail!(
+                        "Aegis vault version expected to be 1. Found {} instead.",
+                        encrypted.version
+                    );
+                } else if password.is_none() {
+                    anyhow::bail!("Found encrypted aegis database but no password given.");
+                }
+
+                // Ciphertext is stored in base64, we have to decode it.
+                let mut ciphertext = base64::decode(encrypted.db)
+                    .context("Cannot decode (base64) encoded database")?;
+
+                // Add the encryption tag
+                ciphertext.append(&mut encrypted.header.params.as_ref().unwrap().tag.into());
+
+                // Find slots with type password and derive the corresponding key. This key is used
+                // to decrypt the master key which in turn can be used to decrypt the database.
+                let master_keys: Vec<Vec<u8>> = encrypted
+                    .header
+                    .slots
+                    .as_ref()
+                    .unwrap()
+                    .iter()
+                    .map(|slot| {
+                        if slot.type_ == 1 {
+                            slot
+                        } else {
+                            unreachable!("All biometric slots are filtered by serde.")
+                        }
+                    })
+                    .map(|slot| -> Result<Vec<u8>> {
+                        log::info!("Found possible master key with UUID {}.", slot.uuid);
+
+                        // Create parameters for scrypt function and derive decryption key for master key
+                        //
+                        // Somehow, scrypt errors do not implement StdErr and cannot be converted to anyhow::Error. Should be possible but don't know why it doesn't work.
+                        let params = scrypt::Params::new(
+                            // TODO log2 for u64 is not stable yet. Change this in the future.
+                            (slot.n() as f64).log2() as u8, // Defaults to 15 by aegis
+                            slot.r(),                       // Defaults to 8 by aegis
+                            slot.p(),                       // Defaults to 1 by aegis
+                        )
+                        .map_err(|_| anyhow::anyhow!("Invalid scrypt parameters"))?;
+                        let mut temp_key: [u8; 32] = [0u8; 32];
+                        scrypt::scrypt(
+                            password.unwrap().as_bytes(),
+                            slot.salt(),
+                            &params,
+                            &mut temp_key,
+                        )
+                        .map_err(|_| anyhow::anyhow!("Scrypt key derivation failed"))?;
+
+                        // Now, try to decrypt the master key.
+                        let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&temp_key));
+                        let mut ciphertext: Vec<u8> = slot.key.to_vec();
+                        ciphertext.append(&mut slot.key_params.tag.to_vec());
+
+                        // Here we get the master key. The decrypt function does not return an error implementing std error. Thus, we have to convert it.
+                        cipher
+                            .decrypt(
+                                aes_gcm::Nonce::from_slice(&slot.key_params.nonce),
+                                ciphertext.as_ref(),
+                            )
+                            .map_err(|_| anyhow::anyhow!("Cannot decrypt master key"))
+                    })
+                    // Here, we don't want to fail the whole function because one key slot failed to get the correct master key. Maybe there is another slot we were able to decrypt.
+                    .filter_map(|x| match x {
+                        Ok(x) => Some(x),
+                        Err(e) => {
+                            log::error!("Decrypting master key failed: {:?}", e);
+                            None
+                        }
+                    })
+                    .collect();
+
+                // Choose the first valid master key. I don't think there are aegis installations with two valid password slots.
+                log::info!(
+                    "Found {} valid password slots / master keys.",
+                    master_keys.len()
+                );
+                let master_key = match master_keys.first() {
+                    Some(x) => {
+                        log::info!("Using only the first valid key slot / master key.");
+                        x
+                    }
+                    None => anyhow::bail!(
+                        "Did not find at least one slot with a valid key. Wrong password?"
+                    ),
+                };
+
+                // Try to decrypt the database with this master key.
+                let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(master_key));
+                let plaintext = cipher
+                    .decrypt(
+                        aes_gcm::Nonce::from_slice(
+                            &encrypted.header.params.as_ref().unwrap().nonce,
+                        ),
+                        ciphertext.as_ref(),
+                    )
+                    // Decrypt does not return an error implementing std error, thus we convert it.
+                    .map_err(|_| anyhow::anyhow!("Cannot decrypt database"))?;
+
+                // Now, we have the decrypted string. Trying to load it with JSON.
+                let db: Database = serde_json::de::from_slice(&plaintext)
+                    .context("Deserialize decrypted database failed")?;
+
+                // Check version of the database
+                log::info!("Found aegis database with version {}.", db.version);
+                if encrypted.version > 2 {
+                    anyhow::bail!(
+                        "Aegis database version expected to be 1 or 2. Found {} instead.",
+                        db.version
+                    );
+                }
+
+                // Return items
+                Ok(db.entries)
+            }
+        }
+    }
 }
 
 /// Header of the Encrypted Aegis JSON File
 ///
 /// Contains all necessary information for encrypting / decrypting the vault (db field).
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct HeaderEncrypted {
-    pub slots: Vec<HeaderSlot>,
-    pub params: HeaderParam,
-}
-
-impl Default for HeaderEncrypted {
-    fn default() -> Self {
-        Self {
-            slots: vec![HeaderSlot::default()],
-            params: HeaderParam::default(),
-        }
-    }
+pub struct Header {
+    #[serde(default)]
+    pub slots: Option<Vec<HeaderSlot>>,
+    #[serde(default)]
+    pub params: Option<HeaderParam>,
 }
 
 /// Header Slots
 ///
 /// Containts information to decrypt the master key.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum HeaderSlot {
+pub struct HeaderSlot {
     // We are not interested in biometric slots at the moment. Thus, we omit these information.
     // However, in the future, authenticator app might be able to lock / unlock the database using
     // fingerprint sensors (see https://gitlab.gnome.org/World/Authenticator/-/issues/106 for more
@@ -171,48 +338,52 @@ pub enum HeaderSlot {
     // with the python script provided in the aegis repository. The python script expects an integer
     // but we provide a string. Thus, change the string in header / slots / password slot / `type = "1"`
     // to `type = 1` to use the python script.
-    #[serde(rename = "2")]
-    Biometric,
-    #[serde(rename = "1")]
-    Password(HeaderSlotPassword),
-}
-
-impl Default for HeaderSlot {
-    fn default() -> Self {
-        Self::Password(HeaderSlotPassword::default())
-    }
-}
-
-/// Password Header Slot
-///
-/// Header slot for password key derivation.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub struct HeaderSlotPassword {
+    #[serde(rename = "type")]
+    pub type_: u32,
     pub uuid: String,
     #[serde(with = "hex::serde")]
     pub key: [u8; 32],
     // First tuple entry is the nonce, the second is the tag.
     pub key_params: HeaderParam,
-    pub n: u32,
-    pub r: u32,
-    pub p: u32,
-    #[serde(with = "hex::serde")]
-    pub salt: [u8; 32],
+    n: Option<u32>,
+    r: Option<u32>,
+    p: Option<u32>,
+    #[serde(default, with = "hex::serde")]
+    salt: [u8; 32],
 }
 
-impl Default for HeaderSlotPassword {
+impl HeaderSlot {
+    pub fn n(&self) -> u32 {
+        self.n.unwrap_or_else(|| 2_u32.pow(15))
+    }
+
+    pub fn r(&self) -> u32 {
+        self.r.unwrap_or(8)
+    }
+
+    pub fn p(&self) -> u32 {
+        self.p.unwrap_or(1)
+    }
+
+    pub fn salt(&self) -> &[u8; 32] {
+        &self.salt
+    }
+}
+
+impl Default for HeaderSlot {
     fn default() -> Self {
         let mut rng = rand::thread_rng();
         let mut salt = [0u8; 32];
         rng.fill_bytes(&mut salt);
 
         Self {
+            type_: 1,
             uuid: uuid::Uuid::new_v4().to_string(),
             key: [0u8; 32],
             key_params: HeaderParam::default(),
-            n: 2_u32.pow(15),
-            r: 8,
-            p: 1,
+            n: Some(2_u32.pow(15)),
+            r: Some(8),
+            p: Some(1),
             salt,
         }
     }
@@ -313,159 +484,6 @@ pub struct Detail {
     pub digits: u32,
     pub period: Option<u32>,
     pub counter: Option<u32>,
-}
-
-impl Aegis {
-    fn restore_from_slice(data: &[u8], password: Option<&str>) -> Result<Vec<Item>> {
-        // TODO check whether file / database is encrypted by aegis
-        let aegis_root: Aegis = serde_json::de::from_slice(data)?;
-
-        // Check whether file is encrypted or in plaintext
-        match aegis_root {
-            Aegis::Plaintext { version, db, .. } => {
-                log::info!(
-                    "Found unencrypted aegis vault with version {} and database version {}.",
-                    version,
-                    db.version
-                );
-
-                // Check for correct aegis vault version and correct database version.
-                if version != 1 {
-                    anyhow::bail!(
-                        "Aegis vault version expected to be 1. Found {} instead.",
-                        version
-                    );
-                // There is no version 0. So this should be okay ...
-                } else if db.version > 2 {
-                    anyhow::bail!(
-                        "Aegis database version expected to be 1 or 2. Found {} instead.",
-                        db.version
-                    );
-                } else {
-                    Ok(db.entries)
-                }
-            }
-            Aegis::Encrypted {
-                version,
-                header,
-                db,
-            } => {
-                log::info!("Found encrypted aegis vault with version {}.", version);
-
-                // Check for correct aegis vault version and whether a password was supplied.
-                if version != 1 {
-                    anyhow::bail!(
-                        "Aegis vault version expected to be 1. Found {} instead.",
-                        version
-                    );
-                } else if password.is_none() {
-                    anyhow::bail!("Found encrypted aegis database but no password given.");
-                }
-
-                // Ciphertext is stored in base64, we have to decode it.
-                let mut ciphertext =
-                    base64::decode(db).context("Cannot decode (base64) encoded database")?;
-
-                // Add the encryption tag
-                ciphertext.append(&mut header.params.tag.into());
-
-                // Find slots with type password and derive the corresponding key. This key is used
-                // to decrypt the master key which in turn can be used to decrypt the database.
-                let master_keys: Vec<Vec<u8>> = header
-                    .slots
-                    .iter()
-                    .map(|slot| match slot {
-                        HeaderSlot::Password(slot) => slot,
-                        _ => unreachable!("All biometric slots are filtered by serde."),
-                    })
-                    .map(|slot| -> Result<Vec<u8>> {
-                        log::info!("Found possible master key with UUID {}.", slot.uuid);
-
-                        // Create parameters for scrypt function and derive decryption key for master key
-                        //
-                        // Somehow, scrypt errors do not implement StdErr and cannot be converted to anyhow::Error. Should be possible but don't know why it doesn't work.
-                        let params = scrypt::Params::new(
-                            // TODO log2 for u64 is not stable yet. Change this in the future.
-                            (slot.n as f64).log2() as u8, // Defaults to 15 by aegis
-                            slot.r,                       // Defaults to 8 by aegis
-                            slot.p,                       // Defaults to 1 by aegis
-                        )
-                        .map_err(|_| anyhow::anyhow!("Invalid scrypt parameters"))?;
-                        let mut temp_key: [u8; 32] = [0u8; 32];
-                        scrypt::scrypt(
-                            password.unwrap().as_bytes(),
-                            &slot.salt,
-                            &params,
-                            &mut temp_key,
-                        )
-                        .map_err(|_| anyhow::anyhow!("Scrypt key derivation failed"))?;
-
-                        // Now, try to decrypt the master key.
-                        let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&temp_key));
-                        let mut ciphertext: Vec<u8> = slot.key.to_vec();
-                        ciphertext.append(&mut slot.key_params.tag.to_vec());
-
-                        // Here we get the master key. The decrypt function does not return an error implementing std error. Thus, we have to convert it.
-                        cipher
-                            .decrypt(
-                                aes_gcm::Nonce::from_slice(&slot.key_params.nonce),
-                                ciphertext.as_ref(),
-                            )
-                            .map_err(|_| anyhow::anyhow!("Cannot decrypt master key"))
-                    })
-                    // Here, we don't want to fail the whole function because one key slot failed to get the correct master key. Maybe there is another slot we were able to decrypt.
-                    .filter_map(|x| match x {
-                        Ok(x) => Some(x),
-                        Err(e) => {
-                            log::error!("Decrypting master key failed: {:?}", e);
-                            None
-                        }
-                    })
-                    .collect();
-
-                // Choose the first valid master key. I don't think there are aegis installations with two valid password slots.
-                log::info!(
-                    "Found {} valid password slots / master keys.",
-                    master_keys.len()
-                );
-                let master_key = match master_keys.first() {
-                    Some(x) => {
-                        log::info!("Using only the first valid key slot / master key.");
-                        x
-                    }
-                    None => anyhow::bail!(
-                        "Did not find at least one slot with a valid key. Wrong password?"
-                    ),
-                };
-
-                // Try to decrypt the database with this master key.
-                let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(master_key));
-                let plaintext = cipher
-                    .decrypt(
-                        aes_gcm::Nonce::from_slice(&header.params.nonce),
-                        ciphertext.as_ref(),
-                    )
-                    // Decrypt does not return an error implementing std error, thus we convert it.
-                    .map_err(|_| anyhow::anyhow!("Cannot decrypt database"))?;
-
-                // Now, we have the decrypted string. Trying to load it with JSON.
-                let db: Database = serde_json::de::from_slice(&plaintext)
-                    .context("Deserialize decrypted database failed")?;
-
-                // Check version of the database
-                log::info!("Found aegis database with version {}.", db.version);
-                if version > 2 {
-                    anyhow::bail!(
-                        "Aegis database version expected to be 1 or 2. Found {} instead.",
-                        db.version
-                    );
-                }
-
-                // Return items
-                Ok(db.entries)
-            }
-        }
-    }
 }
 
 impl RestorableItem for Item {
@@ -661,6 +679,48 @@ mod tests {
         assert_eq!(aegis_items[2].digits(), Some(5));
         assert_eq!(aegis_items[2].counter(), None);
         assert_eq!(aegis_items[2].method(), OTPMethod::Steam);
+    }
+
+    #[test]
+    fn deserialize_encrypted() {
+        let aegis_data = r#"{
+            "version": 1,
+            "header": {
+                "slots": [
+                    {
+                        "type": 1,
+                        "uuid": "an-uuid",
+                        "key": "491d44550430ba248986b904b8cffd3a6c5755d176ac877bd11b82c934225017",
+                        "key_params": {
+                            "nonce": "095fd13dee336fa56b4634ff",
+                            "tag": "5db2470edf2d12f82a89ae7f48ccd50c"
+                        },
+                        "n": 64604640,
+                        "r": 10,
+                        "p": 12,
+                        "salt": "27ea9ae53fa2f08a8dcd201615a8229422647b3058f9f36b08f9457e62888be1",
+                        "repaired": true
+                    },
+                    {
+                        "type": 2,
+                        "uuid": "some-uuid",
+                        "key": "491d44550430ba248986b904b8cffd3a6c5755d176ac877bd11b82c934225017",
+                        "key_params": {
+                            "nonce": "095fd13dee336fa56b4634ff",
+                            "tag": "5db2470edf2d12f82a89ae7f48ccd50c"
+                        }
+                    }
+                ],
+                "params": {
+                    "nonce": "095fd13dee336fa56b4634ff",
+                    "tag": "5db2470edf2d12f82a89ae7f48ccd50c"
+                }
+            },
+            "db": "the encrypted DB"
+        }"#;
+
+        let data: Result<Aegis, _> = serde_json::de::from_slice(&aegis_data.as_bytes());
+        assert!(data.is_ok());
     }
 
     #[test]
