@@ -13,28 +13,17 @@
 ![screenshot](data/screenshots/screenshot1.png)
 
 ## Features
-
-- Time-based/Counter-based/Steam methods support
-- SHA-1/SHA-256/SHA-512 algorithms support
-- QR code scanner using a camera or from a screenshot
-- Lock the application with a password
-- Beautiful UI
-- Backup/Restore from/into known applications like FreeOTP+, andOTP
+ - Time-based/Counter-based/Steam methods support
+ - SHA-1/SHA-256/SHA-512 algorithms support
+ - QR code scanner using a camera or from a screenshot
+ - Lock the application with a password
+ - Beautiful UI
+ - GNOME Shell search provider
+ - Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis (encrypted / plain-text)
 
 ## Getting in touch
 
 If you have any questions regarding the use or development of Authenticator, please join us on our [#authenticator:gnome.org](https://matrix.to/#/#authenticator:gnome.org) channel.
-
-## Known issue
-
-- If the application crashes once you try to use the camera scanning feature while running the application under Wayland with an Intel GPU: The issue is caused by the driver and can be worked around by forcing the application to run under X11.
-
-You can override the permissions if you're using Flatpak with
-```
-flatpak override com.belmoussaoui.Authenticator --nosocket=fallback-x11 --nosocket=wayland --socket=x11
-```
-
-See the [mesa issue](https://gitlab.freedesktop.org/mesa/mesa/-/issues/3029) for more details.
 
 ## Hack on Authenticator
 
