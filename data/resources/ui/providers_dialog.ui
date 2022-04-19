@@ -147,56 +147,61 @@
           <object class="AdwLeafletPage">
             <property name="name">provider</property>
             <property name="child">
-              <object class="GtkStack" id="stack">
-                <property name="transition-type">crossfade</property>
-                <child>
-                  <object class="GtkStackPage">
-                    <property name="name">provider</property>
-                    <property name="child">
-                      <object class="ProviderPage" id="page" />
-                    </property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkStackPage">
-                    <property name="name">placeholder</property>
-                    <property name="child">
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <child>
-                          <object class="GtkHeaderBar">
-                            <property name="title-widget">
-                              <object class="GtkLabel" />
-                            </property>
-                            <child type="start">
-                              <object class="GtkRevealer">
-                                <property name="transition-type">crossfade</property>
-                                <binding name="reveal-child">
-                                  <lookup name="folded">deck</lookup>
-                                </binding>
-                                <child>
-                                  <object class="GtkButton" id="back_btn">
-                                    <property name="receives-default">True</property>
-                                    <property name="action-name">providers.back</property>
-                                    <property name="icon-name">go-previous-symbolic</property>
-                                    <property name="tooltip-text" translatable="yes">Go Back</property>
+              <object class="AdwToastOverlay" id="toast_overlay">
+                <property name="child">
+                  <object class="GtkStack" id="stack">
+                    <property name="transition-type">crossfade</property>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">provider</property>
+                        <property name="child">
+                          <object class="ProviderPage" id="page" />
+                        </property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkStackPage">
+                        <property name="name">placeholder</property>
+                        <property name="child">
+                          <object class="GtkBox">
+                            <property name="orientation">vertical</property>
+                            <child>
+                              <object class="GtkHeaderBar">
+                                <property name="title-widget">
+                                  <object class="GtkLabel" />
+                                </property>
+                                <child type="start">
+                                  <object class="GtkRevealer">
+                                    <property name="transition-type">crossfade</property>
+                                    <binding name="reveal-child">
+                                      <lookup name="folded">deck</lookup>
+                                    </binding>
+                                    <child>
+                                      <object class="GtkButton" id="back_btn">
+                                        <property name="receives-default">True</property>
+                                        <property name="action-name">providers.back</property>
+                                        <property name="icon-name">go-previous-symbolic</property>
+                                        <property name="tooltip-text" translatable="yes">Go Back</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
                             </child>
+                            <child>
+                              <object class="AdwStatusPage" id="placeholder_page">
+                                <property name="vexpand">True</property>
+                                <property name="title" translatable="yes">No Provider Selected</property>
+                                <property name="description" translatable="yes">Select a provider or create a new one</property>
+                              </object>
+                            </child>
                           </object>
-                        </child>
-                        <child>
-                          <object class="AdwStatusPage" id="placeholder_page">
-                            <property name="vexpand">True</property>
-                            <property name="title" translatable="yes">No Provider Selected</property>
-                            <property name="description" translatable="yes">Select a provider or create a new one</property>
-                          </object>
-                        </child>
+                        </property>
                       </object>
-                    </property>
+                    </child>
                   </object>
-                </child>
+
+                </property>
               </object>
             </property>
           </object>

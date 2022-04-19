@@ -1,6 +1,7 @@
 use super::ProviderPage;
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use adw::{prelude::*, subclass::prelude::*};
+use gettextrs::gettext;
 use glib::clone;
 use gtk::{glib, pango, subclass::prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
@@ -40,6 +41,8 @@ mod imp {
         pub stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub placeholder_page: TemplateChild<adw::StatusPage>,
+        #[template_child]
+        pub toast_overlay: TemplateChild<adw::ToastOverlay>,
     }
 
     #[glib::object_subclass]
@@ -167,8 +170,9 @@ impl ProvidersDialog {
             clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
                 let provider = args[1].get::<Provider>().unwrap();
                 model.add_provider(&provider);
-                dialog.set_view(View::List);
                 dialog.emit_by_name::<()>("changed", &[]);
+                dialog.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Provider created successfully")));
+                dialog.set_view(View::Placeholder);
                 None
             }),
         );
@@ -179,6 +183,7 @@ impl ProvidersDialog {
             clone!(@weak self as dialog => @default-return None, move |_| {
                 dialog.set_view(View::List);
                 dialog.emit_by_name::<()>("changed", &[]);
+                dialog.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Provider updated successfully")));
                 None
             }),
         );
@@ -191,6 +196,7 @@ impl ProvidersDialog {
                 model.delete_provider(&provider);
                 dialog.set_view(View::Placeholder);
                 dialog.emit_by_name::<()>("changed", &[]);
+                dialog.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Provider removed successfully")));
                 None
             }),
         );
