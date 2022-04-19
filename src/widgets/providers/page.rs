@@ -176,10 +176,14 @@ impl ProviderPage {
 
             if let Some(ref website) = provider.website() {
                 imp.provider_website_entry.set_text(website);
+            } else {
+                imp.provider_website_entry.set_text("");
             }
 
             if let Some(ref website) = provider.help_url() {
                 imp.provider_help_entry.set_text(website);
+            } else {
+                imp.provider_help_entry.set_text("");
             }
 
             imp.algorithm_comborow.set_selected(
