@@ -8,9 +8,12 @@ use row::ProviderActionRow;
 enum View {
     List,
     Form,
+    Placeholder,
 }
 
 mod imp {
+    use crate::config;
+
     use super::*;
     use adw::subclass::window::AdwWindowImpl;
     use glib::subclass::{self, Signal};
@@ -18,7 +21,8 @@ mod imp {
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
     pub struct ProvidersDialog {
-        pub page: ProviderPage,
+        #[template_child]
+        pub page: TemplateChild<ProviderPage>,
         pub filter_model: gtk::FilterListModel,
         #[template_child]
         pub providers_list: TemplateChild<gtk::ListBox>,
@@ -29,9 +33,13 @@ mod imp {
         #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
         #[template_child]
-        pub stack: TemplateChild<gtk::Stack>,
+        pub search_stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub title_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub placeholder_page: TemplateChild<adw::StatusPage>,
     }
 
     #[glib::object_subclass]
@@ -70,7 +78,7 @@ mod imp {
             SIGNALS.as_ref()
         }
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_template();
+            self.placeholder_page.set_icon_name(Some(config::APP_ID));
             self.parent_constructed(obj);
         }
     }
@@ -96,7 +104,7 @@ impl ProvidersDialog {
 
         imp.filter_model.set_model(Some(&model));
 
-        let stack = &*imp.stack;
+        let stack = &*imp.search_stack;
         imp.filter_model
             .connect_items_changed(clone!(@weak stack => move |model, _, _, _| {
                 if model.n_items() == 0 {
@@ -181,21 +189,18 @@ impl ProvidersDialog {
             clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
                 let provider = args[1].get::<Provider>().unwrap();
                 model.delete_provider(&provider);
-                dialog.set_view(View::List);
+                dialog.set_view(View::Placeholder);
                 dialog.emit_by_name::<()>("changed", &[]);
                 None
             }),
         );
-        let page = imp.deck.append(&imp.page);
-        page.set_name(Some("provider"));
-        self.set_view(View::List);
 
         imp.deck
             .bind_property("folded", &*imp.page.imp().revealer, "reveal-child")
             .flags(glib::BindingFlags::SYNC_CREATE)
             .build();
-        let row = imp.providers_list.row_at_index(0).unwrap();
-        row.activate();
+
+        self.set_view(View::Placeholder);
     }
 
     fn search(&self, text: String) {
@@ -225,11 +230,17 @@ impl ProvidersDialog {
         match view {
             View::Form => {
                 imp.deck.set_visible_child_name("provider");
+                imp.stack.set_visible_child_name("provider");
                 imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 imp.search_entry.emit_stop_search();
             }
             View::List => {
                 imp.deck.set_visible_child_name("providers");
+                imp.search_entry.set_key_capture_widget(Some(self));
+            }
+            View::Placeholder => {
+                imp.deck.set_visible_child_name("provider");
+                imp.stack.set_visible_child_name("placeholder");
                 imp.search_entry.set_key_capture_widget(Some(self));
             }
         }

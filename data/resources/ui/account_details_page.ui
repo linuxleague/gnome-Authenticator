@@ -157,6 +157,7 @@
                     <child>
                       <object class="GtkListBox">
                         <property name="selection-mode">none</property>
+                        <property name="margin-bottom">18</property>
                         <child>
                           <object class="AdwActionRow">
                             <property name="title" translatable="yes">Algorithm</property>
