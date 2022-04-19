@@ -10,7 +10,10 @@
 
 ## Screenshots
 
-![screenshot](data/screenshots/screenshot1.png)
+<div align="center">
+    <img src="./data/screenshots/screenshot1.png" />
+</div>
+
 
 ## Features
  - Time-based/Counter-based/Steam methods support
