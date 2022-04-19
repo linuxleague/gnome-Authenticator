@@ -652,13 +652,16 @@ impl Provider {
     pub fn find_accounts(&self, terms: &[String]) -> Vec<Account> {
         let mut results = vec![];
         let model = self.accounts_model();
-
+        let provider_name = self.name();
         for pos in 0..model.n_items() {
             let obj = model.item(pos).unwrap();
             let account = obj.downcast::<Account>().unwrap();
             let account_name = account.name();
 
-            if terms.iter().any(|term| account_name.contains(term)) {
+            if terms
+                .iter()
+                .any(|term| account_name.contains(term) || provider_name.contains(term))
+            {
                 results.push(account);
             }
         }
