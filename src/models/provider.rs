@@ -684,7 +684,7 @@ impl Provider {
         self.imp().filter_model.set_filter(Some(&filter));
     }
 
-    pub fn remove_account(&self, account: Account) {
+    pub fn remove_account(&self, account: &Account) {
         let imp = self.imp();
         if let Some(pos) = imp.accounts.find_position_by_id(account.id()) {
             imp.accounts.remove(pos);

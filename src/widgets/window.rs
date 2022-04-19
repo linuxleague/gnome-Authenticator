@@ -199,7 +199,7 @@ impl Window {
     fn init(&self, model: ProvidersModel, app: &Application) {
         let imp = self.imp();
         imp.model.set(model.clone()).unwrap();
-        imp.providers.set_model(model);
+        imp.providers.set_model(model.clone());
         imp.providers.connect_local(
             "shared",
             false,
@@ -268,6 +268,17 @@ impl Window {
                 title_stack.set_visible_child_name("title");
             }
         }));
+
+        imp.account_details.set_providers_model(model);
+
+        imp.account_details.connect_local(
+            "provider-changed",
+            false,
+            clone!(@weak self as window => @default-return None, move |_| {
+                window.providers().refilter();
+                None
+            }),
+        );
     }
 
     fn setup_actions(&self, app: &Application) {
@@ -364,7 +375,7 @@ impl Window {
                 let account = args[1].get::<Account>().unwrap();
                 let provider = account.provider();
                 account.delete().unwrap();
-                provider.remove_account(account);
+                provider.remove_account(&account);
                 win.providers().refilter();
                 win.set_view(View::Accounts);
                 None

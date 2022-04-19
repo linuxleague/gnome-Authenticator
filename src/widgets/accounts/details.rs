@@ -1,6 +1,6 @@
 use super::qrcode_paintable::QRCodePaintable;
 use crate::{
-    models::{Account, OTPMethod},
+    models::{Account, OTPMethod, Provider, ProvidersModel},
     widgets::UrlRow,
 };
 use gettextrs::gettext;
@@ -12,11 +12,14 @@ use gtk::{
     CompositeTemplate,
 };
 mod imp {
-    use crate::widgets::{editable_label::EditableSpin, EditableLabel};
+    use crate::{
+        models::Provider,
+        widgets::{editable_label::EditableSpin, EditableLabel},
+    };
 
     use super::*;
     use glib::subclass::{self, Signal};
-    use once_cell::sync::Lazy;
+    use once_cell::sync::{Lazy, OnceCell};
     use std::cell::RefCell;
 
     #[derive(Debug, Default, CompositeTemplate)]
@@ -52,6 +55,14 @@ mod imp {
         pub edit_stack: TemplateChild<gtk::Stack>,
         pub qrcode_paintable: QRCodePaintable,
         pub account: RefCell<Option<Account>>,
+        #[template_child]
+        pub provider_stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub provider_completion: TemplateChild<gtk::EntryCompletion>,
+        #[template_child]
+        pub provider_entry: TemplateChild<gtk::Entry>,
+        pub selected_provider: RefCell<Option<Provider>>,
+        pub providers_model: OnceCell<ProvidersModel>,
     }
 
     #[glib::object_subclass]
@@ -83,6 +94,7 @@ mod imp {
                     imp.edit_stack.set_visible_child_name("edit");
                     imp.account_label.stop_editing(false);
                     imp.counter_label.stop_editing(false);
+                    imp.provider_stack.set_visible_child_name("display");
                     imp.edit_stack.grab_focus();
                 } else {
                     page.activate_action("win.back", None).unwrap();
@@ -105,13 +117,18 @@ mod imp {
     impl ObjectImpl for AccountDetailsPage {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder(
-                    "removed",
-                    &[Account::static_type().into()],
-                    <()>::static_type().into(),
-                )
-                .flags(glib::SignalFlags::ACTION)
-                .build()]
+                vec![
+                    Signal::builder(
+                        "removed",
+                        &[Account::static_type().into()],
+                        <()>::static_type().into(),
+                    )
+                    .flags(glib::SignalFlags::ACTION)
+                    .build(),
+                    Signal::builder("provider-changed", &[], <()>::static_type().into())
+                        .flags(glib::SignalFlags::ACTION)
+                        .build(),
+                ]
             });
             SIGNALS.as_ref()
         }
@@ -126,6 +143,8 @@ mod imp {
             self.edit_stack.set_visible_child_name("edit");
             self.account_label.stop_editing(false);
             self.counter_label.stop_editing(false);
+            self.provider_stack.set_visible_child_name("display");
+            self.provider_entry.set_text("");
             self.parent_unmap(widget);
         }
     }
@@ -147,6 +166,19 @@ impl AccountDetailsPage {
         imp.qrcode_picture
             .set_paintable(Some(&imp.qrcode_paintable));
         imp.counter_label.set_adjustment(1, u32::MAX);
+
+        imp.provider_completion.connect_match_selected(
+            clone!(@weak self as page  => @default-return gtk::Inhibit(false), move |_, store, iter| {
+                let provider_id = store.get::<u32>(iter, 0);
+                let model = page.imp().providers_model.get().unwrap();
+                let provider = model.find_by_id(provider_id);
+                page.set_provider(provider.unwrap_or_else(|| {
+                    page.imp().account.borrow().as_ref().unwrap().provider()
+                }));
+
+                gtk::Inhibit(false)
+            }),
+        );
     }
 
     fn delete_account(&self) {
@@ -176,9 +208,23 @@ impl AccountDetailsPage {
         let qr_code = account.qr_code();
         imp.qrcode_paintable.set_qrcode(qr_code);
 
-        let provider = account.provider();
-
+        if account.provider().method() == OTPMethod::HOTP {
+            imp.counter_label.set_text(account.counter());
+        }
+        self.set_provider(account.provider());
         imp.account_label.set_text(&account.name());
+        imp.account.replace(Some(account.clone()));
+    }
+
+    pub fn set_providers_model(&self, model: ProvidersModel) {
+        self.imp()
+            .provider_completion
+            .set_model(Some(&model.completion_model()));
+        self.imp().providers_model.set(model).unwrap();
+    }
+
+    fn set_provider(&self, provider: Provider) {
+        let imp = self.imp();
         imp.provider_label.set_text(&provider.name());
         imp.algorithm_label
             .set_text(&provider.algorithm().to_locale_string());
@@ -187,7 +233,6 @@ impl AccountDetailsPage {
         if provider.method() == OTPMethod::HOTP {
             imp.counter_row.show();
             imp.period_row.hide();
-            imp.counter_label.set_text(account.counter());
         } else {
             imp.counter_row.hide();
             imp.period_row.show();
@@ -200,13 +245,13 @@ impl AccountDetailsPage {
         } else {
             imp.help_row.hide();
         }
-        if let Some(ref website) = account.provider().website() {
+        if let Some(ref website) = provider.website() {
             imp.website_row.set_uri(website);
             imp.website_row.show();
         } else {
             imp.website_row.hide();
         }
-        imp.account.replace(Some(account.clone()));
+        imp.selected_provider.replace(Some(provider));
     }
 
     fn set_edit_mode(&self) {
@@ -214,7 +259,10 @@ impl AccountDetailsPage {
         imp.edit_stack.set_visible_child_name("save");
         imp.account_label.start_editing();
         imp.counter_label.start_editing();
-
+        imp.provider_stack.set_visible_child_name("edit");
+        if let Some(account) = imp.account.borrow().as_ref() {
+            imp.provider_entry.set_text(&account.provider().name());
+        }
         imp.account_label.grab_focus();
     }
 
@@ -223,9 +271,21 @@ impl AccountDetailsPage {
         imp.edit_stack.set_visible_child_name("edit");
         imp.account_label.stop_editing(true);
         imp.counter_label.stop_editing(true);
+        imp.provider_stack.set_visible_child_name("display");
 
         if let Some(account) = imp.account.borrow().as_ref() {
             account.set_name(&imp.account_label.text())?;
+
+            if let Some(selected_provider) = imp.selected_provider.borrow().as_ref() {
+                let current_provider = account.provider();
+                if selected_provider.id() != current_provider.id() {
+                    selected_provider.add_account(account);
+                    current_provider.remove_account(account);
+                    account.set_provider(selected_provider)?;
+                    imp.provider_entry.set_text(&selected_provider.name());
+                    self.emit_by_name::<()>("provider-changed", &[]);
+                }
+            }
 
             let old_counter = account.counter();
             account.set_counter(imp.counter_label.value())?;

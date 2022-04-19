@@ -336,6 +336,19 @@ impl Account {
         self.property("provider")
     }
 
+    pub fn set_provider(&self, provider: &Provider) -> Result<()> {
+        let db = database::connection();
+        let conn = db.get()?;
+
+        let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
+        diesel::update(target)
+            .set(accounts::columns::provider_id.eq(provider.id() as i32))
+            .execute(&conn)?;
+
+        self.set_property("provider", provider);
+        Ok(())
+    }
+
     pub fn counter(&self) -> u32 {
         self.imp().counter.get()
     }

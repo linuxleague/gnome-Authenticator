@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <object class="GtkEntryCompletion" id="provider_completion">
+    <property name="minimum-key-length">1</property>
+    <property name="text-column">1</property>
+    <property name="inline-selection">True</property>
+    <child>
+      <object class="GtkCellRendererText" />
+      <attributes>
+        <attribute name="text">1</attribute>
+      </attributes>
+    </child>
+  </object>
   <template parent="GtkBox" class="AccountDetailsPage">
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
@@ -109,8 +120,31 @@
                           <object class="AdwActionRow">
                             <property name="title" translatable="yes">Provider</property>
                             <child>
-                              <object class="GtkLabel" id="provider_label">
-                                <property name="halign">end</property>
+                              <object class="GtkStack" id="provider_stack">
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">display</property>
+                                    <property name="child">
+                                      <object class="GtkLabel" id="provider_label">
+                                        <property name="halign">end</property>
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkStackPage">
+                                    <property name="name">edit</property>
+                                    <property name="child">
+                                      <object class="GtkEntry" id="provider_entry">
+                                        <property name="halign">end</property>
+                                        <property name="valign">center</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="completion">provider_completion</property>
+                                        <property name="enable-emoji-completion">True</property>
+                                      </object>
+                                    </property>
+                                  </object>
+                                </child>
                               </object>
                             </child>
                           </object>
