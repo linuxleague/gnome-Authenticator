@@ -204,7 +204,7 @@ impl Window {
             "shared",
             false,
             clone!(@weak self as win => @default-return None, move |args| {
-                let account = args.get(1).unwrap().get::<Account>().unwrap();
+                let account = args[1].get::<Account>().unwrap();
                 win.set_view(View::Account(account));
                 None
             }),

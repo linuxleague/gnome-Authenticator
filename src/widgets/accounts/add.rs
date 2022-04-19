@@ -11,6 +11,8 @@ use once_cell::sync::OnceCell;
 use std::str::FromStr;
 
 mod imp {
+    use crate::widgets::providers::ProviderPage;
+
     use super::*;
     use glib::subclass::{self, Signal};
     use std::cell::RefCell;
@@ -54,6 +56,8 @@ mod imp {
         pub provider_completion: TemplateChild<gtk::EntryCompletion>,
         #[template_child]
         pub error_revealer: TemplateChild<ErrorRevealer>,
+        #[template_child]
+        pub provider_page: TemplateChild<ProviderPage>,
     }
 
     #[glib::object_subclass]
@@ -67,7 +71,7 @@ mod imp {
 
             klass.install_action("add.previous", None, move |dialog, _, _| {
                 let imp = dialog.imp();
-                if imp.deck.visible_child_name().unwrap() == "camera" {
+                if imp.deck.visible_child_name().unwrap() != "main" {
                     imp.deck.set_visible_child_name("main");
                 } else {
                     dialog.close();
@@ -266,6 +270,36 @@ impl AccountAddDialog {
             }),
         );
 
+        // in case the provider doesn't exists, let the user create a new one by showing a dialog for that
+        // TODO: replace this whole completion provider thing with a custom widget
+        imp.provider_completion.connect_no_matches(clone!(@weak self as dialog => move |completion| {
+            let imp = dialog.imp();
+            let model = imp.model.get().unwrap();
+            let entry = completion.entry().unwrap();
+
+            imp.deck.set_visible_child_name("create-provider");
+            imp.provider_page.imp().back_btn.set_action_name(Some("add.previous"));
+            imp.provider_page.imp().revealer.set_reveal_child(true);
+            imp.provider_page.set_provider(None);
+
+            let name_entry = imp.provider_page.name_entry();
+            name_entry.set_text(&entry.text());
+            name_entry.grab_focus_without_selecting();
+            name_entry.set_position(entry.cursor_position());
+
+            imp.provider_page.connect_local("created", false, clone!(@weak dialog, @weak model => @default-panic, move |args| {
+                let provider = args[1].get::<Provider>().unwrap();
+                model.add_provider(&provider);
+
+                dialog.imp().provider_completion
+                    .set_model(Some(&model.completion_model()));
+                dialog.set_provider(Some(provider));
+                dialog.imp().username_entry.grab_focus_without_selecting();
+                dialog.imp().deck.set_visible_child_name("main");
+                None
+            }));
+        }));
+
         imp.deck
             .connect_visible_child_name_notify(clone!(@weak self as page => move |deck| {
                 if deck.visible_child_name().as_ref().map(|s|s.as_str()) != Some("camera") {
@@ -277,7 +311,7 @@ impl AccountAddDialog {
             "code-detected",
             false,
             clone!(@weak self as dialog => @default-return None, move |args| {
-                let code = args.get(1).unwrap().get::<String>().unwrap();
+                let code = args[1].get::<String>().unwrap();
                 if let Ok(otp_uri) = OTPUri::from_str(&code) {
                     dialog.set_from_otp_uri(&otp_uri);
                 }

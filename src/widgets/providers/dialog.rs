@@ -157,7 +157,7 @@ impl ProvidersDialog {
             "created",
             false,
             clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                let provider = args.get(1).unwrap().get::<Provider>().unwrap();
+                let provider = args[1].get::<Provider>().unwrap();
                 model.add_provider(&provider);
                 dialog.set_view(View::List);
                 dialog.emit_by_name::<()>("changed", &[]);
@@ -179,7 +179,7 @@ impl ProvidersDialog {
             "deleted",
             false,
             clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                let provider = args.get(1).unwrap().get::<Provider>().unwrap();
+                let provider = args[1].get::<Provider>().unwrap();
                 model.delete_provider(&provider);
                 dialog.set_view(View::List);
                 dialog.emit_by_name::<()>("changed", &[]);

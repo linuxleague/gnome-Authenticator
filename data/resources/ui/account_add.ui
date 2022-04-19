@@ -247,6 +247,14 @@
             </property>
           </object>
         </child>
+        <child>
+          <object class="AdwLeafletPage">
+            <property name="name">create-provider</property>
+            <property name="child">
+              <object class="ProviderPage" id="provider_page" />
+            </property>
+          </object>
+        </child>
       </object>
     </child>
     <child>

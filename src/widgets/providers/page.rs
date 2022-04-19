@@ -55,6 +55,8 @@ mod imp {
         // We need to hold a reference to the native file chooser
         pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
         pub selected_image: RefCell<Option<gio::File>>,
+        #[template_child]
+        pub back_btn: TemplateChild<gtk::Button>,
     }
 
     #[glib::object_subclass]
@@ -85,6 +87,7 @@ mod imp {
                 default_counter_row: TemplateChild::default(),
                 title: TemplateChild::default(),
                 delete_button: TemplateChild::default(),
+                back_btn: TemplateChild::default(),
                 methods_model,
                 algorithms_model,
                 selected_provider: RefCell::default(),
@@ -365,6 +368,10 @@ impl ProviderPage {
             anyhow::bail!("Can't remove a provider as none are selected");
         }
         Ok(())
+    }
+
+    pub fn name_entry(&self) -> gtk::Entry {
+        self.imp().name_entry.clone()
     }
 
     fn setup_widgets(&self) {

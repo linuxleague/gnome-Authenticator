@@ -126,19 +126,22 @@ impl ProviderImage {
     pub fn set_provider(&self, provider: Option<&Provider>) {
         let imp = self.imp();
         if let Some(provider) = provider {
-            imp.stack.set_visible_child_name("loading");
-            imp.spinner.start();
+            if provider.website().is_some() || provider.image_uri().is_some() {
+                imp.stack.set_visible_child_name("loading");
+                imp.spinner.start();
+                self.on_provider_image_changed();
+            }
             self.set_property("provider", &provider);
-            self.on_provider_image_changed();
             provider.connect_notify_local(
                 Some("image-uri"),
                 clone!(@weak self as image => move |_, _| {
                     image.on_provider_image_changed();
                 }),
             );
-        } else {
-            imp.image.set_from_icon_name(Some("provider-fallback"));
+            return;
         }
+
+        imp.image.set_from_icon_name(Some("provider-fallback"));
     }
 
     fn on_provider_image_changed(&self) {
