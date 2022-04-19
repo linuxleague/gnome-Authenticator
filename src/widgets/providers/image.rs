@@ -126,12 +126,12 @@ impl ProviderImage {
     pub fn set_provider(&self, provider: Option<&Provider>) {
         let imp = self.imp();
         if let Some(provider) = provider {
+            self.set_property("provider", &provider);
             if provider.website().is_some() || provider.image_uri().is_some() {
                 imp.stack.set_visible_child_name("loading");
                 imp.spinner.start();
                 self.on_provider_image_changed();
             }
-            self.set_property("provider", &provider);
             provider.connect_notify_local(
                 Some("image-uri"),
                 clone!(@weak self as image => move |_, _| {
@@ -156,7 +156,6 @@ impl ProviderImage {
                     imp.stack.set_visible_child_name("image");
                     return;
                 }
-
                 let small_file = gio::File::for_path(&FAVICONS_PATH.join(format!("{uri}_32x32")));
                 let large_file = gio::File::for_path(&FAVICONS_PATH.join(format!("{uri}_96x96")));
                 if !small_file.query_exists(gio::Cancellable::NONE)

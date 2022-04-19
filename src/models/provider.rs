@@ -30,6 +30,7 @@ pub struct ProviderPatch {
     pub default_counter: i32,
     pub algorithm: String,
     pub method: String,
+    pub is_backup_restore: bool,
 }
 
 #[derive(Insertable)]
@@ -528,29 +529,40 @@ impl Provider {
         let target = providers::table.filter(providers::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set((
-                providers::columns::image_uri.eq(&patch.image_uri),
-                providers::columns::website.eq(&patch.website),
                 providers::columns::algorithm.eq(&patch.algorithm),
                 providers::columns::method.eq(&patch.method),
-                providers::columns::help_url.eq(&patch.help_url),
                 providers::columns::digits.eq(&patch.digits),
                 providers::columns::period.eq(&patch.period),
                 providers::columns::default_counter.eq(&patch.default_counter),
                 providers::columns::name.eq(&patch.name),
             ))
             .execute(&conn)?;
+        if !patch.is_backup_restore {
+            diesel::update(target)
+                .set((
+                    providers::columns::image_uri.eq(&patch.image_uri),
+                    providers::columns::website.eq(&patch.website),
+                    providers::columns::help_url.eq(&patch.help_url),
+                ))
+                .execute(&conn)?;
+        };
 
         self.set_properties(&[
-            ("image-uri", &patch.image_uri),
             ("name", &patch.name),
-            ("website", &patch.website),
             ("period", &(patch.period as u32)),
             ("method", &patch.method),
             ("digits", &(patch.digits as u32)),
             ("algorithm", &patch.algorithm),
-            ("help-url", &patch.help_url),
             ("default-counter", &(patch.default_counter as u32)),
         ]);
+
+        if !patch.is_backup_restore {
+            self.set_properties(&[
+                ("image-uri", &patch.image_uri),
+                ("website", &patch.website),
+                ("help-url", &patch.help_url),
+            ]);
+        }
         Ok(())
     }
 

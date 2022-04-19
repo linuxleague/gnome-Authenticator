@@ -72,6 +72,7 @@ impl ProvidersModel {
                     default_counter: default_counter.unwrap_or_else(|| p.default_counter()) as i32,
                     algorithm: algorithm.to_string(),
                     method: method.to_string(),
+                    is_backup_restore: true,
                 })?;
                 p
             }
