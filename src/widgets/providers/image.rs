@@ -27,6 +27,8 @@ mod imp {
         pub image: TemplateChild<gtk::Image>,
         #[template_child]
         pub spinner: TemplateChild<gtk::Spinner>,
+        pub signal_id: RefCell<Option<glib::SignalHandlerId>>,
+        pub join_handle: RefCell<Option<tokio::task::JoinHandle<()>>>,
     }
 
     #[glib::object_subclass]
@@ -46,6 +48,8 @@ mod imp {
                 image: TemplateChild::default(),
                 spinner: TemplateChild::default(),
                 provider: RefCell::new(None),
+                signal_id: Default::default(),
+                join_handle: Default::default(),
             }
         }
 
@@ -132,13 +136,20 @@ impl ProviderImage {
                 imp.spinner.start();
                 self.on_provider_image_changed();
             }
-            provider.connect_notify_local(
+            let signal_id = provider.connect_notify_local(
                 Some("image-uri"),
                 clone!(@weak self as image => move |_, _| {
                     image.on_provider_image_changed();
                 }),
             );
+            imp.signal_id.replace(Some(signal_id));
             return;
+        } else {
+            if let (Some(signal_id), Some(provider)) =
+                (imp.signal_id.borrow_mut().take(), self.provider())
+            {
+                provider.disconnect(signal_id);
+            }
         }
 
         imp.image.set_from_icon_name(Some("provider-fallback"));
@@ -179,6 +190,9 @@ impl ProviderImage {
 
     fn fetch(&self) {
         let imp = self.imp();
+        if let Some(handle) = imp.join_handle.borrow_mut().take() {
+            handle.abort();
+        }
         if let Some(provider) = self.provider() {
             imp.stack.set_visible_child_name("loading");
             imp.spinner.start();
@@ -186,8 +200,8 @@ impl ProviderImage {
             if let Some(website) = provider.website() {
                 let id = provider.id();
                 let name = provider.name();
-                let (sender, receiver) = futures::channel::oneshot::channel();
-                RUNTIME.spawn(async move {
+                let (sender, receiver) = tokio::sync::oneshot::channel();
+                let future = async move {
                     match Provider::favicon(website, name, id).await {
                         Ok(cache_name) => {
                             sender.send(Some(cache_name)).unwrap();
@@ -196,16 +210,24 @@ impl ProviderImage {
                             log::error!("Failed to load favicon {}", err);
                             sender.send(None).unwrap();
                         }
-                    }
-                });
+                    };
+                };
+                let join_handle = RUNTIME.spawn(future);
+                imp.join_handle.borrow_mut().replace(join_handle);
+
                 glib::MainContext::default().spawn_local(clone!(@weak self as this => async move {
                    let imp = this.imp();
-                    let response = receiver.await.unwrap();
-                    if let Some(cache_name) = response {
-                        send!(imp.sender.clone(), ImageAction::Ready(cache_name));
-                    } else {
-                        send!(imp.sender.clone(), ImageAction::Failed);
-                    }
+                    match receiver.await {
+                        Ok(Some(cache_name)) => {
+                            send!(imp.sender.clone(), ImageAction::Ready(cache_name));
+                        }
+                        Ok(None) =>  {
+                            send!(imp.sender.clone(), ImageAction::Failed);
+                        },
+                        Err(_) => {
+                            log::debug!("Provider image fetching aborted");
+                        }
+                    };
                 }));
             }
         }
@@ -261,9 +283,11 @@ impl ProviderImage {
             }
         };
         if let Some(provider) = self.provider() {
+            let guard = provider.freeze_notify();
             if let Err(err) = provider.set_image_uri(&image_path) {
                 warn!("Failed to update provider image {}", err);
             }
+            drop(guard);
         }
 
         imp.stack.set_visible_child_name("image");

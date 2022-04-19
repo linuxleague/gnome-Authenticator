@@ -249,7 +249,6 @@ dependencies = [
  "binascii",
  "diesel",
  "diesel_migrations",
- "futures",
  "gettext-rs",
  "gst-plugin-gtk4",
  "gstreamer",

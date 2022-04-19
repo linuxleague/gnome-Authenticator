@@ -10,7 +10,6 @@ ashpd = {version = "0.3", features = ["feature_pipewire", "feature_gtk4"]}
 binascii = "0.1"
 diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "1.4", features = ["sqlite"]}
-futures = "0.3"
 gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", version = "0.18"}
 gst4gtk = { package = "gst-plugin-gtk4", version = "0.1"}
