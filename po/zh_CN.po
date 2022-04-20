@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-24 19:57+0000\n"
-"PO-Revision-Date: 2022-01-31 16:19+0800\n"
+"POT-Creation-Date: 2022-04-19 01:43+0000\n"
+"PO-Revision-Date: 2022-04-19 18:53+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 41.0\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
@@ -111,31 +111,38 @@ msgid "Beautiful UI"
 msgstr "美观的用户界面"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
-msgstr "备份至流行的 FreeOTP+、andOTP（或从中恢复）"
+msgid "GNOME Shell search provider"
+msgstr "GNOME Shell 搜索提供者"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+"(encrypted / plain-text)"
+msgstr ""
+"备份至流行的如 FreeOTP+、andOTP、Aegis（加密/纯文本）等应用程序或从其恢复"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
 msgstr "主窗口"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
 #: data/resources/ui/account_add.ui:24
 msgid "Add a New Account"
 msgstr "添加新帐号"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
 msgid "Add a New Provider"
 msgstr "添加新提供方"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
 msgid "Account Details"
 msgstr "帐号详情"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
 msgid "Backup/Restore formats support"
 msgstr "支持的备份/恢复格式"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:235
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -148,9 +155,9 @@ msgid "_Screenshot"
 msgstr "截图(_S)"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:54
+#: data/resources/ui/provider_page.ui:48
 msgid "Go Back"
 msgstr "返回"
 
@@ -163,7 +170,7 @@ msgid "Scan QR Code"
 msgstr "扫描二维码"
 
 #: data/resources/ui/account_add.ui:100
-#: data/resources/ui/account_details_page.ui:52
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
 msgstr "提供方"
 
@@ -172,7 +179,7 @@ msgid "Token issuer"
 msgstr "令牌颁发者"
 
 #: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:42
+#: data/resources/ui/account_details_page.ui:111
 msgid "Account"
 msgstr "帐号"
 
@@ -180,62 +187,76 @@ msgstr "帐号"
 msgid "Token"
 msgstr "令牌"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:182
+#: data/resources/ui/provider_page.ui:209
 msgid "Counter"
 msgstr "计数器"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:162
+#: data/resources/ui/provider_page.ui:175
 msgid "Algorithm"
 msgstr "算法"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:172
+#: data/resources/ui/provider_page.ui:162
 msgid "Computing Method"
 msgstr "运算方式"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:192
+#: data/resources/ui/provider_page.ui:192
 msgid "Period"
 msgstr "周期"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
 msgid "Duration in seconds until the next password update"
 msgstr "下次密码更新的间隔秒数"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:202
+#: data/resources/ui/provider_page.ui:226
 msgid "Digits"
 msgstr "位数"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
 msgid "Length of the generated code"
 msgstr "生成验证码的长度"
 
 #: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:155
+#: data/resources/ui/account_details_page.ui:212
+#: data/resources/ui/provider_page.ui:148
 msgid "Website"
 msgstr "网站"
 
-#: data/resources/ui/account_add.ui:225
+#: data/resources/ui/account_add.ui:224
 msgid "How to Set Up"
 msgstr "如何设置"
 
-#: data/resources/ui/account_details_page.ui:73
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+#: data/resources/ui/account_details_page.ui:56
+msgid "_Edit"
+msgstr "编辑(_E)"
+
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "保存(_S)"
+
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: data/resources/ui/account_row.ui:6
-msgid "D_etails"
-msgstr "详情(_E)"
+#: data/resources/ui/account_details_page.ui:217
+msgid "Help"
+msgstr "帮助"
 
-#: data/resources/ui/account_row.ui:12
-msgid "_Rename"
-msgstr "重命名(_R)"
-
-#: data/resources/ui/account_row.ui:86
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:61
-msgid "_Save"
-msgstr "保存(_S)"
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "增加计数"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -266,7 +287,7 @@ msgid "Repeat Passphrase"
 msgstr "重复密码"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:106
+#: data/resources/ui/provider_page.ui:100
 msgid "_Reset"
 msgstr "重置(_R)"
 
@@ -318,35 +339,35 @@ msgstr "超时时间，单位为分钟"
 msgid "Backup/Restore"
 msgstr "备份/恢复"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
 msgstr "备份"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
 msgid "Restore"
 msgstr "恢复"
 
-#: data/resources/ui/provider_page.ui:117
+#: data/resources/ui/provider_page.ui:110
 msgid "Select a _File"
 msgstr "选择文件(_F)"
 
-#: data/resources/ui/provider_page.ui:141
+#: data/resources/ui/provider_page.ui:134
 msgid "Name"
 msgstr "名称"
 
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/provider_page.ui:149
 msgid "Used to fetch the provider icon"
 msgstr "用于获取提供方图标"
 
-#: data/resources/ui/provider_page.ui:217
+#: data/resources/ui/provider_page.ui:210
 msgid "The by default value for counter-based computing method"
 msgstr "基于计数器的运算方式所使用的默认值"
 
-#: data/resources/ui/provider_page.ui:251
+#: data/resources/ui/provider_page.ui:244
 msgid "Help URL"
 msgstr "帮助页面"
 
-#: data/resources/ui/provider_page.ui:252
+#: data/resources/ui/provider_page.ui:245
 msgid "Provider setup instructions"
 msgstr "提供方设置说明"
 
@@ -354,20 +375,20 @@ msgstr "提供方设置说明"
 msgid "Providers"
 msgstr "提供方"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
 msgid "New Provider"
 msgstr "新建提供方"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:252
 msgid "Search"
 msgstr "搜索"
 
-#: data/resources/ui/providers_dialog.ui:101
+#: data/resources/ui/providers_dialog.ui:102
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "无结果"
 
-#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_dialog.ui:103
 msgid "No providers matching the query were found."
 msgstr "未找到与查询匹配的提供方。"
 
@@ -444,23 +465,23 @@ msgstr "关于验证器(_A)"
 msgid "Authenticator is Locked"
 msgstr "验证器已锁定"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.ui:122
 msgid "_Unlock"
 msgstr "解锁(_U)"
 
-#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#: data/resources/ui/window.ui:170 data/resources/ui/window.ui:209
 msgid "New Account"
 msgstr "新增帐号"
 
-#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:246
 msgid "Menu"
 msgstr "菜单"
 
-#: data/resources/ui/window.ui:192
+#: data/resources/ui/window.ui:188
 msgid "No Accounts"
 msgstr "无帐号"
 
-#: data/resources/ui/window.ui:193
+#: data/resources/ui/window.ui:189
 msgid "Add an account or scan a QR code first."
 msgstr "请先添加帐号或扫描二维码。"
 
@@ -470,7 +491,30 @@ msgstr ""
 "Boyuan Yang <073plan@gmail.com>, 2020\n"
 "Tranquilo Chan <cdh4227@foxmail.com>, 2020\n"
 "McLapngap <mclapngap@icloud.com>, 2020\n"
-"Dingzhong Chen <wsxy162@gmail.com>, 2021"
+"Dingzhong Chen <wsxy162@gmail.com>, 2021\n"
+"lumingzh <lumingzh@qq.com>, 2022"
+
+#: src/application.rs:398
+msgid "One-Time password copied"
+msgstr "动态口令已复制"
+
+#: src/application.rs:399
+msgid "Password was copied successfully"
+msgstr "密码已成功复制"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:514 src/backup/aegis.rs:564
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:518
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "导出为包含纯文本或加密域的 JSON 文件"
+
+#: src/backup/aegis.rs:568
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "从包含纯文本或加密域的 JSON 文件导入"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -524,36 +568,36 @@ msgstr "从纯文本文件导入，与 FreeOTP+ 兼容"
 msgid "Au_thenticator (Legacy)"
 msgstr "旧版验证器(_T)"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "基于计数器"
 
-#: src/models/algorithm.rs:57
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "基于时间"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:59
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:131
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:128
+#: src/models/algorithm.rs:132
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:129
+#: src/models/algorithm.rs:133
 msgid "SHA-512"
 msgstr "SHA-256"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:202
 msgid "Invalid Token"
 msgstr "无效的令牌"
 
-#: src/widgets/window.rs:313
+#: src/widgets/window.rs:331
 msgid "Wrong Password"
 msgstr "错误的密码"
 
@@ -562,43 +606,49 @@ msgstr "错误的密码"
 msgid "Wrong Passphrase"
 msgstr "错误的密码"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
 msgid "Key / Passphrase"
 msgstr "密钥/密码"
 
-#: src/widgets/preferences/window.rs:210
+#: src/widgets/preferences/window.rs:212
 msgid "The key that will be used to decrypt the vault"
 msgstr "用于解密保险库的密钥"
 
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
 msgid "Select File"
 msgstr "选择文件"
 
-#: src/widgets/preferences/window.rs:278
+#: src/widgets/preferences/window.rs:280
 msgid "The key used to encrypt the vault"
 msgstr "用于加密保险库的密钥"
 
-#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
-#: src/widgets/providers/page.rs:310
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "选择"
 
-#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
-#: src/widgets/providers/page.rs:311
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "取消"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "编辑提供方：{}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:332
 msgid "Image"
 msgstr "图像"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:367
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
+
+#~ msgid "D_etails"
+#~ msgstr "详情(_E)"
+
+#~ msgid "_Rename"
+#~ msgstr "重命名(_R)"
 
 #~ msgid "Copy PIN to clipboard"
 #~ msgstr "复制验证码到剪贴板"
@@ -629,9 +679,6 @@ msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
 
 #~ msgid "Sharing an account"
 #~ msgstr "共享帐号"
-
-#~ msgid "The service provider"
-#~ msgstr "服务提供方"
 
 #~ msgid "By setting a password, Authenticator will from now on start locked."
 #~ msgstr "设置密码后，验证器今后将以锁定状态启动。"
@@ -681,9 +728,6 @@ msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
 #~ msgid "Enable 2FA for this account"
 #~ msgstr "为此账号启用双重认证"
 
-#~ msgid "Edit"
-#~ msgstr "编辑"
-
 #~ msgid "Confirm New Password:"
 #~ msgstr "确认新密码："
 
@@ -696,17 +740,11 @@ msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
 #~ msgid "Add"
 #~ msgstr "添加"
 
-#~ msgid "The One-Time Passwords expire in {} seconds"
-#~ msgstr "一次性的验证码会在{}秒后失效"
-
 #~ msgid "Couldn't generate the secret code"
 #~ msgstr "无法生成验证码"
 
 #~ msgid "The PIN of {} was copied to the clipboard"
 #~ msgstr "{} 的 PIN 已复制到剪贴板"
-
-#~ msgid "The account was updated successfully"
-#~ msgstr "帐号已成功更新"
 
 #~ msgid "Undo"
 #~ msgstr "撤消"
