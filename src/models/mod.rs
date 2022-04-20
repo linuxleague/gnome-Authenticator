@@ -14,8 +14,13 @@ mod provider_sorter;
 mod providers;
 
 pub static CLIENT: Lazy<reqwest::Client> = Lazy::new(reqwest::Client::new);
-pub static RUNTIME: Lazy<tokio::runtime::Runtime> =
-    Lazy::new(|| tokio::runtime::Runtime::new().unwrap());
+pub static RUNTIME: Lazy<tokio::runtime::Runtime> = Lazy::new(|| {
+    tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .thread_stack_size(100 * 1024 * 1024)
+        .build()
+        .unwrap()
+});
 
 pub use self::{
     account::Account,
