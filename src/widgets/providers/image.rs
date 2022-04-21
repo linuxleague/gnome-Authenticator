@@ -144,12 +144,10 @@ impl ProviderImage {
             );
             imp.signal_id.replace(Some(signal_id));
             return;
-        } else {
-            if let (Some(signal_id), Some(provider)) =
-                (imp.signal_id.borrow_mut().take(), self.provider())
-            {
-                provider.disconnect(signal_id);
-            }
+        } else if let (Some(signal_id), Some(provider)) =
+            (imp.signal_id.borrow_mut().take(), self.provider())
+        {
+            provider.disconnect(signal_id);
         }
 
         imp.image.set_from_icon_name(Some("provider-fallback"));

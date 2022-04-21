@@ -1,8 +1,6 @@
 use super::algorithm::{Algorithm, OTPMethod};
 use crate::{
-    models::{
-        database, otp, Account, AccountsModel, FaviconError, FaviconScrapper, Type, FAVICONS_PATH,
-    },
+    models::{database, otp, Account, AccountsModel, FAVICONS_PATH},
     schema::providers,
 };
 use anyhow::Result;
@@ -382,77 +380,48 @@ impl Provider {
         id: u32,
     ) -> Result<String, Box<dyn std::error::Error>> {
         let website_url = Url::parse(&website)?;
-        let favicon = FaviconScrapper::from_url(website_url).await?;
+        let favicon = favicon_scrapper::Scrapper::from_url(website_url).await?;
         log::debug!("Found the following icons {:#?} for {}", favicon, name);
 
         let icon_name = format!("{}_{}", id, name.replace(' ', "_"));
         let icon_name = glib::base64_encode(icon_name.as_bytes());
         let small_icon_name = format!("{icon_name}_32x32");
         let large_icon_name = format!("{icon_name}_96x96");
+        // TODO: figure out why trying to grab icons at specific size causes stack size errors
         // We need two sizes:
         // - 32x32 for the accounts lists
         // - 96x96 elsewhere
-        // either we find them in the list of available icons
-        // or we scale down the "best" one we find.
-        let mut found_small = false;
-        let mut found_large = false;
-
-        match (favicon.find_size(32).await, favicon.find_size(96).await) {
-            (Some(small), Some(large)) => {
-                if small.cache(&small_icon_name).await.is_ok()
-                    && large.cache(&large_icon_name).await.is_ok()
-                {
-                    return Ok(icon_name.to_string());
-                }
-            }
-            (Some(small), _) => {
-                log::debug!("Found a 32x32 variant with no 96x96 variant");
-                found_small = true;
-                small.cache(&small_icon_name).await?;
-            }
-            (_, Some(large)) => {
-                log::debug!("Found a 96x96 variant with no 32x32 variant");
-                found_large = true;
-                large.cache(&large_icon_name).await?;
-            }
-            // We found none, we fallback to getting the best icon
-            _ => (),
-        };
-
         if let Some(best_favicon) = favicon.find_best().await {
             log::debug!("Largest favicon found is {:#?}", best_favicon);
-            best_favicon.cache(&icon_name).await?;
             let cache_path = FAVICONS_PATH.join(&*icon_name);
+            best_favicon.save(cache_path.clone()).await?;
             // Don't try to scale down svg variants
-            if best_favicon.metadata().type_() != &Type::Svg {
+            if !best_favicon.metadata().format().is_svg() {
                 log::debug!("Creating scaled down variants for {:#?}", cache_path);
                 {
                     let pixbuf = gdk_pixbuf::Pixbuf::from_file(cache_path.clone())?;
-                    if !found_small {
-                        log::debug!("Creating a 32x32 variant of the favicon");
-                        let small_pixbuf = pixbuf
-                            .scale_simple(32, 32, gdk_pixbuf::InterpType::Bilinear)
-                            .unwrap();
+                    log::debug!("Creating a 32x32 variant of the favicon");
+                    let small_pixbuf = pixbuf
+                        .scale_simple(32, 32, gdk_pixbuf::InterpType::Bilinear)
+                        .unwrap();
 
-                        let mut small_cache = cache_path.clone();
-                        small_cache.set_file_name(small_icon_name);
-                        small_pixbuf.savev(small_cache.clone(), "png", &[])?;
-                    }
-                    if !found_large {
-                        log::debug!("Creating a 96x96 variant of the favicon");
-                        let large_pixbuf = pixbuf
-                            .scale_simple(96, 96, gdk_pixbuf::InterpType::Bilinear)
-                            .unwrap();
-                        let mut large_cache = cache_path.clone();
-                        large_cache.set_file_name(large_icon_name);
-                        large_pixbuf.savev(large_cache.clone(), "png", &[])?;
-                    }
+                    let mut small_cache = cache_path.clone();
+                    small_cache.set_file_name(small_icon_name);
+                    small_pixbuf.savev(small_cache.clone(), "png", &[])?;
+
+                    log::debug!("Creating a 96x96 variant of the favicon");
+                    let large_pixbuf = pixbuf
+                        .scale_simple(96, 96, gdk_pixbuf::InterpType::Bilinear)
+                        .unwrap();
+                    let mut large_cache = cache_path.clone();
+                    large_cache.set_file_name(large_icon_name);
+                    large_pixbuf.savev(large_cache.clone(), "png", &[])?;
                 };
                 tokio::fs::remove_file(cache_path).await?;
             }
             Ok(icon_name.to_string())
         } else {
-            Err(Box::new(FaviconError::NoResults))
+            Err(Box::new(favicon_scrapper::Error::NoResults))
         }
     }
 
@@ -653,15 +622,16 @@ impl Provider {
         let mut results = vec![];
         let model = self.accounts_model();
         let provider_name = self.name();
+        let provider_tokens = provider_name.split_ascii_whitespace().collect::<Vec<_>>();
         for pos in 0..model.n_items() {
             let obj = model.item(pos).unwrap();
             let account = obj.downcast::<Account>().unwrap();
             let account_name = account.name();
+            let account_tokens = account_name.split_ascii_whitespace().collect::<Vec<_>>();
 
-            if terms
-                .iter()
-                .any(|term| account_name.contains(term) || provider_name.contains(term))
-            {
+            if terms.iter().any(|term| {
+                account_tokens.contains(&term.as_str()) || provider_tokens.contains(&term.as_str())
+            }) {
                 results.push(account);
             }
         }

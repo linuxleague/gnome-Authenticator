@@ -4,7 +4,6 @@ mod account_sorter;
 mod accounts;
 mod algorithm;
 pub mod database;
-mod favicon;
 pub mod i18n;
 mod keyring;
 pub mod otp;
@@ -13,13 +12,12 @@ mod provider;
 mod provider_sorter;
 mod providers;
 
-pub static CLIENT: Lazy<reqwest::Client> = Lazy::new(reqwest::Client::new);
-pub static RUNTIME: Lazy<tokio::runtime::Runtime> = Lazy::new(|| {
-    tokio::runtime::Builder::new_multi_thread()
-        .enable_all()
-        .thread_stack_size(100 * 1024 * 1024)
-        .build()
-        .unwrap()
+pub static RUNTIME: Lazy<tokio::runtime::Runtime> =
+    Lazy::new(|| tokio::runtime::Runtime::new().unwrap());
+pub static FAVICONS_PATH: Lazy<std::path::PathBuf> = Lazy::new(|| {
+    gtk::glib::user_cache_dir()
+        .join("authenticator")
+        .join("favicons")
 });
 
 pub use self::{
@@ -27,7 +25,6 @@ pub use self::{
     account_sorter::AccountSorter,
     accounts::AccountsModel,
     algorithm::{Algorithm, OTPMethod},
-    favicon::{Favicon, FaviconError, FaviconScrapper, Metadata, Type, FAVICONS_PATH},
     keyring::Keyring,
     otp_uri::OTPUri,
     provider::{Provider, ProviderPatch},
