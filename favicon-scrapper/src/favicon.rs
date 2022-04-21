@@ -1,4 +1,4 @@
-use async_std::{io::prelude::*, sync::Mutex};
+use tokio::{io::AsyncWriteExt, sync::Mutex};
 use image::io::Reader as ImageReader;
 use std::{fmt, io::Cursor, path::PathBuf};
 use url::Url;
@@ -89,7 +89,7 @@ impl Favicon {
                 log::debug!("It seems to not be a ICO favicon, fallback to PNG");
             };
         }
-        let mut dest = async_std::fs::File::create(destination).await?;
+        let mut dest = tokio::fs::File::create(destination).await?;
         dest.write_all(&body).await?;
         Ok(())
     }

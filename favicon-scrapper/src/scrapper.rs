@@ -32,7 +32,7 @@ impl Scrapper {
 
     #[allow(dead_code)]
     pub async fn from_file(path: PathBuf, base_url: Option<Url>) -> Result<Self, Error> {
-        let bytes = async_std::fs::read(path).await?;
+        let bytes = tokio::fs::read(path).await?;
         let body = std::str::from_utf8(&bytes).unwrap();
         Self::from_string(body.to_owned(), base_url)
     }
