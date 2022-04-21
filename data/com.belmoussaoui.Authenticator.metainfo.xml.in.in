@@ -47,7 +47,18 @@
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.1" />
   <releases>
-    <release version="4.1.0" date="2021-04-19">
+    <release version="4.1.1" date="2022-04-22">
+      <description>Bugfixes release</description>
+      <ul>
+        <li>Restore the copy button</li>
+        <li>Add feedback when copying generated codes</li>
+        <li>Add feedback when updating/removing provider</li>
+        <li>Shell search: search on provider name as well</li>
+        <li>Fix Aegis backup restore if generated from a phone with a biometric key</li>
+        <li>Fixes a crash</li>
+      </ul>
+    </release>
+    <release version="4.1.0" date="2022-04-19">
       <description>Encrypted backups are finally here!</description>
       <ul>
         <li>Port to GTK 4</li>

@@ -1,5 +1,5 @@
 project('authenticator', 'rust',
-	version: '4.1.0',
+	version: '4.1.1',
   meson_version: '>= 0.59',
   license: 'GPL-3.0-or-later'
 )
