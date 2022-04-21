@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-19 01:43+0000\n"
-"PO-Revision-Date: 2022-04-19 18:53+0800\n"
+"POT-Creation-Date: 2022-04-20 13:49+0000\n"
+"PO-Revision-Date: 2022-04-21 19:39+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -158,6 +158,7 @@ msgstr "截图(_S)"
 #: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
 msgid "Go Back"
 msgstr "返回"
 
@@ -188,25 +189,25 @@ msgid "Token"
 msgstr "令牌"
 
 #: data/resources/ui/account_add.ui:144
-#: data/resources/ui/account_details_page.ui:182
+#: data/resources/ui/account_details_page.ui:183
 #: data/resources/ui/provider_page.ui:209
 msgid "Counter"
 msgstr "计数器"
 
 #: data/resources/ui/account_add.ui:169
-#: data/resources/ui/account_details_page.ui:162
+#: data/resources/ui/account_details_page.ui:163
 #: data/resources/ui/provider_page.ui:175
 msgid "Algorithm"
 msgstr "算法"
 
 #: data/resources/ui/account_add.ui:181
-#: data/resources/ui/account_details_page.ui:172
+#: data/resources/ui/account_details_page.ui:173
 #: data/resources/ui/provider_page.ui:162
 msgid "Computing Method"
 msgstr "运算方式"
 
 #: data/resources/ui/account_add.ui:193
-#: data/resources/ui/account_details_page.ui:192
+#: data/resources/ui/account_details_page.ui:193
 #: data/resources/ui/provider_page.ui:192
 msgid "Period"
 msgstr "周期"
@@ -216,7 +217,7 @@ msgid "Duration in seconds until the next password update"
 msgstr "下次密码更新的间隔秒数"
 
 #: data/resources/ui/account_add.ui:206
-#: data/resources/ui/account_details_page.ui:202
+#: data/resources/ui/account_details_page.ui:203
 #: data/resources/ui/provider_page.ui:226
 msgid "Digits"
 msgstr "位数"
@@ -226,7 +227,7 @@ msgid "Length of the generated code"
 msgstr "生成验证码的长度"
 
 #: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:212
+#: data/resources/ui/account_details_page.ui:213
 #: data/resources/ui/provider_page.ui:148
 msgid "Website"
 msgstr "网站"
@@ -250,13 +251,17 @@ msgstr "保存(_S)"
 msgid "_Delete"
 msgstr "删除(_D)"
 
-#: data/resources/ui/account_details_page.ui:217
+#: data/resources/ui/account_details_page.ui:218
 msgid "Help"
 msgstr "帮助"
 
 #: data/resources/ui/account_row.ui:22
 msgid "Increment the counter"
 msgstr "增加计数"
+
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "复制验证码到剪贴板"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -379,7 +384,7 @@ msgstr "提供方"
 msgid "New Provider"
 msgstr "新建提供方"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:252
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
 msgid "Search"
 msgstr "搜索"
 
@@ -391,6 +396,14 @@ msgstr "无结果"
 #: data/resources/ui/providers_dialog.ui:103
 msgid "No providers matching the query were found."
 msgstr "未找到与查询匹配的提供方。"
+
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "未选择提供者"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "选择提供者或创建新提供者"
 
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
@@ -461,27 +474,27 @@ msgstr "键盘快捷键(_K)"
 msgid "_About Authenticator"
 msgstr "关于验证器(_A)"
 
-#: data/resources/ui/window.ui:95
+#: data/resources/ui/window.ui:97
 msgid "Authenticator is Locked"
 msgstr "验证器已锁定"
 
-#: data/resources/ui/window.ui:122
+#: data/resources/ui/window.ui:124
 msgid "_Unlock"
 msgstr "解锁(_U)"
 
-#: data/resources/ui/window.ui:170 data/resources/ui/window.ui:209
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
 msgid "New Account"
 msgstr "新增帐号"
 
-#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:246
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
 msgid "Menu"
 msgstr "菜单"
 
-#: data/resources/ui/window.ui:188
+#: data/resources/ui/window.ui:190
 msgid "No Accounts"
 msgstr "无帐号"
 
-#: data/resources/ui/window.ui:189
+#: data/resources/ui/window.ui:191
 msgid "Add an account or scan a QR code first."
 msgstr "请先添加帐号或扫描二维码。"
 
@@ -494,7 +507,7 @@ msgstr ""
 "Dingzhong Chen <wsxy162@gmail.com>, 2021\n"
 "lumingzh <lumingzh@qq.com>, 2022"
 
-#: src/application.rs:398
+#: src/application.rs:398 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "动态口令已复制"
 
@@ -504,15 +517,15 @@ msgstr "密码已成功复制"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:514 src/backup/aegis.rs:564
+#: src/backup/aegis.rs:532 src/backup/aegis.rs:582
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:518
+#: src/backup/aegis.rs:536
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "导出为包含纯文本或加密域的 JSON 文件"
 
-#: src/backup/aegis.rs:568
+#: src/backup/aegis.rs:586
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "从包含纯文本或加密域的 JSON 文件导入"
 
@@ -597,7 +610,7 @@ msgstr "SHA-256"
 msgid "Invalid Token"
 msgstr "无效的令牌"
 
-#: src/widgets/window.rs:331
+#: src/widgets/window.rs:339
 msgid "Wrong Password"
 msgstr "错误的密码"
 
@@ -632,6 +645,18 @@ msgstr "选择"
 msgid "Cancel"
 msgstr "取消"
 
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "提供者已成功创建"
+
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "提供者已成功更新"
+
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "提供者已成功移除"
+
 #: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "编辑提供方：{}"
@@ -649,9 +674,6 @@ msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
 
 #~ msgid "_Rename"
 #~ msgstr "重命名(_R)"
-
-#~ msgid "Copy PIN to clipboard"
-#~ msgstr "复制验证码到剪贴板"
 
 #~ msgid "More"
 #~ msgstr "更多"
