@@ -1,6 +1,6 @@
-use tokio::{io::AsyncWriteExt, sync::Mutex};
 use image::io::Reader as ImageReader;
 use std::{fmt, io::Cursor, path::PathBuf};
+use tokio::{io::AsyncWriteExt, sync::Mutex};
 use url::Url;
 
 use crate::{Error, Format, Metadata, CLIENT};
@@ -13,9 +13,9 @@ pub struct Favicon {
 }
 
 impl Favicon {
-    pub(crate) fn for_url(url: Url, metadata: Metadata) -> Self {
+    pub(crate) fn for_url<U: reqwest::IntoUrl>(url: U, metadata: Metadata) -> Self {
         Self {
-            url: Some(url),
+            url: Some(url.into_url().expect("Favicon expects a valid url")),
             metadata,
             data: Default::default(),
             is_url: true,
@@ -139,5 +139,11 @@ impl fmt::Debug for Favicon {
                 .field("metadata", &metadata)
                 .finish()
         }
+    }
+}
+
+impl PartialEq for Favicon {
+    fn eq(&self, other: &Self) -> bool {
+        self.is_url == other.is_url && self.metadata == other.metadata && self.url == other.url
     }
 }
