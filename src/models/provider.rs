@@ -189,7 +189,7 @@ mod imp {
                         "image uri",
                         "Image URI",
                         None,
-                        glib::ParamFlags::READWRITE,
+                        glib::ParamFlags::READWRITE | glib::ParamFlags::EXPLICIT_NOTIFY,
                     ),
                     ParamSpecUInt64::new(
                         "remaining-time",
@@ -545,6 +545,7 @@ impl Provider {
             .execute(&conn)?;
 
         self.set_property("image-uri", &uri);
+        self.notify("image-uri");
         Ok(())
     }
 
