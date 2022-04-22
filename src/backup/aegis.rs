@@ -210,13 +210,7 @@ impl Aegis {
                     .as_ref()
                     .unwrap()
                     .iter()
-                    .map(|slot| {
-                        if slot.type_ == 1 {
-                            slot
-                        } else {
-                            unreachable!("All biometric slots are filtered by serde.")
-                        }
-                    })
+                    .filter(|slot| slot.type_ == 1) // We don't handle biometric slots for now
                     .map(|slot| -> Result<Vec<u8>> {
                         log::info!("Found possible master key with UUID {}.", slot.uuid);
 
