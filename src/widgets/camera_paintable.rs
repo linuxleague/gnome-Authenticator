@@ -115,9 +115,13 @@ impl CameraPaintable {
         paintable
     }
 
-    pub fn set_pipewire_node_id<F: AsRawFd>(&self, fd: F, node_id: Option<u32>) {
+    pub fn set_pipewire_node_id<F: AsRawFd>(
+        &self,
+        fd: F,
+        node_id: Option<u32>,
+    ) -> anyhow::Result<()> {
         let raw_fd = fd.as_raw_fd();
-        let pipewire_element = gst::ElementFactory::make("pipewiresrc", None).unwrap();
+        let pipewire_element = gst::ElementFactory::make("pipewiresrc", None)?;
         pipewire_element.set_property("fd", &raw_fd);
         if let Some(node_id) = node_id {
             pipewire_element.set_property("path", &node_id.to_string());
@@ -125,15 +129,16 @@ impl CameraPaintable {
         } else {
             log::debug!("Loading PipeWire with FD: {}", raw_fd);
         }
-        self.init_pipeline(pipewire_element);
+        self.init_pipeline(pipewire_element)?;
+        Ok(())
     }
 
-    fn init_pipeline(&self, pipewire_src: gst::Element) {
+    fn init_pipeline(&self, pipewire_src: gst::Element) -> anyhow::Result<()> {
         log::debug!("Init pipeline");
         let imp = self.imp();
         let pipeline = gst::Pipeline::new(None);
 
-        let sink = gst::ElementFactory::make("gtk4paintablesink", None).unwrap();
+        let sink = gst::ElementFactory::make("gtk4paintablesink", None)?;
         let paintable = sink.property::<gdk::Paintable>("paintable");
 
         paintable.connect_invalidate_contents(clone!(@weak self as pt => move |_| {
@@ -144,27 +149,25 @@ impl CameraPaintable {
             pt.invalidate_size  ();
         }));
         imp.sink_paintable.replace(Some(paintable));
-        let tee = gst::ElementFactory::make("tee", None).unwrap();
-        let videoconvert1 = gst::ElementFactory::make("videoconvert", None).unwrap();
-        let videoconvert2 = gst::ElementFactory::make("videoconvert", None).unwrap();
-        let queue1 = gst::ElementFactory::make("queue", None).unwrap();
-        let queue2 = gst::ElementFactory::make("queue", None).unwrap();
-        let zbar = gst::ElementFactory::make("zbar", None).unwrap();
-        let fakesink = gst::ElementFactory::make("fakesink", None).unwrap();
+        let tee = gst::ElementFactory::make("tee", None)?;
+        let videoconvert1 = gst::ElementFactory::make("videoconvert", None)?;
+        let videoconvert2 = gst::ElementFactory::make("videoconvert", None)?;
+        let queue1 = gst::ElementFactory::make("queue", None)?;
+        let queue2 = gst::ElementFactory::make("queue", None)?;
+        let zbar = gst::ElementFactory::make("zbar", None)?;
+        let fakesink = gst::ElementFactory::make("fakesink", None)?;
 
-        pipeline
-            .add_many(&[
-                &pipewire_src,
-                &tee,
-                &queue1,
-                &videoconvert1,
-                &zbar,
-                &fakesink,
-                &queue2,
-                &videoconvert2,
-                &sink,
-            ])
-            .unwrap();
+        pipeline.add_many(&[
+            &pipewire_src,
+            &tee,
+            &queue1,
+            &videoconvert1,
+            &zbar,
+            &fakesink,
+            &queue2,
+            &videoconvert2,
+            &sink,
+        ])?;
 
         gst::Element::link_many(&[
             &pipewire_src,
@@ -173,10 +176,9 @@ impl CameraPaintable {
             &videoconvert1,
             &zbar,
             &fakesink,
-        ])
-        .unwrap();
-        tee.link_pads(None, &queue2, None).unwrap();
-        gst::Element::link_many(&[&queue2, &videoconvert2, &sink]).unwrap();
+        ])?;
+        tee.link_pads(None, &queue2, None)?;
+        gst::Element::link_many(&[&queue2, &videoconvert2, &sink])?;
 
         let bus = pipeline.bus().unwrap();
         bus.add_watch_local(
@@ -214,22 +216,24 @@ impl CameraPaintable {
                 glib::Continue(true)
 
             }),
-        )
-        .expect("Failed to add bus watch");
+        )?;
         imp.pipeline.replace(Some(pipeline));
+        Ok(())
     }
 
     pub fn close_pipeline(&self) {
         log::debug!("Closing pipeline");
         if let Some(pipeline) = self.imp().pipeline.borrow_mut().take() {
-            pipeline.set_state(gst::State::Null).unwrap();
+            if let Err(err) = pipeline.set_state(gst::State::Null) {
+                log::error!("Failed to close the pipeline: {err}");
+            }
         }
     }
 
     pub fn start(&self) {
         if let Some(pipeline) = &*self.imp().pipeline.borrow() {
             if let Err(err) = pipeline.set_state(gst::State::Playing) {
-                log::error!("Failed to start the camera stream: {}", err);
+                log::error!("Failed to start the camera stream: {err}");
             }
         }
     }
@@ -237,7 +241,7 @@ impl CameraPaintable {
     pub fn stop(&self) {
         if let Some(pipeline) = &*self.imp().pipeline.borrow() {
             if let Err(err) = pipeline.set_state(gst::State::Null) {
-                log::error!("Failed to stop the camera stream: {}", err);
+                log::error!("Failed to stop the camera stream: {err}");
             }
         }
     }

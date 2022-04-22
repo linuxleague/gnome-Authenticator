@@ -197,8 +197,10 @@ impl Camera {
         spawn!(clone!(@weak self as camera => async move {
             match screenshot::stream().await {
                 Ok(Some((stream_fd, node_id))) => {
-                    camera.imp().paintable.set_pipewire_node_id(stream_fd, node_id);
-                    camera.start();
+                    match camera.imp().paintable.set_pipewire_node_id(stream_fd, node_id) {
+                        Ok(_) => camera.start(),
+                        Err(err) => log::error!("Failed to start the camera stream {err}"),
+                    };
                 },
                 Ok(None) => {
                     camera.set_state(CameraState::NotFound);
