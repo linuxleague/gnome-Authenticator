@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-24 19:01+0000\n"
-"PO-Revision-Date: 2022-02-02 20:55+0200\n"
+"POT-Creation-Date: 2022-04-19 23:06+0000\n"
+"PO-Revision-Date: 2022-04-24 22:01+0300\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos+l10n@iki.fi>\n"
 "Language-Team: Finnish <lokalisointi-lista@googlegroups.com>\n"
 "Language: fi\n"
@@ -108,32 +108,39 @@ msgid "Beautiful UI"
 msgstr "Nätti käyttöliittymä"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
-msgstr ""
-"Varmuuskopioi ja palauta tunnetuista sovelluksista kuten FreeOTP+ ja andOTP"
+msgid "GNOME Shell search provider"
+msgstr "Gnome Shellin hakupalvelun tarjoaja"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+"(encrypted / plain-text)"
+msgstr ""
+"Varmuuskopioi ja palauta tunnetuista sovelluksista kuten FreeOTP+, andOTP, "
+"Aegis (salattu / raakateksti)"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
 msgstr "Pääikkuna"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
 #: data/resources/ui/account_add.ui:24
 msgid "Add a New Account"
 msgstr "Lisää uusi tili"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
 msgid "Add a New Provider"
 msgstr "Lisää uusi palveluntarjoaja"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
 msgid "Account Details"
 msgstr "Tilin tiedot"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
 msgid "Backup/Restore formats support"
 msgstr "Varmuuskopioinnin ja palautuksen muotojen tuki"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:235
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -146,9 +153,10 @@ msgid "_Screenshot"
 msgstr "K_uvakaappaus"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:54
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
 msgid "Go Back"
 msgstr "Siirry takaisin"
 
@@ -161,7 +169,7 @@ msgid "Scan QR Code"
 msgstr "Skannaa QR-koodi"
 
 #: data/resources/ui/account_add.ui:100
-#: data/resources/ui/account_details_page.ui:52
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
 msgstr "Palveluntarjoaja"
 
@@ -170,7 +178,7 @@ msgid "Token issuer"
 msgstr "Poletin myöntäjä"
 
 #: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:42
+#: data/resources/ui/account_details_page.ui:111
 msgid "Account"
 msgstr "Tili"
 
@@ -178,62 +186,80 @@ msgstr "Tili"
 msgid "Token"
 msgstr "Poletti"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:183
+#: data/resources/ui/provider_page.ui:209
 msgid "Counter"
 msgstr "Laskuri"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:163
+#: data/resources/ui/provider_page.ui:175
 msgid "Algorithm"
 msgstr "Algoritmi"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:173
+#: data/resources/ui/provider_page.ui:162
 msgid "Computing Method"
 msgstr "Laskentatapa"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:193
+#: data/resources/ui/provider_page.ui:192
 msgid "Period"
 msgstr "Jakso"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
 msgid "Duration in seconds until the next password update"
 msgstr "Kesto sekunneissa seuraavan salasanan päivitykseen"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:203
+#: data/resources/ui/provider_page.ui:226
 msgid "Digits"
 msgstr "Numerot"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
 msgid "Length of the generated code"
 msgstr "Luodun koodin pituus"
 
 #: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:155
+#: data/resources/ui/account_details_page.ui:213
+#: data/resources/ui/provider_page.ui:148
 msgid "Website"
 msgstr "Verkkosivusto"
 
-#: data/resources/ui/account_add.ui:225
+#: data/resources/ui/account_add.ui:224
 msgid "How to Set Up"
 msgstr "Määritysohjeet"
 
-#: data/resources/ui/account_details_page.ui:73
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+#: data/resources/ui/account_details_page.ui:56
+msgid "_Edit"
+msgstr "_Muokkaa"
+
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "_Tallenna"
+
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
 msgid "_Delete"
 msgstr "_Poista"
 
-#: data/resources/ui/account_row.ui:6
-msgid "D_etails"
-msgstr "Tie_dot"
+#: data/resources/ui/account_details_page.ui:218
+msgid "Help"
+msgstr "Ohje"
 
-#: data/resources/ui/account_row.ui:12
-msgid "_Rename"
-msgstr "_Nimeä uudelleen"
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Lisää laskuria"
 
-#: data/resources/ui/account_row.ui:86
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:61
-msgid "_Save"
-msgstr "_Tallenna"
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "Kopioi PIN leikepöydälle"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -264,7 +290,7 @@ msgid "Repeat Passphrase"
 msgstr "Toista tunnuslause"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:106
+#: data/resources/ui/provider_page.ui:100
 msgid "_Reset"
 msgstr "_Nollaa"
 
@@ -316,35 +342,35 @@ msgstr "Aika minuutteina"
 msgid "Backup/Restore"
 msgstr "Varmuuskopioi/palauta"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
 msgstr "Varmuuskopioi"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
 msgid "Restore"
 msgstr "Palauta"
 
-#: data/resources/ui/provider_page.ui:117
+#: data/resources/ui/provider_page.ui:110
 msgid "Select a _File"
 msgstr "_Valitse tiedosto"
 
-#: data/resources/ui/provider_page.ui:141
+#: data/resources/ui/provider_page.ui:134
 msgid "Name"
 msgstr "Nimi"
 
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/provider_page.ui:149
 msgid "Used to fetch the provider icon"
 msgstr "Käytetään palveluntarjoajan kuvakkeen noutamiseen"
 
-#: data/resources/ui/provider_page.ui:217
+#: data/resources/ui/provider_page.ui:210
 msgid "The by default value for counter-based computing method"
 msgstr "Oletuksena käytettävä arvo laskuriperusteille laskentatavalle"
 
-#: data/resources/ui/provider_page.ui:251
+#: data/resources/ui/provider_page.ui:244
 msgid "Help URL"
 msgstr "Ohjeen URL-osoite"
 
-#: data/resources/ui/provider_page.ui:252
+#: data/resources/ui/provider_page.ui:245
 msgid "Provider setup instructions"
 msgstr "Palveluntarjoajan määritysohjeet"
 
@@ -352,22 +378,30 @@ msgstr "Palveluntarjoajan määritysohjeet"
 msgid "Providers"
 msgstr "Palveluntarjoajat"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
 msgid "New Provider"
 msgstr "Uusi palveluntarjoaja"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
 msgid "Search"
 msgstr "Etsi"
 
-#: data/resources/ui/providers_dialog.ui:101
+#: data/resources/ui/providers_dialog.ui:102
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Ei tuloksia"
 
-#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_dialog.ui:103
 msgid "No providers matching the query were found."
 msgstr "Kyselyä vastaavia palveluntarjoajia ei löytynyt."
+
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "Palveluntarjoajaa ei ole valittu"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "Valitse palveluntarjoaja tai luo uusi"
 
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
@@ -438,33 +472,55 @@ msgstr "_Pikanäppäimet"
 msgid "_About Authenticator"
 msgstr "_Tietoja - Todennin"
 
-#: data/resources/ui/window.ui:95
+#: data/resources/ui/window.ui:97
 msgid "Authenticator is Locked"
 msgstr "Todennin on lukittu"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.ui:124
 msgid "_Unlock"
 msgstr "_Avaa lukitus"
 
-#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
 msgid "New Account"
 msgstr "Uusi tili"
 
-#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
 msgid "Menu"
 msgstr "Valikko"
 
-#: data/resources/ui/window.ui:192
+#: data/resources/ui/window.ui:190
 msgid "No Accounts"
 msgstr "Ei tilejä"
 
-#: data/resources/ui/window.ui:193
+#: data/resources/ui/window.ui:191
 msgid "Add an account or scan a QR code first."
 msgstr "Lisää ensin tili tai lue QR-koodi."
 
 #: src/application.rs:145
 msgid "translator-credits"
 msgstr "Jiri Grönroos"
+
+#: src/application.rs:398 src/widgets/accounts/row.rs:43
+msgid "One-Time password copied"
+msgstr "Kertakäyttösalasana kopioitu"
+
+#: src/application.rs:399
+msgid "Password was copied successfully"
+msgstr "Salasana kopioitiin onnistuneesti"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:532 src/backup/aegis.rs:582
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:536
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "JSON-tiedostoon sisältäen raakatekstinä tai salattuna olevia kenttiä"
+
+#: src/backup/aegis.rs:586
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "JSON-tiedostosta sisältäen raakatekstinä tai salattuna olevia kenttiä"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -518,36 +574,36 @@ msgstr "Raakatekstitiedostosta, yhteensopiva FreeOTP+:n kanssa"
 msgid "Au_thenticator (Legacy)"
 msgstr "To_dennin (vanha)"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "Laskuriperusteinen"
 
-#: src/models/algorithm.rs:57
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "Aikaperusteinen"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:59
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:131
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:128
+#: src/models/algorithm.rs:132
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:129
+#: src/models/algorithm.rs:133
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:202
 msgid "Invalid Token"
 msgstr "Virheellinen poletti"
 
-#: src/widgets/window.rs:313
+#: src/widgets/window.rs:339
 msgid "Wrong Password"
 msgstr "Väärä salasana"
 
@@ -556,46 +612,61 @@ msgstr "Väärä salasana"
 msgid "Wrong Passphrase"
 msgstr "Väärä tunnuslause"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
 msgid "Key / Passphrase"
 msgstr "Avain / tunnuslause"
 
-#: src/widgets/preferences/window.rs:210
+#: src/widgets/preferences/window.rs:212
 msgid "The key that will be used to decrypt the vault"
 msgstr "Avain, jota käytetään holvin salauksen purkamiseen"
 
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
 msgid "Select File"
 msgstr "Valitse tiedosto"
 
-#: src/widgets/preferences/window.rs:278
+#: src/widgets/preferences/window.rs:280
 msgid "The key used to encrypt the vault"
 msgstr "Holvin salauksen purkamiseen käytettävä avain"
 
-#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
-#: src/widgets/providers/page.rs:310
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Valitse"
 
-#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
-#: src/widgets/providers/page.rs:311
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Peru"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "Palveluntarjoaja luotu onnistuneesti"
+
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "Palveluntarjoaja päivitetty onnistuneesti"
+
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "Palveluntarjoaja poistettu onnistuneesti"
+
+#: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "Muokataan palveluntarjoajaa: {}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:332
 msgid "Image"
 msgstr "Kuva"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:367
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Palveluntarjoajaan on määritelty tilejä, poista ne ensin"
 
-#~ msgid "Copy PIN to clipboard"
-#~ msgstr "Kopioi PIN leikepöydälle"
+#~ msgid "D_etails"
+#~ msgstr "Tie_dot"
+
+#~ msgid "_Rename"
+#~ msgstr "_Nimeä uudelleen"
 
 #~ msgid "More"
 #~ msgstr "Lisää"
@@ -636,9 +707,6 @@ msgstr "Palveluntarjoajaan on määritelty tilejä, poista ne ensin"
 #~ msgid "Enable 2FA for this account"
 #~ msgstr "Ota kaksivaiheinen todentaminen käyttöön tälle tilille"
 
-#~ msgid "Edit"
-#~ msgstr "Muokkaa"
-
 #~ msgid "Confirm New Password:"
 #~ msgstr "Vahvista uusi salasana:"
 
@@ -671,17 +739,11 @@ msgstr "Palveluntarjoajaan on määritelty tilejä, poista ne ensin"
 #~ msgid "Add"
 #~ msgstr "Lisää"
 
-#~ msgid "The One-Time Passwords expire in {} seconds"
-#~ msgstr "Kertakäyttösalasanat vanhenevat {} sekunnissa"
-
 #~ msgid "Couldn't generate the secret code"
 #~ msgstr "Salaista koodia ei voitu luoda"
 
 #~ msgid "The PIN of {} was copied to the clipboard"
 #~ msgstr "Palvelun {} PIN kopioitiin leikepöydälle"
-
-#~ msgid "The account was updated successfully"
-#~ msgstr "Tili päivitettiin onnistuneesti"
 
 #~ msgid "Undo"
 #~ msgstr "Kumoa"
