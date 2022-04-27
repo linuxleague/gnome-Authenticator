@@ -157,7 +157,7 @@ impl Aegis {
         // Check whether file is encrypted or in plaintext
         match aegis_root {
             Aegis::Plaintext(plain_text) => {
-                log::info!(
+                tracing::info!(
                     "Found unencrypted aegis vault with version {} and database version {}.",
                     plain_text.version,
                     plain_text.db.version
@@ -180,7 +180,7 @@ impl Aegis {
                 }
             }
             Aegis::Encrypted(encrypted) => {
-                log::info!(
+                tracing::info!(
                     "Found encrypted aegis vault with version {}.",
                     encrypted.version
                 );
@@ -212,7 +212,7 @@ impl Aegis {
                     .iter()
                     .filter(|slot| slot.type_ == 1) // We don't handle biometric slots for now
                     .map(|slot| -> Result<Vec<u8>> {
-                        log::info!("Found possible master key with UUID {}.", slot.uuid);
+                        tracing::info!("Found possible master key with UUID {}.", slot.uuid);
 
                         // Create parameters for scrypt function and derive decryption key for master key
                         //
@@ -250,20 +250,20 @@ impl Aegis {
                     .filter_map(|x| match x {
                         Ok(x) => Some(x),
                         Err(e) => {
-                            log::error!("Decrypting master key failed: {:?}", e);
+                            tracing::error!("Decrypting master key failed: {:?}", e);
                             None
                         }
                     })
                     .collect();
 
                 // Choose the first valid master key. I don't think there are aegis installations with two valid password slots.
-                log::info!(
+                tracing::info!(
                     "Found {} valid password slots / master keys.",
                     master_keys.len()
                 );
                 let master_key = match master_keys.first() {
                     Some(x) => {
-                        log::info!("Using only the first valid key slot / master key.");
+                        tracing::info!("Using only the first valid key slot / master key.");
                         x
                     }
                     None => anyhow::bail!(
@@ -288,7 +288,7 @@ impl Aegis {
                     .context("Deserialize decrypted database failed")?;
 
                 // Check version of the database
-                log::info!("Found aegis database with version {}.", db.version);
+                tracing::info!("Found aegis database with version {}.", db.version);
                 if encrypted.version > 2 {
                     anyhow::bail!(
                         "Aegis database version expected to be 1 or 2. Found {} instead.",

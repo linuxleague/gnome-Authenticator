@@ -15,7 +15,7 @@
         "--socket=wayland",
         "--device=dri",
         "--talk-name=org.freedesktop.secrets",
-        "--env=RUST_LOG=authenticator=debug,ashpd=debug",
+        "--env=RUST_LOG=authenticator=debug,ashpd=debug,oo7=debug",
         "--env=G_MESSAGES_DEBUG=none",
         "--own-name=com.belmoussaoui.Authenticator.Devel.SearchProvider"
     ],

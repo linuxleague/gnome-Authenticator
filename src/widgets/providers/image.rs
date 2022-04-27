@@ -3,6 +3,7 @@ use crate::models::{Provider, FAVICONS_PATH};
 use glib::{clone, Receiver, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::send;
+use tracing::error;
 
 pub enum ImageAction {
     Ready(String),
@@ -205,7 +206,7 @@ impl ProviderImage {
                             sender.send(Some(cache_name)).unwrap();
                         }
                         Err(err) => {
-                            log::error!("Failed to load favicon {}", err);
+                            tracing::error!("Failed to load favicon {}", err);
                             sender.send(None).unwrap();
                         }
                     };
@@ -223,7 +224,7 @@ impl ProviderImage {
                             send!(imp.sender.clone(), ImageAction::Failed);
                         },
                         Err(_) => {
-                            log::debug!("Provider image fetching aborted");
+                            tracing::debug!("Provider image fetching aborted");
                         }
                     };
                 }));
@@ -283,7 +284,7 @@ impl ProviderImage {
         if let Some(provider) = self.provider() {
             let guard = provider.freeze_notify();
             if let Err(err) = provider.set_image_uri(&image_path) {
-                warn!("Failed to update provider image {}", err);
+                tracing::warn!("Failed to update provider image {}", err);
             }
             drop(guard);
         }

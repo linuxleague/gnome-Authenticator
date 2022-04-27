@@ -154,7 +154,7 @@ impl AccountAddDialog {
     fn scan_from_screenshot(&self) {
         spawn!(clone!(@weak self as page => async move {
            if let Err(err) = page.imp().camera.from_screenshot().await {
-                log::error!("Failed to scan from screenshot {}", err);
+            tracing::error!("Failed to scan from screenshot {}", err);
            }
         }));
     }

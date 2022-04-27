@@ -77,16 +77,16 @@ impl Favicon {
     /// Save the favicon into `destination` and convert it to a [`Format::Png`]
     /// if it is original format is [`Format::Ico`].
     pub async fn save(&self, destination: PathBuf) -> Result<(), Error> {
-        log::debug!("Caching the icon into {:#?}", destination);
+        tracing::debug!("Caching the icon into {:#?}", destination);
         let format = *self.metadata().format();
         let body = self.data().await?;
         if format.is_ico() {
-            log::debug!("Found a ICO favicon, converting to PNG");
+            tracing::debug!("Found a ICO favicon, converting to PNG");
             if let Ok(ico) = image::load_from_memory_with_format(&body, image::ImageFormat::Ico) {
                 ico.save_with_format(destination, image::ImageFormat::Png)?;
                 return Ok(());
             } else {
-                log::debug!("It seems to not be a ICO favicon, fallback to PNG");
+                tracing::debug!("It seems to not be a ICO favicon, fallback to PNG");
             };
         }
         let mut dest = tokio::fs::File::create(destination).await?;

@@ -1,7 +1,8 @@
 use crate::{
     application::Application,
     config,
-    models::{Account, Keyring, OTPUri, ProvidersModel},
+    models::{keyring, Account, OTPUri, ProvidersModel},
+    utils::spawn_tokio_blocking,
     widgets::{
         accounts::AccountDetailsPage,
         providers::{ProvidersList, ProvidersListView},
@@ -247,7 +248,7 @@ impl Window {
         // save window state on delete event
         self.connect_close_request(move |window| {
             if let Err(err) = window.save_window_state() {
-                warn!("Failed to save window state {:#?}", err);
+                tracing::warn!("Failed to save window state {:#?}", err);
             }
             Inhibit(false)
         });
@@ -326,10 +327,11 @@ impl Window {
             "unlock",
             clone!(@weak self as win, @weak password_entry, @weak app => move |_, _| {
                 let password = password_entry.text();
-                let is_current_password = Keyring::is_current_password(&password).unwrap_or_else(|err| {
-                    debug!("Could not verify password: {:?}", err);
+                let is_current_password = spawn_tokio_blocking(async move {
+                    keyring::is_current_password(&password).await.unwrap_or_else(|err| {
+                    tracing::debug!("Could not verify password: {:?}", err);
                     false
-                });
+                })});
                 if is_current_password {
                     password_entry.set_text("");
                     app.set_locked(false);

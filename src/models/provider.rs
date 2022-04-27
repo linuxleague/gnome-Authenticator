@@ -381,7 +381,7 @@ impl Provider {
     ) -> Result<String, Box<dyn std::error::Error>> {
         let website_url = Url::parse(&website)?;
         let favicon = favicon_scrapper::Scrapper::from_url(website_url).await?;
-        log::debug!("Found the following icons {:#?} for {}", favicon, name);
+        tracing::debug!("Found the following icons {:#?} for {}", favicon, name);
 
         let icon_name = format!("{}_{}", id, name.replace(' ', "_"));
         let icon_name = glib::base64_encode(icon_name.as_bytes());
@@ -392,15 +392,15 @@ impl Provider {
         // - 32x32 for the accounts lists
         // - 96x96 elsewhere
         if let Some(best_favicon) = favicon.find_best().await {
-            log::debug!("Largest favicon found is {:#?}", best_favicon);
+            tracing::debug!("Largest favicon found is {:#?}", best_favicon);
             let cache_path = FAVICONS_PATH.join(&*icon_name);
             best_favicon.save(cache_path.clone()).await?;
             // Don't try to scale down svg variants
             if !best_favicon.metadata().format().is_svg() {
-                log::debug!("Creating scaled down variants for {:#?}", cache_path);
+                tracing::debug!("Creating scaled down variants for {:#?}", cache_path);
                 {
                     let pixbuf = gdk_pixbuf::Pixbuf::from_file(cache_path.clone())?;
-                    log::debug!("Creating a 32x32 variant of the favicon");
+                    tracing::debug!("Creating a 32x32 variant of the favicon");
                     let small_pixbuf = pixbuf
                         .scale_simple(32, 32, gdk_pixbuf::InterpType::Bilinear)
                         .unwrap();
@@ -409,7 +409,7 @@ impl Provider {
                     small_cache.set_file_name(small_icon_name);
                     small_pixbuf.savev(small_cache.clone(), "png", &[])?;
 
-                    log::debug!("Creating a 96x96 variant of the favicon");
+                    tracing::debug!("Creating a 96x96 variant of the favicon");
                     let large_pixbuf = pixbuf
                         .scale_simple(96, 96, gdk_pixbuf::InterpType::Bilinear)
                         .unwrap();

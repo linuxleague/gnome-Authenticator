@@ -159,7 +159,7 @@ impl Camera {
 
     fn set_state(&self, state: CameraState) {
         let imp = self.imp();
-        info!("The camera state changed to {:#?}", state);
+        tracing::info!("The camera state changed to {:#?}", state);
         match state {
             CameraState::NotFound => {
                 imp.stack.set_visible_child_name("not-found");
@@ -199,13 +199,13 @@ impl Camera {
                 Ok(Some((stream_fd, node_id))) => {
                     match camera.imp().paintable.set_pipewire_node_id(stream_fd, node_id) {
                         Ok(_) => camera.start(),
-                        Err(err) => log::error!("Failed to start the camera stream {err}"),
+                        Err(err) => tracing::error!("Failed to start the camera stream {err}"),
                     };
                 },
                 Ok(None) => {
                     camera.set_state(CameraState::NotFound);
                 }
-                Err(e) => log::error!("Failed to stream {}", e),
+                Err(e) => tracing::error!("Failed to stream {}", e),
             }
         }));
     }

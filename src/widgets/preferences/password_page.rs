@@ -1,4 +1,4 @@
-use crate::{config, models::Keyring, widgets::ErrorRevealer};
+use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
@@ -178,7 +178,10 @@ impl PasswordPage {
             actions,
             "save_password",
             clone!(@weak self as page => move |_, _| {
-                page.save();
+                let ctx = glib::MainContext::default();
+                ctx.spawn_local(clone!(@weak page => async move {
+                    page.save().await;
+                }));
             })
         );
 
@@ -186,7 +189,10 @@ impl PasswordPage {
             actions,
             "reset_password",
             clone!(@weak self as page => move |_,_| {
-                page.reset_password();
+                let ctx = glib::MainContext::default();
+                ctx.spawn_local(clone!(@weak page => async move {
+                    page.reset_password().await;
+                }));
             })
         );
         get_action!(actions, @save_password).set_enabled(false);
@@ -200,18 +206,23 @@ impl PasswordPage {
         .build();
     }
 
-    fn reset_password(&self) {
+    async fn reset_password(&self) {
         let imp = self.imp();
 
         let current_password = imp.current_password_entry.text();
-
-        if self.has_set_password()
-            && !Keyring::is_current_password(&current_password).unwrap_or(false)
-        {
+        let is_current_password =
+            spawn_tokio(async move { keyring::is_current_password(&current_password).await })
+                .await
+                .unwrap_or(false);
+        if self.has_set_password() && !is_current_password {
             imp.error_revealer.popup(&gettext("Wrong Passphrase"));
             return;
         }
-        if Keyring::reset_password().is_ok() {
+
+        let password_was_reset =
+            spawn_tokio(async move { keyring::reset_password().await.is_ok() }).await;
+
+        if password_was_reset {
             let imp = self.imp();
             let actions = imp.actions.get().unwrap();
 
@@ -229,21 +240,26 @@ impl PasswordPage {
         imp.confirm_password_entry.get().set_text("");
     }
 
-    fn save(&self) {
+    async fn save(&self) {
         let imp = self.imp();
         let actions = imp.actions.get().unwrap();
 
         let current_password = imp.current_password_entry.text();
         let password = imp.password_entry.text();
+        let is_current_password = spawn_tokio(async move {
+            keyring::is_current_password(&current_password)
+                .await
+                .unwrap_or(false)
+        })
+        .await;
 
-        if self.has_set_password()
-            && !Keyring::is_current_password(&current_password).unwrap_or(false)
-        {
+        if self.has_set_password() && is_current_password {
             imp.error_revealer.popup(&gettext("Wrong Passphrase"));
             return;
         }
-
-        if Keyring::set_password(&password).is_ok() {
+        let password_was_set =
+            spawn_tokio(async move { keyring::set_password(&password).await.is_ok() }).await;
+        if password_was_set {
             self.reset();
             get_action!(actions, @save_password).set_enabled(false);
             self.set_has_set_password(true);

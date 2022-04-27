@@ -84,7 +84,7 @@ mod imp {
             });
             klass.install_action("account.save", None, move |page, _, _| {
                 if let Err(err) = page.save() {
-                    log::error!("Failed to save account details {}", err);
+                    tracing::error!("Failed to save account details {}", err);
                 }
             });
 

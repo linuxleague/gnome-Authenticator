@@ -15,7 +15,7 @@ pub(crate) fn connection() -> Pool {
 }
 
 fn run_migration_on(connection: &SqliteConnection) -> Result<()> {
-    info!("Running DB Migrations...");
+    tracing::info!("Running DB Migrations...");
     embedded_migrations::run_with_output(connection, &mut std::io::stdout()).map_err(From::from)
 }
 
@@ -33,6 +33,6 @@ fn init_pool() -> Result<Pool> {
         let db = pool.get()?;
         run_migration_on(&*db)?;
     }
-    info!("Database pool initialized.");
+    tracing::info!("Database pool initialized.");
     Ok(pool)
 }

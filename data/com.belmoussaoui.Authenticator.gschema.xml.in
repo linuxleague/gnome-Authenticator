@@ -31,5 +31,8 @@
       <summary>Auto lock timeout</summary>
       <description>Lock the application on idle after X minutes</description>
     </key>
+    <key name="keyrings-migrated" type="b">
+      <default>false</default>
+    </key>
   </schema>
 </schemalist>

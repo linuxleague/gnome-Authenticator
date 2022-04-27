@@ -47,7 +47,7 @@ mod imp {
             klass.install_action("account.increment-counter", None, move |row, _, _| {
                 match row.account().increment_counter() {
                     Ok(_) => row.account().generate_otp(),
-                    Err(err) => log::error!("Failed to increment the counter {err}"),
+                    Err(err) => tracing::error!("Failed to increment the counter {err}"),
                 };
             });
         }

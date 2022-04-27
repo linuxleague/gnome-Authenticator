@@ -11,6 +11,7 @@ use gtk::{
 };
 use gtk_macros::send;
 use once_cell::sync::Lazy;
+use tracing::error;
 static PIPELINE_NAME: Lazy<glib::GString> = Lazy::new(|| glib::GString::from("camera"));
 /// Fancy Camera with QR code detection using ZBar
 ///
@@ -125,16 +126,16 @@ impl CameraPaintable {
         pipewire_element.set_property("fd", &raw_fd);
         if let Some(node_id) = node_id {
             pipewire_element.set_property("path", &node_id.to_string());
-            log::debug!("Loading PipeWire Node ID: {} with FD: {}", node_id, raw_fd);
+            tracing::debug!("Loading PipeWire Node ID: {} with FD: {}", node_id, raw_fd);
         } else {
-            log::debug!("Loading PipeWire with FD: {}", raw_fd);
+            tracing::debug!("Loading PipeWire with FD: {}", raw_fd);
         }
         self.init_pipeline(pipewire_element)?;
         Ok(())
     }
 
     fn init_pipeline(&self, pipewire_src: gst::Element) -> anyhow::Result<()> {
-        log::debug!("Init pipeline");
+        tracing::debug!("Init pipeline");
         let imp = self.imp();
         let pipeline = gst::Pipeline::new(None);
 
@@ -187,7 +188,7 @@ impl CameraPaintable {
                 let sender = paintable.imp().sender.borrow().as_ref().unwrap().clone();
                 match msg.view() {
                     MessageView::Error(err) => {
-                        log::error!(
+                        tracing::error!(
                             "Error from {:?}: {} ({:?})",
                             err.src().map(|s| s.path_string()),
                             err.error(),
@@ -222,10 +223,10 @@ impl CameraPaintable {
     }
 
     pub fn close_pipeline(&self) {
-        log::debug!("Closing pipeline");
+        tracing::debug!("Closing pipeline");
         if let Some(pipeline) = self.imp().pipeline.borrow_mut().take() {
             if let Err(err) = pipeline.set_state(gst::State::Null) {
-                log::error!("Failed to close the pipeline: {err}");
+                tracing::error!("Failed to close the pipeline: {err}");
             }
         }
     }
@@ -233,7 +234,7 @@ impl CameraPaintable {
     pub fn start(&self) {
         if let Some(pipeline) = &*self.imp().pipeline.borrow() {
             if let Err(err) = pipeline.set_state(gst::State::Playing) {
-                log::error!("Failed to start the camera stream: {err}");
+                tracing::error!("Failed to start the camera stream: {err}");
             }
         }
     }
@@ -241,7 +242,7 @@ impl CameraPaintable {
     pub fn stop(&self) {
         if let Some(pipeline) = &*self.imp().pipeline.borrow() {
             if let Err(err) = pipeline.set_state(gst::State::Null) {
-                log::error!("Failed to stop the camera stream: {err}");
+                tracing::error!("Failed to stop the camera stream: {err}");
             }
         }
     }

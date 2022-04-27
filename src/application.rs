@@ -1,6 +1,8 @@
 use crate::{
     config,
-    models::{Account, Keyring, OTPUri, Provider, ProvidersModel, FAVICONS_PATH},
+    models::{
+        keyring, Account, OTPUri, Provider, ProvidersModel, FAVICONS_PATH, RUNTIME, SECRET_SERVICE,
+    },
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use adw::prelude::*;
@@ -9,12 +11,15 @@ use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::{action, get_action};
 use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
-use std::str::FromStr;
+use std::{collections::HashMap, str::FromStr};
 
 mod imp {
+    use crate::utils::spawn_tokio_blocking;
+
     use super::*;
     use adw::subclass::prelude::*;
     use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
+    use once_cell::sync::OnceCell;
     use std::cell::{Cell, RefCell};
 
     // The basic struct that holds our state and widgets
@@ -25,7 +30,7 @@ mod imp {
         pub locked: Cell<bool>,
         pub lock_timeout_id: RefCell<Option<glib::SourceId>>,
         pub can_be_locked: Cell<bool>,
-        pub settings: gio::Settings,
+        pub settings: OnceCell<gio::Settings>,
         pub search_provider: RefCell<Option<SearchProvider<super::Application>>>,
     }
 
@@ -39,12 +44,11 @@ mod imp {
         // Initialize with default values
         fn new() -> Self {
             let model = ProvidersModel::new();
-            let settings = gio::Settings::new(config::APP_ID);
 
             Self {
                 window: RefCell::new(None),
                 model,
-                settings,
+                settings: OnceCell::default(),
                 can_be_locked: Cell::new(false),
                 lock_timeout_id: RefCell::default(),
                 locked: Cell::new(false),
@@ -188,7 +192,7 @@ mod imp {
                 }
             });
 
-            self.settings.connect_changed(
+            self.settings.get().unwrap().connect_changed(
                 None,
                 clone!(@weak app => move |settings, key| {
                     match key {
@@ -217,7 +221,7 @@ mod imp {
                     Ok(search_provider) => {
                         imp.search_provider.replace(Some(search_provider));
                     },
-                    Err(err) => log::debug!("Could not start search provider: {}", err),
+                    Err(err) => tracing::debug!("Could not start search provider: {}", err),
                 };
             }));
         }
@@ -233,7 +237,8 @@ mod imp {
             window.present();
             self.window.replace(Some(window.downgrade()));
 
-            let has_set_password = Keyring::has_set_password().unwrap_or(false);
+            let has_set_password =
+                spawn_tokio_blocking(async { keyring::has_set_password().await.unwrap_or(false) });
             app.set_accels_for_action("app.quit", &["<primary>q"]);
             app.set_accels_for_action("app.lock", &["<primary>l"]);
             app.set_accels_for_action("app.providers", &["<primary>p"]);
@@ -283,13 +288,50 @@ glib::wrapper! {
 
 impl Application {
     pub fn run() {
-        info!("Authenticator ({})", config::APP_ID);
-        info!("Version: {} ({})", config::VERSION, config::PROFILE);
-        info!("Datadir: {}", config::PKGDATADIR);
+        tracing::info!("Authenticator ({})", config::APP_ID);
+        tracing::info!("Version: {} ({})", config::VERSION, config::PROFILE);
+        tracing::info!("Datadir: {}", config::PKGDATADIR);
 
         std::fs::create_dir_all(&*FAVICONS_PATH.clone()).ok();
-        Keyring::ensure_unlocked()
-            .expect("Authenticator couldn't reach a secret service provider or unlock it");
+
+        // To be removed in the upcoming release
+        let settings = gio::Settings::new(config::APP_ID);
+        if !settings.boolean("keyrings-migrated") {
+            tracing::info!("Migrating the secrets to the file backend");
+            let output: oo7::Result<()> = RUNTIME.block_on(async {
+                oo7::migrate(
+                    vec![
+                        HashMap::from([("application", config::APP_ID), ("type", "token")]),
+                        HashMap::from([("application", config::APP_ID), ("type", "password")]),
+                    ],
+                    false,
+                )
+                .await?;
+                Ok(())
+            });
+            match output {
+                Ok(_) => {
+                    settings
+                        .set_boolean("keyrings-migrated", true)
+                        .expect("Failed to update settings");
+                    tracing::info!("Secrets were migrated successfully");
+                }
+                Err(err) => {
+                    tracing::error!("Failed to migrate your data {err}");
+                }
+            }
+        }
+
+        RUNTIME.block_on(async {
+            let keyring = oo7::Keyring::new()
+                .await
+                .expect("Failed to start a location service");
+            keyring
+                .unlock()
+                .await
+                .expect("Failed to unlock the default collection");
+            SECRET_SERVICE.set(keyring).unwrap()
+        });
 
         let app = glib::Object::new::<Application>(&[
             ("application-id", &Some(config::APP_ID)),
@@ -297,6 +339,8 @@ impl Application {
             ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
         ])
         .unwrap();
+        let imp = app.imp();
+        imp.settings.set(settings).unwrap();
 
         ApplicationExtManual::run(&app);
     }
@@ -334,8 +378,8 @@ impl Application {
     /// Starts or restarts the lock timeout.
     pub fn restart_lock_timeout(&self) {
         let imp = self.imp();
-        let auto_lock = imp.settings.boolean("auto-lock");
-        let timeout = imp.settings.uint("auto-lock-timeout") * 60;
+        let auto_lock = imp.settings.get().unwrap().boolean("auto-lock");
+        let timeout = imp.settings.get().unwrap().uint("auto-lock-timeout") * 60;
 
         if !auto_lock {
             return;
@@ -364,7 +408,7 @@ impl Application {
     fn update_color_scheme(&self) {
         let manager = self.style_manager();
         if !manager.system_supports_color_schemes() {
-            let color_scheme = if self.imp().settings.boolean("dark-theme") {
+            let color_scheme = if self.imp().settings.get().unwrap().boolean("dark-theme") {
                 adw::ColorScheme::PreferDark
             } else {
                 adw::ColorScheme::PreferLight

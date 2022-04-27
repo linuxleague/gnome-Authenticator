@@ -1,10 +1,11 @@
 use super::{
     provider::{DiProvider, Provider},
-    OTPMethod, OTPUri,
+    OTPMethod, OTPUri, RUNTIME,
 };
 use crate::{
-    models::{database, otp, Keyring},
+    models::{database, keyring, otp},
     schema::accounts,
+    utils::spawn_tokio_blocking,
     widgets::QRCodeData,
 };
 use anyhow::{Context, Result};
@@ -177,8 +178,13 @@ impl Account {
         let db = database::connection();
         let conn = db.get()?;
 
-        let token_id = Keyring::store(&format!("{} - {}", provider.name(), name), token)
-            .context("Failed to save token")?;
+        let label = format!("{} - {}", provider.name(), name);
+        let token_send = token.to_owned();
+        let token_id = spawn_tokio_blocking(async move {
+            keyring::store(&label, &token_send)
+                .await
+                .context("Failed to save token")
+        })?;
 
         diesel::insert_into(accounts::table)
             .values(NewAccount {
@@ -255,7 +261,12 @@ impl Account {
         let token = if let Some(t) = token {
             t.to_string()
         } else {
-            Keyring::token(token_id)?.context("Could not get item from keyring")?
+            let token_id = token_id.to_owned();
+            spawn_tokio_blocking(async move {
+                keyring::token(&token_id)
+                    .await?
+                    .context("Could not get item from keyring")
+            })?
         };
         account.imp().token.set(token).unwrap();
         account.generate_otp();
@@ -288,7 +299,7 @@ impl Account {
         let label = match otp_password {
             Ok(password) => password,
             Err(err) => {
-                warn!("Failed to generate the OTP {}", err);
+                tracing::warn!("Failed to generate the OTP {}", err);
                 "Error".to_string()
             }
         };
@@ -402,9 +413,9 @@ impl Account {
 
     pub fn delete(&self) -> Result<()> {
         let token_id = self.token_id();
-        std::thread::spawn(move || {
-            if let Err(err) = Keyring::remove_token(&token_id) {
-                error!("Failed to remove the token from secret service {}", err);
+        RUNTIME.spawn(async move {
+            if let Err(err) = keyring::remove_token(&token_id).await {
+                tracing::error!("Failed to remove the token from secret service {}", err);
             }
         });
         let db = database::connection();

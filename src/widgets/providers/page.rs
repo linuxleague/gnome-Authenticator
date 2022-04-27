@@ -103,12 +103,12 @@ mod imp {
 
             klass.install_action("providers.save", None, move |page, _, _| {
                 if let Err(err) = page.save() {
-                    warn!("Failed to save provider {}", err);
+                    tracing::warn!("Failed to save provider {}", err);
                 }
             });
             klass.install_action("providers.delete", None, move |page, _, _| {
                 if let Err(err) = page.delete_provider() {
-                    warn!("Failed to delete the provider {}", err);
+                    tracing::warn!("Failed to delete the provider {}", err);
                 }
             });
 
@@ -268,13 +268,13 @@ impl ProviderPage {
             // Create a 96x96 & 32x32 variants
             let stream = file.read(gio::Cancellable::NONE)?;
             let pixbuf = gdk_pixbuf::Pixbuf::from_stream(&stream, gio::Cancellable::NONE)?;
-            log::debug!("Creating a 32x32 variant of the selected favicon");
+            tracing::debug!("Creating a 32x32 variant of the selected favicon");
             let small_pixbuf = pixbuf
                 .scale_simple(32, 32, gdk_pixbuf::InterpType::Bilinear)
                 .unwrap();
             small_pixbuf.savev(FAVICONS_PATH.join(small_icon_name), "png", &[])?;
 
-            log::debug!("Creating a 96x96 variant of the selected favicon");
+            tracing::debug!("Creating a 96x96 variant of the selected favicon");
             let large_pixbuf = pixbuf
                 .scale_simple(96, 96, gdk_pixbuf::InterpType::Bilinear)
                 .unwrap();

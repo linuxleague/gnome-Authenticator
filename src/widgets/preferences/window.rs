@@ -256,7 +256,7 @@ impl PreferencesWindow {
                             win.encyption_key(Operation::Backup, &T::identifier())
                         }).flatten();
                         if let Err(err) = T::backup(&model, &d.file().unwrap(), key.as_deref()) {
-                            warn!("Failed to create a backup {}", err);
+                            tracing::warn!("Failed to create a backup {}", err);
                         }
                     }
                     d.destroy();
@@ -325,7 +325,7 @@ impl PreferencesWindow {
                                 win.restore_items::<T, T::Item>(items);
                             },
                             Err(err) => {
-                                warn!("Failed to parse the selected file {}", err);
+                                tracing::warn!("Failed to parse the selected file {}", err);
                             }
                         }
                     }
@@ -355,7 +355,7 @@ impl PreferencesWindow {
             .filter(Result::is_ok)
             .for_each(|item| {
                 if let Err(err) = item {
-                    warn!("Failed to restore item {}", err);
+                    tracing::warn!("Failed to restore item {}", err);
                 }
             });
         self.emit_by_name::<()>("restore-completed", &[]);

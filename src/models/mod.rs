@@ -5,7 +5,7 @@ mod accounts;
 mod algorithm;
 pub mod database;
 pub mod i18n;
-mod keyring;
+pub mod keyring;
 pub mod otp;
 mod otp_uri;
 mod provider;
@@ -25,7 +25,7 @@ pub use self::{
     account_sorter::AccountSorter,
     accounts::AccountsModel,
     algorithm::{Algorithm, OTPMethod},
-    keyring::Keyring,
+    keyring::SECRET_SERVICE,
     otp_uri::OTPUri,
     provider::{Provider, ProviderPatch},
     provider_sorter::ProviderSorter,
