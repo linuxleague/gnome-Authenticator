@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: unnamed project\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2021-02-13 20:41+0000\n"
-"PO-Revision-Date: 2021-03-31 18:33+0200\n"
+"POT-Creation-Date: 2022-04-24 19:02+0000\n"
+"PO-Revision-Date: 2022-04-27 22:46+0200\n"
 "Last-Translator: John Erling Blad <jeblad@gmail.com>\n"
 "Language-Team: Norsk, bokmål <>\n"
 "Language: nb\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Gtranslator 3.36.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:152 src/main.rs:34
+#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
 msgid "Authenticator"
 msgstr "Authenticator"
 
@@ -31,7 +31,7 @@ msgstr "Tofaktor-autentisering"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:155
+#: src/application.rs:141
 msgid "Generate Two-Factor Codes"
 msgstr "Generer tofaktor-koder"
 
@@ -54,12 +54,12 @@ msgid "Default window maximized behaviour"
 msgstr "Forvalgt oppførsel for maksimerte vinduer"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Theme"
+msgid "Dark Mode"
 msgstr "Mørk drakt"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark theme."
-msgstr "Hvorvidt programmet skal bruke et mørkt tema."
+msgid "Whether the application should use a dark mode."
+msgstr "Hvorvidt applikasjonen skal bruke et mørkt tema."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
@@ -106,34 +106,39 @@ msgid "Beautiful UI"
 msgstr "Vakkert grensesnitt"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
+msgid "GNOME Shell search provider"
+msgstr "GNOME-skallsøktilbyder"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+"(encrypted / plain-text)"
 msgstr ""
 "Sikkerhetskopiering/gjenoppretting fra/til kjente applikasjoner som FreeOTP"
-"+, andOTP"
+"+, andOTP, Aegis (kryptert / fritekst)"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
 msgstr "Hovedvindu"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
 #: data/resources/ui/account_add.ui:24
-#| msgid "Add a new account"
 msgid "Add a New Account"
 msgstr "Legg til ny konto"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
 msgid "Add a New Provider"
 msgstr "Legg til ny leverandør"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
 msgid "Account Details"
 msgstr "Kontodetaljer"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
 msgid "Backup/Restore formats support"
 msgstr "Støttede formater for sikkerhetskopiering/gjenoppretting"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:202
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -146,9 +151,10 @@ msgid "_Screenshot"
 msgstr "_Skjermskudd"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:51
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
 msgid "Go Back"
 msgstr "Gå tilbake"
 
@@ -161,7 +167,7 @@ msgid "Scan QR Code"
 msgstr "Skann QR-kode"
 
 #: data/resources/ui/account_add.ui:100
-#: data/resources/ui/account_details_page.ui:52
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
 msgstr "Leverandør"
 
@@ -170,7 +176,7 @@ msgid "Token issuer"
 msgstr "Token utsteder"
 
 #: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:42
+#: data/resources/ui/account_details_page.ui:111
 msgid "Account"
 msgstr "Konto"
 
@@ -178,69 +184,80 @@ msgstr "Konto"
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:201
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:183
+#: data/resources/ui/provider_page.ui:209
 msgid "Counter"
 msgstr "Teller"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:172
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:163
+#: data/resources/ui/provider_page.ui:175
 msgid "Algorithm"
 msgstr "Algoritme"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:164
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:173
+#: data/resources/ui/provider_page.ui:162
 msgid "Computing Method"
 msgstr "Beregningsmetode"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:184
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:193
+#: data/resources/ui/provider_page.ui:192
 msgid "Period"
 msgstr "Periode"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:185
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
 msgid "Duration in seconds until the next password update"
 msgstr "Varighet i sekunder til neste passordoppdatering"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:218
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:203
+#: data/resources/ui/provider_page.ui:226
 msgid "Digits"
 msgstr "Sifre"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:219
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
 msgid "Length of the generated code"
 msgstr "Lengden på den genererte koden"
 
 #: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:150
+#: data/resources/ui/account_details_page.ui:213
+#: data/resources/ui/provider_page.ui:148
 msgid "Website"
 msgstr "Nettsted"
 
-#: data/resources/ui/account_add.ui:225
+#: data/resources/ui/account_add.ui:224
 msgid "How to Set Up"
 msgstr "Hvordan sette opp"
 
-#: data/resources/ui/account_row.ui:6
-msgid "D_etails"
-msgstr "D_etaljer"
+#: data/resources/ui/account_details_page.ui:56
+msgid "_Edit"
+msgstr "Rediger"
 
-#: data/resources/ui/account_row.ui:12
-msgid "_Rename"
-msgstr "_Endre navn"
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "_Lagre"
 
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:252
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
 msgid "_Delete"
 msgstr "_Slett"
 
-#: data/resources/ui/account_row.ui:66
+#: data/resources/ui/account_details_page.ui:218
+msgid "Help"
+msgstr "Hjelp"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Øk telleren"
+
+#: data/resources/ui/account_row.ui:33
 msgid "Copy PIN to clipboard"
 msgstr "Kopier PIN til utklippstavlen"
-
-#: data/resources/ui/account_row.ui:106
-msgid "More"
-msgstr "Mere"
-
-#: data/resources/ui/account_row.ui:138
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:56
-msgid "_Save"
-msgstr "_Lagre"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -249,10 +266,6 @@ msgstr "Ingen kamera funnet"
 #: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "_Fra et skjermskudd"
-
-#: data/resources/ui/camera.ui:82
-msgid "Capture from a screenshot"
-msgstr "Fang fra et skjermskudd"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
@@ -275,13 +288,11 @@ msgid "Repeat Passphrase"
 msgstr "Gjenta passfrase"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:101
+#: data/resources/ui/provider_page.ui:100
 msgid "_Reset"
 msgstr "_Resett"
 
 #: data/resources/ui/preferences.ui:16
-#| msgctxt "shortcut window"
-#| msgid "General"
 msgid "General"
 msgstr "Generelt"
 
@@ -290,11 +301,11 @@ msgid "Appearance"
 msgstr "Utseende"
 
 #: data/resources/ui/preferences.ui:22
-msgid "_Dark Theme"
+msgid "_Dark Mode"
 msgstr "_Mørk drakt"
 
 #: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark theme"
+msgid "Whether the application should use a dark mode"
 msgstr "Hvorvidt applikasjonen skal bruke et mørkt tema"
 
 #: data/resources/ui/preferences.ui:37
@@ -329,35 +340,35 @@ msgstr "Tiden i minutter"
 msgid "Backup/Restore"
 msgstr "Sikkerhetskopier/gjenopprett"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:297
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
 msgstr "Sikkerhetskopier"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:304
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
 msgid "Restore"
 msgstr "Gjenopprett"
 
-#: data/resources/ui/provider_page.ui:112
+#: data/resources/ui/provider_page.ui:110
 msgid "Select a _File"
 msgstr "Velg en fil"
 
-#: data/resources/ui/provider_page.ui:136
+#: data/resources/ui/provider_page.ui:134
 msgid "Name"
 msgstr "Navn"
 
-#: data/resources/ui/provider_page.ui:151
+#: data/resources/ui/provider_page.ui:149
 msgid "Used to fetch the provider icon"
 msgstr "Brukes til å hente leverandørikonet"
 
-#: data/resources/ui/provider_page.ui:202
+#: data/resources/ui/provider_page.ui:210
 msgid "The by default value for counter-based computing method"
 msgstr "Standardverdien for tellerbasert beregningsmetode"
 
-#: data/resources/ui/provider_page.ui:236
+#: data/resources/ui/provider_page.ui:244
 msgid "Help URL"
 msgstr "Hjelp-URL"
 
-#: data/resources/ui/provider_page.ui:237
+#: data/resources/ui/provider_page.ui:245
 msgid "Provider setup instructions"
 msgstr "Oppsettsinnstruksjoner for leverandør"
 
@@ -365,22 +376,30 @@ msgstr "Oppsettsinnstruksjoner for leverandør"
 msgid "Providers"
 msgstr "Leverandør"
 
-#: data/resources/ui/providers_dialog.ui:25 src/widgets/providers/page.rs:206
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
 msgid "New Provider"
 msgstr "Ny leverandør"
 
-#: data/resources/ui/providers_dialog.ui:62 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
 msgid "Search"
 msgstr "Søk"
 
-#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_dialog.ui:102
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Ingen resultater"
 
-#: data/resources/ui/providers_dialog.ui:109
+#: data/resources/ui/providers_dialog.ui:103
 msgid "No providers matching the query were found."
 msgstr "Ingen leverandører som samsvarer med spørringen ble funnet."
+
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "Ingen tilbyder er valgt"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "Velg en tilbyder eller opprett en ny"
 
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
@@ -452,147 +471,209 @@ msgstr "_Tastatursnarveier"
 msgid "_About Authenticator"
 msgstr "_Om Authenticator"
 
-#: data/resources/ui/window.ui:95
+#: data/resources/ui/window.ui:97
 msgid "Authenticator is Locked"
 msgstr "Authenticator er låst"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.ui:124
 msgid "_Unlock"
 msgstr "_Lås opp"
 
-#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
 msgid "New Account"
 msgstr "New konto"
 
-#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
 msgid "Menu"
 msgstr "Meny"
 
-#: data/resources/ui/window.ui:192
+#: data/resources/ui/window.ui:190
 msgid "No Accounts"
 msgstr "Ingen kontoer"
 
-#: data/resources/ui/window.ui:193
+#: data/resources/ui/window.ui:191
 msgid "Add an account or scan a QR code first."
 msgstr "Legg til en konto eller skann en QR-kode først."
 
-#: src/application.rs:159
+#: src/application.rs:145
 msgid "translator-credits"
 msgstr ""
-"Allan Nordhøy <epost@anotheragency.no>; John Erling Blad <jeblad@gmail.com>"
+"Allan Nordhøy <epost@anotheragency.no>\n"
+"John Erling Blad <jeblad@gmail.com>"
+
+#: src/application.rs:398 src/widgets/accounts/row.rs:43
+msgid "One-Time password copied"
+msgstr "Engangspassord kopiert"
+
+#: src/application.rs:399
+msgid "Password was copied successfully"
+msgstr "Passord ble kopiert"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:530
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "Til en JSON-fil som inneholder ren tekst eller krypterte felt"
+
+#: src/backup/aegis.rs:580
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Fra en JSON-fil som inneholder ren tekst eller krypterte felt"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:66
+#: src/backup/andotp.rs:69
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:73
 msgid "Into a plain-text JSON file"
-msgstr "i en rentekst JSON-fil"
+msgstr "Til en rentekst JSON-fil"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
 #: src/backup/andotp.rs:128
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:85 src/backup/legacy.rs:36
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
 msgid "From a plain-text JSON file"
-msgstr "fra en rentekst JSON-fil"
+msgstr "Fra en rentekst JSON-fil"
 
-#: src/backup/bitwarden.rs:35
+#: src/backup/bitwarden.rs:68
 msgid "Unknown account"
 msgstr "Ukjent konto"
 
-#: src/backup/bitwarden.rs:43
+#: src/backup/bitwarden.rs:76
 msgid "Unknown issuer"
 msgstr "Ukjent leverandør"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:81
+#: src/backup/bitwarden.rs:138
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:18
+#: src/backup/freeotp.rs:20
 msgid "_Authenticator"
 msgstr "_Authenticator"
 
-#: src/backup/freeotp.rs:22
+#: src/backup/freeotp.rs:24
 msgid "Into a plain-text file, compatible with FreeOTP+"
-msgstr "i en rentekst-fil, kompatibel med FreeOTP+"
+msgstr "Til en rentekst-fil, kompatibel med FreeOTP+"
 
-#: src/backup/freeotp.rs:64
+#: src/backup/freeotp.rs:63
 msgid "A_uthenticator"
 msgstr "A_uthenticator"
 
-#: src/backup/freeotp.rs:68
+#: src/backup/freeotp.rs:67
 msgid "From a plain-text file, compatible with FreeOTP+"
-msgstr "fra en rentekst-fil, kompatibel med FreeOTP+"
+msgstr "Fra en rentekst-fil, kompatibel med FreeOTP+"
 
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:32
-#| msgid "Authenticator"
+#: src/backup/legacy.rs:33
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_thenticator (legacy)"
 
-#: src/models/algorithm.rs:55
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "Tellerbasert"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "Tidsbasert"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:58
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:125
+#: src/models/algorithm.rs:131
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:126
+#: src/models/algorithm.rs:132
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:133
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:204
+#: src/widgets/accounts/add.rs:202
 msgid "Invalid Token"
 msgstr "Ugyldig token"
 
-#: src/widgets/window.rs:324
+#: src/widgets/window.rs:339
 msgid "Wrong Password"
 msgstr "Feil passord"
 
-#: src/widgets/preferences/password_page.rs:228
-#: src/widgets/preferences/password_page.rs:259
+#: src/widgets/preferences/password_page.rs:211
+#: src/widgets/preferences/password_page.rs:242
 msgid "Wrong Passphrase"
 msgstr "Feil passfrase"
 
-#: src/widgets/preferences/window.rs:300 src/widgets/preferences/window.rs:307
-#: src/widgets/providers/page.rs:312
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+msgid "Key / Passphrase"
+msgstr "Nøkkel / passfrase"
+
+#: src/widgets/preferences/window.rs:212
+msgid "The key that will be used to decrypt the vault"
+msgstr "Nøkkelen som skal brukes for å dekryptere hvelvet"
+
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+msgid "Select File"
+msgstr "Velg fil"
+
+#: src/widgets/preferences/window.rs:280
+msgid "The key used to encrypt the vault"
+msgstr "Nøkkelen brukt for å kryptere hvelvet"
+
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Velg"
 
-#: src/widgets/preferences/window.rs:301 src/widgets/preferences/window.rs:308
-#: src/widgets/providers/page.rs:313
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/widgets/providers/page.rs:176
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "Tilbyder ble opprettet"
+
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "Tilbyder ble oppdatert"
+
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "Tilbyder ble fjernet"
+
+#: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "Redigerer leverandør: {}"
 
-#: src/widgets/providers/page.rs:320
+#: src/widgets/providers/page.rs:332
 msgid "Image"
 msgstr "Bilde"
 
-#: src/widgets/providers/page.rs:356
+#: src/widgets/providers/page.rs:367
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Leverandøren har tilordnede kontoer, som må fjernes først"
+
+#~ msgid "D_etails"
+#~ msgstr "D_etaljer"
+
+#~ msgid "_Rename"
+#~ msgstr "_Endre navn"
+
+#~ msgid "More"
+#~ msgstr "Mere"
+
+#~ msgid "Capture from a screenshot"
+#~ msgstr "Fang fra et skjermskudd"
 
 #~ msgid "Two-factor authentication code generator"
 #~ msgstr "Kodegenerator for to-faktorbekreftelse"
@@ -639,9 +720,6 @@ msgstr "Leverandøren har tilordnede kontoer, som må fjernes først"
 #~ msgid "Move the project to GOME Gitlab's World group"
 #~ msgstr "Flytting av prosjektet til GNOME sin GitLab-verdensgruppe"
 
-#~ msgid "GNOME Shell Search provider"
-#~ msgstr "GNOME-skallsøktilbyder"
-
 #~ msgid "Codes expire simultaneously #91"
 #~ msgstr "Koder utløper samtidig #91"
 
@@ -663,10 +741,6 @@ msgstr "Leverandøren har tilordnede kontoer, som må fjernes først"
 
 #~ msgid "Possibilty to edit an account"
 #~ msgstr "Mulighet til å redigere en konto"
-
-#, fuzzy
-#~ msgid "One Time Password now visible by default"
-#~ msgstr "Engangspassord er nå synlige som forvalg"
 
 #~ msgid "Fix python-dbus by using GDbus instead"
 #~ msgstr "Fiks python-dbus ved å bruke GDbus istedenfor"
@@ -716,9 +790,6 @@ msgstr "Leverandøren har tilordnede kontoer, som må fjernes først"
 #, fuzzy
 #~ msgid "Account Name"
 #~ msgstr "Kontonavn"
-
-#~ msgid "Edit"
-#~ msgstr "Rediger"
 
 #, fuzzy
 #~ msgid "Confirm New Password:"
@@ -924,9 +995,6 @@ msgstr "Leverandøren har tilordnede kontoer, som må fjernes først"
 
 #~ msgid "TwoFactorAuth"
 #~ msgstr "To-faktorbekreftelse"
-
-#~ msgid "Remove the account"
-#~ msgstr "Fjern kontoen"
 
 #~ msgid "Edit the account"
 #~ msgstr "Rediger kontoen"
