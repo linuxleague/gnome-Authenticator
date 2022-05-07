@@ -16,7 +16,7 @@ pub use self::{
     editable_label::EditableLabel,
     error_revealer::ErrorRevealer,
     preferences::PreferencesWindow,
-    progress_icon::{ProgressIcon, ProgressIconExt},
+    progress_icon::ProgressIcon,
     providers::{ProviderImage, ProvidersDialog, ProvidersList},
     url_row::UrlRow,
     window::{View, Window},

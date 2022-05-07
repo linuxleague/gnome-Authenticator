@@ -1,6 +1,6 @@
 use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
-    widgets::{accounts::AccountRow, ProgressIcon, ProgressIconExt, ProviderImage},
+    widgets::{accounts::AccountRow, ProgressIcon, ProviderImage},
 };
 use adw::prelude::*;
 use gtk::{glib, glib::clone, subclass::prelude::*, CompositeTemplate};
