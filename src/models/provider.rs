@@ -418,6 +418,14 @@ impl Provider {
                     large_pixbuf.savev(large_cache.clone(), "png", &[])?;
                 };
                 tokio::fs::remove_file(cache_path).await?;
+            } else {
+                let mut small_cache = cache_path.clone();
+                small_cache.set_file_name(small_icon_name);
+                tokio::fs::symlink(&cache_path, small_cache).await?;
+
+                let mut large_cache = cache_path.clone();
+                large_cache.set_file_name(large_icon_name);
+                tokio::fs::symlink(&cache_path, large_cache).await?;
             }
             Ok(icon_name.to_string())
         } else {
