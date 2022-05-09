@@ -18,8 +18,7 @@ mod screenshot {
     use image::GenericImageView;
     use zbar_rust::ZBarImageScanner;
 
-    pub async fn scan(screenshot: &gio::File) -> Result<String> {
-        let (data, _) = screenshot.load_contents_future().await?;
+    pub async fn scan(data: &[u8]) -> Result<String> {
         // remove the file after reading the data
         let img = image::load_from_memory(&data)?;
 
@@ -213,12 +212,13 @@ impl Camera {
     pub async fn from_screenshot(&self) -> anyhow::Result<()> {
         let window = self.root().unwrap().downcast::<gtk::Window>().unwrap();
         let screenshot_file = screenshot::capture(window).await?;
-        let code = screenshot::scan(&screenshot_file).await?;
+        let (data, _) = screenshot_file.load_contents_future().await?;
         screenshot_file
-            .trash_future(glib::source::PRIORITY_LOW)
+            .delete_future(glib::source::PRIORITY_HIGH)
             .await?;
-        self.emit_by_name::<()>("code-detected", &[&code]);
-
+        if let Ok(code) = screenshot::scan(&data).await {
+            self.emit_by_name::<()>("code-detected", &[&code]);
+        }
         Ok(())
     }
 
