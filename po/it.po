@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-20 05:14+0200\n"
-"PO-Revision-Date: 2019-02-28 20:17+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2022-05-07 18:01+0000\n"
+"PO-Revision-Date: 2022-05-10 14:31+0200\n"
+"Last-Translator: Gabriele Musco <gabmus@disroot.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/authenticator/"
 "translation/it/>\n"
 "Language: it\n"
@@ -17,518 +17,819 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Poedit 3.0.1\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:37
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:142 src/main.rs:40
 msgid "Authenticator"
 msgstr "Authenticator"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-msgid "Two-factor authentication code generator"
-msgstr "Generatore di codice di autenticazione a due fattori"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "Autenticazione a due fattori"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:9
-msgid ""
-"Simple application that generates a two-factor authentication code, created "
-"for GNOME."
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:145
+msgid "Generate Two-Factor Codes"
+msgstr "Genera codici per l'autenticazione a due fattori"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "GNOME;GTK;Verifica;2FA;Autenticazione;OTP;TOTP;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Larghezza della finestra predefinita"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Altezza della finestra predefinita"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Comportamento della finestra predefinita massimizzata"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Mode"
+msgstr "Modalità scura"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark mode."
+msgstr "Se l'applicazione deve usare una modalità scura."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "Blocco automatico"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "Se l'applicazione deve essere bloccata automaticamente o no"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "Scadenza per il blocco automatico"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "Blocca l'applicazione se inattiva dopo X minuti"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
 msgstr ""
-"Semplice applicazione che genera un codice di autenticazione a due fattori, "
-"creato per GNOME."
+"Semplice applicazione per generare codici di autenticazione a due fattori."
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
-msgstr "Caratteristiche:"
+msgstr "Funzionalità:"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:12
-msgid "QR code scanner"
-msgstr "Scanner di codici QR"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "Supporto per metodi basati sul tempo/basati su un contatore/Steam"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "Supporto per gli algoritmi SHA-1/SHA-256/SHA-512"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "Scanner per codice QR utilizzando una fotocamera o da uno screenshot"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "Blocca l'applicazione con una password"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Beautiful UI"
 msgstr "Bella interfaccia utente"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
-msgid "Huge database of more than 560 supported services"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "GNOME Shell search provider"
+msgstr "Provider di ricerca per GNOME Shell"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
-#, fuzzy
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr "Bloccare l'applicazione con una password"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
-msgid "Automtically fetch an image for services using their favicon"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "The possibility to add new services"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
-"New 3.31 beta is out! Here's an overview of what changed Please backup your "
-"accounts before updating to the latest version and restore the data after "
-"update."
+"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+"(encrypted / plain-text)"
 msgstr ""
+"Backup/ripristino da/a applicazioni note come FreeOTP+, andOTP, Aegis "
+"(criptato / in chiaro)"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:42
-msgid "New settings window"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "Finestra principale"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:43
-msgid "Download provider images using their favicon if possible"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:24
+msgid "Add a New Account"
+msgstr "Aggiungi un nuovo account"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:44
-msgid "Night Light feature: not working yet!"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Add a New Provider"
+msgstr "Aggiungi un nuovo provider"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:45
-msgid ""
-"The possiblity to enable/disable a password without having to reset "
-"everything"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
+msgid "Account Details"
+msgstr "Dettagli account"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:46
-msgid ""
-"You can now add new providers and set images for providers that we didn't "
-"find an icon for"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
+msgid "Backup/Restore formats support"
+msgstr "Formati di backup/ripristino supportati"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:47
-msgid "Mobile ready"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:48
-msgid "New icon by Tobias"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:49
-msgid "Bunch of fixed bugs"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:55
-msgid ""
-"Since I have moved the application to GOME Gitlab's World group, a Flatpak "
-"build for each new commit is available to download from the site's website."
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:59
-msgid "Backup and restore from a basic JSON file"
-msgstr "Backup e ripristino da un file JSON di base"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:60
-msgid "Backup and restore from an encrypted-GPG JSON file"
-msgstr "Backup e ripristino da un file JSON GPG crittografato"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:61
-msgid "Add andOTP support (free and open Android 2FA application)"
-msgstr "Aggiungi e supporto OTP (applicazione Android 2FA gratuita e aperta)"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:62
-msgid "New Settings Widow with 3 sections: appearance, behavior and backup"
-msgstr ""
-"Nuove Impostazioni  con 3 sezioni: l'aspetto, il comportamento e il backup"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:63
-msgid "Fix Flatpak Build with the latest GNOME Runtime"
-msgstr "Ripara flatpak costruito con l'ultimo  GNOME  Runtime"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:64
-msgid "Move the project to GOME Gitlab's World group"
-msgstr "Spostare il progetto nel gruppo GOME Gitlab's World group"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:71
-msgid "GNOME Shell Search provider"
-msgstr "GNOME Shell ricerca provider"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:72
-msgid "Codes expire simultaneously #91"
-msgstr "I codici scadono simultaneamente #91"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:79
-msgid "Revamped main window to more closely follow the GNOME HIG"
-msgstr ""
-"Rinnovato la finestra principale per seguire più da vicino il GNOME HIG"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:80
-msgid "Revamped add a new account window to make it easier to use"
-msgstr ""
-"Rinnova  e aggiungi una nuova finestra di account per renderlo più facile da "
-"usare"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:81
-msgid ""
-"Possibility to add an account from a provider not listed in the shipped "
-"database"
-msgstr ""
-"Possibilità di aggiungere un account da un provider non elencato nel "
-"database spedito"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:82
-msgid "Possibilty to edit an account"
-msgstr "Possibilità di modificare un account"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:83
-msgid "One Time Password now visible by default"
-msgstr "One Time Password ora visibile per impostazione predefinita"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:90
-msgid "Fix python-dbus by using GDbus instead"
-msgstr "Ripara python-dbus utilizzando GDbus"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:97
-msgid "Fix the QRScanner on GNOME Shell"
-msgstr "Ripara la scansione Codice QR su GNOME Shell"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:98
-msgid "Add a new entry for the account's username"
-msgstr "Aggiungere una nuova voce per il nome utente dell'account"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:99
-msgid "Updated database of supported accounts"
-msgstr "Aggiornato il database di account supportati"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:106
-msgid "HOTFIX: App not running in DE other than GNOME"
-msgstr "HOTFIX: App non funziona in DE diverse da GNOME"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:113
-#, fuzzy
-msgid "Rename project to Authenticator"
-msgstr "Rinominare il progetto in Authenticator"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:114
-msgid "Cleaner code base"
-msgstr "Pulisci  codice di base"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:115
-msgid "Faster startup"
-msgstr "Avvio più veloce"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:116
-msgid "Remove unneeded features"
-msgstr "Rimuovere funzionalità non necessarie"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:117
-msgid "Switch to pyzbar instead of zbarlight"
-msgstr "Passare a pyzbar invece di zbarlight"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:118
-msgid "Flatpak package"
-msgstr "Pacchetto Flatpak"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:134
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
 msgid "Bilal Elmoussaoui"
-msgstr "Bilal Elmoussaoui"
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor authentication"
-msgstr "Autenticazione a due fattori"
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;"
-msgstr "GNOME; GTK; Verifica;"
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:11
-msgid "@appid@"
-msgstr "@appid @"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "Posizione della finestra predefinita"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: src/Authenticator/widgets/settings.py:83
-#, fuzzy
-msgid "Dark Theme"
-msgstr "Tema scuro"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: src/Authenticator/widgets/settings.py:84
-#, fuzzy
-msgid "Whether the application should use a dark theme."
-msgstr "Se l'applicazione può essere bloccata o non"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: src/Authenticator/widgets/settings.py:88
-msgid "Night Light"
 msgstr ""
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-#: src/Authenticator/widgets/settings.py:89
-msgid "Automatically enable dark mode at night."
-msgstr ""
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr "Foto_camera"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Default window maximized behaviour"
-msgstr "La finestra predefinita massimizza il comportamento della finestra"
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr "_Screenshot"
 
-#: data/ui/about_dialog.ui.in:10
-msgid "Two-factor authentication code generator."
-msgstr "Generatore di codice di autenticazione a due fattori."
+#: data/resources/ui/account_add.ui:44
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
+msgid "Go Back"
+msgstr "Torna indietro"
 
-#: data/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr "Traduttore-crediti"
+#: data/resources/ui/account_add.ui:49
+msgid "_Add"
+msgstr "_Aggiungi"
 
-#: data/ui/account_add.ui:22
-msgid "Add a new account"
-msgstr "aggiungi un nuovo account"
-
-#: data/ui/account_add.ui:25 data/ui/account_edit.ui:19
-msgid "Close"
-msgstr "Chiudi"
-
-#: data/ui/account_add.ui:34
-msgid "Add"
-msgstr "Aggiungi"
-
-#: data/ui/account_add.ui:54
-#, fuzzy
+#: data/resources/ui/account_add.ui:61
 msgid "Scan QR Code"
-msgstr "Scansiona il codice QR"
+msgstr "Scansiona codice QR"
 
-#: data/ui/account_config.ui:85
-msgid "Enable 2FA for this account"
-msgstr ""
-
-#: data/ui/account_config.ui:86
-msgid "2FA Token"
-msgstr ""
-
-#: data/ui/account_config.ui:100
-#, fuzzy
-msgid "Account Name"
-msgstr "Nome account"
-
-#: data/ui/account_config.ui:123
+#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
-msgstr "Provider"
+msgstr "Fornitore"
 
-#: data/ui/account_edit.ui:28 data/ui/settings.ui.in:50
-msgid "Save"
-msgstr "Salva"
+#: data/resources/ui/account_add.ui:101
+msgid "Token issuer"
+msgstr "Erogatore del token"
 
-#: data/ui/account_row.ui:23
-msgid "Edit"
-msgstr "Modifica"
+#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_details_page.ui:111
+msgid "Account"
+msgstr "Account"
 
-#: data/ui/account_row.ui:41
-msgid "Delete"
+#: data/resources/ui/account_add.ui:130
+msgid "Token"
+msgstr "Token"
+
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:183
+#: data/resources/ui/provider_page.ui:209
+msgid "Counter"
+msgstr "Contatore"
+
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:163
+#: data/resources/ui/provider_page.ui:175
+msgid "Algorithm"
+msgstr "Algoritmo"
+
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:173
+#: data/resources/ui/provider_page.ui:162
+msgid "Computing Method"
+msgstr "Metodo di computazione"
+
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:193
+#: data/resources/ui/provider_page.ui:192
+msgid "Period"
+msgstr "Periodo"
+
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
+msgid "Duration in seconds until the next password update"
+msgstr "Durata in secondi al prossimo aggiornamento della password"
+
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:203
+#: data/resources/ui/provider_page.ui:226
+msgid "Digits"
+msgstr "Cifre"
+
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
+msgid "Length of the generated code"
+msgstr "Lunghezza del codice generato"
+
+#: data/resources/ui/account_add.ui:219
+#: data/resources/ui/account_details_page.ui:213
+#: data/resources/ui/provider_page.ui:148
+msgid "Website"
+msgstr "Sito web"
+
+#: data/resources/ui/account_add.ui:224
+msgid "How to Set Up"
+msgstr "Come impostare"
+
+#: data/resources/ui/account_details_page.ui:56
+msgid "_Edit"
+msgstr "_Modifica"
+
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "_Salva"
+
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
+msgid "_Delete"
 msgstr "Elimina"
 
-#: data/ui/account_row.ui:97
+#: data/resources/ui/account_details_page.ui:218
+msgid "Help"
+msgstr "Aiuto"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Incrementa il contatore"
+
+#: data/resources/ui/account_row.ui:33
 msgid "Copy PIN to clipboard"
 msgstr "Copia PIN negli appunti"
 
-#: data/ui/password_widget.ui:46
-#, fuzzy
-msgid "Current Password:"
-msgstr "Ripetere la Password"
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "Nessuna fotocamera trovata"
 
-#: data/ui/password_widget.ui:90
-#, fuzzy
-msgid "New Password:"
-msgstr "Password"
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "Da uno _screenshot"
 
-#: data/ui/password_widget.ui:135
-msgid "Confirm New Password:"
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "Imposta una frase di sicurezza"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
 msgstr ""
+"Authenticator si avvierà bloccato dopo aver impostato una frase di sicurezza."
 
-#: data/ui/password_widget.ui:183 src/Authenticator/widgets/settings.py:208
-#, fuzzy
-msgid "Change Password"
-msgstr "Password"
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "Frase di sicurezza corrente"
 
-#: data/ui/password_widget.ui:204
-#, fuzzy
-msgid "Delete Password"
-msgstr "Ripetere la Password"
+#: data/resources/ui/preferences_password_page.ui:66
+msgid "New Passphrase"
+msgstr "Nuova frase di sicurezza"
 
-#: data/ui/provider_image.ui:41
-msgid "We couldn't find an image for this provider"
-msgstr ""
+#: data/resources/ui/preferences_password_page.ui:79
+msgid "Repeat Passphrase"
+msgstr "Ripeti frase di sicurezza"
 
-#. Night mode action
-#: data/ui/settings.ui.in:28 src/Authenticator/application.py.in:112
-msgid "Preferences"
-msgstr "Preferenze"
+#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/provider_page.ui:100
+msgid "_Reset"
+msgstr "_Reimposta"
 
-#: data/ui/settings.ui.in:95
-msgid "Behaviour"
-msgstr "Comportamento"
-
-#: data/ui/shortcuts.ui:13
-msgctxt "shortcut window"
+#: data/resources/ui/preferences.ui:16
 msgid "General"
 msgstr "Generale"
 
-#: data/ui/shortcuts.ui:17
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Mostra scorciatoie"
+#: data/resources/ui/preferences.ui:19
+msgid "Appearance"
+msgstr "Aspetto"
 
-#: data/ui/shortcuts.ui:24
+#: data/resources/ui/preferences.ui:22
+msgid "_Dark Mode"
+msgstr "Mo_dalità scura"
+
+#: data/resources/ui/preferences.ui:25
+msgid "Whether the application should use a dark mode"
+msgstr "Se l'applicazione deve usare una modalità scura"
+
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "Privatezza"
+
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "Frase di sicurezza"
+
+#: data/resources/ui/preferences.ui:42
+msgid "Set up a passphrase to lock the application with"
+msgstr "Imposta una frase di sicurezza con cui bloccare l'applicazione"
+
+#: data/resources/ui/preferences.ui:54
+msgid "_Auto Lock the Application"
+msgstr "Blocca l'applicazione _automaticamente"
+
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr "Se l'applicazione deve essere bloccata automaticamente"
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto Lock _Timeout"
+msgstr "Scadenza per il Blocco au_tomatico"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "Il tempo in minuti"
+
+#: data/resources/ui/preferences.ui:92
+msgid "Backup/Restore"
+msgstr "Backup/Ripristina"
+
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+msgid "Backup"
+msgstr "Backup"
+
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+msgid "Restore"
+msgstr "Ripristina"
+
+#: data/resources/ui/provider_page.ui:110
+msgid "Select a _File"
+msgstr "Seleziona un _file"
+
+#: data/resources/ui/provider_page.ui:134
+msgid "Name"
+msgstr "Nome"
+
+#: data/resources/ui/provider_page.ui:149
+msgid "Used to fetch the provider icon"
+msgstr "Usato per ottenere l'icona del fornitore"
+
+#: data/resources/ui/provider_page.ui:210
+msgid "The by default value for counter-based computing method"
+msgstr "Il valore predefinito per il metodo di calcolo basato su un contatore"
+
+#: data/resources/ui/provider_page.ui:244
+msgid "Help URL"
+msgstr "Indirizzo di aiuto"
+
+#: data/resources/ui/provider_page.ui:245
+msgid "Provider setup instructions"
+msgstr "Istruzioni di configurazione per il fornitore"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "Fornitori"
+
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
+msgid "New Provider"
+msgstr "Nuovo fornitore"
+
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
+msgid "Search"
+msgstr "Cerca"
+
+#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "Nessun risultato"
+
+#: data/resources/ui/providers_dialog.ui:103
+msgid "No providers matching the query were found."
+msgstr "Non è stato trovato alcun fornitore corrispondente alla richiesta."
+
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "Nessun fornitore selezionato"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "Seleziona un fornitore o creane uno nuovo"
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr ""
+"Non è stato trovato alcun account o fornitore corrispondente alla richiesta."
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generali"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "Scorciatoie da tastiera"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Blocca"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Preferenze"
 
-#: data/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Esci"
 
-#: data/ui/shortcuts.ui:40
-#, fuzzy
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
-msgstr "Accounts"
+msgstr "Account"
 
-#: data/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
-msgid "Add"
-msgstr "Aggiungi"
+msgid "New Account"
+msgstr "Nuovo account"
 
-#: data/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Cerca"
 
-#: data/ui/window.ui.in:182
-msgid "There are no accounts yet…"
-msgstr "Non ci sono ancora account …"
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "Mostra la lista dei fornitori"
 
-#: data/ui/window.ui.in:211
-#, fuzzy
-msgid "Add a new account from the menu"
-msgstr "aggiungi un nuovo account"
-
-#: data/ui/window.ui.in:227
-#, fuzzy
-msgid "Scan a QR Code"
-msgstr "Scansiona il codice QR"
-
-#: data/ui/window.ui.in:373
-msgid "No results found"
-msgstr ""
-
-#: data/ui/window.ui.in:437
-#, fuzzy
-msgid "Authenticator is locked"
-msgstr "Autenticatore è bloccato"
-
-#: data/ui/window.ui.in:476
-msgid "Unlock"
-msgstr "Sblocca"
-
-#: src/authenticator.py.in:50
-msgid "Start in debug mode"
-msgstr "Avviare in modalità debug"
-
-#: src/authenticator.py.in:52
-msgid "Authenticator version number"
-msgstr "Numero di versione di Authenticator"
-
-#: src/Authenticator/application.py.in:92
-#: src/Authenticator/widgets/settings.py:92
-msgid "Lock the application"
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
 msgstr "Blocca l'applicazione"
 
-#: src/Authenticator/application.py.in:100
-msgid "from a plain-text JSON file"
-msgstr "da un file di testo JSON"
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "Fornitori"
 
-#: src/Authenticator/application.py.in:101
-msgid "in a plain-text JSON file"
-msgstr "in un file di testo JSON"
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_Preferenze"
 
-#: src/Authenticator/application.py.in:103
-msgid "Restore"
-msgstr "Ripristina"
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "Scorciatoie da tastiera"
 
-#: src/Authenticator/application.py.in:104
-msgid "Backup"
-msgstr "Backup"
-
-#: src/Authenticator/application.py.in:113
-msgid "Donate"
-msgstr "Donazioni"
-
-#: src/Authenticator/application.py.in:114
-msgid "Keyboard Shortcuts"
-msgstr "Tasti rapidi"
-
-#: src/Authenticator/application.py.in:115
-msgid "About Authenticator"
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
 msgstr "Informazioni su Authenticator"
 
-#: src/Authenticator/models/account.py:71
-msgid "Default"
-msgstr "Impostazione predefinita"
+#: data/resources/ui/window.ui:97
+msgid "Authenticator is Locked"
+msgstr "Authenticator è bloccato"
 
-#: src/Authenticator/widgets/accounts/add.py:58
-msgid "Invalid QR code"
-msgstr "Codice QR non valido"
+#: data/resources/ui/window.ui:124
+msgid "_Unlock"
+msgstr "Sblocca"
 
-#: src/Authenticator/widgets/accounts/list.py:143
-msgid "The One-Time Passwords expires in {} seconds"
-msgstr "Le One-time password scade in {} secondi"
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
+msgid "New Account"
+msgstr "Nuovo account"
 
-#: src/Authenticator/widgets/accounts/row.py:80
-msgid "Couldn't generate the secret code"
-msgstr "Non sono riuscito a generare il codice segreto"
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
+msgid "Menu"
+msgstr "Menù"
 
-#: src/Authenticator/widgets/accounts/row.py:91
-msgid "The PIN of {} was copied to the clipboard"
-msgstr ""
+#: data/resources/ui/window.ui:190
+msgid "No Accounts"
+msgstr "Nessun account"
 
-#: src/Authenticator/widgets/accounts/row.py:123
-msgid "The account was updated successfully"
-msgstr ""
+#: data/resources/ui/window.ui:191
+msgid "Add an account or scan a QR code first."
+msgstr "Per prima cosa aggiungi un account o scansiona un codice QR."
 
-#: src/Authenticator/widgets/notification.py:43
-#, fuzzy
-msgid "Close the notification"
-msgstr "Blocca l'applicazione"
+#: src/application.rs:149
+msgid "translator-credits"
+msgstr "Gabriele Musco <gabmus@disroot.org>"
 
-#: src/Authenticator/widgets/notification.py:48
-#: src/Authenticator/widgets/notification.py:63
-msgid "Undo"
+#: src/application.rs:442 src/widgets/accounts/row.rs:43
+msgid "One-Time password copied"
+msgstr "One Time Password copiata"
+
+#: src/application.rs:443
+msgid "Password was copied successfully"
+msgstr "Password copiata con successo"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:530
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "In un file JSON contenente campi in chiaro o criptati"
+
+#: src/backup/aegis.rs:580
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Da un file JSON contenente campi in chiaro o criptati"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:69
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
+
+#: src/backup/andotp.rs:73
+msgid "Into a plain-text JSON file"
+msgstr "In un file JSON in chiaro"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:128
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+msgid "From a plain-text JSON file"
+msgstr "Da un file JSON in chiaro"
+
+#: src/backup/bitwarden.rs:68
+msgid "Unknown account"
+msgstr "Account sconosciuto"
+
+#: src/backup/bitwarden.rs:76
+msgid "Unknown issuer"
+msgstr "Erogatore sconosciuto"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:138
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
+
+#: src/backup/freeotp.rs:20
+msgid "_Authenticator"
+msgstr "_Authenticator"
+
+#: src/backup/freeotp.rs:24
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "In un file in chiaro, compatibile con FreeOTP+"
+
+#: src/backup/freeotp.rs:63
+msgid "A_uthenticator"
+msgstr "A_uthenticator"
+
+#: src/backup/freeotp.rs:67
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Da un file in chiaro, compatibile con FreeOTP+"
+
+#. Translators: this is for restoring a backup from the old Authenticator release
+#: src/backup/legacy.rs:33
+msgid "Au_thenticator (Legacy)"
+msgstr "Au_thenticator (Legacy)"
+
+#: src/models/algorithm.rs:60
+msgid "Counter-based"
+msgstr "Basato su un contatore"
+
+#: src/models/algorithm.rs:61
+msgid "Time-based"
+msgstr "Basato sul tempo"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:63
+msgid "Steam"
+msgstr "Steam"
+
+#: src/models/algorithm.rs:131
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:132
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:133
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:202
+msgid "Invalid Token"
+msgstr "Token non valido"
+
+#: src/widgets/window.rs:341
+msgid "Wrong Password"
+msgstr "Password errata"
+
+#: src/widgets/preferences/password_page.rs:218
+#: src/widgets/preferences/password_page.rs:257
+msgid "Wrong Passphrase"
+msgstr "Frase di sicurezza errata"
+
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+msgid "Key / Passphrase"
+msgstr "Chiave / frase di sicurezza"
+
+#: src/widgets/preferences/window.rs:212
+msgid "The key that will be used to decrypt the vault"
+msgstr "La chiave che verrà usata per decriptare la cassaforte"
+
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+msgid "Select File"
+msgstr "Seleziona file"
+
+#: src/widgets/preferences/window.rs:280
+msgid "The key used to encrypt the vault"
+msgstr "La chiava utilizzata per criptare la cassaforte"
+
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:324
+msgid "Select"
+msgstr "Seleziona"
+
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:325
+msgid "Cancel"
 msgstr "Annulla"
 
-#: src/Authenticator/widgets/settings.py:93
-#, fuzzy
-msgid "Lock the application with a password"
-msgstr "Bloccare l'applicazione con una password"
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "Fornitore creato con successo"
 
-#: src/Authenticator/widgets/settings.py:157
-#, fuzzy
-msgid "Authentication password is now enabled."
-msgstr "Password di autenticazione"
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "Fornitore aggiornato con successo"
 
-#: src/Authenticator/widgets/settings.py:159
-#, fuzzy
-msgid "The authentication password was updated."
-msgstr "Password di autenticazione"
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "Fornitore rimosso con successo"
 
-#: src/Authenticator/widgets/settings.py:163
-#, fuzzy
-msgid "The authentication password was deleted."
-msgstr "Password di autenticazione"
+#: src/widgets/providers/page.rs:204
+msgid "Editing Provider: {}"
+msgstr "Modifica fornitore: {}"
 
-#: src/Authenticator/widgets/settings.py:204
-#, fuzzy
-msgid "Save Password"
-msgstr "Password"
+#: src/widgets/providers/page.rs:332
+msgid "Image"
+msgstr "Immagine"
 
-#: src/Authenticator/widgets/utils.py:40 src/Authenticator/widgets/utils.py:45
-msgid "JSON files"
-msgstr "File JSON"
+#: src/widgets/providers/page.rs:367
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "Il fornitore ha degli account assegnati, per favore rimuoverli prima"
+
+#~ msgid "Two-factor authentication code generator"
+#~ msgstr "Generatore di codice di autenticazione a due fattori"
+
+#~ msgid "QR code scanner"
+#~ msgstr "Scanner di codici QR"
+
+#~ msgid "Backup and restore from a basic JSON file"
+#~ msgstr "Backup e ripristino da un file JSON di base"
+
+#~ msgid "Backup and restore from an encrypted-GPG JSON file"
+#~ msgstr "Backup e ripristino da un file JSON GPG crittografato"
+
+#~ msgid "Add andOTP support (free and open Android 2FA application)"
+#~ msgstr ""
+#~ "Aggiungi e supporto OTP (applicazione Android 2FA gratuita e aperta)"
+
+#~ msgid "New Settings Widow with 3 sections: appearance, behavior and backup"
+#~ msgstr ""
+#~ "Nuove Impostazioni  con 3 sezioni: l'aspetto, il comportamento e il backup"
+
+#~ msgid "Fix Flatpak Build with the latest GNOME Runtime"
+#~ msgstr "Ripara flatpak costruito con l'ultimo  GNOME  Runtime"
+
+#~ msgid "Move the project to GOME Gitlab's World group"
+#~ msgstr "Spostare il progetto nel gruppo GOME Gitlab's World group"
+
+#~ msgid "Codes expire simultaneously #91"
+#~ msgstr "I codici scadono simultaneamente #91"
+
+#~ msgid "Revamped main window to more closely follow the GNOME HIG"
+#~ msgstr ""
+#~ "Rinnovato la finestra principale per seguire più da vicino il GNOME HIG"
+
+#~ msgid "Revamped add a new account window to make it easier to use"
+#~ msgstr ""
+#~ "Rinnova  e aggiungi una nuova finestra di account per renderlo più facile "
+#~ "da usare"
+
+#~ msgid ""
+#~ "Possibility to add an account from a provider not listed in the shipped "
+#~ "database"
+#~ msgstr ""
+#~ "Possibilità di aggiungere un account da un provider non elencato nel "
+#~ "database spedito"
+
+#~ msgid "Possibilty to edit an account"
+#~ msgstr "Possibilità di modificare un account"
+
+#~ msgid "Fix python-dbus by using GDbus instead"
+#~ msgstr "Ripara python-dbus utilizzando GDbus"
+
+#~ msgid "Fix the QRScanner on GNOME Shell"
+#~ msgstr "Ripara la scansione Codice QR su GNOME Shell"
+
+#~ msgid "Add a new entry for the account's username"
+#~ msgstr "Aggiungere una nuova voce per il nome utente dell'account"
+
+#~ msgid "Updated database of supported accounts"
+#~ msgstr "Aggiornato il database di account supportati"
+
+#~ msgid "HOTFIX: App not running in DE other than GNOME"
+#~ msgstr "HOTFIX: App non funziona in DE diverse da GNOME"
+
+#, fuzzy
+#~ msgid "Rename project to Authenticator"
+#~ msgstr "Rinominare il progetto in Authenticator"
+
+#~ msgid "Cleaner code base"
+#~ msgstr "Pulisci  codice di base"
+
+#~ msgid "Faster startup"
+#~ msgstr "Avvio più veloce"
+
+#~ msgid "Remove unneeded features"
+#~ msgstr "Rimuovere funzionalità non necessarie"
+
+#~ msgid "Switch to pyzbar instead of zbarlight"
+#~ msgstr "Passare a pyzbar invece di zbarlight"
+
+#~ msgid "Flatpak package"
+#~ msgstr "Pacchetto Flatpak"
+
+#~ msgid "@appid@"
+#~ msgstr "@appid @"
+
+#~ msgid "Two-factor authentication code generator."
+#~ msgstr "Generatore di codice di autenticazione a due fattori."
+
+#~ msgid "Close"
+#~ msgstr "Chiudi"
+
+#~ msgid "Add"
+#~ msgstr "Aggiungi"
+
+#, fuzzy
+#~ msgid "Account Name"
+#~ msgstr "Nome account"
+
+#, fuzzy
+#~ msgid "Delete Password"
+#~ msgstr "Ripetere la Password"
+
+#~ msgid "Behaviour"
+#~ msgstr "Comportamento"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show Shortcuts"
+#~ msgstr "Mostra scorciatoie"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Add"
+#~ msgstr "Aggiungi"
+
+#~ msgid "There are no accounts yet…"
+#~ msgstr "Non ci sono ancora account …"
+
+#, fuzzy
+#~ msgid "Add a new account from the menu"
+#~ msgstr "aggiungi un nuovo account"
+
+#, fuzzy
+#~ msgid "Scan a QR Code"
+#~ msgstr "Scansiona il codice QR"
+
+#~ msgid "Start in debug mode"
+#~ msgstr "Avviare in modalità debug"
+
+#~ msgid "Authenticator version number"
+#~ msgstr "Numero di versione di Authenticator"
+
+#~ msgid "Donate"
+#~ msgstr "Donazioni"
+
+#~ msgid "Default"
+#~ msgstr "Impostazione predefinita"
+
+#~ msgid "The One-Time Passwords expires in {} seconds"
+#~ msgstr "Le One-time password scade in {} secondi"
+
+#~ msgid "Couldn't generate the secret code"
+#~ msgstr "Non sono riuscito a generare il codice segreto"
+
+#, fuzzy
+#~ msgid "Close the notification"
+#~ msgstr "Blocca l'applicazione"
+
+#~ msgid "Undo"
+#~ msgstr "Annulla"
+
+#, fuzzy
+#~ msgid "Authentication password is now enabled."
+#~ msgstr "Password di autenticazione"
+
+#, fuzzy
+#~ msgid "The authentication password was updated."
+#~ msgstr "Password di autenticazione"
+
+#, fuzzy
+#~ msgid "The authentication password was deleted."
+#~ msgstr "Password di autenticazione"
+
+#, fuzzy
+#~ msgid "Save Password"
+#~ msgstr "Password"
+
+#~ msgid "JSON files"
+#~ msgstr "File JSON"
 
 #~ msgid "Huge database of (290+) websites/applications"
 #~ msgstr "Enorme database di siti Web/applicazioni (290 +)"
@@ -568,12 +869,6 @@ msgstr "File JSON"
 #~ msgid "Open"
 #~ msgstr "apri"
 
-#~ msgid "Cancel"
-#~ msgstr "Cancella"
-
-#~ msgid "Select"
-#~ msgstr "Seleziona"
-
 #~ msgid "Secret token"
 #~ msgstr "Token d'accesso"
 
@@ -584,9 +879,6 @@ msgstr "File JSON"
 #~ msgid "Copy"
 #~ msgstr "Copia"
 
-#~ msgid "Search"
-#~ msgstr "Cerca"
-
 #~ msgid "Selection mode"
 #~ msgstr "Modalità di selezione"
 
@@ -595,9 +887,6 @@ msgstr "File JSON"
 
 #~ msgid "Old Password"
 #~ msgstr "Vecchia Password"
-
-#~ msgid "Appearance"
-#~ msgstr "Aspetto"
 
 #~ msgid "Erase existing accounts"
 #~ msgstr "Cancellare account esistenti"
@@ -613,9 +902,6 @@ msgstr "File JSON"
 
 #~ msgid "An account or more were removed."
 #~ msgstr "Un account o più sono stati rimossi."
-
-#~ msgid "Whether the application is locked with a password or not"
-#~ msgstr "Se l'applicazione è bloccata con una password o non"
 
 #~ msgctxt "shortcut window"
 #~ msgid "Select"
