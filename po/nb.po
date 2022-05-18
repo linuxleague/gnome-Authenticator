@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
+# Norwegian Nynorsk translations for GNOME Authenticator package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Allan Nordhøy <epost@anotheragency.no>, 2017.
 # John Erling Blad <jeblad@gmail.com>, 2021.
 #
 msgid ""
