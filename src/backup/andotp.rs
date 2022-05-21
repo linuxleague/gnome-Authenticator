@@ -15,7 +15,7 @@ pub struct AndOTP {
     #[serde(rename = "type")]
     pub method: OTPMethod,
     pub algorithm: Algorithm,
-    pub thumbnail: String,
+    pub thumbnail: Option<String>,
     pub last_used: i64,
     pub used_frequency: i32,
     pub counter: Option<u32>,
@@ -90,7 +90,7 @@ impl Backupable for AndOTP {
                     digits: provider.digits(),
                     method: provider.method(),
                     algorithm: provider.algorithm(),
-                    thumbnail: "".to_string(),
+                    thumbnail: None,
                     last_used: 0,
                     used_frequency: 0,
                     counter: Some(account.counter()),
