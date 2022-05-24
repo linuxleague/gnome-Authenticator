@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-01-24 19:01+0000\n"
-"PO-Revision-Date: 2022-02-06 20:23+0100\n"
+"POT-Creation-Date: 2022-05-07 18:01+0000\n"
+"PO-Revision-Date: 2022-05-24 13:32+0200\n"
 "Last-Translator: Charles Monzat <charles.monzat@free.fr>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:142 src/main.rs:40
 msgid "Authenticator"
 msgstr "Authentificateur"
 
@@ -35,7 +35,7 @@ msgstr "Authentification à deux facteurs"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:145
 msgid "Generate Two-Factor Codes"
 msgstr "Générez des codes d’authentification à deux facteurs"
 
@@ -58,12 +58,10 @@ msgid "Default window maximized behaviour"
 msgstr "État maximisé de la fenêtre par défaut"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-#| msgid "Dark Theme"
 msgid "Dark Mode"
 msgstr "Mode sombre"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-#| msgid "Whether the application should use a dark theme."
 msgid "Whether the application should use a dark mode."
 msgstr "Indique si l’application doit utiliser un mode sombre."
 
@@ -115,33 +113,39 @@ msgid "Beautiful UI"
 msgstr "Interface élégante"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
-msgstr ""
-"Sauvegarde/restauration depuis/vers des applications telles que FreeOTP+ et "
-"andOTP"
+msgid "GNOME Shell search provider"
+msgstr "Fournisseur de recherche de GNOME Shell"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+"(encrypted / plain-text)"
+msgstr ""
+"Sauvegarde / restauration depuis / vers des applications connues telles que "
+"FreeOTP+, andOTP, Aegis (chiffré / texte brut)"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
 msgstr "Fenêtre principale"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
 #: data/resources/ui/account_add.ui:24
 msgid "Add a New Account"
 msgstr "Ajouter un nouveau compte"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
 msgid "Add a New Provider"
 msgstr "Ajouter un nouveau fournisseur"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
 msgid "Account Details"
 msgstr "Informations du compte"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
 msgid "Backup/Restore formats support"
 msgstr "Prise en charge de formats de sauvegarde/restauration"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -154,9 +158,10 @@ msgid "_Screenshot"
 msgstr "_Capture d’écran"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:54
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
 msgid "Go Back"
 msgstr "Retour"
 
@@ -169,7 +174,7 @@ msgid "Scan QR Code"
 msgstr "Scanner un code QR"
 
 #: data/resources/ui/account_add.ui:100
-#: data/resources/ui/account_details_page.ui:52
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
 msgstr "Fournisseur"
 
@@ -178,7 +183,7 @@ msgid "Token issuer"
 msgstr "Émetteur du jeton"
 
 #: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:42
+#: data/resources/ui/account_details_page.ui:111
 msgid "Account"
 msgstr "Compte"
 
@@ -186,62 +191,80 @@ msgstr "Compte"
 msgid "Token"
 msgstr "Jeton"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:183
+#: data/resources/ui/provider_page.ui:209
 msgid "Counter"
 msgstr "Compteur"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:163
+#: data/resources/ui/provider_page.ui:175
 msgid "Algorithm"
 msgstr "Algorithme"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:173
+#: data/resources/ui/provider_page.ui:162
 msgid "Computing Method"
 msgstr "Méthode de calcul"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:193
+#: data/resources/ui/provider_page.ui:192
 msgid "Period"
 msgstr "Période"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
 msgid "Duration in seconds until the next password update"
 msgstr "Durée en secondes jusqu’à la prochaine mise à jour du mot de passe"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:203
+#: data/resources/ui/provider_page.ui:226
 msgid "Digits"
 msgstr "Nombre de caractères"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
 msgid "Length of the generated code"
 msgstr "Longueur du mot de passe généré"
 
 #: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:155
+#: data/resources/ui/account_details_page.ui:213
+#: data/resources/ui/provider_page.ui:148
 msgid "Website"
 msgstr "Site web"
 
-#: data/resources/ui/account_add.ui:225
+#: data/resources/ui/account_add.ui:224
 msgid "How to Set Up"
 msgstr "Comment configurer"
 
-#: data/resources/ui/account_details_page.ui:73
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+#: data/resources/ui/account_details_page.ui:56
+msgid "_Edit"
+msgstr "_Modifier"
+
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "En_registrer"
+
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
 msgid "_Delete"
 msgstr "_Supprimer"
 
-#: data/resources/ui/account_row.ui:6
-msgid "D_etails"
-msgstr "_Informations"
+#: data/resources/ui/account_details_page.ui:218
+msgid "Help"
+msgstr "Aide"
 
-#: data/resources/ui/account_row.ui:12
-msgid "_Rename"
-msgstr "_Renommer"
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Incrémenter le compteur"
 
-#: data/resources/ui/account_row.ui:86
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:61
-msgid "_Save"
-msgstr "En_registrer"
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "Copier le code PIN dans le presse-papier"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -274,7 +297,7 @@ msgid "Repeat Passphrase"
 msgstr "Répétez la phrase de passe"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:106
+#: data/resources/ui/provider_page.ui:100
 msgid "_Reset"
 msgstr "_Réinitialiser"
 
@@ -287,12 +310,10 @@ msgid "Appearance"
 msgstr "Apparence"
 
 #: data/resources/ui/preferences.ui:22
-#| msgid "_Dark Theme"
 msgid "_Dark Mode"
 msgstr "Mode _sombre"
 
 #: data/resources/ui/preferences.ui:25
-#| msgid "Whether the application should use a dark theme"
 msgid "Whether the application should use a dark mode"
 msgstr "Indique si l’application doit utiliser un mode sombre"
 
@@ -328,35 +349,35 @@ msgstr "Le temps en minutes"
 msgid "Backup/Restore"
 msgstr "Sauvegarder/Restaurer"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:369
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
 msgstr "Sauvegarder"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:376
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
 msgid "Restore"
 msgstr "Restaurer"
 
-#: data/resources/ui/provider_page.ui:117
+#: data/resources/ui/provider_page.ui:110
 msgid "Select a _File"
 msgstr "Sélectionner un _fichier"
 
-#: data/resources/ui/provider_page.ui:141
+#: data/resources/ui/provider_page.ui:134
 msgid "Name"
 msgstr "Nom"
 
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/provider_page.ui:149
 msgid "Used to fetch the provider icon"
 msgstr "Utilisé pour récupérer l’icône du fournisseur"
 
-#: data/resources/ui/provider_page.ui:217
+#: data/resources/ui/provider_page.ui:210
 msgid "The by default value for counter-based computing method"
 msgstr "La valeur par défaut pour la méthode de calcul basée sur les compteurs"
 
-#: data/resources/ui/provider_page.ui:251
+#: data/resources/ui/provider_page.ui:244
 msgid "Help URL"
 msgstr "URL d’aide"
 
-#: data/resources/ui/provider_page.ui:252
+#: data/resources/ui/provider_page.ui:245
 msgid "Provider setup instructions"
 msgstr "Instructions de configuration du fournisseur"
 
@@ -364,22 +385,30 @@ msgstr "Instructions de configuration du fournisseur"
 msgid "Providers"
 msgstr "Fournisseurs"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
 msgid "New Provider"
 msgstr "Nouveau fournisseur"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
 msgid "Search"
 msgstr "Rechercher"
 
-#: data/resources/ui/providers_dialog.ui:101
+#: data/resources/ui/providers_dialog.ui:102
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Aucun résultat"
 
-#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_dialog.ui:103
 msgid "No providers matching the query were found."
 msgstr "Aucun fournisseur correspondant à la requête n’a été trouvé."
+
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "Pas de fournisseur sélectionné"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "Sélectionnez un fournisseur ou créez-en un nouveau"
 
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
@@ -444,42 +473,65 @@ msgstr "P_références"
 
 #: data/resources/ui/window.ui:22
 msgid "_Keyboard Shortcuts"
-msgstr "Raccourcis _clavier"
+msgstr "_Raccourcis clavier"
 
 #: data/resources/ui/window.ui:26
 msgid "_About Authenticator"
 msgstr "À _propos d’Authentificateur"
 
-#: data/resources/ui/window.ui:95
+#: data/resources/ui/window.ui:97
 msgid "Authenticator is Locked"
 msgstr "Authentificateur est verrouillé"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.ui:124
 msgid "_Unlock"
 msgstr "_Déverrouiller"
 
-#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
 msgid "New Account"
 msgstr "Nouveau compte"
 
-#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
 msgid "Menu"
 msgstr "Menu"
 
-#: data/resources/ui/window.ui:192
+#: data/resources/ui/window.ui:190
 msgid "No Accounts"
 msgstr "Pas de compte"
 
-#: data/resources/ui/window.ui:193
+#: data/resources/ui/window.ui:191
 msgid "Add an account or scan a QR code first."
 msgstr "Ajoutez un compte ou scannez un code QR pour commencer."
 
-#: src/application.rs:145
+#: src/application.rs:149
 msgid "translator-credits"
 msgstr ""
 "Thibault Martin\n"
 "Alexandre Franke\n"
-"Charles Monzat"
+"Charles Monzat\n"
+"Irénée Thirion"
+
+#: src/application.rs:442 src/widgets/accounts/row.rs:43
+msgid "One-Time password copied"
+msgstr "Mot de passe à usage unique copié"
+
+#: src/application.rs:443
+msgid "Password was copied successfully"
+msgstr "Mot de passe copié avec succès"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:530
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "Vers un fichier JSON contenant des champs en texte brut ou chiffrés"
+
+#: src/backup/aegis.rs:580
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Depuis un fichier JSON contenant des champs en texte brut ou chiffrés"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -500,12 +552,10 @@ msgid "From a plain-text JSON file"
 msgstr "Depuis un fichier texte JSON"
 
 #: src/backup/bitwarden.rs:68
-#| msgid "New Account"
 msgid "Unknown account"
 msgstr "Compte inconnu"
 
 #: src/backup/bitwarden.rs:76
-#| msgid "Token issuer"
 msgid "Unknown issuer"
 msgstr "Émetteur inconnu"
 
@@ -535,86 +585,99 @@ msgstr "Depuis un fichier texte compatible avec FreeOTP+"
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_thentificateur (obsolète)"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "Basée sur les compteurs"
 
-#: src/models/algorithm.rs:57
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "Basée sur le temps"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:59
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:131
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:128
+#: src/models/algorithm.rs:132
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:129
+#: src/models/algorithm.rs:133
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:202
 msgid "Invalid Token"
 msgstr "Jeton invalide"
 
-#: src/widgets/window.rs:313
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "Mot de passe erroné"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:218
+#: src/widgets/preferences/password_page.rs:257
 msgid "Wrong Passphrase"
 msgstr "Phrase de passe erronée"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:277
-#| msgid "New Passphrase"
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
 msgid "Key / Passphrase"
 msgstr "Clé / phrase de passe"
 
-#: src/widgets/preferences/window.rs:210
+#: src/widgets/preferences/window.rs:212
 msgid "The key that will be used to decrypt the vault"
 msgstr "La clé qui sera utilisée pour déchiffrer le coffre"
 
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:293
-#| msgid "Select a _File"
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
 msgid "Select File"
 msgstr "Sélectionner un fichier"
 
-#: src/widgets/preferences/window.rs:278
+#: src/widgets/preferences/window.rs:280
 msgid "The key used to encrypt the vault"
 msgstr "La clé utilisée pour chiffrer le coffre"
 
-#: src/widgets/preferences/window.rs:372 src/widgets/preferences/window.rs:379
-#: src/widgets/providers/page.rs:310
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Sélectionner"
 
-#: src/widgets/preferences/window.rs:373 src/widgets/preferences/window.rs:380
-#: src/widgets/providers/page.rs:311
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "Fournisseur créé avec succès"
+
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "Fournisseur mis à jour avec succès"
+
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "Fournisseur supprimé avec succès"
+
+#: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "Édition du fournisseur : {}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:332
 msgid "Image"
 msgstr "Image"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:367
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Le fournisseur a déjà un compte associé, supprimez-le d’abord"
 
-#~ msgid "Copy PIN to clipboard"
-#~ msgstr "Copier le code PIN dans le presse-papier"
+#~ msgid "D_etails"
+#~ msgstr "_Informations"
+
+#~ msgid "_Rename"
+#~ msgstr "_Renommer"
 
 #~ msgid "More"
 #~ msgstr "Plus"
@@ -649,9 +712,6 @@ msgstr "Le fournisseur a déjà un compte associé, supprimez-le d’abord"
 
 #~ msgid "Sharing an account"
 #~ msgstr "Partager un compte"
-
-#~ msgid "The service provider"
-#~ msgstr "Le fournisseur de service"
 
 #~ msgid "By setting a password, Authenticator will from now on start locked."
 #~ msgstr ""
@@ -730,9 +790,6 @@ msgstr "Le fournisseur a déjà un compte associé, supprimez-le d’abord"
 #~ msgid "Account Name"
 #~ msgstr "Compte"
 
-#~ msgid "Edit"
-#~ msgstr "Éditer"
-
 #, fuzzy
 #~ msgid "Confirm New Password:"
 #~ msgstr "Nouveau mot de passe"
@@ -752,9 +809,6 @@ msgstr "Le fournisseur a déjà un compte associé, supprimez-le d’abord"
 
 #~ msgid "Default"
 #~ msgstr "Défaut"
-
-#~ msgid "The One-Time Passwords expires in {} seconds"
-#~ msgstr "Le mot de passe à usage unique expire dans {} secondes"
 
 #~ msgid "Couldn't generate the secret code"
 #~ msgstr "Le code secret n'a pas pu être généré"
