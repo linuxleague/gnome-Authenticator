@@ -95,11 +95,10 @@ mod imp {
     impl ObjectSubclass for Camera {
         const NAME: &'static str = "Camera";
         type Type = super::Camera;
-        type ParentType = gtk::Widget;
+        type ParentType = adw::Bin;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
-            klass.set_layout_manager_type::<gtk::BinLayout>();
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -140,14 +139,14 @@ mod imp {
         }
         fn dispose(&self, _obj: &Self::Type) {
             self.paintable.close_pipeline();
-            self.stack.unparent();
         }
     }
     impl WidgetImpl for Camera {}
+    impl adw::subclass::prelude::BinImpl for Camera {}
 }
 
 glib::wrapper! {
-    pub struct Camera(ObjectSubclass<imp::Camera>) @extends gtk::Widget;
+    pub struct Camera(ObjectSubclass<imp::Camera>) @extends gtk::Widget, adw::Bin;
 }
 
 impl Camera {
