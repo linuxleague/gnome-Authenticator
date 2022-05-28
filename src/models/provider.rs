@@ -627,20 +627,32 @@ impl Provider {
         &self.imp().accounts
     }
 
+    fn tokenize_search(account_name: &str, provider_name: &str, term: &str) -> bool {
+        let term = term.to_ascii_lowercase();
+        let provider_name = provider_name.to_ascii_lowercase();
+        let account_name = account_name.to_ascii_lowercase();
+
+        let provider_tokens = provider_name.split_ascii_whitespace().collect::<Vec<_>>();
+        let account_tokens = account_name.split_ascii_whitespace().collect::<Vec<_>>();
+        account_tokens.contains(&term.as_str())
+            || provider_tokens.contains(&term.as_str())
+            || account_name.contains(term.as_str())
+            || provider_name.contains(term.as_str())
+    }
+
     pub fn find_accounts(&self, terms: &[String]) -> Vec<Account> {
         let mut results = vec![];
         let model = self.accounts_model();
         let provider_name = self.name();
-        let provider_tokens = provider_name.split_ascii_whitespace().collect::<Vec<_>>();
         for pos in 0..model.n_items() {
             let obj = model.item(pos).unwrap();
             let account = obj.downcast::<Account>().unwrap();
             let account_name = account.name();
-            let account_tokens = account_name.split_ascii_whitespace().collect::<Vec<_>>();
 
-            if terms.iter().any(|term| {
-                account_tokens.contains(&term.as_str()) || provider_tokens.contains(&term.as_str())
-            }) {
+            if terms
+                .iter()
+                .any(|term| Self::tokenize_search(&account_name, &provider_name, term))
+            {
                 results.push(account);
             }
         }
@@ -655,12 +667,10 @@ impl Provider {
         let filter = gtk::CustomFilter::new(
             glib::clone!(@weak self as provider => @default-return false, move |obj| {
                 let account = obj.downcast_ref::<Account>().unwrap();
-                let query = &text.to_ascii_lowercase();
-                let provider_match = provider.name().to_ascii_lowercase().contains(query);
-                account
-                    .name()
-                    .to_ascii_lowercase()
-                    .contains(query) || provider_match
+                let account_name = account.name();
+                let provider_name = provider.name();
+
+                Self::tokenize_search(&account_name, &provider_name, &text)
             }),
         );
         self.imp().filter_model.set_filter(Some(&filter));
