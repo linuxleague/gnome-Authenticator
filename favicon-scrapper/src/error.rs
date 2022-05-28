@@ -36,8 +36,11 @@ impl std::error::Error for Error {}
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Error::NoResults => write!(f, "Error: No results were found"),
-            e => write!(f, "Error: {}", e),
+            Self::NoResults => write!(f, "Error: No results were found"),
+            Self::Reqwest(e) => write!(f, "Reqwest Error {}", e),
+            Self::Url(e) => write!(f, "Url Parse Error{}", e),
+            Self::Io(e) => write!(f, "IO Error {}", e),
+            Self::Image(e) => write!(f, "Image Error {}", e),
         }
     }
 }
