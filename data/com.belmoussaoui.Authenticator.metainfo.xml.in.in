@@ -47,6 +47,16 @@
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.1.2" date="2022-05-29">
+      <description>Bugfixes release</description>
+      <ul>
+        <li>Fix a failure when importing from andOTP</li>
+        <li>Fix importing from Aegis if the database was encrypted with biometrics</li>
+        <li>Handle SVG favicons</li>
+        <li>Fix QR code scanning from a screenshot</li>
+        <li>Translations updates and other bugfixes</li>
+      </ul>
+    </release>
     <release version="4.1.1" date="2022-04-22">
       <description>Bugfixes release</description>
       <ul>
