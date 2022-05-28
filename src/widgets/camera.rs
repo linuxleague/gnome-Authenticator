@@ -213,11 +213,14 @@ impl Camera {
         let window = self.root().unwrap().downcast::<gtk::Window>().unwrap();
         let screenshot_file = screenshot::capture(window).await?;
         let (data, _) = screenshot_file.load_contents_future().await?;
-        screenshot_file
-            .delete_future(glib::source::PRIORITY_HIGH)
-            .await?;
         if let Ok(code) = screenshot::scan(&data).await {
             self.emit_by_name::<()>("code-detected", &[&code]);
+        }
+        if let Err(err) = screenshot_file
+            .trash_future(glib::source::PRIORITY_HIGH)
+            .await
+        {
+            tracing::error!("Failed to remove scanned screenshot {}", err);
         }
         Ok(())
     }
