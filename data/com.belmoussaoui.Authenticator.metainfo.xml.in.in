@@ -47,6 +47,9 @@
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.1.3" date="2022-05-31">
+      <description>Fallback to host keyring in case the portal is not available</description>
+    </release>
     <release version="4.1.2" date="2022-05-29">
       <description>Bugfixes release</description>
       <ul>
