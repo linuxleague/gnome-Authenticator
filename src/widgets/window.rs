@@ -128,7 +128,7 @@ impl Window {
         }
         window.init(model, app);
         window.setup_actions(app);
-        window.set_view(View::Login); // Start by default in an empty state
+        window.set_view(View::Accounts); // Start by default in the accounts state
         window.setup_signals(app);
         window
     }
@@ -357,6 +357,9 @@ impl Window {
                 None
             }),
         );
+        if app.locked() {
+            self.set_view(View::Login);
+        }
 
         let imp = self.imp();
 

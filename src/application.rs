@@ -3,6 +3,7 @@ use crate::{
     models::{
         keyring, Account, OTPUri, Provider, ProvidersModel, FAVICONS_PATH, RUNTIME, SECRET_SERVICE,
     },
+    utils::spawn_tokio_blocking,
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 use adw::prelude::*;
@@ -14,8 +15,6 @@ use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
 use std::{collections::HashMap, str::FromStr};
 
 mod imp {
-    use crate::utils::spawn_tokio_blocking;
-
     use super::*;
     use adw::subclass::prelude::*;
     use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
@@ -68,19 +67,20 @@ mod imp {
                         "locked",
                         "locked",
                         false,
-                        glib::ParamFlags::READWRITE,
+                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
                     ),
                     ParamSpecBoolean::new(
                         "can-be-locked",
                         "can_be_locked",
                         "can be locked",
                         false,
-                        glib::ParamFlags::READWRITE,
+                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
                     ),
                 ]
             });
             PROPERTIES.as_ref()
         }
+
         fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "locked" => {
@@ -237,8 +237,6 @@ mod imp {
             window.present();
             self.window.replace(Some(window.downgrade()));
 
-            let has_set_password =
-                spawn_tokio_blocking(async { keyring::has_set_password().await.unwrap_or(false) });
             app.set_accels_for_action("app.quit", &["<primary>q"]);
             app.set_accels_for_action("app.lock", &["<primary>l"]);
             app.set_accels_for_action("app.providers", &["<primary>p"]);
@@ -246,10 +244,6 @@ mod imp {
             app.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
             app.set_accels_for_action("win.search", &["<primary>f"]);
             app.set_accels_for_action("win.add_account", &["<primary>n"]);
-
-            app.set_locked(has_set_password);
-            app.set_can_be_locked(has_set_password);
-
             // Start the timeout to lock the app if the auto-lock
             // setting is enabled.
             app.restart_lock_timeout();
@@ -333,14 +327,17 @@ impl Application {
             SECRET_SERVICE.set(keyring).unwrap()
         });
 
+        let has_set_password =
+            spawn_tokio_blocking(async { keyring::has_set_password().await.unwrap_or(false) });
         let app = glib::Object::new::<Application>(&[
             ("application-id", &Some(config::APP_ID)),
             ("flags", &gio::ApplicationFlags::HANDLES_OPEN),
             ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
+            ("locked", &has_set_password),
+            ("can-be-locked", &has_set_password),
         ])
         .unwrap();
-        let imp = app.imp();
-        imp.settings.set(settings).unwrap();
+        app.imp().settings.set(settings).unwrap();
 
         ApplicationExtManual::run(&app);
     }
