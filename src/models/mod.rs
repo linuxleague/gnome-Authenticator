@@ -8,6 +8,7 @@ pub mod i18n;
 pub mod keyring;
 pub mod otp;
 mod otp_uri;
+mod otp_migration_uri;
 mod provider;
 mod provider_sorter;
 mod providers;
@@ -27,6 +28,7 @@ pub use self::{
     algorithm::{Algorithm, OTPMethod},
     keyring::SECRET_SERVICE,
     otp_uri::OTPUri,
+    otp_migration_uri::OTPMigrationUri,
     provider::{Provider, ProviderPatch},
     provider_sorter::ProviderSorter,
     providers::ProvidersModel,

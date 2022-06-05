@@ -1,5 +1,5 @@
 use crate::{
-    models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
+    models::{otp, Account, OTPMethod, OTPUri, OTPMigrationUri, Provider, ProvidersModel},
     widgets::{Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
 use anyhow::Result;
@@ -8,7 +8,7 @@ use glib::{clone, signal::Inhibit};
 use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::spawn;
 use once_cell::sync::OnceCell;
-use std::str::FromStr;
+use url::Url;
 
 mod imp {
     use crate::widgets::providers::ProviderPage;
@@ -20,6 +20,7 @@ mod imp {
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
     pub struct AccountAddDialog {
+        pub migration: RefCell<Option<<OTPMigrationUri as IntoIterator>::IntoIter>>,
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: RefCell<Option<Provider>>,
         #[template_child]
@@ -80,7 +81,27 @@ mod imp {
 
             klass.install_action("add.save", None, move |dialog, _, _| {
                 if dialog.save().is_ok() {
-                    dialog.close();
+                    let mut migration_guard = dialog.imp().migration.borrow_mut();
+
+                    if let Some(ref mut migration) = *migration_guard {
+                        if let Some(otp_uri) = migration.next() {
+                            // TODO: i18n
+                            dialog.set_title(Some(format!("{title} ({index}/{len})",
+                                title = &gettext("Add a New Account"),
+                                index = migration.index(),
+                                len = migration.len()).as_str()));
+
+                            dialog.set_from_otp_uri(&otp_uri);
+
+                            drop(migration);
+                        } else {
+                            drop(migration);
+                            *migration_guard = None;
+                            dialog.close();
+                        }
+                    } else {
+                        dialog.close();
+                    }
                 }
             });
 
@@ -190,6 +211,24 @@ impl AccountAddDialog {
             .ok();
 
         self.set_provider(provider);
+    }
+
+    pub fn set_from_otp_migration_uri(&self, otp_migration_uri: OTPMigrationUri) {
+        let imp = self.imp();
+
+        let mut otp_migration = otp_migration_uri.into_iter();
+
+        if let Some(first_otp_uri) = otp_migration.next() {
+            // TODO: i18n
+            self.set_title(Some(format!("{title} ({index}/{len})",
+                title = &gettext("Add a New Account"),
+                index = otp_migration.index(),
+                len = otp_migration.len()).as_str()));
+
+            *imp.migration.borrow_mut() = Some(otp_migration);
+
+            self.set_from_otp_uri(&first_otp_uri);
+        }
     }
 
     fn save(&self) -> Result<()> {
@@ -312,8 +351,17 @@ impl AccountAddDialog {
             false,
             clone!(@weak self as dialog => @default-return None, move |args| {
                 let code = args[1].get::<String>().unwrap();
-                if let Ok(otp_uri) = OTPUri::from_str(&code) {
-                    dialog.set_from_otp_uri(&otp_uri);
+
+                if let Ok(url) = Url::parse(&code) {
+                    match url.scheme() {
+                        "otpauth" => if let Ok(otp_uri) = OTPUri::try_from(url) {
+                            dialog.set_from_otp_uri(&otp_uri);
+                        },
+                        "otpauth-migration" => if let Ok(otp_migration_uri) = OTPMigrationUri::try_from(url) {
+                            dialog.set_from_otp_migration_uri(otp_migration_uri);
+                        },
+                        _ => (),
+                    }
                 }
 
                 None

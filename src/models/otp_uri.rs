@@ -5,6 +5,7 @@ use crate::{
 use percent_encoding::percent_decode_str;
 use std::fmt::Write;
 use std::str::FromStr;
+use url::Url;
 
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Clone)]
@@ -53,20 +54,20 @@ impl RestorableItem for OTPUri {
     }
 }
 
-impl FromStr for OTPUri {
-    type Err = anyhow::Error;
-    fn from_str(uri: &str) -> Result<Self, Self::Err> {
-        let url = url::Url::parse(uri)?;
-
+impl TryFrom<Url> for OTPUri {
+    type Error = anyhow::Error;
+    fn try_from(url: Url) -> Result<Self, Self::Error> {
         if url.scheme() != "otpauth" {
-            anyhow::bail!("Invalid OTP uri format, expected otpauth");
+            anyhow::bail!("Invalid OTP uri format, expected otpauth, got {}", url.scheme());
         }
+
         let mut period = None;
         let mut counter = None;
         let mut digits = None;
         let mut provider_name = None;
         let mut algorithm = None;
         let mut secret = None;
+
         let pairs = url.query_pairs();
 
         let method = OTPMethod::from_str(url.host_str().unwrap())?;
@@ -128,6 +129,14 @@ impl FromStr for OTPUri {
             period,
             counter,
         })
+    }
+}
+
+impl FromStr for OTPUri {
+    type Err = anyhow::Error;
+    fn from_str(uri: &str) -> Result<Self, Self::Err> {
+        let url = Url::parse(uri)?;
+        OTPUri::try_from(url)
     }
 }
 

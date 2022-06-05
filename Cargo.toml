@@ -38,3 +38,4 @@ uuid = { version = "1.0", features = ["v4"] }
 favicon-scrapper = {path = "./favicon-scrapper"}
 image = {version = "0.24", default-features = false, features = ["png"]}
 tokio = { version = "1.0", features = ["rt-multi-thread", "fs", "io-util"] }
+prost = "0.10.4"
