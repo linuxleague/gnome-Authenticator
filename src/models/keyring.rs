@@ -50,7 +50,7 @@ pub async fn token(token_id: &str) -> anyhow::Result<Option<String>> {
         .search_items(attributes)
         .await?;
     Ok(match items.get(0) {
-        Some(e) => Some(String::from_utf8(hex::decode(&*e.secret().await?).unwrap()).unwrap()),
+        Some(e) => Some(String::from_utf8(hex::decode(&*e.secret().await?)?)?),
         _ => None,
     })
 }
