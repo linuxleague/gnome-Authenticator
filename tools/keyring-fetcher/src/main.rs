@@ -26,15 +26,25 @@ async fn main() -> oo7::Result<()> {
     let secret = items[0].secret().await?;
     let keyring = oo7::portal::Keyring::load(keyring_path, &secret).await?;
 
-    let keyring_items = keyring.items().await?;
+    let keyring_items = keyring
+        .search_items(HashMap::from([("type", "token")]))
+        .await?;
     for item in keyring_items.iter() {
         let attributes = item.attributes();
         let secret = item.secret();
-        println!(
-            "Found a secret: \nAttributes: {:#?}\nSecret: {:#?}",
-            attributes,
-            String::from_utf8_lossy(&secret)
-        );
+        if let Ok(decoded_secret) = hex::decode(secret.clone()) {
+            println!(
+                "Found a secret: \nAttributes: {:#?}\nSecret: {:#?}",
+                attributes,
+                String::from_utf8_lossy(&decoded_secret)
+            );
+        } else {
+            println!(
+                "ERROR!! Failed to decode secret for \n Attributes {:#?} \n {:#?}",
+                attributes,
+                String::from_utf8_lossy(&secret)
+            );
+        }
         println!("################################################");
     }
 
