@@ -5,6 +5,7 @@ pub enum Error {
     Io(std::io::Error),
     Image(image::ImageError),
     NoResults,
+    Utf8(std::str::Utf8Error),
 }
 
 impl From<std::io::Error> for Error {
@@ -31,6 +32,12 @@ impl From<image::ImageError> for Error {
     }
 }
 
+impl From<std::str::Utf8Error> for Error {
+    fn from(e: std::str::Utf8Error) -> Self {
+        Self::Utf8(e)
+    }
+}
+
 impl std::error::Error for Error {}
 
 impl std::fmt::Display for Error {
@@ -41,6 +48,7 @@ impl std::fmt::Display for Error {
             Self::Url(e) => write!(f, "Url Parse Error{}", e),
             Self::Io(e) => write!(f, "IO Error {}", e),
             Self::Image(e) => write!(f, "Image Error {}", e),
+            Self::Utf8(e) => write!(f, "String conversion error {}", e),
         }
     }
 }

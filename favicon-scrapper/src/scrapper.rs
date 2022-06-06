@@ -33,7 +33,7 @@ impl Scrapper {
     #[allow(dead_code)]
     pub async fn from_file(path: PathBuf, base_url: Option<Url>) -> Result<Self, Error> {
         let bytes = tokio::fs::read(path).await?;
-        let body = std::str::from_utf8(&bytes).unwrap();
+        let body = std::str::from_utf8(&bytes)?;
         Self::from_string(body.to_owned(), base_url)
     }
 
@@ -133,7 +133,7 @@ impl Scrapper {
                     key: b"content",
                     value,
                 }) => {
-                    let mut href = String::from_utf8(value.into_owned()).unwrap();
+                    let mut href = String::from_utf8(value.into_owned()).ok()?;
                     if href.starts_with("//") {
                         href = format!("https:{}", href);
                     }
@@ -178,7 +178,7 @@ impl Scrapper {
                     key: b"href",
                     value,
                 }) => {
-                    let mut href = String::from_utf8(value.into_owned()).unwrap();
+                    let mut href = String::from_utf8(value.into_owned()).ok()?;
                     if href.starts_with("data:") {
                         // only bitmap icons contain ';' as a separator, svgs uses ','
                         let mut icon_data = if href.contains(';') {
@@ -233,9 +233,7 @@ impl Scrapper {
                     key: b"sizes",
                     value,
                 }) => {
-                    let size_inner = String::from_utf8(value.into_owned())
-                        .unwrap()
-                        .to_lowercase();
+                    let size_inner = String::from_utf8(value.into_owned()).ok()?.to_lowercase();
                     let mut size_inner = size_inner.split('x');
                     let width = size_inner.next().and_then(|w| w.parse::<u32>().ok());
                     let height = size_inner.next().and_then(|h| h.parse::<u32>().ok());
