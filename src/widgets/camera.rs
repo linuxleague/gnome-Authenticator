@@ -18,9 +18,9 @@ mod screenshot {
     use image::GenericImageView;
     use zbar_rust::ZBarImageScanner;
 
-    pub async fn scan(data: &[u8]) -> Result<String> {
+    pub fn scan(data: &[u8]) -> Result<String> {
         // remove the file after reading the data
-        let img = image::load_from_memory(&data)?;
+        let img = image::load_from_memory(data)?;
 
         let (width, height) = img.dimensions();
         let img_data: Vec<u8> = img.to_luma8().to_vec();
@@ -191,7 +191,7 @@ impl Camera {
         self.imp().paintable.stop();
     }
 
-    pub fn from_camera(&self) {
+    pub fn scan_from_camera(&self) {
         spawn!(clone!(@weak self as camera => async move {
             match screenshot::stream().await {
                 Ok(Some((stream_fd, node_id))) => {
@@ -208,11 +208,11 @@ impl Camera {
         }));
     }
 
-    pub async fn from_screenshot(&self) -> anyhow::Result<()> {
+    pub async fn scan_from_screenshot(&self) -> anyhow::Result<()> {
         let window = self.root().unwrap().downcast::<gtk::Window>().unwrap();
         let screenshot_file = screenshot::capture(window).await?;
         let (data, _) = screenshot_file.load_contents_future().await?;
-        if let Ok(code) = screenshot::scan(&data).await {
+        if let Ok(code) = screenshot::scan(&data) {
             self.emit_by_name::<()>("code-detected", &[&code]);
         }
         if let Err(err) = screenshot_file

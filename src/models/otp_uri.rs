@@ -3,6 +3,7 @@ use crate::{
     models::{otp, Account, Algorithm, OTPMethod},
 };
 use percent_encoding::percent_decode_str;
+use std::fmt::Write;
 use std::str::FromStr;
 
 #[allow(clippy::upper_case_acronyms)]
@@ -141,18 +142,22 @@ impl From<OTPUri> for String {
             val.algorithm.to_string(),
         );
         if let Some(digits) = val.digits {
-            otp_uri.push_str(&format!("&digits={}", digits));
+            write!(otp_uri, "&digits={}", digits).unwrap();
         }
         if val.method == OTPMethod::HOTP {
-            otp_uri.push_str(&format!(
+            write!(
+                otp_uri,
                 "&counter={}",
                 val.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER)
-            ));
+            )
+            .unwrap();
         } else {
-            otp_uri.push_str(&format!(
+            write!(
+                otp_uri,
                 "&period={}",
                 val.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD)
-            ));
+            )
+            .unwrap();
         }
         otp_uri
     }

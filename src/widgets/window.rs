@@ -15,7 +15,7 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub enum View {
     Login,
     Accounts,

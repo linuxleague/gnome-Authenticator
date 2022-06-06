@@ -632,10 +632,8 @@ impl Provider {
         let provider_name = provider_name.to_ascii_lowercase();
         let account_name = account_name.to_ascii_lowercase();
 
-        let provider_tokens = provider_name.split_ascii_whitespace().collect::<Vec<_>>();
-        let account_tokens = account_name.split_ascii_whitespace().collect::<Vec<_>>();
-        account_tokens.contains(&term.as_str())
-            || provider_tokens.contains(&term.as_str())
+        account_name.split_ascii_whitespace().any(|x| x == term)
+            || provider_name.split_ascii_whitespace().any(|x| x == term)
             || account_name.contains(term.as_str())
             || provider_name.contains(term.as_str())
     }

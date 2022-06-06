@@ -7,12 +7,12 @@ use gettextrs::gettext;
 use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Bitwarden {
     items: Vec<BitwardenItem>,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct BitwardenItem {
     #[serde(rename = "name")]
     issuer: Option<String>,
@@ -29,7 +29,7 @@ pub struct BitwardenItem {
     counter: Option<u32>,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 struct BitwardenDetails {
     username: Option<String>,
     totp: Option<String>,

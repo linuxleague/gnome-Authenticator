@@ -253,8 +253,7 @@ mod imp {
             self.activate(application);
             let uris = files
                 .iter()
-                .map(|f| OTPUri::from_str(&f.uri()).ok())
-                .flatten()
+                .filter_map(|f| OTPUri::from_str(&f.uri()).ok())
                 .collect::<Vec<OTPUri>>();
             // We only handle a signle URI (see the desktop file)
             if let Some(uri) = uris.get(0) {
@@ -458,16 +457,15 @@ impl SearchProviderImpl for Application {
     fn result_metas(&self, identifiers: &[ResultID]) -> Vec<ResultMeta> {
         identifiers
             .iter()
-            .map(|id| {
+            .filter_map(|id| {
                 self.account_provider_by_identifier(id)
                     .map(|(provider, account)| {
                         ResultMeta::builder(id.to_owned(), &account.name())
                             .description(&provider.name())
-                            .clipboard_text(&account.otp().replace(" ", ""))
+                            .clipboard_text(&account.otp().replace(' ', ""))
                             .build()
                     })
             })
-            .flatten()
             .collect::<Vec<_>>()
     }
 }

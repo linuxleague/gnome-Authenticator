@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 use std::str::FromStr;
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct FreeOTP {}
 
 impl Backupable for FreeOTP {

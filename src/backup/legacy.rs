@@ -6,7 +6,7 @@ use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
 
 // Same as andOTP except uses the first tag for the issuer
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct LegacyAuthenticator {
     pub secret: String,
     pub label: String,
