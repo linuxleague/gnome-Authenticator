@@ -24,14 +24,17 @@ async fn main() -> oo7::Result<()> {
         .await?;
 
     let secret = items[0].secret().await?;
-    let keyring = oo7::portal::Keyring::load(keyring_path, &secret)
-        .await?;
-    
+    let keyring = oo7::portal::Keyring::load(keyring_path, &secret).await?;
+
     let keyring_items = keyring.items().await?;
     for item in keyring_items.iter() {
         let attributes = item.attributes();
         let secret = item.secret();
-        println!("Found a secret: \nAttributes: {:#?}\nSecret: {:#?}", attributes, String::from_utf8_lossy(&secret));
+        println!(
+            "Found a secret: \nAttributes: {:#?}\nSecret: {:#?}",
+            attributes,
+            String::from_utf8_lossy(&secret)
+        );
         println!("################################################");
     }
 
