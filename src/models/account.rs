@@ -232,7 +232,9 @@ impl Account {
                 {
                     Ok(account) => Some(account),
                     Err(e) => {
-                        tracing::error!("Failed to load account {e}");
+                        let name = account.name;
+                        let provider = p.name();
+                        tracing::error!("Failed to load account '{name}' / '{provider}' with error {e}");
                         None
                     }
                 }
@@ -270,9 +272,9 @@ impl Account {
         } else {
             let token_id = token_id.to_owned();
             spawn_tokio_blocking(async move {
-                keyring::token(&token_id)
-                    .await?
-                    .context("Could not get item from keyring")
+                keyring::token(&token_id).await?.with_context(|| {
+                    format!("Could not get item with token identifier '{token_id}' from keyring")
+                })
             })?
         };
         account.imp().token.set(token).unwrap();
