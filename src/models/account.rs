@@ -221,14 +221,21 @@ impl Account {
             .load::<DiAccount>(&conn)?
             .into_iter()
             .filter_map(clone!(@strong p => move |account| {
-                Self::new(
+                match Self::new(
                     account.id  as u32,
                     &account.name,
                     &account.token_id,
                     account.counter as u32,
                     p.clone(),
                     None,
-                ).ok()
+                )
+                {
+                    Ok(account) => Some(account),
+                    Err(e) => {
+                        tracing::error!("Failed to load account {e}");
+                        None
+                    }
+                }
             }));
 
         Ok(results)
