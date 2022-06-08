@@ -7,9 +7,8 @@
         <child>
           <object class="GtkHeaderBar">
             <child type="start">
-              <object class="GtkButton">
+              <object class="GtkButton" id="previous">
                 <property name="receives-default">True</property>
-                <property name="action-name">add.previous</property>
                 <property name="icon-name">go-previous-symbolic</property>
                 <property name="tooltip-text" translatable="yes">Go Back</property>
               </object>
@@ -43,9 +42,8 @@
                     <property name="icon-name">camera-hardware-disabled-symbolic</property>
                     <property name="title" translatable="yes">No Camera Found</property>
                     <property name="child">
-                      <object class="GtkButton">
+                      <object class="GtkButton" id="screenshot">
                         <property name="label" translatable="yes">_From a Screenshot</property>
-                        <property name="action-name">add.screenshot</property>
                         <property name="halign">center</property>
                         <property name="margin-top">24</property>
                         <property name="use-underline">True</property>
@@ -76,3 +74,4 @@
     </child>
   </template>
 </interface>
+

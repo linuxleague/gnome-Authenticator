@@ -1,3 +1,4 @@
+mod camera_page;
 mod password_page;
 mod window;
 

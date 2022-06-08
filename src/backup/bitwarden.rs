@@ -1,11 +1,9 @@
-use std::str::FromStr;
-
 use super::{Restorable, RestorableItem};
 use crate::models::{Algorithm, OTPMethod, OTPUri};
 use anyhow::Result;
 use gettextrs::gettext;
-use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
+use std::str::FromStr;
 
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Bitwarden {
@@ -33,27 +31,6 @@ pub struct BitwardenItem {
 struct BitwardenDetails {
     username: Option<String>,
     totp: Option<String>,
-}
-
-impl Bitwarden {
-    fn restore_from_slice(data: &[u8]) -> Result<Vec<BitwardenItem>> {
-        let bitwarden_root: Bitwarden = serde_json::de::from_slice(data)?;
-
-        let mut items = Vec::new();
-
-        for mut item in bitwarden_root.items {
-            if let Some(ref login) = item.login {
-                if let Some(ref totp) = login.totp {
-                    if let Ok(uri) = OTPUri::from_str(totp) {
-                        item.overwrite_with(uri);
-                    }
-                    items.push(item);
-                }
-            }
-        }
-
-        Ok(items)
-    }
 }
 
 impl RestorableItem for BitwardenItem {
@@ -127,6 +104,8 @@ impl BitwardenItem {
 
 impl Restorable for Bitwarden {
     const ENCRYPTABLE: bool = false;
+    const SCANNABLE: bool = false;
+
     type Item = BitwardenItem;
 
     fn identifier() -> String {
@@ -142,9 +121,23 @@ impl Restorable for Bitwarden {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(from: &gtk::gio::File, _key: Option<&str>) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
-        Bitwarden::restore_from_slice(&data)
+    fn restore_from_data(from: &[u8], _key: Option<&str>) -> Result<Vec<Self::Item>> {
+        let bitwarden_root: Bitwarden = serde_json::de::from_slice(from)?;
+
+        let mut items = Vec::new();
+
+        for mut item in bitwarden_root.items {
+            if let Some(ref login) = item.login {
+                if let Some(ref totp) = login.totp {
+                    if let Ok(uri) = OTPUri::from_str(totp) {
+                        item.overwrite_with(uri);
+                    }
+                    items.push(item);
+                }
+            }
+        }
+
+        Ok(items)
     }
 }
 
@@ -222,7 +215,7 @@ mod tests {
   ]
 }"#;
 
-        let bitwarden_items = Bitwarden::restore_from_slice(&bitwarden_data.as_bytes())
+        let bitwarden_items = Bitwarden::restore_from_data(&bitwarden_data.as_bytes())
             .expect("Restoring from json should work");
 
         assert_eq!(bitwarden_items[0].account(), "test@testmail.com");

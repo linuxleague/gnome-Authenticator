@@ -565,6 +565,8 @@ impl Backupable for Aegis {
 
 impl Restorable for Aegis {
     const ENCRYPTABLE: bool = true;
+    const SCANNABLE: bool = false;
+
     type Item = Item;
 
     fn identifier() -> String {
@@ -580,9 +582,9 @@ impl Restorable for Aegis {
         gettext("From a JSON file containing plain-text or encrypted fields")
     }
 
-    fn restore(from: &gtk::gio::File, key: Option<&str>) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
-        Aegis::restore_from_slice(&data, key)
+    fn restore_from_data(from: &[u8], key: Option<&str>) -> Result<Vec<Self::Item>> {
+        // TODO: Maybe move this function inline?
+        Aegis::restore_from_slice(&from, key)
     }
 }
 
@@ -781,3 +783,4 @@ mod tests {
 
     // TODO: add tests for importing
 }
+

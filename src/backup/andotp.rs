@@ -117,6 +117,8 @@ impl Backupable for AndOTP {
 
 impl Restorable for AndOTP {
     const ENCRYPTABLE: bool = false;
+    const SCANNABLE: bool = false;
+
     type Item = Self;
 
     fn identifier() -> String {
@@ -132,10 +134,8 @@ impl Restorable for AndOTP {
         gettext("From a plain-text JSON file")
     }
 
-    fn restore(from: &gtk::gio::File, _key: Option<&str>) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
-
-        let items: Vec<AndOTP> = serde_json::de::from_slice(&data)?;
+    fn restore_from_data(from: &[u8], _key: Option<&str>) -> Result<Vec<Self::Item>> {
+        let items: Vec<AndOTP> = serde_json::de::from_slice(from)?;
         Ok(items)
     }
 }

@@ -1,18 +1,20 @@
+use super::camera_page::CameraPage;
 use super::password_page::PasswordPage;
 use crate::{
     backup::{
-        Aegis, AndOTP, Backupable, Bitwarden, FreeOTP, LegacyAuthenticator, Operation, Restorable,
-        RestorableItem,
+        Aegis, AndOTP, Backupable, Bitwarden, FreeOTP, Google, LegacyAuthenticator, Operation,
+        Restorable, RestorableItem,
     },
     config,
     models::ProvidersModel,
+    utils::spawn_tokio,
 };
 use adw::prelude::*;
-use anyhow::Result;
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::action;
+use gtk_macros::{action, get_action, spawn};
+use tokio::time::{Duration, sleep};
 use once_cell::sync::OnceCell;
 
 mod imp {
@@ -36,6 +38,7 @@ mod imp {
         pub backup_actions: gio::SimpleActionGroup,
         pub restore_actions: gio::SimpleActionGroup,
         pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
+        pub camera_page: CameraPage,
         pub password_page: PasswordPage,
         #[template_child]
         pub backup_group: TemplateChild<adw::PreferencesGroup>,
@@ -65,6 +68,7 @@ mod imp {
             Self {
                 settings,
                 has_set_password: Cell::new(false), // Synced from the application
+                camera_page: CameraPage::new(actions.clone()),
                 password_page: PasswordPage::new(actions.clone()),
                 actions,
                 model: OnceCell::new(),
@@ -93,13 +97,15 @@ mod imp {
     impl ObjectImpl for PreferencesWindow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecBoolean::new(
-                    "has-set-password",
-                    "has set password",
-                    "Has Set Password",
-                    false,
-                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
-                )]
+                vec![
+                    ParamSpecBoolean::new(
+                        "has-set-password",
+                        "has set password",
+                        "Has Set Password",
+                        false,
+                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                    )
+                ]
             });
             PROPERTIES.as_ref()
         }
@@ -107,9 +113,12 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("restore-completed", &[], <()>::static_type().into())
-                        .flags(glib::SignalFlags::ACTION)
-                        .build(),
+                    Signal::builder(
+                        "restore-completed",
+                        &[],
+                        <()>::static_type().into())
+                    .action()
+                    .build(),
                 ]
             });
             SIGNALS.as_ref()
@@ -133,8 +142,8 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.setup_actions();
             self.parent_constructed(obj);
+            obj.setup_actions();
         }
     }
     impl WidgetImpl for PreferencesWindow {}
@@ -186,14 +195,27 @@ impl PreferencesWindow {
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
 
+        self.connect_local(
+            "restore-completed",
+            false,
+            clone!(@weak self as win => @default-return None, move |_| {
+                win.close();
+                None
+            })
+        );
+
+        // FreeOTP is first in all of these lists, since its the way to backup Authenticator for use
+        // with Authenticator. Others are sorted alphabetically.
+
         self.register_backup::<FreeOTP>(&["text/plain"]);
-        self.register_backup::<AndOTP>(&["application/json"]);
         self.register_backup::<Aegis>(&["application/json"]);
+        self.register_backup::<AndOTP>(&["application/json"]);
 
         self.register_restore::<FreeOTP>(&["text/plain"]);
+        self.register_restore::<Aegis>(&["application/json"]);
         self.register_restore::<AndOTP>(&["application/json"]);
         self.register_restore::<Bitwarden>(&["application/json"]);
-        self.register_restore::<Aegis>(&["application/json"]);
+        self.register_restore::<Google>(&[]);
         self.register_restore::<LegacyAuthenticator>(&["application/json"]);
     }
 
@@ -298,6 +320,47 @@ impl PreferencesWindow {
             button_row.add_suffix(&key_button);
             row.add_row(&button_row);
             imp.restore_group.add(&row);
+        } else if T::SCANNABLE {
+            let menu_button = gtk::MenuButton::builder()
+                .icon_name("qrscanner-symbolic")
+                .tooltip_text(&gettext("Scan QR Code"))
+                .menu_model(&{
+                    let menu = gio::Menu::new();
+
+                    menu.insert(0,
+                        Some(&gettext("_Camera")),
+                        Some(&format!("restore.{}.camera", T::identifier())));
+
+                    menu.insert(1,
+                        Some(&gettext("_Screenshot")),
+                        Some(&format!("restore.{}.screenshot", T::identifier())));
+
+                    menu
+                })
+                .css_classes(vec!["flat".to_string()])
+                .build();
+
+            let row = adw::ActionRow::builder()
+                .title(&T::title())
+                .subtitle(&T::subtitle())
+                .activatable(true)
+                .activatable_widget(&menu_button)
+                .use_underline(true)
+                .build();
+
+            row.add_suffix(&{
+                let box_ = gtk::Box::builder()
+                    .orientation(gtk::Orientation::Vertical)
+                    .halign(gtk::Align::Fill)
+                    .valign(gtk::Align::Center)
+                    .build();
+
+                box_.append(&menu_button);
+
+                box_
+            });
+
+            imp.restore_group.add(&row);
         } else {
             let row = adw::ActionRow::builder()
                 .title(&T::title())
@@ -309,30 +372,100 @@ impl PreferencesWindow {
 
             imp.restore_group.add(&row);
         }
-        action!(
-            imp.restore_actions,
-            &T::identifier(),
-            clone!(@weak self as win => move |_, _| {
-                let dialog = win.select_file(filters, Operation::Restore);
-                dialog.connect_response(clone!(@weak win => move |d, response| {
-                    if response == gtk::ResponseType::Accept {
-                        let key = T::ENCRYPTABLE.then(|| {
-                            win.encyption_key(Operation::Restore, &T::identifier())
-                        }).flatten();
+        if T::SCANNABLE {
+            action!(
+                imp.restore_actions,
+                &format!("{}.camera", T::identifier()),
+                clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
+                    get_action!(win.imp().actions, @show_camera_page).activate(None);
+                    spawn!(clone!(@strong win, @strong camera_page => async move {
+                        loop {
+                            match camera_page.scan_from_camera().await {
+                                Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
+                                    Ok(items) => {
+                                        win.restore_items::<T, T::Item>(items);
+                                        break;
+                                    },
+                                    Err(error) => {
+                                        tracing::error!(concat!(
+                                            "Encountered an error while trying to restore from a ",
+                                            "scanned QR code: {}",
+                                        ), error);
+                                    },
+                                },
+                                Err(error) => {
+                                    tracing::error!(concat!(
+                                        "Encountered an error while trying to scan from the ",
+                                        "camera: {}",
+                                    ), error);
+                                },
+                            }
 
-                        match T::restore(&d.file().unwrap(), key.as_deref()) {
-                            Ok(items) => {
-                                win.restore_items::<T, T::Item>(items);
+                            // Sleep for a second to avoid overloading the CPU if a code
+                            // keeps scanning incorrectly.
+                            spawn_tokio(async {
+                                sleep(Duration::from_millis(1000)).await;
+                            }).await;
+                        }
+                    }));
+                })
+            );
+            action!(
+                imp.restore_actions,
+                &format!("{}.screenshot", T::identifier()),
+                clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
+                    spawn!(async move {
+                        match camera_page.scan_from_screenshot().await {
+                            Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
+                                Ok(items) => win.restore_items::<T, T::Item>(items),
+                                Err(error) => {
+                                    tracing::error!(concat!(
+                                        "Encountered an error while trying to restore from a ",
+                                        "scanned QR code: {}",
+                                    ), error);
+
+                                    // TODO: Maybe show a nice error dialog telling the user that
+                                    // the QR code they scanned contained invalid data, probably
+                                    // with an option to see the full error. Like FireFox error
+                                    // pages.
+                                },
                             },
-                            Err(err) => {
-                                tracing::warn!("Failed to parse the selected file {}", err);
+                            Err(error) => {
+                                tracing::error!("Encountered an error while trying to scan from the screenshot: {}", error);
+
+                                // TODO: See above, but tell the user that the screenshot didn't
+                                // contain any legible QR codes.
+                            },
+                        }
+                    });
+                })
+            );
+        } else {
+            action!(
+                imp.restore_actions,
+                &T::identifier(),
+                clone!(@weak self as win => move |_, _| {
+                    let dialog = win.select_file(filters, Operation::Restore);
+                    dialog.connect_response(clone!(@weak win => move |d, response| {
+                        if response == gtk::ResponseType::Accept {
+                            let key = T::ENCRYPTABLE.then(|| {
+                                win.encyption_key(Operation::Restore, &T::identifier())
+                            }).flatten();
+
+                            match T::restore_from_file(&d.file().unwrap(), key.as_deref()) {
+                                Ok(items) => {
+                                    win.restore_items::<T, T::Item>(items);
+                                },
+                                Err(err) => {
+                                    tracing::warn!("Failed to parse the selected file {}", err);
+                                }
                             }
                         }
-                    }
-                    d.destroy();
-                }));
-            })
-        );
+                        d.destroy();
+                    }));
+                })
+            );
+        }
     }
 
     fn encyption_key(&self, mode: Operation, identifier: &str) -> Option<glib::GString> {
@@ -351,8 +484,7 @@ impl PreferencesWindow {
         let model = self.imp().model.get().unwrap();
         items
             .iter()
-            .map(move |item| T::restore_item(item, model))
-            .filter(Result::is_ok)
+            .map(move |item| item.restore(model))
             .for_each(|item| {
                 if let Err(err) = item {
                     tracing::warn!("Failed to restore item {}", err);
@@ -402,6 +534,16 @@ impl PreferencesWindow {
     fn setup_actions(&self) {
         let imp = self.imp();
 
+        imp.camera_page
+            .connect_map(clone!(@weak self as win => move |_| {
+                win.set_search_enabled(false);
+            }));
+
+        imp.camera_page
+            .connect_unmap(clone!(@weak self as win => move |_| {
+                win.set_search_enabled(true);
+            }));
+
         imp.password_page
             .connect_map(clone!(@weak self as win => move |_| {
                 win.set_search_enabled(false);
@@ -414,6 +556,13 @@ impl PreferencesWindow {
 
         action!(
             imp.actions,
+            "show_camera_page",
+            clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
+                win.present_subpage(&camera_page);
+            })
+        );
+        action!(
+            imp.actions,
             "show_password_page",
             clone!(@weak self as win, @weak imp.password_page as password_page => move |_, _| {
                 win.present_subpage(&password_page);
@@ -422,10 +571,12 @@ impl PreferencesWindow {
         action!(
             imp.actions,
             "close_page",
-            clone!(@weak self as win => move |_, _| {
+            clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
                 win.close_subpage();
+                camera_page.imp().camera.stop();
             })
         );
+
         self.insert_action_group("preferences", Some(&imp.actions));
         self.insert_action_group("backup", Some(&imp.backup_actions));
         self.insert_action_group("restore", Some(&imp.restore_actions));

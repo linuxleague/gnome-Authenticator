@@ -121,6 +121,13 @@ mod imp {
                     preferences.set_has_set_password(app.can_be_locked());
                     preferences.connect_local("restore-completed", false, clone!(@weak window => @default-return None, move |_| {
                         window.providers().refilter();
+                        window.imp().toast_overlay.add_toast(&{
+                            let toast = adw::Toast::builder()
+                                .title(&gettext("Restored accounts"))
+                                .build();
+
+                            toast
+                        });
                         None
                     }));
                     preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, _| {
@@ -255,7 +262,7 @@ mod imp {
                 .iter()
                 .filter_map(|f| OTPUri::from_str(&f.uri()).ok())
                 .collect::<Vec<OTPUri>>();
-            // We only handle a signle URI (see the desktop file)
+            // We only handle a single URI (see the desktop file)
             if let Some(uri) = uris.get(0) {
                 let window = application.active_window();
                 window.open_add_account(Some(uri))

@@ -1,22 +1,24 @@
 use crate::widgets::CameraPaintable;
+use adw::subclass::prelude::*;
+use anyhow::Result;
+use ashpd::{desktop::screenshot::ScreenshotProxy, zbus};
 use gst::prelude::*;
 use gtk::{
-    glib::{self, clone, Receiver},
+    gio,
+    glib::{self, clone, subclass::{InitializingObject, Signal}, Receiver},
     prelude::*,
     subclass::prelude::*,
     CompositeTemplate,
 };
 use gtk_macros::spawn;
+use image::GenericImageView;
 use once_cell::sync::Lazy;
 use std::os::unix::prelude::RawFd;
+use std::cell::{Cell, RefCell};
+use zbar_rust::ZBarImageScanner;
 
 mod screenshot {
     use super::*;
-    use anyhow::Result;
-    use ashpd::{desktop::screenshot::ScreenshotProxy, zbus, WindowIdentifier};
-    use gtk::gio;
-    use image::GenericImageView;
-    use zbar_rust::ZBarImageScanner;
 
     pub fn scan(data: &[u8]) -> Result<String> {
         // remove the file after reading the data
@@ -38,11 +40,17 @@ mod screenshot {
         anyhow::bail!("Invalid QR code")
     }
 
-    pub async fn capture(window: gtk::Window) -> Result<gio::File> {
+    pub async fn capture(window: Option<gtk::Window>) -> Result<gio::File> {
         let connection = zbus::Connection::session().await?;
         let proxy = ScreenshotProxy::new(&connection).await?;
         let uri = proxy
-            .screenshot(&WindowIdentifier::from_native(&window).await, true, true)
+            .screenshot(&{
+                if let Some(ref window) = window {
+                    ashpd::WindowIdentifier::from_native(window).await
+                } else {
+                    ashpd::WindowIdentifier::default()
+                }
+            }, true, true)
             .await?;
         Ok(gio::File::for_uri(&uri))
     }
@@ -75,20 +83,23 @@ pub enum CameraState {
 
 mod imp {
     use super::*;
-    use glib::subclass::{self, Signal};
-    use std::cell::RefCell;
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/camera.ui")]
     pub struct Camera {
         pub paintable: CameraPaintable,
         pub receiver: RefCell<Option<Receiver<CameraEvent>>>,
+        pub started: Cell<bool>,
+        #[template_child]
+        pub previous: TemplateChild<gtk::Button>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub picture: TemplateChild<gtk::Picture>,
         #[template_child]
         pub spinner: TemplateChild<gtk::Spinner>,
+        #[template_child]
+        pub screenshot: TemplateChild<gtk::Button>,
     }
 
     #[glib::object_subclass]
@@ -101,7 +112,7 @@ mod imp {
             klass.bind_template();
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &InitializingObject<Self>) {
             obj.init_template();
         }
 
@@ -112,9 +123,12 @@ mod imp {
             Self {
                 paintable: CameraPaintable::new(sender),
                 receiver,
+                started: Cell::new(false),
+                previous: TemplateChild::default(),
                 spinner: TemplateChild::default(),
                 stack: TemplateChild::default(),
                 picture: TemplateChild::default(),
+                screenshot: TemplateChild::default(),
             }
         }
     }
@@ -122,27 +136,39 @@ mod imp {
     impl ObjectImpl for Camera {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder(
-                    "code-detected",
-                    &[String::static_type().into()],
-                    <()>::static_type().into(),
-                )
-                .run_first()
-                .build()]
+                vec! [
+                    Signal::builder(
+                        "close",
+                        &[],
+                        <()>::static_type().into(),
+                    )
+                    .action()
+                    .build(),
+                    Signal::builder(
+                        "code-detected",
+                        &[String::static_type().into()],
+                        <()>::static_type().into(),
+                    )
+                    .run_first()
+                    .build(),
+                ]
             });
             SIGNALS.as_ref()
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_widgets();
             self.parent_constructed(obj);
+            obj.setup_receiver();
+            obj.setup_widgets();
         }
+
         fn dispose(&self, _obj: &Self::Type) {
             self.paintable.close_pipeline();
         }
     }
+
     impl WidgetImpl for Camera {}
-    impl adw::subclass::prelude::BinImpl for Camera {}
+    impl BinImpl for Camera {}
 }
 
 glib::wrapper! {
@@ -153,6 +179,59 @@ impl Camera {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         glib::Object::new(&[]).expect("Failed to create a Camera")
+    }
+
+    pub fn start(&self) {
+        let imp = self.imp();
+        if !imp.started.get() {
+            imp.paintable.start();
+            imp.started.set(true);
+            self.set_state(CameraState::Ready);
+        }
+    }
+
+    pub fn stop(&self) {
+        let imp = self.imp();
+        if imp.started.get() {
+            imp.paintable.stop();
+            imp.started.set(false);
+        }
+    }
+
+    pub fn from_camera(&self) {
+        if !self.imp().started.get() {
+            spawn!(clone!(@weak self as camera => async move {
+                match screenshot::stream().await {
+                    Ok(Some((stream_fd, node_id))) => {
+                        match camera.imp().paintable.set_pipewire_node_id(stream_fd, node_id) {
+                            Ok(_) => camera.start(),
+                            Err(err) => tracing::error!("Failed to start the camera stream {err}"),
+                        };
+                    },
+                    Ok(None) => {
+                        camera.set_state(CameraState::NotFound);
+                    }
+                    Err(e) => tracing::error!("Failed to stream {}", e),
+                }
+            }));
+        }
+    }
+
+    pub async fn from_screenshot(&self) -> anyhow::Result<()> {
+        let screenshot_file = screenshot::capture(self.root().map(|root| {
+            root.downcast::<gtk::Window>().unwrap()
+        })).await?;
+        let (data, _) = screenshot_file.load_contents_future().await?;
+        if let Ok(code) = screenshot::scan(&data).await {
+            self.emit_by_name::<()>("code-detected", &[&code]);
+        }
+        if let Err(err) = screenshot_file
+            .trash_future(glib::source::PRIORITY_HIGH)
+            .await
+        {
+            tracing::error!("Failed to remove scanned screenshot {}", err);
+        }
+        Ok(())
     }
 
     fn set_state(&self, state: CameraState) {
@@ -169,69 +248,39 @@ impl Camera {
         }
     }
 
-    fn do_event(&self, event: CameraEvent) -> glib::Continue {
-        match event {
-            CameraEvent::CodeDetected(code) => {
-                self.emit_by_name::<()>("code-detected", &[&code]);
-            }
-            CameraEvent::StreamStarted => {
-                self.set_state(CameraState::Ready);
-            }
-        }
-
-        glib::Continue(true)
-    }
-
-    pub fn start(&self) {
-        self.imp().paintable.start();
-        self.set_state(CameraState::Ready);
-    }
-
-    pub fn stop(&self) {
-        self.imp().paintable.stop();
-    }
-
-    pub fn scan_from_camera(&self) {
-        spawn!(clone!(@weak self as camera => async move {
-            match screenshot::stream().await {
-                Ok(Some((stream_fd, node_id))) => {
-                    match camera.imp().paintable.set_pipewire_node_id(stream_fd, node_id) {
-                        Ok(_) => camera.start(),
-                        Err(err) => tracing::error!("Failed to start the camera stream {err}"),
-                    };
-                },
-                Ok(None) => {
-                    camera.set_state(CameraState::NotFound);
+    fn setup_receiver(&self) {
+        self.imp().receiver.borrow_mut().take().unwrap().attach(
+            None,
+            glib::clone!(@weak self as camera => @default-return glib::Continue(false), move |event| {
+                match event {
+                    CameraEvent::CodeDetected(code) => {
+                        camera.emit_by_name::<()>("code-detected", &[&code]);
+                    }
+                    CameraEvent::StreamStarted => {
+                        camera.set_state(CameraState::Ready);
+                    }
                 }
-                Err(e) => tracing::error!("Failed to stream {}", e),
-            }
+            }),
+        );
+    }
+
+    fn setup_widgets(&self) {
+        let imp = self.imp();
+
+        self.set_state(CameraState::NotFound);
+
+        imp.picture.set_paintable(Some(&imp.paintable));
+
+        imp.previous.connect_clicked(clone!(@weak self as camera => move |_| {
+            camera.emit_by_name::<()>("close", &[]);
+        }));
+
+        imp.screenshot.connect_clicked(clone!(@weak self as camera => move |_| {
+            spawn!(clone!(@strong camera => async move {
+                // TODO: Error handling?
+                let _ = camera.from_screenshot().await;
+            }));
         }));
     }
-
-    pub async fn scan_from_screenshot(&self) -> anyhow::Result<()> {
-        let window = self.root().unwrap().downcast::<gtk::Window>().unwrap();
-        let screenshot_file = screenshot::capture(window).await?;
-        let (data, _) = screenshot_file.load_contents_future().await?;
-        if let Ok(code) = screenshot::scan(&data) {
-            self.emit_by_name::<()>("code-detected", &[&code]);
-        }
-        if let Err(err) = screenshot_file
-            .trash_future(glib::source::PRIORITY_HIGH)
-            .await
-        {
-            tracing::error!("Failed to remove scanned screenshot {}", err);
-        }
-        Ok(())
-    }
-
-    fn init_widgets(&self) {
-        let imp = self.imp();
-        self.set_state(CameraState::NotFound);
-        let receiver = imp.receiver.borrow_mut().take().unwrap();
-        receiver.attach(
-            None,
-            glib::clone!(@weak self as camera => @default-return glib::Continue(false), move |action| camera.do_event(action)),
-        );
-        imp.picture.set_paintable(Some(&imp.paintable));
-    }
 }
+

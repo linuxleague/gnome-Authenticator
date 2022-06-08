@@ -12,6 +12,7 @@ pub struct FreeOTP {}
 
 impl Backupable for FreeOTP {
     const ENCRYPTABLE: bool = false;
+
     fn identifier() -> String {
         "authenticator".to_string()
     }
@@ -54,7 +55,10 @@ impl Backupable for FreeOTP {
 
 impl Restorable for FreeOTP {
     const ENCRYPTABLE: bool = false;
+    const SCANNABLE: bool = false;
+
     type Item = OTPUri;
+
     fn identifier() -> String {
         "authenticator".to_string()
     }
@@ -67,15 +71,15 @@ impl Restorable for FreeOTP {
         gettext("From a plain-text file, compatible with FreeOTP+")
     }
 
-    fn restore(from: &gtk::gio::File, _key: Option<&str>) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gtk::gio::Cancellable::NONE)?;
-        let uris = String::from_utf8(data)?;
+    fn restore_from_data(from: &[u8], _key: Option<&str>) -> Result<Vec<Self::Item>> {
+        let uris = String::from_utf8(from.into())?;
 
         let items = uris
             .split('\n')
             .into_iter()
             .filter_map(|uri| OTPUri::from_str(uri).ok())
             .collect::<Vec<OTPUri>>();
+
         Ok(items)
     }
 }

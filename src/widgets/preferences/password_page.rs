@@ -1,16 +1,18 @@
 use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
 use gettextrs::gettext;
-use glib::clone;
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{
+    gio,
+    glib::{self, clone, subclass::InitializingObject, ParamSpec, ParamSpecBoolean, Value},
+    prelude::*,
+    subclass::prelude::*,
+    CompositeTemplate,
+};
 use gtk_macros::{action, get_action};
-use once_cell::sync::OnceCell;
-use std::cell::Cell;
+use once_cell::sync::{Lazy, OnceCell};
+use std::cell::{Cell, RefCell};
 
 mod imp {
     use super::*;
-    use glib::{subclass, ParamSpec, ParamSpecBoolean, Value};
-    use gtk::subclass::widget::WidgetImplExt;
-    use std::cell::RefCell;
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_password_page.ui")]
@@ -56,25 +58,27 @@ mod imp {
             klass.bind_template();
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &InitializingObject<Self>) {
             obj.init_template();
         }
     }
 
     impl ObjectImpl for PasswordPage {
         fn properties() -> &'static [ParamSpec] {
-            use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecBoolean::new(
-                    "has-set-password",
-                    "has set password",
-                    "Has Set Password",
-                    false,
-                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
-                )]
+                vec![
+                    ParamSpecBoolean::new(
+                        "has-set-password",
+                        "has set password",
+                        "Has Set Password",
+                        false,
+                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                    ),
+                ]
             });
             PROPERTIES.as_ref()
         }
+
         fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "has-set-password" => {
@@ -92,12 +96,14 @@ mod imp {
             }
         }
     }
+
     impl WidgetImpl for PasswordPage {
         fn unmap(&self, widget: &Self::Type) {
             widget.reset();
             self.parent_unmap(widget);
         }
     }
+
     impl BoxImpl for PasswordPage {}
 }
 
