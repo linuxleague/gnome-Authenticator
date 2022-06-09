@@ -423,17 +423,13 @@ impl PreferencesWindow {
                                         "scanned QR code: {}",
                                     ), error);
 
-                                    // TODO: Maybe show a nice error dialog telling the user that
-                                    // the QR code they scanned contained invalid data, probably
-                                    // with an option to see the full error. Like FireFox error
-                                    // pages.
+                                    win.add_toast(&adw::Toast::new(&gettext("Unable to restore accounts")));
                                 },
                             },
                             Err(error) => {
                                 tracing::error!("Encountered an error while trying to scan from the screenshot: {}", error);
 
-                                // TODO: See above, but tell the user that the screenshot didn't
-                                // contain any legible QR codes.
+                                win.add_toast(&adw::Toast::new(&gettext("Couldn't find a QR code")));
                             },
                         }
                     });
