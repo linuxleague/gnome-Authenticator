@@ -14,8 +14,8 @@ mod imp {
     use crate::widgets::providers::ProviderPage;
 
     use super::*;
-    use glib::SignalFlags;
     use glib::subclass::{InitializingObject, Signal};
+    use glib::SignalFlags;
     use std::cell::RefCell;
 
     #[derive(Debug, Default, CompositeTemplate)]
@@ -102,11 +102,9 @@ mod imp {
     impl ObjectImpl for AccountAddDialog {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec! [
-                    Signal::builder("added", &[], <()>::static_type().into())
-                        .flags(SignalFlags::ACTION)
-                        .build(),
-                ]
+                vec![Signal::builder("added", &[], <()>::static_type().into())
+                    .flags(SignalFlags::ACTION)
+                    .build()]
             });
             SIGNALS.as_ref()
         }
@@ -315,7 +313,7 @@ impl AccountAddDialog {
             clone!(@weak self as dialog => @default-return None, move |_| {
                 dialog.activate_action("add.previous", None).unwrap();
                 None
-            })
+            }),
         );
 
         imp.camera.connect_local(

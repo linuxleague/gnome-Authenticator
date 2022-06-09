@@ -38,15 +38,18 @@ impl Restorable for Google {
 
         if let Some(host) = uri.host_str() {
             if host != "offline" {
-                anyhow::bail!("Invalid OTP migration uri format, expected uri host to be offline, got {host}");
+                anyhow::bail!(
+                    "Invalid OTP migration uri format, expected uri host to be offline, got {host}"
+                );
             }
         } else {
-            anyhow::bail!("Invalid OTP migration uri format, expected uri host to be offline, got nothing");
+            anyhow::bail!(
+                "Invalid OTP migration uri format, expected uri host to be offline, got nothing"
+            );
         }
 
-        let data = uri
-            .query_pairs()
-            .fold(None, |folded, (key, value)| folded.or_else(|| match key.into_owned().as_str() {
+        let data = uri.query_pairs().fold(None, |folded, (key, value)| {
+            folded.or_else(|| match key.into_owned().as_str() {
                 "data" => {
                     let bytes = value.into_owned().into_bytes();
                     let decoded = percent_decode(&*bytes);
@@ -58,9 +61,10 @@ impl Restorable for Google {
                         Ok(decoded) => decoded,
                         Err(_) => return None,
                     })
-                },
+                }
                 _ => None,
-            }));
+            })
+        });
 
         let data = if let Some(data) = data {
             data
@@ -70,9 +74,9 @@ impl Restorable for Google {
 
         let data_len = data.otp_parameters.len();
 
-        let mut restored = data.otp_parameters
-            .into_iter()
-            .fold(Vec::with_capacity(data_len), |mut folded, otp| {
+        let mut restored = data.otp_parameters.into_iter().fold(
+            Vec::with_capacity(data_len),
+            |mut folded, otp| {
                 folded.push(OTPUri {
                     algorithm: match otp.algorithm() {
                         protobuf::migration_payload::Algorithm::ALGO_INVALID => return folded,
@@ -104,7 +108,9 @@ impl Restorable for Google {
                             Err(_) => return folded,
                         };
 
-                        string.trim_end_matches(|c| c == '\0' || c == '=').to_owned()
+                        string
+                            .trim_end_matches(|c| c == '\0' || c == '=')
+                            .to_owned()
                     },
                     label: otp.name,
                     issuer: otp.issuer,
@@ -112,7 +118,8 @@ impl Restorable for Google {
                     counter: Some(otp.counter as u32),
                 });
                 folded
-            });
+            },
+        );
 
         restored.shrink_to_fit();
 
@@ -173,4 +180,3 @@ mod protobuf {
         }
     }
 }
-

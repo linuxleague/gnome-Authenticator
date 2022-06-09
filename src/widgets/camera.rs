@@ -5,7 +5,11 @@ use ashpd::{desktop::screenshot::ScreenshotProxy, zbus};
 use gst::prelude::*;
 use gtk::{
     gio,
-    glib::{self, clone, subclass::{InitializingObject, Signal}, Receiver},
+    glib::{
+        self, clone,
+        subclass::{InitializingObject, Signal},
+        Receiver,
+    },
     prelude::*,
     subclass::prelude::*,
     CompositeTemplate,
@@ -13,8 +17,8 @@ use gtk::{
 use gtk_macros::spawn;
 use image::GenericImageView;
 use once_cell::sync::Lazy;
-use std::os::unix::prelude::RawFd;
 use std::cell::{Cell, RefCell};
+use std::os::unix::prelude::RawFd;
 use zbar_rust::ZBarImageScanner;
 
 mod screenshot {
@@ -44,13 +48,17 @@ mod screenshot {
         let connection = zbus::Connection::session().await?;
         let proxy = ScreenshotProxy::new(&connection).await?;
         let uri = proxy
-            .screenshot(&{
-                if let Some(ref window) = window {
-                    ashpd::WindowIdentifier::from_native(window).await
-                } else {
-                    ashpd::WindowIdentifier::default()
-                }
-            }, true, true)
+            .screenshot(
+                &{
+                    if let Some(ref window) = window {
+                        ashpd::WindowIdentifier::from_native(window).await
+                    } else {
+                        ashpd::WindowIdentifier::default()
+                    }
+                },
+                true,
+                true,
+            )
             .await?;
         Ok(gio::File::for_uri(&uri))
     }
@@ -136,14 +144,10 @@ mod imp {
     impl ObjectImpl for Camera {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec! [
-                    Signal::builder(
-                        "close",
-                        &[],
-                        <()>::static_type().into(),
-                    )
-                    .action()
-                    .build(),
+                vec![
+                    Signal::builder("close", &[], <()>::static_type().into())
+                        .action()
+                        .build(),
                     Signal::builder(
                         "code-detected",
                         &[String::static_type().into()],
@@ -198,7 +202,7 @@ impl Camera {
         }
     }
 
-    pub fn from_camera(&self) {
+    pub fn scan_from_camera(&self) {
         if !self.imp().started.get() {
             spawn!(clone!(@weak self as camera => async move {
                 match screenshot::stream().await {
@@ -217,12 +221,14 @@ impl Camera {
         }
     }
 
-    pub async fn from_screenshot(&self) -> anyhow::Result<()> {
-        let screenshot_file = screenshot::capture(self.root().map(|root| {
-            root.downcast::<gtk::Window>().unwrap()
-        })).await?;
+    pub async fn scan_from_screenshot(&self) -> anyhow::Result<()> {
+        let screenshot_file = screenshot::capture(
+            self.root()
+                .map(|root| root.downcast::<gtk::Window>().unwrap()),
+        )
+        .await?;
         let (data, _) = screenshot_file.load_contents_future().await?;
-        if let Ok(code) = screenshot::scan(&data).await {
+        if let Ok(code) = screenshot::scan(&data) {
             self.emit_by_name::<()>("code-detected", &[&code]);
         }
         if let Err(err) = screenshot_file
@@ -260,6 +266,7 @@ impl Camera {
                         camera.set_state(CameraState::Ready);
                     }
                 }
+                glib::Continue(true)
             }),
         );
     }
@@ -271,16 +278,17 @@ impl Camera {
 
         imp.picture.set_paintable(Some(&imp.paintable));
 
-        imp.previous.connect_clicked(clone!(@weak self as camera => move |_| {
-            camera.emit_by_name::<()>("close", &[]);
-        }));
-
-        imp.screenshot.connect_clicked(clone!(@weak self as camera => move |_| {
-            spawn!(clone!(@strong camera => async move {
-                // TODO: Error handling?
-                let _ = camera.from_screenshot().await;
+        imp.previous
+            .connect_clicked(clone!(@weak self as camera => move |_| {
+                camera.emit_by_name::<()>("close", &[]);
             }));
-        }));
+
+        imp.screenshot
+            .connect_clicked(clone!(@weak self as camera => move |_| {
+                spawn!(clone!(@strong camera => async move {
+                    // TODO: Error handling?
+                    let _ = camera.scan_from_screenshot().await;
+                }));
+            }));
     }
 }
-

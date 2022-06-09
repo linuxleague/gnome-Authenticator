@@ -58,7 +58,10 @@ impl TryFrom<Url> for OTPUri {
     type Error = anyhow::Error;
     fn try_from(url: Url) -> Result<Self, Self::Error> {
         if url.scheme() != "otpauth" {
-            anyhow::bail!("Invalid OTP uri format, expected otpauth, got {}", url.scheme());
+            anyhow::bail!(
+                "Invalid OTP uri format, expected otpauth, got {}",
+                url.scheme()
+            );
         }
 
         let mut period = None;

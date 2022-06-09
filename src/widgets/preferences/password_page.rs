@@ -66,15 +66,13 @@ mod imp {
     impl ObjectImpl for PasswordPage {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecBoolean::new(
-                        "has-set-password",
-                        "has set password",
-                        "Has Set Password",
-                        false,
-                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
-                    ),
-                ]
+                vec![ParamSpecBoolean::new(
+                    "has-set-password",
+                    "has set password",
+                    "Has Set Password",
+                    false,
+                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                )]
             });
             PROPERTIES.as_ref()
         }

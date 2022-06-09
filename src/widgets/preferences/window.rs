@@ -14,8 +14,8 @@ use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action, spawn};
-use tokio::time::{Duration, sleep};
 use once_cell::sync::OnceCell;
+use tokio::time::{sleep, Duration};
 
 mod imp {
     use super::*;
@@ -97,15 +97,13 @@ mod imp {
     impl ObjectImpl for PreferencesWindow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecBoolean::new(
-                        "has-set-password",
-                        "has set password",
-                        "Has Set Password",
-                        false,
-                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
-                    )
-                ]
+                vec![ParamSpecBoolean::new(
+                    "has-set-password",
+                    "has set password",
+                    "Has Set Password",
+                    false,
+                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                )]
             });
             PROPERTIES.as_ref()
         }
@@ -113,12 +111,9 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder(
-                        "restore-completed",
-                        &[],
-                        <()>::static_type().into())
-                    .action()
-                    .build(),
+                    Signal::builder("restore-completed", &[], <()>::static_type().into())
+                        .action()
+                        .build(),
                 ]
             });
             SIGNALS.as_ref()
@@ -201,7 +196,7 @@ impl PreferencesWindow {
             clone!(@weak self as win => @default-return None, move |_| {
                 win.close();
                 None
-            })
+            }),
         );
 
         // FreeOTP is first in all of these lists, since its the way to backup Authenticator for use
@@ -327,13 +322,17 @@ impl PreferencesWindow {
                 .menu_model(&{
                     let menu = gio::Menu::new();
 
-                    menu.insert(0,
+                    menu.insert(
+                        0,
                         Some(&gettext("_Camera")),
-                        Some(&format!("restore.{}.camera", T::identifier())));
+                        Some(&format!("restore.{}.camera", T::identifier())),
+                    );
 
-                    menu.insert(1,
+                    menu.insert(
+                        1,
                         Some(&gettext("_Screenshot")),
-                        Some(&format!("restore.{}.screenshot", T::identifier())));
+                        Some(&format!("restore.{}.screenshot", T::identifier())),
+                    );
 
                     menu
                 })

@@ -65,12 +65,7 @@ pub trait RestorableItem: Debug {
             None,
         )?;
 
-        let account = Account::create(
-            &self.account(),
-            &self.secret(),
-            self.counter(),
-            &provider,
-        )?;
+        let account = Account::create(&self.account(), &self.secret(), self.counter(), &provider)?;
 
         provider.add_account(&account);
 
@@ -97,6 +92,6 @@ mod freeotp;
 mod google;
 mod legacy;
 pub use self::{
-    aegis::Aegis, andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP,
-    google::Google, legacy::LegacyAuthenticator,
+    aegis::Aegis, andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP, google::Google,
+    legacy::LegacyAuthenticator,
 };

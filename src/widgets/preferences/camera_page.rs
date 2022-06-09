@@ -40,10 +40,10 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for CameraPage { }
+    impl ObjectImpl for CameraPage {}
 
-    impl WidgetImpl for CameraPage { }
-    impl BoxImpl for CameraPage { }
+    impl WidgetImpl for CameraPage {}
+    impl BoxImpl for CameraPage {}
 }
 
 glib::wrapper! {
@@ -91,13 +91,13 @@ impl CameraPage {
                     camera_page.imp().camera.disconnect(src.take().unwrap());
                     None
                 }
-            )
+            ),
         )));
 
         drop(tx);
         drop(src);
 
-        imp.camera.from_camera();
+        imp.camera.scan_from_camera();
 
         match rx.await {
             Ok(code) => Ok(code),
@@ -145,13 +145,13 @@ impl CameraPage {
                     camera_page.imp().camera.disconnect(src.take().unwrap());
                     None
                 }
-            )
+            ),
         )));
 
         drop(tx);
         drop(src);
 
-        imp.camera.from_screenshot().await?;
+        imp.camera.scan_from_screenshot().await?;
 
         match rx.await {
             Ok(code) => Ok(code),
@@ -176,8 +176,7 @@ impl CameraPage {
             clone!(@weak actions => @default-return None, move |_| {
                 get_action!(actions, @close_page).activate(None);
                 None
-            })
+            }),
         );
     }
 }
-
