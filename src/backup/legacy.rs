@@ -39,7 +39,7 @@ impl Restorable for LegacyAuthenticator {
     }
 
     fn restore_from_data(from: &[u8], _key: Option<&str>) -> Result<Vec<Self::Item>> {
-        Ok(serde_json::de::from_slice(from)?)
+        serde_json::de::from_slice(from).map_err(From::from)
     }
 }
 

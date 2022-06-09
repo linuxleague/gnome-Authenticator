@@ -584,7 +584,7 @@ impl Restorable for Aegis {
 
     fn restore_from_data(from: &[u8], key: Option<&str>) -> Result<Vec<Self::Item>> {
         // TODO: Maybe move this function inline?
-        Aegis::restore_from_slice(&from, key)
+        Aegis::restore_from_slice(from, key)
     }
 }
 
