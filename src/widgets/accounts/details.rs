@@ -123,10 +123,10 @@ mod imp {
                         &[Account::static_type().into()],
                         <()>::static_type().into(),
                     )
-                    .flags(glib::SignalFlags::ACTION)
+                    .action()
                     .build(),
                     Signal::builder("provider-changed", &[], <()>::static_type().into())
-                        .flags(glib::SignalFlags::ACTION)
+                        .action()
                         .build(),
                 ]
             });

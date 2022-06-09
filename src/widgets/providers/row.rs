@@ -62,14 +62,14 @@ mod imp {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
                     Signal::builder("changed", &[], <()>::static_type().into())
-                        .flags(glib::SignalFlags::ACTION)
+                        .action()
                         .build(),
                     Signal::builder(
                         "shared",
                         &[Account::static_type().into()],
                         <()>::static_type().into(),
                     )
-                    .flags(glib::SignalFlags::ACTION)
+                    .action()
                     .build(),
                 ]
             });
