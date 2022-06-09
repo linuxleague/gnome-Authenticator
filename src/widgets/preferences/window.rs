@@ -377,7 +377,7 @@ impl PreferencesWindow {
                 &format!("{}.camera", T::identifier()),
                 clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
                     get_action!(win.imp().actions, @show_camera_page).activate(None);
-                    spawn!(clone!(@strong win, @strong camera_page => async move {
+                    spawn!(async move {
                         loop {
                             match camera_page.scan_from_camera().await {
                                 Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
@@ -406,7 +406,7 @@ impl PreferencesWindow {
                                 sleep(Duration::from_millis(1000)).await;
                             }).await;
                         }
-                    }));
+                    });
                 })
             );
             action!(
