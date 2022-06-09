@@ -416,7 +416,9 @@ impl PreferencesWindow {
                     spawn!(async move {
                         match camera_page.scan_from_screenshot().await {
                             Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
-                                Ok(items) => win.restore_items::<T, T::Item>(items),
+                                Ok(items) => {
+                                    win.restore_items::<T, T::Item>(items);
+                                },
                                 Err(error) => {
                                     tracing::error!(concat!(
                                         "Encountered an error while trying to restore from a ",

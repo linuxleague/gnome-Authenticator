@@ -1,4 +1,4 @@
-use crate::widgets::Camera;
+use crate::{utils::spawn_tokio, widgets::Camera};
 use anyhow::Result;
 use gtk::{
     gio,
@@ -11,7 +11,11 @@ use gtk_macros::get_action;
 use once_cell::sync::OnceCell;
 use std::cell::Cell;
 use std::rc::Rc;
-use tokio::sync::oneshot;
+use tokio::{
+    select,
+    sync::oneshot,
+    time::{sleep, Duration},
+};
 
 mod imp {
     use super::*;
@@ -149,20 +153,33 @@ impl CameraPage {
         )));
 
         drop(tx);
-        drop(src);
 
-        imp.camera.scan_from_screenshot().await?;
-
-        match rx.await {
-            Ok(code) => Ok(code),
-            Err(error) => {
+        select! {
+            biased;
+            result = rx => result.map_err(|error| {
                 tracing::error!(concat!(
-                    "CameraPage::scan_from_camera failed to receive the resulting QR code from ",
-                    "the sender because the sender was dropped without sending a QR code. This ",
-                    "should never occur."
+                    "CameraPage::scan_from_screenshot failed to receive the resulting QR code ",
+                    "from the sender because the sender was dropped without sending a QR ",
+                    "code. This should never occur.",
                 ));
-                Err(error.into())
-            }
+
+                error.into()
+            }),
+            result = (|| async move {
+                imp.camera.scan_from_screenshot().await?;
+
+                // Give the GLib event loop a whole 2.5 seconds to dispatch the "code-detected"
+                // action before we assume that its not going to be dispatched at all.
+                spawn_tokio(async { sleep(Duration::from_millis(2500)).await; }).await;
+
+                // Disconnect the signal handler.
+                imp.camera.disconnect(src.take().unwrap());
+
+                anyhow::bail!(concat!(
+                    "CameraPage::scan_from_screenshot failed to receive the resulting QR code in ",
+                    "a reasonable amount of time."
+                ));
+            })() => result.map_err(From::from),
         }
     }
 
