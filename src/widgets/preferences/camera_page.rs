@@ -1,6 +1,6 @@
 use crate::{utils::spawn_tokio, widgets::Camera};
-use anyhow::Result;
 use adw::subclass::prelude::*;
+use anyhow::Result;
 use gtk::{
     gio,
     glib::{self, clone, subclass::InitializingObject},
