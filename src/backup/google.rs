@@ -1,4 +1,4 @@
-use super::{Restorable, RestorableItem};
+use super::Restorable;
 use crate::models::{Algorithm, OTPMethod, OTPUri};
 use anyhow::Result;
 use gettextrs::gettext;
@@ -128,6 +128,7 @@ impl Restorable for Google {
 
 #[allow(non_camel_case_types)]
 mod protobuf {
+    use super::super::RestorableItem;
     use super::*;
 
     #[derive(Clone, Message)]
@@ -184,6 +185,9 @@ mod protobuf {
 mod tests {
     use super::*;
 
+    #[cfg(test)] // Without the cfg attribute, rustfmt removes this... what
+    use super::super::RestorableItem;
+
     #[test]
     fn test_google_restore_otpauth() {
         let google_data = b"otpauth-migration://offline?data=CjYKEExyJfPiZeroMa/MdF%2BnkTISE2pvaG5kb2VAZXhhbXBsZS5jb20aB0Rpc2NvcmQgASgBMAIQARgBIAA%3D";
@@ -200,4 +204,3 @@ mod tests {
         assert_eq!(google_items[0].counter(), Some(0));
     }
 }
-
