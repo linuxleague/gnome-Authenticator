@@ -1,5 +1,6 @@
 use crate::{utils::spawn_tokio, widgets::Camera};
 use anyhow::Result;
+use adw::subclass::prelude::*;
 use gtk::{
     gio,
     glib::{self, clone, subclass::InitializingObject},
@@ -24,7 +25,6 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_camera_page.ui")]
     pub struct CameraPage {
         pub actions: OnceCell<gio::SimpleActionGroup>,
-        pub shortcut_controller: OnceCell<gtk::ShortcutController>,
         #[template_child]
         pub camera: TemplateChild<Camera>,
     }
@@ -33,7 +33,7 @@ mod imp {
     impl ObjectSubclass for CameraPage {
         const NAME: &'static str = "CameraPage";
         type Type = super::CameraPage;
-        type ParentType = gtk::Box;
+        type ParentType = adw::Bin;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -47,11 +47,11 @@ mod imp {
     impl ObjectImpl for CameraPage {}
 
     impl WidgetImpl for CameraPage {}
-    impl BoxImpl for CameraPage {}
+    impl BinImpl for CameraPage {}
 }
 
 glib::wrapper! {
-    pub struct CameraPage(ObjectSubclass<imp::CameraPage>) @extends gtk::Widget, gtk::Box;
+    pub struct CameraPage(ObjectSubclass<imp::CameraPage>) @extends gtk::Widget, adw::Bin;
 }
 
 impl CameraPage {

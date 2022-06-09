@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template parent="GtkBox" class="CameraPage">
-    <property name="orientation">vertical</property>
-    <child>
+  <template parent="AdwBin" class="CameraPage">
+    <property name="child">
       <object class="Camera" id="camera"/>
-    </child>
+    </property>
     <child>
       <object class="GtkShortcutController">
         <property name="scope">local</property>
