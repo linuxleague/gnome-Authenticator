@@ -121,13 +121,7 @@ mod imp {
                     preferences.set_has_set_password(app.can_be_locked());
                     preferences.connect_local("restore-completed", false, clone!(@weak window => @default-return None, move |_| {
                         window.providers().refilter();
-                        window.imp().toast_overlay.add_toast(&{
-                            let toast = adw::Toast::builder()
-                                .title(&gettext("Restored accounts"))
-                                .build();
-
-                            toast
-                        });
+                        window.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Accounts restored successfully")));
                         None
                     }));
                     preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, _| {
