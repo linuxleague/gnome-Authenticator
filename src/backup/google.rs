@@ -7,8 +7,8 @@ use prost::{Enumeration, Message};
 use std::borrow::Cow;
 use url::Url;
 
-#[derive(Default, Debug, Clone, PartialEq)]
-pub struct Google {}
+#[derive(Default, Debug, Clone, PartialEq, Eq)]
+pub struct Google;
 
 impl Restorable for Google {
     const ENCRYPTABLE: bool = false;
@@ -96,9 +96,8 @@ impl Restorable for Google {
 
                         let mut buffer = [0; 128];
 
-                        match binascii::b32encode(secret, &mut buffer) {
-                            Ok(_) => (),
-                            Err(_) => return folded,
+                        if let Err(_) = binascii::b32encode(secret, &mut buffer) {
+                            return folded;
                         }
 
                         let buffer = buffer.to_vec();
