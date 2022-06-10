@@ -370,33 +370,30 @@ impl PreferencesWindow {
                 clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
                     get_action!(win.imp().actions, @show_camera_page).activate(None);
                     spawn!(async move {
-                        loop {
-                            match camera_page.scan_from_camera().await {
-                                Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
-                                    Ok(items) => {
-                                        win.restore_items::<T, T::Item>(items);
-                                        break;
-                                    },
-                                    Err(error) => {
-                                        tracing::error!(concat!(
-                                            "Encountered an error while trying to restore from a ",
-                                            "scanned QR code: {}",
-                                        ), error);
-                                    },
-                                },
+                        match camera_page.scan_from_camera().await {
+                            Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
+                                Ok(items) => win.restore_items::<T, T::Item>(items),
                                 Err(error) => {
                                     tracing::error!(concat!(
-                                        "Encountered an error while trying to scan from the ",
-                                        "camera: {}",
+                                        "Encountered an error while trying to restore from a ",
+                                        "scanned QR code: {}",
                                     ), error);
-                                },
-                            }
 
-                            // Sleep for a second to avoid overloading the CPU if a code
-                            // keeps scanning incorrectly.
-                            spawn_tokio(async {
-                                sleep(Duration::from_millis(1000)).await;
-                            }).await;
+                                    get_action!(win.imp().actions, @close_page).activate(None);
+
+                                    win.add_toast(&adw::Toast::new(&gettext("Unable to restore accounts")));
+                                },
+                            },
+                            Err(error) => {
+                                tracing::error!(
+                                    "Encountered an error while trying to scan from the camera: {}",
+                                    error,
+                                );
+
+                                get_action!(win.imp().actions, @close_page).activate(None);
+
+                                win.add_toast(&adw::Toast::new(&gettext("Something went wrong")));
+                            },
                         }
                     });
                 })
