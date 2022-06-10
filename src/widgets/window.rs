@@ -1,3 +1,9 @@
+use gettextrs::gettext;
+use glib::{clone, signal::Inhibit};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk_macros::{action, get_action};
+use once_cell::sync::OnceCell;
+
 use crate::{
     application::Application,
     config,
@@ -9,11 +15,6 @@ use crate::{
         AccountAddDialog, ErrorRevealer,
     },
 };
-use gettextrs::gettext;
-use glib::{clone, signal::Inhibit};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::{action, get_action};
-use once_cell::sync::OnceCell;
 
 #[derive(PartialEq, Eq, Debug)]
 pub enum View {
@@ -23,9 +24,10 @@ pub enum View {
 }
 
 mod imp {
-    use super::*;
     use adw::subclass::prelude::*;
     use glib::subclass;
+
+    use super::*;
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/window.ui")]

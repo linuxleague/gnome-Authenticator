@@ -3,10 +3,12 @@ use glib::{clone, ToValue};
 use gtk::{glib, subclass::prelude::*};
 
 mod imp {
-    use super::*;
+    use std::cell::RefCell;
+
     use adw::subclass::prelude::*;
     use glib::{ParamSpec, ParamSpecString, Value};
-    use std::cell::RefCell;
+
+    use super::*;
 
     #[derive(Debug, Default)]
     pub struct UrlRow {

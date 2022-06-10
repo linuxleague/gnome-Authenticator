@@ -1,9 +1,10 @@
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
-    use super::*;
     use glib::subclass;
     use gtk::CompositeTemplate;
+
+    use super::*;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/error_revealer.ui")]

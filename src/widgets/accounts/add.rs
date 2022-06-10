@@ -1,21 +1,24 @@
-use crate::{
-    models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
-    widgets::{Camera, ErrorRevealer, ProviderImage, UrlRow},
-};
+use std::str::FromStr;
+
 use anyhow::Result;
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
 use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::spawn;
 use once_cell::sync::{Lazy, OnceCell};
-use std::str::FromStr;
+
+use crate::{
+    models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
+    widgets::{Camera, ErrorRevealer, ProviderImage, UrlRow},
+};
 
 mod imp {
-    use crate::widgets::providers::ProviderPage;
+    use std::cell::RefCell;
+
+    use glib::subclass::{InitializingObject, Signal};
 
     use super::*;
-    use glib::subclass::{InitializingObject, Signal};
-    use std::cell::RefCell;
+    use crate::widgets::providers::ProviderPage;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
@@ -269,8 +272,9 @@ impl AccountAddDialog {
             }),
         );
 
-        // in case the provider doesn't exists, let the user create a new one by showing a dialog for that
-        // TODO: replace this whole completion provider thing with a custom widget
+        // in case the provider doesn't exists, let the user create a new one by showing
+        // a dialog for that TODO: replace this whole completion provider thing
+        // with a custom widget
         imp.provider_completion.connect_no_matches(clone!(@weak self as dialog => move |completion| {
             let imp = dialog.imp();
             let model = imp.model.get().unwrap();

@@ -1,9 +1,9 @@
-use crate::models::RUNTIME;
-use crate::models::{Provider, FAVICONS_PATH};
 use glib::{clone, Receiver, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::send;
 use tracing::error;
+
+use crate::models::{Provider, FAVICONS_PATH, RUNTIME};
 
 pub enum ImageAction {
     Ready(String),
@@ -11,9 +11,11 @@ pub enum ImageAction {
 }
 
 mod imp {
-    use super::*;
-    use glib::{subclass, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
     use std::cell::{Cell, RefCell};
+
+    use glib::{subclass, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
+
+    use super::*;
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_image.ui")]
@@ -265,7 +267,7 @@ impl ProviderImage {
     fn do_action(&self, action: ImageAction) -> glib::Continue {
         let imp = self.imp();
         let image_path = match action {
-            //TODO: handle network failure and other errors differently
+            // TODO: handle network failure and other errors differently
             ImageAction::Failed => {
                 imp.image.set_from_icon_name(Some("provider-fallback"));
                 "invalid".to_string()

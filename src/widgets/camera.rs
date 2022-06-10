@@ -1,4 +1,8 @@
-use crate::widgets::CameraPaintable;
+use std::{
+    cell::{Cell, RefCell},
+    os::unix::prelude::RawFd,
+};
+
 use adw::subclass::prelude::*;
 use anyhow::Result;
 use ashpd::{desktop::screenshot::ScreenshotProxy, zbus};
@@ -17,9 +21,9 @@ use gtk::{
 use gtk_macros::spawn;
 use image::GenericImageView;
 use once_cell::sync::Lazy;
-use std::cell::{Cell, RefCell};
-use std::os::unix::prelude::RawFd;
 use zbar_rust::ZBarImageScanner;
+
+use crate::widgets::CameraPaintable;
 
 mod screenshot {
     use super::*;

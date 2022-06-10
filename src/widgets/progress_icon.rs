@@ -1,13 +1,13 @@
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
-use gtk::{gdk, glib};
+use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 
 pub(crate) mod imp {
-    use super::*;
+    use std::cell::Cell;
+
     use glib::{ParamSpec, ParamSpecFloat, Value};
     use gtk::{graphene, gsk};
     use once_cell::sync::Lazy;
-    use std::cell::Cell;
+
+    use super::*;
 
     #[derive(Debug, Default)]
     pub struct ProgressIcon {

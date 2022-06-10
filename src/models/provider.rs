@@ -1,21 +1,23 @@
-use super::algorithm::{Algorithm, OTPMethod};
-use crate::{
-    models::{database, otp, Account, AccountsModel, FAVICONS_PATH},
-    schema::providers,
-};
-use anyhow::Result;
 use core::cmp::Ordering;
-use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use glib::{clone, Cast, StaticType, ToValue};
-use gtk::{gdk_pixbuf, gio, glib, prelude::*, subclass::prelude::*};
 use std::{
     cell::{Cell, RefCell},
     str::FromStr,
     string::ToString,
     time::{SystemTime, UNIX_EPOCH},
 };
+
+use anyhow::Result;
+use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
+use glib::{clone, Cast, StaticType, ToValue};
+use gtk::{gdk_pixbuf, gio, glib, prelude::*, subclass::prelude::*};
 use unicase::UniCase;
 use url::Url;
+
+use super::algorithm::{Algorithm, OTPMethod};
+use crate::{
+    models::{database, otp, Account, AccountsModel, FAVICONS_PATH},
+    schema::providers,
+};
 
 #[derive(Debug)]
 pub struct ProviderPatch {
@@ -60,9 +62,10 @@ pub struct DiProvider {
     pub method: String,
 }
 mod imp {
-    use super::*;
     use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
     use gst::glib::{ParamSpecUInt64, SourceId};
+
+    use super::*;
 
     pub struct Provider {
         pub id: Cell<u32>,
@@ -387,8 +390,8 @@ impl Provider {
         let icon_name = glib::base64_encode(icon_name.as_bytes());
         let small_icon_name = format!("{icon_name}_32x32");
         let large_icon_name = format!("{icon_name}_96x96");
-        // TODO: figure out why trying to grab icons at specific size causes stack size errors
-        // We need two sizes:
+        // TODO: figure out why trying to grab icons at specific size causes stack size
+        // errors We need two sizes:
         // - 32x32 for the accounts lists
         // - 96x96 elsewhere
         if let Some(best_favicon) = favicon.find_best().await {

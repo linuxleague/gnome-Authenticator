@@ -1,19 +1,23 @@
+use std::time::{SystemTime, UNIX_EPOCH};
+
+use adw::prelude::*;
+use gtk::{glib, glib::clone, subclass::prelude::*, CompositeTemplate};
+
 use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
     widgets::{accounts::AccountRow, ProgressIcon, ProviderImage},
 };
-use adw::prelude::*;
-use gtk::{glib, glib::clone, subclass::prelude::*, CompositeTemplate};
-use std::time::{SystemTime, UNIX_EPOCH};
 
 mod imp {
-    use super::*;
+    use std::cell::RefCell;
+
     use glib::{
         subclass::{self, Signal},
         ParamSpec, ParamSpecObject, Value,
     };
     use once_cell::sync::Lazy;
-    use std::cell::RefCell;
+
+    use super::*;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_row.ui")]

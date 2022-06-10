@@ -1,15 +1,17 @@
-use crate::models::{Account, OTPMethod};
-use gtk::{gdk, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use std::cell::RefCell;
 
-mod imp {
-    use crate::widgets::Window;
+use gtk::{gdk, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
-    use super::*;
+use crate::models::{Account, OTPMethod};
+
+mod imp {
     use adw::subclass::prelude::*;
     use gettextrs::gettext;
     use glib::{subclass, ParamSpec, ParamSpecObject, Value};
     use once_cell::sync::Lazy;
+
+    use super::*;
+    use crate::widgets::Window;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_row.ui")]

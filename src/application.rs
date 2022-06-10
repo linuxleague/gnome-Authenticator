@@ -1,3 +1,12 @@
+use std::{collections::HashMap, str::FromStr};
+
+use adw::prelude::*;
+use gettextrs::gettext;
+use glib::clone;
+use gtk::{gio, glib, subclass::prelude::*};
+use gtk_macros::{action, get_action};
+use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
+
 use crate::{
     config,
     models::{
@@ -6,20 +15,15 @@ use crate::{
     utils::spawn_tokio_blocking,
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
-use adw::prelude::*;
-use gettextrs::gettext;
-use glib::clone;
-use gtk::{gio, glib, subclass::prelude::*};
-use gtk_macros::{action, get_action};
-use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
-use std::{collections::HashMap, str::FromStr};
 
 mod imp {
-    use super::*;
+    use std::cell::{Cell, RefCell};
+
     use adw::subclass::prelude::*;
     use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
     use once_cell::sync::OnceCell;
-    use std::cell::{Cell, RefCell};
+
+    use super::*;
 
     // The basic struct that holds our state and widgets
     // (Ref)Cells are used for members which need to be mutable

@@ -1,8 +1,3 @@
-use super::qrcode_paintable::QRCodePaintable;
-use crate::{
-    models::{Account, OTPMethod, Provider, ProvidersModel},
-    widgets::UrlRow,
-};
 use gettextrs::gettext;
 use gtk::{
     gdk,
@@ -11,16 +6,23 @@ use gtk::{
     subclass::prelude::*,
     CompositeTemplate,
 };
+
+use super::qrcode_paintable::QRCodePaintable;
+use crate::{
+    models::{Account, OTPMethod, Provider, ProvidersModel},
+    widgets::UrlRow,
+};
 mod imp {
+    use std::cell::RefCell;
+
+    use glib::subclass::{self, Signal};
+    use once_cell::sync::{Lazy, OnceCell};
+
+    use super::*;
     use crate::{
         models::Provider,
         widgets::{editable_label::EditableSpin, EditableLabel},
     };
-
-    use super::*;
-    use glib::subclass::{self, Signal};
-    use once_cell::sync::{Lazy, OnceCell};
-    use std::cell::RefCell;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_details_page.ui")]

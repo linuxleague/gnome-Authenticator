@@ -1,10 +1,11 @@
-use super::ProviderPage;
-use crate::models::{Provider, ProviderSorter, ProvidersModel};
 use adw::{prelude::*, subclass::prelude::*};
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{glib, pango, subclass::prelude::*, CompositeTemplate};
 use row::ProviderActionRow;
+
+use super::ProviderPage;
+use crate::models::{Provider, ProviderSorter, ProvidersModel};
 
 enum View {
     List,
@@ -13,11 +14,11 @@ enum View {
 }
 
 mod imp {
-    use crate::config;
-
-    use super::*;
     use adw::subclass::window::AdwWindowImpl;
     use glib::subclass::{self, Signal};
+
+    use super::*;
+    use crate::config;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
@@ -222,7 +223,8 @@ impl ProvidersDialog {
 
     fn add_provider(&self) {
         self.set_view(View::Form);
-        // By not setting the current provider we implicitly say it's for creating a new one
+        // By not setting the current provider we implicitly say it's for creating a new
+        // one
         self.imp().page.set_provider(None);
     }
 
@@ -256,9 +258,11 @@ impl ProvidersDialog {
 mod row {
     use super::*;
     mod imp {
-        use super::*;
-        use glib::{ParamSpec, ParamSpecObject, Value};
         use std::cell::RefCell;
+
+        use glib::{ParamSpec, ParamSpecObject, Value};
+
+        use super::*;
 
         #[derive(Debug, Default)]
         pub struct ProviderActionRow {

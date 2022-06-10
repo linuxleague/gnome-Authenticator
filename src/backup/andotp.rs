@@ -1,9 +1,10 @@
-use super::{Backupable, Restorable, RestorableItem};
-use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
 use serde::{Deserialize, Serialize};
+
+use super::{Backupable, Restorable, RestorableItem};
+use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]

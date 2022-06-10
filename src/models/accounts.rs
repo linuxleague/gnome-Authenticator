@@ -1,10 +1,12 @@
-use super::account::Account;
 use glib::StaticType;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
+use super::account::Account;
+
 mod imp {
-    use super::*;
     use std::cell::RefCell;
+
+    use super::*;
 
     #[derive(Debug, Default)]
     pub struct AccountsModel(pub RefCell<Vec<Account>>);

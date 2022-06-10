@@ -1,8 +1,12 @@
-use super::Algorithm;
+use std::{
+    convert::TryInto,
+    time::{SystemTime, UNIX_EPOCH},
+};
+
 use anyhow::{anyhow, Result};
 use ring::hmac;
-use std::convert::TryInto;
-use std::time::{SystemTime, UNIX_EPOCH};
+
+use super::Algorithm;
 
 pub static STEAM_CHARS: &str = "23456789BCDFGHJKMNPQRTVWXY";
 pub static STEAM_DEFAULT_PERIOD: u32 = 30;

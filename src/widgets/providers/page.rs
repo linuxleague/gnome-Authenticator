@@ -1,17 +1,20 @@
-use crate::{
-    models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch, FAVICONS_PATH},
-    widgets::{ErrorRevealer, ProviderImage},
-};
 use adw::prelude::*;
 use gettextrs::gettext;
 use glib::{clone, translate::IntoGlib};
 use gtk::{gdk_pixbuf, gio, glib, subclass::prelude::*, CompositeTemplate};
 
+use crate::{
+    models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch, FAVICONS_PATH},
+    widgets::{ErrorRevealer, ProviderImage},
+};
+
 mod imp {
+    use std::cell::RefCell;
+
+    use glib::subclass::{self, Signal};
+
     use super::*;
     use crate::models::OTPMethod;
-    use glib::subclass::{self, Signal};
-    use std::cell::RefCell;
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_page.ui")]
@@ -230,8 +233,9 @@ impl ProviderPage {
         }
     }
 
-    // Validate the information typed by the user in order to enable/disable the save action
-    // Note that we don't validate the urls other than: does `url` crate can parse it or not
+    // Validate the information typed by the user in order to enable/disable the
+    // save action Note that we don't validate the urls other than: does `url`
+    // crate can parse it or not
     fn validate(&self) {
         let imp = self.imp();
 

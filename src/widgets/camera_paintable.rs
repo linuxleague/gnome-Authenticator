@@ -1,17 +1,18 @@
 use std::os::unix::io::AsRawFd;
 
-use crate::widgets::camera::CameraEvent;
 use gst::prelude::*;
-use gtk::prelude::*;
-use gtk::subclass::prelude::*;
 use gtk::{
     gdk,
     glib::{self, clone, Sender},
     graphene,
+    prelude::*,
+    subclass::prelude::*,
 };
 use gtk_macros::send;
 use once_cell::sync::Lazy;
 use tracing::error;
+
+use crate::widgets::camera::CameraEvent;
 static PIPELINE_NAME: Lazy<glib::GString> = Lazy::new(|| glib::GString::from("camera"));
 /// Fancy Camera with QR code detection using ZBar
 ///
@@ -21,8 +22,6 @@ static PIPELINE_NAME: Lazy<glib::GString> = Lazy::new(|| glib::GString::from("ca
 ///     pipewiresrc -- tee
 ///                         \
 ///                            queue -- glsinkbin
-///
-///
 mod imp {
     use std::cell::RefCell;
 
@@ -74,7 +73,8 @@ mod imp {
         ) {
             let snapshot = snapshot.downcast_ref::<gtk::Snapshot>().unwrap();
             if let Some(ref image) = *self.sink_paintable.borrow() {
-                // Transformation to avoid stretching the camera. We translate and scale the image.
+                // Transformation to avoid stretching the camera. We translate and scale the
+                // image.
                 let aspect = width / height.max(std::f64::EPSILON); // Do not divide by zero.
                 let image_aspect = image.intrinsic_aspect_ratio();
 

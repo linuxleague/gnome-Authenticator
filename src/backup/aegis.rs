@@ -3,23 +3,23 @@
 //! See https://github.com/beemdevelopment/Aegis/blob/master/docs/vault.md for a description of the
 //! aegis vault format.
 //!
-//! This module does not convert all information from aegis (note, icon, group are lost). When
-//! exporting to the aegis json format the icon, url, help url, and tags are lost.
+//! This module does not convert all information from aegis (note, icon, group
+//! are lost). When exporting to the aegis json format the icon, url, help url,
+//! and tags are lost.
 //!
-//! Exported files by this module cannot be decrypted by the python script provided in the aegis
-//! repository (https://github.com/beemdevelopment/Aegis/blob/master/docs/decrypt.py). However,
+//! Exported files by this module cannot be decrypted by the python script
+//! provided in the aegis repository (https://github.com/beemdevelopment/Aegis/blob/master/docs/decrypt.py). However,
 //! aegis android app is able to read the files! See line 173 for a discussion.
 
-use super::{Backupable, Restorable, RestorableItem};
-use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
-use aes_gcm::aead::Aead;
-use aes_gcm::NewAead;
-use anyhow::Context;
-use anyhow::Result;
+use aes_gcm::{aead::Aead, NewAead};
+use anyhow::{Context, Result};
 use gettextrs::gettext;
 use gtk::{glib::Cast, prelude::*};
 use rand::RngCore;
 use serde::{Deserialize, Serialize};
+
+use super::{Backupable, Restorable, RestorableItem};
+use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -49,7 +49,8 @@ impl Default for AegisPlainText {
     }
 }
 
-/// Encrypted version of the JSON format. `db` is simply a base64 encoded string with an encrypted AegisDatabase.
+/// Encrypted version of the JSON format. `db` is simply a base64 encoded string
+/// with an encrypted AegisDatabase.
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct AegisEncrypted {
     version: u32,
@@ -85,8 +86,8 @@ impl Aegis {
             slots: Some(vec![HeaderSlot::default()]),
         };
 
-        // We only support password encrypted database so far so we don't have to do any checks
-        // for the slot type
+        // We only support password encrypted database so far so we don't have to do any
+        // checks for the slot type
         let mut password_slot = &mut header.slots.as_mut().unwrap().get_mut(0).unwrap();
         // Derive key from given password
         let mut derived_key: [u8; 32] = [0u8; 32];
@@ -115,7 +116,8 @@ impl Aegis {
             )
             .map_err(|_| anyhow::anyhow!("Encrypter master key"))?;
 
-        // Add encrypted master key and tag to our password slot. If this assignment fails, we have a mistake in our logic, thus unwrap is okay.
+        // Add encrypted master key and tag to our password slot. If this assignment
+        // fails, we have a mistake in our logic, thus unwrap is okay.
         password_slot.key_params.tag = ciphertext.split_off(32).try_into().unwrap();
         password_slot.key = ciphertext.try_into().unwrap();
 
@@ -153,7 +155,8 @@ impl Aegis {
 
 /// Header of the Encrypted Aegis JSON File
 ///
-/// Contains all necessary information for encrypting / decrypting the vault (db field).
+/// Contains all necessary information for encrypting / decrypting the vault (db
+/// field).
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Header {
     #[serde(default)]
@@ -177,9 +180,9 @@ pub struct HeaderSlot {
     //
     // TODO rename should be changed to `rename = 2`. However this does not work yet with serde,
     // see: https://github.com/serde-rs/serde/issues/745. This allows decrypting the exported file
-    // with the python script provided in the aegis repository. The python script expects an integer
-    // but we provide a string. Thus, change the string in header / slots / password slot / `type = "1"`
-    // to `type = 1` to use the python script.
+    // with the python script provided in the aegis repository. The python script expects an
+    // integer but we provide a string. Thus, change the string in header / slots / password
+    // slot / `type = "1"` to `type = 1` to use the python script.
     #[serde(rename = "type")]
     pub type_: u32,
     pub uuid: String,
@@ -283,8 +286,8 @@ pub struct Item {
     pub tags: Option<String>,
     // Note is omitted
     // Icon:
-    // TODO: Aegis encodes icons as JPEG's encoded in Base64 with padding. Does authenticator support
-    // this?
+    // TODO: Aegis encodes icons as JPEG's encoded in Base64 with padding. Does authenticator
+    // support this?
     // TODO tags are not imported/exported right now.
     #[serde(rename = "icon")]
     pub thumbnail: Option<String>,
@@ -482,8 +485,9 @@ impl Restorable for Aegis {
                 // Add the encryption tag
                 ciphertext.append(&mut encrypted.header.params.as_ref().unwrap().tag.into());
 
-                // Find slots with type password and derive the corresponding key. This key is used
-                // to decrypt the master key which in turn can be used to decrypt the database.
+                // Find slots with type password and derive the corresponding key. This key is
+                // used to decrypt the master key which in turn can be used to
+                // decrypt the database.
                 let master_keys: Vec<Vec<u8>> = encrypted
                     .header
                     .slots
@@ -494,9 +498,11 @@ impl Restorable for Aegis {
                     .map(|slot| -> Result<Vec<u8>> {
                         tracing::info!("Found possible master key with UUID {}.", slot.uuid);
 
-                        // Create parameters for scrypt function and derive decryption key for master key
+                        // Create parameters for scrypt function and derive decryption key for
+                        // master key
                         //
-                        // Somehow, scrypt errors do not implement StdErr and cannot be converted to anyhow::Error. Should be possible but don't know why it doesn't work.
+                        // Somehow, scrypt errors do not implement StdErr and cannot be converted to
+                        // anyhow::Error. Should be possible but don't know why it doesn't work.
                         let params = scrypt::Params::new(
                             // TODO log2 for u64 is not stable yet. Change this in the future.
                             (slot.n() as f64).log2() as u8, // Defaults to 15 by aegis
@@ -518,7 +524,8 @@ impl Restorable for Aegis {
                         let mut ciphertext: Vec<u8> = slot.key.to_vec();
                         ciphertext.append(&mut slot.key_params.tag.to_vec());
 
-                        // Here we get the master key. The decrypt function does not return an error implementing std error. Thus, we have to convert it.
+                        // Here we get the master key. The decrypt function does not return an error
+                        // implementing std error. Thus, we have to convert it.
                         cipher
                             .decrypt(
                                 aes_gcm::Nonce::from_slice(&slot.key_params.nonce),
@@ -526,7 +533,9 @@ impl Restorable for Aegis {
                             )
                             .map_err(|_| anyhow::anyhow!("Cannot decrypt master key"))
                     })
-                    // Here, we don't want to fail the whole function because one key slot failed to get the correct master key. Maybe there is another slot we were able to decrypt.
+                    // Here, we don't want to fail the whole function because one key slot failed to
+                    // get the correct master key. Maybe there is another slot we were able to
+                    // decrypt.
                     .filter_map(|x| match x {
                         Ok(x) => Some(x),
                         Err(e) => {
@@ -536,7 +545,8 @@ impl Restorable for Aegis {
                     })
                     .collect();
 
-                // Choose the first valid master key. I don't think there are aegis installations with two valid password slots.
+                // Choose the first valid master key. I don't think there are aegis
+                // installations with two valid password slots.
                 tracing::info!(
                     "Found {} valid password slots / master keys.",
                     master_keys.len()

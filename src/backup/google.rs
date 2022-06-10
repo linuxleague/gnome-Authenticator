@@ -1,11 +1,13 @@
-use super::Restorable;
-use crate::models::{Algorithm, OTPMethod, OTPUri};
+use std::borrow::Cow;
+
 use anyhow::Result;
 use gettextrs::gettext;
 use percent_encoding::percent_decode;
 use prost::{Enumeration, Message};
-use std::borrow::Cow;
 use url::Url;
+
+use super::Restorable;
+use crate::models::{Algorithm, OTPMethod, OTPUri};
 
 #[derive(Default, Debug, Clone, PartialEq, Eq)]
 pub struct Google;
@@ -182,8 +184,7 @@ mod protobuf {
 
 #[cfg(test)]
 mod tests {
-    use super::super::RestorableItem;
-    use super::*;
+    use super::{super::RestorableItem, *};
 
     #[test]
     fn test_google_restore_otpauth() {

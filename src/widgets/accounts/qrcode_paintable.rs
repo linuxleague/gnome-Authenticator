@@ -63,8 +63,9 @@ mod imp {
             });
         });
     }
-    use super::*;
     use std::cell::RefCell;
+
+    use super::*;
 
     #[allow(clippy::upper_case_acronyms)]
     #[derive(Debug, Default)]

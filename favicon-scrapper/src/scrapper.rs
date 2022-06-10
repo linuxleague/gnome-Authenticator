@@ -1,6 +1,7 @@
+use std::{fmt, path::PathBuf};
+
 use percent_encoding::percent_decode_str;
 use quick_xml::events::{attributes::Attribute, BytesStart, Event};
-use std::{fmt, path::PathBuf};
 use tracing::debug;
 use url::Url;
 

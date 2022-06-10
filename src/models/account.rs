@@ -1,3 +1,13 @@
+use core::cmp::Ordering;
+use std::cell::{Cell, RefCell};
+
+use anyhow::{Context, Result};
+use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
+use glib::{clone, Cast, StaticType, ToValue};
+use gtk::{glib, prelude::*, subclass::prelude::*};
+use once_cell::sync::OnceCell;
+use unicase::UniCase;
+
 use super::{
     provider::{DiProvider, Provider},
     OTPMethod, OTPUri, RUNTIME,
@@ -8,14 +18,6 @@ use crate::{
     utils::spawn_tokio_blocking,
     widgets::QRCodeData,
 };
-use anyhow::{Context, Result};
-use core::cmp::Ordering;
-use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
-use glib::{clone, Cast, StaticType, ToValue};
-use gtk::{glib, prelude::*, subclass::prelude::*};
-use once_cell::sync::OnceCell;
-use std::cell::{Cell, RefCell};
-use unicase::UniCase;
 
 #[derive(Insertable)]
 #[table_name = "accounts"]
@@ -39,8 +41,9 @@ pub struct DiAccount {
 
 #[doc(hidden)]
 mod imp {
-    use super::*;
     use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
+
+    use super::*;
 
     pub struct Account {
         pub id: Cell<u32>,

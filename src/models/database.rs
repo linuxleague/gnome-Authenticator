@@ -1,7 +1,8 @@
+use std::{fs, fs::File, path::PathBuf};
+
 use anyhow::Result;
 use diesel::{prelude::*, r2d2, r2d2::ConnectionManager};
 use once_cell::sync::Lazy;
-use std::{fs, fs::File, path::PathBuf};
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 

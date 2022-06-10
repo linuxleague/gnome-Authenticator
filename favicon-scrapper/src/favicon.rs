@@ -1,5 +1,6 @@
-use image::io::Reader as ImageReader;
 use std::{fmt, io::Cursor, path::PathBuf};
+
+use image::io::Reader as ImageReader;
 use tokio::{io::AsyncWriteExt, sync::Mutex};
 use url::Url;
 
@@ -45,8 +46,8 @@ impl Favicon {
     ///
     /// # Panics
     ///
-    /// If the favicon contains the data instead of a URL, you are supposed to check
-    /// it content using [`Favicon::is_url`]
+    /// If the favicon contains the data instead of a URL, you are supposed to
+    /// check it content using [`Favicon::is_url`]
     pub fn url(&self) -> &Url {
         match &self.url {
             Some(url) => url,

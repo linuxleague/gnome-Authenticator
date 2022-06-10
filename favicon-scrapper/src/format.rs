@@ -1,6 +1,6 @@
-use url::Url;
-
 use std::{fmt, path::Path};
+
+use url::Url;
 
 /// Supported image formats.
 #[derive(Debug, PartialEq, Eq, Clone, Copy, PartialOrd, Ord)]
@@ -11,11 +11,12 @@ pub enum Format {
 }
 
 impl Format {
-    /// Create a [`Format`] from a URL's path otherwise default to [`Format::Png`].
+    /// Create a [`Format`] from a URL's path otherwise default to
+    /// [`Format::Png`].
     ///
     /// ```
-    /// use url::Url;
     /// use favicon_scrapper::Format;
+    /// use url::Url;
     ///
     /// let url = Url::parse("http://127.0.0.1:8000/favicon.ico").unwrap();
     /// assert!(Format::from_url(&url).is_ico());
@@ -38,7 +39,8 @@ impl Format {
         }
     }
 
-    /// Create a [`Format`] from a mimetype otherwise default to [`Format::Png`].
+    /// Create a [`Format`] from a mimetype otherwise default to
+    /// [`Format::Png`].
     ///
     /// ```
     /// use favicon_scrapper::Format;

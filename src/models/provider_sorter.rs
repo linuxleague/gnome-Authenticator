@@ -1,9 +1,11 @@
-use super::provider::Provider;
 use gtk::glib;
 
+use super::provider::Provider;
+
 mod imp {
-    use super::*;
     use gtk::subclass::prelude::*;
+
+    use super::*;
 
     #[derive(Debug, Default)]
     pub struct ProviderSorter;

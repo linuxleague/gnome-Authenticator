@@ -1,5 +1,11 @@
-use super::camera_page::CameraPage;
-use super::password_page::PasswordPage;
+use adw::prelude::*;
+use gettextrs::gettext;
+use glib::clone;
+use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
+use gtk_macros::{action, get_action, spawn};
+use once_cell::sync::OnceCell;
+
+use super::{camera_page::CameraPage, password_page::PasswordPage};
 use crate::{
     backup::{
         Aegis, AndOTP, Backupable, Bitwarden, FreeOTP, Google, LegacyAuthenticator, Operation,
@@ -8,23 +14,21 @@ use crate::{
     config,
     models::ProvidersModel,
 };
-use adw::prelude::*;
-use gettextrs::gettext;
-use glib::clone;
-use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::{action, get_action, spawn};
-use once_cell::sync::OnceCell;
 
 mod imp {
-    use super::*;
+    use std::{
+        cell::{Cell, RefCell},
+        collections::HashMap,
+    };
+
     use adw::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
     use glib::{
         subclass::{self, Signal},
         ParamSpec, ParamSpecBoolean, Value,
     };
     use once_cell::sync::Lazy;
-    use std::cell::{Cell, RefCell};
-    use std::collections::HashMap;
+
+    use super::*;
 
     #[derive(Debug, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences.ui")]
@@ -197,8 +201,9 @@ impl PreferencesWindow {
             }),
         );
 
-        // FreeOTP is first in all of these lists, since its the way to backup Authenticator for use
-        // with Authenticator. Others are sorted alphabetically.
+        // FreeOTP is first in all of these lists, since its the way to backup
+        // Authenticator for use with Authenticator. Others are sorted
+        // alphabetically.
 
         self.register_backup::<FreeOTP>(&["text/plain"]);
         self.register_backup::<Aegis>(&["application/json"]);

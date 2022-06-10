@@ -1,4 +1,5 @@
-use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
+use std::cell::{Cell, RefCell};
+
 use gettextrs::gettext;
 use gtk::{
     gio,
@@ -9,7 +10,8 @@ use gtk::{
 };
 use gtk_macros::{action, get_action};
 use once_cell::sync::{Lazy, OnceCell};
-use std::cell::{Cell, RefCell};
+
+use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
 
 mod imp {
     use super::*;

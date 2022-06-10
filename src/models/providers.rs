@@ -1,11 +1,13 @@
-use super::{otp, Account, Algorithm, OTPMethod, Provider, ProviderPatch};
 use anyhow::Result;
 use glib::StaticType;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
+use super::{otp, Account, Algorithm, OTPMethod, Provider, ProviderPatch};
+
 mod imp {
-    use super::*;
     use std::cell::RefCell;
+
+    use super::*;
 
     #[derive(Debug, Default)]
     pub struct ProvidersModel(pub RefCell<Vec<Provider>>);
@@ -60,8 +62,9 @@ impl ProvidersModel {
     ) -> Result<Provider> {
         let provider = match self.find_by_name(name) {
             Some(p) => {
-                // Update potenitally different properties than what we have in the pre-shipped database
-                // Note this does a comparaison first to avoid a uselesss rewrite
+                // Update potenitally different properties than what we have in the pre-shipped
+                // database Note this does a comparaison first to avoid a
+                // uselesss rewrite
                 p.update(&ProviderPatch {
                     name: name.to_owned(),
                     website,

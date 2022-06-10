@@ -16,8 +16,9 @@ pub use scrapper::Scrapper;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use url::Url;
+
+    use super::*;
 
     #[tokio::test]
     async fn parse_from_file() {
@@ -127,7 +128,8 @@ mod tests {
             .await
             .unwrap();
         assert!(!scrapper.is_empty());
-        // There are 16 but we always add the favicon.ico to try in case it exists as well
+        // There are 16 but we always add the favicon.ico to try in case it exists as
+        // well
         assert_eq!(scrapper.len(), 16 + 1);
 
         assert_eq!(

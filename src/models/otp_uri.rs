@@ -1,11 +1,12 @@
+use std::{fmt::Write, str::FromStr};
+
+use percent_encoding::percent_decode_str;
+use url::Url;
+
 use crate::{
     backup::RestorableItem,
     models::{otp, Account, Algorithm, OTPMethod},
 };
-use percent_encoding::percent_decode_str;
-use std::fmt::Write;
-use std::str::FromStr;
-use url::Url;
 
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Clone)]

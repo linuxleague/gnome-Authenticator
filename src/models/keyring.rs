@@ -1,7 +1,9 @@
-use crate::config;
+use std::collections::HashMap;
+
 use once_cell::sync::OnceCell;
 use rand::RngCore;
-use std::collections::HashMap;
+
+use crate::config;
 
 pub static SECRET_SERVICE: OnceCell<oo7::Keyring> = OnceCell::new();
 

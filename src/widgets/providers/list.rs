@@ -1,9 +1,10 @@
+use glib::clone;
+use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+
 use crate::{
     models::{Account, Provider, ProviderSorter, ProvidersModel},
     widgets::providers::ProviderRow,
 };
-use glib::clone;
-use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 
 #[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
 pub enum ProvidersListView {
@@ -12,8 +13,9 @@ pub enum ProvidersListView {
 }
 
 mod imp {
-    use super::*;
     use glib::subclass::{self, Signal};
+
+    use super::*;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_list.ui")]

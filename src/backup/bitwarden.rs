@@ -1,9 +1,11 @@
-use super::{Restorable, RestorableItem};
-use crate::models::{Algorithm, OTPMethod, OTPUri};
+use std::str::FromStr;
+
 use anyhow::Result;
 use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
-use std::str::FromStr;
+
+use super::{Restorable, RestorableItem};
+use crate::models::{Algorithm, OTPMethod, OTPUri};
 
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Bitwarden {

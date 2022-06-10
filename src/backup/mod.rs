@@ -1,8 +1,9 @@
 use std::fmt::Debug;
 
-use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
 use anyhow::Result;
 use gtk::{gio, gio::prelude::*};
+
+use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
 pub enum Operation {
@@ -23,16 +24,17 @@ pub trait Restorable: Sized {
     fn subtitle() -> String;
     fn identifier() -> String;
 
-    /// Restore many items from a slice of data, optionally using a key to unencrypt it.
+    /// Restore many items from a slice of data, optionally using a key to
+    /// unencrypt it.
     ///
-    /// If `key` is `None`, then the implementation should assume that the slice is unencrypted, and
-    /// error if it only supports encrypted slices.
+    /// If `key` is `None`, then the implementation should assume that the slice
+    /// is unencrypted, and error if it only supports encrypted slices.
     fn restore_from_data(from: &[u8], key: Option<&str>) -> Result<Vec<Self::Item>>;
 
     /// Restore many items from a file, optiontally using a key to unencrypt it.
     ///
-    /// If `key` is `None`, then the implementation should assume that the file is unencrypted, and
-    /// error if it only supports encrypted files.
+    /// If `key` is `None`, then the implementation should assume that the file
+    /// is unencrypted, and error if it only supports encrypted files.
     ///
     /// By default, this method reads the file and passes the files content to
     /// `Self::restore_from_data`.

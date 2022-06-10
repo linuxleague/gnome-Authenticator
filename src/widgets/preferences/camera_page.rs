@@ -1,4 +1,5 @@
-use crate::{utils::spawn_tokio, widgets::Camera};
+use std::{cell::Cell, rc::Rc};
+
 use adw::subclass::prelude::*;
 use anyhow::Result;
 use gtk::{
@@ -10,13 +11,13 @@ use gtk::{
 };
 use gtk_macros::get_action;
 use once_cell::sync::OnceCell;
-use std::cell::Cell;
-use std::rc::Rc;
 use tokio::{
     select,
     sync::oneshot,
     time::{sleep, Duration},
 };
+
+use crate::{utils::spawn_tokio, widgets::Camera};
 
 mod imp {
     use super::*;
@@ -67,8 +68,8 @@ impl CameraPage {
 
         let (tx, rx) = oneshot::channel();
 
-        // This is required because for whatever reason `glib::clone!` wouldn't let it be moved into
-        // the closure.
+        // This is required because for whatever reason `glib::clone!` wouldn't let it
+        // be moved into the closure.
         let tx = Rc::new(Cell::new(Some(tx)));
 
         // This is to make it safe to access `src` inside of the connected closure to
@@ -121,8 +122,8 @@ impl CameraPage {
 
         let (tx, rx) = oneshot::channel();
 
-        // This is required because for whatever reason `glib::clone!` wouldn't let it be moved into
-        // the closure.
+        // This is required because for whatever reason `glib::clone!` wouldn't let it
+        // be moved into the closure.
         let tx = Rc::new(Cell::new(Some(tx)));
 
         // This is to make it safe to access `src` inside of the connected closure to

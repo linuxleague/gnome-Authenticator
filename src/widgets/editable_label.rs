@@ -1,8 +1,9 @@
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
-    use super::*;
     use adw::subclass::prelude::*;
+
+    use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/editable_label.ui")]

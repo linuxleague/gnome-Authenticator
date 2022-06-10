@@ -1,8 +1,9 @@
-use super::{Restorable, RestorableItem};
-use crate::models::{Algorithm, OTPMethod};
 use anyhow::Result;
 use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
+
+use super::{Restorable, RestorableItem};
+use crate::models::{Algorithm, OTPMethod};
 
 // Same as andOTP except uses the first tag for the issuer
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -30,7 +31,8 @@ impl Restorable for LegacyAuthenticator {
     }
 
     fn title() -> String {
-        // Translators: this is for restoring a backup from the old Authenticator release
+        // Translators: this is for restoring a backup from the old Authenticator
+        // release
         gettext("Au_thenticator (Legacy)")
     }
 

@@ -1,9 +1,10 @@
 use gtk::glib;
 
 mod imp {
+    use gtk::subclass::prelude::*;
+
     use super::*;
     use crate::models::Account;
-    use gtk::subclass::prelude::*;
 
     #[derive(Debug, Default)]
     pub struct AccountSorter;
