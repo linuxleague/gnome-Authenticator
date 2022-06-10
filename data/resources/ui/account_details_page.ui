@@ -37,6 +37,10 @@
                 <property name="margin-top">36</property>
                 <property name="width-request">200</property>
                 <property name="height-request">200</property>
+                <property name="overflow">hidden</property>
+                <style>
+                  <class name="card"/>
+                </style>
               </object>
             </child>
             <child>

@@ -39,29 +39,27 @@ impl From<&str> for QRCodeData {
 mod imp {
 
     fn snapshot_qrcode(snapshot: &gtk::Snapshot, qrcode: &QRCodeData, width: f64, height: f64) {
-        let is_dark_mode = adw::StyleManager::default().is_dark();
-        let square_height = height as f32 / qrcode.height as f32;
-        let square_width = width as f32 / qrcode.width as f32;
-
+        let padding_squares = 3.max(qrcode.height / 10);
+        let square_height = height as f32 / (qrcode.height + 2 * padding_squares) as f32;
+        let square_width = width as f32 / (qrcode.width + 2 * padding_squares) as f32;
+        let padding = square_height * padding_squares as f32;
+        let rect = graphene::Rect::new(0.0, 0.0, width as f32, height as f32);
+        snapshot.append_color(&gdk::RGBA::WHITE, &rect);
         qrcode.items.iter().enumerate().for_each(|(y, line)| {
             line.iter().enumerate().for_each(|(x, is_dark)| {
-                let color = if *is_dark {
-                    if is_dark_mode {
-                        gdk::RGBA::WHITE
-                    } else {
-                        gdk::RGBA::BLACK
-                    }
-                } else {
-                    gdk::RGBA::new(0.0, 0.0, 0.0, 0.0)
-                };
-                let position = graphene::Rect::new(
-                    (x as f32) * square_width,
-                    (y as f32) * square_height,
-                    square_width,
-                    square_height,
-                );
+                if *is_dark {
+                    let mut black = gdk::RGBA::BLACK;
+                    black.set_alpha(0.85);
 
-                snapshot.append_color(&color, &position);
+                    let position = graphene::Rect::new(
+                        (x as f32) * square_width + padding,
+                        (y as f32) * square_height + padding,
+                        square_width,
+                        square_height,
+                    );
+
+                    snapshot.append_color(&black, &position);
+                };
             });
         });
     }
