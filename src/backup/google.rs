@@ -128,7 +128,6 @@ impl Restorable for Google {
 
 #[allow(non_camel_case_types)]
 mod protobuf {
-    use super::super::RestorableItem;
     use super::*;
 
     #[derive(Clone, Message)]
@@ -183,10 +182,8 @@ mod protobuf {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
-    #[cfg(test)] // Without the cfg attribute, rustfmt removes this... what
     use super::super::RestorableItem;
+    use super::*;
 
     #[test]
     fn test_google_restore_otpauth() {

@@ -7,7 +7,6 @@ use crate::{
     },
     config,
     models::ProvidersModel,
-    utils::spawn_tokio,
 };
 use adw::prelude::*;
 use gettextrs::gettext;
@@ -15,7 +14,6 @@ use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::{action, get_action, spawn};
 use once_cell::sync::OnceCell;
-use tokio::time::{sleep, Duration};
 
 mod imp {
     use super::*;
