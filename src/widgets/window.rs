@@ -348,6 +348,7 @@ impl Window {
                     app.set_locked(false);
                     app.restart_lock_timeout();
                     win.set_view(View::Accounts);
+                    win.imp().model.get().unwrap().load();
                 } else {
                     win.imp().error_revealer.popup(&gettext("Wrong Password"));
                 }

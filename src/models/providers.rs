@@ -5,12 +5,12 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use super::{otp, Account, Algorithm, OTPMethod, Provider, ProviderPatch};
 
 mod imp {
-    use std::cell::RefCell;
+    use std::cell::{Cell, RefCell};
 
     use super::*;
 
     #[derive(Debug, Default)]
-    pub struct ProvidersModel(pub RefCell<Vec<Provider>>);
+    pub struct ProvidersModel(pub RefCell<Vec<Provider>>, pub Cell<bool>);
 
     #[glib::object_subclass]
     impl ObjectSubclass for ProvidersModel {
@@ -42,9 +42,7 @@ glib::wrapper! {
 impl ProvidersModel {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-        let model: ProvidersModel = glib::Object::new(&[]).expect("Failed to create Model");
-        model.init();
-        model
+        glib::Object::new(&[]).expect("Failed to create Model")
     }
 
     #[allow(clippy::too_many_arguments)]
@@ -203,12 +201,22 @@ impl ProvidersModel {
         results
     }
 
-    fn init(&self) {
+    /// Check whether the model was loaded from the database
+    pub fn is_loaded(&self) -> bool {
+        self.imp().1.get()
+    }
+
+    pub fn load(&self) {
+        if self.is_loaded() {
+            return;
+        }
+        tracing::info!("Loading providers");
         // fill in the providers from the database
         Provider::load()
             .expect("Failed to load providers from the database")
             .for_each(|provider| {
                 self.add_provider(&provider);
             });
+        self.imp().1.set(true);
     }
 }

@@ -341,6 +341,10 @@ impl Application {
             ("can-be-locked", &has_set_password),
         ])
         .unwrap();
+        // Only load the model if the app is not locked
+        if !has_set_password {
+            app.imp().model.load();
+        }
         app.imp().settings.set(settings).unwrap();
 
         ApplicationExtManual::run(&app);
