@@ -317,6 +317,9 @@ impl PreferencesWindow {
             imp.restore_group.add(&row);
         } else if T::SCANNABLE {
             let menu_button = gtk::MenuButton::builder()
+                .css_classes(vec!["flat".to_string()])
+                .halign(gtk::Align::Fill)
+                .valign(gtk::Align::Center)
                 .icon_name("qrscanner-symbolic")
                 .tooltip_text(&gettext("Scan QR Code"))
                 .menu_model(&{
@@ -336,7 +339,6 @@ impl PreferencesWindow {
 
                     menu
                 })
-                .css_classes(vec!["flat".to_string()])
                 .build();
 
             let row = adw::ActionRow::builder()
@@ -347,17 +349,7 @@ impl PreferencesWindow {
                 .use_underline(true)
                 .build();
 
-            row.add_suffix(&{
-                let box_ = gtk::Box::builder()
-                    .orientation(gtk::Orientation::Vertical)
-                    .halign(gtk::Align::Fill)
-                    .valign(gtk::Align::Center)
-                    .build();
-
-                box_.append(&menu_button);
-
-                box_
-            });
+            row.add_suffix(&menu_button);
 
             imp.restore_group.add(&row);
         } else {
