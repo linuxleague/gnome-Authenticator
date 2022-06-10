@@ -15,7 +15,6 @@ mod imp {
 
     use super::*;
     use glib::subclass::{InitializingObject, Signal};
-    use glib::SignalFlags;
     use std::cell::RefCell;
 
     #[derive(Debug, Default, CompositeTemplate)]
@@ -103,7 +102,7 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![Signal::builder("added", &[], <()>::static_type().into())
-                    .flags(SignalFlags::ACTION)
+                    .action()
                     .build()]
             });
             SIGNALS.as_ref()
