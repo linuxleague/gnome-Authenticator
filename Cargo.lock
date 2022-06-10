@@ -221,7 +221,7 @@ dependencies = [
 
 [[package]]
 name = "authenticator"
-version = "4.1.5"
+version = "4.1.6"
 dependencies = [
  "aes-gcm",
  "anyhow",
