@@ -109,7 +109,16 @@ mod imp {
 
     impl ObjectImpl for Window {}
     impl WidgetImpl for Window {}
-    impl WindowImpl for Window {}
+    impl WindowImpl for Window {
+        fn enable_debugging(&self, window: &Self::Type, toggle: bool) -> bool {
+            if config::PROFILE != "Devel" {
+                tracing::warn!("Inspector is disabled for non development builds");
+                false
+            } else {
+                self.parent_enable_debugging(window, toggle)
+            }
+        }
+    }
     impl ApplicationWindowImpl for Window {}
     impl AdwApplicationWindowImpl for Window {}
 }
