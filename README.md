@@ -22,7 +22,7 @@
  - Lock the application with a password
  - Beautiful UI
  - GNOME Shell search provider
- - Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis (encrypted / plain-text)
+ - Backup/Restore from/into known applications like FreeOTP+, Aegis (encrypted / plain-text), andOTP, Google Authenticator
 
 ## Getting in touch
 
