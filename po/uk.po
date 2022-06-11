@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-19 23:06+0000\n"
-"PO-Revision-Date: 2022-04-20 15:57+0300\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-06-11 09:32+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -31,7 +31,7 @@ msgstr "Двофакторне розпізнавання"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
@@ -114,12 +114,16 @@ msgid "GNOME Shell search provider"
 msgstr "Надавач даних пошуку GNOME Shell"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+#| msgid ""
+#| "Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+#| "(encrypted / plain-text)"
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-"(encrypted / plain-text)"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
 "Резервне копіювання і відновлення даних з резервних копій для відомих "
-"програм, зокрема FreeOTP+, andOTP, Aegis (зашифрований / звичайний текст)"
+"програм, зокрема FreeOTP+, Aegis (зашифрований / звичайний текст), andOTP,"
+" Google Authenticator"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
@@ -142,20 +146,20 @@ msgstr "Параметри облікового запису"
 msgid "Backup/Restore formats support"
 msgstr "Підтримка форматів резервного копіювання/відновлення"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:235
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "_Камера"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "З_німок вікна"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
 #: data/resources/ui/providers_dialog.ui:184
@@ -166,7 +170,7 @@ msgstr "Назад"
 msgid "_Add"
 msgstr "Д_одати"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
@@ -263,11 +267,11 @@ msgstr "Збільшити значення лічильника"
 msgid "Copy PIN to clipboard"
 msgstr "Копіювати пін-код до буфера обміну"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "Не знайдено камери"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "З_і знімка вікна"
 
@@ -344,11 +348,11 @@ msgstr "Час у хвилинах"
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "Відновити"
 
@@ -398,7 +402,6 @@ msgid "No providers matching the query were found."
 msgstr "Не знайдено жодного надавача даних, який відповідає заданим критеріям."
 
 #: data/resources/ui/providers_dialog.ui:194
-#| msgid "New Provider"
 msgid "No Provider Selected"
 msgstr "Не вибрано жодного надавача"
 
@@ -501,29 +504,34 @@ msgstr "Немає облікових записів"
 msgid "Add an account or scan a QR code first."
 msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду."
 
-#: src/application.rs:145
+#: src/application.rs:124
+#| msgid "Provider created successfully"
+msgid "Accounts restored successfully"
+msgstr "Облікові записи успішно відновлено"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/application.rs:398 src/widgets/accounts/row.rs:43
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "Одноразовий пароль скопійовано"
 
-#: src/application.rs:399
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "Пароль успішно скопійовано"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:532 src/backup/aegis.rs:582
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:536
+#: src/backup/aegis.rs:378
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "До файла JSON, який містить прості текстові або зашифровані поля"
 
-#: src/backup/aegis.rs:586
+#: src/backup/aegis.rs:430
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "З файла JSON, який містить прості текстові або зашифровані поля"
 
@@ -537,45 +545,54 @@ msgid "Into a plain-text JSON file"
 msgstr "До звичайного текстового файла JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "Невідомий обліковий запис"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "Невідомий видавець"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "_Розпізнавач"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "До звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "Р_озпізнавач"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Зі звичайного текстового файла, сумісного з FreeOTP+"
 
+#: src/backup/google.rs:24
+#| msgid "Authenticator"
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr "З QR-коду, який створено Google Authenticator"
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
 msgstr "Роз_пізнавач (застарілий)"
 
@@ -604,57 +621,68 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
-#: src/widgets/window.rs:339
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "Ключ / Пароль"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "Ключ, який буде використано для розшифрування сховища"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "Вибір файла"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "Ключ, який використовується для розшифрування сховища"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+#| msgid "Enable 2FA for this account"
+msgid "Unable to restore accounts"
+msgstr "Не вдалося відновити облікові записи"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "Виникли якісь проблеми"
+
+#: src/widgets/preferences/window.rs:421
+#| msgid "Couldn't generate the secret code"
+msgid "Couldn't find a QR code"
+msgstr "Не вдалося знайти QR-код"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
 #: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Вибрати"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
 #: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Скасувати"
 
 #: src/widgets/providers/dialog.rs:174
-#| msgid "Password was copied successfully"
 msgid "Provider created successfully"
 msgstr "Надавача успішно створено"
 
 #: src/widgets/providers/dialog.rs:186
-#| msgid "Password was copied successfully"
 msgid "Provider updated successfully"
 msgstr "Надавача успішно оновлено"
 
 #: src/widgets/providers/dialog.rs:199
-#| msgid "Password was copied successfully"
 msgid "Provider removed successfully"
 msgstr "Надавача успішно вилучено"
 
@@ -764,9 +792,6 @@ msgstr ""
 #~ msgid "Automatically enable dark mode at night."
 #~ msgstr "Автоматично вмикати темний режим вночі."
 
-#~ msgid "Enable 2FA for this account"
-#~ msgstr "Увімкнути двофакторне розпізнавання для цього облікового запису"
-
 #~ msgid "Confirm New Password:"
 #~ msgstr "Підтвердження нового пароля:"
 
@@ -775,9 +800,6 @@ msgstr ""
 
 #~ msgid "Default"
 #~ msgstr "Типовий"
-
-#~ msgid "Couldn't generate the secret code"
-#~ msgstr "Не вдалося створити секретний код"
 
 #~ msgid "The PIN of {} was copied to the clipboard"
 #~ msgstr "Пін-код {} було скопійовано до буфера обміну даними"
