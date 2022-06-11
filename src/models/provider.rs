@@ -62,8 +62,10 @@ pub struct DiProvider {
     pub method: String,
 }
 mod imp {
-    use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
-    use gst::glib::{ParamSpecUInt64, SourceId};
+    use glib::{
+        ParamFlags, ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, ParamSpecUInt64,
+        SourceId, Value,
+    };
 
     use super::*;
 
@@ -122,15 +124,15 @@ mod imp {
                         0,
                         u32::MAX,
                         0,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
                     ),
-                    ParamSpecString::new("name", "name", "Name", None, glib::ParamFlags::READWRITE),
+                    ParamSpecString::new("name", "name", "Name", None, ParamFlags::READWRITE),
                     ParamSpecObject::new(
                         "accounts",
                         "accounts",
                         "accounts",
                         AccountsModel::static_type(),
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
                     ),
                     ParamSpecUInt::new(
                         "period",
@@ -139,7 +141,7 @@ mod imp {
                         0,
                         1000,
                         otp::TOTP_DEFAULT_PERIOD,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecUInt::new(
                         "digits",
@@ -148,7 +150,7 @@ mod imp {
                         0,
                         1000,
                         otp::DEFAULT_DIGITS,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecUInt::new(
                         "default-counter",
@@ -157,42 +159,42 @@ mod imp {
                         0,
                         u32::MAX,
                         otp::HOTP_DEFAULT_COUNTER,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecString::new(
                         "algorithm",
                         "algorithm",
                         "Algorithm",
                         Some(&Algorithm::default().to_string()),
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecString::new(
                         "method",
                         "method",
                         "Method",
                         Some(&OTPMethod::default().to_string()),
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecString::new(
                         "website",
                         "website",
                         "Website",
                         None,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecString::new(
                         "help-url",
                         "help url",
                         "Help URL",
                         None,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecString::new(
                         "image-uri",
                         "image uri",
                         "Image URI",
                         None,
-                        glib::ParamFlags::READWRITE | glib::ParamFlags::EXPLICIT_NOTIFY,
+                        ParamFlags::READWRITE | ParamFlags::EXPLICIT_NOTIFY,
                     ),
                     ParamSpecUInt64::new(
                         "remaining-time",
@@ -201,7 +203,7 @@ mod imp {
                         0,
                         u64::MAX,
                         0,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                 ]
             });

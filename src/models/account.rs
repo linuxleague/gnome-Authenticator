@@ -41,7 +41,8 @@ pub struct DiAccount {
 
 #[doc(hidden)]
 mod imp {
-    use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
+    use glib::{ParamFlags, ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
+    use once_cell::sync::Lazy;
 
     use super::*;
 
@@ -75,8 +76,6 @@ mod imp {
 
     impl ObjectImpl for Account {
         fn properties() -> &'static [ParamSpec] {
-            use once_cell::sync::Lazy;
-
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
                     ParamSpecUInt::new(
@@ -86,7 +85,7 @@ mod imp {
                         0,
                         u32::MAX,
                         0,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
                     ),
                     ParamSpecUInt::new(
                         "counter",
@@ -95,29 +94,29 @@ mod imp {
                         0,
                         u32::MAX,
                         otp::HOTP_DEFAULT_COUNTER,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
-                    ParamSpecString::new("name", "name", "Name", None, glib::ParamFlags::READWRITE),
+                    ParamSpecString::new("name", "name", "Name", None, ParamFlags::READWRITE),
                     ParamSpecString::new(
                         "token-id",
                         "token-id",
                         "token id",
                         None,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecString::new(
                         "otp",
                         "otp",
                         "The One Time Password",
                         None,
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecObject::new(
                         "provider",
                         "provider",
                         "The account provider",
                         Provider::static_type(),
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                 ]
             });
