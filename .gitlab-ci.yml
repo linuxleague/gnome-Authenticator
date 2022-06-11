@@ -1,6 +1,7 @@
 stages:
   - check
   - test
+  - doc
 
 flatpak:
   image: "registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master"
@@ -18,6 +19,7 @@ flatpak:
       xvfb-run -a -s "-screen 0 1024x768x24"
       flatpak-builder --keep-build-dirs --user --disable-rofiles-fuse flatpak_app --repo=repo ${BRANCH:+--default-branch=$BRANCH} ${MANIFEST_PATH}
     - flatpak build-bundle repo ${BUNDLE} --runtime-repo=${RUNTIME_REPO} ${APP_ID} ${BRANCH}
+    - tar cf repo.tar repo/
   artifacts:
     name: 'Flatpak artifacts'
     expose_as: 'Get Flatpak bundle here'
@@ -26,7 +28,29 @@ flatpak:
       - "${BUNDLE}"
       - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/meson-log.txt'
       - '.flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/meson-logs/testlog.txt'
+      - 'repo.tar'
     expire_in: 14 days
+
+pages:
+  image: 'registry.gitlab.gnome.org/gnome/gnome-runtime-images/rust_bundle:master'
+  stage: doc
+  variables:
+    MANIFEST_PATH: "build-aux/com.belmoussaoui.Authenticator.Devel.json"
+    FLATPAK_MODULE: "authenticator"
+  tags:
+    - flatpak
+  script:
+    - tar xf repo.tar
+    - flatpak-builder --keep-build-dirs --user --disable-rofiles-fuse --stop-at=${FLATPAK_MODULE} flatpak_app --repo=repo ${BRANCH:+--default-branch=$BRANCH} ${MANIFEST_PATH}
+    - echo "ninja src/doc" | flatpak-builder --force-clean --disable-rofiles-fuse --build-shell=${FLATPAK_MODULE} flatpak_app ${MANIFEST_PATH}
+    - mv .flatpak-builder/build/${FLATPAK_MODULE}/_flatpak_build/src/doc public
+    - chmod -R a=rwx public
+  artifacts:
+    paths:
+      - 'public'
+  only:
+    refs:
+      - master
 
 rustfmt:
   image: "rust:slim"

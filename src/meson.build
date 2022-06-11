@@ -65,3 +65,18 @@ test (
   env: ['CARGO_TARGET_DIR=@0@'.format(cargo_target_dir), 'CARGO_HOME=@0@'.format(cargo_home)]
 )
 
+doc_deps = [
+  '--package=favicon-scrapper',
+]
+custom_target(
+  'cargo-doc',
+  build_by_default: false,
+  build_always_stale: true,
+  output: 'doc',
+  console: true,
+  command: [
+    'env', cargo_env,
+    cargo, 'doc',
+    cargo_options + doc_deps + ['--no-deps', '--document-private-items'] ,
+  ],
+)
