@@ -11,6 +11,7 @@
                 <property name="receives-default">True</property>
                 <property name="icon-name">go-previous-symbolic</property>
                 <property name="tooltip-text" translatable="yes">Go Back</property>
+                <signal name="clicked" handler="on_previous_clicked" swapped="true" />
               </object>
             </child>
           </object>
@@ -47,6 +48,7 @@
                         <property name="halign">center</property>
                         <property name="margin-top">24</property>
                         <property name="use-underline">True</property>
+                        <signal name="clicked" handler="on_screenshot_clicked" swapped="true" />
                         <style>
                           <class name="pill" />
                           <class name="suggested-action" />
@@ -74,4 +76,3 @@
     </child>
   </template>
 </interface>
-

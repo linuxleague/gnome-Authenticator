@@ -122,6 +122,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -167,7 +168,8 @@ mod imp {
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
             obj.setup_receiver();
-            obj.setup_widget();
+            obj.set_state(CameraState::NotFound);
+            self.picture.set_paintable(Some(&self.paintable));
         }
 
         fn dispose(&self, _obj: &Self::Type) {
@@ -184,6 +186,7 @@ glib::wrapper! {
         @extends gtk::Widget, adw::Bin;
 }
 
+#[gtk::template_callbacks]
 impl Camera {
     pub fn start(&self) {
         let imp = self.imp();
@@ -271,23 +274,17 @@ impl Camera {
         );
     }
 
-    fn setup_widget(&self) {
-        let imp = self.imp();
-        self.set_state(CameraState::NotFound);
-        imp.picture.set_paintable(Some(&imp.paintable));
+    #[template_callback]
+    fn on_previous_clicked(&self, _btn: gtk::Button) {
+        self.emit_by_name::<()>("close", &[]);
+    }
 
-        imp.previous
-            .connect_clicked(clone!(@weak self as camera => move |_| {
-                camera.emit_by_name::<()>("close", &[]);
-            }));
-
-        imp.screenshot
-            .connect_clicked(clone!(@weak self as camera => move |_| {
-                spawn!(clone!(@strong camera => async move {
-                    // TODO: Error handling?
-                    let _ = camera.scan_from_screenshot().await;
-                }));
-            }));
+    #[template_callback]
+    fn on_screenshot_clicked(&self, _btn: gtk::Button) {
+        spawn!(clone!(@strong self as camera => async move {
+            // TODO: Error handling?
+            let _ = camera.scan_from_screenshot().await;
+        }));
     }
 }
 
