@@ -75,6 +75,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
             EditableLabel::static_type();
             EditableSpin::static_type();
 
@@ -137,7 +138,9 @@ mod imp {
 
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
-            obj.setup_widget();
+            self.qrcode_picture
+                .set_paintable(Some(&self.qrcode_paintable));
+            self.counter_label.set_adjustment(1, u32::MAX);
         }
     }
     impl WidgetImpl for AccountDetailsPage {
@@ -158,27 +161,8 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Box;
 }
 
+#[gtk::template_callbacks]
 impl AccountDetailsPage {
-    fn setup_widget(&self) {
-        let imp = self.imp();
-        imp.qrcode_picture
-            .set_paintable(Some(&imp.qrcode_paintable));
-        imp.counter_label.set_adjustment(1, u32::MAX);
-
-        imp.provider_completion.connect_match_selected(
-            clone!(@weak self as page  => @default-return gtk::Inhibit(false), move |_, store, iter| {
-                let provider_id = store.get::<u32>(iter, 0);
-                let model = page.imp().providers_model.get().unwrap();
-                let provider = model.find_by_id(provider_id);
-                page.set_provider(provider.unwrap_or_else(|| {
-                    page.imp().account.borrow().as_ref().unwrap().provider()
-                }));
-
-                gtk::Inhibit(false)
-            }),
-        );
-    }
-
     fn delete_account(&self) {
         let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
 
@@ -293,5 +277,18 @@ impl AccountDetailsPage {
             }
         }
         Ok(())
+    }
+
+    #[template_callback]
+    fn provider_match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> gtk::Inhibit {
+        let provider_id = store.get::<u32>(&iter, 0);
+        let model = self.imp().providers_model.get().unwrap();
+        let provider = model.find_by_id(provider_id);
+        self.set_provider(
+            provider.unwrap_or_else(clone!(@strong self as page => move || {
+                page.imp().account.borrow().as_ref().unwrap().provider()
+            })),
+        );
+        gtk::Inhibit(false)
     }
 }

@@ -4,6 +4,7 @@
     <property name="minimum-key-length">1</property>
     <property name="text-column">1</property>
     <property name="inline-selection">True</property>
+    <signal name="match-selected" handler="provider_match_selected" swapped="true" />
     <child>
       <object class="GtkCellRendererText" />
       <attributes>

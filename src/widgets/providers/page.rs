@@ -391,7 +391,7 @@ impl ProviderPage {
     }
 
     #[template_callback]
-    fn on_method_changed(&self, pspec: glib::ParamSpec, combo_row: adw::ComboRow) {
+    fn on_method_changed(&self, _pspec: glib::ParamSpec, combo_row: adw::ComboRow) {
         let imp = self.imp();
 
         let selected = OTPMethod::from(combo_row.selected());
