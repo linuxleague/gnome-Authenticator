@@ -16,7 +16,7 @@ pub static DEFAULT_DIGITS: u32 = 6;
 pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 
 /// Code graciously taken from the rust-otp crate.
-/// https://github.com/TimDumol/rust-otp/blob/master/src/lib.rs
+/// <https://github.com/TimDumol/rust-otp/blob/master/src/lib.rs>
 
 /// Decodes a secret (given as an RFC4648 base32-encoded ASCII string)
 /// into a byte string. It fails if secret is not a valid Base32 string.

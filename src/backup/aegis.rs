@@ -1,6 +1,6 @@
 //! Aegis Import/Export Module
 //!
-//! See https://github.com/beemdevelopment/Aegis/blob/master/docs/vault.md for a description of the
+//! See <https://github.com/beemdevelopment/Aegis/blob/master/docs/vault.md> for a description of the
 //! aegis vault format.
 //!
 //! This module does not convert all information from aegis (note, icon, group
@@ -8,7 +8,7 @@
 //! and tags are lost.
 //!
 //! Exported files by this module cannot be decrypted by the python script
-//! provided in the aegis repository (https://github.com/beemdevelopment/Aegis/blob/master/docs/decrypt.py). However,
+//! provided in the aegis repository (<https://github.com/beemdevelopment/Aegis/blob/master/docs/decrypt.py>). However,
 //! aegis android app is able to read the files! See line 173 for a discussion.
 
 use aes_gcm::{aead::Aead, NewAead};
@@ -172,14 +172,14 @@ pub struct Header {
 pub struct HeaderSlot {
     // We are not interested in biometric slots at the moment. Thus, we omit these information.
     // However, in the future, authenticator app might be able to lock / unlock the database using
-    // fingerprint sensors (see https://gitlab.gnome.org/World/Authenticator/-/issues/106 for more
+    // fingerprint sensors (see <https://gitlab.gnome.org/World/Authenticator/-/issues/106> for more
     // information). Thus, it might be possible to read also these biometric slots and unlock them
     // with a fingerprint reader used by authenticar. However, it would be ncessary that aegis
     // android app (thus the android system) and authenticator use the same mechanisms to derive
     // keys from biometric input. This has to be checked beforehand.
     //
     // TODO rename should be changed to `rename = 2`. However this does not work yet with serde,
-    // see: https://github.com/serde-rs/serde/issues/745. This allows decrypting the exported file
+    // see: <https://github.com/serde-rs/serde/issues/745>. This allows decrypting the exported file
     // with the python script provided in the aegis repository. The python script expects an
     // integer but we provide a string. Thus, change the string in header / slots / password
     // slot / `type = "1"` to `type = 1` to use the python script.
@@ -726,7 +726,7 @@ mod tests {
 
     #[test]
     fn restore_encrypted_file() {
-        // See https://github.com/beemdevelopment/Aegis/blob/master/app/src/test/resources/com/beemdevelopment/aegis/importers/aegis_encrypted.json
+        // See <https://github.com/beemdevelopment/Aegis/blob/master/app/src/test/resources/com/beemdevelopment/aegis/importers/aegis_encrypted.json>
         // for this example file.
         let aegis_data = r#"{
     "version": 1,
