@@ -138,6 +138,7 @@
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
                             <property name="enable-emoji-completion">True</property>
+                            <signal name="changed" handler="entry_validate" swapped="true" />
                           </object>
                         </child>
                       </object>
@@ -153,6 +154,7 @@
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
                             <property name="input-purpose">url</property>
+                            <signal name="changed" handler="entry_validate" swapped="true" />
                           </object>
                         </child>
                       </object>
@@ -160,6 +162,7 @@
                     <child>
                       <object class="AdwComboRow" id="method_comborow">
                         <property name="title" translatable="yes">Computing Method</property>
+                        <signal name="notify::selected-item" handler="on_method_changed" swapped="true" />
                         <property name="model">
                           <object class="AdwEnumListModel">
                             <property name="enum-type">OTPMethod</property>
@@ -249,6 +252,7 @@
                             <property name="valign">center</property>
                             <property name="hexpand">True</property>
                             <property name="input-purpose">url</property>
+                            <signal name="changed" handler="entry_validate" swapped="true" />
                           </object>
                         </child>
                       </object>
