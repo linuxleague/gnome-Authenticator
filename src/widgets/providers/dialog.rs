@@ -54,6 +54,8 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
+
             klass.install_action("providers.back", None, move |dialog, _, _| {
                 dialog.set_view(View::List);
             });
@@ -95,6 +97,7 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Window, adw::Window;
 }
 
+#[gtk::template_callbacks]
 impl ProvidersDialog {
     pub fn new(model: ProvidersModel) -> Self {
         let dialog =
@@ -106,43 +109,16 @@ impl ProvidersDialog {
 
     fn setup_widget(&self, model: ProvidersModel) {
         let imp = self.imp();
-
         imp.filter_model.set_model(Some(&model));
-
-        let stack = &*imp.search_stack;
-        imp.filter_model
-            .connect_items_changed(clone!(@weak stack => move |model, _, _, _| {
+        imp.filter_model.connect_items_changed(
+            clone!(@weak self as dialog => move |model, _, _, _| {
                 if model.n_items() == 0 {
-                    stack.set_visible_child_name("no-results");
+                    dialog.imp().search_stack.set_visible_child_name("no-results");
                 } else {
-                    stack.set_visible_child_name("results");
+                    dialog.imp().search_stack.set_visible_child_name("results");
                 }
-            }));
-
-        let search_entry = &*imp.search_entry;
-        search_entry.connect_search_changed(clone!(@weak self as dialog => move |entry| {
-            let text = entry.text().to_string();
-            dialog.search(text);
-        }));
-
-        let search_btn = &*imp.search_btn;
-        search_entry.connect_search_started(clone!(@weak search_btn => move |_| {
-            search_btn.set_active(true);
-        }));
-        search_entry.connect_stop_search(clone!(@weak search_btn => move |_| {
-            search_btn.set_active(false);
-        }));
-
-        let title_stack = &*imp.title_stack;
-        search_btn.connect_toggled(clone!(@weak title_stack, @weak search_entry => move |btn| {
-            if btn.is_active() {
-                title_stack.set_visible_child_name("search");
-                search_entry.grab_focus();
-            } else {
-                search_entry.set_text("");
-                title_stack.set_visible_child_name("title");
-            }
-        }));
+            }),
+        );
 
         let sorter = ProviderSorter::default();
         let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&sorter));
@@ -155,51 +131,6 @@ impl ProvidersDialog {
                 row.set_provider(provider);
                 row.upcast::<gtk::Widget>()
             });
-
-        imp.providers_list.connect_row_activated(
-            clone!(@weak self as dialog => move |_list, row| {
-                let row = row.downcast_ref::<ProviderActionRow>().unwrap();
-                let provider = row.provider();
-                dialog.edit_provider(provider);
-            }),
-        );
-
-        imp.page.connect_local(
-            "created",
-            false,
-            clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                let provider = args[1].get::<Provider>().unwrap();
-                model.append(&provider);
-                dialog.emit_by_name::<()>("changed", &[]);
-                dialog.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Provider created successfully")));
-                dialog.set_view(View::Placeholder);
-                None
-            }),
-        );
-
-        imp.page.connect_local(
-            "updated",
-            false,
-            clone!(@weak self as dialog => @default-return None, move |_| {
-                dialog.set_view(View::List);
-                dialog.emit_by_name::<()>("changed", &[]);
-                dialog.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Provider updated successfully")));
-                None
-            }),
-        );
-
-        imp.page.connect_local(
-            "deleted",
-            false,
-            clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
-                let provider = args[1].get::<Provider>().unwrap();
-                model.delete_provider(&provider);
-                dialog.set_view(View::Placeholder);
-                dialog.emit_by_name::<()>("changed", &[]);
-                dialog.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Provider removed successfully")));
-                None
-            }),
-        );
 
         imp.deck
             .bind_property("folded", &*imp.page.imp().revealer, "reveal-child")
@@ -251,6 +182,81 @@ impl ProvidersDialog {
                 imp.search_entry.set_key_capture_widget(Some(self));
             }
         }
+    }
+
+    #[template_callback]
+    fn on_search_changed(&self, entry: &gtk::SearchEntry) {
+        let text = entry.text().to_string();
+        self.search(text);
+    }
+
+    #[template_callback]
+    fn on_search_started(&self, _entry: &gtk::SearchEntry) {
+        self.imp().search_btn.set_active(true);
+    }
+    #[template_callback]
+    fn on_search_stopped(&self, _entry: &gtk::SearchEntry) {
+        self.imp().search_btn.set_active(false);
+    }
+
+    #[template_callback]
+    fn on_search_btn_toggled(&self, btn: &gtk::ToggleButton) {
+        let imp = self.imp();
+        if btn.is_active() {
+            imp.title_stack.set_visible_child_name("search");
+            imp.search_entry.grab_focus();
+        } else {
+            imp.search_entry.set_text("");
+            imp.title_stack.set_visible_child_name("title");
+        }
+    }
+    #[template_callback]
+    fn on_row_activated(&self, row: ProviderActionRow, _list: gtk::ListBox) {
+        let provider = row.provider();
+        self.edit_provider(provider);
+    }
+
+    #[template_callback]
+    fn on_provider_created(&self, provider: Provider, _page: ProviderPage) {
+        let model = self
+            .imp()
+            .filter_model
+            .model()
+            .unwrap()
+            .downcast::<ProvidersModel>()
+            .unwrap();
+        model.append(&provider);
+        self.emit_by_name::<()>("changed", &[]);
+        self.imp()
+            .toast_overlay
+            .add_toast(&adw::Toast::new(&gettext("Provider created successfully")));
+        self.set_view(View::Placeholder);
+    }
+
+    #[template_callback]
+    fn on_provider_updated(&self, _provider: Provider, _page: ProviderPage) {
+        self.set_view(View::List);
+        self.emit_by_name::<()>("changed", &[]);
+        self.imp()
+            .toast_overlay
+            .add_toast(&adw::Toast::new(&gettext("Provider updated successfully")));
+    }
+
+    #[template_callback]
+    fn on_provider_deleted(&self, provider: Provider, _page: ProviderPage) {
+        let model = self
+            .imp()
+            .filter_model
+            .model()
+            .unwrap()
+            .downcast::<ProvidersModel>()
+            .unwrap();
+        model.delete_provider(&provider);
+        self.set_view(View::Placeholder);
+        self.emit_by_name::<()>("changed", &[]);
+        self.imp()
+            .toast_overlay
+            .add_toast(&adw::Toast::new(&gettext("Provider removed successfully")));
     }
 }
 
