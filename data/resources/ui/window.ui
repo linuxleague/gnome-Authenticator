@@ -33,10 +33,14 @@
     <property name="default-height">600</property>
     <property name="title" translatable="yes">Authenticator</property>
     <child>
-      <object class="GtkGestureClick" id="click_gesture" />
+      <object class="GtkGestureClick" id="click_gesture">
+        <signal handler="on_gesture_click_pressed" name="pressed" swapped="true" />
+      </object>
     </child>
     <child>
-      <object class="GtkEventControllerKey" id="key_gesture" />
+      <object class="GtkEventControllerKey" id="key_gesture">
+        <signal handler="on_key_pressed" name="key-pressed" swapped="true" />
+      </object>
     </child>
     <child>
       <object class="AdwToastOverlay" id="toast_overlay">
@@ -112,6 +116,7 @@
                                   <object class="GtkPasswordEntry" id="password_entry">
                                     <property name="halign">center</property>
                                     <property name="show-peek-icon">True</property>
+                                    <signal name="activate" handler="on_password_entry_activate" swapped="true" />
                                   </object>
                                 </child>
                                 <child>
@@ -233,7 +238,11 @@
                                                     <property name="tightening-threshold">300</property>
                                                     <property name="maximum-size">400</property>
                                                     <property name="child">
-                                                      <object class="GtkSearchEntry" id="search_entry" />
+                                                      <object class="GtkSearchEntry" id="search_entry">
+                                                        <signal name="search-started" handler="on_search_started" swapped="true" />
+                                                        <signal name="search-changed" handler="on_search_changed" swapped="true" />
+                                                        <signal name="stop-search" handler="on_search_stopped" swapped="true" />
+                                                      </object>
                                                     </property>
                                                   </object>
                                                 </property>
@@ -252,6 +261,7 @@
                                           <object class="GtkToggleButton" id="search_btn">
                                             <property name="icon-name">system-search-symbolic</property>
                                             <property name="tooltip-text" translatable="yes">Search</property>
+                                            <signal name="toggled" handler="on_search_btn_toggled" swapped="true" />
                                           </object>
                                         </child>
                                         <style>
@@ -260,7 +270,9 @@
                                       </object>
                                     </child>
                                     <child>
-                                      <object class="ProvidersList" id="providers" />
+                                      <object class="ProvidersList" id="providers">
+                                        <signal name="shared" handler="on_account_shared" swapped="true" />
+                                      </object>
                                     </child>
                                   </object>
                                 </property>
@@ -274,7 +286,10 @@
                       <object class="AdwLeafletPage">
                         <property name="name">account</property>
                         <property name="child">
-                          <object class="AccountDetailsPage" id="account_details" />
+                          <object class="AccountDetailsPage" id="account_details">
+                            <signal name="provider-changed" handler="on_provider_changed" swapped="true" />
+                            <signal name="removed" handler="on_account_removed" swapped="true" />
+                          </object>
                         </property>
                       </object>
                     </child>

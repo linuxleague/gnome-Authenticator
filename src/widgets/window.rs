@@ -41,10 +41,6 @@ mod imp {
         #[template_child]
         pub account_details: TemplateChild<AccountDetailsPage>,
         #[template_child]
-        pub click_gesture: TemplateChild<gtk::GestureClick>,
-        #[template_child]
-        pub key_gesture: TemplateChild<gtk::EventControllerKey>,
-        #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
         pub deck: TemplateChild<adw::Leaflet>,
@@ -82,8 +78,6 @@ mod imp {
                 model: OnceCell::default(),
                 account_details: TemplateChild::default(),
                 search_entry: TemplateChild::default(),
-                click_gesture: TemplateChild::default(),
-                key_gesture: TemplateChild::default(),
                 deck: TemplateChild::default(),
                 error_revealer: TemplateChild::default(),
                 empty_status_page: TemplateChild::default(),
@@ -100,6 +94,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -118,7 +113,16 @@ mod imp {
                 self.parent_enable_debugging(window, toggle)
             }
         }
+
+        fn close_request(&self, window: &Self::Type) -> Inhibit {
+            self.parent_close_request(window);
+            if let Err(err) = window.save_window_state() {
+                tracing::warn!("Failed to save window state {:#?}", err);
+            }
+            Inhibit(false)
+        }
     }
+
     impl ApplicationWindowImpl for Window {}
     impl AdwApplicationWindowImpl for Window {}
 }
@@ -129,6 +133,7 @@ glib::wrapper! {
         @implements gio::ActionMap, gio::ActionGroup, gtk::Native, gtk::Root;
 }
 
+#[gtk::template_callbacks]
 impl Window {
     pub fn new(model: ProvidersModel, app: &Application) -> Self {
         let window = glib::Object::new::<Window>(&[("application", app)]).unwrap();
@@ -220,15 +225,6 @@ impl Window {
         let imp = self.imp();
         imp.model.set(model.clone()).unwrap();
         imp.providers.set_model(model.clone());
-        imp.providers.connect_local(
-            "shared",
-            false,
-            clone!(@weak self as win => @default-return None, move |args| {
-                let account = args[1].get::<Account>().unwrap();
-                win.set_view(View::Account(account));
-                None
-            }),
-        );
 
         imp.providers.model().connect_items_changed(
             clone!(@weak self as win, @weak app => move |_, _,_,_| {
@@ -255,50 +251,7 @@ impl Window {
         if is_maximized {
             self.maximize();
         }
-
-        // save window state on delete event
-        self.connect_close_request(move |window| {
-            if let Err(err) = window.save_window_state() {
-                tracing::warn!("Failed to save window state {:#?}", err);
-            }
-            Inhibit(false)
-        });
-
-        let search_entry = &*imp.search_entry;
-        let search_btn = &*imp.search_btn;
-        let providers = &*imp.providers;
-        search_entry.connect_search_changed(clone!(@weak providers => move |entry| {
-            let text = entry.text().to_string();
-            providers.search(text);
-        }));
-        search_entry.connect_search_started(clone!(@weak search_btn => move |_| {
-            search_btn.set_active(true);
-        }));
-        search_entry.connect_stop_search(clone!(@weak search_btn => move |_| {
-            search_btn.set_active(false);
-        }));
-
-        let title_stack = &*imp.title_stack;
-        search_btn.connect_toggled(clone!(@weak search_entry, @weak title_stack => move |btn| {
-            if btn.is_active() {
-                title_stack.set_visible_child_name("search");
-                search_entry.grab_focus();
-            } else {
-                search_entry.set_text("");
-                title_stack.set_visible_child_name("title");
-            }
-        }));
-
         imp.account_details.set_providers_model(model);
-
-        imp.account_details.connect_local(
-            "provider-changed",
-            false,
-            clone!(@weak self as window => @default-return None, move |_| {
-                window.providers().refilter();
-                None
-            }),
-        );
     }
 
     fn setup_actions(&self, app: &Application) {
@@ -372,40 +325,13 @@ impl Window {
         if app.is_locked() {
             self.set_view(View::Login);
         }
+    }
 
-        let imp = self.imp();
-
-        imp.password_entry
-            .connect_activate(clone!(@weak self as win => move |_| {
-                WidgetExt::activate_action(&win, "win.unlock", None).unwrap();
-            }));
-
-        // On each click or key pressed we restart the timeout.
-        imp.click_gesture
-            .connect_pressed(clone!(@weak app => move |_, _, _, _| {
-                app.restart_lock_timeout();
-            }));
-
-        imp.key_gesture.connect_key_pressed(
-            clone!(@weak app => @default-return Inhibit(false), move |_, _, _, _| {
-                app.restart_lock_timeout();
-                Inhibit(false)
-            }),
-        );
-
-        imp.account_details.connect_local(
-            "removed",
-            false,
-            clone!(@weak self as win => @default-return None, move |args| {
-                let account = args[1].get::<Account>().unwrap();
-                let provider = account.provider();
-                account.delete().unwrap();
-                provider.remove_account(&account);
-                win.providers().refilter();
-                win.set_view(View::Accounts);
-                None
-            }),
-        );
+    fn app(&self) -> Application {
+        self.application()
+            .unwrap()
+            .downcast::<Application>()
+            .unwrap()
     }
 
     fn save_window_state(&self) -> anyhow::Result<()> {
@@ -416,5 +342,68 @@ impl Window {
 
         settings.set_boolean("is-maximized", self.is_maximized())?;
         Ok(())
+    }
+
+    #[template_callback]
+    fn on_password_entry_activate(&self) {
+        WidgetExt::activate_action(self, "win.unlock", None).unwrap();
+    }
+
+    #[template_callback]
+    fn on_account_removed(&self, account: Account) {
+        let provider = account.provider();
+        account.delete().unwrap();
+        provider.remove_account(&account);
+        self.providers().refilter();
+        self.set_view(View::Accounts);
+    }
+
+    #[template_callback]
+    fn on_provider_changed(&self) {
+        self.providers().refilter();
+    }
+
+    #[template_callback]
+    fn on_account_shared(&self, account: Account) {
+        self.set_view(View::Account(account));
+    }
+
+    #[template_callback]
+    fn on_gesture_click_pressed(&self) {
+        self.app().restart_lock_timeout();
+    }
+
+    #[template_callback]
+    fn on_key_pressed(&self) -> Inhibit {
+        self.app().restart_lock_timeout();
+        Inhibit(false)
+    }
+
+    #[template_callback]
+    fn on_search_changed(&self, entry: &gtk::SearchEntry) {
+        let text = entry.text().to_string();
+        self.imp().providers.search(text);
+    }
+
+    #[template_callback]
+    fn on_search_started(&self, _entry: &gtk::SearchEntry) {
+        self.imp().search_btn.set_active(true);
+    }
+
+    #[template_callback]
+    fn on_search_stopped(&self, _entry: &gtk::SearchEntry) {
+        self.imp().search_btn.set_active(false);
+    }
+
+    #[template_callback]
+    fn on_search_btn_toggled(&self, btn: &gtk::ToggleButton) {
+        let imp = self.imp();
+        if btn.is_active() {
+            imp.title_stack.set_visible_child_name("search");
+            imp.search_entry.grab_focus();
+        } else {
+            imp.search_entry.set_text("");
+            imp.title_stack.set_visible_child_name("title");
+        }
     }
 }
