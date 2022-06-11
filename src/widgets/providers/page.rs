@@ -103,6 +103,7 @@ mod imp {
             OTPMethod::static_type();
             Algorithm::static_type();
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
 
             klass.install_action("providers.save", None, move |page, _, _| {
                 if let Err(err) = page.save() {
@@ -158,7 +159,9 @@ mod imp {
 
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
-            obj.setup_widget();
+            self.algorithm_comborow
+                .set_model(Some(&self.algorithms_model));
+            self.method_comborow.set_model(Some(&self.methods_model));
             obj.action_set_enabled("providers.save", false);
         }
     }
@@ -170,6 +173,8 @@ glib::wrapper! {
     pub struct ProviderPage(ObjectSubclass<imp::ProviderPage>)
         @extends gtk::Widget, gtk::Box;
 }
+
+#[gtk::template_callbacks]
 impl ProviderPage {
     pub fn set_provider(&self, provider: Option<Provider>) {
         let imp = self.imp();
@@ -234,21 +239,8 @@ impl ProviderPage {
         }
     }
 
-    // Validate the information typed by the user in order to enable/disable the
-    // save action Note that we don't validate the urls other than: does `url`
-    // crate can parse it or not
-    fn validate(&self) {
-        let imp = self.imp();
-
-        let provider_name = imp.name_entry.text();
-        let provider_website = imp.provider_website_entry.text();
-        let provider_help_url = imp.provider_help_entry.text();
-
-        let is_valid = !provider_name.is_empty()
-            && (provider_website.is_empty() || url::Url::parse(&provider_website).is_ok())
-            && (provider_help_url.is_empty() || url::Url::parse(&provider_help_url).is_ok());
-
-        self.action_set_enabled("providers.save", is_valid);
+    pub fn name_entry(&self) -> gtk::Entry {
+        self.imp().name_entry.clone()
     }
 
     // Save the provider & emit a signal when one is created/updated
@@ -380,36 +372,29 @@ impl ProviderPage {
         Ok(())
     }
 
-    pub fn name_entry(&self) -> gtk::Entry {
-        self.imp().name_entry.clone()
-    }
-
-    fn setup_widget(&self) {
-        let imp = self.imp();
-        imp.algorithm_comborow
-            .set_model(Some(&imp.algorithms_model));
-
-        imp.method_comborow
-            .connect_selected_item_notify(clone!(@weak self as page => move |_| {
-                page.on_method_changed();
-            }));
-
-        let validate_cb = clone!(@weak self as page => move |_: &gtk::Entry| {
-            page.validate();
-        });
-
-        imp.name_entry.connect_changed(validate_cb.clone());
-        imp.provider_website_entry
-            .connect_changed(validate_cb.clone());
-        imp.provider_help_entry.connect_changed(validate_cb);
-
-        imp.method_comborow.set_model(Some(&imp.methods_model));
-    }
-
-    fn on_method_changed(&self) {
+    // Validate the information typed by the user in order to enable/disable the
+    // save action Note that we don't validate the urls other than: does `url`
+    // crate can parse it or not
+    #[template_callback]
+    fn entry_validate(&self, _entry: gtk::Entry) {
         let imp = self.imp();
 
-        let selected = OTPMethod::from(imp.method_comborow.selected());
+        let provider_name = imp.name_entry.text();
+        let provider_website = imp.provider_website_entry.text();
+        let provider_help_url = imp.provider_help_entry.text();
+
+        let is_valid = !provider_name.is_empty()
+            && (provider_website.is_empty() || url::Url::parse(&provider_website).is_ok())
+            && (provider_help_url.is_empty() || url::Url::parse(&provider_help_url).is_ok());
+
+        self.action_set_enabled("providers.save", is_valid);
+    }
+
+    #[template_callback]
+    fn on_method_changed(&self, pspec: glib::ParamSpec, combo_row: adw::ComboRow) {
+        let imp = self.imp();
+
+        let selected = OTPMethod::from(combo_row.selected());
         match selected {
             OTPMethod::TOTP => {
                 imp.default_counter_row.hide();

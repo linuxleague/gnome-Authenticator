@@ -192,15 +192,6 @@ impl PreferencesWindow {
             .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
             .build();
 
-        self.connect_local(
-            "restore-completed",
-            false,
-            clone!(@weak self as win => @default-return None, move |_| {
-                win.close();
-                None
-            }),
-        );
-
         // FreeOTP is first in all of these lists, since its the way to backup
         // Authenticator for use with Authenticator. Others are sorted
         // alphabetically.
@@ -480,6 +471,7 @@ impl PreferencesWindow {
                 }
             });
         self.emit_by_name::<()>("restore-completed", &[]);
+        self.close();
     }
 
     fn select_file(
