@@ -99,7 +99,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct QRCodePaintable(ObjectSubclass<imp::QRCodePaintable>) @implements gdk::Paintable;
+    pub struct QRCodePaintable(ObjectSubclass<imp::QRCodePaintable>)
+        @implements gdk::Paintable;
 }
 
 impl QRCodePaintable {

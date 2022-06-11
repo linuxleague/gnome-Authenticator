@@ -122,7 +122,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct ProviderImage(ObjectSubclass<imp::ProviderImage>) @extends gtk::Widget, gtk::Box;
+    pub struct ProviderImage(ObjectSubclass<imp::ProviderImage>)
+        @extends gtk::Widget, gtk::Box;
 }
 impl ProviderImage {
     pub fn set_provider(&self, provider: Option<&Provider>) {

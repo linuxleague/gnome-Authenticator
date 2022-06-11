@@ -96,7 +96,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct PasswordPage(ObjectSubclass<imp::PasswordPage>) @extends gtk::Widget, gtk::Box;
+    pub struct PasswordPage(ObjectSubclass<imp::PasswordPage>)
+        @extends gtk::Widget, gtk::Box;
 }
 
 impl PasswordPage {

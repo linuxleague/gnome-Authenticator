@@ -36,7 +36,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct ProvidersModel(ObjectSubclass<imp::ProvidersModel>) @implements gio::ListModel;
+    pub struct ProvidersModel(ObjectSubclass<imp::ProvidersModel>)
+        @implements gio::ListModel;
 }
 
 impl ProvidersModel {

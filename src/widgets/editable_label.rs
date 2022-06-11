@@ -97,7 +97,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct EditableLabel(ObjectSubclass<imp::EditableLabel>) @extends gtk::Widget, adw::Bin;
+    pub struct EditableLabel(ObjectSubclass<imp::EditableLabel>)
+        @extends gtk::Widget, adw::Bin;
 }
 
 impl EditableLabel {
@@ -125,7 +126,8 @@ impl EditableLabel {
 }
 
 glib::wrapper! {
-    pub struct EditableSpin(ObjectSubclass<imp::EditableSpin>) @extends gtk::Widget, adw::Bin;
+    pub struct EditableSpin(ObjectSubclass<imp::EditableSpin>)
+        @extends gtk::Widget, adw::Bin;
 }
 
 impl EditableSpin {

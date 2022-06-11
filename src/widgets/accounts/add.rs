@@ -15,6 +15,7 @@ use crate::{
 mod imp {
     use std::cell::RefCell;
 
+    use adw::subclass::prelude::*;
     use glib::subclass::{InitializingObject, Signal};
 
     use super::*;
@@ -118,10 +119,11 @@ mod imp {
     }
     impl WidgetImpl for AccountAddDialog {}
     impl WindowImpl for AccountAddDialog {}
-    impl adw::subclass::window::AdwWindowImpl for AccountAddDialog {}
+    impl AdwWindowImpl for AccountAddDialog {}
 }
 glib::wrapper! {
-    pub struct AccountAddDialog(ObjectSubclass<imp::AccountAddDialog>) @extends gtk::Widget, gtk::Window, adw::Window;
+    pub struct AccountAddDialog(ObjectSubclass<imp::AccountAddDialog>)
+        @extends gtk::Widget, gtk::Window, adw::Window;
 }
 
 impl AccountAddDialog {

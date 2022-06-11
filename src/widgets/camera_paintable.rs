@@ -106,7 +106,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct CameraPaintable(ObjectSubclass<imp::CameraPaintable>) @implements gdk::Paintable;
+    pub struct CameraPaintable(ObjectSubclass<imp::CameraPaintable>)
+        @implements gdk::Paintable;
 }
 
 impl CameraPaintable {

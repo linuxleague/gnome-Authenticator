@@ -77,7 +77,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct UrlRow(ObjectSubclass<imp::UrlRow>) @extends gtk::Widget, gtk::ListBoxRow, adw::PreferencesRow, adw::ActionRow;
+    pub struct UrlRow(ObjectSubclass<imp::UrlRow>)
+        @extends gtk::Widget, gtk::ListBoxRow, adw::PreferencesRow, adw::ActionRow;
 }
 
 impl UrlRow {

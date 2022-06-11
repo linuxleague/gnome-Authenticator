@@ -107,7 +107,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct ProviderRow(ObjectSubclass<imp::ProviderRow>) @extends gtk::Widget, gtk::ListBoxRow;
+    pub struct ProviderRow(ObjectSubclass<imp::ProviderRow>)
+        @extends gtk::Widget, gtk::ListBoxRow;
 }
 
 impl ProviderRow {

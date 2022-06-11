@@ -34,7 +34,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct AccountSorter(ObjectSubclass<imp::AccountSorter>) @extends gtk::Sorter;
+    pub struct AccountSorter(ObjectSubclass<imp::AccountSorter>)
+        @extends gtk::Sorter;
 }
 
 impl Default for AccountSorter {

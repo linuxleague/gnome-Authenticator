@@ -52,7 +52,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct CameraPage(ObjectSubclass<imp::CameraPage>) @extends gtk::Widget, adw::Bin;
+    pub struct CameraPage(ObjectSubclass<imp::CameraPage>)
+        @extends gtk::Widget, adw::Bin;
 }
 
 impl CameraPage {

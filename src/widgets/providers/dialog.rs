@@ -91,7 +91,8 @@ mod imp {
     impl AdwWindowImpl for ProvidersDialog {}
 }
 glib::wrapper! {
-    pub struct ProvidersDialog(ObjectSubclass<imp::ProvidersDialog>) @extends gtk::Widget, gtk::Window, adw::Window;
+    pub struct ProvidersDialog(ObjectSubclass<imp::ProvidersDialog>)
+        @extends gtk::Widget, gtk::Window, adw::Window;
 }
 
 impl ProvidersDialog {
@@ -335,7 +336,8 @@ mod row {
     }
 
     glib::wrapper! {
-        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>) @extends gtk::Widget, gtk::ListBoxRow;
+        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>)
+            @extends gtk::Widget, gtk::ListBoxRow;
     }
 
     impl ProviderActionRow {

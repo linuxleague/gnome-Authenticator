@@ -180,7 +180,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct Camera(ObjectSubclass<imp::Camera>) @extends gtk::Widget, adw::Bin;
+    pub struct Camera(ObjectSubclass<imp::Camera>)
+        @extends gtk::Widget, adw::Bin;
 }
 
 impl Camera {

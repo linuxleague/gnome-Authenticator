@@ -35,7 +35,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct ProviderSorter(ObjectSubclass<imp::ProviderSorter>) @extends gtk::Sorter;
+    pub struct ProviderSorter(ObjectSubclass<imp::ProviderSorter>)
+        @extends gtk::Sorter;
 }
 
 impl Default for ProviderSorter {

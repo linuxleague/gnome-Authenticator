@@ -154,7 +154,8 @@ mod imp {
 }
 
 glib::wrapper! {
-    pub struct AccountDetailsPage(ObjectSubclass<imp::AccountDetailsPage>) @extends gtk::Widget, gtk::Box;
+    pub struct AccountDetailsPage(ObjectSubclass<imp::AccountDetailsPage>)
+        @extends gtk::Widget, gtk::Box;
 }
 
 impl AccountDetailsPage {
