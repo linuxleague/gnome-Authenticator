@@ -9,7 +9,7 @@ use once_cell::sync::{Lazy, OnceCell};
 
 use crate::{
     models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
-    widgets::{Camera, ErrorRevealer, ProviderImage, UrlRow},
+    widgets::{providers::ProviderPage, Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
 
 mod imp {
@@ -19,7 +19,6 @@ mod imp {
     use glib::subclass::{InitializingObject, Signal};
 
     use super::*;
-    use crate::widgets::providers::ProviderPage;
 
     #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
@@ -72,6 +71,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
 
             klass.install_action("add.previous", None, move |dialog, _, _| {
                 let imp = dialog.imp();
@@ -126,17 +126,18 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Window, adw::Window;
 }
 
+#[gtk::template_callbacks]
 impl AccountAddDialog {
     pub fn new(model: ProvidersModel) -> Self {
         let dialog = glib::Object::new::<Self>(&[]).expect("Failed to create AccountAddDialog");
 
         dialog.imp().model.set(model).unwrap();
-        dialog.setup_signals();
         dialog.setup_widget();
         dialog
     }
 
-    fn validate(&self) {
+    #[template_callback]
+    fn input_validate(&self, _: Option<gtk::Editable>) {
         let imp = self.imp();
         let username = imp.username_entry.text();
         let token = imp.token_entry.text();
@@ -146,20 +147,74 @@ impl AccountAddDialog {
         self.action_set_enabled("add.save", is_valid);
     }
 
-    fn setup_signals(&self) {
-        let imp = self.imp();
+    #[template_callback]
+    fn match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> Inhibit {
+        let provider_id = store.get::<u32>(&iter, 0);
+        let provider = self.imp().model.get().unwrap().find_by_id(provider_id);
+        self.set_provider(provider);
 
-        imp.username_entry
-            .connect_changed(clone!(@weak self as win => move |_| win.validate()));
-        imp.token_entry
-            .connect_changed(clone!(@weak self as win => move |_| win.validate()));
+        Inhibit(false)
+    }
+
+    #[template_callback]
+    fn no_matches_selected(&self, completion: gtk::EntryCompletion) {
+        // in case the provider doesn't exists, let the user create a new one by showing
+        // a dialog for that TODO: replace this whole completion provider thing
+        // with a custom widget
+        let imp = self.imp();
+        let entry = completion.entry().unwrap();
+
+        imp.deck.set_visible_child_name("create-provider");
+        imp.provider_page
+            .imp()
+            .back_btn
+            .set_action_name(Some("add.previous"));
+        imp.provider_page.imp().revealer.set_reveal_child(true);
+        imp.provider_page.set_provider(None);
+
+        let name_entry = imp.provider_page.name_entry();
+        name_entry.set_text(&entry.text());
+        name_entry.grab_focus_without_selecting();
+        name_entry.set_position(entry.cursor_position());
+    }
+
+    #[template_callback]
+    fn deck_visible_child_name_notify(&self, _pspec: glib::ParamSpec, deck: adw::Leaflet) {
+        if deck.visible_child_name().as_deref() != Some("camera") {
+            self.imp().camera.stop();
+        }
+    }
+
+    #[template_callback]
+    fn camera_closed(&self, _camera: Camera) {
+        self.activate_action("add.previous", None).unwrap();
+    }
+
+    #[template_callback]
+    fn camera_code_detected(&self, _camera: Camera, code: String) {
+        if let Ok(otp_uri) = OTPUri::from_str(&code) {
+            self.set_from_otp_uri(&otp_uri);
+        }
+    }
+
+    #[template_callback]
+    fn provider_created(&self, provider: Provider, _page: ProviderPage) {
+        let imp = self.imp();
+        let model = imp.model.get().unwrap();
+        model.append(&provider);
+
+        imp.provider_completion
+            .set_model(Some(&model.completion_model()));
+        self.set_provider(Some(provider));
+        imp.username_entry.grab_focus_without_selecting();
+        imp.deck.set_visible_child_name("main");
     }
 
     fn scan_from_screenshot(&self) {
         spawn!(clone!(@weak self as page => async move {
-           if let Err(err) = page.imp().camera.scan_from_screenshot().await {
-            tracing::error!("Failed to scan from screenshot {}", err);
-           }
+            if let Err(err) = page.imp().camera.scan_from_screenshot().await {
+                tracing::error!("Failed to scan from screenshot {}", err);
+            }
         }));
     }
 
@@ -256,82 +311,12 @@ impl AccountAddDialog {
         } else {
             imp.selected_provider.borrow_mut().take();
         }
-        self.validate();
+        self.input_validate(None);
     }
 
     fn setup_widget(&self) {
         let imp = self.imp();
         imp.provider_completion
             .set_model(Some(&imp.model.get().unwrap().completion_model()));
-
-        imp.provider_completion.connect_match_selected(
-            clone!(@weak self as dialog, @strong imp.model as model => @default-return Inhibit(false), move |_, store, iter| {
-                let provider_id = store.get::<u32>(iter, 0);
-                let provider = model.get().unwrap().find_by_id(provider_id);
-                dialog.set_provider(provider);
-
-                Inhibit(false)
-            }),
-        );
-
-        // in case the provider doesn't exists, let the user create a new one by showing
-        // a dialog for that TODO: replace this whole completion provider thing
-        // with a custom widget
-        imp.provider_completion.connect_no_matches(clone!(@weak self as dialog => move |completion| {
-            let imp = dialog.imp();
-            let model = imp.model.get().unwrap();
-            let entry = completion.entry().unwrap();
-
-            imp.deck.set_visible_child_name("create-provider");
-            imp.provider_page.imp().back_btn.set_action_name(Some("add.previous"));
-            imp.provider_page.imp().revealer.set_reveal_child(true);
-            imp.provider_page.set_provider(None);
-
-            let name_entry = imp.provider_page.name_entry();
-            name_entry.set_text(&entry.text());
-            name_entry.grab_focus_without_selecting();
-            name_entry.set_position(entry.cursor_position());
-
-            imp.provider_page.connect_local("created", false, clone!(@weak dialog, @weak model => @default-panic, move |args| {
-                let provider = args[1].get::<Provider>().unwrap();
-                model.append(&provider);
-
-                dialog.imp().provider_completion
-                    .set_model(Some(&model.completion_model()));
-                dialog.set_provider(Some(provider));
-                dialog.imp().username_entry.grab_focus_without_selecting();
-                dialog.imp().deck.set_visible_child_name("main");
-                None
-            }));
-        }));
-
-        imp.deck
-            .connect_visible_child_name_notify(clone!(@weak self as page => move |deck| {
-                if deck.visible_child_name().as_ref().map(|s|s.as_str()) != Some("camera") {
-                    page.imp().camera.stop();
-                }
-            }));
-
-        imp.camera.connect_local(
-            "close",
-            false,
-            clone!(@weak self as dialog => @default-return None, move |_| {
-                dialog.activate_action("add.previous", None).unwrap();
-                None
-            }),
-        );
-
-        imp.camera.connect_local(
-            "code-detected",
-            false,
-            clone!(@weak self as dialog => @default-return None, move |args| {
-                let code = args[1].get::<String>().unwrap();
-                if let Ok(otp_uri) = OTPUri::from_str(&code) {
-                    dialog.set_from_otp_uri(&otp_uri);
-                }
-
-                None
-            }),
-        );
     }
 }

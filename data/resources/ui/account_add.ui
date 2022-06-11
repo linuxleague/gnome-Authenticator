@@ -26,6 +26,7 @@
       <object class="AdwLeaflet" id="deck">
         <property name="can-unfold">False</property>
         <property name="can-navigate-back">True</property>
+        <signal name="notify::visible-child-name" handler="deck_visible_child_name_notify" swapped="true" />
         <child>
           <object class="AdwLeafletPage">
             <property name="name">main</property>
@@ -120,6 +121,7 @@
                                         <property name="valign">center</property>
                                         <property name="hexpand">True</property>
                                         <property name="enable-emoji-completion">True</property>
+                                        <signal name="changed" handler="input_validate" swapped="true" />
                                       </object>
                                     </child>
                                   </object>
@@ -134,6 +136,7 @@
                                         <property name="valign">center</property>
                                         <property name="hexpand">True</property>
                                         <property name="show-peek-icon">True</property>
+                                        <signal name="changed" handler="input_validate" swapped="true" />
                                       </object>
                                     </child>
                                   </object>
@@ -243,7 +246,10 @@
           <object class="AdwLeafletPage">
             <property name="name">camera</property>
             <property name="child">
-              <object class="Camera" id="camera" />
+              <object class="Camera" id="camera">
+                <signal name="close" handler="camera_closed" swapped="true" />
+                <signal name="code-detected" handler="camera_code_detected" swapped="true" />
+              </object>
             </property>
           </object>
         </child>
@@ -251,7 +257,9 @@
           <object class="AdwLeafletPage">
             <property name="name">create-provider</property>
             <property name="child">
-              <object class="ProviderPage" id="provider_page" />
+              <object class="ProviderPage" id="provider_page">
+                <signal name="created" handler="provider_created" swapped="true" />
+              </object>
             </property>
           </object>
         </child>
@@ -273,6 +281,8 @@
     <property name="minimum-key-length">1</property>
     <property name="text-column">1</property>
     <property name="inline-selection">True</property>
+    <signal name="match-selected" handler="match_selected" swapped="true" />
+    <signal name="no-matches" handler="no_matches_selected" swapped="true" />
     <child>
       <object class="GtkCellRendererText" />
       <attributes>
