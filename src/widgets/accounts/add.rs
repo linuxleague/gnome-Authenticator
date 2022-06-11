@@ -132,7 +132,7 @@ impl AccountAddDialog {
 
         dialog.imp().model.set(model).unwrap();
         dialog.setup_signals();
-        dialog.setup_widgets();
+        dialog.setup_widget();
         dialog
     }
 
@@ -259,7 +259,7 @@ impl AccountAddDialog {
         self.validate();
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
         imp.provider_completion
             .set_model(Some(&imp.model.get().unwrap().completion_model()));

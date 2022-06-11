@@ -69,7 +69,7 @@ mod imp {
     impl ObjectImpl for ProviderImage {
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
-            obj.setup_widgets();
+            obj.setup_widget();
         }
 
         fn properties() -> &'static [ParamSpec] {
@@ -248,7 +248,7 @@ impl ProviderImage {
         self.property("provider")
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
         let receiver = imp.receiver.borrow_mut().take().unwrap();
         receiver.attach(

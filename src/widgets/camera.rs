@@ -167,7 +167,7 @@ mod imp {
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
             obj.setup_receiver();
-            obj.setup_widgets();
+            obj.setup_widget();
         }
 
         fn dispose(&self, _obj: &Self::Type) {
@@ -271,11 +271,9 @@ impl Camera {
         );
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
-
         self.set_state(CameraState::NotFound);
-
         imp.picture.set_paintable(Some(&imp.paintable));
 
         imp.previous

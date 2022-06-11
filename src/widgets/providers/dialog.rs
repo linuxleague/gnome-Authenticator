@@ -100,11 +100,11 @@ impl ProvidersDialog {
         let dialog =
             glib::Object::new::<ProvidersDialog>(&[]).expect("Failed to create ProvidersDialog");
 
-        dialog.setup_widgets(model);
+        dialog.setup_widget(model);
         dialog
     }
 
-    fn setup_widgets(&self, model: ProvidersModel) {
+    fn setup_widget(&self, model: ProvidersModel) {
         let imp = self.imp();
 
         imp.filter_model.set_model(Some(&model));

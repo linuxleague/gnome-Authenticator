@@ -158,7 +158,7 @@ mod imp {
 
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
-            obj.setup_widgets();
+            obj.setup_widget();
             obj.action_set_enabled("providers.save", false);
         }
     }
@@ -384,7 +384,7 @@ impl ProviderPage {
         self.imp().name_entry.clone()
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
         imp.algorithm_comborow
             .set_model(Some(&imp.algorithms_model));

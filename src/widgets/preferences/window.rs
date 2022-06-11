@@ -158,7 +158,7 @@ impl PreferencesWindow {
     pub fn new(model: ProvidersModel) -> Self {
         let window = glib::Object::new::<Self>(&[]).expect("Failed to create PreferencesWindow");
         window.imp().model.set(model).unwrap();
-        window.setup_widgets();
+        window.setup_widget();
         window
     }
 
@@ -170,7 +170,7 @@ impl PreferencesWindow {
         self.set_property("has-set-password", &state)
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
 
         let style_manager = adw::StyleManager::default();

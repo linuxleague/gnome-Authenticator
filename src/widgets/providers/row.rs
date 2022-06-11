@@ -99,7 +99,7 @@ mod imp {
 
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
-            obj.setup_widgets();
+            obj.setup_widget();
         }
     }
     impl WidgetImpl for ProviderRow {}
@@ -134,7 +134,7 @@ impl ProviderRow {
         imp.progress_icon.set_progress(progress_fraction as f32);
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
         let provider = self.provider();
 

@@ -104,7 +104,7 @@ impl PasswordPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
         let page = glib::Object::new::<Self>(&[]).expect("Failed to create PasswordPage");
         page.imp().actions.set(actions).unwrap();
-        page.setup_widgets();
+        page.setup_widget();
         page.setup_actions();
         page
     }
@@ -133,7 +133,7 @@ impl PasswordPage {
         get_action!(imp.actions.get().unwrap(), @save_password).set_enabled(is_valid);
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
 
         imp.status_page.set_icon_name(Some(config::APP_ID));

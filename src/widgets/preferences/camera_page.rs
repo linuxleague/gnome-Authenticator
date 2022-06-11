@@ -60,7 +60,7 @@ impl CameraPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
         let page = glib::Object::new::<Self>(&[]).expect("Failed to create CameraPage");
         page.imp().actions.set(actions).unwrap();
-        page.setup_widgets();
+        page.setup_widget();
         page
     }
 
@@ -185,7 +185,7 @@ impl CameraPage {
         }
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
         let actions = imp.actions.get().unwrap();
 

@@ -46,7 +46,7 @@ mod imp {
     impl ObjectImpl for ProvidersList {
         fn constructed(&self, obj: &Self::Type) {
             self.parent_constructed(obj);
-            obj.setup_widgets();
+            obj.setup_widget();
         }
 
         fn signals() -> &'static [Signal] {
@@ -121,7 +121,7 @@ impl ProvidersList {
         self.imp().filter_model.set_filter(Some(&accounts_filter));
     }
 
-    fn setup_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
 
         let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&imp.sorter));
