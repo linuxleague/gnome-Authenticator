@@ -1,3 +1,8 @@
+#![doc(
+    html_logo_url = "https://gitlab.gnome.org/World/Authenticator/-/raw/master/data/icons/com.belmoussaoui.Authenticator.svg?inline=false",
+    html_favicon_url = "https://gitlab.gnome.org/World/Authenticator/-/raw/master/data/icons/com.belmoussaoui.Authenticator-symbolic.svg?inline=false"
+)]
+
 #[macro_use]
 extern crate diesel;
 #[macro_use]
