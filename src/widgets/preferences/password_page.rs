@@ -46,6 +46,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -83,6 +84,16 @@ mod imp {
                 _ => unimplemented!(),
             }
         }
+
+        fn constructed(&self, page: &Self::Type) {
+            self.parent_constructed(page);
+            self.status_page.set_icon_name(Some(config::APP_ID));
+            page.reset_validation();
+            // Reset the validation whenever the password state changes
+            page.connect_has_set_password_notify(clone!(@weak page  => move |_, _| {
+                page.reset_validation();
+            }));
+        }
     }
 
     impl WidgetImpl for PasswordPage {
@@ -100,11 +111,11 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Box;
 }
 
+#[gtk::template_callbacks]
 impl PasswordPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
         let page = glib::Object::new::<Self>(&[]).expect("Failed to create PasswordPage");
         page.imp().actions.set(actions).unwrap();
-        page.setup_widget();
         page.setup_actions();
         page
     }
@@ -130,7 +141,8 @@ impl PasswordPage {
         )
     }
 
-    fn validate(&self) {
+    #[template_callback]
+    fn validate(&self, _entry: Option<gtk::Editable>) {
         let imp = self.imp();
 
         let current_password = imp.current_password_entry.text();
@@ -146,30 +158,13 @@ impl PasswordPage {
         get_action!(imp.actions.get().unwrap(), @save_password).set_enabled(is_valid);
     }
 
-    fn setup_widget(&self) {
-        let imp = self.imp();
-
-        imp.status_page.set_icon_name(Some(config::APP_ID));
-
-        imp.password_entry
-            .connect_changed(clone!(@weak self as page=> move |_| page.validate()));
-        imp.confirm_password_entry
-            .connect_changed(clone!(@weak self as page => move |_| page.validate()));
-
-        self.reset_validation();
-        // Reset the validation whenever the password state changes
-        self.connect_has_set_password_notify(clone!(@weak self as page => move |_, _| {
-            page.reset_validation();
-        }));
-    }
-
     // Called when either the user sets/resets the password to bind/unbind the
     // the validation callback on the password entry
     fn reset_validation(&self) {
         let imp = self.imp();
         if self.has_set_password() {
             imp.current_password_entry
-                .connect_changed(clone!(@weak self as page => move |_| page.validate()));
+                .connect_changed(clone!(@weak self as page => move |_| page.validate(None)));
         } else if let Some(handler_id) = imp.default_password_signal.borrow_mut().take() {
             imp.current_password_entry.disconnect(handler_id);
         }
