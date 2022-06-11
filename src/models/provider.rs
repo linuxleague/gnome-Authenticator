@@ -66,6 +66,7 @@ mod imp {
         ParamFlags, ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, ParamSpecUInt64,
         SourceId, Value,
     };
+    use once_cell::sync::Lazy;
 
     use super::*;
 
@@ -114,30 +115,29 @@ mod imp {
 
     impl ObjectImpl for Provider {
         fn properties() -> &'static [ParamSpec] {
-            use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
                     ParamSpecUInt::new(
                         "id",
-                        "id",
-                        "Id",
+                        "",
+                        "",
                         0,
                         u32::MAX,
                         0,
-                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
+                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
                     ),
-                    ParamSpecString::new("name", "name", "Name", None, ParamFlags::READWRITE),
+                    ParamSpecString::new("name", "", "", None, ParamFlags::READWRITE),
                     ParamSpecObject::new(
                         "accounts",
-                        "accounts",
-                        "accounts",
+                        "",
+                        "",
                         AccountsModel::static_type(),
-                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecUInt::new(
                         "period",
-                        "period",
-                        "Period",
+                        "",
+                        "",
                         0,
                         1000,
                         otp::TOTP_DEFAULT_PERIOD,
@@ -145,8 +145,8 @@ mod imp {
                     ),
                     ParamSpecUInt::new(
                         "digits",
-                        "digits",
-                        "Digits",
+                        "",
+                        "",
                         0,
                         1000,
                         otp::DEFAULT_DIGITS,
@@ -154,8 +154,8 @@ mod imp {
                     ),
                     ParamSpecUInt::new(
                         "default-counter",
-                        "default_counter",
-                        "default_counter",
+                        "",
+                        "",
                         0,
                         u32::MAX,
                         otp::HOTP_DEFAULT_COUNTER,
@@ -163,43 +163,31 @@ mod imp {
                     ),
                     ParamSpecString::new(
                         "algorithm",
-                        "algorithm",
-                        "Algorithm",
+                        "",
+                        "",
                         Some(&Algorithm::default().to_string()),
                         ParamFlags::READWRITE,
                     ),
                     ParamSpecString::new(
                         "method",
-                        "method",
-                        "Method",
+                        "",
+                        "",
                         Some(&OTPMethod::default().to_string()),
                         ParamFlags::READWRITE,
                     ),
-                    ParamSpecString::new(
-                        "website",
-                        "website",
-                        "Website",
-                        None,
-                        ParamFlags::READWRITE,
-                    ),
-                    ParamSpecString::new(
-                        "help-url",
-                        "help url",
-                        "Help URL",
-                        None,
-                        ParamFlags::READWRITE,
-                    ),
+                    ParamSpecString::new("website", "", "", None, ParamFlags::READWRITE),
+                    ParamSpecString::new("help-url", "", "", None, ParamFlags::READWRITE),
                     ParamSpecString::new(
                         "image-uri",
-                        "image uri",
-                        "Image URI",
+                        "",
+                        "",
                         None,
                         ParamFlags::READWRITE | ParamFlags::EXPLICIT_NOTIFY,
                     ),
                     ParamSpecUInt64::new(
                         "remaining-time",
-                        "remaining time",
-                        "the remaining time",
+                        "",
+                        "",
                         0,
                         u64::MAX,
                         0,

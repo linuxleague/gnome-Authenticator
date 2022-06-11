@@ -13,7 +13,8 @@ pub enum ImageAction {
 mod imp {
     use std::cell::{Cell, RefCell};
 
-    use glib::{subclass, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
+    use glib::{subclass, ParamFlags, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
+    use once_cell::sync::Lazy;
 
     use super::*;
 
@@ -70,26 +71,25 @@ mod imp {
             obj.setup_widgets();
             self.parent_constructed(obj);
         }
-        fn properties() -> &'static [ParamSpec] {
-            use once_cell::sync::Lazy;
 
+        fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
                     ParamSpecObject::new(
                         "provider",
-                        "provider",
-                        "Provider",
+                        "",
+                        "",
                         Provider::static_type(),
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     ),
                     ParamSpecUInt::new(
                         "size",
-                        "size",
-                        "Image size",
+                        "",
+                        "",
                         32,
                         96,
                         48,
-                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
                     ),
                 ]
             });

@@ -13,7 +13,7 @@ mod imp {
 
     use glib::{
         subclass::{self, Signal},
-        ParamSpec, ParamSpecObject, Value,
+        ParamFlags, ParamSpec, ParamSpecObject, Value,
     };
     use once_cell::sync::Lazy;
 
@@ -53,10 +53,10 @@ mod imp {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![ParamSpecObject::new(
                     "provider",
-                    "Provider",
-                    "The accounts provider",
+                    "",
+                    "",
                     Provider::static_type(),
-                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
+                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
                 )]
             });
             PROPERTIES.as_ref()

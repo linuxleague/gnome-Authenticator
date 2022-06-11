@@ -6,7 +6,8 @@ mod imp {
     use std::cell::RefCell;
 
     use adw::subclass::prelude::*;
-    use glib::{ParamSpec, ParamSpecString, Value};
+    use glib::{ParamFlags, ParamSpec, ParamSpecString, Value};
+    use once_cell::sync::Lazy;
 
     use super::*;
 
@@ -24,14 +25,13 @@ mod imp {
 
     impl ObjectImpl for UrlRow {
         fn properties() -> &'static [ParamSpec] {
-            use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![ParamSpecString::new(
                     "uri",
-                    "uri",
-                    "The Row URI",
+                    "",
+                    "",
                     None,
-                    glib::ParamFlags::READWRITE,
+                    ParamFlags::READWRITE,
                 )]
             });
             PROPERTIES.as_ref()

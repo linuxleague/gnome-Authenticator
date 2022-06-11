@@ -3,7 +3,7 @@ use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
 pub(crate) mod imp {
     use std::cell::Cell;
 
-    use glib::{ParamSpec, ParamSpecFloat, Value};
+    use glib::{ParamFlags, ParamSpec, ParamSpecFloat, Value};
     use gtk::{graphene, gsk};
     use once_cell::sync::Lazy;
 
@@ -26,12 +26,12 @@ pub(crate) mod imp {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![ParamSpecFloat::new(
                     "progress",
-                    "Progress",
-                    "Progress of the icon",
+                    "",
+                    "",
                     0.0,
                     1.0,
                     0.0,
-                    glib::ParamFlags::READWRITE | glib::ParamFlags::EXPLICIT_NOTIFY,
+                    ParamFlags::READWRITE | ParamFlags::EXPLICIT_NOTIFY,
                 )]
             });
             PROPERTIES.as_ref()

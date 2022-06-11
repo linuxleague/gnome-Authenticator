@@ -24,7 +24,7 @@ mod imp {
     use adw::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
     use glib::{
         subclass::{self, Signal},
-        ParamSpec, ParamSpecBoolean, Value,
+        ParamFlags, ParamSpec, ParamSpecBoolean, Value,
     };
     use once_cell::sync::Lazy;
 
@@ -101,10 +101,10 @@ mod imp {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![ParamSpecBoolean::new(
                     "has-set-password",
-                    "has set password",
-                    "Has Set Password",
+                    "",
+                    "",
                     false,
-                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
                 )]
             });
             PROPERTIES.as_ref()

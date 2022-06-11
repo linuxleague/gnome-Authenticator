@@ -260,7 +260,8 @@ mod row {
     mod imp {
         use std::cell::RefCell;
 
-        use glib::{ParamSpec, ParamSpecObject, Value};
+        use glib::{ParamFlags, ParamSpec, ParamSpecObject, Value};
+        use once_cell::sync::Lazy;
 
         use super::*;
 
@@ -279,14 +280,13 @@ mod row {
 
         impl ObjectImpl for ProviderActionRow {
             fn properties() -> &'static [ParamSpec] {
-                use once_cell::sync::Lazy;
                 static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                     vec![ParamSpecObject::new(
                         "provider",
-                        "Provider",
-                        "The Provider",
+                        "",
+                        "",
                         Provider::static_type(),
-                        glib::ParamFlags::READWRITE,
+                        ParamFlags::READWRITE,
                     )]
                 });
                 PROPERTIES.as_ref()

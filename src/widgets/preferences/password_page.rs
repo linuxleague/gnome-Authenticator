@@ -14,6 +14,8 @@ use once_cell::sync::{Lazy, OnceCell};
 use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
 
 mod imp {
+    use glib::ParamFlags;
+
     use super::*;
 
     #[derive(Debug, CompositeTemplate)]
@@ -70,10 +72,10 @@ mod imp {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![ParamSpecBoolean::new(
                     "has-set-password",
-                    "has set password",
-                    "Has Set Password",
+                    "",
+                    "",
                     false,
-                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
                 )]
             });
             PROPERTIES.as_ref()

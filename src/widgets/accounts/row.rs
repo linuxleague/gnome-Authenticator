@@ -7,7 +7,7 @@ use crate::models::{Account, OTPMethod};
 mod imp {
     use adw::subclass::prelude::*;
     use gettextrs::gettext;
-    use glib::{subclass, ParamSpec, ParamSpecObject, Value};
+    use glib::{subclass, ParamFlags, ParamSpec, ParamSpecObject, Value};
     use once_cell::sync::Lazy;
 
     use super::*;
@@ -64,10 +64,10 @@ mod imp {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![ParamSpecObject::new(
                     "account",
-                    "Account",
-                    "The account",
+                    "",
+                    "",
                     Account::static_type(),
-                    glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT_ONLY,
+                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
                 )]
             });
             PROPERTIES.as_ref()

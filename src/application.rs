@@ -20,8 +20,8 @@ mod imp {
     use std::cell::{Cell, RefCell};
 
     use adw::subclass::prelude::*;
-    use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
-    use once_cell::sync::OnceCell;
+    use glib::{ParamFlags, ParamSpec, ParamSpecBoolean, Value, WeakRef};
+    use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
 
@@ -63,22 +63,21 @@ mod imp {
     // Overrides GObject vfuncs
     impl ObjectImpl for Application {
         fn properties() -> &'static [ParamSpec] {
-            use once_cell::sync::Lazy;
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
                     ParamSpecBoolean::new(
                         "locked",
-                        "locked",
-                        "locked",
+                        "",
+                        "",
                         false,
-                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
                     ),
                     ParamSpecBoolean::new(
                         "can-be-locked",
-                        "can_be_locked",
-                        "can be locked",
+                        "",
+                        "",
                         false,
-                        glib::ParamFlags::READWRITE | glib::ParamFlags::CONSTRUCT,
+                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
                     ),
                 ]
             });
