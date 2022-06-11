@@ -63,13 +63,13 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                id: Cell::new(0),
+                id: Cell::default(),
                 counter: Cell::new(otp::HOTP_DEFAULT_COUNTER),
-                name: RefCell::new("".to_string()),
-                otp: RefCell::new("".to_string()),
-                token_id: RefCell::new("".to_string()),
-                provider: RefCell::new(None),
-                token: OnceCell::new(),
+                name: RefCell::default(),
+                otp: RefCell::default(),
+                token_id: RefCell::default(),
+                provider: RefCell::default(),
+                token: OnceCell::default(),
             }
         }
     }

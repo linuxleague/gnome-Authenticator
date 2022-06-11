@@ -158,11 +158,6 @@ glib::wrapper! {
 }
 
 impl AccountDetailsPage {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create AccountDetailsPage")
-    }
-
     fn init_widgets(&self) {
         let imp = self.imp();
         imp.qrcode_picture

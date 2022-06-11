@@ -98,18 +98,7 @@ glib::wrapper! {
         @extends gtk::Widget;
 }
 
-impl Default for ProgressIcon {
-    fn default() -> Self {
-        glib::Object::new(&[]).unwrap()
-    }
-}
-
 impl ProgressIcon {
-    /// Creates a new [`ProgressIcon`].
-    pub fn new() -> Self {
-        Self::default()
-    }
-
     fn size(&self) -> i32 {
         let width = self.width_request();
         let height = self.width_request();

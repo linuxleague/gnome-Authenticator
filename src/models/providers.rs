@@ -40,11 +40,6 @@ glib::wrapper! {
 }
 
 impl ProvidersModel {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create Model")
-    }
-
     #[allow(clippy::too_many_arguments)]
     pub fn find_or_create(
         &self,
@@ -228,5 +223,11 @@ impl ProvidersModel {
             .collect::<Vec<_>>();
         self.splice(&providers);
         self.imp().1.set(true);
+    }
+}
+
+impl Default for ProvidersModel {
+    fn default() -> Self {
+        glib::Object::new(&[]).expect("Failed to create Model")
     }
 }

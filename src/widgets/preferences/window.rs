@@ -69,11 +69,11 @@ mod imp {
 
             Self {
                 settings,
-                has_set_password: Cell::new(false), // Synced from the application
+                has_set_password: Cell::default(), // Synced from the application
                 camera_page: CameraPage::new(actions.clone()),
                 password_page: PasswordPage::new(actions.clone()),
                 actions,
-                model: OnceCell::new(),
+                model: OnceCell::default(),
                 backup_actions: gio::SimpleActionGroup::new(),
                 restore_actions: gio::SimpleActionGroup::new(),
                 auto_lock: TemplateChild::default(),

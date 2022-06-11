@@ -150,10 +150,8 @@ impl ProvidersDialog {
         imp.providers_list
             .bind_model(Some(&selection_model), move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
-
-                let row = ProviderActionRow::new();
+                let row = ProviderActionRow::default();
                 row.set_provider(provider);
-
                 row.upcast::<gtk::Widget>()
             });
 
@@ -329,11 +327,6 @@ mod row {
     }
 
     impl ProviderActionRow {
-        #[allow(clippy::new_without_default)]
-        pub fn new() -> Self {
-            glib::Object::new(&[]).expect("Failed to create ProviderActionRow")
-        }
-
         fn setup_widgets(&self) {
             let imp = self.imp();
             let hbox = gtk::Box::builder()
@@ -358,6 +351,12 @@ mod row {
 
         pub fn provider(&self) -> Provider {
             self.property("provider")
+        }
+    }
+
+    impl Default for ProviderActionRow {
+        fn default() -> Self {
+            glib::Object::new(&[]).expect("Failed to create ProviderActionRow")
         }
     }
 }

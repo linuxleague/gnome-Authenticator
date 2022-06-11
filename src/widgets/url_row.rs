@@ -70,11 +70,6 @@ glib::wrapper! {
 }
 
 impl UrlRow {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create UrlRow")
-    }
-
     fn setup_widgets(&self) {
         let gesture = gtk::GestureClick::new();
         gesture.connect_pressed(clone!(@weak self as row => move |_,_,_,_| {

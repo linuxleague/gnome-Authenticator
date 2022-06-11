@@ -46,11 +46,6 @@ glib::wrapper! {
 }
 
 impl ErrorRevealer {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).unwrap()
-    }
-
     pub fn popup(&self, text: &str) {
         let imp = self.imp();
         imp.label.set_text(text);

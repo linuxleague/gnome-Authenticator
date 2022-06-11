@@ -18,7 +18,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_password_page.ui")]
     pub struct PasswordPage {
         pub actions: OnceCell<gio::SimpleActionGroup>,
@@ -43,20 +43,6 @@ mod imp {
         const NAME: &'static str = "PasswordPage";
         type Type = super::PasswordPage;
         type ParentType = gtk::Box;
-
-        fn new() -> Self {
-            Self {
-                has_set_password: Cell::new(false), // state is synced later on from the window
-                current_password_entry: TemplateChild::default(),
-                password_entry: TemplateChild::default(),
-                confirm_password_entry: TemplateChild::default(),
-                current_password_row: TemplateChild::default(),
-                error_revealer: TemplateChild::default(),
-                status_page: TemplateChild::default(),
-                actions: OnceCell::new(),
-                default_password_signal: RefCell::default(),
-            }
-        }
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();

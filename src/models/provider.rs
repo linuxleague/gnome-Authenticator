@@ -93,22 +93,22 @@ mod imp {
         type Type = super::Provider;
 
         fn new() -> Self {
-            let model = AccountsModel::new();
+            let model = AccountsModel::default();
             Self {
-                id: Cell::new(0),
+                id: Cell::default(),
                 default_counter: Cell::new(otp::HOTP_DEFAULT_COUNTER),
                 algorithm: RefCell::new(Algorithm::default().to_string()),
                 digits: Cell::new(otp::DEFAULT_DIGITS),
-                name: RefCell::new("".to_string()),
-                website: RefCell::new(None),
-                help_url: RefCell::new(None),
-                image_uri: RefCell::new(None),
+                name: RefCell::default(),
+                website: RefCell::default(),
+                help_url: RefCell::default(),
+                image_uri: RefCell::default(),
                 method: RefCell::new(OTPMethod::default().to_string()),
                 period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
                 filter_model: gtk::FilterListModel::new(Some(&model), gtk::Filter::NONE),
                 accounts: model,
                 tick_callback: RefCell::default(),
-                remaining_time: Cell::new(0),
+                remaining_time: Cell::default(),
             }
         }
     }

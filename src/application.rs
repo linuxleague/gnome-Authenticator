@@ -27,6 +27,7 @@ mod imp {
 
     // The basic struct that holds our state and widgets
     // (Ref)Cells are used for members which need to be mutable
+    #[derive(Default)]
     pub struct Application {
         pub window: RefCell<Option<WeakRef<Window>>>,
         pub model: ProvidersModel,
@@ -43,21 +44,6 @@ mod imp {
         const NAME: &'static str = "Application";
         type ParentType = adw::Application;
         type Type = super::Application;
-
-        // Initialize with default values
-        fn new() -> Self {
-            let model = ProvidersModel::new();
-
-            Self {
-                window: RefCell::new(None),
-                model,
-                settings: OnceCell::default(),
-                can_be_locked: Cell::new(false),
-                lock_timeout_id: RefCell::default(),
-                locked: Cell::new(false),
-                search_provider: RefCell::default(),
-            }
-        }
     }
 
     // Overrides GObject vfuncs

@@ -71,11 +71,6 @@ glib::wrapper! {
     pub struct ProvidersList(ObjectSubclass<imp::ProvidersList>) @extends gtk::Widget, gtk::Box;
 }
 impl ProvidersList {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create ProvidersList")
-    }
-
     pub fn set_view(&self, view: ProvidersListView) {
         let imp = self.imp();
         match view {

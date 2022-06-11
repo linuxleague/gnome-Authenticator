@@ -40,11 +40,6 @@ glib::wrapper! {
 }
 
 impl AccountsModel {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create AccountsModel")
-    }
-
     pub fn append(&self, account: &Account) {
         let pos = {
             let mut data = self.imp().0.borrow_mut();
@@ -90,5 +85,11 @@ impl AccountsModel {
             }
         }
         None
+    }
+}
+
+impl Default for AccountsModel {
+    fn default() -> Self {
+        glib::Object::new(&[]).expect("Failed to create AccountsModel")
     }
 }

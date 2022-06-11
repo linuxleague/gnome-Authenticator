@@ -135,7 +135,7 @@ mod imp {
             Self {
                 paintable: CameraPaintable::new(sender),
                 receiver,
-                started: Cell::new(false),
+                started: Cell::default(),
                 previous: TemplateChild::default(),
                 spinner: TemplateChild::default(),
                 stack: TemplateChild::default(),
@@ -184,11 +184,6 @@ glib::wrapper! {
 }
 
 impl Camera {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create a Camera")
-    }
-
     pub fn start(&self) {
         let imp = self.imp();
         if !imp.started.get() {
@@ -294,5 +289,11 @@ impl Camera {
                     let _ = camera.scan_from_screenshot().await;
                 }));
             }));
+    }
+}
+
+impl Default for Camera {
+    fn default() -> Self {
+        glib::Object::new(&[]).expect("Failed to create a Camera")
     }
 }

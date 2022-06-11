@@ -51,9 +51,9 @@ mod imp {
                 stack: TemplateChild::default(),
                 image: TemplateChild::default(),
                 spinner: TemplateChild::default(),
-                provider: RefCell::new(None),
-                signal_id: Default::default(),
-                join_handle: Default::default(),
+                provider: RefCell::default(),
+                signal_id: RefCell::default(),
+                join_handle: RefCell::default(),
             }
         }
 
@@ -125,11 +125,6 @@ glib::wrapper! {
     pub struct ProviderImage(ObjectSubclass<imp::ProviderImage>) @extends gtk::Widget, gtk::Box;
 }
 impl ProviderImage {
-    #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        glib::Object::new(&[]).expect("Failed to create ProviderImage")
-    }
-
     pub fn set_provider(&self, provider: Option<&Provider>) {
         let imp = self.imp();
         if let Some(provider) = provider {

@@ -79,7 +79,7 @@ mod imp {
             Self {
                 settings,
                 providers: TemplateChild::default(),
-                model: OnceCell::new(),
+                model: OnceCell::default(),
                 account_details: TemplateChild::default(),
                 search_entry: TemplateChild::default(),
                 click_gesture: TemplateChild::default(),
