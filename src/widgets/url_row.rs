@@ -58,7 +58,9 @@ mod imp {
             self.parent_constructed(obj);
             let gesture = gtk::GestureClick::new();
             gesture.connect_pressed(clone!(@weak obj as row => move |_,_,_,_| {
-                row.open_uri();
+                if let Some(ref uri) = *row.imp().uri.borrow() {
+                    gtk::show_uri(gtk::Window::NONE, uri, 0);
+                };
             }));
 
             obj.add_controller(&gesture);
@@ -79,12 +81,6 @@ glib::wrapper! {
 }
 
 impl UrlRow {
-    fn open_uri(&self) {
-        if let Some(ref uri) = *self.imp().uri.borrow() {
-            gtk::show_uri(gtk::Window::NONE, uri, 0);
-        }
-    }
-
     pub fn set_uri(&self, uri: &str) {
         self.set_subtitle(uri);
         self.imp().uri.borrow_mut().replace(uri.to_string());

@@ -223,7 +223,7 @@ mod imp {
                 return;
             }
 
-            let window = app.create_window();
+            let window = Window::new(self.model.clone(), &app.clone());
             window.present();
             self.window.replace(Some(window.downgrade()));
 
@@ -361,10 +361,6 @@ impl Application {
         self.set_property("can-be-locked", &state);
     }
 
-    fn create_window(&self) -> Window {
-        Window::new(self.imp().model.clone(), &self.clone())
-    }
-
     /// Starts or restarts the lock timeout.
     pub fn restart_lock_timeout(&self) {
         let imp = self.imp();
@@ -389,7 +385,7 @@ impl Application {
         }
     }
 
-    pub fn cancel_lock_timeout(&self) {
+    fn cancel_lock_timeout(&self) {
         if let Some(id) = self.imp().lock_timeout_id.borrow_mut().take() {
             id.remove();
         }

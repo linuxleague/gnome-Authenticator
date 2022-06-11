@@ -99,17 +99,6 @@ glib::wrapper! {
 }
 
 impl ProgressIcon {
-    fn size(&self) -> i32 {
-        let width = self.width_request();
-        let height = self.width_request();
-
-        std::cmp::max(16, std::cmp::min(width, height))
-    }
-
-    pub fn progress(&self) -> f32 {
-        self.imp().progress.get()
-    }
-
     pub fn set_progress(&self, progress: f32) {
         if (progress - self.progress()).abs() < f32::EPSILON {
             return;
@@ -118,5 +107,16 @@ impl ProgressIcon {
         self.imp().progress.replace(clamped);
         self.queue_draw();
         self.notify("progress");
+    }
+
+    fn size(&self) -> i32 {
+        let width = self.width_request();
+        let height = self.width_request();
+
+        std::cmp::max(16, std::cmp::min(width, height))
+    }
+
+    fn progress(&self) -> f32 {
+        self.imp().progress.get()
     }
 }
