@@ -292,7 +292,7 @@ impl AccountAddDialog {
 
             imp.provider_page.connect_local("created", false, clone!(@weak dialog, @weak model => @default-panic, move |args| {
                 let provider = args[1].get::<Provider>().unwrap();
-                model.add_provider(&provider);
+                model.append(&provider);
 
                 dialog.imp().provider_completion
                     .set_model(Some(&model.completion_model()));

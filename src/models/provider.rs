@@ -343,7 +343,8 @@ impl Provider {
             .into_iter()
             .map(From::from)
             .map(|p: Provider| {
-                Account::load(&p).unwrap().for_each(|a| p.add_account(&a));
+                let accounts = Account::load(&p).unwrap().collect::<Vec<_>>();
+                p.add_accounts(&accounts);
                 p
             });
         Ok(results)
@@ -585,6 +586,9 @@ impl Provider {
     }
 
     fn setup_tick_callback(&self) {
+        if self.imp().tick_callback.borrow().is_some() || !self.method().is_time_based() {
+            return;
+        }
         self.set_property("remaining-time", &(self.period() as u64));
 
         match self.method() {
@@ -611,19 +615,18 @@ impl Provider {
         }
     }
 
-    pub fn has_account(&self, account: &Account) -> Option<u32> {
-        self.imp().accounts.find_position_by_id(account.id())
-    }
-
     pub fn has_accounts(&self) -> bool {
         self.imp().accounts.n_items() != 0
     }
 
+    fn add_accounts(&self, accounts: &[Account]) {
+        self.imp().accounts.splice(accounts);
+        self.setup_tick_callback();
+    }
+
     pub fn add_account(&self, account: &Account) {
-        self.imp().accounts.insert(account);
-        if self.imp().tick_callback.borrow().is_none() && self.method().is_time_based() {
-            self.setup_tick_callback();
-        }
+        self.imp().accounts.append(account);
+        self.setup_tick_callback();
     }
 
     pub fn accounts_model(&self) -> &AccountsModel {

@@ -170,7 +170,7 @@ impl ProvidersDialog {
             false,
             clone!(@weak model, @weak self as dialog => @default-return None, move |args| {
                 let provider = args[1].get::<Provider>().unwrap();
-                model.add_provider(&provider);
+                model.append(&provider);
                 dialog.emit_by_name::<()>("changed", &[]);
                 dialog.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Provider created successfully")));
                 dialog.set_view(View::Placeholder);

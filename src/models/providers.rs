@@ -89,14 +89,14 @@ impl ProvidersModel {
                     help_url,
                     image_uri,
                 )?;
-                self.add_provider(&p);
+                self.append(&p);
                 p
             }
         };
         Ok(provider)
     }
 
-    pub fn find_by_name(&self, name: &str) -> Option<Provider> {
+    fn find_by_name(&self, name: &str) -> Option<Provider> {
         for pos in 0..self.n_items() {
             let obj = self.item(pos)?;
             let provider = obj.downcast::<Provider>().unwrap();
@@ -144,13 +144,24 @@ impl ProvidersModel {
         store
     }
 
-    pub fn add_provider(&self, provider: &Provider) {
+    pub fn append(&self, provider: &Provider) {
         let pos = {
             let mut data = self.imp().0.borrow_mut();
             data.push(provider.clone());
             (data.len() - 1) as u32
         };
         self.items_changed(pos, 0, 1);
+    }
+
+    fn splice(&self, providers: &[Provider]) {
+        let len = providers.len();
+        let pos = {
+            let mut data = self.imp().0.borrow_mut();
+            let pos = data.len();
+            data.extend_from_slice(providers);
+            pos as u32
+        };
+        self.items_changed(pos, 0, len as u32);
     }
 
     pub fn delete_provider(&self, provider: &Provider) {
@@ -185,7 +196,7 @@ impl ProvidersModel {
         }
         if !found {
             provider.add_account(account);
-            self.add_provider(provider);
+            self.append(provider);
         }
     }
 
@@ -212,11 +223,10 @@ impl ProvidersModel {
         }
         tracing::info!("Loading providers");
         // fill in the providers from the database
-        Provider::load()
+        let providers = Provider::load()
             .expect("Failed to load providers from the database")
-            .for_each(|provider| {
-                self.add_provider(&provider);
-            });
+            .collect::<Vec<_>>();
+        self.splice(&providers);
         self.imp().1.set(true);
     }
 }

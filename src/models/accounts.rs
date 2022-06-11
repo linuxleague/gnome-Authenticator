@@ -45,13 +45,24 @@ impl AccountsModel {
         glib::Object::new(&[]).expect("Failed to create AccountsModel")
     }
 
-    pub fn insert(&self, account: &Account) {
+    pub fn append(&self, account: &Account) {
         let pos = {
             let mut data = self.imp().0.borrow_mut();
             data.push(account.clone());
             (data.len() - 1) as u32
         };
         self.items_changed(pos, 0, 1);
+    }
+
+    pub fn splice(&self, accounts: &[Account]) {
+        let len = accounts.len();
+        let pos = {
+            let mut data = self.imp().0.borrow_mut();
+            let pos = data.len();
+            data.extend_from_slice(accounts);
+            pos as u32
+        };
+        self.items_changed(pos, 0, len as u32);
     }
 
     pub fn remove(&self, pos: u32) {
