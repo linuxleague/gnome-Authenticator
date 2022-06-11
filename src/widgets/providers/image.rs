@@ -68,8 +68,8 @@ mod imp {
 
     impl ObjectImpl for ProviderImage {
         fn constructed(&self, obj: &Self::Type) {
-            obj.setup_widgets();
             self.parent_constructed(obj);
+            obj.setup_widgets();
         }
 
         fn properties() -> &'static [ParamSpec] {

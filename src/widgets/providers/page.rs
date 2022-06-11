@@ -157,9 +157,9 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
+            self.parent_constructed(obj);
             obj.setup_widgets();
             obj.action_set_enabled("providers.save", false);
-            self.parent_constructed(obj);
         }
     }
     impl WidgetImpl for ProviderPage {}

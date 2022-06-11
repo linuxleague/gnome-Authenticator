@@ -33,8 +33,8 @@ mod imp {
 
     impl ObjectImpl for EditableLabel {
         fn constructed(&self, obj: &Self::Type) {
-            self.stack.set_visible_child_name("label");
             self.parent_constructed(obj);
+            self.stack.set_visible_child_name("label");
         }
     }
     impl WidgetImpl for EditableLabel {
@@ -78,8 +78,8 @@ mod imp {
 
     impl ObjectImpl for EditableSpin {
         fn constructed(&self, obj: &Self::Type) {
-            self.stack.set_visible_child_name("label");
             self.parent_constructed(obj);
+            self.stack.set_visible_child_name("label");
         }
     }
     impl WidgetImpl for EditableSpin {

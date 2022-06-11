@@ -87,8 +87,8 @@ mod imp {
 
     impl WidgetImpl for PasswordPage {
         fn unmap(&self, widget: &Self::Type) {
-            widget.reset();
             self.parent_unmap(widget);
+            widget.reset();
         }
     }
 

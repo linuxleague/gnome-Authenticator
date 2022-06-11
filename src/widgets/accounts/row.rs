@@ -90,8 +90,26 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.setup_widgets();
             self.parent_constructed(obj);
+            let account = obj.account();
+            account
+                .bind_property("name", obj, "title")
+                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+                .build();
+
+            account
+                .bind_property("name", obj, "tooltip-text")
+                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+                .build();
+
+            account
+                .bind_property("otp", &*self.otp_label, "label")
+                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+                .build();
+
+            // Only display the increment button if it is a HOTP account
+            self.increment_btn
+                .set_visible(account.provider().method() == OTPMethod::HOTP);
         }
     }
     impl WidgetImpl for AccountRow {}
@@ -112,28 +130,5 @@ impl AccountRow {
 
     fn account(&self) -> Account {
         self.property("account")
-    }
-
-    fn setup_widgets(&self) {
-        let imp = self.imp();
-        let account = self.account();
-        account
-            .bind_property("name", self, "title")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-            .build();
-
-        account
-            .bind_property("name", self, "tooltip-text")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-            .build();
-
-        account
-            .bind_property("otp", &*imp.otp_label, "label")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
-            .build();
-
-        // Only display the increment button if it is a HOTP account
-        imp.increment_btn
-            .set_visible(account.provider().method() == OTPMethod::HOTP);
     }
 }

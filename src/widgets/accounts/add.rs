@@ -112,8 +112,8 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.action_set_enabled("add.save", false);
             self.parent_constructed(obj);
+            obj.action_set_enabled("add.save", false);
         }
     }
     impl WidgetImpl for AccountAddDialog {}

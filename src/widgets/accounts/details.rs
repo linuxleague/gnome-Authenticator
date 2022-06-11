@@ -136,18 +136,18 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.init_widgets();
             self.parent_constructed(obj);
+            obj.setup_widget();
         }
     }
     impl WidgetImpl for AccountDetailsPage {
         fn unmap(&self, widget: &Self::Type) {
+            self.parent_unmap(widget);
             self.edit_stack.set_visible_child_name("edit");
             self.account_label.stop_editing(false);
             self.counter_label.stop_editing(false);
             self.provider_stack.set_visible_child_name("display");
             self.provider_entry.set_text("");
-            self.parent_unmap(widget);
         }
     }
     impl BoxImpl for AccountDetailsPage {}
@@ -158,7 +158,7 @@ glib::wrapper! {
 }
 
 impl AccountDetailsPage {
-    fn init_widgets(&self) {
+    fn setup_widget(&self) {
         let imp = self.imp();
         imp.qrcode_picture
             .set_paintable(Some(&imp.qrcode_paintable));

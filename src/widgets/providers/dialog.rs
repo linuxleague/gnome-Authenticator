@@ -82,8 +82,8 @@ mod imp {
             SIGNALS.as_ref()
         }
         fn constructed(&self, obj: &Self::Type) {
-            self.placeholder_page.set_icon_name(Some(config::APP_ID));
             self.parent_constructed(obj);
+            self.placeholder_page.set_icon_name(Some(config::APP_ID));
         }
     }
     impl WidgetImpl for ProvidersDialog {}
@@ -314,8 +314,20 @@ mod row {
             }
 
             fn constructed(&self, obj: &Self::Type) {
-                obj.setup_widgets();
                 self.parent_constructed(obj);
+                let hbox = gtk::Box::builder()
+                    .orientation(gtk::Orientation::Horizontal)
+                    .margin_bottom(12)
+                    .margin_end(6)
+                    .margin_top(12)
+                    .margin_start(6)
+                    .build();
+                self.title_label.set_valign(gtk::Align::Center);
+                self.title_label.set_halign(gtk::Align::Start);
+                self.title_label.set_wrap(true);
+                self.title_label.set_ellipsize(pango::EllipsizeMode::End);
+                hbox.append(&self.title_label);
+                obj.set_child(Some(&hbox));
             }
         }
         impl WidgetImpl for ProviderActionRow {}
@@ -327,23 +339,6 @@ mod row {
     }
 
     impl ProviderActionRow {
-        fn setup_widgets(&self) {
-            let imp = self.imp();
-            let hbox = gtk::Box::builder()
-                .orientation(gtk::Orientation::Horizontal)
-                .margin_bottom(12)
-                .margin_end(6)
-                .margin_top(12)
-                .margin_start(6)
-                .build();
-            imp.title_label.set_valign(gtk::Align::Center);
-            imp.title_label.set_halign(gtk::Align::Start);
-            imp.title_label.set_wrap(true);
-            imp.title_label.set_ellipsize(pango::EllipsizeMode::End);
-            hbox.append(&imp.title_label);
-            self.set_child(Some(&hbox));
-        }
-
         pub fn set_provider(&self, provider: Provider) {
             self.set_property("provider", &provider);
             self.imp().title_label.set_text(&provider.name());

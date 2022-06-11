@@ -55,8 +55,17 @@ mod imp {
         }
 
         fn constructed(&self, obj: &Self::Type) {
-            obj.setup_widgets();
             self.parent_constructed(obj);
+            let gesture = gtk::GestureClick::new();
+            gesture.connect_pressed(clone!(@weak obj as row => move |_,_,_,_| {
+                row.open_uri();
+            }));
+
+            obj.add_controller(&gesture);
+
+            let image_suffix = gtk::Image::from_icon_name("link-symbolic");
+            image_suffix.add_css_class("dim-label");
+            obj.add_suffix(&image_suffix);
         }
     }
     impl WidgetImpl for UrlRow {}
@@ -70,19 +79,6 @@ glib::wrapper! {
 }
 
 impl UrlRow {
-    fn setup_widgets(&self) {
-        let gesture = gtk::GestureClick::new();
-        gesture.connect_pressed(clone!(@weak self as row => move |_,_,_,_| {
-            row.open_uri();
-        }));
-
-        self.add_controller(&gesture);
-
-        let image_suffix = gtk::Image::from_icon_name("link-symbolic");
-        image_suffix.add_css_class("dim-label");
-        self.add_suffix(&image_suffix);
-    }
-
     fn open_uri(&self) {
         if let Some(ref uri) = *self.imp().uri.borrow() {
             gtk::show_uri(gtk::Window::NONE, uri, 0);
