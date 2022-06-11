@@ -52,7 +52,7 @@ mod imp {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
                     ParamSpecBoolean::new(
-                        "locked",
+                        "is-locked",
                         "",
                         "",
                         false,
@@ -72,7 +72,7 @@ mod imp {
 
         fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
-                "locked" => {
+                "is-locked" => {
                     let locked = value.get().unwrap();
                     self.locked.set(locked);
                 }
@@ -86,7 +86,7 @@ mod imp {
 
         fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
-                "locked" => self.locked.get().to_value(),
+                "is-locked" => self.locked.get().to_value(),
                 "can-be-locked" => self.can_be_locked.get().to_value(),
                 _ => unimplemented!(),
             }
@@ -163,16 +163,16 @@ mod imp {
                 app,
                 "lock",
                 clone!(@weak app => move |_, _| {
-                    app.set_locked(true);
+                    app.set_is_locked(true);
                 })
             );
             app.bind_property("can-be-locked", &get_action!(app, @lock), "enabled")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
                 .build();
-            app.bind_property("locked", &get_action!(app, @preferences), "enabled")
+            app.bind_property("is-locked", &get_action!(app, @preferences), "enabled")
                 .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
                 .build();
-            app.bind_property("locked", &get_action!(app, @providers), "enabled")
+            app.bind_property("is-locked", &get_action!(app, @providers), "enabled")
                 .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
                 .build();
 
@@ -322,7 +322,7 @@ impl Application {
             ("application-id", &Some(config::APP_ID)),
             ("flags", &gio::ApplicationFlags::HANDLES_OPEN),
             ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
-            ("locked", &has_set_password),
+            ("is-locked", &has_set_password),
             ("can-be-locked", &has_set_password),
         ])
         .unwrap();
@@ -345,12 +345,12 @@ impl Application {
             .unwrap()
     }
 
-    pub fn locked(&self) -> bool {
-        self.property("locked")
+    pub fn is_locked(&self) -> bool {
+        self.property("is-locked")
     }
 
-    pub fn set_locked(&self, state: bool) {
-        self.set_property("locked", &state);
+    pub fn set_is_locked(&self, state: bool) {
+        self.set_property("is-locked", &state);
     }
 
     pub fn can_be_locked(&self) -> bool {
@@ -377,11 +377,11 @@ impl Application {
 
         self.cancel_lock_timeout();
 
-        if !self.locked() && self.can_be_locked() {
+        if !self.is_locked() && self.can_be_locked() {
             let id = glib::timeout_add_seconds_local(
                 timeout,
                 clone!(@weak self as app => @default-return glib::Continue(false), move || {
-                    app.set_locked(true);
+                    app.set_is_locked(true);
                     glib::Continue(false)
                 }),
             );
@@ -436,7 +436,7 @@ impl SearchProviderImpl for Application {
 
     fn initial_result_set(&self, terms: &[String]) -> Vec<ResultID> {
         // don't show any results if the application is locked
-        if self.locked() {
+        if self.is_locked() {
             vec![]
         } else {
             self.imp()

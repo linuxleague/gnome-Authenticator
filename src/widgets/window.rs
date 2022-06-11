@@ -233,7 +233,7 @@ impl Window {
         imp.providers.model().connect_items_changed(
             clone!(@weak self as win, @weak app => move |_, _,_,_| {
             // We do a check on set_view to ensure we always use the right page
-            if !app.locked() {
+            if !app.is_locked() {
                 win.set_view(View::Accounts);
             }
             }),
@@ -328,7 +328,7 @@ impl Window {
                 win.open_add_account(None);
             })
         );
-        app.bind_property("locked", &get_action!(self, @add_account), "enabled")
+        app.bind_property("is-locked", &get_action!(self, @add_account), "enabled")
             .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
             .build();
 
@@ -345,7 +345,7 @@ impl Window {
                 })});
                 if is_current_password {
                     password_entry.set_text("");
-                    app.set_locked(false);
+                    app.set_is_locked(false);
                     app.restart_lock_timeout();
                     win.set_view(View::Accounts);
                     win.imp().model.get().unwrap().load();
@@ -358,10 +358,10 @@ impl Window {
 
     fn setup_signals(&self, app: &Application) {
         app.connect_local(
-            "notify::locked",
+            "notify::is-locked",
             false,
             clone!(@weak app, @weak self as win => @default-return None, move |_| {
-                if app.locked(){
+                if app.is_locked(){
                     win.set_view(View::Login);
                 } else {
                     win.set_view(View::Accounts);
@@ -369,7 +369,7 @@ impl Window {
                 None
             }),
         );
-        if app.locked() {
+        if app.is_locked() {
             self.set_view(View::Login);
         }
 
