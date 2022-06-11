@@ -67,6 +67,7 @@ test (
 
 doc_deps = [
   '--package=favicon-scrapper',
+  '--package=authenticator'
 ]
 custom_target(
   'cargo-doc',
