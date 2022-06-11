@@ -555,10 +555,36 @@ impl Provider {
         self.imp().image_uri.borrow().clone()
     }
 
+    pub fn connect_image_uri_notify<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, Option<String>) + 'static,
+    {
+        self.connect_notify_local(
+            Some("image-uri"),
+            clone!(@weak self as provider => move |_, _| {
+                let image_uri = provider.image_uri();
+                callback(&provider, image_uri);
+            }),
+        )
+    }
+
     pub fn open_help(&self) {
         if let Some(ref url) = self.help_url() {
             gio::AppInfo::launch_default_for_uri(url, None::<&gio::AppLaunchContext>).unwrap();
         }
+    }
+
+    pub fn connect_remaining_time_notify<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, u64) + 'static,
+    {
+        self.connect_notify_local(
+            Some("remaining-time"),
+            clone!(@weak self as provider => move |_, _| {
+                let remaining_time = provider.property("remaining-time");
+                callback(&provider, remaining_time);
+            }),
+        )
     }
 
     fn tick(&self) {

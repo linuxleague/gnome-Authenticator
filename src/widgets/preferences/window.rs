@@ -162,12 +162,39 @@ impl PreferencesWindow {
         window
     }
 
+    pub fn connect_restore_completed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_local(
+            "restore-completed",
+            false,
+            clone!(@weak self as win => @default-return None, move |_| {
+                callback(&win);
+                None
+            }),
+        )
+    }
+
     pub fn has_set_password(&self) -> bool {
         self.property("has-set-password")
     }
 
     pub fn set_has_set_password(&self, state: bool) {
         self.set_property("has-set-password", &state)
+    }
+
+    pub fn connect_has_set_password_notify<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, bool) + 'static,
+    {
+        self.connect_notify_local(
+            Some("has-set-password"),
+            clone!(@weak self as win => move |_, _| {
+                let has_set_password = win.has_set_password();
+                callback(&win, has_set_password);
+            }),
+        )
     }
 
     fn setup_widget(&self) {

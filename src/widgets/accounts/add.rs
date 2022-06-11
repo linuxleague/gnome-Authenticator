@@ -136,6 +136,20 @@ impl AccountAddDialog {
         dialog
     }
 
+    pub fn connect_added<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_local(
+            "added",
+            false,
+            clone!(@weak self as dialog => @default-return None, move |_| {
+                callback(&dialog);
+                None
+            }),
+        )
+    }
+
     #[template_callback]
     fn input_validate(&self, _: Option<gtk::Editable>) {
         let imp = self.imp();

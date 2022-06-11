@@ -367,6 +367,19 @@ impl Account {
         self.imp().name.borrow().clone()
     }
 
+    pub fn connect_name_notify<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, String) + 'static,
+    {
+        self.connect_notify_local(
+            Some("name"),
+            clone!(@weak self as app => move |_, _| {
+                let name = app.name();
+                callback(&app, name);
+            }),
+        )
+    }
+
     pub fn token(&self) -> String {
         self.imp().token.get().unwrap().clone()
     }

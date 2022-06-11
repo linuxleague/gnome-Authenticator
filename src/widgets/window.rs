@@ -205,15 +205,9 @@ impl Window {
             dialog.set_from_otp_uri(uri);
         }
 
-        dialog.connect_local(
-            "added",
-            false,
-            clone!(@weak self as win => @default-return None, move |_| {
-                win.providers().refilter();
-                None
-            }),
-        );
-
+        dialog.connect_added(clone!(@weak self as win => move |_| {
+            win.providers().refilter();
+        }));
         dialog.show();
     }
 
@@ -310,18 +304,13 @@ impl Window {
     }
 
     fn setup_signals(&self, app: &Application) {
-        app.connect_local(
-            "notify::is-locked",
-            false,
-            clone!(@weak app, @weak self as win => @default-return None, move |_| {
-                if app.is_locked(){
-                    win.set_view(View::Login);
-                } else {
-                    win.set_view(View::Accounts);
-                };
-                None
-            }),
-        );
+        app.connect_is_locked_notify(clone!(@weak self as win => move |_, is_locked| {
+            if is_locked{
+                win.set_view(View::Login);
+            } else {
+                win.set_view(View::Accounts);
+            };
+        }));
         if app.is_locked() {
             self.set_view(View::Login);
         }

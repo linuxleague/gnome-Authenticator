@@ -107,6 +107,20 @@ impl ProvidersDialog {
         dialog
     }
 
+    pub fn connect_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_local(
+            "changed",
+            false,
+            clone!(@weak self as dialog => @default-return None, move |_| {
+                callback(&dialog);
+                None
+            }),
+        )
+    }
+
     fn setup_widget(&self, model: ProvidersModel) {
         let imp = self.imp();
         imp.filter_model.set_model(Some(&model));

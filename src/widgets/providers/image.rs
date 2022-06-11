@@ -135,12 +135,10 @@ impl ProviderImage {
                 imp.spinner.start();
                 self.on_provider_image_changed();
             }
-            let signal_id = provider.connect_notify_local(
-                Some("image-uri"),
-                clone!(@weak self as image => move |_, _| {
+            let signal_id =
+                provider.connect_image_uri_notify(clone!(@weak self as image => move |_, _| {
                     image.on_provider_image_changed();
-                }),
-            );
+                }));
             imp.signal_id.replace(Some(signal_id));
             return;
         } else if let (Some(signal_id), Some(provider)) =

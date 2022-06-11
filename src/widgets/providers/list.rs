@@ -131,15 +131,11 @@ impl ProvidersList {
             clone!(@strong self as list => move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
                 let row = ProviderRow::new(provider);
-                row.connect_local("changed", false, clone!(@weak list => @default-return None,  move |_| {
+                row.connect_changed(clone!(@weak list => move |_| {
                     list.refilter();
-                    None
                 }));
-                row.connect_local("shared", false, clone!(@weak list => @default-return None,  move |args| {
-                    let account = args[1].get::<Account>().unwrap();
-
+                row.connect_shared(clone!(@weak list => move |_, account| {
                     list.emit_by_name::<()>("shared", &[&account]);
-                    None
                 }));
 
                 row.upcast::<gtk::Widget>()

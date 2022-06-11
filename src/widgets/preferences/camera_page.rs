@@ -77,28 +77,22 @@ impl CameraPage {
         // disconnect it after being called.
         let src = Rc::new(Cell::new(None));
 
-        src.set(Some(imp.camera.connect_local(
-            "code-detected",
-            false,
-            clone!(
-                @weak self as camera_page, @strong src, @strong tx
-                => @default-return None, move |arguments| {
-                    let code = arguments[1].get::<String>().unwrap();
-                    match tx.take().unwrap().send(code) {
-                        Ok(()) => (),
-                        Err(_) => {
-                            tracing::error!(concat!(
-                                "CameraPage::scan_from_camera failed to send the resulting QR ",
-                                "code to the recipient because the recipient already received a ",
-                                "QR code or was dropped. This should never occur.",
-                            ));
-                        }
+        src.set(Some(imp.camera.connect_code_detected(clone!(
+            @weak self as camera_page, @strong src, @strong tx
+            => move |_, code| {
+                match tx.take().unwrap().send(code) {
+                    Ok(()) => (),
+                    Err(_) => {
+                        tracing::error!(concat!(
+                            "CameraPage::scan_from_camera failed to send the resulting QR ",
+                            "code to the recipient because the recipient already received a ",
+                            "QR code or was dropped. This should never occur.",
+                        ));
                     }
-                    camera_page.imp().camera.disconnect(src.take().unwrap());
-                    None
                 }
-            ),
-        )));
+                camera_page.imp().camera.disconnect(src.take().unwrap());
+            }
+        ))));
 
         drop(tx);
         drop(src);
@@ -131,28 +125,22 @@ impl CameraPage {
         // disconnect it after being called.
         let src = Rc::new(Cell::new(None));
 
-        src.set(Some(imp.camera.connect_local(
-            "code-detected",
-            false,
-            clone!(
-                @weak self as camera_page, @strong src, @strong tx
-                => @default-return None, move |arguments| {
-                    let code = arguments[1].get::<String>().unwrap();
-                    match tx.take().unwrap().send(code) {
-                        Ok(()) => (),
-                        Err(_) => {
-                            tracing::error!(concat!(
-                                "CameraPage::scan_from_screenshot failed to send the resulting QR ",
-                                "code to the recipient because the recipient already received a ",
-                                "QR code or was dropped. This should never occur.",
-                            ));
-                        }
+        src.set(Some(imp.camera.connect_code_detected(clone!(
+            @weak self as camera_page, @strong src, @strong tx
+            => move |_, code| {
+                match tx.take().unwrap().send(code) {
+                    Ok(()) => (),
+                    Err(_) => {
+                        tracing::error!(concat!(
+                            "CameraPage::scan_from_screenshot failed to send the resulting QR ",
+                            "code to the recipient because the recipient already received a ",
+                            "QR code or was dropped. This should never occur.",
+                        ));
                     }
-                    camera_page.imp().camera.disconnect(src.take().unwrap());
-                    None
                 }
-            ),
-        )));
+                camera_page.imp().camera.disconnect(src.take().unwrap());
+            }
+        ))));
 
         drop(tx);
 
@@ -189,13 +177,8 @@ impl CameraPage {
         let imp = self.imp();
         let actions = imp.actions.get().unwrap();
 
-        imp.camera.connect_local(
-            "close",
-            false,
-            clone!(@weak actions => @default-return None, move |_| {
-                get_action!(actions, @close_page).activate(None);
-                None
-            }),
-        );
+        imp.camera.connect_close(clone!(@weak actions => move |_| {
+            get_action!(actions, @close_page).activate(None);
+        }));
     }
 }

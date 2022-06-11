@@ -116,6 +116,35 @@ impl ProviderRow {
         glib::Object::new(&[("provider", &provider)]).expect("Failed to create ProviderRow")
     }
 
+    pub fn connect_changed<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_local(
+            "changed",
+            false,
+            clone!(@weak self as row => @default-return None, move |_| {
+                callback(&row);
+                None
+            }),
+        )
+    }
+
+    pub fn connect_shared<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, Account) + 'static,
+    {
+        self.connect_local(
+            "shared",
+            false,
+            clone!(@weak self as row => @default-return None, move |args| {
+                let account = args[1].get::<Account>().unwrap();
+                callback(&row, account);
+                None
+            }),
+        )
+    }
+
     fn provider(&self) -> Provider {
         self.property("provider")
     }
@@ -146,12 +175,9 @@ impl ProviderRow {
         } else {
             // Update the progress bar whnever the remaining-time is updated
             self.tick_progressbar();
-            provider.connect_notify_local(
-                Some("remaining-time"),
-                clone!(@weak self as row => move |_, _| {
-                    row.tick_progressbar();
-                }),
-            );
+            provider.connect_remaining_time_notify(clone!(@weak self as row => move |_, _| {
+                row.tick_progressbar();
+            }));
         }
 
         provider
@@ -172,15 +198,11 @@ impl ProviderRow {
                 }),
             );
 
-            account.connect_local("notify::name",
-                false,
-                clone!(@weak provider_row, @weak sorter => @default-return None, move |_| {
-                    // Re-sort in case the name was updated
-                    sorter.changed(gtk::SorterChange::Different);
-                    provider_row.emit_by_name::<()>("changed", &[]);
-                    None
-                }),
-            );
+            account.connect_name_notify(clone!(@weak provider_row, @weak sorter => move |_, _| {
+                // Re-sort in case the name was updated
+                sorter.changed(gtk::SorterChange::Different);
+                provider_row.emit_by_name::<()>("changed", &[]);
+            }));
             row.upcast::<gtk::Widget>()
         });
 

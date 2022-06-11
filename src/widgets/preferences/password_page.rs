@@ -117,6 +117,19 @@ impl PasswordPage {
         self.set_property("has-set-password", &new_value);
     }
 
+    pub fn connect_has_set_password_notify<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, bool) + 'static,
+    {
+        self.connect_notify_local(
+            Some("has-set-password"),
+            clone!(@weak self as win => move |_, _| {
+                let has_set_password = win.has_set_password();
+                callback(&win, has_set_password);
+            }),
+        )
+    }
+
     fn validate(&self) {
         let imp = self.imp();
 
@@ -145,12 +158,9 @@ impl PasswordPage {
 
         self.reset_validation();
         // Reset the validation whenever the password state changes
-        self.connect_notify_local(
-            Some("has-set-password"),
-            clone!(@weak self as page => move |_, _| {
-                page.reset_validation();
-            }),
-        );
+        self.connect_has_set_password_notify(clone!(@weak self as page => move |_, _| {
+            page.reset_validation();
+        }));
     }
 
     // Called when either the user sets/resets the password to bind/unbind the

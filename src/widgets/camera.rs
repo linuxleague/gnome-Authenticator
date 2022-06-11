@@ -205,6 +205,35 @@ impl Camera {
         }
     }
 
+    pub fn connect_close<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_local(
+            "close",
+            false,
+            clone!(@weak self as camera => @default-return None, move |_| {
+                callback(&camera);
+                None
+            }),
+        )
+    }
+
+    pub fn connect_code_detected<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, String) + 'static,
+    {
+        self.connect_local(
+            "code-detected",
+            false,
+            clone!(@weak self as camera => @default-return None, move |args| {
+                let code = args[1].get::<String>().unwrap();
+                callback(&camera, code);
+                None
+            }),
+        )
+    }
+
     pub fn scan_from_camera(&self) {
         if !self.imp().started.get() {
             spawn!(clone!(@weak self as camera => async move {

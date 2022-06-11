@@ -108,13 +108,11 @@ mod imp {
 
                     let preferences = PreferencesWindow::new(model);
                     preferences.set_has_set_password(app.can_be_locked());
-                    preferences.connect_local("restore-completed", false, clone!(@weak window => @default-return None, move |_| {
+                    preferences.connect_restore_completed(clone!(@weak window =>move |_| {
                         window.providers().refilter();
                         window.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Accounts restored successfully")));
-                        None
                     }));
-                    preferences.connect_notify_local(Some("has-set-password"), clone!(@weak app => move |preferences, _| {
-                        let state = preferences.has_set_password();
+                    preferences.connect_has_set_password_notify(clone!(@weak app => move |_, state| {
                         app.set_can_be_locked(state);
                     }));
                     preferences.set_transient_for(Some(&window));
@@ -150,9 +148,8 @@ mod imp {
                 clone!(@weak app,@weak self.model as model => move |_, _| {
                     let window = app.active_window();
                     let providers = ProvidersDialog::new(model);
-                    providers.connect_local("changed", false, clone!(@weak window => @default-return None, move |_| {
+                    providers.connect_changed(clone!(@weak window => move |_| {
                         window.providers().refilter();
-                        None
                     }));
                     providers.set_transient_for(Some(&window));
                     providers.show();
@@ -176,8 +173,8 @@ mod imp {
                 .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
                 .build();
 
-            app.connect_notify_local(Some("can-be-locked"), |app, _| {
-                if !app.can_be_locked() {
+            app.connect_can_be_locked_notify(|app, can_be_locked| {
+                if !can_be_locked {
                     app.cancel_lock_timeout();
                 }
             });
@@ -353,8 +350,34 @@ impl Application {
         self.set_property("is-locked", &state);
     }
 
+    pub fn connect_is_locked_notify<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, bool) + 'static,
+    {
+        self.connect_notify_local(
+            Some("is-locked"),
+            clone!(@weak self as app => move |_, _| {
+                let is_locked = app.is_locked();
+                callback(&app, is_locked);
+            }),
+        )
+    }
+
     pub fn can_be_locked(&self) -> bool {
         self.property("can-be-locked")
+    }
+
+    pub fn connect_can_be_locked_notify<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, bool) + 'static,
+    {
+        self.connect_notify_local(
+            Some("can-be-locked"),
+            clone!(@weak self as app => move |_, _| {
+                let can_be_locked = app.can_be_locked();
+                callback(&app, can_be_locked);
+            }),
+        )
     }
 
     pub fn set_can_be_locked(&self, state: bool) {
