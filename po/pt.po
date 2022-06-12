@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-19 23:06+0000\n"
-"PO-Revision-Date: 2022-04-20 23:09+0100\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-06-12 22:24+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (https://l10n.gnome.org/teams/pt/)\n"
 "Language: pt\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "Autenticador"
 
@@ -30,9 +30,9 @@ msgstr "Autenticação de dois fatores"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
-msgstr "Gere códigos de dois fatores"
+msgstr "Gera códigos de dois fatores"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:10
 msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
@@ -111,11 +111,11 @@ msgstr "Provedor de pesquisa GNOME Shell"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-"(encrypted / plain-text)"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
-"Faça cópia de segurança/Restaure de/para aplicações conhecidas como FreeOTP"
-"+, andOTP, Aegis (encriptado / texto-simples)"
+"Efetuar cópia de segurança/Restauro de/para aplicações conhecidas tais como "
+"FreeOTP+, Aegis (encriptado / texto-simples), e OTP, Google Authenticator"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
@@ -138,20 +138,20 @@ msgstr "Detalhes da conta"
 msgid "Backup/Restore formats support"
 msgstr "Suporte a formatos de cópia de segurança/restauro"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:235
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "_Câmara"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "Captura de _ecrã"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
 #: data/resources/ui/providers_dialog.ui:184
@@ -162,7 +162,7 @@ msgstr "Voltar"
 msgid "_Add"
 msgstr "_Adicionar"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "Digitalizar código QR"
 
@@ -259,11 +259,11 @@ msgstr "Incrementar o contador"
 msgid "Copy PIN to clipboard"
 msgstr "Copiar CÓDIGO para a área de transferência"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "Nenhuma câmara localizada"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "_De uma captura de ecrã"
 
@@ -341,11 +341,11 @@ msgstr "O tempo em minutos"
 msgid "Backup/Restore"
 msgstr "Cópia de segurança/Restaurar"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "Cópia de segurança"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -495,32 +495,36 @@ msgstr "Nenhuma conta"
 msgid "Add an account or scan a QR code first."
 msgstr "Adicionar uma conta ou analisar primeiro um código QR."
 
-#: src/application.rs:145
+#: src/application.rs:124
+msgid "Accounts restored successfully"
+msgstr "Contas restauradas com sucesso"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr ""
 "Rui Mendes <xz9protonmail.com>\n"
 "Manuela Silva <mmsrs@sky.com>\n"
 "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: src/application.rs:398 src/widgets/accounts/row.rs:43
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "Palavra-passe única copiada"
 
-#: src/application.rs:399
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "A palavra-passe foi copiada com sucesso"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:532 src/backup/aegis.rs:582
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:536
+#: src/backup/aegis.rs:378
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "Num ficheiro JSON contendo texto simples ou campos encriptados"
 
-#: src/backup/aegis.rs:586
+#: src/backup/aegis.rs:430
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "De um ficheiro JSON contendo texto simples ou campos encriptados"
 
@@ -534,45 +538,53 @@ msgid "Into a plain-text JSON file"
 msgstr "Num ficheiro de texto simples JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "De um ficheiro de texto simples JSON"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "Conta desconhecida"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "Emissor desconhecido"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "_Autenticador"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Num ficheiro de texto simples, compatível com FreeOTP+"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "A_utenticador"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "De um ficheiro de texto simples, compatível com FreeOTP+"
 
+#: src/backup/google.rs:24
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr "A partir de um código QR gerado pelo Google Authenticator"
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_tenticador (legado)"
 
@@ -601,41 +613,53 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "Token inválido"
 
-#: src/widgets/window.rs:339
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "Palavra-passe incorreta"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "Frase secreta incorreta"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "Chave / Palavra-passe"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "A chave que será utilizada para desencriptar o cofre"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "Selecionar ficheiro"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "A chave utilizada para encriptar o cofre"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+msgid "Unable to restore accounts"
+msgstr "Não foi possível restaurar contas"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "Algo correu mal"
+
+#: src/widgets/preferences/window.rs:421
+msgid "Couldn't find a QR code"
+msgstr "Não foi possível encontrar um código QR"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
 #: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Selecionar"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
 #: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Cancelar"
@@ -706,9 +730,6 @@ msgstr "O provedor tem contas atribuídas. Remova-as primeiro"
 #~ msgid "Main Window - Accounts List"
 #~ msgstr "Janela Principal - Lista de Contas"
 
-#~ msgid "Enable 2FA for this account"
-#~ msgstr "Ativar 2FA para esta conta"
-
 #~ msgid "Confirm New Password:"
 #~ msgstr "Confirmar nova palavra-passe:"
 
@@ -740,9 +761,6 @@ msgstr "O provedor tem contas atribuídas. Remova-as primeiro"
 
 #~ msgid "Add"
 #~ msgstr "Adicionar"
-
-#~ msgid "Couldn't generate the secret code"
-#~ msgstr "Não foi possível gerar o código secreto"
 
 #~ msgid "The PIN of {} was copied to the clipboard"
 #~ msgstr "O CÓDIGO de {} foi copiado para a área de transferência"
