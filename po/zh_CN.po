@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-20 13:49+0000\n"
-"PO-Revision-Date: 2022-04-21 19:39+0800\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-06-12 12:03+0800\n"
 "Last-Translator: lumingzh <lumingzh@qq.com>\n"
 "Language-Team: Chinese - China <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "验证器"
 
@@ -34,7 +34,7 @@ msgstr "双重认证"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
 msgstr "生成双因素验证码"
 
@@ -116,10 +116,11 @@ msgstr "GNOME Shell 搜索提供者"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-"(encrypted / plain-text)"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
-"备份至流行的如 FreeOTP+、andOTP、Aegis（加密/纯文本）等应用程序或从其恢复"
+"备份至流行的如 FreeOTP+、Aegis（加密/纯文本）、andOTP、谷歌验证器等应用程序或"
+"从其恢复"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
@@ -142,20 +143,20 @@ msgstr "帐号详情"
 msgid "Backup/Restore formats support"
 msgstr "支持的备份/恢复格式"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:235
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "摄像头(_C)"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "截图(_S)"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
 #: data/resources/ui/providers_dialog.ui:184
@@ -166,7 +167,7 @@ msgstr "返回"
 msgid "_Add"
 msgstr "添加(_A)"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "扫描二维码"
 
@@ -263,11 +264,11 @@ msgstr "增加计数"
 msgid "Copy PIN to clipboard"
 msgstr "复制验证码到剪贴板"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "未找到摄像头"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "从截图(_F)"
 
@@ -344,11 +345,11 @@ msgstr "超时时间，单位为分钟"
 msgid "Backup/Restore"
 msgstr "备份/恢复"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "备份"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "恢复"
 
@@ -484,7 +485,7 @@ msgstr "解锁(_U)"
 
 #: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
 msgid "New Account"
-msgstr "新增帐号"
+msgstr "新建帐号"
 
 #: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
 msgid "Menu"
@@ -498,7 +499,11 @@ msgstr "无帐号"
 msgid "Add an account or scan a QR code first."
 msgstr "请先添加帐号或扫描二维码。"
 
-#: src/application.rs:145
+#: src/application.rs:124
+msgid "Accounts restored successfully"
+msgstr "帐号已成功恢复"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr ""
 "Boyuan Yang <073plan@gmail.com>, 2020\n"
@@ -507,25 +512,25 @@ msgstr ""
 "Dingzhong Chen <wsxy162@gmail.com>, 2021\n"
 "lumingzh <lumingzh@qq.com>, 2022"
 
-#: src/application.rs:398 src/widgets/accounts/row.rs:43
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "动态口令已复制"
 
-#: src/application.rs:399
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "密码已成功复制"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:532 src/backup/aegis.rs:582
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:536
+#: src/backup/aegis.rs:378
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "导出为包含纯文本或加密域的 JSON 文件"
 
-#: src/backup/aegis.rs:586
+#: src/backup/aegis.rs:430
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "从包含纯文本或加密域的 JSON 文件导入"
 
@@ -539,47 +544,55 @@ msgid "Into a plain-text JSON file"
 msgstr "导出到 JSON 纯文本文件"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "从 JSON 纯文本文件导入"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "未知帐号"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "未知颁发者"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "验证器(_A)"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "导出到纯文本文件，与 FreeOTP+ 兼容"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "验证器(_U)"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "从纯文本文件导入，与 FreeOTP+ 兼容"
 
+#: src/backup/google.rs:24
+msgid "Google Authenticator"
+msgstr "谷歌验证器"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr "来自由谷歌验证器生成的二维码"
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
-msgstr "旧版验证器(_T)"
+msgstr "验证器（过时）(_T)"
 
 #: src/models/algorithm.rs:60
 msgid "Counter-based"
@@ -606,41 +619,53 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-256"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "无效的令牌"
 
-#: src/widgets/window.rs:339
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "错误的密码"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "错误的密码"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "密钥/密码"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "用于解密保险库的密钥"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "选择文件"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "用于加密保险库的密钥"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+msgid "Unable to restore accounts"
+msgstr "无法恢复帐号"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "发生了错误"
+
+#: src/widgets/preferences/window.rs:421
+msgid "Couldn't find a QR code"
+msgstr "无法找到二维码"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
 #: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "选择"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
 #: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "取消"
@@ -747,9 +772,6 @@ msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
 #~ msgid "Main Window - Accounts List"
 #~ msgstr "主窗口 - 帐号列表"
 
-#~ msgid "Enable 2FA for this account"
-#~ msgstr "为此账号启用双重认证"
-
 #~ msgid "Confirm New Password:"
 #~ msgstr "确认新密码："
 
@@ -761,9 +783,6 @@ msgstr "此提供方已经被分配了帐号，请先移除这些帐号"
 
 #~ msgid "Add"
 #~ msgstr "添加"
-
-#~ msgid "Couldn't generate the secret code"
-#~ msgstr "无法生成验证码"
 
 #~ msgid "The PIN of {} was copied to the clipboard"
 #~ msgstr "{} 的 PIN 已复制到剪贴板"
