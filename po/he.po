@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-19 23:06+0000\n"
-"PO-Revision-Date: 2022-04-20 11:51+0300\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-06-16 11:47+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew <>\n"
 "Language: he\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "מאמת"
 
@@ -32,7 +32,7 @@ msgstr "אימות דו־שלבי"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
 msgstr "יצירת קודים לאימות דו־שלבי"
 
@@ -113,12 +113,15 @@ msgid "GNOME Shell search provider"
 msgstr "ספק חיפוש למעטפת GNOME"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+#| msgid ""
+#| "Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+#| "(encrypted / plain-text)"
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-"(encrypted / plain-text)"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
-"גיבוי/שחזור מתוך/אל יישומים מוכרים כגון FreeOTP+, andOTP ו־Aegis (מוצפן / "
-"טקסט פשוט)"
+"גיבוי/שחזור מתוך/אל יישומים מוכרים כגון FreeOTP+‎, ‏Aegis (מוצפן / טקסט פשוט), "
+"andOTP ומאמת Google"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
@@ -141,20 +144,20 @@ msgstr "פרטי חשבון"
 msgid "Backup/Restore formats support"
 msgstr "תמיכה בתצורות גיבוי/שחזור"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:235
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "בילאל אלמוסאווי"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "מ_צלמה"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "צי_לום מסך"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
 #: data/resources/ui/providers_dialog.ui:184
@@ -165,7 +168,7 @@ msgstr "חזרה"
 msgid "_Add"
 msgstr "הו_ספה"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "סריקת קוד QR"
 
@@ -262,11 +265,11 @@ msgstr "הגדלת המונה"
 msgid "Copy PIN to clipboard"
 msgstr "העתקת קוד סודי ללוח הגזירים"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "לא נמצאה מצלמה"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "מצי_לום מסך"
 
@@ -343,11 +346,11 @@ msgstr "הזמן בשניות"
 msgid "Backup/Restore"
 msgstr "גיבוי/שחזור"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "גיבוי"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "שחזור"
 
@@ -397,7 +400,6 @@ msgid "No providers matching the query were found."
 msgstr "לא נמצאו ספקים שתואמים את השאילתה."
 
 #: data/resources/ui/providers_dialog.ui:194
-#| msgid "New Provider"
 msgid "No Provider Selected"
 msgstr "לא נבחר ספק"
 
@@ -498,7 +500,12 @@ msgstr "אין חשבונות"
 msgid "Add an account or scan a QR code first."
 msgstr "יש להוסיף חשבון או לסרוק QR תחילה."
 
-#: src/application.rs:145
+#: src/application.rs:124
+#| msgid "Provider created successfully"
+msgid "Accounts restored successfully"
+msgstr "חשבונות שוחזרו בהצלחה"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr ""
 "ירון שהרבני <sh.yaron@gmail.com>\n"
@@ -506,25 +513,25 @@ msgstr ""
 "\n"
 "<a href=\"https://l10n.gnome.org/teams/he/\">מיזם תרגום GNOME לעברית</a>"
 
-#: src/application.rs:398 src/widgets/accounts/row.rs:43
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "הססמה החד־פעמית הועתקה"
 
-#: src/application.rs:399
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "הססמה הועתקה בהצלחה"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:532 src/backup/aegis.rs:582
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:536
+#: src/backup/aegis.rs:378
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "לקובץ JSON המכיל טקסט פשוט או שדות מוצפנות"
 
-#: src/backup/aegis.rs:586
+#: src/backup/aegis.rs:430
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "מקובץ JSON המכיל טקסט פשוט או שדות מוצפנות"
 
@@ -538,45 +545,54 @@ msgid "Into a plain-text JSON file"
 msgstr "לקובץ JSON בטקסט פשוט"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "מקובץ JSON בטקסט פשוט"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "חשבון לא ידוע"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "מנפיק לא ידוע"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "מ_אמת"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "לקובץ טקסט פשוט, תואם ל־FreeOTP+‎"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "מ_אמת"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "מקובץ טקסט פשוט, תואם ל־FreeOTP+‎"
 
+#: src/backup/google.rs:24
+#| msgid "Authenticator"
+msgid "Google Authenticator"
+msgstr "מאמת Google"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr "מקוד QR שנוצר על ידי מאמת Google"
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
 msgstr "מ_אמת (מדור קודם)"
 
@@ -605,57 +621,66 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "אסימון שגוי"
 
-#: src/widgets/window.rs:339
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "ססמה שגויה"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "מילת צופן שגויה"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "מפתח / מילת צופן"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "המפתח שישמש לפענוח הכספת"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "בחירת קובץ"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "המפתח ששימש להצפנת הכספת"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+msgid "Unable to restore accounts"
+msgstr "לא ניתן לשחזר את החשבונות"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "משהו השתבש"
+
+#: src/widgets/preferences/window.rs:421
+msgid "Couldn't find a QR code"
+msgstr "לא ניתן למצוא קוד QR"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
 #: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "בחירה"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
 #: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "ביטול"
 
 #: src/widgets/providers/dialog.rs:174
-#| msgid "Password was copied successfully"
 msgid "Provider created successfully"
 msgstr "ספק נוצר בהצלחה"
 
 #: src/widgets/providers/dialog.rs:186
-#| msgid "Password was copied successfully"
 msgid "Provider updated successfully"
 msgstr "ספק עודכן בהצלחה"
 
 #: src/widgets/providers/dialog.rs:199
-#| msgid "Password was copied successfully"
 msgid "Provider removed successfully"
 msgstr "ספק הוסר בהצלחה"
 
