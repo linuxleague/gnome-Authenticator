@@ -7,19 +7,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-05-07 18:01+0000\n"
-"PO-Revision-Date: 2022-06-03 23:16+0200\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-06-16 22:52+0200\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: \n"
 "Language: oc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:142 src/main.rs:40
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "Autentificador"
 
@@ -29,7 +29,7 @@ msgstr "Autentificacion en dos temps"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:145
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
 msgstr "Generar de còdis a dos factors"
 
@@ -96,7 +96,7 @@ msgstr "Algoritmes SHA-1/SHA-256/SHA-512 preses en cargar"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
 msgid "QR code scanner using a camera or from a screenshot"
-msgstr ""
+msgstr "Numerizador de còdi QR amb emplegant una camèra o una captura d’ecran"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Lock the application with a password"
@@ -112,8 +112,8 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-"(encrypted / plain-text)"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
@@ -135,22 +135,22 @@ msgstr "Detalhs del comptes"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
 msgid "Backup/Restore formats support"
-msgstr ""
+msgstr "Formats preses en carga per Salvagardar/Restaurar"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "_Camèra"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "_Captura d'ecran"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
 #: data/resources/ui/providers_dialog.ui:184
@@ -161,7 +161,7 @@ msgstr "Precedent"
 msgid "_Add"
 msgstr "_Apondre"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "Numerizar un còdis QR"
 
@@ -258,11 +258,11 @@ msgstr "Incrementar lo comptador"
 msgid "Copy PIN to clipboard"
 msgstr "Copiar lo PIN al quichapapièrs"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "Cap de camèra pas trobada"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "_A partir d’una captura d’ecran"
 
@@ -329,7 +329,7 @@ msgstr "Indica se cal verrolhar automaticament l’aplicacion"
 
 #: data/resources/ui/preferences.ui:68
 msgid "Auto Lock _Timeout"
-msgstr ""
+msgstr "_Verrolhatge automatica"
 
 #: data/resources/ui/preferences.ui:69
 msgid "The time in minutes"
@@ -339,11 +339,11 @@ msgstr "Lo temps en minutas"
 msgid "Backup/Restore"
 msgstr "Salvagardar/Restaurar"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "Salvagardar"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -369,7 +369,7 @@ msgstr "URL d'Ajuda"
 
 #: data/resources/ui/provider_page.ui:245
 msgid "Provider setup instructions"
-msgstr ""
+msgstr "Instruccions de parametratge del provesidor"
 
 #: data/resources/ui/providers_dialog.ui:5
 msgid "Providers"
@@ -493,29 +493,33 @@ msgstr "Cap de compte"
 msgid "Add an account or scan a QR code first."
 msgstr "Apondètz un compte o numerizatz un còdi QR d’en primièr"
 
-#: src/application.rs:149
+#: src/application.rs:124
+msgid "Accounts restored successfully"
+msgstr "Compte restaurat amb succès"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr "Quentin PAGÈS"
 
-#: src/application.rs:442 src/widgets/accounts/row.rs:43
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "Senhal One-Time copiat"
 
-#: src/application.rs:443
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "Senhal copiat amb succès"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:530
+#: src/backup/aegis.rs:378
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr ""
 
-#: src/backup/aegis.rs:580
+#: src/backup/aegis.rs:430
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr ""
 
@@ -529,45 +533,53 @@ msgid "Into a plain-text JSON file"
 msgstr "Cap a un fichièr JSON en tèxt brut"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "A partir d’un fichièr JSON en tèxt brut"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "Compte desconegut"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "Emissor desconegut"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "_Autentificador"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Cap a un fichièr en tèxt brut, compatible amb FreeOTP+"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "A_utentificador"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "A partir d’un fichièr en tèxt brut, compatible amb FreeOTP+"
 
+#: src/backup/google.rs:24
+msgid "Google Authenticator"
+msgstr "Autentificador de Google"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr ""
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_thenticator (Version anciana)"
 
@@ -596,7 +608,7 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "Geton invalid"
 
@@ -604,33 +616,45 @@ msgstr "Geton invalid"
 msgid "Wrong Password"
 msgstr "Senhal incorrècte"
 
-#: src/widgets/preferences/password_page.rs:218
-#: src/widgets/preferences/password_page.rs:257
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "Frasa secreta incorrècta"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "Clau / Frasa secreta"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "La clau que serà utilizada per deschifrar lo còfre"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "Seleccionar un fichièr"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "La clau utilizada per chifrar lo còfre"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+msgid "Unable to restore accounts"
+msgstr "Restauracion impossibla dels comptes"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "Quicòm a trucat"
+
+#: src/widgets/preferences/window.rs:421
+msgid "Couldn't find a QR code"
+msgstr "Impossible de trobar un còdi QR"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
 #: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Seleccionar"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
 #: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Anullar"
