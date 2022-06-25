@@ -6,8 +6,8 @@
 msgid ""
 msgstr "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-15 00:33+0000\n"
-"PO-Revision-Date: 2022-04-16 10:00+0100\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-06-25 10:00+0100\n"
 "Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
@@ -17,7 +17,7 @@ msgstr "Project-Id-Version: authenticator master\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "Authenticator"
 
@@ -27,7 +27,7 @@ msgstr "Bi faktoreko autentifikazioa"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
 msgstr "Sortu bi faktoreko kodeak"
 
@@ -102,46 +102,53 @@ msgid "Beautiful UI"
 msgstr "Interfaze grafiko ederra"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
-msgstr "Babeskopia egin/leheneratu aplikazio ezagunetatik, adibidez FreeOTP+, andOTP"
+msgid "GNOME Shell search provider"
+msgstr "GNOME Shell bilaketa-hornitzailea"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
+msgstr "Babeskopia egin/leheneratu aplikazio ezagunetatik, adibidez FreeOTP+, Aegis (zifratua /testu soila) andOTP, Google Authenticator"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
 msgstr "Leiho nagusia"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
 #: data/resources/ui/account_add.ui:24
 msgid "Add a New Account"
 msgstr "Gehitu kontu berria"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
 msgid "Add a New Provider"
 msgstr "Gehitu hornitzaile berria"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
 msgid "Account Details"
 msgstr "Kontuaren xehetasunak"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
 msgid "Backup/Restore formats support"
 msgstr "Babeskopien/leheneratzeen formatuen euskarria"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "_Kamera"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "_Pantaila-argazkia"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:54
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
 msgid "Go Back"
 msgstr "Joan atzera"
 
@@ -149,12 +156,12 @@ msgstr "Joan atzera"
 msgid "_Add"
 msgstr "G_ehitu"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "Eskaneatu QR kodea"
 
 #: data/resources/ui/account_add.ui:100
-#: data/resources/ui/account_details_page.ui:52
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
 msgstr "Hornitzailea"
 
@@ -163,7 +170,7 @@ msgid "Token issuer"
 msgstr "Token-jaulkitzailea"
 
 #: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:42
+#: data/resources/ui/account_details_page.ui:111
 msgid "Account"
 msgstr "Kontua"
 
@@ -171,37 +178,47 @@ msgstr "Kontua"
 msgid "Token"
 msgstr "Tokena"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:214
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:183
+#: data/resources/ui/provider_page.ui:209
 msgid "Counter"
 msgstr "Kontagailua"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:180
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:163
+#: data/resources/ui/provider_page.ui:175
 msgid "Algorithm"
 msgstr "Algoritmoa"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:167
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:173
+#: data/resources/ui/provider_page.ui:162
 msgid "Computing Method"
 msgstr "Kalkulu-metodoa"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:197
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:193
+#: data/resources/ui/provider_page.ui:192
 msgid "Period"
 msgstr "Tartea"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:198
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
 msgid "Duration in seconds until the next password update"
 msgstr "Iraupena segundotan pasahitza eguneratu arte"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:231
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:203
+#: data/resources/ui/provider_page.ui:226
 msgid "Digits"
 msgstr "Digituak"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:232
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
 msgid "Length of the generated code"
 msgstr "Sortutako kodearen luzera"
 
 #: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:153
+#: data/resources/ui/account_details_page.ui:213
+#: data/resources/ui/provider_page.ui:148
 msgid "Website"
 msgstr "Webgunea"
 
@@ -209,23 +226,40 @@ msgstr "Webgunea"
 msgid "How to Set Up"
 msgstr "Nola konfiguratu"
 
-#: data/resources/ui/account_details_page.ui:72
-#: data/resources/ui/provider_page.ui:265
+#: data/resources/ui/account_details_page.ui:56
+msgid "_Edit"
+msgstr "_Editatu"
+
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "_Gorde"
+
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
 msgid "_Delete"
 msgstr "E_zabatu"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/account_details_page.ui:218
+msgid "Help"
+msgstr "Laguntza"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Handitu kontagailua"
+
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "Kopiat PINa arbelean"
+
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "Ez da kamerarik aurkitu"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "_Pantaila-argazki batetik"
-
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:61
-msgid "_Save"
-msgstr "_Gorde"
 
 #: data/resources/ui/preferences_password_page.ui:32
 msgid "Set up a Passphrase"
@@ -248,7 +282,7 @@ msgid "Repeat Passphrase"
 msgstr "Errepikatu pasaesaldia"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:106
+#: data/resources/ui/provider_page.ui:100
 msgid "_Reset"
 msgstr "_Berrezarri"
 
@@ -300,35 +334,35 @@ msgstr "Denbora minututan"
 msgid "Backup/Restore"
 msgstr "Babeskopia/Leheneratu"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "Babeskopia"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "Leheneratu"
 
-#: data/resources/ui/provider_page.ui:116
+#: data/resources/ui/provider_page.ui:110
 msgid "Select a _File"
 msgstr "Hautatu _fitxategi bat"
 
-#: data/resources/ui/provider_page.ui:139
+#: data/resources/ui/provider_page.ui:134
 msgid "Name"
 msgstr "Izena"
 
-#: data/resources/ui/provider_page.ui:154
+#: data/resources/ui/provider_page.ui:149
 msgid "Used to fetch the provider icon"
 msgstr "Hornitzaile-ikonoa atzitzeko erabilia"
 
-#: data/resources/ui/provider_page.ui:215
+#: data/resources/ui/provider_page.ui:210
 msgid "The by default value for counter-based computing method"
 msgstr "Kontagailuan oinarritutako kalkulu-metodorako balio lehenetsia"
 
-#: data/resources/ui/provider_page.ui:249
+#: data/resources/ui/provider_page.ui:244
 msgid "Help URL"
 msgstr "Laguntzarako URLa"
 
-#: data/resources/ui/provider_page.ui:250
+#: data/resources/ui/provider_page.ui:245
 msgid "Provider setup instructions"
 msgstr "Hornitzailea konfiguratzeko argibideak"
 
@@ -336,22 +370,30 @@ msgstr "Hornitzailea konfiguratzeko argibideak"
 msgid "Providers"
 msgstr "Hornitzaileak"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
 msgid "New Provider"
 msgstr "Hornitzaile berria"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:252
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
 msgid "Search"
 msgstr "Bilatu"
 
-#: data/resources/ui/providers_dialog.ui:101
+#: data/resources/ui/providers_dialog.ui:102
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Ez dago emaitzarik"
 
-#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_dialog.ui:103
 msgid "No providers matching the query were found."
 msgstr "Ez dago kontsultarekin bat datorren hornitzailerik."
+
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "Ez da hornitzailerik hautatu"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "Hautatu hornitzaile bat edo sortu berria"
 
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
@@ -422,41 +464,59 @@ msgstr "Las_ter-teklak"
 msgid "_About Authenticator"
 msgstr "Authenticator aplikazioari _buruz"
 
-#: data/resources/ui/window.ui:95
+#: data/resources/ui/window.ui:97
 msgid "Authenticator is Locked"
 msgstr "Authenticator blokeatuta dago"
 
-#: data/resources/ui/window.ui:122
+#: data/resources/ui/window.ui:124
 msgid "_Unlock"
 msgstr "_Desblokeatu"
 
-#: data/resources/ui/window.ui:170 data/resources/ui/window.ui:209
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
 msgid "New Account"
 msgstr "Kontu berria"
 
-#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:246
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
 msgid "Menu"
 msgstr "Menua"
 
-#: data/resources/ui/window.ui:188
+#: data/resources/ui/window.ui:190
 msgid "No Accounts"
 msgstr "Ez dago konturik"
 
-#: data/resources/ui/window.ui:189
+#: data/resources/ui/window.ui:191
 msgid "Add an account or scan a QR code first."
 msgstr "Hasteko, gehitu kontu bat edo eskaneatu QR kode bat."
 
-#: src/application.rs:145
+#: src/application.rs:124
+msgid "Accounts restored successfully"
+msgstr "Kontuak ongi leheneratu dira"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr "translator-credits"
 
-#: src/application.rs:397
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "Denbora bateko pasahitza kopiatu da"
 
-#: src/application.rs:398
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "Pasahitza ongi kopiatu da"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:378
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "Testu soila edo zifratutako eremuak dituen JSON fitxategi batean"
+
+#: src/backup/aegis.rs:430
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Testu soila edo zifratutako eremuak dituen JSON fitxategi batetik"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -468,121 +528,153 @@ msgid "Into a plain-text JSON file"
 msgstr "Testu soileko JSON fitxategi batean"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "Testu soileko JSON fitxategi batetik"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "Kontu ezezaguna"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "Jaulkitzaile ezezaguna"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "_Authenticator"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "FreeOTP+ aplikazioarekin bateragarria den testu soilestu soileko JSON fitxategi batean"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "A_uthenticator"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "FreeOTP+ aplikazioarekin bateragarria den testu soilestu soileko JSON fitxategi batetik"
 
+#: src/backup/google.rs:24
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr "Google Authenticator bidez sortutako QR kode batetik"
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_thenticator (zaharra)"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "Kontagailuan oinarritua"
 
-#: src/models/algorithm.rs:57
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "Denboran oinarritua"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:59
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:131
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:128
+#: src/models/algorithm.rs:132
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:129
+#: src/models/algorithm.rs:133
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "Token baliogabea"
 
-#: src/widgets/window.rs:319
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "Pasahitz okerra"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "Pasaesaldi okerra"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "Gakoa / Pasaesaldia"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "Ganbera korazatua deszifratzeko erabiliko den gakoa"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "Hautatu fitxategia"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "Ganbera korazatua zifratzeko erabiliko den gakoa"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
-#: src/widgets/providers/page.rs:310
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+msgid "Unable to restore accounts"
+msgstr "Ezin dira kontuak leheneratu"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "Zerbait gaizki joan da"
+
+#: src/widgets/preferences/window.rs:421
+msgid "Couldn't find a QR code"
+msgstr "Ezin izan da QR koderik aurkitu"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
+#: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Hautatu"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
-#: src/widgets/providers/page.rs:311
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
+#: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Utzi"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "Hornitzailea ongi sortu da"
+
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "Hornitzailea ongi eguneratu da"
+
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "Hornitzailea ongi kendu da"
+
+#: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "Hornitzailea editatzen: {}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:332
 msgid "Image"
 msgstr "Irudia"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:367
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Hornitzaileak kontuak esleituta ditu, kendu horiek lehenengo"
 
@@ -591,9 +683,6 @@ msgstr "Hornitzaileak kontuak esleituta ditu, kendu horiek lehenengo"
 
 #~ msgid "_Rename"
 #~ msgstr "_Aldatu izena"
-
-#~ msgid "Copy PIN to clipboard"
-#~ msgstr "Kopiat PINa arbelean"
 
 #~ msgid "More"
 #~ msgstr "Gehiago"
@@ -639,12 +728,6 @@ msgstr "Hornitzaileak kontuak esleituta ditu, kendu horiek lehenengo"
 #~ msgid "Account Name"
 #~ msgstr "Kontuaren izena"
 
-#~ msgid "Enable 2FA for this account"
-#~ msgstr "Gaitu 2FA kontu honetarako"
-
-#~ msgid "Edit"
-#~ msgstr "Editatu"
-
 #~ msgid "Confirm New Password:"
 #~ msgstr "Baieztatu pasahitz berria:"
 
@@ -676,9 +759,6 @@ msgstr "Hornitzaileak kontuak esleituta ditu, kendu horiek lehenengo"
 
 #~ msgid "Default"
 #~ msgstr "Lehenetsia"
-
-#~ msgid "Couldn't generate the secret code"
-#~ msgstr "Ezin izan da kode sekretua sortu"
 
 #~ msgid "The PIN of {} was copied to the clipboard"
 #~ msgstr "{} kontuaren PINa arbelean kopiatu da"
