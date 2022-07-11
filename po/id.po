@@ -1,16 +1,16 @@
 # Indonesian translation of authenticator
 # Copyright (C) 2020 THE authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
-# Andika Triwidada <andika@gmail.com>, 2020.
+# Andika Triwidada <andika@gmail.com>, 2020, 2022.
 # Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021-2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-05-07 18:01+0000\n"
-"PO-Revision-Date: 2022-05-09 09:23+0700\n"
-"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-07-11 10:50+0700\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/authenticator/"
 "translation/id/>\n"
 "Language: id\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:142 src/main.rs:40
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "Autentikator"
 
@@ -32,7 +32,7 @@ msgstr "Autentikasi Dua Faktor"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:145
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
 msgstr "Hasilkan Kode Dua Faktor"
 
@@ -114,11 +114,11 @@ msgstr "Penyedia pencarian GNOME Shell"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-"(encrypted / plain-text)"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
-"Cadangkan/Pulihkan dari/ke aplikasi yang dikenal seperti FreeOTP+, andOTP, "
-"Aegis (terenkripsi / teks polos)"
+"Cadangkan/pulihkan dari/ke aplikasi yang dikenal seperti FreeOTP+, Aegis "
+"(terenkripsi / teks polos), andOTP, Google Authenticator"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
@@ -141,20 +141,20 @@ msgstr "Detail Akun"
 msgid "Backup/Restore formats support"
 msgstr "Dukungan format Pencadangan/Pemulihan"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "_Kamera"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "_Cuplikan layar"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
 #: data/resources/ui/providers_dialog.ui:184
@@ -165,7 +165,7 @@ msgstr "Kembali"
 msgid "_Add"
 msgstr "T_ambah"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "Pindai Kode QR"
 
@@ -262,11 +262,11 @@ msgstr "Tingkatkan penghitung"
 msgid "Copy PIN to clipboard"
 msgstr "Salin PIN ke papan klip"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "Tidak Ditemukan Kamera"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "_Dari Cuplikan Layar"
 
@@ -343,11 +343,11 @@ msgstr "Waktu dalam menit"
 msgid "Backup/Restore"
 msgstr "Cadangkan/Pulihkan"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "Cadangan"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "Pulihkan"
 
@@ -497,31 +497,35 @@ msgstr "Tidak Ada Akun"
 msgid "Add an account or scan a QR code first."
 msgstr "Tambah akun atau pindai kode QR terlebih dahulu."
 
-#: src/application.rs:149
+#: src/application.rs:124
+msgid "Accounts restored successfully"
+msgstr "Akun berhasil dipulihkan"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr ""
-"Andika Triwidada <andika@gmail.com>, 2020\n"
+"Andika Triwidada <andika@gmail.com>, 2020, 2022\n"
 "Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2021-2022"
 
-#: src/application.rs:442 src/widgets/accounts/row.rs:43
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "Kata sandi Satu Kali disalin"
 
-#: src/application.rs:443
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "Kata sandi berhasil disalin"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:530
+#: src/backup/aegis.rs:378
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "Ke dalam berkas JSON yang berisi teks polos atau bidang terenkripsi"
 
-#: src/backup/aegis.rs:580
+#: src/backup/aegis.rs:430
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "Dari berkas JSON yang berisi teks polos atau bidang terenkripsi"
 
@@ -535,51 +539,60 @@ msgid "Into a plain-text JSON file"
 msgstr "Ke dalam berkas JSON teks polos"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "Dari berkas JSON teks polos"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "Akun tidak diketahui"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "Penerbit tidak diketahui"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
-msgstr "_Autentikator"
+msgstr "Otentik_ator"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Ke dalam berkas teks polos, kompatibel dengan FreeOTP+"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "A_utentikator"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Dari berkas teks polos, kompatibel dengan FreeOTP+"
 
+#: src/backup/google.rs:24
+#| msgid "Authenticator"
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr "Dari kode QR yang dihasilkan oleh Google Authenticator"
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_tentikator (Lama)"
 
 #: src/models/algorithm.rs:60
 msgid "Counter-based"
-msgstr "Berbasis Pencacah"
+msgstr "Berbasis pencacah"
 
 #: src/models/algorithm.rs:61
 msgid "Time-based"
@@ -602,7 +615,7 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "Token Tidak Valid"
 
@@ -610,33 +623,45 @@ msgstr "Token Tidak Valid"
 msgid "Wrong Password"
 msgstr "Kata Sandi Salah"
 
-#: src/widgets/preferences/password_page.rs:218
-#: src/widgets/preferences/password_page.rs:257
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "Frasa Sandi Salah"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "Kunci / Frasa Sandi"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "Kunci yang akan digunakan untuk mendekripsi vault"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "Pilih Berkas"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "Kunci yang digunakan untuk mengenkripsi vault"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+msgid "Unable to restore accounts"
+msgstr "Tidak dapat memulihkan akun"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "Terjadi suatu kesalahan"
+
+#: src/widgets/preferences/window.rs:421
+msgid "Couldn't find a QR code"
+msgstr "Tidak dapat menemukan kode QR"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
 #: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Pilih"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
 #: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Batal"
@@ -666,81 +691,3 @@ msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Penyedia memiliki akun yang ditugaskan untuk itu, silakan hapus terlebih "
 "dahulu"
-
-#~ msgid "D_etails"
-#~ msgstr "D_etail"
-
-#~ msgid "_Rename"
-#~ msgstr "_Ganti Nama"
-
-#~ msgid "More"
-#~ msgstr "Selengkapnya"
-
-#~ msgid "Capture from a screenshot"
-#~ msgstr "Ambil dari cuplikan layar"
-
-#~ msgid "There Are no Accounts Currently"
-#~ msgstr "Saat Ini Belum Ada Akun"
-
-#~ msgid "QR code scanner"
-#~ msgstr "Pemindai kode QR"
-
-#~ msgid "Huge database of more than 560 supported services"
-#~ msgstr "Database besar lebih dari 560 layanan yang didukung"
-
-#~ msgid ""
-#~ "Keep your PIN tokens secure by locking the application with a password"
-#~ msgstr ""
-#~ "Menjaga token PIN Anda tetap aman dengan mengunci aplikasi memakai kata "
-#~ "sandi"
-
-#~ msgid "Automatically fetch an image for services using their favicon"
-#~ msgstr ""
-#~ "Secara otomatis mengambil gambar untuk layanan menggunakan favicon mereka"
-
-#~ msgid "The possibility to add new services"
-#~ msgstr "Kemungkinan untuk menambahkan layanan baru"
-
-#~ msgid "Dark theme and night light"
-#~ msgstr "Tema gelap dan cahaya malam"
-
-#~ msgid "Sharing an account"
-#~ msgstr "Berbagi akun"
-
-#~ msgid "Add"
-#~ msgstr "Tambah"
-
-#~ msgid "Share"
-#~ msgstr "Berbagi"
-
-#~ msgid "By setting a password, Authenticator will from now on start locked."
-#~ msgstr ""
-#~ "Dengan mengatur kata sandi, Authenticator akan dari sekarang dimulai "
-#~ "dalam keadaan terkunci."
-
-#~ msgid "The duration in seconds. The recommended value is 30"
-#~ msgstr "Durasi dalam detik. Nilai yang disarankan adalah 30"
-
-#~ msgid "How to set up Two-Factor Authentication"
-#~ msgstr "Cara mengatur Autentikasi Dua Faktor"
-
-#~ msgid "Add a new account from the menu"
-#~ msgstr "Tambah akun baru dari menu"
-
-#~ msgid "Scan a QR Code"
-#~ msgstr "Pindai kode QR"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Show Shortcuts"
-#~ msgstr "Tampilkan Pintasan"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Add"
-#~ msgstr "Tambah"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Scan QR"
-#~ msgstr "Pindai QR"
-
-#~ msgid "_Providers"
-#~ msgstr "_Penyedia"
