@@ -7,355 +7,766 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2020-10-07 05:03+0000\n"
-"PO-Revision-Date: 2020-10-16 17:41+0200\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
-"Language-Team: Catalan <https://hosted.weblate.org/projects/authenticator/translation/ca/>\n"
+"POT-Creation-Date: 2022-07-11 03:50+0000\n"
+"PO-Revision-Date: 2022-07-21 18:29+0200\n"
+"Last-Translator: maite guix <maite.guix@me.com>\n"
+"Language-Team: Catalan <https://hosted.weblate.org/projects/authenticator/"
+"translation/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: src/Authenticator/application.py.in:36
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:130 src/main.rs:45
 msgid "Authenticator"
 msgstr "Autenticador"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor Authentication"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
 msgstr "Autenticació en dos passos"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: data/resources/gtk/ui/about_dialog.ui.in:10
-msgid "A Two-Factor Authentication application"
-msgstr "Aplicació d'autenticació en dos passos"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:133
+msgid "Generate Two-Factor Codes"
+msgstr "Genera codis de dos factors"
 
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TwoFactor;"
-msgstr "Gnome;GTK;Verificació;2FA;Autenticació;OTP;DosPassos;"
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "Gnome;GTK;Verificació;2FA;Autenticació;OTP;TOTP;"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr "Posició per defecte de la finestra"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Amplada per defecte de la finestra"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: data/resources/gtk/ui/settings.ui.in:28
-msgid "Dark Theme"
-msgstr "Tema fosc"
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Alçada per defecte de la finestra"
 
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: data/resources/gtk/ui/settings.ui.in:29
-#: data/resources/gtk/ui/settings.ui.in:76
-msgid "Whether the application should use a dark theme."
-msgstr "Si l'aplicació hauria d'utilitzar un tema fosc."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: data/resources/gtk/ui/settings.ui.in:83
-msgid "Auto lock timeout"
-msgstr "Temps per l'autobloqueig"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-msgid "Lock the application on idle after X minutes"
-msgstr "Bloca l’aplicació després de X minuts d'inactivitat"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
-#: data/resources/gtk/ui/settings.ui.in:43
-msgid "Night Light"
-msgstr "Llum de nit"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:22
-#: data/resources/gtk/ui/settings.ui.in:44
-#: data/resources/gtk/ui/settings.ui.in:84
-msgid "Automatically enable dark mode at night."
-msgstr "Activa el mode fosc automàticament a la nit."
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:26
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
 msgid "Default window maximized behaviour"
 msgstr "Comportament per defecte de la finestra maximitzada"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:10
-msgid ""
-"Simple application that generates a two-factor authentication code, created "
-"for GNOME."
-msgstr ""
-"Aplicació senzilla que genera codis d’autenticació en dos passos, creada per"
-" a GNOME."
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Mode"
+msgstr "Mode fosc"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark mode."
+msgstr "Si l'aplicació hauria d'utilitzar un mode fosc."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "Autobloqueig"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "Si s'ha de blocar automàticament l'aplicació o no"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "Temps per a l'autobloqueig"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "Bloca l'aplicació després de X minuts d'inactivitat"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "Aplicació senzilla per a generar codis d'autenticació de doble factor."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
 msgid "Features:"
 msgstr "Funcionalitats:"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:13
-msgid "QR code scanner"
-msgstr "Escàner de codis QR"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "Suport de mètodes basats en temps / basats en comptador / Steam"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:14
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "Suport d'algorismes SHA-1/SHA-256/SHA-512"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "Escàner de codis QR amb càmera o des d'una captura de pantalla"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "Bloca l'aplicació amb contrasenya"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Beautiful UI"
 msgstr "Una interfície bonica"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:15
-msgid "Huge database of more than 560 supported services"
-msgstr "Base de dades immensa amb més de 560 serveis suportats"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "GNOME Shell search provider"
+msgstr "Proveïdor de cerca de GNOME Shell"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:16
-msgid "Keep your PIN tokens secure by locking the application with a password"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
-"Mantingues els teus tokens del PINs segurs bloquejant l'aplicació amb una "
-"contrasenya"
+"Còpia de seguretat/restauració des de/en aplicacions conegudes com FreeOTP+, "
+"Aegis (xifrat / sense format) andOTP, Google Authenticator"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:17
-msgid "Automatically fetch an image for services"
-msgstr "Recull automàticament una imatge per serveis"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "Finestra principal"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "The possibility to add new services"
-msgstr "La possibilitat d'afegir nous serveis"
-
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:19
-msgid "Dark theme and night light"
-msgstr "Tema fosc i llum de nit"
-
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:25
-msgid "Main Window - empty state"
-msgstr "Finestra principal - estat buit"
-
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:29
-msgid "Add a new account"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:24
+msgid "Add a New Account"
 msgstr "Afegeix un compte nou"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:33
-msgid "Main Window - Accounts List"
-msgstr "Finestra principal - llista de comptes"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Add a New Provider"
+msgstr "Afegeix un proveïdor nou"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:37
-msgid "Settings Window"
-msgstr "Finestra de paràmetres"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
+msgid "Account Details"
+msgstr "Detalls del compte"
 
-#: data/com.github.bilelmoussaoui.Authenticator.metainfo.xml.in.in:170
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
+msgid "Backup/Restore formats support"
+msgstr "Suport per a formats de còpia de seguretat/restauració"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:271
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/gtk/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr ""
-"Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2018-2019\n"
-"Ícar Nin Solana <icar.nin@protonmail.com>, 2020"
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:351
+msgid "_Camera"
+msgstr "_Càmera"
 
-#: data/resources/gtk/ui/account_config.ui:57
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:357
+msgid "_Screenshot"
+msgstr "Captura de _pantalla"
+
+#: data/resources/ui/account_add.ui:45
+#: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:194
+msgid "Go Back"
+msgstr "Ves enrere"
+
+#: data/resources/ui/account_add.ui:50
+msgid "_Add"
+msgstr "_Afegir"
+
+#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:345
+msgid "Scan QR Code"
+msgstr "Escaneja un codi QR"
+
+#: data/resources/ui/account_add.ui:101
+#: data/resources/ui/account_details_page.ui:126
 msgid "Provider"
 msgstr "Proveïdor"
 
-#: data/resources/gtk/ui/account_config.ui:85
-msgid "Website"
-msgstr "Lloc web"
+#: data/resources/ui/account_add.ui:102
+msgid "Token issuer"
+msgstr "Emissor de testimonis"
 
-#: data/resources/gtk/ui/account_config.ui:105
+#: data/resources/ui/account_add.ui:117
+#: data/resources/ui/account_details_page.ui:116
 msgid "Account"
 msgstr "Compte"
 
-#: data/resources/gtk/ui/account_config.ui:124
+#: data/resources/ui/account_add.ui:132
 msgid "Token"
 msgstr "Testimoni"
 
-#: data/resources/gtk/ui/account_config.ui:134
-#: data/resources/gtk/ui/account_config.ui:135
-msgid "Enable 2FA for this account"
-msgstr "Activar l'autenticació en dos passos per aquest compte"
+#: data/resources/ui/account_add.ui:147
+#: data/resources/ui/account_details_page.ui:188
+#: data/resources/ui/provider_page.ui:212
+msgid "Counter"
+msgstr "Comptador"
 
-#: data/resources/gtk/ui/account_row.ui:48
+#: data/resources/ui/account_add.ui:172
+#: data/resources/ui/account_details_page.ui:168
+#: data/resources/ui/provider_page.ui:178
+msgid "Algorithm"
+msgstr "Algorisme"
+
+#: data/resources/ui/account_add.ui:184
+#: data/resources/ui/account_details_page.ui:178
+#: data/resources/ui/provider_page.ui:164
+msgid "Computing Method"
+msgstr "Mètode informàtic"
+
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:198
+#: data/resources/ui/provider_page.ui:195
+msgid "Period"
+msgstr "Període"
+
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:196
+msgid "Duration in seconds until the next password update"
+msgstr "Durada en segons fins a la propera actualització de la contrasenya"
+
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:208
+#: data/resources/ui/provider_page.ui:229
+msgid "Digits"
+msgstr "Dígits"
+
+#: data/resources/ui/account_add.ui:210 data/resources/ui/provider_page.ui:230
+msgid "Length of the generated code"
+msgstr "Longitud del codi generat"
+
+#: data/resources/ui/account_add.ui:222
+#: data/resources/ui/account_details_page.ui:218
+#: data/resources/ui/provider_page.ui:149
+msgid "Website"
+msgstr "Lloc web"
+
+#: data/resources/ui/account_add.ui:227
+msgid "How to Set Up"
+msgstr "Com configurar"
+
+#: data/resources/ui/account_details_page.ui:61
+msgid "_Edit"
+msgstr "_Edita"
+
+#: data/resources/ui/account_details_page.ui:76
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "_Desa"
+
+#: data/resources/ui/account_details_page.ui:91
+#: data/resources/ui/provider_page.ui:264
+msgid "_Delete"
+msgstr "_Suprimeix"
+
+#: data/resources/ui/account_details_page.ui:223
+msgid "Help"
+msgstr "Ajuda"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Incrementa el comptador"
+
+#: data/resources/ui/account_row.ui:33
 msgid "Copy PIN to clipboard"
 msgstr "Copia el PIN al porta-retalls"
 
-#: data/resources/gtk/ui/account_row.ui:158
-msgid "Edit"
-msgstr "Edita"
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "No s'ha trobat cap càmera"
 
-#: data/resources/gtk/ui/account_row.ui:176
-msgid "Delete"
-msgstr "Suprimeix"
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "_Des d'una captura de pantalla"
 
-#: data/resources/gtk/ui/password_widget.ui:46
-msgid "Current Password:"
-msgstr "Contrasenya actual:"
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "Configureu una contrasenya llarga"
 
-#: data/resources/gtk/ui/password_widget.ui:91
-msgid "New Password:"
-msgstr "Contrasenya nova:"
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr ""
+"L'autenticador començarà a blocar-se després d'establir una contrasenya "
+"llarga."
 
-#: data/resources/gtk/ui/password_widget.ui:136
-msgid "Confirm New Password:"
-msgstr "Confirma la contrasenya nova:"
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "Contrasenya llarga actual"
 
-#: data/resources/gtk/ui/password_widget.ui:184
-#: src/Authenticator/widgets/settings.py:172
-msgid "Change Password"
-msgstr "Canvia la contrasenya"
+#: data/resources/ui/preferences_password_page.ui:66
+msgid "New Passphrase"
+msgstr "Contrasenya llarga _nova"
 
-#: data/resources/gtk/ui/password_widget.ui:205
-msgid "Delete Password"
-msgstr "Suprimeix la contrasenya"
+#: data/resources/ui/preferences_password_page.ui:80
+msgid "Repeat Passphrase"
+msgstr "Repeteix la contrasenya llarga"
 
-#: data/resources/gtk/ui/settings.ui.in:24
+#: data/resources/ui/preferences_password_page.ui:102
+#: data/resources/ui/provider_page.ui:100
+msgid "_Reset"
+msgstr "_Reinicia"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "General"
+
+#: data/resources/ui/preferences.ui:19
 msgid "Appearance"
 msgstr "Aparença"
 
-#: data/resources/gtk/ui/settings.ui.in:75
-#: src/Authenticator/application.py.in:102
-msgid "Lock the application"
-msgstr "Bloca l’aplicació"
+#: data/resources/ui/preferences.ui:22
+msgid "_Dark Mode"
+msgstr "_Mode fosc"
 
-#: data/resources/gtk/ui/shortcuts.ui:13
+#: data/resources/ui/preferences.ui:25
+msgid "Whether the application should use a dark mode"
+msgstr "Si l'aplicació hauria d'utilitzar un mode fosc"
+
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "Privacitat"
+
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "_Contrasenya llarga"
+
+#: data/resources/ui/preferences.ui:42
+msgid "Set up a passphrase to lock the application with"
+msgstr "Configureu una contrasenya llarga per a blocar l'aplicació amb"
+
+#: data/resources/ui/preferences.ui:54
+msgid "_Auto Lock the Application"
+msgstr "Auto_bloca l'aplicació"
+
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr "Si s'ha de blocar automàticament l'aplicació"
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto Lock _Timeout"
+msgstr "Temps per l'auto_bloqueig"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "El temps en minuts"
+
+#: data/resources/ui/preferences.ui:92
+msgid "Backup/Restore"
+msgstr "Còpia de seguretat/Restauració"
+
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:511
+msgid "Backup"
+msgstr "Còpia de seguretat"
+
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:518
+msgid "Restore"
+msgstr "Restaura"
+
+#: data/resources/ui/provider_page.ui:110
+msgid "Select a _File"
+msgstr "Selecciona un _fitxer"
+
+#: data/resources/ui/provider_page.ui:134
+msgid "Name"
+msgstr "Nom"
+
+#: data/resources/ui/provider_page.ui:150
+msgid "Used to fetch the provider icon"
+msgstr "S'utilitza per a obtenir la icona del proveïdor"
+
+#: data/resources/ui/provider_page.ui:213
+msgid "The by default value for counter-based computing method"
+msgstr "El valor per defecte per al mètode de computació basat en comptador"
+
+#: data/resources/ui/provider_page.ui:247
+msgid "Help URL"
+msgstr "URL d'ajuda"
+
+#: data/resources/ui/provider_page.ui:248
+msgid "Provider setup instructions"
+msgstr "Instruccions de configuració del proveïdor"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "Proveïdors"
+
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:237
+msgid "New Provider"
+msgstr "Proveïdor nou"
+
+#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:263
+msgid "Search"
+msgstr "Cerca"
+
+#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "Cap resultat"
+
+#: data/resources/ui/providers_dialog.ui:109
+msgid "No providers matching the query were found."
+msgstr "No s'ha trobat cap proveïdor que coincideixi amb la consulta."
+
+#: data/resources/ui/providers_dialog.ui:204
+msgid "No Provider Selected"
+msgstr "No s'ha seleccionat cap proveïdor"
+
+#: data/resources/ui/providers_dialog.ui:205
+msgid "Select a provider or create a new one"
+msgstr "Seleccioneu un proveïdor o creeu-ne un de nou"
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "No s'ha trobat cap compte o proveïdor que coincideixi amb la consulta."
+
+#: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
 msgstr "General"
 
-#: data/resources/gtk/ui/shortcuts.ui:17
+#: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr "Mostra les dreceres"
+msgid "Keyboard Shortcuts"
+msgstr "Dreceres de teclat"
 
-#: data/resources/gtk/ui/shortcuts.ui:24
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Bloca"
+
+#: data/resources/ui/shortcuts.ui:26
 msgctxt "shortcut window"
 msgid "Preferences"
 msgstr "Preferències"
 
-#: data/resources/gtk/ui/shortcuts.ui:31
+#: data/resources/ui/shortcuts.ui:32
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Surt"
 
-#: data/resources/gtk/ui/shortcuts.ui:40
+#: data/resources/ui/shortcuts.ui:40
 msgctxt "shortcut window"
 msgid "Accounts"
 msgstr "Comptes"
 
-#: data/resources/gtk/ui/shortcuts.ui:44
+#: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
-msgid "Add"
-msgstr "Afegeix"
+msgid "New Account"
+msgstr "Compte nou"
 
-#: data/resources/gtk/ui/shortcuts.ui:51
+#: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Search"
 msgstr "Cerca"
 
-#: data/resources/gtk/ui/window.ui.in:188
-msgid "There are no accounts yet…"
-msgstr "Encara no hi ha cap compte…"
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "Mostra la llista de proveïdors"
 
-#: data/resources/gtk/ui/window.ui.in:217
-msgid "Add a new account from the menu"
-msgstr "Afegeix un compte nou des del menú"
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "_Bloca l'aplicació"
 
-#: data/resources/gtk/ui/window.ui.in:233
-msgid "Scan a QR Code"
-msgstr "Escaneja un codi QR"
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "P_roveïdor"
 
-#: data/resources/gtk/ui/window.ui.in:365
-msgid "No results found"
-msgstr "Cap resultat trobat"
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_Preferències"
 
-#: data/resources/gtk/ui/window.ui.in:428
-msgid "Authenticator is locked"
-msgstr "L’autenticador està blocat"
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "Dreceres de _teclat"
 
-#: data/resources/gtk/ui/window.ui.in:468
-msgid "Unlock"
-msgstr "Desbloca"
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "_Quant a l'autenticador"
 
-#: src/authenticator.py.in:49
-msgid "Start in debug mode"
-msgstr "Inicia en mode de depuració"
+#: data/resources/ui/window.ui:101
+msgid "Authenticator is Locked"
+msgstr "L'autenticador està blocat"
 
-#: src/Authenticator/application.py.in:110
-msgid "from a plain-text JSON file"
-msgstr "des d’un fitxer JSON de text sense format"
+#: data/resources/ui/window.ui:129
+msgid "_Unlock"
+msgstr "_Desbloca"
 
-#: src/Authenticator/application.py.in:111
-msgid "in a plain-text JSON file"
-msgstr "en un fitxer JSON de text sense format"
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:216
+msgid "New Account"
+msgstr "Compte nou"
 
-#: src/Authenticator/application.py.in:113
-msgid "Restore"
-msgstr "Restaura"
+#: data/resources/ui/window.ui:184 data/resources/ui/window.ui:257
+msgid "Menu"
+msgstr "Menú"
 
-#: src/Authenticator/application.py.in:114
-msgid "Backup"
-msgstr "Còpia de seguretat"
+#: data/resources/ui/window.ui:195
+msgid "No Accounts"
+msgstr "Cap compte"
 
-#. Night mode action
-#: src/Authenticator/application.py.in:122
-msgid "Preferences"
-msgstr "Preferències"
+#: data/resources/ui/window.ui:196
+msgid "Add an account or scan a QR code first."
+msgstr "Afegiu primer un compte o escanegeu un codi QR."
 
-#: src/Authenticator/application.py.in:123
-msgid "Keyboard Shortcuts"
-msgstr "Dreceres de teclat"
+#: src/application.rs:113
+msgid "Accounts restored successfully"
+msgstr "Els comptes s'han restaurat correctament"
 
-#: src/Authenticator/application.py.in:124
-msgid "About Authenticator"
-msgstr "Quant a l’autenticador"
-
-#: src/Authenticator/models/account.py:87
-msgid "Default"
-msgstr "Per defecte"
-
-#: src/Authenticator/widgets/accounts/add.py:36
-msgid "Add"
-msgstr "Afegeix"
-
-#: src/Authenticator/widgets/accounts/add.py:256
-msgid "Invalid QR code"
-msgstr "El codi QR no és vàlid"
-
-#: src/Authenticator/widgets/accounts/edit.py:37
-msgid "Save"
-msgstr "Desa"
-
-#: src/Authenticator/widgets/accounts/list.py:151
-msgid "The One-Time Passwords expire in {} seconds"
-msgstr "La contrasenya d’un sol ús caducarà en {} segons"
-
-#: src/Authenticator/widgets/accounts/row.py:89
-msgid "Couldn't generate the secret code"
-msgstr "No s’ha pogut generar el codi secret"
-
-#: src/Authenticator/widgets/accounts/row.py:99
-msgid "The PIN of {} was copied to the clipboard"
-msgstr "El PIN de {} ha sigut copiat al porta-retalls"
-
-#: src/Authenticator/widgets/accounts/row.py:138
-msgid "The account was updated successfully"
-msgstr "El compte ha sigut actualitzat correctament"
-
-#: src/Authenticator/widgets/notification.py:53
-#: src/Authenticator/widgets/notification.py:86
-msgid "Undo"
-msgstr "Desfés"
-
-#: src/Authenticator/widgets/notification.py:81
-msgid "Close the notification"
-msgstr "Tanca la notificació"
-
-#: src/Authenticator/widgets/settings.py:168
-msgid "Save Password"
-msgstr "Desa la contrasenya"
-
-#: src/Authenticator/widgets/settings.py:220
-msgid "Do you want to remove the authentication password?"
-msgstr "Vols suprimir la contrasenya d'autenticació?"
-
-#: src/Authenticator/widgets/settings.py:221
-msgid "Authentication password enforces the privacy of your accounts."
+#: src/application.rs:137
+msgid "translator-credits"
 msgstr ""
-"La contrasenya d'autenticació assegura la privacitat dels teus comptes."
+"Adolfo Jayme Barrientos <fitojb@ubuntu.com>, 2018-2019\n"
+"Ícar Nin Solana <icar.nin@protonmail.com>, 2020\n"
+"Maite Guix i Ribé <maite.guix@gmail.com>, 2022"
 
-#: src/Authenticator/widgets/utils.py:26 src/Authenticator/widgets/utils.py:31
-msgid "JSON files"
-msgstr "Fitxers JSON"
+#: src/application.rs:451 src/widgets/accounts/row.rs:45
+msgid "One-Time password copied"
+msgstr "La contrasenya d'un sol ús copiada"
 
+#: src/application.rs:452
+msgid "Password was copied successfully"
+msgstr "La contrasenya s'ha copiat correctament"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:377 src/backup/aegis.rs:429
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:381
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "En un fitxer JSON que contingui text sense format o camps xifrats"
+
+#: src/backup/aegis.rs:433
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Des d'un fitxer JSON que conté text sense format o camps xifrats"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:70
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
+
+#: src/backup/andotp.rs:74
+msgid "Into a plain-text JSON file"
+msgstr "En un fitxer JSON de text sense format"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:131
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:123 src/backup/legacy.rs:40
+msgid "From a plain-text JSON file"
+msgstr "Des d'un fitxer JSON de text sense format"
+
+#: src/backup/bitwarden.rs:47
+msgid "Unknown account"
+msgstr "Compte desconegut"
+
+#: src/backup/bitwarden.rs:55
+msgid "Unknown issuer"
+msgstr "Emissor desconegut"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:119
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
+
+#: src/backup/freeotp.rs:23
+msgid "_Authenticator"
+msgstr "_Autenticador"
+
+#: src/backup/freeotp.rs:27
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "En un fitxer de text sense format, compatible amb FreeOTP+"
+
+#: src/backup/freeotp.rs:69
+msgid "A_uthenticator"
+msgstr "A_utenticador"
+
+#: src/backup/freeotp.rs:73
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Des d'un fitxer de text sense format, compatible amb FreeOTP+"
+
+#: src/backup/google.rs:26
+msgid "Google Authenticator"
+msgstr "Autenticador de Google"
+
+#: src/backup/google.rs:30
+msgid "From a QR code generated by Google Authenticator"
+msgstr "A partir d'un codi QR generat per Google Authenticator"
+
+#. Translators: this is for restoring a backup from the old Authenticator
+#. release
+#: src/backup/legacy.rs:36
+msgid "Au_thenticator (Legacy)"
+msgstr "Au_thenticator (antic)"
+
+#: src/models/algorithm.rs:61
+msgid "Counter-based"
+msgstr "Basat en comptador"
+
+#: src/models/algorithm.rs:62
+msgid "Time-based"
+msgstr "Basat en temps"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:64
+msgid "Steam"
+msgstr "Steam"
+
+#: src/models/algorithm.rs:132
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:133
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:134
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:275
+msgid "Invalid Token"
+msgstr "El testimoni no és vàlid"
+
+#: src/widgets/window.rs:300
+msgid "Wrong Password"
+msgstr "La contrasenya és incorrecta"
+
+#: src/widgets/preferences/password_page.rs:218
+#: src/widgets/preferences/password_page.rs:257
+msgid "Wrong Passphrase"
+msgstr "La contrasenya llarga és incorrecta"
+
+#: src/widgets/preferences/window.rs:249 src/widgets/preferences/window.rs:317
+msgid "Key / Passphrase"
+msgstr "Clau / Contrasenya llarga"
+
+#: src/widgets/preferences/window.rs:250
+msgid "The key that will be used to decrypt the vault"
+msgstr "La clau que s'utilitzarà per a desxifrar la cripta"
+
+#: src/widgets/preferences/window.rs:266 src/widgets/preferences/window.rs:333
+msgid "Select File"
+msgstr "Selecciona un fitxer"
+
+#: src/widgets/preferences/window.rs:318
+msgid "The key used to encrypt the vault"
+msgstr "La clau utilitzada per a xifrar la cripta"
+
+#: src/widgets/preferences/window.rs:405 src/widgets/preferences/window.rs:438
+msgid "Unable to restore accounts"
+msgstr "No es poden restaurar els comptes"
+
+#: src/widgets/preferences/window.rs:416
+msgid "Something went wrong"
+msgstr "Alguna cosa ha anat malament"
+
+#: src/widgets/preferences/window.rs:444
+msgid "Couldn't find a QR code"
+msgstr "No s'ha pogut trobar un codi QR"
+
+#: src/widgets/preferences/window.rs:514 src/widgets/preferences/window.rs:521
+#: src/widgets/providers/page.rs:321
+msgid "Select"
+msgstr "Selecciona"
+
+#: src/widgets/preferences/window.rs:515 src/widgets/preferences/window.rs:522
+#: src/widgets/providers/page.rs:322
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: src/widgets/providers/dialog.rs:246
+msgid "Provider created successfully"
+msgstr "El proveïdor s'ha creat correctament"
+
+#: src/widgets/providers/dialog.rs:256
+msgid "Provider updated successfully"
+msgstr "El proveïdor s'ha actualitzat correctament"
+
+#: src/widgets/providers/dialog.rs:273
+msgid "Provider removed successfully"
+msgstr "El proveïdor s'ha suprimit correctament"
+
+#: src/widgets/providers/page.rs:213
+msgid "Editing Provider: {}"
+msgstr "Proveïdor d'edició: {}"
+
+#: src/widgets/providers/page.rs:329
+msgid "Image"
+msgstr "Imatge"
+
+#: src/widgets/providers/page.rs:364
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "El proveïdor té comptes assignats, suprimiu-les primer"
+
+#~ msgid "A Two-Factor Authentication application"
+#~ msgstr "Aplicació d'autenticació en dos passos"
+
+#~ msgid "Night Light"
+#~ msgstr "Llum de nit"
+
+#~ msgid "Automatically enable dark mode at night."
+#~ msgstr "Activa el mode fosc automàticament a la nit."
+
+#~ msgid "QR code scanner"
+#~ msgstr "Escàner de codis QR"
+
+#~ msgid "Huge database of more than 560 supported services"
+#~ msgstr "Base de dades immensa amb més de 560 serveis suportats"
+
+#~ msgid "Automatically fetch an image for services"
+#~ msgstr "Recull automàticament una imatge per serveis"
+
+#~ msgid "The possibility to add new services"
+#~ msgstr "La possibilitat d'afegir nous serveis"
+
+#~ msgid "Dark theme and night light"
+#~ msgstr "Tema fosc i llum de nit"
+
+#~ msgid "Main Window - empty state"
+#~ msgstr "Finestra principal - estat buit"
+
+#~ msgid "Main Window - Accounts List"
+#~ msgstr "Finestra principal - llista de comptes"
+
+#~ msgid "Confirm New Password:"
+#~ msgstr "Confirma la contrasenya nova:"
+
+#~ msgid "Delete Password"
+#~ msgstr "Suprimeix la contrasenya"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show Shortcuts"
+#~ msgstr "Mostra les dreceres"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Add"
+#~ msgstr "Afegeix"
+
+#~ msgid "There are no accounts yet…"
+#~ msgstr "Encara no hi ha cap compte…"
+
+#~ msgid "Add a new account from the menu"
+#~ msgstr "Afegeix un compte nou des del menú"
+
+#~ msgid "Start in debug mode"
+#~ msgstr "Inicia en mode de depuració"
+
+#~ msgid "Default"
+#~ msgstr "Per defecte"
+
+#~ msgid "Add"
+#~ msgstr "Afegeix"
+
+#~ msgid "The PIN of {} was copied to the clipboard"
+#~ msgstr "El PIN de {} ha sigut copiat al porta-retalls"
+
+#~ msgid "Undo"
+#~ msgstr "Desfés"
+
+#~ msgid "Close the notification"
+#~ msgstr "Tanca la notificació"
+
+#~ msgid "Save Password"
+#~ msgstr "Desa la contrasenya"
+
+#~ msgid "Do you want to remove the authentication password?"
+#~ msgstr "Vols suprimir la contrasenya d'autenticació?"
+
+#~ msgid "Authentication password enforces the privacy of your accounts."
+#~ msgstr ""
+#~ "La contrasenya d'autenticació assegura la privacitat dels teus comptes."
+
+#~ msgid "JSON files"
+#~ msgstr "Fitxers JSON"
