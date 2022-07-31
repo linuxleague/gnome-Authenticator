@@ -1,0 +1,683 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2022-07-29 17:52+0000\n"
+"PO-Revision-Date: 2022-07-31 10:04+0200\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: \n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.1.1\n"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:130 src/main.rs:45
+msgid "Authenticator"
+msgstr "Authenticator"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "2FA ავთენტიკაცია"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:133
+msgid "Generate Two-Factor Codes"
+msgstr "2FA კოდის გენერაცია"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "ფანჯრის ნაგულისხმები სიგანე"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "ფანჯრის ნაგულისხმები სიგრძე"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "ფანჯრის ქცევა სრულად გაშლისას"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Mode"
+msgstr "მუქი რეჟიმი"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark mode."
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "ავტომატური ბლოკი"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "ავტომატური დაბლოკვის ვადა"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "თვისებები:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "SHA-1/SHA-256/SHA-512 ალგორითმების მხარდაჭერა"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "ლამაზ ინტერფეისი"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "GNOME Shell search provider"
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
+msgstr ""
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "მთავარი ფანჯარა"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:24
+msgid "Add a New Account"
+msgstr "ახალი ანგარიშის დამატება"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Add a New Provider"
+msgstr "ახალი მომწოდებლის დამატება"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
+msgid "Account Details"
+msgstr "ანგარშის დეტალები"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
+msgid "Backup/Restore formats support"
+msgstr "მარქაფი/აღდგენის ფორმატების მხარდაჭერა"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:271
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:351
+msgid "_Camera"
+msgstr "_კამერა"
+
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:357
+msgid "_Screenshot"
+msgstr "_ეკრანის ანაბეჭდი"
+
+#: data/resources/ui/account_add.ui:45
+#: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:194
+msgid "Go Back"
+msgstr "უკან დაბრუნება"
+
+#: data/resources/ui/account_add.ui:50
+msgid "_Add"
+msgstr "_დამატება"
+
+#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:345
+msgid "Scan QR Code"
+msgstr "QR კოდის სკანირება"
+
+#: data/resources/ui/account_add.ui:101
+#: data/resources/ui/account_details_page.ui:126
+msgid "Provider"
+msgstr "სერვისის მომწოდებელი"
+
+#: data/resources/ui/account_add.ui:102
+msgid "Token issuer"
+msgstr "კოდის გამომცემელი"
+
+#: data/resources/ui/account_add.ui:117
+#: data/resources/ui/account_details_page.ui:116
+msgid "Account"
+msgstr "ანგარიში"
+
+#: data/resources/ui/account_add.ui:132
+msgid "Token"
+msgstr "ტოკენი"
+
+#: data/resources/ui/account_add.ui:147
+#: data/resources/ui/account_details_page.ui:188
+#: data/resources/ui/provider_page.ui:212
+msgid "Counter"
+msgstr "მთვლელი"
+
+#: data/resources/ui/account_add.ui:172
+#: data/resources/ui/account_details_page.ui:168
+#: data/resources/ui/provider_page.ui:178
+msgid "Algorithm"
+msgstr "ალგორითმი"
+
+#: data/resources/ui/account_add.ui:184
+#: data/resources/ui/account_details_page.ui:178
+#: data/resources/ui/provider_page.ui:164
+msgid "Computing Method"
+msgstr "გამოთვლის მეთოდი"
+
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:198
+#: data/resources/ui/provider_page.ui:195
+msgid "Period"
+msgstr "პერიოდი"
+
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:196
+msgid "Duration in seconds until the next password update"
+msgstr ""
+
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:208
+#: data/resources/ui/provider_page.ui:229
+msgid "Digits"
+msgstr "ციფრები"
+
+#: data/resources/ui/account_add.ui:210 data/resources/ui/provider_page.ui:230
+msgid "Length of the generated code"
+msgstr "გენერირებული კოდის სიგრძე"
+
+#: data/resources/ui/account_add.ui:222
+#: data/resources/ui/account_details_page.ui:218
+#: data/resources/ui/provider_page.ui:149
+msgid "Website"
+msgstr "ვებგვერდი"
+
+#: data/resources/ui/account_add.ui:227
+msgid "How to Set Up"
+msgstr "როგორ მოვირგოთ"
+
+#: data/resources/ui/account_details_page.ui:61
+msgid "_Edit"
+msgstr "_დამუშავება"
+
+#: data/resources/ui/account_details_page.ui:76
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "_შენახვა"
+
+#: data/resources/ui/account_details_page.ui:91
+#: data/resources/ui/provider_page.ui:264
+msgid "_Delete"
+msgstr "_წაშლა"
+
+#: data/resources/ui/account_details_page.ui:223
+msgid "Help"
+msgstr "დახმარება"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "მთვლელის გაზრდა"
+
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "PIN კოდის ბაფერში კოპირება"
+
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "კამერის გარეშე"
+
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "_ეკრანის ანაბეჭდიდან"
+
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "საკვანძო ფრაზის მორგება"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr ""
+
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "მიმდინარე საკვანძო ფრაზა"
+
+#: data/resources/ui/preferences_password_page.ui:66
+msgid "New Passphrase"
+msgstr "ახალი საკვანძო ფრაზა"
+
+#: data/resources/ui/preferences_password_page.ui:80
+msgid "Repeat Passphrase"
+msgstr "საკვანძო ფრაზის გაზიარება"
+
+#: data/resources/ui/preferences_password_page.ui:102
+#: data/resources/ui/provider_page.ui:100
+msgid "_Reset"
+msgstr "_გადატვირთვა"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "ზოგადი"
+
+#: data/resources/ui/preferences.ui:19
+msgid "Appearance"
+msgstr "გარეგნობა"
+
+#: data/resources/ui/preferences.ui:22
+msgid "_Dark Mode"
+msgstr "_მუქი რეჟიმი"
+
+#: data/resources/ui/preferences.ui:25
+msgid "Whether the application should use a dark mode"
+msgstr ""
+
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "პირადი ინფორმაცია"
+
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "­_საკვანძო ფრაზა"
+
+#: data/resources/ui/preferences.ui:42
+msgid "Set up a passphrase to lock the application with"
+msgstr ""
+
+#: data/resources/ui/preferences.ui:54
+msgid "_Auto Lock the Application"
+msgstr ""
+
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr ""
+
+#: data/resources/ui/preferences.ui:68
+msgid "Auto Lock _Timeout"
+msgstr "ავტომატური დაბლოკვის _ვადა"
+
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "დრო წუთებში"
+
+#: data/resources/ui/preferences.ui:92
+msgid "Backup/Restore"
+msgstr "მარქაფი/აღდგენა"
+
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:511
+msgid "Backup"
+msgstr "მარქაფი"
+
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:518
+msgid "Restore"
+msgstr "აღდგენა"
+
+#: data/resources/ui/provider_page.ui:110
+msgid "Select a _File"
+msgstr "აირჩიეთ _ფაილი"
+
+#: data/resources/ui/provider_page.ui:134
+msgid "Name"
+msgstr "სახელი"
+
+#: data/resources/ui/provider_page.ui:150
+msgid "Used to fetch the provider icon"
+msgstr "გამოიყენება მომწოდებლის ხატულის გამოსათხოვად"
+
+#: data/resources/ui/provider_page.ui:213
+msgid "The by default value for counter-based computing method"
+msgstr ""
+
+#: data/resources/ui/provider_page.ui:247
+msgid "Help URL"
+msgstr "დახმარების URL"
+
+#: data/resources/ui/provider_page.ui:248
+msgid "Provider setup instructions"
+msgstr "მომწოდებლის მორგების ინსტრუქციები"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "მომწოდებლები"
+
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:237
+msgid "New Provider"
+msgstr "ახალი მომწოდებელი"
+
+#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:263
+msgid "Search"
+msgstr "ძებნა"
+
+#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "შედეგების გარეშე"
+
+#: data/resources/ui/providers_dialog.ui:109
+msgid "No providers matching the query were found."
+msgstr ""
+
+#: data/resources/ui/providers_dialog.ui:204
+msgid "No Provider Selected"
+msgstr "მომწოდებლის გარეშე"
+
+#: data/resources/ui/providers_dialog.ui:205
+msgid "Select a provider or create a new one"
+msgstr ""
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "ზოგადი"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "კლავიატურის მალსახმობები"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "ჩაკეტვა"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "პარამეტრები"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "დატოვება"
+
+#: data/resources/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "ანგარიშები"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "New Account"
+msgstr "ახალი ანგარიში"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "ძებნა"
+
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "მომწოდებლების სიის ჩვენება"
+
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "_აპლიკაციის დაბლოკვა"
+
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "_მომწოდებლები"
+
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_მორგება"
+
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "_კლავიატურის მალსახმობები"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "Authenticator-ის _შესახებ"
+
+#: data/resources/ui/window.ui:101
+msgid "Authenticator is Locked"
+msgstr "Authenticator-ი დაბლოკილია"
+
+#: data/resources/ui/window.ui:129
+msgid "_Unlock"
+msgstr "_განბლოკვა"
+
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:216
+msgid "New Account"
+msgstr "ახალი ანგარიში"
+
+#: data/resources/ui/window.ui:184 data/resources/ui/window.ui:257
+msgid "Menu"
+msgstr "მენიუ"
+
+#: data/resources/ui/window.ui:195
+msgid "No Accounts"
+msgstr "ანგარიშების გარეშე"
+
+#: data/resources/ui/window.ui:196
+msgid "Add an account or scan a QR code first."
+msgstr ""
+
+#: src/application.rs:113
+msgid "Accounts restored successfully"
+msgstr "ანგარიშები წარმატებით აღდგა"
+
+#: src/application.rs:137
+msgid "translator-credits"
+msgstr "მთარგმნელის შესახებ"
+
+#: src/application.rs:451 src/widgets/accounts/row.rs:45
+msgid "One-Time password copied"
+msgstr "ერთჯერადი პაროლი კოპირებულია"
+
+#: src/application.rs:452
+msgid "Password was copied successfully"
+msgstr "პაროლი წარმატებით დაკოპირდა"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:377 src/backup/aegis.rs:429
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:381
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr ""
+
+#: src/backup/aegis.rs:433
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr ""
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:70
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
+
+#: src/backup/andotp.rs:74
+msgid "Into a plain-text JSON file"
+msgstr "უბრალო ტექსტურ JSON ფაილში"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:131
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:123 src/backup/legacy.rs:40
+msgid "From a plain-text JSON file"
+msgstr "უბრალო ტექსტური JSON ფაილიდან"
+
+#: src/backup/bitwarden.rs:47
+msgid "Unknown account"
+msgstr "უცნობი ანგარიში"
+
+#: src/backup/bitwarden.rs:55
+msgid "Unknown issuer"
+msgstr "უცნობი გამომცემელი"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:119
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
+
+#: src/backup/freeotp.rs:23
+msgid "_Authenticator"
+msgstr "_Authenticator"
+
+#: src/backup/freeotp.rs:27
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr ""
+
+#: src/backup/freeotp.rs:69
+msgid "A_uthenticator"
+msgstr "A_uthenticator"
+
+#: src/backup/freeotp.rs:73
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr ""
+
+#: src/backup/google.rs:26
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:30
+msgid "From a QR code generated by Google Authenticator"
+msgstr ""
+
+#. Translators: this is for restoring a backup from the old Authenticator
+#. release
+#: src/backup/legacy.rs:36
+msgid "Au_thenticator (Legacy)"
+msgstr ""
+
+#: src/models/algorithm.rs:61
+msgid "Counter-based"
+msgstr ""
+
+#: src/models/algorithm.rs:62
+msgid "Time-based"
+msgstr ""
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:64
+msgid "Steam"
+msgstr "ნაკადი"
+
+#: src/models/algorithm.rs:132
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:133
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:134
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:275
+msgid "Invalid Token"
+msgstr "არასწორი კოდი"
+
+#: src/widgets/window.rs:300
+msgid "Wrong Password"
+msgstr "არასწორი პაროლი"
+
+#: src/widgets/preferences/password_page.rs:218
+#: src/widgets/preferences/password_page.rs:257
+msgid "Wrong Passphrase"
+msgstr "არასწორი საიდუმლო ფრაზა"
+
+#: src/widgets/preferences/window.rs:249 src/widgets/preferences/window.rs:317
+msgid "Key / Passphrase"
+msgstr "გასაღები / კოდური ფრაზა"
+
+#: src/widgets/preferences/window.rs:250
+msgid "The key that will be used to decrypt the vault"
+msgstr ""
+
+#: src/widgets/preferences/window.rs:266 src/widgets/preferences/window.rs:333
+msgid "Select File"
+msgstr "აირჩიეთ ფაილი"
+
+#: src/widgets/preferences/window.rs:318
+msgid "The key used to encrypt the vault"
+msgstr ""
+
+#: src/widgets/preferences/window.rs:405 src/widgets/preferences/window.rs:438
+msgid "Unable to restore accounts"
+msgstr "ანგარიშების აღდგენის შეცდომა"
+
+#: src/widgets/preferences/window.rs:416
+msgid "Something went wrong"
+msgstr "რაღაც არასწორად ხდება"
+
+#: src/widgets/preferences/window.rs:444
+msgid "Couldn't find a QR code"
+msgstr ""
+
+#: src/widgets/preferences/window.rs:514 src/widgets/preferences/window.rs:521
+#: src/widgets/providers/page.rs:321
+msgid "Select"
+msgstr "_არჩევა"
+
+#: src/widgets/preferences/window.rs:515 src/widgets/preferences/window.rs:522
+#: src/widgets/providers/page.rs:322
+msgid "Cancel"
+msgstr "გაუქმება"
+
+#: src/widgets/providers/dialog.rs:246
+msgid "Provider created successfully"
+msgstr "მომწოდებელი წარმატებით შეიქმნა"
+
+#: src/widgets/providers/dialog.rs:256
+msgid "Provider updated successfully"
+msgstr "მომწოდებელი წარმატებით განახლდა"
+
+#: src/widgets/providers/dialog.rs:273
+msgid "Provider removed successfully"
+msgstr "მომწოდებელი წარმატებით წაიშალა"
+
+#: src/widgets/providers/page.rs:213
+msgid "Editing Provider: {}"
+msgstr "მომწოდებლის ჩასწორება: {}"
+
+#: src/widgets/providers/page.rs:329
+msgid "Image"
+msgstr "ასლი"
+
+#: src/widgets/providers/page.rs:364
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr ""
