@@ -10,20 +10,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-04-22 19:26+0000\n"
-"PO-Revision-Date: 2022-04-30 16:50+0300\n"
-"Last-Translator: Emin Tufan Çetin <etcetin@gmail.com>\n"
+"POT-Creation-Date: 2022-06-10 18:59+0000\n"
+"PO-Revision-Date: 2022-06-11 00:19+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
 msgid "Authenticator"
 msgstr "Kimlik Doğrulayıcı"
 
@@ -33,7 +33,7 @@ msgstr "İki Aşamalı Kimlik Doğrulama"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:146
 msgid "Generate Two-Factor Codes"
 msgstr "İki Aşamalı Kodlar Oluştur"
 
@@ -116,11 +116,11 @@ msgstr "GNOME Kabuk arama sağlayıcısı"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-"(encrypted / plain-text)"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
-"FreeOTP+ ve andOTP, Aegis (şifreli / düz metin) gibi bilinen uygulamalardan "
-"Yedekle/Geri Yükle"
+"FreeOTP+, Aegis (şifreli / düz metin) ve andOTP, Google Authenticator gibi "
+"bilinen uygulamalardan Yedekle/Geri Yükle"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
@@ -143,20 +143,20 @@ msgstr "Hesap Ayrıntıları"
 msgid "Backup/Restore formats support"
 msgstr "Yedekleme/Geri Yükleme biçimleri desteği"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
 msgid "_Camera"
 msgstr "_Kamera"
 
-#: data/resources/ui/account_add.ui:10
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
 msgid "_Screenshot"
 msgstr "_Ekran Görüntüsü"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
 #: data/resources/ui/providers_dialog.ui:184
@@ -167,7 +167,7 @@ msgstr "Geri Git"
 msgid "_Add"
 msgstr "_Ekle"
 
-#: data/resources/ui/account_add.ui:61
+#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
 msgid "Scan QR Code"
 msgstr "QR Kodunu Tara"
 
@@ -264,11 +264,11 @@ msgstr "Sayacı artır"
 msgid "Copy PIN to clipboard"
 msgstr "PIN’i panoya kopyala"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:43
 msgid "No Camera Found"
 msgstr "Kamera Bulunamadı"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:46
 msgid "_From a Screenshot"
 msgstr "_Ekran Görüntüsünden"
 
@@ -346,11 +346,11 @@ msgstr "Dakika türünden zaman"
 msgid "Backup/Restore"
 msgstr "Yedekle/Geri Yükle"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
 msgid "Backup"
 msgstr "Yedekle"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "Geri Yükle"
 
@@ -500,33 +500,37 @@ msgstr "Hesap Yok"
 msgid "Add an account or scan a QR code first."
 msgstr "Önce hesap ekleyin veya QR kodu tarayın."
 
-#: src/application.rs:145
+#: src/application.rs:124
+msgid "Accounts restored successfully"
+msgstr "Hesaplar başarıyla geri yüklendi"
+
+#: src/application.rs:150
 msgid "translator-credits"
 msgstr ""
 "Serdar Sağlam <teknomobil@yandex.com\n"
 "Emin Tufan Çetin <etcetin@gmail.com>\n"
 "Sabri Ünal <libreajans@gmail.com>"
 
-#: src/application.rs:398 src/widgets/accounts/row.rs:43
+#: src/application.rs:439 src/widgets/accounts/row.rs:43
 msgid "One-Time password copied"
 msgstr "Tek kullanımlık parola kopyalandı"
 
-#: src/application.rs:399
+#: src/application.rs:440
 msgid "Password was copied successfully"
 msgstr "Parola başarıyla kopyalandı"
 
 # Uygulama adı: Çevirmeyin
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:530
+#: src/backup/aegis.rs:378
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "Düz metin ya da şifreli alanlar içeren JSON dosyasına"
 
-#: src/backup/aegis.rs:580
+#: src/backup/aegis.rs:430
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "Düz metin ya da şifreli alanlar içeren JSON dosyasından"
 
@@ -542,46 +546,54 @@ msgstr "Düz metin JSON dosyasına"
 
 # Çevirmeyin: Format adı
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:128
+#: src/backup/andotp.rs:130
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
 msgid "From a plain-text JSON file"
 msgstr "Düz metin JSON dosyasından"
 
-#: src/backup/bitwarden.rs:68
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "Bilinmeyen hesap"
 
-#: src/backup/bitwarden.rs:76
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "Bilinmeyen imzacı"
 
 # Uygulama adı, çevirmeyin.
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:138
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:20
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "_Kimlik Doğrulayıcı"
 
-#: src/backup/freeotp.rs:24
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "FreeOTP+ ile uyumlu düz metin dosyasına"
 
-#: src/backup/freeotp.rs:63
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "_Kimlik Doğrulayıcı"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "FreeOTP+ ile uyumlu düz metin dosyasından"
 
+#: src/backup/google.rs:24
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:28
+msgid "From a QR code generated by Google Authenticator"
+msgstr "Google Authenticator tarafından oluşturulan QR kodundan"
+
 #. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:33
+#: src/backup/legacy.rs:34
 msgid "Au_thenticator (Legacy)"
 msgstr "_Kimlik Doğrulayıcı (Eski)"
 
@@ -610,41 +622,53 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:202
+#: src/widgets/accounts/add.rs:201
 msgid "Invalid Token"
 msgstr "Geçersiz Jeton"
 
-#: src/widgets/window.rs:339
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "Hatalı Parola"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:222
+#: src/widgets/preferences/password_page.rs:261
 msgid "Wrong Passphrase"
 msgstr "Yanlış Parola Metni"
 
-#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
 msgid "Key / Passphrase"
 msgstr "Anahtar / Parola Metni"
 
-#: src/widgets/preferences/window.rs:212
+#: src/widgets/preferences/window.rs:227
 msgid "The key that will be used to decrypt the vault"
 msgstr "Kasanın şifresini çözmede kullanılacak anahtar"
 
-#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
 msgid "Select File"
 msgstr "Dosya Seç"
 
-#: src/widgets/preferences/window.rs:280
+#: src/widgets/preferences/window.rs:295
 msgid "The key used to encrypt the vault"
 msgstr "Kasayı şifrelemede kullanılacak anahtar"
 
-#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+msgid "Unable to restore accounts"
+msgstr "Hesaplar geri yüklenemedi"
+
+#: src/widgets/preferences/window.rs:393
+msgid "Something went wrong"
+msgstr "Bir şeyler yanlış gitti"
+
+#: src/widgets/preferences/window.rs:421
+msgid "Couldn't find a QR code"
+msgstr "QR kod bulunamadı"
+
+#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
 #: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Seç"
 
-#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
 #: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "İptal"
@@ -671,260 +695,4 @@ msgstr "Resim"
 
 #: src/widgets/providers/page.rs:367
 msgid "The provider has accounts assigned to it, please remove them first"
-msgstr ""
-"Sağlayıcıya atanmış hesaplar var, lütfen önce bunları kaldırın"
-
-#~ msgid "A Two-Factor Authentication application"
-#~ msgstr "İki Aşamalı Kimlik Doğrulama uygulaması"
-
-#~ msgid "QR code scanner"
-#~ msgstr "QR kod tarayıcı"
-
-#~ msgid "Huge database of more than 560 supported services"
-#~ msgstr "560’tan çok desteklenen hizmetten oluşan devasa veritabanı"
-
-#~ msgid "Automatically fetch an image for services"
-#~ msgstr "Servisler için kendiliğinden resim getir"
-
-#~ msgid "The possibility to add new services"
-#~ msgstr "Yeni hizmetler ekleme imkanı"
-
-#~ msgid "Dark theme and night light"
-#~ msgstr "Koyu tema ve gece ışığı"
-
-#~ msgid "Main Window - empty state"
-#~ msgstr "Ana Pencere - boş durum"
-
-#~ msgid "Main Window - Accounts List"
-#~ msgstr "Ana Pencere - Hesap Listesi"
-
-#~ msgid "Night Light"
-#~ msgstr "Gece Işığı"
-
-#~ msgid "Automatically enable dark mode at night."
-#~ msgstr "Koyu temayı geceleyin kendiliğinden etkinleştir."
-
-#~ msgid "Enable 2FA for this account"
-#~ msgstr "Bu hesap için iki aşamalı kimlik doğrulamasını (2FA) etkinleştir"
-
-#~ msgid "Confirm New Password:"
-#~ msgstr "Yeni Parolayı Doğrula:"
-
-#~ msgid "Delete Password"
-#~ msgstr "Parolayı Sil"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Show Shortcuts"
-#~ msgstr "Kısayolları Göster"
-
-#~ msgctxt "shortcut window"
-#~ msgid "Add"
-#~ msgstr "Ekle"
-
-#~ msgid "There are no accounts yet…"
-#~ msgstr "Henüz hesap yok…"
-
-#~ msgid "Add a new account from the menu"
-#~ msgstr "Menüden yeni hesap ekle"
-
-#~ msgid "Scan a QR Code"
-#~ msgstr "QR Kodunu Tara"
-
-#~ msgid "Start in debug mode"
-#~ msgstr "Hata ayıklama kipinde başlat"
-
-#~ msgid "Default"
-#~ msgstr "Öntanımlı"
-
-#~ msgid "Add"
-#~ msgstr "Ekle"
-
-#~ msgid "Couldn't generate the secret code"
-#~ msgstr "Gizli kod oluşturulamadı"
-
-#~ msgid "The PIN of {} was copied to the clipboard"
-#~ msgstr "{} PIN’i panoya kopyalandı"
-
-#~ msgid "Undo"
-#~ msgstr "Geri al"
-
-#~ msgid "Close the notification"
-#~ msgstr "Bildirimi kapat"
-
-#~ msgid "Save Password"
-#~ msgstr "Parolayı Kaydet"
-
-#~ msgid "Do you want to remove the authentication password?"
-#~ msgstr "Kimlik doğrulama parolasını kaldırmak istiyor musunuz?"
-
-#~ msgid "Authentication password enforces the privacy of your accounts."
-#~ msgstr "Kimlik Doğrulama parolası hesaplarınızın güvenliğini güçlendirir."
-
-#~ msgid "JSON files"
-#~ msgstr "JSON dosyası"
-
-#~ msgid "Account Name"
-#~ msgstr "Hesap Adı"
-
-#~ msgid "Donate"
-#~ msgstr "Bağış"
-
-#~ msgid "Two-factor authentication code generator"
-#~ msgstr "İki aşamalı kimlik doğrulama kodu üreteci"
-
-#~ msgid ""
-#~ "Since I have moved the application to GOME Gitlab's World group, a "
-#~ "Flatpak build for each new commit is available to download from the "
-#~ "site's website."
-#~ msgstr ""
-#~ "Uygulamayı GNOME Gitlab'ın Worl grubuna taşıdığımdan, web sitesinden "
-#~ "indirebileceğiniz her yeni işlem için bir Flatpak yapısı vardır."
-
-#~ msgid "Backup and restore from a basic JSON file"
-#~ msgstr "Temel bir JSON dosyasından yedekle ve geri yükle"
-
-#~ msgid "Backup and restore from an encrypted-GPG JSON file"
-#~ msgstr "Şifreli bir GPG JSON dosyasından yedekle ve geri yükle"
-
-#~ msgid "Add andOTP support (free and open Android 2FA application)"
-#~ msgstr "AndOTP desteği ekle (ücretsiz ve açık Android 2FA uygulaması)"
-
-#~ msgid "New Settings Widow with 3 sections: appearance, behavior and backup"
-#~ msgstr "Üç bölümlü yeni pencere ayarları: görünüm, davranış ve yedekleme"
-
-#~ msgid "Fix Flatpak Build with the latest GNOME Runtime"
-#~ msgstr "En son GNOME Çalışma Zamanı Modülü ile Flatpak İnşasını Onarın"
-
-#~ msgid "Move the project to GOME Gitlab's World group"
-#~ msgstr "Proje GOME Gitlab'ın Word grubuna taşındı"
-
-#~ msgid "Codes expire simultaneously #91"
-#~ msgstr "Kodlar aynı anda sona eriyor #91"
-
-#~ msgid "Revamped main window to more closely follow the GNOME HIG"
-#~ msgstr "GNOME HIG'i daha yakından takip etmek için yenilenen ana pencere"
-
-#~ msgid "Revamped add a new account window to make it easier to use"
-#~ msgstr ""
-#~ "Yenilendi, kullanımı kolaylaştırmak için yeni bir hesap penceresi ekleyin"
-
-#~ msgid ""
-#~ "Possibility to add an account from a provider not listed in the shipped "
-#~ "database"
-#~ msgstr ""
-#~ "Gönderilen veri tabanında listelenmeyen bir sağlayıcıdan hesap ekleme "
-#~ "imkanı"
-
-#~ msgid "Possibilty to edit an account"
-#~ msgstr "Bir hesap düzenleme imkanı"
-
-#~ msgid "One Time Password now visible by default"
-#~ msgstr "Öntanımlı olarak görünür durumda tek seferlik parola"
-
-#~ msgid "Fix python-dbus by using GDbus instead"
-#~ msgstr "Python-dbus'u GDbus kullanarak düzeltin"
-
-#~ msgid "Fix the QRScanner on GNOME Shell"
-#~ msgstr "QR Tarayıcısını GNOME Kabuğuna Sabitleyin"
-
-#~ msgid "Add a new entry for the account's username"
-#~ msgstr "Hesabın kullanıcı adı için yeni bir giriş ekleyin"
-
-#~ msgid "Updated database of supported accounts"
-#~ msgstr "Desteklenen hesapların güncellenmiş veritabanı"
-
-#~ msgid "HOTFIX: App not running in DE other than GNOME"
-#~ msgstr "DÜZELTME: Uygulama GNOME dışında DE'de çalışmıyor"
-
-#~ msgid "Rename project to Authenticator"
-#~ msgstr "Projeyi Authenticator olarak yeniden adlandır"
-
-#~ msgid "Cleaner code base"
-#~ msgstr "Kod tabanı temizleyici"
-
-#~ msgid "Faster startup"
-#~ msgstr "Hızlı başlangıç"
-
-#~ msgid "Remove unneeded features"
-#~ msgstr "Gereksiz özellikler kaldırıldı"
-
-#~ msgid "Switch to pyzbar instead of zbarlight"
-#~ msgstr "Zbarlight yerine pyzbar'a geç"
-
-#~ msgid "Flatpak package"
-#~ msgstr "Flatpak paketi"
-
-#~ msgid "@appid@"
-#~ msgstr "@appid@"
-
-#~ msgid "Two-factor authentication code generator."
-#~ msgstr "İki aşamalı kimlik doğrulama kodu üreteci."
-
-#~ msgid "Close"
-#~ msgstr "Kapat"
-
-#~ msgid "Behaviour"
-#~ msgstr "Davranış"
-
-#~ msgid "Authenticator version number"
-#~ msgstr "Kimlik doğrulayıcı sürüm numarası"
-
-#, fuzzy
-#~ msgid "Authentication password is now enabled."
-#~ msgstr "Kimlik doğrulama parolası"
-
-#, fuzzy
-#~ msgid "The authentication password was updated."
-#~ msgstr "Kimlik doğrulama parolası"
-
-#, fuzzy
-#~ msgid "The authentication password was deleted."
-#~ msgstr "Kimlik doğrulama parolası"
-
-#~ msgid "Huge database of (290+) websites/applications"
-#~ msgstr "(290+) web sitesinin/uygulamasının devasa veritabanı"
-
-#~ msgid "Night mode"
-#~ msgstr "Gece kipi"
-
-#~ msgid "Enable/disable night mode within the application"
-#~ msgstr "Uygulama içinde gece kipini etkinleştir/devre dışı bırak"
-
-#~ msgid "Use a dark theme, if possible"
-#~ msgstr "Mümkünse koyu tema kullan"
-
-#~ msgid "Keep your accounts safer "
-#~ msgstr "Hesaplarınızı güvende tutun "
-
-#~ msgid "Authenticator Password"
-#~ msgstr "Kimlik Doğrulayıcı Parolası"
-
-#~ msgid "Edit {} - {}"
-#~ msgstr "Düzenle {} - {}"
-
-#~ msgid "Authentication password was unset. Please restart the application"
-#~ msgstr "Kimlik Doğrulama parolası ayarlanmamış. Lütfen yeniden başlatın"
-
-#~ msgid "Open"
-#~ msgstr "Aç"
-
-#~ msgid "Secret token"
-#~ msgstr "Gizli belirteç"
-
-#~ msgid "zbar library is not found. QRCode scanner will be disabled"
-#~ msgstr "zbar kütüphanesi bulunamadı. QRCode tarayıcı devre dışı bırakılacak"
-
-#~ msgid "Copy"
-#~ msgstr "Kopyala"
-
-#~ msgid "Selection mode"
-#~ msgstr "Seçim modu"
-
-#~ msgid "Click on items to select them"
-#~ msgstr "Seçmek için üzerine tıkla"
-
-#~ msgid "Old Password"
-#~ msgstr "Eski parola"
-
-#~ msgid "Erase existing accounts"
-#~ msgstr "Mevcut hesapları sil"
+msgstr "Sağlayıcıya atanmış hesaplar var, lütfen önce bunları kaldırın"
