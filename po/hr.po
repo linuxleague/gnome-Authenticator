@@ -1,26 +1,27 @@
 # Croatian translation for authenticator.
 # Copyright (C) 2022 authenticator's COPYRIGHT HOLDER
 # This file is distributed under the same license as the authenticator package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Milo Ivir <mail@milotype.de>, 2021., 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-03-02 16:41+0000\n"
-"PO-Revision-Date: 2022-03-03 21:54+0100\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2022-05-07 18:01+0000\n"
+"PO-Revision-Date: 2022-05-09 12:56+0200\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.0.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:138 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:142 src/main.rs:40
 msgid "Authenticator"
 msgstr "Ovjeritelj"
 
@@ -30,7 +31,7 @@ msgstr "Dvofaktorska ovjera"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:141
+#: src/application.rs:145
 msgid "Generate Two-Factor Codes"
 msgstr "Stvorite dvofaktorne kôdove"
 
@@ -105,31 +106,39 @@ msgid "Beautiful UI"
 msgstr "Prekrasno korisničko sučelje"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
-msgstr "Sigurnosno kopiraj/Obnovi iz/u poznate aplikacije poput FreeOTP+ i andOTP"
+msgid "GNOME Shell search provider"
+msgstr "Pružatelj usluge pretraživanja za GNOME ljusku"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:24
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+"(encrypted / plain-text)"
+msgstr ""
+"Sigurnosno kopiraj/Obnovi iz/u poznate aplikacije poput FreeOTP+, andOTP, "
+"Aegis (šifrirano / običan tekst)"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
 msgstr "Glavni prozor"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:28
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
 #: data/resources/ui/account_add.ui:24
 msgid "Add a New Account"
 msgstr "Dodaj novi račun"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:32
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
 msgid "Add a New Provider"
 msgstr "Dodaj novog pružatelja usluga"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:36
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
 msgid "Account Details"
 msgstr "Pojedinosti računa"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:40
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
 msgid "Backup/Restore formats support"
 msgstr "Podržani formati sigurnosnog kopiranja/obnove"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:218
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
@@ -142,9 +151,10 @@ msgid "_Screenshot"
 msgstr "_Snimka zaslona"
 
 #: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:13 data/resources/ui/camera.ui:35
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:54
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
 msgid "Go Back"
 msgstr "Idi natrag"
 
@@ -157,7 +167,7 @@ msgid "Scan QR Code"
 msgstr "Skeniraj QR kôd"
 
 #: data/resources/ui/account_add.ui:100
-#: data/resources/ui/account_details_page.ui:52
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
 msgstr "Pružatelj usluge"
 
@@ -166,7 +176,7 @@ msgid "Token issuer"
 msgstr "Izdavač tokena"
 
 #: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:42
+#: data/resources/ui/account_details_page.ui:111
 msgid "Account"
 msgstr "Račun"
 
@@ -174,62 +184,80 @@ msgstr "Račun"
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:144 data/resources/ui/provider_page.ui:216
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:183
+#: data/resources/ui/provider_page.ui:209
 msgid "Counter"
 msgstr "Brojač"
 
-#: data/resources/ui/account_add.ui:169 data/resources/ui/provider_page.ui:182
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:163
+#: data/resources/ui/provider_page.ui:175
 msgid "Algorithm"
 msgstr "Algoritam"
 
-#: data/resources/ui/account_add.ui:181 data/resources/ui/provider_page.ui:169
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:173
+#: data/resources/ui/provider_page.ui:162
 msgid "Computing Method"
 msgstr "Način izračuna"
 
-#: data/resources/ui/account_add.ui:193 data/resources/ui/provider_page.ui:199
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:193
+#: data/resources/ui/provider_page.ui:192
 msgid "Period"
 msgstr "Trajanje"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:200
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
 msgid "Duration in seconds until the next password update"
 msgstr "Trajanje u sekundama do sljedeće nadopune lozinke"
 
-#: data/resources/ui/account_add.ui:206 data/resources/ui/provider_page.ui:233
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:203
+#: data/resources/ui/provider_page.ui:226
 msgid "Digits"
 msgstr "Znamenke"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:234
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
 msgid "Length of the generated code"
 msgstr "Duljina stvorenog kôda"
 
 #: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:62
-#: data/resources/ui/provider_page.ui:155
+#: data/resources/ui/account_details_page.ui:213
+#: data/resources/ui/provider_page.ui:148
 msgid "Website"
 msgstr "Web stranica"
 
-#: data/resources/ui/account_add.ui:225
+#: data/resources/ui/account_add.ui:224
 msgid "How to Set Up"
 msgstr "Kako postaviti"
 
-#: data/resources/ui/account_details_page.ui:73
-#: data/resources/ui/account_row.ui:16 data/resources/ui/provider_page.ui:267
+#: data/resources/ui/account_details_page.ui:56
+msgid "_Edit"
+msgstr "_Uredi"
+
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+msgid "_Save"
+msgstr "_Spremi"
+
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
 msgid "_Delete"
 msgstr "_Obriši"
 
-#: data/resources/ui/account_row.ui:6
-msgid "D_etails"
-msgstr "P_ojedinosti"
+#: data/resources/ui/account_details_page.ui:218
+msgid "Help"
+msgstr "Pomoć"
 
-#: data/resources/ui/account_row.ui:12
-msgid "_Rename"
-msgstr "_Preimenuj"
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Povećaj brojača"
 
-#: data/resources/ui/account_row.ui:86
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:61
-msgid "_Save"
-msgstr "_Spremi"
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "Kopiraj PIN u međuspremnik"
 
 #: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
@@ -260,7 +288,7 @@ msgid "Repeat Passphrase"
 msgstr "Ponovi lozinku"
 
 #: data/resources/ui/preferences_password_page.ui:100
-#: data/resources/ui/provider_page.ui:106
+#: data/resources/ui/provider_page.ui:100
 msgid "_Reset"
 msgstr "_Vrati izvorno"
 
@@ -320,27 +348,27 @@ msgstr "Sigurnosno kopiraj"
 msgid "Restore"
 msgstr "Obnovi"
 
-#: data/resources/ui/provider_page.ui:117
+#: data/resources/ui/provider_page.ui:110
 msgid "Select a _File"
 msgstr "Odaberi _datoteku"
 
-#: data/resources/ui/provider_page.ui:141
+#: data/resources/ui/provider_page.ui:134
 msgid "Name"
-msgstr "Naziv "
+msgstr "Naziv"
 
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/provider_page.ui:149
 msgid "Used to fetch the provider icon"
 msgstr "Koristi se za preuzimanje ikone pružatelja usluge"
 
-#: data/resources/ui/provider_page.ui:217
+#: data/resources/ui/provider_page.ui:210
 msgid "The by default value for counter-based computing method"
 msgstr "Zadana vrijednost za brojčano temeljeni način izračuna"
 
-#: data/resources/ui/provider_page.ui:251
+#: data/resources/ui/provider_page.ui:244
 msgid "Help URL"
 msgstr "URL pomoći"
 
-#: data/resources/ui/provider_page.ui:252
+#: data/resources/ui/provider_page.ui:245
 msgid "Provider setup instructions"
 msgstr "Upute postavljanja pružatelja usluge"
 
@@ -348,26 +376,35 @@ msgstr "Upute postavljanja pružatelja usluge"
 msgid "Providers"
 msgstr "Pružatelji usluga"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:204
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
 msgid "New Provider"
 msgstr "Novi pružatelj usluga"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:259
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
 msgid "Search"
 msgstr "Pretraga"
 
-#: data/resources/ui/providers_dialog.ui:101
+#: data/resources/ui/providers_dialog.ui:102
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "Nema rezultata"
 
-#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_dialog.ui:103
 msgid "No providers matching the query were found."
 msgstr "Nema pronađenih pružatelja usluga koji se podudaraju s upitom."
 
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "Nema odabranog pružatelja usluga"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "Odaberi pružatelja usluge ili stvori novi"
+
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
-msgstr "Nema pronađenih računa ili pružatelja usluga koji se podudaraju s upitom."
+msgstr ""
+"Nema pronađenih računa ili pružatelja usluga koji se podudaraju s upitom."
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -434,35 +471,58 @@ msgstr "_Prečaci tipkovnice"
 msgid "_About Authenticator"
 msgstr "_O Ovjeritelju"
 
-#: data/resources/ui/window.ui:95
+#: data/resources/ui/window.ui:97
 msgid "Authenticator is Locked"
 msgstr "Ovjeritelj je zaključan"
 
-#: data/resources/ui/window.ui:123
+#: data/resources/ui/window.ui:124
 msgid "_Unlock"
 msgstr "_Otključaj"
 
-#: data/resources/ui/window.ui:173 data/resources/ui/window.ui:214
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
 msgid "New Account"
 msgstr "Novi račun"
 
-#: data/resources/ui/window.ui:181 data/resources/ui/window.ui:252
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
 msgid "Menu"
 msgstr "Izbornik"
 
-#: data/resources/ui/window.ui:192
+#: data/resources/ui/window.ui:190
 msgid "No Accounts"
 msgstr "Nema računa"
 
-#: data/resources/ui/window.ui:193
+#: data/resources/ui/window.ui:191
 msgid "Add an account or scan a QR code first."
 msgstr "Dodajte račun ili skenirajte QR kôd."
 
-#: src/application.rs:145
+#: src/application.rs:149
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  gogo https://launchpad.net/~trebelnik-stefina"
+"  gogo https://launchpad.net/~trebelnik-stefina\n"
+"Milo Ivir <mail@milotype.de>"
+
+#: src/application.rs:442 src/widgets/accounts/row.rs:43
+msgid "One-Time password copied"
+msgstr "Jednokratna lozinka kopirana"
+
+#: src/application.rs:443
+msgid "Password was copied successfully"
+msgstr "Lozinka je uspješno kopirana"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:530
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "U JSON datoteku koja sadrži običan tekst ili šifrirana polja"
+
+#: src/backup/aegis.rs:580
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Iz JSON datoteke koja sadrži običan tekst ili šifrirana polja"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:69
@@ -516,41 +576,41 @@ msgstr "Iz datoteke običnog teksta, FreeOTP+ kompatibilne"
 msgid "Au_thenticator (Legacy)"
 msgstr "Ov_jeritelj (zastarjelo)"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "Brojčano temeljen"
 
-#: src/models/algorithm.rs:57
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "Vremenski temeljen"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:59
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:127
+#: src/models/algorithm.rs:131
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:128
+#: src/models/algorithm.rs:132
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:129
+#: src/models/algorithm.rs:133
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:171
+#: src/widgets/accounts/add.rs:202
 msgid "Invalid Token"
 msgstr "Nevaljani token"
 
-#: src/widgets/window.rs:313
+#: src/widgets/window.rs:341
 msgid "Wrong Password"
 msgstr "Neispravna lozinka"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:242
+#: src/widgets/preferences/password_page.rs:218
+#: src/widgets/preferences/password_page.rs:257
 msgid "Wrong Passphrase"
 msgstr "Neispravna lozinka"
 
@@ -571,23 +631,41 @@ msgid "The key used to encrypt the vault"
 msgstr "Ključ koji će se koristiti za šifriranje trezora"
 
 #: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
-#: src/widgets/providers/page.rs:310
+#: src/widgets/providers/page.rs:324
 msgid "Select"
 msgstr "Odaberi"
 
 #: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
-#: src/widgets/providers/page.rs:311
+#: src/widgets/providers/page.rs:325
 msgid "Cancel"
 msgstr "Odustani"
 
-#: src/widgets/providers/page.rs:180
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "Pružatelj usluge je uspješno stvoren"
+
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "Pružatelj usluge je uspješno ažuriran"
+
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "Pružatelj usluge je uspješno uklonjen"
+
+#: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "Uređivanje pružatelja usluge: {}"
 
-#: src/widgets/providers/page.rs:318
+#: src/widgets/providers/page.rs:332
 msgid "Image"
 msgstr "Slika"
 
-#: src/widgets/providers/page.rs:353
+#: src/widgets/providers/page.rs:367
 msgid "The provider has accounts assigned to it, please remove them first"
-msgstr "Pružatelj usluge ima dodijeljene račune, najprije ih ukloniteSiurnosno"
+msgstr "Pružatelj usluge ima dodijeljene račune, najprije ih uklonite"
+
+#~ msgid "D_etails"
+#~ msgstr "P_ojedinosti"
+
+#~ msgid "_Rename"
+#~ msgstr "_Preimenuj"
