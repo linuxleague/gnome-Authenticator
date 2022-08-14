@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
 "POT-Creation-Date: 2022-07-11 03:50+0000\n"
-"PO-Revision-Date: 2022-08-14 13:18+0200\n"
+"PO-Revision-Date: 2022-08-14 13:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -354,7 +354,7 @@ msgstr "Odaberi _datoteku"
 
 #: data/resources/ui/provider_page.ui:134
 msgid "Name"
-msgstr "Naziv "
+msgstr "Naziv"
 
 #: data/resources/ui/provider_page.ui:150
 msgid "Used to fetch the provider icon"
@@ -686,7 +686,7 @@ msgstr "Slika"
 
 #: src/widgets/providers/page.rs:364
 msgid "The provider has accounts assigned to it, please remove them first"
-msgstr "Pružatelj usluge ima dodijeljene račune, najprije ih ukloniteSiurnosno"
+msgstr "Pružatelj usluge ima dodijeljene račune, najprije ih uklonite"
 
 #~ msgid "D_etails"
 #~ msgstr "P_ojedinosti"
