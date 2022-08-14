@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
 "POT-Creation-Date: 2022-07-11 03:50+0000\n"
-"PO-Revision-Date: 2022-08-14 13:17+0200\n"
+"PO-Revision-Date: 2022-08-14 13:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
@@ -395,7 +395,7 @@ msgstr "Nema pronađenih pružatelja usluga koji se podudaraju s upitom."
 
 #: data/resources/ui/providers_dialog.ui:204
 msgid "No Provider Selected"
-msgstr "Nema odabranog pružatelja uslugaNovi pružatelj usluga"
+msgstr "Nema odabranog pružatelja usluga"
 
 #: data/resources/ui/providers_dialog.ui:205
 msgid "Select a provider or create a new one"
