@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-07-11 03:50+0000\n"
-"PO-Revision-Date: 2022-08-14 13:21+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2022-08-14 11:22+0000\n"
+"PO-Revision-Date: 2022-08-17 12:31+0200\n"
+"Last-Translator: gogo <trebelnik2@gmail.com>\n"
 "Language-Team: Croatian <hr@li.org>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgstr "Skener QR kôdova koji koristi kameru ili snimku zaslona"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
 msgid "Lock the application with a password"
-msgstr "Zaključaj aplikaciju s lozinkom"
+msgstr "Zaključavanje aplikacije s lozinkom"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
 msgid "Beautiful UI"
