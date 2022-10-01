@@ -280,7 +280,7 @@ pub struct Item {
     // UUID is omitted
     #[serde(rename = "name")]
     pub label: String,
-    pub issuer: String,
+    pub issuer: Option<String>,
     // TODO tags are not imported/exported right now.
     #[serde(rename = "group")]
     pub tags: Option<String>,
@@ -312,11 +312,24 @@ impl Item {
         Self {
             method: provider.method(),
             label: account.name(),
-            issuer: provider.name(),
+            issuer: Some(provider.name()),
             tags: None,
             thumbnail: None,
             info: detail,
         }
+    }
+
+    pub fn fix_empty_issuer(&mut self) -> Result<()> {
+        if self.issuer.is_none() {
+            let mut vals: Vec<&str> = self.label.split("@").collect();
+            if vals.len() > 1 {
+                self.issuer = vals.pop().map(ToOwned::to_owned);
+                self.label = vals.join("@");
+            } else {
+                anyhow::bail!("Entry {} has an empty issuer", self.label);
+            }
+        }
+        Ok(())
     }
 }
 
@@ -337,7 +350,10 @@ impl RestorableItem for Item {
     }
 
     fn issuer(&self) -> String {
-        self.issuer.clone()
+        self.issuer
+            .as_ref()
+            .map(ToOwned::to_owned)
+            .unwrap_or_default()
     }
 
     fn secret(&self) -> String {
@@ -436,6 +452,7 @@ impl Restorable for Aegis {
     fn restore_from_data(from: &[u8], key: Option<&str>) -> Result<Vec<Self::Item>> {
         // TODO check whether file / database is encrypted by aegis
         let aegis_root: Aegis = serde_json::de::from_slice(from)?;
+        let mut items = Vec::new();
 
         // Check whether file is encrypted or in plaintext
         match aegis_root {
@@ -459,7 +476,11 @@ impl Restorable for Aegis {
                         plain_text.db.version
                     );
                 } else {
-                    Ok(plain_text.db.entries)
+                    for mut item in plain_text.db.entries {
+                        item.fix_empty_issuer()?;
+                        items.push(item);
+                    }
+                    Ok(items)
                 }
             }
             Aegis::Encrypted(encrypted) => {
@@ -587,7 +608,11 @@ impl Restorable for Aegis {
                 }
 
                 // Return items
-                Ok(db.entries)
+                for mut item in db.entries {
+                    item.fix_empty_issuer()?;
+                    items.push(item);
+                }
+                Ok(items)
             }
         }
     }
@@ -596,6 +621,92 @@ impl Restorable for Aegis {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn generate_issuer_from_name() {
+        let aegis_data = r#"{
+    "version": 1,
+    "header": {
+        "slots": null,
+        "params": null
+    },
+    "db": {
+        "version": 2,
+        "entries": [
+            {
+                "type": "totp",
+                "uuid": "01234567-89ab-cdef-0123-456789abcdef",
+                "name": "missing-issuer@issuer",
+                "issuer": null,
+                "icon": null,
+                "info": {
+                    "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+                    "algo": "SHA1",
+                    "digits": 6,
+                    "period": 30
+                }
+            },
+            {
+                "type": "totp",
+                "uuid": "01234567-89ab-cdef-0123-456789abcdef",
+                "name": "missing-issuer@domain.com@issuer",
+                "issuer": null,
+                "icon": null,
+                "info": {
+                    "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+                    "algo": "SHA1",
+                    "digits": 6,
+                    "period": 30
+                }
+            }
+        ]
+    }
+}"#;
+
+        let aegis_items = Aegis::restore_from_data(&aegis_data.as_bytes(), None)
+            .expect("Restoring from json should work");
+
+        assert_eq!(aegis_items[0].issuer(), "issuer");
+        assert_eq!(aegis_items[0].account(), "missing-issuer");
+        assert_eq!(aegis_items[1].issuer(), "issuer");
+        assert_eq!(aegis_items[1].account(), "missing-issuer@domain.com");
+    }
+
+    #[test]
+    fn empty_issuer_failure() {
+        let aegis_data = r#"{
+    "version": 1,
+    "header": {
+        "slots": null,
+        "params": null
+    },
+    "db": {
+        "version": 2,
+        "entries": [
+            {
+                "type": "totp",
+                "uuid": "01234567-89ab-cdef-0123-456789abcdef",
+                "name": "cannot-derive-issuer-value",
+                "issuer": null,
+                "icon": null,
+                "info": {
+                    "secret": "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567",
+                    "algo": "SHA1",
+                    "digits": 6,
+                    "period": 30
+                }
+            }
+        ]
+    }
+}"#;
+
+        let result = Aegis::restore_from_data(&aegis_data.as_bytes(), None).unwrap_err();
+
+        assert_eq!(
+            format!("{}", result),
+            "Entry cannot-derive-issuer-value has an empty issuer"
+        );
+    }
 
     #[test]
     fn restore_unencrypted_file() {
