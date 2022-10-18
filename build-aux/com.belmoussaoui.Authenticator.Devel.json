@@ -5,7 +5,7 @@
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.rust-stable",
-        "org.freedesktop.Sdk.Extension.llvm12"
+        "org.freedesktop.Sdk.Extension.llvm14"
     ],
     "command": "authenticator",
     "finish-args": [
@@ -21,8 +21,8 @@
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
-        "prepend-path": "/usr/lib/sdk/llvm12/bin",
-        "prepend-ld-library-path": "/usr/lib/sdk/llvm12/lib",
+        "prepend-path": "/usr/lib/sdk/llvm14/bin",
+        "prepend-ld-library-path": "/usr/lib/sdk/llvm14/lib",
         "env": {
             "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER": "clang",
             "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS": "-C link-arg=-fuse-ld=/usr/lib/sdk/rust-stable/bin/mold",
