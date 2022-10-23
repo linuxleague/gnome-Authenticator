@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-06-10 18:59+0000\n"
-"PO-Revision-Date: 2022-06-16 11:47+0300\n"
+"POT-Creation-Date: 2022-07-11 03:50+0000\n"
+"PO-Revision-Date: 2022-10-23 20:13+0300\n"
 "Last-Translator: Yosef Or Boczko <yoseforb@gmail.com>\n"
 "Language-Team: Hebrew <>\n"
 "Language: he\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
 "2 : 3)\n"
-"X-Generator: Gtranslator 40.0\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:143 src/main.rs:40
+#: data/resources/ui/window.ui:34 src/application.rs:130 src/main.rs:45
 msgid "Authenticator"
 msgstr "מאמת"
 
@@ -32,7 +32,7 @@ msgstr "אימות דו־שלבי"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:146
+#: src/application.rs:133
 msgid "Generate Two-Factor Codes"
 msgstr "יצירת קודים לאימות דו־שלבי"
 
@@ -113,9 +113,6 @@ msgid "GNOME Shell search provider"
 msgstr "ספק חיפוש למעטפת GNOME"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
-#| msgid ""
-#| "Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
-#| "(encrypted / plain-text)"
 msgid ""
 "Backup/Restore from/into known applications like FreeOTP+, Aegis "
 "(encrypted / plain-text), andOTP, Google Authenticator"
@@ -144,116 +141,116 @@ msgstr "פרטי חשבון"
 msgid "Backup/Restore formats support"
 msgstr "תמיכה בתצורות גיבוי/שחזור"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:265
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:271
 msgid "Bilal Elmoussaoui"
 msgstr "בילאל אלמוסאווי"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:328
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:351
 msgid "_Camera"
 msgstr "מ_צלמה"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:334
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:357
 msgid "_Screenshot"
 msgstr "צי_לום מסך"
 
-#: data/resources/ui/account_add.ui:44
-#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:13
+#: data/resources/ui/account_add.ui:45
+#: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:48
-#: data/resources/ui/providers_dialog.ui:184
+#: data/resources/ui/providers_dialog.ui:194
 msgid "Go Back"
 msgstr "חזרה"
 
-#: data/resources/ui/account_add.ui:49
+#: data/resources/ui/account_add.ui:50
 msgid "_Add"
 msgstr "הו_ספה"
 
-#: data/resources/ui/account_add.ui:61 src/widgets/preferences/window.rs:322
+#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:345
 msgid "Scan QR Code"
 msgstr "סריקת קוד QR"
 
-#: data/resources/ui/account_add.ui:100
-#: data/resources/ui/account_details_page.ui:121
+#: data/resources/ui/account_add.ui:101
+#: data/resources/ui/account_details_page.ui:126
 msgid "Provider"
 msgstr "ספק"
 
-#: data/resources/ui/account_add.ui:101
+#: data/resources/ui/account_add.ui:102
 msgid "Token issuer"
 msgstr "מנפיק האסימון"
 
-#: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:111
+#: data/resources/ui/account_add.ui:117
+#: data/resources/ui/account_details_page.ui:116
 msgid "Account"
 msgstr "חשבון"
 
-#: data/resources/ui/account_add.ui:130
+#: data/resources/ui/account_add.ui:132
 msgid "Token"
 msgstr "אסימון"
 
-#: data/resources/ui/account_add.ui:144
-#: data/resources/ui/account_details_page.ui:183
-#: data/resources/ui/provider_page.ui:209
+#: data/resources/ui/account_add.ui:147
+#: data/resources/ui/account_details_page.ui:188
+#: data/resources/ui/provider_page.ui:212
 msgid "Counter"
 msgstr "מונה"
 
-#: data/resources/ui/account_add.ui:169
-#: data/resources/ui/account_details_page.ui:163
-#: data/resources/ui/provider_page.ui:175
+#: data/resources/ui/account_add.ui:172
+#: data/resources/ui/account_details_page.ui:168
+#: data/resources/ui/provider_page.ui:178
 msgid "Algorithm"
 msgstr "אלגוריתם"
 
-#: data/resources/ui/account_add.ui:181
-#: data/resources/ui/account_details_page.ui:173
-#: data/resources/ui/provider_page.ui:162
+#: data/resources/ui/account_add.ui:184
+#: data/resources/ui/account_details_page.ui:178
+#: data/resources/ui/provider_page.ui:164
 msgid "Computing Method"
 msgstr "שיטת חישוב"
 
-#: data/resources/ui/account_add.ui:193
-#: data/resources/ui/account_details_page.ui:193
-#: data/resources/ui/provider_page.ui:192
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:198
+#: data/resources/ui/provider_page.ui:195
 msgid "Period"
 msgstr "תקופה"
 
-#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:196
 msgid "Duration in seconds until the next password update"
 msgstr "משך הזמן בשניות עד לעדכון הססמה הבאה"
 
-#: data/resources/ui/account_add.ui:206
-#: data/resources/ui/account_details_page.ui:203
-#: data/resources/ui/provider_page.ui:226
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:208
+#: data/resources/ui/provider_page.ui:229
 msgid "Digits"
 msgstr "ספרות"
 
-#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
+#: data/resources/ui/account_add.ui:210 data/resources/ui/provider_page.ui:230
 msgid "Length of the generated code"
 msgstr "אורך הקוד שנוצר"
 
-#: data/resources/ui/account_add.ui:219
-#: data/resources/ui/account_details_page.ui:213
-#: data/resources/ui/provider_page.ui:148
+#: data/resources/ui/account_add.ui:222
+#: data/resources/ui/account_details_page.ui:218
+#: data/resources/ui/provider_page.ui:149
 msgid "Website"
 msgstr "אתר"
 
-#: data/resources/ui/account_add.ui:224
+#: data/resources/ui/account_add.ui:227
 msgid "How to Set Up"
 msgstr "איך להקים"
 
-#: data/resources/ui/account_details_page.ui:56
+#: data/resources/ui/account_details_page.ui:61
 msgid "_Edit"
 msgstr "_עריכה"
 
-#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/account_details_page.ui:76
 #: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:55
 msgid "_Save"
 msgstr "_שמירה"
 
-#: data/resources/ui/account_details_page.ui:86
-#: data/resources/ui/provider_page.ui:260
+#: data/resources/ui/account_details_page.ui:91
+#: data/resources/ui/provider_page.ui:264
 msgid "_Delete"
 msgstr "מ_חיקה"
 
-#: data/resources/ui/account_details_page.ui:218
+#: data/resources/ui/account_details_page.ui:223
 msgid "Help"
 msgstr "עזרה"
 
@@ -265,11 +262,11 @@ msgstr "הגדלת המונה"
 msgid "Copy PIN to clipboard"
 msgstr "העתקת קוד סודי ללוח הגזירים"
 
-#: data/resources/ui/camera.ui:43
+#: data/resources/ui/camera.ui:44
 msgid "No Camera Found"
 msgstr "לא נמצאה מצלמה"
 
-#: data/resources/ui/camera.ui:46
+#: data/resources/ui/camera.ui:47
 msgid "_From a Screenshot"
 msgstr "מצי_לום מסך"
 
@@ -289,11 +286,11 @@ msgstr "מילת הצופן הנוכחית"
 msgid "New Passphrase"
 msgstr "מילת צופן חדשה"
 
-#: data/resources/ui/preferences_password_page.ui:79
+#: data/resources/ui/preferences_password_page.ui:80
 msgid "Repeat Passphrase"
 msgstr "חזרה על מילת הצופן"
 
-#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/preferences_password_page.ui:102
 #: data/resources/ui/provider_page.ui:100
 msgid "_Reset"
 msgstr "_איפוס"
@@ -346,11 +343,11 @@ msgstr "הזמן בשניות"
 msgid "Backup/Restore"
 msgstr "גיבוי/שחזור"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:487
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:511
 msgid "Backup"
 msgstr "גיבוי"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:494
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:518
 msgid "Restore"
 msgstr "שחזור"
 
@@ -362,19 +359,19 @@ msgstr "_בחירת קובץ"
 msgid "Name"
 msgstr "שם"
 
-#: data/resources/ui/provider_page.ui:149
+#: data/resources/ui/provider_page.ui:150
 msgid "Used to fetch the provider icon"
 msgstr "משמש למשיכת סמל הספק"
 
-#: data/resources/ui/provider_page.ui:210
+#: data/resources/ui/provider_page.ui:213
 msgid "The by default value for counter-based computing method"
 msgstr "ערך ברירת המחדל לשיטת חישוב מבוססת מונה"
 
-#: data/resources/ui/provider_page.ui:244
+#: data/resources/ui/provider_page.ui:247
 msgid "Help URL"
 msgstr "כתובת עזרה"
 
-#: data/resources/ui/provider_page.ui:245
+#: data/resources/ui/provider_page.ui:248
 msgid "Provider setup instructions"
 msgstr "הנחיות הקמת ספק"
 
@@ -382,28 +379,28 @@ msgstr "הנחיות הקמת ספק"
 msgid "Providers"
 msgstr "ספקים"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:237
 msgid "New Provider"
 msgstr "ספק חדש"
 
-#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
+#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:263
 msgid "Search"
 msgstr "חיפוש"
 
-#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_dialog.ui:108
 #: data/resources/ui/providers_list.ui:42
 msgid "No Results"
 msgstr "אין תוצאות"
 
-#: data/resources/ui/providers_dialog.ui:103
+#: data/resources/ui/providers_dialog.ui:109
 msgid "No providers matching the query were found."
 msgstr "לא נמצאו ספקים שתואמים את השאילתה."
 
-#: data/resources/ui/providers_dialog.ui:194
+#: data/resources/ui/providers_dialog.ui:204
 msgid "No Provider Selected"
 msgstr "לא נבחר ספק"
 
-#: data/resources/ui/providers_dialog.ui:195
+#: data/resources/ui/providers_dialog.ui:205
 msgid "Select a provider or create a new one"
 msgstr "יש לבחור ספק או ליצור אחד חדש"
 
@@ -476,223 +473,221 @@ msgstr "_קיצורי מקלדת"
 msgid "_About Authenticator"
 msgstr "_על המאמת"
 
-#: data/resources/ui/window.ui:97
+#: data/resources/ui/window.ui:101
 msgid "Authenticator is Locked"
 msgstr "המאמת נעול"
 
-#: data/resources/ui/window.ui:124
+#: data/resources/ui/window.ui:129
 msgid "_Unlock"
 msgstr "_שחרור"
 
-#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:216
 msgid "New Account"
 msgstr "חשבון חדש"
 
-#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
+#: data/resources/ui/window.ui:184 data/resources/ui/window.ui:257
 msgid "Menu"
 msgstr "תפריט"
 
-#: data/resources/ui/window.ui:190
+#: data/resources/ui/window.ui:195
 msgid "No Accounts"
 msgstr "אין חשבונות"
 
-#: data/resources/ui/window.ui:191
+#: data/resources/ui/window.ui:196
 msgid "Add an account or scan a QR code first."
 msgstr "יש להוסיף חשבון או לסרוק QR תחילה."
 
-#: src/application.rs:124
-#| msgid "Provider created successfully"
+#: src/application.rs:113
 msgid "Accounts restored successfully"
 msgstr "חשבונות שוחזרו בהצלחה"
 
-#: src/application.rs:150
+#: src/application.rs:137
 msgid "translator-credits"
 msgstr ""
 "ירון שהרבני <sh.yaron@gmail.com>\n"
 "יוסף אור בוצ׳קו <yoseforb@gmail.com>\n"
-"\n"
-"<a href=\"https://l10n.gnome.org/teams/he/\">מיזם תרגום GNOME לעברית</a>"
+"מיזם תרגום GNOME לעברית https://l10n.gnome.org/teams/he/"
 
-#: src/application.rs:439 src/widgets/accounts/row.rs:43
+#: src/application.rs:451 src/widgets/accounts/row.rs:45
 msgid "One-Time password copied"
 msgstr "הססמה החד־פעמית הועתקה"
 
-#: src/application.rs:440
+#: src/application.rs:452
 msgid "Password was copied successfully"
 msgstr "הססמה הועתקה בהצלחה"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:374 src/backup/aegis.rs:426
+#: src/backup/aegis.rs:377 src/backup/aegis.rs:429
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:378
+#: src/backup/aegis.rs:381
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "לקובץ JSON המכיל טקסט פשוט או שדות מוצפנות"
 
-#: src/backup/aegis.rs:430
+#: src/backup/aegis.rs:433
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "מקובץ JSON המכיל טקסט פשוט או שדות מוצפנות"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:69
+#: src/backup/andotp.rs:70
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:73
+#: src/backup/andotp.rs:74
 msgid "Into a plain-text JSON file"
 msgstr "לקובץ JSON בטקסט פשוט"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:130
+#: src/backup/andotp.rs:131
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:134 src/backup/bitwarden.rs:121 src/backup/legacy.rs:38
+#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:123 src/backup/legacy.rs:40
 msgid "From a plain-text JSON file"
 msgstr "מקובץ JSON בטקסט פשוט"
 
-#: src/backup/bitwarden.rs:45
+#: src/backup/bitwarden.rs:47
 msgid "Unknown account"
 msgstr "חשבון לא ידוע"
 
-#: src/backup/bitwarden.rs:53
+#: src/backup/bitwarden.rs:55
 msgid "Unknown issuer"
 msgstr "מנפיק לא ידוע"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:117
+#: src/backup/bitwarden.rs:119
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:21
+#: src/backup/freeotp.rs:23
 msgid "_Authenticator"
 msgstr "מ_אמת"
 
-#: src/backup/freeotp.rs:25
+#: src/backup/freeotp.rs:27
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "לקובץ טקסט פשוט, תואם ל־FreeOTP+‎"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:69
 msgid "A_uthenticator"
 msgstr "מ_אמת"
 
-#: src/backup/freeotp.rs:71
+#: src/backup/freeotp.rs:73
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "מקובץ טקסט פשוט, תואם ל־FreeOTP+‎"
 
-#: src/backup/google.rs:24
-#| msgid "Authenticator"
+#: src/backup/google.rs:26
 msgid "Google Authenticator"
 msgstr "מאמת Google"
 
-#: src/backup/google.rs:28
+#: src/backup/google.rs:30
 msgid "From a QR code generated by Google Authenticator"
 msgstr "מקוד QR שנוצר על ידי מאמת Google"
 
-#. Translators: this is for restoring a backup from the old Authenticator release
-#: src/backup/legacy.rs:34
+#. Translators: this is for restoring a backup from the old Authenticator
+#. release
+#: src/backup/legacy.rs:36
 msgid "Au_thenticator (Legacy)"
 msgstr "מ_אמת (מדור קודם)"
 
-#: src/models/algorithm.rs:60
+#: src/models/algorithm.rs:61
 msgid "Counter-based"
 msgstr "מבוסס מונה"
 
-#: src/models/algorithm.rs:61
+#: src/models/algorithm.rs:62
 msgid "Time-based"
 msgstr "מבוסס זמן"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:63
+#: src/models/algorithm.rs:64
 msgid "Steam"
 msgstr "‫Steam"
 
-#: src/models/algorithm.rs:131
+#: src/models/algorithm.rs:132
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:132
+#: src/models/algorithm.rs:133
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:133
+#: src/models/algorithm.rs:134
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:201
+#: src/widgets/accounts/add.rs:275
 msgid "Invalid Token"
 msgstr "אסימון שגוי"
 
-#: src/widgets/window.rs:341
+#: src/widgets/window.rs:300
 msgid "Wrong Password"
 msgstr "ססמה שגויה"
 
-#: src/widgets/preferences/password_page.rs:222
-#: src/widgets/preferences/password_page.rs:261
+#: src/widgets/preferences/password_page.rs:218
+#: src/widgets/preferences/password_page.rs:257
 msgid "Wrong Passphrase"
 msgstr "מילת צופן שגויה"
 
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:294
+#: src/widgets/preferences/window.rs:249 src/widgets/preferences/window.rs:317
 msgid "Key / Passphrase"
 msgstr "מפתח / מילת צופן"
 
-#: src/widgets/preferences/window.rs:227
+#: src/widgets/preferences/window.rs:250
 msgid "The key that will be used to decrypt the vault"
 msgstr "המפתח שישמש לפענוח הכספת"
 
-#: src/widgets/preferences/window.rs:243 src/widgets/preferences/window.rs:310
+#: src/widgets/preferences/window.rs:266 src/widgets/preferences/window.rs:333
 msgid "Select File"
 msgstr "בחירת קובץ"
 
-#: src/widgets/preferences/window.rs:295
+#: src/widgets/preferences/window.rs:318
 msgid "The key used to encrypt the vault"
 msgstr "המפתח ששימש להצפנת הכספת"
 
-#: src/widgets/preferences/window.rs:382 src/widgets/preferences/window.rs:415
+#: src/widgets/preferences/window.rs:405 src/widgets/preferences/window.rs:438
 msgid "Unable to restore accounts"
 msgstr "לא ניתן לשחזר את החשבונות"
 
-#: src/widgets/preferences/window.rs:393
+#: src/widgets/preferences/window.rs:416
 msgid "Something went wrong"
 msgstr "משהו השתבש"
 
-#: src/widgets/preferences/window.rs:421
+#: src/widgets/preferences/window.rs:444
 msgid "Couldn't find a QR code"
 msgstr "לא ניתן למצוא קוד QR"
 
-#: src/widgets/preferences/window.rs:490 src/widgets/preferences/window.rs:497
-#: src/widgets/providers/page.rs:324
+#: src/widgets/preferences/window.rs:514 src/widgets/preferences/window.rs:521
+#: src/widgets/providers/page.rs:321
 msgid "Select"
 msgstr "בחירה"
 
-#: src/widgets/preferences/window.rs:491 src/widgets/preferences/window.rs:498
-#: src/widgets/providers/page.rs:325
+#: src/widgets/preferences/window.rs:515 src/widgets/preferences/window.rs:522
+#: src/widgets/providers/page.rs:322
 msgid "Cancel"
 msgstr "ביטול"
 
-#: src/widgets/providers/dialog.rs:174
+#: src/widgets/providers/dialog.rs:246
 msgid "Provider created successfully"
 msgstr "ספק נוצר בהצלחה"
 
-#: src/widgets/providers/dialog.rs:186
+#: src/widgets/providers/dialog.rs:256
 msgid "Provider updated successfully"
 msgstr "ספק עודכן בהצלחה"
 
-#: src/widgets/providers/dialog.rs:199
+#: src/widgets/providers/dialog.rs:273
 msgid "Provider removed successfully"
 msgstr "ספק הוסר בהצלחה"
 
-#: src/widgets/providers/page.rs:204
+#: src/widgets/providers/page.rs:213
 msgid "Editing Provider: {}"
 msgstr "עריכת ספק: {}"
 
-#: src/widgets/providers/page.rs:332
+#: src/widgets/providers/page.rs:329
 msgid "Image"
 msgstr "תמונה"
 
-#: src/widgets/providers/page.rs:367
+#: src/widgets/providers/page.rs:364
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "יש חשבונות שמשויכים לספק, נא להסיר אותם תחילה"
 
