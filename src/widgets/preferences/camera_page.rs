@@ -6,7 +6,6 @@ use gtk::{
     gio,
     glib::{self, clone, subclass::InitializingObject},
     prelude::*,
-    subclass::prelude::*,
     CompositeTemplate,
 };
 use gtk_macros::get_action;
@@ -58,7 +57,7 @@ glib::wrapper! {
 
 impl CameraPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
-        let page = glib::Object::new::<Self>(&[]).expect("Failed to create CameraPage");
+        let page = glib::Object::new::<Self>(&[]);
         page.imp().actions.set(actions).unwrap();
         page.setup_widget();
         page

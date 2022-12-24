@@ -1,13 +1,13 @@
 use std::cell::RefCell;
 
-use gtk::{gdk, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{gdk, glib, prelude::*, CompositeTemplate};
 
 use crate::models::{Account, OTPMethod};
 
 mod imp {
     use adw::subclass::prelude::*;
     use gettextrs::gettext;
-    use glib::{subclass, ParamFlags, ParamSpec, ParamSpecObject, Value};
+    use glib::{subclass, ParamSpec, ParamSpecObject, Value};
     use once_cell::sync::Lazy;
 
     use super::*;
@@ -62,17 +62,13 @@ mod imp {
     impl ObjectImpl for AccountRow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecObject::new(
-                    "account",
-                    "",
-                    "",
-                    Account::static_type(),
-                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
-                )]
+                vec![ParamSpecObject::builder::<Account>("account")
+                    .construct_only()
+                    .build()]
             });
             PROPERTIES.as_ref()
         }
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "account" => {
                     let account = value.get().unwrap();
@@ -82,23 +78,24 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "account" => self.account.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
+            let obj = self.obj();
             let account = obj.account();
             account
-                .bind_property("name", obj, "title")
+                .bind_property("name", &*obj, "title")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
                 .build();
 
             account
-                .bind_property("name", obj, "tooltip-text")
+                .bind_property("name", &*obj, "tooltip-text")
                 .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
                 .build();
 
@@ -125,7 +122,7 @@ glib::wrapper! {
 
 impl AccountRow {
     pub fn new(account: Account) -> Self {
-        glib::Object::new(&[("account", &account)]).expect("Failed to create AccountRow")
+        glib::Object::new(&[("account", &account)])
     }
 
     fn account(&self) -> Account {

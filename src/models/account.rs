@@ -3,8 +3,11 @@ use std::cell::{Cell, RefCell};
 
 use anyhow::{Context, Result};
 use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
-use glib::{clone, Cast, StaticType, ToValue};
-use gtk::{glib, prelude::*, subclass::prelude::*};
+use gtk::{
+    glib::{self, clone},
+    prelude::*,
+    subclass::prelude::*,
+};
 use once_cell::sync::OnceCell;
 use unicase::UniCase;
 
@@ -96,22 +99,16 @@ mod imp {
                         otp::HOTP_DEFAULT_COUNTER,
                         ParamFlags::READWRITE,
                     ),
-                    ParamSpecString::new("name", "", "", None, ParamFlags::READWRITE),
-                    ParamSpecString::new("token-id", "", "", None, ParamFlags::READWRITE),
-                    ParamSpecString::new("otp", "", "", None, ParamFlags::READWRITE),
-                    ParamSpecObject::new(
-                        "provider",
-                        "",
-                        "",
-                        Provider::static_type(),
-                        ParamFlags::READWRITE,
-                    ),
+                    ParamSpecString::builder("name").build(),
+                    ParamSpecString::builder("token-id").build(),
+                    ParamSpecString::builder("otp").build(),
+                    ParamSpecObject::builder::<Provider>("provider").build(),
                 ]
             });
             PROPERTIES.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "id" => {
                     let id = value.get().unwrap();
@@ -141,7 +138,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "id" => self.id.get().to_value(),
                 "name" => self.name.borrow().to_value(),
@@ -254,8 +251,7 @@ impl Account {
             ("token-id", &token_id),
             ("provider", &provider),
             ("counter", &counter),
-        ])
-        .context("Failed to create account")?;
+        ]);
 
         let token = if let Some(t) = token {
             t.to_string()

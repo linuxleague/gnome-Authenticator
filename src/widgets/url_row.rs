@@ -1,12 +1,14 @@
 use adw::prelude::*;
-use glib::{clone, ToValue};
-use gtk::{glib, subclass::prelude::*};
+use gtk::{
+    glib::{self, clone},
+    subclass::prelude::*,
+};
 
 mod imp {
     use std::cell::RefCell;
 
     use adw::subclass::prelude::*;
-    use glib::{ParamFlags, ParamSpec, ParamSpecString, Value};
+    use glib::{ParamSpec, ParamSpecString, Value};
     use once_cell::sync::Lazy;
 
     use super::*;
@@ -25,19 +27,12 @@ mod imp {
 
     impl ObjectImpl for UrlRow {
         fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecString::new(
-                    "uri",
-                    "",
-                    "",
-                    None,
-                    ParamFlags::READWRITE,
-                )]
-            });
+            static PROPERTIES: Lazy<Vec<ParamSpec>> =
+                Lazy::new(|| vec![ParamSpecString::builder("uri").build()]);
             PROPERTIES.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "uri" => {
                     let uri = value.get().unwrap();
@@ -47,15 +42,16 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "uri" => self.uri.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
+            let obj = self.obj();
             let gesture = gtk::GestureClick::new();
             gesture.connect_pressed(clone!(@weak obj as row => move |_,_,_,_| {
                 if let Some(ref uri) = *row.imp().uri.borrow() {

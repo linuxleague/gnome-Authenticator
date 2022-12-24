@@ -20,13 +20,13 @@ mod imp {
 
     impl ObjectImpl for AccountsModel {}
     impl ListModelImpl for AccountsModel {
-        fn item_type(&self, _list_model: &Self::Type) -> glib::Type {
+        fn item_type(&self) -> glib::Type {
             Account::static_type()
         }
-        fn n_items(&self, _list_model: &Self::Type) -> u32 {
+        fn n_items(&self) -> u32 {
             self.0.borrow().len() as u32
         }
-        fn item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+        fn item(&self, position: u32) -> Option<glib::Object> {
             self.0
                 .borrow()
                 .get(position as usize)
@@ -91,6 +91,6 @@ impl AccountsModel {
 
 impl Default for AccountsModel {
     fn default() -> Self {
-        glib::Object::new(&[]).expect("Failed to create AccountsModel")
+        glib::Object::new(&[])
     }
 }

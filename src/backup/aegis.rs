@@ -14,7 +14,7 @@
 use aes_gcm::{aead::Aead, NewAead};
 use anyhow::{Context, Result};
 use gettextrs::gettext;
-use gtk::{glib::Cast, prelude::*};
+use gtk::prelude::*;
 use rand::RngCore;
 use serde::{Deserialize, Serialize};
 

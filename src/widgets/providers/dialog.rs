@@ -1,7 +1,7 @@
 use adw::{prelude::*, subclass::prelude::*};
 use gettextrs::gettext;
 use glib::clone;
-use gtk::{glib, pango, subclass::prelude::*, CompositeTemplate};
+use gtk::{glib, pango, CompositeTemplate};
 use row::ProviderActionRow;
 
 use super::ProviderPage;
@@ -78,13 +78,12 @@ mod imp {
     impl ObjectImpl for ProvidersDialog {
         fn signals() -> &'static [Signal] {
             use once_cell::sync::Lazy;
-            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder("changed", &[], <()>::static_type().into()).build()]
-            });
+            static SIGNALS: Lazy<Vec<Signal>> =
+                Lazy::new(|| vec![Signal::builder("changed").build()]);
             SIGNALS.as_ref()
         }
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
             self.placeholder_page.set_icon_name(Some(config::APP_ID));
         }
     }
@@ -100,8 +99,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl ProvidersDialog {
     pub fn new(model: ProvidersModel) -> Self {
-        let dialog =
-            glib::Object::new::<ProvidersDialog>(&[]).expect("Failed to create ProvidersDialog");
+        let dialog = glib::Object::new::<ProvidersDialog>(&[]);
 
         dialog.setup_widget(model);
         dialog
@@ -279,7 +277,7 @@ mod row {
     mod imp {
         use std::cell::RefCell;
 
-        use glib::{ParamFlags, ParamSpec, ParamSpecObject, Value};
+        use glib::{ParamSpec, ParamSpecObject, Value};
         use once_cell::sync::Lazy;
 
         use super::*;
@@ -299,25 +297,12 @@ mod row {
 
         impl ObjectImpl for ProviderActionRow {
             fn properties() -> &'static [ParamSpec] {
-                static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                    vec![ParamSpecObject::new(
-                        "provider",
-                        "",
-                        "",
-                        Provider::static_type(),
-                        ParamFlags::READWRITE,
-                    )]
-                });
+                static PROPERTIES: Lazy<Vec<ParamSpec>> =
+                    Lazy::new(|| vec![ParamSpecObject::builder::<Provider>("provider").build()]);
                 PROPERTIES.as_ref()
             }
 
-            fn set_property(
-                &self,
-                _obj: &Self::Type,
-                _id: usize,
-                value: &Value,
-                pspec: &ParamSpec,
-            ) {
+            fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
                 match pspec.name() {
                     "provider" => {
                         let provider = value.get().unwrap();
@@ -327,15 +312,15 @@ mod row {
                 }
             }
 
-            fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+            fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
                 match pspec.name() {
                     "provider" => self.provider.borrow().to_value(),
                     _ => unimplemented!(),
                 }
             }
 
-            fn constructed(&self, obj: &Self::Type) {
-                self.parent_constructed(obj);
+            fn constructed(&self) {
+                self.parent_constructed();
                 let hbox = gtk::Box::builder()
                     .orientation(gtk::Orientation::Horizontal)
                     .margin_bottom(12)
@@ -348,7 +333,7 @@ mod row {
                 self.title_label.set_wrap(true);
                 self.title_label.set_ellipsize(pango::EllipsizeMode::End);
                 hbox.append(&self.title_label);
-                obj.set_child(Some(&hbox));
+                self.obj().set_child(Some(&hbox));
             }
         }
         impl WidgetImpl for ProviderActionRow {}
@@ -373,7 +358,7 @@ mod row {
 
     impl Default for ProviderActionRow {
         fn default() -> Self {
-            glib::Object::new(&[]).expect("Failed to create ProviderActionRow")
+            glib::Object::new(&[])
         }
     }
 }

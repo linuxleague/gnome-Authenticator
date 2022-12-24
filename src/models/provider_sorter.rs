@@ -19,16 +19,11 @@ mod imp {
 
     impl ObjectImpl for ProviderSorter {}
     impl SorterImpl for ProviderSorter {
-        fn order(&self, _sorter: &Self::Type) -> gtk::SorterOrder {
+        fn order(&self) -> gtk::SorterOrder {
             gtk::SorterOrder::Total
         }
 
-        fn compare(
-            &self,
-            _sorter: &Self::Type,
-            item1: &glib::Object,
-            item2: &glib::Object,
-        ) -> gtk::Ordering {
+        fn compare(&self, item1: &glib::Object, item2: &glib::Object) -> gtk::Ordering {
             Provider::compare(item1, item2).into()
         }
     }
@@ -41,6 +36,6 @@ glib::wrapper! {
 
 impl Default for ProviderSorter {
     fn default() -> Self {
-        glib::Object::new(&[]).expect("Failed to create ProviderSorter")
+        glib::Object::new(&[])
     }
 }

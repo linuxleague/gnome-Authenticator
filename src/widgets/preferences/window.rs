@@ -24,7 +24,7 @@ mod imp {
     use adw::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
     use glib::{
         subclass::{self, Signal},
-        ParamFlags, ParamSpec, ParamSpecBoolean, Value,
+        ParamSpec, ParamSpecBoolean, Value,
     };
     use once_cell::sync::Lazy;
 
@@ -99,29 +99,20 @@ mod imp {
     impl ObjectImpl for PreferencesWindow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecBoolean::new(
-                    "has-set-password",
-                    "",
-                    "",
-                    false,
-                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
-                )]
+                vec![ParamSpecBoolean::builder("has-set-password")
+                    .construct()
+                    .build()]
             });
             PROPERTIES.as_ref()
         }
 
         fn signals() -> &'static [Signal] {
-            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![
-                    Signal::builder("restore-completed", &[], <()>::static_type().into())
-                        .action()
-                        .build(),
-                ]
-            });
+            static SIGNALS: Lazy<Vec<Signal>> =
+                Lazy::new(|| vec![Signal::builder("restore-completed").action().build()]);
             SIGNALS.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "has-set-password" => {
                     let has_set_password = value.get().unwrap();
@@ -131,16 +122,16 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
             }
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
-            obj.setup_actions();
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().setup_actions();
         }
     }
     impl WidgetImpl for PreferencesWindow {}
@@ -156,7 +147,7 @@ glib::wrapper! {
 
 impl PreferencesWindow {
     pub fn new(model: ProvidersModel) -> Self {
-        let window = glib::Object::new::<Self>(&[]).expect("Failed to create PreferencesWindow");
+        let window = glib::Object::new::<Self>(&[]);
         window.imp().model.set(model).unwrap();
         window.setup_widget();
         window

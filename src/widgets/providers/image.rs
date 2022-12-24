@@ -67,21 +67,15 @@ mod imp {
     }
 
     impl ObjectImpl for ProviderImage {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
-            obj.setup_widget();
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().setup_widget();
         }
 
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpecObject::new(
-                        "provider",
-                        "",
-                        "",
-                        Provider::static_type(),
-                        ParamFlags::READWRITE,
-                    ),
+                    ParamSpecObject::builder::<Provider>("provider").build(),
                     ParamSpecUInt::new(
                         "size",
                         "",
@@ -95,7 +89,7 @@ mod imp {
             });
             PROPERTIES.as_ref()
         }
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "provider" => {
                     let provider = value.get().unwrap();
@@ -109,7 +103,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "provider" => self.provider.borrow().to_value(),
                 "size" => self.size.get().to_value(),

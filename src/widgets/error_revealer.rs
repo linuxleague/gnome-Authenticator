@@ -32,7 +32,7 @@ mod imp {
     }
 
     impl ObjectImpl for ErrorRevealer {
-        fn dispose(&self, _obj: &Self::Type) {
+        fn dispose(&self) {
             self.revealer.unparent();
             self.label.unparent();
         }

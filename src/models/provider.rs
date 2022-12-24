@@ -8,8 +8,12 @@ use std::{
 
 use anyhow::Result;
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
-use glib::{clone, Cast, StaticType, ToValue};
-use gtk::{gdk_pixbuf, gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{
+    gdk_pixbuf, gio,
+    glib::{self, clone},
+    prelude::*,
+    subclass::prelude::*,
+};
 use unicase::UniCase;
 use url::Url;
 
@@ -126,14 +130,8 @@ mod imp {
                         0,
                         ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
                     ),
-                    ParamSpecString::new("name", "", "", None, ParamFlags::READWRITE),
-                    ParamSpecObject::new(
-                        "accounts",
-                        "",
-                        "",
-                        AccountsModel::static_type(),
-                        ParamFlags::READWRITE,
-                    ),
+                    ParamSpecString::builder("name").build(),
+                    ParamSpecObject::builder::<AccountsModel>("accounts").build(),
                     ParamSpecUInt::new(
                         "period",
                         "",
@@ -175,8 +173,8 @@ mod imp {
                         Some(&OTPMethod::default().to_string()),
                         ParamFlags::READWRITE,
                     ),
-                    ParamSpecString::new("website", "", "", None, ParamFlags::READWRITE),
-                    ParamSpecString::new("help-url", "", "", None, ParamFlags::READWRITE),
+                    ParamSpecString::builder("website").build(),
+                    ParamSpecString::builder("help-url").build(),
                     ParamSpecString::new(
                         "image-uri",
                         "",
@@ -198,7 +196,7 @@ mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "id" => {
                     let id = value.get().unwrap();
@@ -248,7 +246,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "id" => self.id.get().to_value(),
                 "name" => self.name.borrow().to_value(),
@@ -266,7 +264,7 @@ mod imp {
             }
         }
 
-        fn dispose(&self, _obj: &Self::Type) {
+        fn dispose(&self) {
             // Stop ticking
             if let Some(source_id) = self.tick_callback.borrow_mut().take() {
                 source_id.remove();
@@ -365,7 +363,6 @@ impl Provider {
             ("digits", &digits),
             ("default-counter", &default_counter),
         ])
-        .expect("Failed to create provider")
     }
 
     pub async fn favicon(

@@ -42,13 +42,13 @@ mod imp {
     }
 
     impl ObjectImpl for CameraPaintable {
-        fn dispose(&self, paintable: &Self::Type) {
-            paintable.close_pipeline();
+        fn dispose(&self) {
+            self.obj().close_pipeline();
         }
     }
 
     impl PaintableImpl for CameraPaintable {
-        fn intrinsic_height(&self, _paintable: &Self::Type) -> i32 {
+        fn intrinsic_height(&self) -> i32 {
             if let Some(ref paintable) = *self.sink_paintable.borrow() {
                 paintable.intrinsic_height()
             } else {
@@ -56,7 +56,7 @@ mod imp {
             }
         }
 
-        fn intrinsic_width(&self, _paintable: &Self::Type) -> i32 {
+        fn intrinsic_width(&self) -> i32 {
             if let Some(ref paintable) = *self.sink_paintable.borrow() {
                 paintable.intrinsic_width()
             } else {
@@ -64,14 +64,7 @@ mod imp {
             }
         }
 
-        fn snapshot(
-            &self,
-            _paintable: &Self::Type,
-            snapshot: &gdk::Snapshot,
-            width: f64,
-            height: f64,
-        ) {
-            let snapshot = snapshot.downcast_ref::<gtk::Snapshot>().unwrap();
+        fn snapshot(&self, snapshot: &gdk::Snapshot, width: f64, height: f64) {
             if let Some(ref image) = *self.sink_paintable.borrow() {
                 // Transformation to avoid stretching the camera. We translate and scale the
                 // image.
@@ -79,7 +72,7 @@ mod imp {
                 let image_aspect = image.intrinsic_aspect_ratio();
 
                 if image_aspect == 0.0 {
-                    image.snapshot(snapshot.upcast_ref(), width, height);
+                    image.snapshot(snapshot, width, height);
                     return;
                 };
 
@@ -94,7 +87,7 @@ mod imp {
                 );
                 snapshot.translate(&p);
 
-                image.snapshot(snapshot.upcast_ref(), new_width, new_height);
+                image.snapshot(snapshot, new_width, new_height);
             } else {
                 snapshot.append_color(
                     &gdk::RGBA::BLACK,
@@ -112,7 +105,7 @@ glib::wrapper! {
 
 impl CameraPaintable {
     pub fn new(sender: Sender<CameraEvent>) -> Self {
-        let paintable = glib::Object::new::<Self>(&[]).expect("Failed to create a CameraPaintable");
+        let paintable = glib::Object::new::<Self>(&[]);
         paintable.imp().sender.replace(Some(sender));
         paintable
     }
@@ -123,7 +116,7 @@ impl CameraPaintable {
         node_id: Option<u32>,
     ) -> anyhow::Result<()> {
         let raw_fd = fd.as_raw_fd();
-        let pipewire_element = gst::ElementFactory::make("pipewiresrc", None)?;
+        let pipewire_element = gst::ElementFactory::make_with_name("pipewiresrc", None)?;
         pipewire_element.set_property("fd", &raw_fd);
         if let Some(node_id) = node_id {
             pipewire_element.set_property("path", &node_id.to_string());
@@ -140,7 +133,7 @@ impl CameraPaintable {
         let imp = self.imp();
         let pipeline = gst::Pipeline::new(None);
 
-        let sink = gst::ElementFactory::make("gtk4paintablesink", None)?;
+        let sink = gst::ElementFactory::make_with_name("gtk4paintablesink", None)?;
         let paintable = sink.property::<gdk::Paintable>("paintable");
 
         paintable.connect_invalidate_contents(clone!(@weak self as pt => move |_| {
@@ -151,13 +144,13 @@ impl CameraPaintable {
             pt.invalidate_size  ();
         }));
         imp.sink_paintable.replace(Some(paintable));
-        let tee = gst::ElementFactory::make("tee", None)?;
-        let videoconvert1 = gst::ElementFactory::make("videoconvert", None)?;
-        let videoconvert2 = gst::ElementFactory::make("videoconvert", None)?;
-        let queue1 = gst::ElementFactory::make("queue", None)?;
-        let queue2 = gst::ElementFactory::make("queue", None)?;
-        let zbar = gst::ElementFactory::make("zbar", None)?;
-        let fakesink = gst::ElementFactory::make("fakesink", None)?;
+        let tee = gst::ElementFactory::make_with_name("tee", None)?;
+        let videoconvert1 = gst::ElementFactory::make_with_name("videoconvert", None)?;
+        let videoconvert2 = gst::ElementFactory::make_with_name("videoconvert", None)?;
+        let queue1 = gst::ElementFactory::make_with_name("queue", None)?;
+        let queue2 = gst::ElementFactory::make_with_name("queue", None)?;
+        let zbar = gst::ElementFactory::make_with_name("zbar", None)?;
+        let fakesink = gst::ElementFactory::make_with_name("fakesink", None)?;
 
         pipeline.add_many(&[
             &pipewire_src,

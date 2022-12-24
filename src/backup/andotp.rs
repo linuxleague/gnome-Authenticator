@@ -1,6 +1,6 @@
 use anyhow::Result;
 use gettextrs::gettext;
-use gtk::{glib::Cast, prelude::*};
+use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use super::{Backupable, Restorable, RestorableItem};

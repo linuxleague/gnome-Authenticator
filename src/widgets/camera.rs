@@ -5,7 +5,7 @@ use std::{
 
 use adw::subclass::prelude::*;
 use anyhow::Result;
-use ashpd::{desktop::screenshot::ScreenshotProxy, zbus};
+use ashpd::desktop::screenshot::ScreenshotRequest;
 use gst::prelude::*;
 use gtk::{
     gio,
@@ -15,7 +15,6 @@ use gtk::{
         Receiver,
     },
     prelude::*,
-    subclass::prelude::*,
     CompositeTemplate,
 };
 use gtk_macros::spawn;
@@ -49,35 +48,31 @@ mod screenshot {
     }
 
     pub async fn capture(window: Option<gtk::Window>) -> Result<gio::File> {
-        let connection = zbus::Connection::session().await?;
-        let proxy = ScreenshotProxy::new(&connection).await?;
-        let uri = proxy
-            .screenshot(
-                &{
-                    if let Some(ref window) = window {
-                        ashpd::WindowIdentifier::from_native(window).await
-                    } else {
-                        ashpd::WindowIdentifier::default()
-                    }
-                },
-                true,
-                true,
-            )
+        let identifier = if let Some(ref window) = window {
+            ashpd::WindowIdentifier::from_native(window).await
+        } else {
+            ashpd::WindowIdentifier::default()
+        };
+        let uri = ScreenshotRequest::default()
+            .identifier(identifier)
+            .modal(true)
+            .interactive(true)
+            .build()
             .await?;
-        Ok(gio::File::for_uri(&uri))
+
+        Ok(gio::File::for_uri(uri.as_str()))
     }
 
-    pub async fn stream() -> Result<Option<(RawFd, Option<u32>)>> {
-        let connection = zbus::Connection::session().await?;
-        let proxy = ashpd::desktop::camera::CameraProxy::new(&connection).await?;
-        if !proxy.is_camera_present().await? {
+    pub async fn stream() -> Result<Option<(RawFd, Vec<ashpd::desktop::camera::Stream>)>> {
+        let proxy = ashpd::desktop::camera::Camera::new().await?;
+        if !proxy.is_present().await? {
             return Ok(None);
         }
-        proxy.access_camera().await?;
+        proxy.request_access().await?;
 
         let stream_fd = proxy.open_pipe_wire_remote().await?;
-        let node_id = ashpd::desktop::camera::pipewire_node_id(stream_fd).await?;
-        Ok(Some((stream_fd, node_id)))
+        let nodes_id = ashpd::desktop::camera::pipewire_streams(stream_fd).await?;
+        Ok(Some((stream_fd, nodes_id)))
     }
 }
 
@@ -150,29 +145,25 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("close", &[], <()>::static_type().into())
-                        .action()
+                    Signal::builder("close").action().build(),
+                    Signal::builder("code-detected")
+                        .param_types([String::static_type()])
+                        .run_first()
                         .build(),
-                    Signal::builder(
-                        "code-detected",
-                        &[String::static_type().into()],
-                        <()>::static_type().into(),
-                    )
-                    .run_first()
-                    .build(),
                 ]
             });
             SIGNALS.as_ref()
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
+            let obj = self.obj();
             obj.setup_receiver();
             obj.set_state(CameraState::NotFound);
             self.picture.set_paintable(Some(&self.paintable));
         }
 
-        fn dispose(&self, _obj: &Self::Type) {
+        fn dispose(&self) {
             self.paintable.close_pipeline();
         }
     }
@@ -238,7 +229,8 @@ impl Camera {
         if !self.imp().started.get() {
             spawn!(clone!(@weak self as camera => async move {
                 match screenshot::stream().await {
-                    Ok(Some((stream_fd, node_id))) => {
+                    Ok(Some((stream_fd, nodes_id))) => {
+                        let node_id = nodes_id.get(0).map(|s| s.node_id());
                         match camera.imp().paintable.set_pipewire_node_id(stream_fd, node_id) {
                             Ok(_) => camera.start(),
                             Err(err) => tracing::error!("Failed to start the camera stream {err}"),
@@ -319,6 +311,6 @@ impl Camera {
 
 impl Default for Camera {
     fn default() -> Self {
-        glib::Object::new(&[]).expect("Failed to create a Camera")
+        glib::Object::new(&[])
     }
 }

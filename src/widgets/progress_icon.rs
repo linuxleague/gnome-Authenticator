@@ -37,28 +37,29 @@ pub(crate) mod imp {
             PROPERTIES.as_ref()
         }
 
-        fn property(&self, obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
-                "progress" => obj.progress().to_value(),
+                "progress" => self.obj().progress().to_value(),
                 _ => unreachable!(),
             }
         }
 
-        fn set_property(&self, obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
-                "progress" => obj.set_progress(value.get().unwrap()),
+                "progress" => self.obj().set_progress(value.get().unwrap()),
                 _ => unreachable!(),
             }
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
-            obj.set_valign(gtk::Align::Center);
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().set_valign(gtk::Align::Center);
         }
     }
 
     impl WidgetImpl for ProgressIcon {
-        fn snapshot(&self, widget: &Self::Type, snapshot: &gtk::Snapshot) {
+        fn snapshot(&self, snapshot: &gtk::Snapshot) {
+            let widget = self.obj();
             let size = widget.size() as f32;
             let radius = size / 2.0;
             let progress = 1.0 - widget.progress();
@@ -82,13 +83,9 @@ pub(crate) mod imp {
             snapshot.pop();
         }
 
-        fn measure(
-            &self,
-            widget: &Self::Type,
-            _orientation: gtk::Orientation,
-            _for_size: i32,
-        ) -> (i32, i32, i32, i32) {
-            (widget.size(), widget.size(), -1, -1)
+        fn measure(&self, _orientation: gtk::Orientation, _for_size: i32) -> (i32, i32, i32, i32) {
+            let size = self.obj().size();
+            (size, size, -1, -1)
         }
     }
 }

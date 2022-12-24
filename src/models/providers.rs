@@ -20,13 +20,13 @@ mod imp {
     }
     impl ObjectImpl for ProvidersModel {}
     impl ListModelImpl for ProvidersModel {
-        fn item_type(&self, _list_model: &Self::Type) -> glib::Type {
+        fn item_type(&self) -> glib::Type {
             Provider::static_type()
         }
-        fn n_items(&self, _list_model: &Self::Type) -> u32 {
+        fn n_items(&self) -> u32 {
             self.0.borrow().len() as u32
         }
-        fn item(&self, _list_model: &Self::Type, position: u32) -> Option<glib::Object> {
+        fn item(&self, position: u32) -> Option<glib::Object> {
             self.0
                 .borrow()
                 .get(position as usize)
@@ -229,6 +229,6 @@ impl ProvidersModel {
 
 impl Default for ProvidersModel {
     fn default() -> Self {
-        glib::Object::new(&[]).expect("Failed to create Model")
+        glib::Object::new(&[])
     }
 }

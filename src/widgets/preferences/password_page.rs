@@ -14,8 +14,6 @@ use once_cell::sync::{Lazy, OnceCell};
 use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
 
 mod imp {
-    use glib::ParamFlags;
-
     use super::*;
 
     #[derive(Debug, Default, CompositeTemplate)]
@@ -57,18 +55,14 @@ mod imp {
     impl ObjectImpl for PasswordPage {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecBoolean::new(
-                    "has-set-password",
-                    "",
-                    "",
-                    false,
-                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
-                )]
+                vec![ParamSpecBoolean::builder("has-set-password")
+                    .construct()
+                    .build()]
             });
             PROPERTIES.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "has-set-password" => {
                     let has_set_password = value.get().unwrap();
@@ -78,15 +72,16 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "has-set-password" => self.has_set_password.get().to_value(),
                 _ => unimplemented!(),
             }
         }
 
-        fn constructed(&self, page: &Self::Type) {
-            self.parent_constructed(page);
+        fn constructed(&self) {
+            self.parent_constructed();
+            let page = self.obj();
             self.status_page.set_icon_name(Some(config::APP_ID));
             page.reset_validation();
             // Reset the validation whenever the password state changes
@@ -97,9 +92,9 @@ mod imp {
     }
 
     impl WidgetImpl for PasswordPage {
-        fn unmap(&self, widget: &Self::Type) {
-            self.parent_unmap(widget);
-            widget.reset();
+        fn unmap(&self) {
+            self.parent_unmap();
+            self.obj().reset();
         }
     }
 
@@ -114,7 +109,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl PasswordPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
-        let page = glib::Object::new::<Self>(&[]).expect("Failed to create PasswordPage");
+        let page = glib::Object::new::<Self>(&[]);
         page.imp().actions.set(actions).unwrap();
         page.setup_actions();
         page

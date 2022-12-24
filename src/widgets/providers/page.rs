@@ -134,35 +134,26 @@ mod imp {
             use once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder(
-                        "created",
-                        &[Provider::static_type().into()],
-                        <()>::static_type().into(),
-                    )
-                    .build(),
-                    Signal::builder(
-                        "updated",
-                        &[Provider::static_type().into()],
-                        <()>::static_type().into(),
-                    )
-                    .build(),
-                    Signal::builder(
-                        "deleted",
-                        &[Provider::static_type().into()],
-                        <()>::static_type().into(),
-                    )
-                    .build(),
+                    Signal::builder("created")
+                        .param_types([Provider::static_type()])
+                        .build(),
+                    Signal::builder("updated")
+                        .param_types([Provider::static_type()])
+                        .build(),
+                    Signal::builder("deleted")
+                        .param_types([Provider::static_type()])
+                        .build(),
                 ]
             });
             SIGNALS.as_ref()
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
             self.algorithm_comborow
                 .set_model(Some(&self.algorithms_model));
             self.method_comborow.set_model(Some(&self.methods_model));
-            obj.action_set_enabled("providers.save", false);
+            self.obj().action_set_enabled("providers.save", false);
         }
     }
     impl WidgetImpl for ProviderPage {}
@@ -431,6 +422,6 @@ impl ProviderPage {
 
 impl Default for ProviderPage {
     fn default() -> Self {
-        glib::Object::new(&[]).expect("Failed to create ProviderPage")
+        glib::Object::new(&[])
     }
 }

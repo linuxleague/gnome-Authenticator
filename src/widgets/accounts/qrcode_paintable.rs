@@ -82,17 +82,9 @@ mod imp {
 
     impl ObjectImpl for QRCodePaintable {}
     impl PaintableImpl for QRCodePaintable {
-        fn snapshot(
-            &self,
-            _paintable: &Self::Type,
-            snapshot: &gdk::Snapshot,
-            width: f64,
-            height: f64,
-        ) {
-            let snapshot = snapshot.downcast_ref::<gtk::Snapshot>().unwrap();
-
+        fn snapshot(&self, snapshot: &gdk::Snapshot, width: f64, height: f64) {
             if let Some(ref qrcode) = *self.qrcode.borrow() {
-                snapshot_qrcode(snapshot, qrcode, width, height);
+                snapshot_qrcode(snapshot.as_ref(), qrcode, width, height);
             }
         }
     }
@@ -112,6 +104,6 @@ impl QRCodePaintable {
 
 impl Default for QRCodePaintable {
     fn default() -> Self {
-        glib::Object::new(&[]).expect("Failed to create a QRCodePaintable")
+        glib::Object::new(&[])
     }
 }

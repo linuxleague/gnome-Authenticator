@@ -20,7 +20,7 @@ mod imp {
     use std::cell::{Cell, RefCell};
 
     use adw::subclass::prelude::*;
-    use glib::{ParamFlags, ParamSpec, ParamSpecBoolean, Value, WeakRef};
+    use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
     use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
@@ -51,26 +51,16 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpecBoolean::new(
-                        "is-locked",
-                        "",
-                        "",
-                        false,
-                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
-                    ),
-                    ParamSpecBoolean::new(
-                        "can-be-locked",
-                        "",
-                        "",
-                        false,
-                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
-                    ),
+                    ParamSpecBoolean::builder("is-locked").construct().build(),
+                    ParamSpecBoolean::builder("can-be-locked")
+                        .construct()
+                        .build(),
                 ]
             });
             PROPERTIES.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "is-locked" => {
                     let locked = value.get().unwrap();
@@ -84,7 +74,7 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "is-locked" => self.locked.get().to_value(),
                 "can-be-locked" => self.can_be_locked.get().to_value(),
@@ -95,9 +85,9 @@ mod imp {
 
     // Overrides GApplication vfuncs
     impl ApplicationImpl for Application {
-        fn startup(&self, app: &Self::Type) {
-            self.parent_startup(app);
-
+        fn startup(&self) {
+            self.parent_startup();
+            let app = self.obj();
             action!(app, "quit", clone!(@weak app => move |_, _| app.quit()));
 
             action!(
@@ -213,7 +203,8 @@ mod imp {
             }));
         }
 
-        fn activate(&self, app: &Self::Type) {
+        fn activate(&self) {
+            let app = self.obj();
             if let Some(ref win) = *self.window.borrow() {
                 let window = win.upgrade().unwrap();
                 window.present();
@@ -236,15 +227,15 @@ mod imp {
             app.restart_lock_timeout();
         }
 
-        fn open(&self, application: &Self::Type, files: &[gio::File], _hint: &str) {
-            self.activate(application);
+        fn open(&self, files: &[gio::File], _hint: &str) {
+            self.activate();
             let uris = files
                 .iter()
                 .filter_map(|f| OTPUri::from_str(&f.uri()).ok())
                 .collect::<Vec<OTPUri>>();
             // We only handle a single URI (see the desktop file)
             if let Some(uri) = uris.get(0) {
-                let window = application.active_window();
+                let window = self.obj().active_window();
                 window.open_add_account(Some(uri))
             }
         }
@@ -321,8 +312,7 @@ impl Application {
             ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
             ("is-locked", &has_set_password),
             ("can-be-locked", &has_set_password),
-        ])
-        .unwrap();
+        ]);
         // Only load the model if the app is not locked
         if !has_set_password {
             app.imp().model.load();

@@ -104,17 +104,14 @@ mod imp {
 
     impl ObjectImpl for AccountAddDialog {
         fn signals() -> &'static [Signal] {
-            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder("added", &[], <()>::static_type().into())
-                    .action()
-                    .build()]
-            });
+            static SIGNALS: Lazy<Vec<Signal>> =
+                Lazy::new(|| vec![Signal::builder("added").action().build()]);
             SIGNALS.as_ref()
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
-            obj.action_set_enabled("add.save", false);
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().action_set_enabled("add.save", false);
         }
     }
     impl WidgetImpl for AccountAddDialog {}
@@ -129,7 +126,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl AccountAddDialog {
     pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new::<Self>(&[]).expect("Failed to create AccountAddDialog");
+        let dialog = glib::Object::new::<Self>(&[]);
 
         dialog.imp().model.set(model).unwrap();
         dialog.setup_widget();

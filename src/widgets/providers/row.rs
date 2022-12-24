@@ -13,7 +13,7 @@ mod imp {
 
     use glib::{
         subclass::{self, Signal},
-        ParamFlags, ParamSpec, ParamSpecObject, Value,
+        ParamSpec, ParamSpecObject, Value,
     };
     use once_cell::sync::Lazy;
 
@@ -51,13 +51,9 @@ mod imp {
     impl ObjectImpl for ProviderRow {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecObject::new(
-                    "provider",
-                    "",
-                    "",
-                    Provider::static_type(),
-                    ParamFlags::READWRITE | ParamFlags::CONSTRUCT_ONLY,
-                )]
+                vec![ParamSpecObject::builder::<Provider>("provider")
+                    .construct_only()
+                    .build()]
             });
             PROPERTIES.as_ref()
         }
@@ -65,22 +61,17 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("changed", &[], <()>::static_type().into())
+                    Signal::builder("changed").action().build(),
+                    Signal::builder("shared")
+                        .param_types([Account::static_type()])
                         .action()
                         .build(),
-                    Signal::builder(
-                        "shared",
-                        &[Account::static_type().into()],
-                        <()>::static_type().into(),
-                    )
-                    .action()
-                    .build(),
                 ]
             });
             SIGNALS.as_ref()
         }
 
-        fn set_property(&self, _obj: &Self::Type, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
             match pspec.name() {
                 "provider" => {
                     let provider = value.get().unwrap();
@@ -90,16 +81,16 @@ mod imp {
             }
         }
 
-        fn property(&self, _obj: &Self::Type, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
             match pspec.name() {
                 "provider" => self.provider.borrow().to_value(),
                 _ => unimplemented!(),
             }
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
-            obj.setup_widget();
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().setup_widget();
         }
     }
     impl WidgetImpl for ProviderRow {}
@@ -113,7 +104,7 @@ glib::wrapper! {
 
 impl ProviderRow {
     pub fn new(provider: Provider) -> Self {
-        glib::Object::new(&[("provider", &provider)]).expect("Failed to create ProviderRow")
+        glib::Object::new(&[("provider", &provider)])
     }
 
     pub fn connect_changed<F>(&self, callback: F) -> glib::SignalHandlerId

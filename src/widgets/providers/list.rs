@@ -44,21 +44,18 @@ mod imp {
     }
 
     impl ObjectImpl for ProvidersList {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
-            obj.setup_widget();
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.obj().setup_widget();
         }
 
         fn signals() -> &'static [Signal] {
             use once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder(
-                    "shared",
-                    &[Account::static_type().into()],
-                    <()>::static_type().into(),
-                )
-                .action()
-                .build()]
+                vec![Signal::builder("shared")
+                    .param_types([Account::static_type()])
+                    .action()
+                    .build()]
             });
             SIGNALS.as_ref()
         }

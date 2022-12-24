@@ -32,14 +32,14 @@ mod imp {
     }
 
     impl ObjectImpl for EditableLabel {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
             self.stack.set_visible_child_name("label");
         }
     }
     impl WidgetImpl for EditableLabel {
-        fn grab_focus(&self, widget: &Self::Type) -> bool {
-            self.parent_grab_focus(widget);
+        fn grab_focus(&self) -> bool {
+            self.parent_grab_focus();
             if self.stack.visible_child_name().as_deref() == Some("entry") {
                 self.entry.grab_focus();
                 true
@@ -77,14 +77,14 @@ mod imp {
     }
 
     impl ObjectImpl for EditableSpin {
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
             self.stack.set_visible_child_name("label");
         }
     }
     impl WidgetImpl for EditableSpin {
-        fn grab_focus(&self, widget: &Self::Type) -> bool {
-            self.parent_grab_focus(widget);
+        fn grab_focus(&self) -> bool {
+            self.parent_grab_focus();
             if self.stack.visible_child_name().as_deref() == Some("spin") {
                 self.spin.grab_focus();
                 true

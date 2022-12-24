@@ -121,31 +121,26 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder(
-                        "removed",
-                        &[Account::static_type().into()],
-                        <()>::static_type().into(),
-                    )
-                    .action()
-                    .build(),
-                    Signal::builder("provider-changed", &[], <()>::static_type().into())
+                    Signal::builder("removed")
+                        .param_types([Account::static_type()])
                         .action()
                         .build(),
+                    Signal::builder("provider-changed").action().build(),
                 ]
             });
             SIGNALS.as_ref()
         }
 
-        fn constructed(&self, obj: &Self::Type) {
-            self.parent_constructed(obj);
+        fn constructed(&self) {
+            self.parent_constructed();
             self.qrcode_picture
                 .set_paintable(Some(&self.qrcode_paintable));
             self.counter_label.set_adjustment(1, u32::MAX);
         }
     }
     impl WidgetImpl for AccountDetailsPage {
-        fn unmap(&self, widget: &Self::Type) {
-            self.parent_unmap(widget);
+        fn unmap(&self) {
+            self.parent_unmap();
             self.edit_stack.set_visible_child_name("edit");
             self.account_label.stop_editing(false);
             self.counter_label.stop_editing(false);

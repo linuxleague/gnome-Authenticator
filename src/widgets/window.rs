@@ -105,18 +105,18 @@ mod imp {
     impl ObjectImpl for Window {}
     impl WidgetImpl for Window {}
     impl WindowImpl for Window {
-        fn enable_debugging(&self, window: &Self::Type, toggle: bool) -> bool {
+        fn enable_debugging(&self, toggle: bool) -> bool {
             if config::PROFILE != "Devel" {
                 tracing::warn!("Inspector is disabled for non development builds");
                 false
             } else {
-                self.parent_enable_debugging(window, toggle)
+                self.parent_enable_debugging(toggle)
             }
         }
 
-        fn close_request(&self, window: &Self::Type) -> Inhibit {
-            self.parent_close_request(window);
-            if let Err(err) = window.save_window_state() {
+        fn close_request(&self) -> Inhibit {
+            self.parent_close_request();
+            if let Err(err) = self.obj().save_window_state() {
                 tracing::warn!("Failed to save window state {:#?}", err);
             }
             Inhibit(false)
@@ -136,7 +136,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl Window {
     pub fn new(model: ProvidersModel, app: &Application) -> Self {
-        let window = glib::Object::new::<Window>(&[("application", app)]).unwrap();
+        let window = glib::Object::new::<Window>(&[("application", app)]);
         app.add_window(&window);
 
         if config::PROFILE == "Devel" {
