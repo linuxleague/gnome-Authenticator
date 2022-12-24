@@ -6,21 +6,16 @@ use ring::hmac;
 use serde::{de::Deserializer, ser::Serializer, Deserialize, Serialize};
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Debug, Eq, PartialEq, Clone, Copy, glib::Enum)]
+#[derive(Debug, Default, Eq, PartialEq, Clone, Copy, glib::Enum)]
 #[repr(u32)]
 #[enum_type(name = "OTPMethod")]
 pub enum OTPMethod {
     #[enum_value(name = "TOTP")]
+    #[default]
     TOTP = 0,
     #[enum_value(name = "HOTP")]
     HOTP = 1,
     Steam = 2,
-}
-
-impl Default for OTPMethod {
-    fn default() -> Self {
-        Self::TOTP
-    }
 }
 
 impl Serialize for OTPMethod {
@@ -90,22 +85,17 @@ impl ToString for OTPMethod {
 }
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Debug, Eq, PartialEq, Clone, Copy, glib::Enum)]
+#[derive(Debug, Default, Eq, PartialEq, Clone, Copy, glib::Enum)]
 #[repr(u32)]
 #[enum_type(name = "Algorithm")]
 pub enum Algorithm {
     #[enum_value(name = "SHA1")]
+    #[default]
     SHA1 = 0,
     #[enum_value(name = "SHA256")]
     SHA256 = 1,
     #[enum_value(name = "SHA512")]
     SHA512 = 2,
-}
-
-impl Default for Algorithm {
-    fn default() -> Self {
-        Self::SHA1
-    }
 }
 
 impl Serialize for Algorithm {

@@ -3,8 +3,9 @@ use std::{fmt, path::Path};
 use url::Url;
 
 /// Supported image formats.
-#[derive(Debug, PartialEq, Eq, Clone, Copy, PartialOrd, Ord)]
+#[derive(Debug, Default, PartialEq, Eq, Clone, Copy, PartialOrd, Ord)]
 pub enum Format {
+    #[default]
     Png,
     Svg,
     Ico,
@@ -77,11 +78,5 @@ impl fmt::Display for Format {
             Self::Ico => f.write_str("ico"),
             Self::Svg => f.write_str("svg"),
         }
-    }
-}
-
-impl Default for Format {
-    fn default() -> Self {
-        Self::Png
     }
 }
