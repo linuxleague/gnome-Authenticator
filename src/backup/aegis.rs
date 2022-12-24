@@ -321,7 +321,7 @@ impl Item {
 
     pub fn fix_empty_issuer(&mut self) -> Result<()> {
         if self.issuer.is_none() {
-            let mut vals: Vec<&str> = self.label.split("@").collect();
+            let mut vals: Vec<&str> = self.label.split('@').collect();
             if vals.len() > 1 {
                 self.issuer = vals.pop().map(ToOwned::to_owned);
                 self.label = vals.join("@");
@@ -583,7 +583,7 @@ impl Restorable for Aegis {
                 };
 
                 // Try to decrypt the database with this master key.
-                let cipher = aes_gcm::Aes256Gcm::new_from_slice(&master_key)?;
+                let cipher = aes_gcm::Aes256Gcm::new_from_slice(master_key)?;
                 let plaintext = cipher
                     .decrypt(
                         aes_gcm::Nonce::from_slice(
@@ -703,7 +703,7 @@ mod tests {
         let result = Aegis::restore_from_data(&aegis_data.as_bytes(), None).unwrap_err();
 
         assert_eq!(
-            format!("{}", result),
+            format!("{result}"),
             "Entry cannot-derive-issuer-value has an empty issuer"
         );
     }

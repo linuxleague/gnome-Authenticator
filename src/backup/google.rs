@@ -54,7 +54,7 @@ impl Restorable for Google {
             folded.or_else(|| match key.into_owned().as_str() {
                 "data" => {
                     let bytes = value.into_owned().into_bytes();
-                    let decoded = percent_decode(&*bytes);
+                    let decoded = percent_decode(&bytes);
                     let decoded = match base64::decode(&*Cow::from(decoded)) {
                         Ok(decoded) => decoded,
                         Err(_) => return None,

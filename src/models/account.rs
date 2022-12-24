@@ -168,7 +168,7 @@ impl Account {
         let db = database::connection();
         let mut conn = db.get()?;
 
-        let label = format!("{} - {}", provider.name(), name);
+        let label = format!("{} - {name}", provider.name());
         let token_send = token.to_owned();
         let token_id = spawn_tokio_blocking(async move {
             keyring::store(&label, &token_send)

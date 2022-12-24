@@ -40,7 +40,7 @@ pub trait Restorable: Sized {
     /// `Self::restore_from_data`.
     fn restore_from_file(from: &gio::File, key: Option<&str>) -> Result<Vec<Self::Item>> {
         let (data, _) = from.load_contents(gio::Cancellable::NONE)?;
-        Self::restore_from_data(&*data, key)
+        Self::restore_from_data(&data, key)
     }
 }
 

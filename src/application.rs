@@ -418,7 +418,7 @@ impl Application {
 
     fn account_provider_by_identifier(&self, id: &str) -> Option<(Provider, Account)> {
         let identifier = id.split(':').collect::<Vec<&str>>();
-        let provider_id = identifier.get(0)?.parse::<u32>().ok()?;
+        let provider_id = identifier.first()?.parse::<u32>().ok()?;
         let account_id = identifier.get(1)?.parse::<u32>().ok()?;
 
         let provider = self.imp().model.find_by_id(provider_id)?;

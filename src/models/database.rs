@@ -17,11 +17,10 @@ pub(crate) fn connection() -> Pool {
 }
 
 fn init_pool() -> Result<Pool> {
-    let db_path = &DB_PATH;
-    fs::create_dir_all(&db_path.to_str().unwrap())?;
-    let db_path = db_path.join("authenticator.db");
+    fs::create_dir_all(&*DB_PATH)?;
+    let db_path = DB_PATH.join("authenticator.db");
     if !db_path.exists() {
-        File::create(&db_path.to_str().unwrap())?;
+        File::create(&db_path)?;
     }
     let manager = ConnectionManager::<SqliteConnection>::new(db_path.to_str().unwrap());
     let pool = r2d2::Pool::builder().build(manager)?;

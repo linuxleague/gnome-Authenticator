@@ -83,10 +83,10 @@ impl TryFrom<Url> for OTPUri {
             .collect::<Vec<&str>>();
 
         let account_name = if account_info.len() == 1 {
-            account_info.get(0).unwrap()
+            account_info.first().unwrap()
         } else {
             // If we have "Provider:Account"
-            provider_name = Some(account_info.get(0).unwrap().to_string());
+            provider_name = Some(account_info.first().unwrap().to_string());
             account_info.get(1).unwrap()
         };
 

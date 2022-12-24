@@ -136,7 +136,7 @@ impl Scrapper {
                 }) => {
                     let mut href = String::from_utf8(value.into_owned()).ok()?;
                     if href.starts_with("//") {
-                        href = format!("https:{}", href);
+                        href = format!("https:{href}");
                     }
                     url = match Url::parse(&href) {
                         Ok(url) => Some(url),
@@ -211,7 +211,7 @@ impl Scrapper {
                         metadata.format = favicon_format;
                     } else {
                         if href.starts_with("//") {
-                            href = format!("https:{}", href);
+                            href = format!("https:{href}");
                         }
                         match Url::parse(&href) {
                             Ok(url) => {

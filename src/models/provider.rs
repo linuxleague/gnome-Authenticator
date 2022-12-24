@@ -374,7 +374,7 @@ impl Provider {
         let favicon = favicon_scrapper::Scrapper::from_url(website_url).await?;
         tracing::debug!("Found the following icons {:#?} for {}", favicon, name);
 
-        let icon_name = format!("{}_{}", id, name.replace(' ', "_"));
+        let icon_name = format!("{id}_{}", name.replace(' ', "_"));
         let icon_name = glib::base64_encode(icon_name.as_bytes());
         let small_icon_name = format!("{icon_name}_32x32");
         let large_icon_name = format!("{icon_name}_96x96");
