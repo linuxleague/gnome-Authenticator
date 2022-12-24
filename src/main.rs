@@ -3,10 +3,6 @@
     html_favicon_url = "https://gitlab.gnome.org/World/Authenticator/-/raw/master/data/icons/com.belmoussaoui.Authenticator-symbolic.svg?inline=false"
 )]
 
-#[macro_use]
-extern crate diesel;
-#[macro_use]
-extern crate diesel_migrations;
 use gtk::{gio, glib};
 
 mod utils;

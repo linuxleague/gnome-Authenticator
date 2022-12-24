@@ -7,7 +7,7 @@ use std::{
 };
 
 use anyhow::Result;
-use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
+use diesel::{ExpressionMethods, Identifiable, Insertable, QueryDsl, Queryable, RunQueryDsl};
 use gtk::{
     gdk_pixbuf, gio,
     glib::{self, clone},
@@ -20,7 +20,7 @@ use url::Url;
 use super::algorithm::{Algorithm, OTPMethod};
 use crate::{
     models::{database, otp, Account, AccountsModel, FAVICONS_PATH},
-    schema::providers,
+    schema::{accounts, providers},
 };
 
 #[derive(Debug)]
@@ -38,7 +38,7 @@ pub struct ProviderPatch {
 }
 
 #[derive(Insertable)]
-#[table_name = "providers"]
+#[diesel(table_name = providers)]
 struct NewProvider {
     pub name: String,
     pub website: Option<String>,
@@ -51,8 +51,8 @@ struct NewProvider {
     pub method: String,
 }
 
-#[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
-#[table_name = "providers"]
+#[derive(Identifiable, Queryable, Hash, PartialEq, Eq, Debug, Clone)]
+#[diesel(table_name = accounts)]
 pub struct DiProvider {
     pub id: i32,
     pub name: String,
@@ -291,7 +291,7 @@ impl Provider {
         image_uri: Option<String>,
     ) -> Result<Self> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         diesel::insert_into(providers::table)
             .values(NewProvider {
@@ -305,11 +305,11 @@ impl Provider {
                 help_url,
                 image_uri,
             })
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         providers::table
             .order(providers::columns::id.desc())
-            .first::<DiProvider>(&conn)
+            .first::<DiProvider>(&mut conn)
             .map_err(From::from)
             .map(From::from)
     }
@@ -324,10 +324,10 @@ impl Provider {
     pub fn load() -> Result<impl Iterator<Item = Self>> {
         use crate::schema::providers::dsl::*;
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let results = providers
-            .load::<DiProvider>(&conn)?
+            .load::<DiProvider>(&mut conn)?
             .into_iter()
             .map(From::from)
             .map(|p: Provider| {
@@ -470,9 +470,9 @@ impl Provider {
 
     pub fn delete(&self) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
         diesel::delete(providers::table.filter(providers::columns::id.eq(self.id() as i32)))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
         Ok(())
     }
 
@@ -492,7 +492,7 @@ impl Provider {
         }
 
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let target = providers::table.filter(providers::columns::id.eq(self.id() as i32));
         diesel::update(target)
@@ -504,7 +504,7 @@ impl Provider {
                 providers::columns::default_counter.eq(&patch.default_counter),
                 providers::columns::name.eq(&patch.name),
             ))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
         if !patch.is_backup_restore {
             diesel::update(target)
                 .set((
@@ -512,7 +512,7 @@ impl Provider {
                     providers::columns::website.eq(&patch.website),
                     providers::columns::help_url.eq(&patch.help_url),
                 ))
-                .execute(&conn)?;
+                .execute(&mut conn)?;
         };
 
         self.set_properties(&[
@@ -536,12 +536,12 @@ impl Provider {
 
     pub fn set_image_uri(&self, uri: &str) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let target = providers::table.filter(providers::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set(providers::columns::image_uri.eq(uri))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         self.set_property("image-uri", &uri);
         self.notify("image-uri");

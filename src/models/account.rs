@@ -2,7 +2,10 @@ use core::cmp::Ordering;
 use std::cell::{Cell, RefCell};
 
 use anyhow::{Context, Result};
-use diesel::{BelongingToDsl, ExpressionMethods, QueryDsl, RunQueryDsl};
+use diesel::{
+    Associations, BelongingToDsl, ExpressionMethods, Identifiable, Insertable, QueryDsl, Queryable,
+    RunQueryDsl,
+};
 use gtk::{
     glib::{self, clone},
     prelude::*,
@@ -23,7 +26,7 @@ use crate::{
 };
 
 #[derive(Insertable)]
-#[table_name = "accounts"]
+#[diesel(table_name = accounts)]
 struct NewAccount {
     pub name: String,
     pub token_id: String,
@@ -32,8 +35,8 @@ struct NewAccount {
 }
 
 #[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
-#[belongs_to(DiProvider, foreign_key = "provider_id")]
-#[table_name = "accounts"]
+#[diesel(belongs_to(DiProvider, foreign_key = provider_id))]
+#[diesel(table_name = accounts)]
 pub struct DiAccount {
     pub id: i32,
     pub name: String,
@@ -163,7 +166,7 @@ impl Account {
         provider: &Provider,
     ) -> Result<Account> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let label = format!("{} - {}", provider.name(), name);
         let token_send = token.to_owned();
@@ -180,11 +183,11 @@ impl Account {
                 provider_id: provider.id() as i32,
                 counter: counter.unwrap_or_else(|| provider.default_counter()) as i32,
             })
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         accounts::table
             .order(accounts::columns::id.desc())
-            .first::<DiAccount>(&conn)
+            .first::<DiAccount>(&mut conn)
             .map_err(From::from)
             .map(|account| {
                 Self::new(
@@ -201,11 +204,11 @@ impl Account {
 
     pub fn load(p: &Provider) -> Result<impl Iterator<Item = Self>> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let dip: DiProvider = p.into();
         let results = DiAccount::belonging_to(&dip)
-            .load::<DiAccount>(&conn)?
+            .load::<DiAccount>(&mut conn)?
             .into_iter()
             .filter_map(clone!(@strong p => move |account| {
                 match Self::new(
@@ -308,12 +311,12 @@ impl Account {
         self.imp().counter.set(new_value);
 
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set(accounts::columns::counter.eq(new_value as i32))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
         Ok(())
     }
 
@@ -344,12 +347,12 @@ impl Account {
 
     pub fn set_provider(&self, provider: &Provider) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set(accounts::columns::provider_id.eq(provider.id() as i32))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         self.set_property("provider", provider);
         Ok(())
@@ -395,12 +398,12 @@ impl Account {
 
     pub fn set_name(&self, name: &str) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set(accounts::columns::name.eq(name))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         self.set_property("name", &name);
         Ok(())
@@ -408,12 +411,12 @@ impl Account {
 
     pub fn set_counter(&self, counter: u32) -> Result<()> {
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
 
         let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
         diesel::update(target)
             .set(accounts::columns::counter.eq(counter as i32))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
 
         self.set_property("counter", &counter);
         Ok(())
@@ -427,9 +430,9 @@ impl Account {
             }
         });
         let db = database::connection();
-        let conn = db.get()?;
+        let mut conn = db.get()?;
         diesel::delete(accounts::table.filter(accounts::columns::id.eq(self.id() as i32)))
-            .execute(&conn)?;
+            .execute(&mut conn)?;
         Ok(())
     }
 }

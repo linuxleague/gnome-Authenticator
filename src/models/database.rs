@@ -2,6 +2,7 @@ use std::{fs, fs::File, path::PathBuf};
 
 use anyhow::Result;
 use diesel::{prelude::*, r2d2, r2d2::ConnectionManager};
+use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use once_cell::sync::Lazy;
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
@@ -9,15 +10,10 @@ type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 static DB_PATH: Lazy<PathBuf> = Lazy::new(|| gtk::glib::user_data_dir().join("authenticator"));
 static POOL: Lazy<Pool> = Lazy::new(|| init_pool().expect("Failed to create a pool"));
 
-embed_migrations!("migrations/");
+pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations/");
 
 pub(crate) fn connection() -> Pool {
     POOL.clone()
-}
-
-fn run_migration_on(connection: &SqliteConnection) -> Result<()> {
-    tracing::info!("Running DB Migrations...");
-    embedded_migrations::run_with_output(connection, &mut std::io::stdout()).map_err(From::from)
 }
 
 fn init_pool() -> Result<Pool> {
@@ -31,8 +27,10 @@ fn init_pool() -> Result<Pool> {
     let pool = r2d2::Pool::builder().build(manager)?;
 
     {
-        let db = pool.get()?;
-        run_migration_on(&*db)?;
+        let mut db = pool.get()?;
+        tracing::info!("Running DB Migrations...");
+        db.run_pending_migrations(MIGRATIONS)
+            .expect("Failed to run migrations");
     }
     tracing::info!("Database pool initialized.");
     Ok(pool)

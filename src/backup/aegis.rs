@@ -11,7 +11,7 @@
 //! provided in the aegis repository (<https://github.com/beemdevelopment/Aegis/blob/master/docs/decrypt.py>). However,
 //! aegis android app is able to read the files! See line 173 for a discussion.
 
-use aes_gcm::{aead::Aead, NewAead};
+use aes_gcm::{aead::Aead, KeyInit};
 use anyhow::{Context, Result};
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -108,7 +108,7 @@ impl Aegis {
         .map_err(|_| anyhow::anyhow!("Scrypt key derivation"))?;
 
         // Encrypt new master key with derived key
-        let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&derived_key));
+        let cipher = aes_gcm::Aes256Gcm::new_from_slice(&derived_key)?;
         let mut ciphertext: Vec<u8> = cipher
             .encrypt(
                 aes_gcm::Nonce::from_slice(&password_slot.key_params.nonce),
@@ -126,7 +126,7 @@ impl Aegis {
             let db_json: Vec<u8> = serde_json::ser::to_string_pretty(&plain_text.db)?
                 .as_bytes()
                 .to_vec();
-            let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&master_key));
+            let cipher = aes_gcm::Aes256Gcm::new_from_slice(&master_key)?;
             let mut ciphertext: Vec<u8> = cipher
                 .encrypt(
                     aes_gcm::Nonce::from_slice(&header.params.as_ref().unwrap().nonce),
@@ -541,7 +541,7 @@ impl Restorable for Aegis {
                         .map_err(|_| anyhow::anyhow!("Scrypt key derivation failed"))?;
 
                         // Now, try to decrypt the master key.
-                        let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(&temp_key));
+                        let cipher = aes_gcm::Aes256Gcm::new_from_slice(&temp_key)?;
                         let mut ciphertext: Vec<u8> = slot.key.to_vec();
                         ciphertext.append(&mut slot.key_params.tag.to_vec());
 
@@ -583,7 +583,7 @@ impl Restorable for Aegis {
                 };
 
                 // Try to decrypt the database with this master key.
-                let cipher = aes_gcm::Aes256Gcm::new(aes_gcm::Key::from_slice(master_key));
+                let cipher = aes_gcm::Aes256Gcm::new_from_slice(&master_key)?;
                 let plaintext = cipher
                     .decrypt(
                         aes_gcm::Nonce::from_slice(

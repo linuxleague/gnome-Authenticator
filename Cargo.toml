@@ -8,8 +8,8 @@ adw = {package = "libadwaita", version = "0.2"}
 anyhow = "1.0"
 ashpd = {version = "0.4.0-alpha.1", features = ["pipewire", "gtk4"]}
 binascii = "0.1"
-diesel = {version = "1.4", features = ["sqlite", "r2d2"]}
-diesel_migrations = {version = "1.4", features = ["sqlite"]}
+diesel = {version = "2.0", features = ["sqlite", "r2d2"]}
+diesel_migrations = {version = "2.0", features = ["sqlite"]}
 gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", version = "0.19"}
 gst4gtk = { package = "gst-plugin-gtk4", version = "0.9"}
@@ -32,10 +32,10 @@ unicase = "2.6"
 url = "2.2"
 zbar-rust = "0.0"
 scrypt = { version = "0.10", default-features = false }
-aes-gcm = "0.9.4"
-base64 = "0.13.0"
+aes-gcm = "0.10"
+base64 = "0.20"
 uuid = { version = "1.0", features = ["v4"] }
 favicon-scrapper = {path = "./favicon-scrapper"}
 image = {version = "0.24", default-features = false, features = ["png"]}
 tokio = { version = "1.0", features = ["rt-multi-thread", "fs", "io-util"] }
-prost = "0.10.4"
+prost = "0.11"

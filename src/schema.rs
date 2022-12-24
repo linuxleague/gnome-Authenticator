@@ -1,4 +1,4 @@
-table! {
+diesel::table! {
     accounts (id) {
         id -> Integer,
         name -> Text,
@@ -8,7 +8,7 @@ table! {
     }
 }
 
-table! {
+diesel::table! {
     providers (id) {
         id -> Integer,
         name -> Text,
@@ -23,5 +23,5 @@ table! {
     }
 }
 
-joinable!(accounts -> providers (provider_id));
-allow_tables_to_appear_in_same_query!(accounts, providers);
+diesel::joinable!(accounts -> providers (provider_id));
+diesel::allow_tables_to_appear_in_same_query!(accounts, providers);
