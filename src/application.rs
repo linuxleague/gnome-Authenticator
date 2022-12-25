@@ -114,13 +114,13 @@ mod imp {
             let about_action = gio::ActionEntry::builder("about")
                 .activate(|app: &Self::Type, _, _| {
                     let window = app.active_window();
-                    gtk::AboutDialog::builder()
-                        .program_name(&gettext("Authenticator"))
+                    adw::AboutWindow::builder()
+                        .application_name(&gettext("Authenticator"))
                         .modal(true)
                         .version(config::VERSION)
                         .comments(&gettext("Generate Two-Factor Codes"))
                         .website("https://gitlab.gnome.org/World/Authenticator")
-                        .authors(vec![
+                        .developers(vec![
                             "Bilal Elmoussaoui".to_string(),
                             "Maximiliano Sandoval".to_string(),
                             "Christopher Davis".to_string(),
@@ -131,7 +131,7 @@ mod imp {
                             "Tobias Bernard".to_string(),
                         ])
                         .translator_credits(&gettext("translator-credits"))
-                        .logo_icon_name(config::APP_ID)
+                        .application_icon(config::APP_ID)
                         .license_type(gtk::License::Gpl30)
                         .transient_for(&window)
                         .build()
