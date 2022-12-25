@@ -1,8 +1,8 @@
+use adw::prelude::*;
 use gettextrs::gettext;
 use gtk::{
     gdk,
     glib::{self, clone},
-    prelude::*,
     subclass::prelude::*,
     CompositeTemplate,
 };
@@ -161,21 +161,24 @@ impl AccountDetailsPage {
     fn delete_account(&self) {
         let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
 
-        let dialog = gtk::MessageDialog::builder()
-            .message_type(gtk::MessageType::Warning)
-            .buttons(gtk::ButtonsType::YesNo)
-            .text(&gettext("Are you sure you want to delete the account?"))
-            .secondary_text(&gettext("This action is irreversible"))
+        let dialog = adw::MessageDialog::builder()
+            .heading(&gettext("Are you sure you want to delete the account?"))
+            .body(&gettext("This action is irreversible"))
             .modal(true)
             .transient_for(&parent)
             .build();
-        dialog.connect_response(clone!(@weak self as page => move |dialog, response| {
-            if response == gtk::ResponseType::Yes {
-                let account = page.imp().account.borrow().as_ref().unwrap().clone();
-                page.emit_by_name::<()>("removed", &[&account]);
-            }
-            dialog.close();
-        }));
+        dialog.add_responses(&[("no", &gettext("No")), ("yes", &gettext("Yes"))]);
+        dialog.set_response_appearance("yes", adw::ResponseAppearance::Destructive);
+        dialog.connect_response(
+            None,
+            clone!(@weak self as page => move |dialog, response| {
+                if response == "yes" {
+                    let account = page.imp().account.borrow().as_ref().unwrap().clone();
+                    page.emit_by_name::<()>("removed", &[&account]);
+                }
+                dialog.close();
+            }),
+        );
 
         dialog.show();
     }

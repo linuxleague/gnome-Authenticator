@@ -1,6 +1,6 @@
 use adw::prelude::*;
 use gettextrs::gettext;
-use glib::{clone, translate::IntoGlib};
+use glib::translate::IntoGlib;
 use gtk::{gdk_pixbuf, gio, glib, subclass::prelude::*, CompositeTemplate};
 
 use crate::{
@@ -55,8 +55,6 @@ mod imp {
         #[template_child]
         pub delete_button: TemplateChild<gtk::Button>,
         pub selected_provider: RefCell<Option<Provider>>,
-        // We need to hold a reference to the native file chooser
-        pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
         pub selected_image: RefCell<Option<gio::File>>,
         #[template_child]
         pub back_btn: TemplateChild<gtk::Button>,
@@ -94,7 +92,6 @@ mod imp {
                 methods_model,
                 algorithms_model,
                 selected_provider: RefCell::default(),
-                file_chooser: RefCell::default(),
                 selected_image: RefCell::default(),
             }
         }
@@ -119,8 +116,8 @@ mod imp {
             klass.install_action("providers.reset_image", None, move |page, _, _| {
                 page.reset_image();
             });
-            klass.install_action("providers.select_image", None, move |page, _, _| {
-                page.open_select_image();
+            klass.install_action_async("providers.select_image", None, |page, _, _| async move {
+                page.open_select_image().await;
             });
         }
 
@@ -304,34 +301,26 @@ impl ProviderPage {
         Ok(())
     }
 
-    fn open_select_image(&self) {
-        let imp = self.imp();
+    async fn open_select_image(&self) {
         let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
-
-        let file_chooser = gtk::FileChooserNative::builder()
-            .accept_label(&gettext("Select"))
-            .cancel_label(&gettext("Cancel"))
-            .modal(true)
-            .action(gtk::FileChooserAction::Open)
-            .transient_for(&parent)
-            .build();
 
         let images_filter = gtk::FileFilter::new();
         images_filter.set_name(Some(&gettext("Image")));
         images_filter.add_pixbuf_formats();
-        file_chooser.add_filter(&images_filter);
+        let model = gio::ListStore::new(gtk::FileFilter::static_type());
+        model.append(&images_filter);
 
-        file_chooser.connect_response(clone!(@weak self as page => move |dialog, response| {
-            if response == gtk::ResponseType::Accept {
-                let file = dialog.file().unwrap();
-                page.set_image(file);
-            }
-            page.imp().file_chooser.replace(None);
-            dialog.destroy();
-        }));
+        let file_chooser = gtk::FileDialog::builder()
+            .modal(true)
+            .filters(&model)
+            .build();
 
-        file_chooser.show();
-        imp.file_chooser.replace(Some(file_chooser));
+        if let Ok(Some(file)) = file_chooser
+            .open_future(Some(&parent), gio::File::NONE)
+            .await
+        {
+            self.set_image(file);
+        };
     }
 
     fn set_image(&self, file: gio::File) {
@@ -367,7 +356,7 @@ impl ProviderPage {
     // save action Note that we don't validate the urls other than: does `url`
     // crate can parse it or not
     #[template_callback]
-    fn entry_validate(&self, _entry: gtk::Entry) {
+    fn entry_validate(&self, _entry: adw::EntryRow) {
         let imp = self.imp();
 
         let provider_name = imp.name_entry.text();

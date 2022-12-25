@@ -39,7 +39,6 @@ mod imp {
         pub actions: gio::SimpleActionGroup,
         pub backup_actions: gio::SimpleActionGroup,
         pub restore_actions: gio::SimpleActionGroup,
-        pub file_chooser: RefCell<Option<gtk::FileChooserNative>>,
         pub camera_page: CameraPage,
         pub password_page: PasswordPage,
         #[template_child]
@@ -82,7 +81,6 @@ mod imp {
                 backup_group: TemplateChild::default(),
                 restore_group: TemplateChild::default(),
                 dark_mode_group: TemplateChild::default(),
-                file_chooser: RefCell::default(),
                 key_entries: RefCell::default(),
             }
         }
@@ -279,17 +277,16 @@ impl PreferencesWindow {
             imp.backup_actions,
             &T::identifier(),
             clone!(@weak self as win, @weak model => move |_, _| {
-                let dialog = win.select_file(filters, Operation::Backup);
-                dialog.connect_response(clone!(@weak model, @weak win => move |d, response| {
-                    if response == gtk::ResponseType::Accept {
+                let ctx = glib::MainContext::default();
+                ctx.spawn_local(clone!(@weak win, @weak model => async move {
+                    if let Ok(Some(file)) = win.select_file(filters, Operation::Backup).await {
                         let key = T::ENCRYPTABLE.then(|| {
                             win.encyption_key(Operation::Backup, &T::identifier())
                         }).flatten();
-                        if let Err(err) = T::backup(&model, &d.file().unwrap(), key.as_deref()) {
+                        if let Err(err) = T::backup(&model, &file, key.as_deref()) {
                             tracing::warn!("Failed to create a backup {}", err);
                         }
                     }
-                    d.destroy();
                 }));
             })
         );
@@ -444,14 +441,14 @@ impl PreferencesWindow {
                 imp.restore_actions,
                 &T::identifier(),
                 clone!(@weak self as win => move |_, _| {
-                    let dialog = win.select_file(filters, Operation::Restore);
-                    dialog.connect_response(clone!(@weak win => move |d, response| {
-                        if response == gtk::ResponseType::Accept {
+                    let ctx = glib::MainContext::default();
+                    ctx.spawn_local(clone!(@weak win => async move {
+                        if let Ok(Some(file)) = win.select_file(filters, Operation::Restore).await {
                             let key = T::ENCRYPTABLE.then(|| {
                                 win.encyption_key(Operation::Restore, &T::identifier())
                             }).flatten();
 
-                            match T::restore_from_file(&d.file().unwrap(), key.as_deref()) {
+                            match T::restore_from_file(&file, key.as_deref()) {
                                 Ok(items) => {
                                     win.restore_items::<T, T::Item>(items);
                                 },
@@ -460,7 +457,6 @@ impl PreferencesWindow {
                                 }
                             }
                         }
-                        d.destroy();
                     }));
                 })
             );
@@ -493,42 +489,37 @@ impl PreferencesWindow {
         self.close();
     }
 
-    fn select_file(
+    async fn select_file(
         &self,
         filters: &'static [&str],
         operation: Operation,
-    ) -> gtk::FileChooserNative {
-        let native = match operation {
-            Operation::Backup => gtk::FileChooserNative::new(
-                Some(&gettext("Backup")),
-                gtk::Window::NONE,
-                gtk::FileChooserAction::Save,
-                Some(&gettext("Select")),
-                Some(&gettext("Cancel")),
-            ),
-            Operation::Restore => gtk::FileChooserNative::new(
-                Some(&gettext("Restore")),
-                gtk::Window::NONE,
-                gtk::FileChooserAction::Open,
-                Some(&gettext("Select")),
-                Some(&gettext("Cancel")),
-            ),
-        };
-
-        native.set_modal(true);
-        native.set_transient_for(Some(self));
-
+    ) -> Result<Option<gio::File>, glib::Error> {
+        let filters_model = gio::ListStore::new(gtk::FileFilter::static_type());
         filters.iter().for_each(|f| {
             let filter = gtk::FileFilter::new();
             filter.add_mime_type(f);
             filter.set_name(Some(f));
-            native.add_filter(&filter);
+            filters_model.append(&filter);
         });
 
-        // Hold a reference to the file chooser
-        self.imp().file_chooser.replace(Some(native.clone()));
-        native.show();
-        native
+        match operation {
+            Operation::Backup => {
+                let dialog = gtk::FileDialog::builder()
+                    .modal(true)
+                    .filters(&filters_model)
+                    .title(&gettext("Backup"))
+                    .build();
+                dialog.save_future(Some(self), gio::File::NONE, None).await
+            }
+            Operation::Restore => {
+                let dialog = gtk::FileDialog::builder()
+                    .modal(true)
+                    .filters(&filters_model)
+                    .title(&gettext("Restore"))
+                    .build();
+                dialog.open_future(Some(self), gio::File::NONE).await
+            }
+        }
     }
 
     fn setup_actions(&self) {

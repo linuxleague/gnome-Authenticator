@@ -173,7 +173,7 @@ impl Window {
         app.add_window(&window);
 
         if config::PROFILE == "Devel" {
-            window.style_context().add_class("devel");
+            window.add_css_class("devel");
         }
         window.init(model, app);
         window.setup_actions(app);

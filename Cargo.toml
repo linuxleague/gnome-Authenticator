@@ -13,7 +13,7 @@ diesel_migrations = {version = "2.0", features = ["sqlite"]}
 gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", version = "0.19"}
 gst4gtk = { package = "gst-plugin-gtk4", version = "0.9"}
-gtk = {package = "gtk4", version = "0.5"}
+gtk = {package = "gtk4", version = "0.5", features = ["v4_10"]}
 gtk-macros = "0.3"
 search-provider = "0.4"
 hex = { version = "0.4.3", features = [ "serde" ] }
