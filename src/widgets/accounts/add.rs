@@ -36,9 +36,9 @@ mod imp {
         #[template_child]
         pub provider_help_row: TemplateChild<UrlRow>,
         #[template_child]
-        pub username_entry: TemplateChild<gtk::Entry>,
+        pub username_entry: TemplateChild<adw::EntryRow>,
         #[template_child]
-        pub token_entry: TemplateChild<gtk::PasswordEntry>,
+        pub token_entry: TemplateChild<adw::PasswordEntryRow>,
         #[template_child]
         pub more_list: TemplateChild<gtk::ListBox>,
         #[template_child]
@@ -185,7 +185,6 @@ impl AccountAddDialog {
 
         let name_entry = imp.provider_page.name_entry();
         name_entry.set_text(&entry.text());
-        name_entry.grab_focus_without_selecting();
         name_entry.set_position(entry.cursor_position());
     }
 
@@ -217,7 +216,6 @@ impl AccountAddDialog {
         imp.provider_completion
             .set_model(Some(&model.completion_model()));
         self.set_provider(Some(provider));
-        imp.username_entry.grab_focus_without_selecting();
         imp.deck.set_visible_child_name("main");
     }
 

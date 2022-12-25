@@ -29,7 +29,7 @@ mod imp {
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
-        pub name_entry: TemplateChild<gtk::Entry>,
+        pub name_entry: TemplateChild<adw::EntryRow>,
         #[template_child]
         pub period_spinbutton: TemplateChild<gtk::SpinButton>,
         #[template_child]
@@ -37,9 +37,9 @@ mod imp {
         #[template_child]
         pub default_counter_spinbutton: TemplateChild<gtk::SpinButton>,
         #[template_child]
-        pub provider_website_entry: TemplateChild<gtk::Entry>,
+        pub provider_website_entry: TemplateChild<adw::EntryRow>,
         #[template_child]
-        pub provider_help_entry: TemplateChild<gtk::Entry>,
+        pub provider_help_entry: TemplateChild<adw::EntryRow>,
         #[template_child]
         pub method_comborow: TemplateChild<adw::ComboRow>,
         #[template_child]
@@ -230,7 +230,7 @@ impl ProviderPage {
         }
     }
 
-    pub fn name_entry(&self) -> gtk::Entry {
+    pub fn name_entry(&self) -> adw::EntryRow {
         self.imp().name_entry.clone()
     }
 

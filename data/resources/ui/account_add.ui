@@ -112,33 +112,15 @@
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwActionRow">
-                                    <property name="activatable-widget">username_entry</property>
+                                  <object class="AdwEntryRow" id="username_entry">
                                     <property name="title" translatable="yes">Account</property>
-                                    <child>
-                                      <object class="GtkEntry" id="username_entry">
-                                        <property name="halign">end</property>
-                                        <property name="valign">center</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="enable-emoji-completion">True</property>
-                                        <signal name="changed" handler="input_validate" swapped="true" />
-                                      </object>
-                                    </child>
+                                    <signal name="changed" handler="input_validate" swapped="true" />
                                   </object>
                                 </child>
                                 <child>
-                                  <object class="AdwActionRow" id="token_row">
-                                    <property name="activatable-widget">token_entry</property>
+                                  <object class="AdwPasswordEntryRow" id="token_entry">
                                     <property name="title" translatable="yes">Token</property>
-                                    <child>
-                                      <object class="GtkPasswordEntry" id="token_entry">
-                                        <property name="halign">end</property>
-                                        <property name="valign">center</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="show-peek-icon">True</property>
-                                        <signal name="changed" handler="input_validate" swapped="true" />
-                                      </object>
-                                    </child>
+                                    <signal name="changed" handler="input_validate" swapped="true" />
                                   </object>
                                 </child>
                                 <child>
@@ -293,8 +275,6 @@
   <object class="GtkSizeGroup">
     <widgets>
       <widget name="provider_entry"/>
-      <widget name="username_entry"/>
-      <widget name="token_entry"/>
       <widget name="counter_spinbutton"/>
     </widgets>
   </object>

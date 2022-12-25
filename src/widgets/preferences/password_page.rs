@@ -22,15 +22,13 @@ mod imp {
         pub actions: OnceCell<gio::SimpleActionGroup>,
         pub has_set_password: Cell<bool>,
         #[template_child]
-        pub current_password_entry: TemplateChild<gtk::PasswordEntry>,
+        pub current_password_entry: TemplateChild<adw::PasswordEntryRow>,
         #[template_child]
         pub error_revealer: TemplateChild<ErrorRevealer>,
         #[template_child]
-        pub password_entry: TemplateChild<gtk::PasswordEntry>,
+        pub password_entry: TemplateChild<adw::PasswordEntryRow>,
         #[template_child]
-        pub confirm_password_entry: TemplateChild<gtk::PasswordEntry>,
-        #[template_child]
-        pub current_password_row: TemplateChild<adw::ActionRow>,
+        pub confirm_password_entry: TemplateChild<adw::PasswordEntryRow>,
         #[template_child]
         pub status_page: TemplateChild<adw::StatusPage>,
         pub default_password_signal: RefCell<Option<glib::SignalHandlerId>>,
