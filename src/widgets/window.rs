@@ -95,6 +95,39 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
             klass.bind_template_instance_callbacks();
+
+            klass.install_action("win.search", None, move |win, _, _| {
+                let search_btn = &win.imp().search_btn;
+                search_btn.set_active(!search_btn.is_active());
+            });
+
+            klass.install_action("win.back", None, move |win, _, _| {
+                // Always return back to accounts list
+                win.set_view(View::Accounts);
+            });
+
+            klass.install_action("win.unlock", None, move |win, _, _| {
+                let imp = win.imp();
+                let app = win.app();
+                let password = imp.password_entry.text();
+                let is_current_password = spawn_tokio_blocking(async move {
+                    keyring::is_current_password(&password)
+                        .await
+                        .unwrap_or_else(|err| {
+                            tracing::debug!("Could not verify password: {:?}", err);
+                            false
+                        })
+                });
+                if is_current_password {
+                    imp.password_entry.set_text("");
+                    app.set_is_locked(false);
+                    app.restart_lock_timeout();
+                    win.set_view(View::Accounts);
+                    imp.model.get().unwrap().load();
+                } else {
+                    imp.error_revealer.popup(&gettext("Wrong Password"));
+                }
+            });
         }
 
         fn instance_init(obj: &subclass::InitializingObject<Self>) {
@@ -249,25 +282,6 @@ impl Window {
     }
 
     fn setup_actions(&self, app: &Application) {
-        let imp = self.imp();
-        let search_btn = &*imp.search_btn;
-        action!(
-            self,
-            "search",
-            clone!(@weak search_btn => move |_,_| {
-                search_btn.set_active(!search_btn.is_active());
-            })
-        );
-
-        action!(
-            self,
-            "back",
-            clone!(@weak self as win => move |_, _| {
-                // Always return back to accounts list
-                win.set_view(View::Accounts);
-            })
-        );
-
         action!(
             self,
             "add_account",
@@ -279,29 +293,6 @@ impl Window {
             .invert_boolean()
             .sync_create()
             .build();
-
-        let password_entry = &*imp.password_entry;
-        action!(
-            self,
-            "unlock",
-            clone!(@weak self as win, @weak password_entry, @weak app => move |_, _| {
-                let password = password_entry.text();
-                let is_current_password = spawn_tokio_blocking(async move {
-                    keyring::is_current_password(&password).await.unwrap_or_else(|err| {
-                    tracing::debug!("Could not verify password: {:?}", err);
-                    false
-                })});
-                if is_current_password {
-                    password_entry.set_text("");
-                    app.set_is_locked(false);
-                    app.restart_lock_timeout();
-                    win.set_view(View::Accounts);
-                    win.imp().model.get().unwrap().load();
-                } else {
-                    win.imp().error_revealer.popup(&gettext("Wrong Password"));
-                }
-            })
-        );
     }
 
     fn setup_signals(&self, app: &Application) {

@@ -4,7 +4,7 @@ use adw::prelude::*;
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*};
-use gtk_macros::{action, get_action};
+use gtk_macros::get_action;
 use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
 
 use crate::{
@@ -88,15 +88,16 @@ mod imp {
         fn startup(&self) {
             self.parent_startup();
             let app = self.obj();
-            action!(app, "quit", clone!(@weak app => move |_, _| app.quit()));
+            let quit_action = gio::ActionEntry::builder("quit")
+                .activate(|app: &Self::Type, _, _| app.quit())
+                .build();
 
-            action!(
-                app,
-                "preferences",
-                clone!(@weak app, @weak self.model as model  => move |_,_| {
+            let preferences_action = gio::ActionEntry::builder("preferences")
+                .activate(|app: &Self::Type, _, _| {
+                    let model = &app.imp().model;
                     let window = app.active_window();
 
-                    let preferences = PreferencesWindow::new(model);
+                    let preferences = PreferencesWindow::new(model.clone());
                     preferences.set_has_set_password(app.can_be_locked());
                     preferences.connect_restore_completed(clone!(@weak window =>move |_| {
                         window.providers().refilter();
@@ -107,14 +108,11 @@ mod imp {
                     }));
                     preferences.set_transient_for(Some(&window));
                     preferences.show();
-                })
-            );
+                }).build();
 
             // About
-            action!(
-                app,
-                "about",
-                clone!(@weak app => move |_, _| {
+            let about_action = gio::ActionEntry::builder("about")
+                .activate(|app: &Self::Type, _, _| {
                     let window = app.active_window();
                     gtk::AboutDialog::builder()
                         .program_name(&gettext("Authenticator"))
@@ -122,37 +120,50 @@ mod imp {
                         .version(config::VERSION)
                         .comments(&gettext("Generate Two-Factor Codes"))
                         .website("https://gitlab.gnome.org/World/Authenticator")
-                        .authors(vec!["Bilal Elmoussaoui".to_string(), "Maximiliano Sandoval".to_string(), "Christopher Davis".to_string(), "Julia Johannesen".to_string()  ])
-                        .artists(vec!["Alexandros Felekidis".to_string(), "Tobias Bernard".to_string()])
+                        .authors(vec![
+                            "Bilal Elmoussaoui".to_string(),
+                            "Maximiliano Sandoval".to_string(),
+                            "Christopher Davis".to_string(),
+                            "Julia Johannesen".to_string(),
+                        ])
+                        .artists(vec![
+                            "Alexandros Felekidis".to_string(),
+                            "Tobias Bernard".to_string(),
+                        ])
                         .translator_credits(&gettext("translator-credits"))
                         .logo_icon_name(config::APP_ID)
                         .license_type(gtk::License::Gpl30)
                         .transient_for(&window)
                         .build()
-                        .show();
+                        .present();
                 })
-            );
-            action!(
-                app,
-                "providers",
-                clone!(@weak app,@weak self.model as model => move |_, _| {
+                .build();
+
+            let providers_action = gio::ActionEntry::builder("providers")
+                .activate(|app: &Self::Type, _, _| {
+                    let model = &app.imp().model;
                     let window = app.active_window();
-                    let providers = ProvidersDialog::new(model);
+                    let providers = ProvidersDialog::new(model.clone());
                     providers.connect_changed(clone!(@weak window => move |_| {
                         window.providers().refilter();
                     }));
                     providers.set_transient_for(Some(&window));
                     providers.show();
                 })
-            );
+                .build();
 
-            action!(
-                app,
-                "lock",
-                clone!(@weak app => move |_, _| {
-                    app.set_is_locked(true);
-                })
-            );
+            let lock_action = gio::ActionEntry::builder("lock")
+                .activate(|app: &Self::Type, _, _| app.set_is_locked(true))
+                .build();
+
+            app.add_action_entries([
+                quit_action,
+                about_action,
+                lock_action,
+                providers_action,
+                preferences_action,
+            ])
+            .unwrap();
             app.bind_property("can-be-locked", &get_action!(app, @lock), "enabled")
                 .sync_create()
                 .build();
