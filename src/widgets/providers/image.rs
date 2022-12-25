@@ -153,8 +153,8 @@ impl ProviderImage {
                     imp.stack.set_visible_child_name("image");
                     return;
                 }
-                let small_file = gio::File::for_path(&FAVICONS_PATH.join(format!("{uri}_32x32")));
-                let large_file = gio::File::for_path(&FAVICONS_PATH.join(format!("{uri}_96x96")));
+                let small_file = gio::File::for_path(FAVICONS_PATH.join(format!("{uri}_32x32")));
+                let large_file = gio::File::for_path(FAVICONS_PATH.join(format!("{uri}_96x96")));
                 if !small_file.query_exists(gio::Cancellable::NONE)
                     || !large_file.query_exists(gio::Cancellable::NONE)
                 {

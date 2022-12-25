@@ -276,7 +276,7 @@ impl Application {
         tracing::info!("Version: {} ({})", config::VERSION, config::PROFILE);
         tracing::info!("Datadir: {}", config::PKGDATADIR);
 
-        std::fs::create_dir_all(&*FAVICONS_PATH.clone()).ok();
+        std::fs::create_dir_all(&*FAVICONS_PATH).ok();
 
         // To be removed in the upcoming release
         let settings = gio::Settings::new(config::APP_ID);

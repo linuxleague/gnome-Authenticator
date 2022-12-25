@@ -82,7 +82,7 @@ pub(crate) fn steam(secret: &str, counter: u64) -> Result<String> {
 }
 
 pub(crate) fn format(code: u32, digits: usize) -> String {
-    let padded_code = format!("{:0width$}", code, width = digits);
+    let padded_code = format!("{code:0digits$}");
     let mut formated_code = String::new();
     for (idx, ch) in padded_code.chars().enumerate() {
         if (digits - idx) % 3 == 0 && (digits - idx) != 0 && idx != 0 {

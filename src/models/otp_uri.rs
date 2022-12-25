@@ -155,7 +155,7 @@ impl From<OTPUri> for String {
             val.algorithm.to_string(),
         );
         if let Some(digits) = val.digits {
-            write!(otp_uri, "&digits={}", digits).unwrap();
+            write!(otp_uri, "&digits={digits}").unwrap();
         }
         if val.method == OTPMethod::HOTP {
             write!(

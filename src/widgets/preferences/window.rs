@@ -469,8 +469,8 @@ impl PreferencesWindow {
 
     fn encyption_key(&self, mode: Operation, identifier: &str) -> Option<glib::GString> {
         let identifier = match mode {
-            Operation::Backup => format!("backup.{}", identifier),
-            Operation::Restore => format!("restore.{}", identifier),
+            Operation::Backup => format!("backup.{identifier}",),
+            Operation::Restore => format!("restore.{identifier}"),
         };
         self.imp()
             .key_entries

@@ -273,7 +273,7 @@ impl Account {
                     &self.token(),
                     counter,
                     provider.algorithm(),
-                    provider.digits() as u32,
+                    provider.digits(),
                 );
 
                 token.map(|d| otp::format(d, provider.digits() as usize))
