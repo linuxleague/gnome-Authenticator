@@ -67,8 +67,8 @@ pub struct DiProvider {
 }
 mod imp {
     use glib::{
-        ParamFlags, ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, ParamSpecUInt64,
-        SourceId, Value,
+        ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, ParamSpecUInt64, SourceId,
+        Value,
     };
     use once_cell::sync::Lazy;
 
@@ -121,76 +121,32 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpecUInt::new(
-                        "id",
-                        "",
-                        "",
-                        0,
-                        u32::MAX,
-                        0,
-                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
-                    ),
+                    ParamSpecUInt::builder("id").construct().build(),
                     ParamSpecString::builder("name").build(),
                     ParamSpecObject::builder::<AccountsModel>("accounts").build(),
-                    ParamSpecUInt::new(
-                        "period",
-                        "",
-                        "",
-                        0,
-                        1000,
-                        otp::TOTP_DEFAULT_PERIOD,
-                        ParamFlags::READWRITE,
-                    ),
-                    ParamSpecUInt::new(
-                        "digits",
-                        "",
-                        "",
-                        0,
-                        1000,
-                        otp::DEFAULT_DIGITS,
-                        ParamFlags::READWRITE,
-                    ),
-                    ParamSpecUInt::new(
-                        "default-counter",
-                        "",
-                        "",
-                        0,
-                        u32::MAX,
-                        otp::HOTP_DEFAULT_COUNTER,
-                        ParamFlags::READWRITE,
-                    ),
-                    ParamSpecString::new(
-                        "algorithm",
-                        "",
-                        "",
-                        Some(&Algorithm::default().to_string()),
-                        ParamFlags::READWRITE,
-                    ),
-                    ParamSpecString::new(
-                        "method",
-                        "",
-                        "",
-                        Some(&OTPMethod::default().to_string()),
-                        ParamFlags::READWRITE,
-                    ),
+                    ParamSpecUInt::builder("period")
+                        .maximum(1000)
+                        .default_value(otp::TOTP_DEFAULT_PERIOD)
+                        .build(),
+                    ParamSpecUInt::builder("digits")
+                        .maximum(1000)
+                        .default_value(otp::DEFAULT_DIGITS)
+                        .build(),
+                    ParamSpecUInt::builder("default-counter")
+                        .default_value(otp::HOTP_DEFAULT_COUNTER)
+                        .build(),
+                    ParamSpecString::builder("algorithm")
+                        .default_value(Some(Algorithm::default().to_string().as_str()))
+                        .build(),
+                    ParamSpecString::builder("method")
+                        .default_value(Some(OTPMethod::default().to_string().as_str()))
+                        .build(),
                     ParamSpecString::builder("website").build(),
                     ParamSpecString::builder("help-url").build(),
-                    ParamSpecString::new(
-                        "image-uri",
-                        "",
-                        "",
-                        None,
-                        ParamFlags::READWRITE | ParamFlags::EXPLICIT_NOTIFY,
-                    ),
-                    ParamSpecUInt64::new(
-                        "remaining-time",
-                        "",
-                        "",
-                        0,
-                        u64::MAX,
-                        0,
-                        ParamFlags::READWRITE,
-                    ),
+                    ParamSpecString::builder("image-uri")
+                        .explicit_notify()
+                        .build(),
+                    ParamSpecUInt64::builder("remaining-time").build(),
                 ]
             });
             PROPERTIES.as_ref()

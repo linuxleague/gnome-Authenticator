@@ -47,7 +47,7 @@ pub struct DiAccount {
 
 #[doc(hidden)]
 mod imp {
-    use glib::{ParamFlags, ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
+    use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
     use once_cell::sync::Lazy;
 
     use super::*;
@@ -84,24 +84,10 @@ mod imp {
         fn properties() -> &'static [ParamSpec] {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
-                    ParamSpecUInt::new(
-                        "id",
-                        "",
-                        "",
-                        0,
-                        u32::MAX,
-                        0,
-                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
-                    ),
-                    ParamSpecUInt::new(
-                        "counter",
-                        "",
-                        "",
-                        0,
-                        u32::MAX,
-                        otp::HOTP_DEFAULT_COUNTER,
-                        ParamFlags::READWRITE,
-                    ),
+                    ParamSpecUInt::builder("id").construct().build(),
+                    ParamSpecUInt::builder("counter")
+                        .default_value(otp::HOTP_DEFAULT_COUNTER)
+                        .build(),
                     ParamSpecString::builder("name").build(),
                     ParamSpecString::builder("token-id").build(),
                     ParamSpecString::builder("otp").build(),

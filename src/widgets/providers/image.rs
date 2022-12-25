@@ -13,7 +13,7 @@ pub enum ImageAction {
 mod imp {
     use std::cell::{Cell, RefCell};
 
-    use glib::{subclass, ParamFlags, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
+    use glib::{subclass, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
     use once_cell::sync::Lazy;
 
     use super::*;
@@ -76,15 +76,12 @@ mod imp {
             static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
                 vec![
                     ParamSpecObject::builder::<Provider>("provider").build(),
-                    ParamSpecUInt::new(
-                        "size",
-                        "",
-                        "",
-                        32,
-                        96,
-                        48,
-                        ParamFlags::READWRITE | ParamFlags::CONSTRUCT,
-                    ),
+                    ParamSpecUInt::builder("size")
+                        .minimum(32)
+                        .maximum(96)
+                        .default_value(48)
+                        .construct()
+                        .build(),
                 ]
             });
             PROPERTIES.as_ref()
