@@ -173,7 +173,7 @@ impl ProviderRow {
 
         provider
             .bind_property("name", &*imp.name_label, "label")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .sync_create()
             .build();
 
         let sorter = AccountSorter::default();

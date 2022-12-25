@@ -207,7 +207,8 @@ impl PreferencesWindow {
 
         imp.password_page
             .bind_property("has-set-password", self, "has-set-password")
-            .flags(glib::BindingFlags::BIDIRECTIONAL | glib::BindingFlags::SYNC_CREATE)
+            .sync_create()
+            .bidirectional()
             .build();
 
         // FreeOTP is first in all of these lists, since its the way to backup

@@ -91,17 +91,17 @@ mod imp {
             let account = obj.account();
             account
                 .bind_property("name", &*obj, "title")
-                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+                .sync_create()
                 .build();
 
             account
                 .bind_property("name", &*obj, "tooltip-text")
-                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+                .sync_create()
                 .build();
 
             account
                 .bind_property("otp", &*self.otp_label, "label")
-                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+                .sync_create()
                 .build();
 
             // Only display the increment button if it is a HOTP account

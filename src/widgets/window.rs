@@ -276,7 +276,8 @@ impl Window {
             })
         );
         app.bind_property("is-locked", &get_action!(self, @add_account), "enabled")
-            .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
+            .invert_boolean()
+            .sync_create()
             .build();
 
         let password_entry = &*imp.password_entry;

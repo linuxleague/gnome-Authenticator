@@ -146,7 +146,7 @@ impl ProvidersDialog {
 
         imp.deck
             .bind_property("folded", &*imp.page.imp().revealer, "reveal-child")
-            .flags(glib::BindingFlags::SYNC_CREATE)
+            .sync_create()
             .build();
 
         self.set_view(View::Placeholder);

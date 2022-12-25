@@ -248,7 +248,7 @@ impl ProviderImage {
             clone!(@weak self as image => @default-return glib::Continue(false), move |action| image.do_action(action)),
         );
         self.bind_property("size", &*imp.image, "pixel-size")
-            .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+            .sync_create()
             .build();
     }
 

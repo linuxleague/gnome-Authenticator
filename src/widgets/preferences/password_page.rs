@@ -197,7 +197,7 @@ impl PasswordPage {
             &get_action!(actions, @reset_password),
             "enabled",
         )
-        .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+        .sync_create()
         .build();
     }
 

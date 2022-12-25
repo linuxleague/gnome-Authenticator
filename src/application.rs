@@ -154,13 +154,15 @@ mod imp {
                 })
             );
             app.bind_property("can-be-locked", &get_action!(app, @lock), "enabled")
-                .flags(glib::BindingFlags::DEFAULT | glib::BindingFlags::SYNC_CREATE)
+                .sync_create()
                 .build();
             app.bind_property("is-locked", &get_action!(app, @preferences), "enabled")
-                .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
+                .invert_boolean()
+                .sync_create()
                 .build();
             app.bind_property("is-locked", &get_action!(app, @providers), "enabled")
-                .flags(glib::BindingFlags::INVERT_BOOLEAN | glib::BindingFlags::SYNC_CREATE)
+                .invert_boolean()
+                .sync_create()
                 .build();
 
             app.connect_can_be_locked_notify(|app, can_be_locked| {
