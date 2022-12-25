@@ -44,11 +44,11 @@ impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::NoResults => write!(f, "Error: No results were found"),
-            Self::Reqwest(e) => write!(f, "Reqwest Error {}", e),
-            Self::Url(e) => write!(f, "Url Parse Error{}", e),
-            Self::Io(e) => write!(f, "IO Error {}", e),
-            Self::Image(e) => write!(f, "Image Error {}", e),
-            Self::Utf8(e) => write!(f, "String conversion error {}", e),
+            Self::Reqwest(e) => write!(f, "Reqwest Error {e}"),
+            Self::Url(e) => write!(f, "Url Parse Error{e}"),
+            Self::Io(e) => write!(f, "IO Error {e}"),
+            Self::Image(e) => write!(f, "Image Error {e}"),
+            Self::Utf8(e) => write!(f, "String conversion error {e}"),
         }
     }
 }

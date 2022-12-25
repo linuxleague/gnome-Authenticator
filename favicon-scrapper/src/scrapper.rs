@@ -192,22 +192,19 @@ impl Scrapper {
                             .next()
                             .map(Format::from_mimetype)
                             .unwrap_or_default();
-                        data = icon_data
-                            .next()
-                            .map(|data| {
-                                if data.starts_with("base64") {
-                                    base64::decode(data.trim_start_matches("base64,")).ok()
-                                } else {
-                                    Some(
-                                        percent_decode_str(data)
-                                            .decode_utf8()
-                                            .ok()?
-                                            .as_bytes()
-                                            .to_vec(),
-                                    )
-                                }
-                            })
-                            .flatten();
+                        data = icon_data.next().and_then(|data| {
+                            if data.starts_with("base64") {
+                                base64::decode(data.trim_start_matches("base64,")).ok()
+                            } else {
+                                Some(
+                                    percent_decode_str(data)
+                                        .decode_utf8()
+                                        .ok()?
+                                        .as_bytes()
+                                        .to_vec(),
+                                )
+                            }
+                        });
                         metadata.format = favicon_format;
                     } else {
                         if href.starts_with("//") {
