@@ -8,18 +8,15 @@ use crate::config;
 pub static SECRET_SERVICE: OnceCell<oo7::Keyring> = OnceCell::new();
 
 fn token_attributes(token_id: &str) -> HashMap<&str, &str> {
-    let mut attributes = HashMap::new();
-    attributes.insert("application", config::APP_ID);
-    attributes.insert("type", "token");
-    attributes.insert("token_id", token_id);
-    attributes
+    HashMap::from([
+        ("application", config::APP_ID),
+        ("type", "token"),
+        ("token_id", token_id),
+    ])
 }
 
 fn password_attributes() -> HashMap<&'static str, &'static str> {
-    let mut attributes = HashMap::new();
-    attributes.insert("application", config::APP_ID);
-    attributes.insert("type", "password");
-    attributes
+    HashMap::from([("application", config::APP_ID), ("type", "password")])
 }
 
 fn encode_argon2(secret: &str) -> anyhow::Result<String> {
