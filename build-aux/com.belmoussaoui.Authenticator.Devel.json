@@ -57,8 +57,8 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "git://git.linuxtv.org/zbar.git",
-                    "commit": "468f6bda627d683b3f40dbaf242c158409666f7e"
+                    "url": "https://git.linuxtv.org/zbar.git",
+                    "commit": "50726104adc930c67642da65249dda62e2981591"
                 },
                 {
                     "type": "script",
