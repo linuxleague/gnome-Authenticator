@@ -17,7 +17,6 @@
         "--talk-name=org.freedesktop.secrets",
         "--env=RUST_LOG=authenticator=debug,ashpd=debug,oo7=debug",
         "--env=G_MESSAGES_DEBUG=none",
-        "--own-name=com.belmoussaoui.Authenticator.Devel.SearchProvider",
         "--talk-name=org.gtk.vfs.*",
         "--filesystem=xdg-run/gvfs", "--filesystem=xdg-run/gvfsd"
     ],
