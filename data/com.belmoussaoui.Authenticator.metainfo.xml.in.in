@@ -47,6 +47,17 @@
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.2.0" date="2022-12-27">
+      <ul>
+        <li>Mutli Camera support when scanning a QR code</li>
+        <li>Camera: Use GL when possible</li>
+        <li>Fix an issue when restoring an AEGIS backup file</li>
+        <li>Avoid duplicated items when restoring a backup</li>
+        <li>Allow disabling favicons download in general or on a metered connection</li>
+        <li>Update providers list</li>
+        <li>Use new libadwaita widgets</li>
+      </ul>
+    </release>
     <release version="4.1.6" date="2022-06-10">
       <ul>
         <li>Add Google Autenticator restore support</li>
