@@ -1,0 +1,3148 @@
+[
+    {
+        "documentation": "",
+        "name": "AirVPN",
+        "website": "https://airvpn.org/"
+    },
+    {
+        "documentation": "https://www.ivpn.net/knowledgebase/232/Do-you-offer-Two-Factor-Authentication.html",
+        "name": "IVPN",
+        "website": "https://www.ivpn.net/"
+    },
+    {
+        "documentation": "",
+        "name": "NordVPN Teams",
+        "website": "https://nordvpnteams.com"
+    },
+    {
+        "documentation": "https://www.privateinternetaccess.com/helpdesk/kb/articles/how-do-i-enable-and-use-two-factor-authentication",
+        "name": "Private Internet Access",
+        "website": "https://www.privateinternetaccess.com"
+    },
+    {
+        "documentation": "https://protonvpn.com/support/two-factor-authentication/",
+        "name": "ProtonVPN",
+        "website": "https://protonvpn.com/"
+    },
+    {
+        "documentation": "https://support.surfshark.com/hc/en-us/articles/360011448319",
+        "name": "Surfshark",
+        "website": "https://surfshark.com/"
+    },
+    {
+        "documentation": "",
+        "name": "TorGuard",
+        "website": "https://torguard.net"
+    },
+    {
+        "documentation": "https://www.vpnunlimitedapp.com/help/manuals/two-factor-authentication",
+        "name": "VPN Unlimited",
+        "website": "https://vpnunlimitedapp.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Windscribe",
+        "website": "https://windscribe.com"
+    },
+    {
+        "documentation": "https://aa.net.uk/kb-broadband-2fa.html",
+        "name": "Andrews & Arnold",
+        "website": "https://aa.net.uk"
+    },
+    {
+        "documentation": "https://www.coned.com/-/media/files/coned/documents/small-medium-large-businesses/building-project-center/contractor-resources/user-registration-guide.pdf?la=en",
+        "name": "Con Edison",
+        "website": "https://www.coned.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Fi",
+        "website": "https://fi.google.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Fiber",
+        "website": "https://fiber.google.com/"
+    },
+    {
+        "documentation": "https://help.republicwireless.com/hc/en-us/articles/360008803994",
+        "name": "Republic Wireless",
+        "website": "https://republicwireless.com/"
+    },
+    {
+        "documentation": "https://help.sonic.com/hc/en-us/articles/236079387",
+        "name": "Sonic",
+        "website": "https://www.sonic.com/"
+    },
+    {
+        "documentation": "https://support.t-mobile.com/docs/DOC-2727",
+        "name": "T-Mobile",
+        "website": "https://www.t-mobile.com/"
+    },
+    {
+        "documentation": "https://telzio.com/support/two-factor-authentication",
+        "name": "Telzio",
+        "website": "https://www.telzio.com/"
+    },
+    {
+        "documentation": "https://help.ting.com/hc/en-us/articles/209351258",
+        "name": "Ting",
+        "website": "https://ting.com/"
+    },
+    {
+        "documentation": "https://help.uber.com/h/b8bb9152-8c91-4f49-83c4-35cf2e1dcf72",
+        "name": "Uber",
+        "website": "https://www.uber.com/"
+    },
+    {
+        "documentation": "https://support.airtable.com/hc/en-us/articles/219409917",
+        "name": "Airtable",
+        "website": "https://airtable.com"
+    },
+    {
+        "documentation": "https://help.clubhouse.io/hc/en-us/articles/360044506931",
+        "name": "Clubhouse",
+        "website": "https://clubhouse.io"
+    },
+    {
+        "documentation": "https://support.mindmeister.com/hc/en-us/articles/218901367",
+        "name": "Meistertask",
+        "website": "https://www.meistertask.com"
+    },
+    {
+        "documentation": "https://support.microsoft.com/en-us/help/12408/",
+        "name": "Microsoft To-Do",
+        "website": "https://todo.microsoft.com/"
+    },
+    {
+        "documentation": "https://support.plan.io/news/133",
+        "name": "Planio",
+        "website": "https://plan.io"
+    },
+    {
+        "documentation": "https://www.toodledo.com/info/help.php#168",
+        "name": "Toodledo",
+        "website": "https://www.toodledo.com"
+    },
+    {
+        "documentation": "https://help.trello.com/article/993--",
+        "name": "Trello",
+        "website": "https://trello.com"
+    },
+    {
+        "documentation": "https://blog.bufferapp.com/introducing-the-safest-social-media-publishing-on-the-web",
+        "name": "Buffer",
+        "website": "https://bufferapp.com"
+    },
+    {
+        "documentation": "https://www.facebook.com/help/148233965247823",
+        "name": "Facebook",
+        "website": "https://facebook.com"
+    },
+    {
+        "documentation": "https://help.hootsuite.com/hc/en-us/articles/204595950",
+        "name": "HootSuite",
+        "website": "https://hootsuite.com"
+    },
+    {
+        "documentation": "https://help.instagram.com/566810106808145",
+        "name": "Instagram",
+        "website": "https://www.instagram.com"
+    },
+    {
+        "documentation": "https://www.linkedin.com/help/linkedin/answer/544",
+        "name": "LinkedIn",
+        "website": "https://linkedin.com"
+    },
+    {
+        "documentation": "https://lobste.rs/s/1cyltz/two_factor_authentication_now_available",
+        "name": "Lobsters",
+        "website": "https://lobste.rs/"
+    },
+    {
+        "documentation": "https://www.plurk.com/p/mrcii5",
+        "name": "Plurk",
+        "website": "https://plurk.com"
+    },
+    {
+        "documentation": "https://www.reddithelp.com/hc/en-us/articles/360043470031",
+        "name": "Reddit",
+        "website": "https://www.reddit.com/"
+    },
+    {
+        "documentation": "https://support.restream.io/en/articles/870429",
+        "name": "Restream.io",
+        "website": "https://restream.io/"
+    },
+    {
+        "documentation": "https://help.short.io/en/articles/4065798",
+        "name": "Short.io",
+        "website": "https://short.io/"
+    },
+    {
+        "documentation": "https://support.snapchat.com/en-US/article/enable-login-verification",
+        "name": "Snapchat",
+        "website": "https://www.snapchat.com/"
+    },
+    {
+        "documentation": "https://www.tumblr.com/docs/en/two_factor_auth",
+        "name": "Tumblr",
+        "website": "https://www.tumblr.com/"
+    },
+    {
+        "documentation": "https://support.twitter.com/articles/20170388",
+        "name": "Twitter",
+        "website": "https://twitter.com"
+    },
+    {
+        "documentation": "https://vk.com/page-777107_53677752",
+        "name": "VK",
+        "website": "https://vk.com"
+    },
+    {
+        "documentation": "https://en.support.wordpress.com/security/two-step-authentication/",
+        "name": "WordPress.com",
+        "website": "https://wordpress.com"
+    },
+    {
+        "documentation": "",
+        "name": "Wykop",
+        "website": "https://www.wykop.pl"
+    },
+    {
+        "documentation": "https://faq.xing.com/en/settings-security/two-factor-login-two-factor-authentication",
+        "name": "XING",
+        "website": "https://www.xing.com"
+    },
+    {
+        "documentation": "https://kb.adguard.com/en/general/2fa",
+        "name": "AdGuard",
+        "website": "https://adguard.com"
+    },
+    {
+        "documentation": "https://www.bitdefender.com/consumer/support/answer/1581/",
+        "name": "Bitdefender",
+        "website": "https://www.bitdefender.com"
+    },
+    {
+        "documentation": "https://dnt.abine.com/#help/faq/faq-enabletwoFactor",
+        "name": "Blur",
+        "website": "https://www.abine.com/"
+    },
+    {
+        "documentation": "https://www.boxcryptor.com/help/boxcryptor-account/#two-factor-authentication",
+        "name": "Boxcryptor",
+        "website": "https://www.boxcryptor.com"
+    },
+    {
+        "documentation": "https://docs.bugcrowd.com/customers/role-and-account-management/two-factor-authentication/",
+        "name": "bugcrowd",
+        "website": "https://bugcrowd.com"
+    },
+    {
+        "documentation": "https://support.cloudflare.com/hc/en-us/articles/200167906",
+        "name": "Cloudflare",
+        "website": "https://cloudflare.com"
+    },
+    {
+        "documentation": "https://cobalt.io/blog/new-feature-two-factor-auth/",
+        "name": "Cobalt",
+        "website": "https://cobalt.io/"
+    },
+    {
+        "documentation": "https://www.digicert.com/two-factor-authentication.htm",
+        "name": "DigiCert",
+        "website": "https://www.digicert.com/"
+    },
+    {
+        "documentation": "https://www.dmarcanalyzer.com/set-two-factor-authentication-additional-security/",
+        "name": "DMARC Analyzer",
+        "website": "https://www.dmarcanalyzer.com/"
+    },
+    {
+        "documentation": "https://dmarcian.com/secure-dmarcian-2fa/",
+        "name": "dmarcian",
+        "website": "https://dmarcian.com/"
+    },
+    {
+        "documentation": "https://dome9.com/overview/strong-2-factor-authentication",
+        "name": "Dome9 Security",
+        "website": "https://dome9.com/"
+    },
+    {
+        "documentation": "https://easydmarc.com/blog/two-factor-authentication/",
+        "name": "EasyDMARC",
+        "website": "https://easydmarc.com"
+    },
+    {
+        "documentation": "https://docs.hackerone.com/hackers/two-factor-authentication.html",
+        "name": "HackerOne",
+        "website": "https://hackerone.com"
+    },
+    {
+        "documentation": "https://kb.intigriti.com/en/articles/2642631",
+        "name": "intigriti",
+        "website": "https://www.intigriti.com/"
+    },
+    {
+        "documentation": "https://help.kaspersky.com/KPC/1.0/en-US/152628.htm",
+        "name": "Kaspersky",
+        "website": "https://www.kaspersky.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Panther",
+        "website": "https://runpanther.io"
+    },
+    {
+        "documentation": "https://help.preyproject.com/article/248--",
+        "name": "Prey",
+        "website": "https://www.preyproject.com"
+    },
+    {
+        "documentation": "http://support.pwnieexpress.com/customer/en/portal/articles/2858909",
+        "name": "Pwnie Express Pwn Pulse",
+        "website": "https://www.pwnieexpress.com/products/pulse-device-detection"
+    },
+    {
+        "documentation": "https://rbltracker.com/docs/setting-up-two-factor-authentication/",
+        "name": "RBLTracker",
+        "website": "https://rbltracker.com/"
+    },
+    {
+        "documentation": "https://docs.sophos.com/central/Customer/help/en-us/central/Customer/concepts/ep_MultiFactorAuthentication.html",
+        "name": "Sophos Central",
+        "website": "https://www.sophos.com"
+    },
+    {
+        "documentation": "https://www.ssltrust.com.au/help/account-management/enable-2factor",
+        "name": "SSLTrust",
+        "website": "https://www.ssltrust.com.au/"
+    },
+    {
+        "documentation": "https://kb.threatconnect.com/customer/en/portal/articles/2214975",
+        "name": "ThreatConnect",
+        "website": "https://threatconnect.com/"
+    },
+    {
+        "documentation": "https://support.threatx.com/hc/en-us/articles/360022157591",
+        "name": "ThreatX",
+        "website": "https://www.threatx.com/"
+    },
+    {
+        "documentation": "https://support.tinfoilsecurity.com/article/43-do-you-support-two-factor-authentication-how-do-i-set-it-up",
+        "name": "Tinfoil Security",
+        "website": "https://www.tinfoilsecurity.com"
+    },
+    {
+        "documentation": "",
+        "name": "VirusTotal",
+        "website": "https://www.virustotal.com"
+    },
+    {
+        "documentation": "https://docs.webroot.com/us/en/home/wsa_website_userguide/wsa_managementwebsite_userguide.htm#GettingStarted/Enabling2-FactorAuthentication.htm",
+        "name": "Webroot",
+        "website": "https://www.webroot.com"
+    },
+    {
+        "documentation": "https://learn.adafruit.com/how-to-set-up-2-factor-authentication-on-adafruit",
+        "name": "Adafruit",
+        "website": "https://www.adafruit.com"
+    },
+    {
+        "documentation": "https://www.amazon.com/gp/help/customer/display.html?nodeId=201962420",
+        "name": "Amazon",
+        "website": "https://www.amazon.com"
+    },
+    {
+        "documentation": "https://www.bestbuy.com/site/help-topics/2-step-verification/pcmcat1561056149844.c",
+        "name": "Best Buy",
+        "website": "https://www.bestbuy.com/"
+    },
+    {
+        "documentation": "https://www.digitec.ch/en/page/6589",
+        "name": "Digitec",
+        "website": "https://www.digitec.ch"
+    },
+    {
+        "documentation": "https://help.etsy.com/hc/en-us/articles/115015569567",
+        "name": "Etsy",
+        "website": "https://www.etsy.com/"
+    },
+    {
+        "documentation": "https://login.migros.ch/help/security/2fa?hl=en",
+        "name": "Migros",
+        "website": "https://www.migros.ch"
+    },
+    {
+        "documentation": "https://kb.newegg.com/knowledge-base/2-step-verification/",
+        "name": "Newegg",
+        "website": "https://www.newegg.com"
+    },
+    {
+        "documentation": "https://support.purse.io/account/2-factor-authentication-2fa",
+        "name": "Purse",
+        "website": "https://purse.io/"
+    },
+    {
+        "documentation": "https://account.samsung.com/membership/guide/2step/",
+        "name": "Samsung",
+        "website": "https://www.samsung.com/"
+    },
+    {
+        "documentation": "https://help.shopify.com/manual/your-account/account-security/two-step-authentication",
+        "name": "Shopify",
+        "website": "https://shopify.com/"
+    },
+    {
+        "documentation": "https://www.tokopedia.com/panduan-keamanan/fitur-keamanan-tambahan/",
+        "name": "Tokopedia",
+        "website": "https://www.tokopedia.com/"
+    },
+    {
+        "documentation": "https://support.anydesk.com/Two-Factor_Authentication",
+        "name": "AnyDesk",
+        "website": "https://anydesk.com/"
+    },
+    {
+        "documentation": "https://docs.connectwise.com/ConnectWise_Control_Documentation/Get_started/Administration_page/Security_page/Enable_two-factor_authentication_for_host_accounts",
+        "name": "ConnectWise Control (ScreenConnect)",
+        "website": "https://www.connectwise.com/software/control"
+    },
+    {
+        "documentation": "https://directadmin.com/features.php?id=1754",
+        "name": "DirectAdmin",
+        "website": "https://www.directadmin.com"
+    },
+    {
+        "documentation": "https://help.islonline.com/35746/286527",
+        "name": "ISL Online",
+        "website": "https://islonline.com/"
+    },
+    {
+        "documentation": "https://support.logmeininc.com/pro/help#logmein-t-login-policy-set-twofactor-ownaccount",
+        "name": "join.me (w/ LogMeIn account)",
+        "website": "https://join.me/"
+    },
+    {
+        "documentation": "https://support.logmeininc.com/pro/help#logmein-t-login-policy-set-twofactor-ownaccount",
+        "name": "LogMeIn",
+        "website": "https://www.logmein.com/"
+    },
+    {
+        "documentation": "http://www.cc-onlinehelp.com/en/#index/administrati/users/authenticati/authenticati.html",
+        "name": "MB Connect Line",
+        "website": "https://www.mbconnectline.com"
+    },
+    {
+        "documentation": "https://www.syspectr.com/en/faq/how-do-i-activate-deactivate-two-factor-authentication-for-my-account",
+        "name": "O&O Syspectr",
+        "website": "https://www.syspectr.com"
+    },
+    {
+        "documentation": "https://help.realvnc.com/hc/en-us/articles/360003110878",
+        "name": "RealVNC",
+        "website": "https://www.realvnc.com"
+    },
+    {
+        "documentation": "https://help.remotedesktopmanager.com/howto_googleauthenticator.htm",
+        "name": "Remote Desktop Manager",
+        "website": "https://www.remotedesktopmanager.com"
+    },
+    {
+        "documentation": "https://www.teamviewer.com/en/help/402-How-do-I-activate-deactivate-two-factor-authentication-for-my-TeamViewer-account.aspx",
+        "name": "TeamViewer",
+        "website": "https://www.teamviewer.com"
+    },
+    {
+        "documentation": "https://www.amazon.com/gp/help/customer/display.html?nodeId=201962420",
+        "name": "Amazon Pay",
+        "website": "https://pay.amazon.com"
+    },
+    {
+        "documentation": "https://www.appfolio.com/help/online-portal",
+        "name": "AppFolio",
+        "website": "https://www.appfolio.com/"
+    },
+    {
+        "documentation": "https://articles.braintreepayments.com/reference/security/two-factor-authentication",
+        "name": "Braintree",
+        "website": "https://www.braintreepayments.com/"
+    },
+    {
+        "documentation": "https://www.chargebee.com/docs/2fa.html",
+        "name": "Chargebee",
+        "website": "https://www.chargebee.com/"
+    },
+    {
+        "documentation": "https://www.dwolla.com/updates/introducing-two-factor-authentication-for-dwolla/",
+        "name": "Dwolla",
+        "website": "https://www.dwolla.com"
+    },
+    {
+        "documentation": "https://support.gocardless.com/hc/en-gb/articles/360001164385",
+        "name": "GoCardless",
+        "website": "https://gocardless.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Pay",
+        "website": "https://pay.google.com/"
+    },
+    {
+        "documentation": "https://www.neteller.com/en/support#/path/ACCOUNT/Two-Factor-Authentication/85238429",
+        "name": "NETELLER",
+        "website": "https://www.neteller.com/"
+    },
+    {
+        "documentation": "https://www.paypal.com/us/smarthelp/article/faq4057",
+        "name": "PayPal",
+        "website": "https://www.paypal.com/"
+    },
+    {
+        "documentation": "https://www.paysafecard.com/en-au/lp-products/2-step-login/",
+        "name": "Paysafecard",
+        "website": "https://www.paysafecard.com/"
+    },
+    {
+        "documentation": "https://support.privacy.com/hc/en-us/articles/360012047174",
+        "name": "Privacy",
+        "website": "https://privacy.com/"
+    },
+    {
+        "documentation": "https://ravelin.zendesk.com/hc/en-us/articles/115001071665",
+        "name": "Ravelin",
+        "website": "https://www.ravelin.com/"
+    },
+    {
+        "documentation": "https://skrill.com/en-us/support#/path/ACCOUNT/Two-Factor-Authentication/905782552/Two-Factor-Authentication-2FA.htm",
+        "name": "Skrill",
+        "website": "https://skrill.com"
+    },
+    {
+        "documentation": "https://squareup.com/help/us/en/article/5593",
+        "name": "Square",
+        "website": "https://squareup.com"
+    },
+    {
+        "documentation": "https://support.stripe.com/questions/how-do-i-enable-two-step-verification",
+        "name": "Stripe",
+        "website": "https://www.stripe.com/"
+    },
+    {
+        "documentation": "https://help.tebex.io/en/articles/2319372",
+        "name": "Tebex",
+        "website": "https://www.tebex.io/"
+    },
+    {
+        "documentation": "https://support.wepay.com/hc/en-us/articles/203609693",
+        "name": "WePay",
+        "website": "https://go.wepay.com"
+    },
+    {
+        "documentation": "https://money.yandex.ru/doc.xml?id=524852",
+        "name": "Yandex.Money",
+        "website": "https://money.yandex.ru"
+    },
+    {
+        "documentation": "https://helpx.adobe.com/manage-account/using/secure-your-adobe-account.html",
+        "name": "Adobe ID",
+        "website": "https://adobe.com/"
+    },
+    {
+        "documentation": "https://angel.co/projects/106166",
+        "name": "AngelList",
+        "website": "https://angel.co"
+    },
+    {
+        "documentation": "https://knowledge.autodesk.com/customer-service/account-management/account-profile/account-security/two-step-verification",
+        "name": "Autodesk",
+        "website": "https://www.autodesk.com"
+    },
+    {
+        "documentation": "https://help.automater.com/help/two-factor-authentication-2fa",
+        "name": "Automater",
+        "website": "https://automater.pl/en/"
+    },
+    {
+        "documentation": "https://awardwallet.com/faqs#44",
+        "name": "AwardWallet",
+        "website": "https://awardwallet.com"
+    },
+    {
+        "documentation": "https://support.brave.com/hc/en-us/articles/360021649491",
+        "name": "Basic Attention Token",
+        "website": "https://publishers.basicattentiontoken.org/"
+    },
+    {
+        "documentation": "https://intercom.help/charliehr/en/articles/1037152",
+        "name": "CharlieHR",
+        "website": "https://charliehr.com/"
+    },
+    {
+        "documentation": "https://chartbeat.zendesk.com/hc/en-us/articles/209531888",
+        "name": "Chartbeat",
+        "website": "https://chartbeat.com/"
+    },
+    {
+        "documentation": "https://documentation.meraki.com/zGeneral_Administration/Managing_Dashboard_Access/Using_Google_Authenticator_for_Two-factor_Authentication_in_Dashboard",
+        "name": "Cisco Meraki",
+        "website": "https://meraki.cisco.com/"
+    },
+    {
+        "documentation": "",
+        "name": "CloudConvert",
+        "website": "https://cloudconvert.com"
+    },
+    {
+        "documentation": "",
+        "name": "Cloudinary",
+        "website": "https://cloudinary.com"
+    },
+    {
+        "documentation": "https://www.contentful.com/faq/two-factor-authentication/",
+        "name": "Contentful",
+        "website": "https://www.contentful.com/"
+    },
+    {
+        "documentation": "https://help.market.envato.com/hc/en-us/articles/115005592963",
+        "name": "Envato",
+        "website": "https://envato.com"
+    },
+    {
+        "documentation": "https://help.figma.com/hc/en-us/articles/360039817634",
+        "name": "Figma",
+        "website": "https://www.figma.com/"
+    },
+    {
+        "documentation": "https://www.findmyshift.com/help/what-is-two-factor-authentication",
+        "name": "Findmyshift",
+        "website": "https://www.findmyshift.com/"
+    },
+    {
+        "documentation": "https://support.mozilla.org/en-US/kb/secure-firefox-account-two-step-authentication",
+        "name": "Firefox",
+        "website": "https://accounts.firefox.com"
+    },
+    {
+        "documentation": "https://help.formstack.com/hc/en-us/articles/360019517891",
+        "name": "Formstack",
+        "website": "https://www.formstack.com/"
+    },
+    {
+        "documentation": "https://support.grammarly.com/hc/en-us/articles/360032922091",
+        "name": "Grammarly",
+        "website": "https://grammarly.com/"
+    },
+    {
+        "documentation": "https://docs.growingio.com/docs/product-manual/sysmanage/personal/security#kai-qi-er-ci-yan-zheng",
+        "name": "GrowingIO",
+        "website": "https://www.growingio.com/"
+    },
+    {
+        "documentation": "https://docs.helpscout.com/article/907--",
+        "name": "Help Scout",
+        "website": "https://helpscout.com"
+    },
+    {
+        "documentation": "https://www.youtube.com/watch?v=37Tgxy3NoG4",
+        "name": "ImmobilienScout24",
+        "website": "https://www.immobilienscout24.de"
+    },
+    {
+        "documentation": "https://support.jitbit.com/helpdesk/KB/View/11048235",
+        "name": "Jitbit Helpdesk",
+        "website": "https://www.jitbit.com/hosted-helpdesk/"
+    },
+    {
+        "documentation": "https://help.kayako.com/hc/en-us/articles/360006376420",
+        "name": "Kayako",
+        "website": "https://www.kayako.com"
+    },
+    {
+        "documentation": "https://help.kickstarter.com/hc/en-us/articles/115005127094",
+        "name": "Kickstarter",
+        "website": "https://www.kickstarter.com"
+    },
+    {
+        "documentation": "https://www.mathworks.com/mw_account/two_step_verification/frequently-asked-questions.html",
+        "name": "MathWorks",
+        "website": "https://www.mathworks.com/"
+    },
+    {
+        "documentation": "",
+        "name": "No Starch Press",
+        "website": "https://nostarch.com/"
+    },
+    {
+        "documentation": "https://support.office.com/en-US/article/Set-up-multi-factor-authentication-for-Office-365-8f0454b2-f51a-4d9c-bcde-2c48e41621c6",
+        "name": "Office 365",
+        "website": "https://office.microsoft.com/en-us/business/"
+    },
+    {
+        "documentation": "https://cad.onshape.com/help/Content/twofactorauthentication.htm",
+        "name": "Onshape",
+        "website": "https://www.onshape.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Opera",
+        "website": "https://auth.opera.com"
+    },
+    {
+        "documentation": "https://support.patreon.com/hc/en-us/articles/206538086",
+        "name": "Patreon",
+        "website": "https://www.patreon.com/"
+    },
+    {
+        "documentation": "https://phraseapp.com/blog/posts/multi-factor-how-to-secure-your-account-using-multi-factor/",
+        "name": "PhraseApp",
+        "website": "https://phraseapp.com"
+    },
+    {
+        "documentation": "https://feedback.repairshopr.com/knowledgebase/articles/928266",
+        "name": "Repairshopr",
+        "website": "https://www.repairshopr.com/"
+    },
+    {
+        "documentation": "https://www.ripe.net/participate/member-support/ripe-ncc-access/two-step-verification",
+        "name": "Ripe NCC",
+        "website": "https://www.ripe.net/"
+    },
+    {
+        "documentation": "https://www.sanebox.com/help/127",
+        "name": "SaneBox",
+        "website": "https://www.sanebox.com/"
+    },
+    {
+        "documentation": "https://wiki.smartsimple.com/wiki/Two-Factor_Authentication",
+        "name": "SmartSimple",
+        "website": "https://www.smartsimple.com"
+    },
+    {
+        "documentation": "https://community.teespring.com/blog/a-more-secure-teespring-two-factor-authentification/",
+        "name": "Teespring",
+        "website": "https://teespring.com"
+    },
+    {
+        "documentation": "https://help.ubnt.com/hc/en-us/articles/115012986607",
+        "name": "Ubiquiti Inc",
+        "website": "https://www.ui.com"
+    },
+    {
+        "documentation": "https://support.upwork.com/hc/en-us/articles/360009491414",
+        "name": "Upwork",
+        "website": "https://www.upwork.com"
+    },
+    {
+        "documentation": "https://support.usabilla.com/hc/en-us/articles/115003081611",
+        "name": "Usabilla",
+        "website": "https://usabilla.com"
+    },
+    {
+        "documentation": "https://support.watchmanmonitoring.com/hc/en-us/articles/205004059",
+        "name": "Watchman Monitoring",
+        "website": "https://www.watchmanmonitoring.com"
+    },
+    {
+        "documentation": "https://doc.weclapp.com/knowledgebase/zwei-wege-authentifizierung-2fa/",
+        "name": "Weclapp",
+        "website": "https://weclapp.com/"
+    },
+    {
+        "documentation": "https://meta.wikimedia.org/wiki/Help:Two-factor_authentication",
+        "name": "Wikipedia",
+        "website": "https://www.wikipedia.org/"
+    },
+    {
+        "documentation": "https://docs.yclas.com/2-step-authentication/",
+        "name": "Yclas",
+        "website": "https://yclas.com/"
+    },
+    {
+        "documentation": "",
+        "name": "YourAcclaim",
+        "website": "https://youracclaim.com"
+    },
+    {
+        "documentation": "https://support.zendesk.com/hc/en-us/articles/206373587",
+        "name": "Zendesk",
+        "website": "https://www.zendesk.com"
+    },
+    {
+        "documentation": "https://support.clio.com/hc/en-us/articles/203184210",
+        "name": "Clio",
+        "website": "https://www.clio.com"
+    },
+    {
+        "documentation": "https://support.docusign.com/en/guides/ndse-user-guide-two-step-verification",
+        "name": "Docusign",
+        "website": "https://www.docusign.com"
+    },
+    {
+        "documentation": "https://support.everlaw.com/hc/en-us/articles/206312165",
+        "name": "Everlaw",
+        "website": "https://everlaw.com"
+    },
+    {
+        "documentation": "https://faq.hellosign.com/hc/en-us/articles/360025164091",
+        "name": "HelloSign",
+        "website": "https://www.hellosign.com/"
+    },
+    {
+        "documentation": "https://support.ecobee.com/hc/en-us/articles/360040957212",
+        "name": "ecobee",
+        "website": "https://ecobee.com"
+    },
+    {
+        "documentation": "https://help.ifttt.com/hc/en-us/articles/115010193007",
+        "name": "IFTTT",
+        "website": "https://ifttt.com"
+    },
+    {
+        "documentation": "https://account.samsung.com/membership/guide/2step/",
+        "name": "Samsung SmartThings",
+        "website": "https://www.smartthings.com/"
+    },
+    {
+        "documentation": "https://www.tesla.com/support/multi-factor-authentication",
+        "name": "Tesla",
+        "website": "https://www.tesla.com"
+    },
+    {
+        "documentation": "https://www.youinvest.co.uk/faq/how-do-i-set-two-factor-authentication",
+        "name": "AJ Bell Youinvest",
+        "website": "https://www.youinvest.co.uk/"
+    },
+    {
+        "documentation": "https://www.betterment.com/resources/understanding-account-security/#3",
+        "name": "Betterment",
+        "website": "https://www.betterment.com/"
+    },
+    {
+        "documentation": "https://help.mintos.com/hc/en-us/sections/360000373858",
+        "name": "Mintos",
+        "website": "https://www.mintos.com/"
+    },
+    {
+        "documentation": "https://support.nutmeg.com/hc/en-us?article=115000495111-How-to-set-up-and-manage-2-step-verification",
+        "name": "Nutmeg",
+        "website": "https://www.nutmeg.com/"
+    },
+    {
+        "documentation": "https://support.robinhood.com/hc/en-us/articles/360001213783",
+        "name": "Robinhood",
+        "website": "https://www.robinhood.com/"
+    },
+    {
+        "documentation": "https://www.selfwealth.com.au/two-factor-authentication-now-available/",
+        "name": "SelfWealth",
+        "website": "https://www.selfwealth.com.au/"
+    },
+    {
+        "documentation": "https://support.wealthfront.com/hc/en-us/articles/211004563",
+        "name": "Wealthfront",
+        "website": "https://www.wealthfront.com/"
+    },
+    {
+        "documentation": "https://help.wealthsimple.com/hc/en-ca/articles/360005175373",
+        "name": "Wealthsimple",
+        "website": "https://www.wealthsimple.com"
+    },
+    {
+        "documentation": "https://support.1password.com/two-factor-authentication/",
+        "name": "1Password",
+        "website": "https://1password.com/"
+    },
+    {
+        "documentation": "https://help.bitwarden.com/article/setup-two-step-login/",
+        "name": "bitwarden",
+        "website": "https://bitwarden.com"
+    },
+    {
+        "documentation": "https://www.centrify.com/pam/authentication-service/mfa/",
+        "name": "Centrify",
+        "website": "https://www.centrify.com"
+    },
+    {
+        "documentation": "https://support.dashlane.com/hc/en-us/articles/202625042",
+        "name": "Dashlane",
+        "website": "https://www.dashlane.com"
+    },
+    {
+        "documentation": "https://help.id.me/hc/en-us/categories/360001435974",
+        "name": "ID.me",
+        "website": "https://www.id.me/"
+    },
+    {
+        "documentation": "https://www.keepersecurity.com/security#twoFactor",
+        "name": "Keeper",
+        "website": "https://keepersecurity.com/"
+    },
+    {
+        "documentation": "https://support.logmeininc.com/lastpass/help/enable-multifactor-authentication-lp010002",
+        "name": "LastPass",
+        "website": "https://lastpass.com/"
+    },
+    {
+        "documentation": "https://support.nordpass.com/hc/en-us/articles/360002770497-How-to-enable-Two-Factor-Authentication-",
+        "name": "NordPass",
+        "website": "https://nordpass.com/"
+    },
+    {
+        "documentation": "https://help.okta.com/en/prod/Content/Topics/Security/MFA.htm",
+        "name": "Okta",
+        "website": "https://www.okta.com/"
+    },
+    {
+        "documentation": "https://onelogin.service-now.com/support?id=kb_article&sys_id=43d99143db109700d5505eea4b96197a",
+        "name": "OneLogin",
+        "website": "https://www.onelogin.com/"
+    },
+    {
+        "documentation": "https://support.orcid.org/hc/en-us/articles/360006971673",
+        "name": "ORCID",
+        "website": "https://orcid.org/"
+    },
+    {
+        "documentation": "https://www.keepsolid.com/passwarden/security/tfa",
+        "name": "Passwarden",
+        "website": "https://www.keepsolid.com/passwarden/"
+    },
+    {
+        "documentation": "https://help.roboform.com/hc/en-us/articles/115002729512",
+        "name": "RoboForm",
+        "website": "https://www.roboform.com/"
+    },
+    {
+        "documentation": "https://www.20i.com/support/my-services/two-factor-authentication-my20i",
+        "name": "20i",
+        "website": "https://www.20i.com"
+    },
+    {
+        "documentation": "https://www.34sp.com/kb/142/how-to-enable-two-factor-authentication-on-your-account",
+        "name": "34SP.com",
+        "website": "https://www.34SP.com"
+    },
+    {
+        "documentation": "https://www.a2hosting.com/kb/a2-hosting-customer-portal/account-management/enabling-two-factor-authentication-for-your-a2-hosting-account",
+        "name": "A2 Hosting",
+        "website": "https://www.a2hosting.com"
+    },
+    {
+        "documentation": "https://docs.acquia.com/acquia-cloud/access/signin/",
+        "name": "Acquia",
+        "website": "https://www.acquia.com"
+    },
+    {
+        "documentation": "https://faq.active24.com/cz/183996-",
+        "name": "ACTIVE 24",
+        "website": "https://www.active24.com/"
+    },
+    {
+        "documentation": "https://all-inkl.com/wichtig/faq/#2fa",
+        "name": "ALL-INKL.COM",
+        "website": "https://all-inkl.com/"
+    },
+    {
+        "documentation": "https://www.binarylane.com.au/support/solutions/articles/1000199372",
+        "name": "Binary Lane",
+        "website": "https://www.binarylane.com.au/"
+    },
+    {
+        "documentation": "https://blogg.binero.se/2017/10/tvafaktorsautentisering/",
+        "name": "Binero",
+        "website": "https://www.binero.se"
+    },
+    {
+        "documentation": "https://help.blacknight.com/hc/en-us/articles/360001358517",
+        "name": "Blacknight",
+        "website": "https://blacknight.com"
+    },
+    {
+        "documentation": "https://my.bluehost.com/cgi/help/two-factor-authentication",
+        "name": "Bluehost",
+        "website": "https://www.bluehost.com/"
+    },
+    {
+        "documentation": "",
+        "name": "BunnyCDN",
+        "website": "https://bunnycdn.com"
+    },
+    {
+        "documentation": "https://carrd.co/docs/account/enabling-google-authenticator",
+        "name": "Carrd",
+        "website": "https://carrd.co/"
+    },
+    {
+        "documentation": "https://client.cdn77.com/support/knowledgebase/billing/cdn77-two-step-authentication",
+        "name": "CDN77",
+        "website": "https://www.cdn77.com"
+    },
+    {
+        "documentation": "https://cdnsun.com/knowledgebase/billing/two-factor-authentication",
+        "name": "CDNsun",
+        "website": "https://cdnsun.com"
+    },
+    {
+        "documentation": "https://support.cloudways.com/enabling-two-factor-authentication-for-your-cloudways-account/",
+        "name": "Cloudways",
+        "website": "https://www.cloudways.com/"
+    },
+    {
+        "documentation": "https://contabo.com/?show=faq#100",
+        "name": "Contabo",
+        "website": "https://contabo.com/"
+    },
+    {
+        "documentation": "https://www.cyon.ch/support/a/zwei-schritt-verifizierung-aktivieren",
+        "name": "cyon",
+        "website": "https://www.cyon.ch"
+    },
+    {
+        "documentation": "https://help.dreamhost.com/hc/en-us/articles/216013897",
+        "name": "Dreamhost",
+        "website": "https://dreamhost.com"
+    },
+    {
+        "documentation": "https://easy.gr/el/faq",
+        "name": "Easy",
+        "website": "https://easy.gr/"
+    },
+    {
+        "documentation": "https://docs.fastly.com/guides/account-management-and-security/enabling-and-disabling-two-factor-authentication",
+        "name": "Fastly",
+        "website": "https://www.fastly.com"
+    },
+    {
+        "documentation": "https://getflywheel.com/wordpress-support/how-to-enable-two-factor-authentication-on-flywheel",
+        "name": "Flywheel",
+        "website": "https://getflywheel.com"
+    },
+    {
+        "documentation": "",
+        "name": "Glesys",
+        "website": "https://glesys.com/"
+    },
+    {
+        "documentation": "https://greenhost.net/blog/2016/03/01/spring-news-2-factor-authentication-service-center-haproxy-plugin-for-let-s-encrypt-and-more/",
+        "name": "Greenhost",
+        "website": "https://greenhost.net"
+    },
+    {
+        "documentation": "https://wiki.hetzner.de/index.php/KonsoleH:Zwei-Faktor-Authentifizierung/en",
+        "name": "Hetzner Online",
+        "website": "https://www.hetzner.de/"
+    },
+    {
+        "documentation": "https://www.hostens.com/knowledgebase/how-to-enhance-account-security/",
+        "name": "Hostens",
+        "website": "https://www.hostens.com/"
+    },
+    {
+        "documentation": "https://support.hostpoint.ch/en/administrative/hostpoint-id/general-questions-about-two-factor-authentication",
+        "name": "Hostpoint",
+        "website": "https://www.hostpoint.ch/"
+    },
+    {
+        "documentation": "https://my.hostus.us/knowledgebase/106",
+        "name": "HostUS",
+        "website": "https://hostus.us"
+    },
+    {
+        "documentation": "https://tickets.suresupport.com/faq/article-1700",
+        "name": "ICDSoft",
+        "website": "https://www.icdsoft.com"
+    },
+    {
+        "documentation": "https://www.icuk.net/reseller/security.asp",
+        "name": "ICUK",
+        "website": "https://www.icuk.net"
+    },
+    {
+        "documentation": "https://www.infomaniak.ch/en/support/faq/1940",
+        "name": "Infomaniak",
+        "website": "https://www.infomaniak.com/"
+    },
+    {
+        "documentation": "https://my.iniz.com/knowledgebase/51",
+        "name": "INIZ",
+        "website": "https://iniz.com"
+    },
+    {
+        "documentation": "https://www.iozoom.com/client/announcements.php?id=6",
+        "name": "IO Zoom",
+        "website": "https://www.iozoom.com"
+    },
+    {
+        "documentation": "https://www.knownhost.com/wiki/my-knownhost/two-factor",
+        "name": "KnownHost",
+        "website": "https://www.knownhost.com"
+    },
+    {
+        "documentation": "https://www.liquidweb.com/kb/how-to-enable-two-factor-authentication-2fa/",
+        "name": "Liquid Web",
+        "website": "https://www.liquidweb.com"
+    },
+    {
+        "documentation": "https://www.mammoth.net.au/news/2012/10/22/two-factor-authentication-now-available",
+        "name": "Mammoth Networks",
+        "website": "https://www.mammoth.net.au/"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/issues/3634#issuecomment-454688629",
+        "name": "Miss Hosting",
+        "website": "https://misshosting.com/"
+    },
+    {
+        "documentation": "https://blog.nearlyfreespeech.net/2014/02/28/price-cuts-more-security-and-recovery-options/",
+        "name": "NearlyFreeSpeech.NET",
+        "website": "https://www.nearlyfreespeech.net/"
+    },
+    {
+        "documentation": "https://ar.neolo.com/knowledgebase/215/Autenticacion-de-2-factores.html",
+        "name": "Neolo",
+        "website": "https://www.neolo.com"
+    },
+    {
+        "documentation": "https://www.netcup-wiki.de/wiki/Stammdaten_CCP#Zwei-Faktor-Authentifizierung_.282FA.29",
+        "name": "Netcup",
+        "website": "https://netcup.eu/"
+    },
+    {
+        "documentation": "https://docs.netlify.com/accounts-and-billing/user-settings/#two-factor-authentication-2fa",
+        "name": "Netlify",
+        "website": "https://www.netlify.com"
+    },
+    {
+        "documentation": "https://server.nitrado.net/deu/news2/view/nitrado-bietet-zweifaktorauthentifizierung/?f=index/mode:0/page:2",
+        "name": "Nitrado",
+        "website": "https://server.nitrado.net/"
+    },
+    {
+        "documentation": "https://noez.de/en/faq/post/199/",
+        "name": "Noez",
+        "website": "https://noez.de/"
+    },
+    {
+        "documentation": "https://www.oderland.se/support/en/artikel/how-is-my-personal-information-handled/#how-do-i-encrypt-personal-information",
+        "name": "Oderland",
+        "website": "https://www.oderland.se/"
+    },
+    {
+        "documentation": "https://www.omgserv.com/fr/faq-site/comment_activer_la_double_authentification-103/",
+        "name": "OMGServ",
+        "website": "https://www.omgserv.com"
+    },
+    {
+        "documentation": "https://documentation.online.net/en/account-management/account/enable-2fa",
+        "name": "Online",
+        "website": "https://www.online.net/"
+    },
+    {
+        "documentation": "https://docs.ovh.com/gb/en/customer/secure-account-with-2FA/",
+        "name": "OVH",
+        "website": "https://www.ovh.com/"
+    },
+    {
+        "documentation": "https://blog.planethoster.com/securite-espace-client-planethoster/",
+        "name": "PlanetHoster",
+        "website": "https://www.planethoster.com/"
+    },
+    {
+        "documentation": "https://clientarea.ramnode.com/knowledgebase.php?action=displayarticle&id=4129",
+        "name": "RamNode",
+        "website": "https://www.ramnode.com"
+    },
+    {
+        "documentation": "https://runcloud.io/docs/account/authentication.html",
+        "name": "RunCloud",
+        "website": "https://www.runcloud.io"
+    },
+    {
+        "documentation": "https://www.section.io/docs/how-to/user-management/enable-two-factor-authentication-on-your-account/",
+        "name": "section.io",
+        "website": "https://www.section.io"
+    },
+    {
+        "documentation": "https://segment.com/docs/iam/mfa/",
+        "name": "Segment",
+        "website": "https://segment.com/"
+    },
+    {
+        "documentation": "https://www.siteground.com/tutorials/two-factor-authentication/",
+        "name": "SiteGround",
+        "website": "https://www.siteground.com"
+    },
+    {
+        "documentation": "https://support.squarespace.com/hc/en-us/articles/360000044827",
+        "name": "Squarespace",
+        "website": "https://squarespace.com/"
+    },
+    {
+        "documentation": "https://support.stackpath.com/hc/en-us/articles/360022992631",
+        "name": "StackPath",
+        "website": "https://www.stackpath.com"
+    },
+    {
+        "documentation": "https://billing.time4vps.eu/knowledgebase/article/100/2-factor-authentication/",
+        "name": "Time4VPS",
+        "website": "https://www.time4vps.eu/"
+    },
+    {
+        "documentation": "https://www.transip.nl/knowledgebase/artikel/162",
+        "name": "TransIP",
+        "website": "https://www.transip.nl/"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/pull/997#issuecomment-77708501",
+        "name": "UKFast",
+        "website": "https://www.ukfast.co.uk/"
+    },
+    {
+        "documentation": "https://www.ukraine.com.ua/faq/rekomendatsii-po-zashchite-ot-vzloma-uchetnoj-zapisi.html",
+        "name": "Ukraine",
+        "website": "https://www.ukraine.com.ua/"
+    },
+    {
+        "documentation": "https://www.upcloud.com/support/two-factor-authentication/",
+        "name": "UpCloud",
+        "website": "https://www.upcloud.com"
+    },
+    {
+        "documentation": "https://ventraip.com.au/faq/article/two-factor-authentication-faq-vipcontrol/",
+        "name": "VentraIP",
+        "website": "https://ventraip.com.au"
+    },
+    {
+        "documentation": "https://www.versio.nl/nieuws/twofactor-authenticatie-nu-beschikbaar-voor-uw-klantenaccount-205",
+        "name": "Versio",
+        "website": "https://www.versio.nl"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/pull/2311#issuecomment-273424695",
+        "name": "VPS Server",
+        "website": "https://www.vpsserver.com/"
+    },
+    {
+        "documentation": "https://docs.webfaction.com/user-guide/control_panel.html#two-step-login",
+        "name": "WebFaction",
+        "website": "https://www.webfaction.com"
+    },
+    {
+        "documentation": "https://university.webflow.com/lesson/two-factor-authentication-2fa",
+        "name": "Webflow",
+        "website": "https://webflow.com/"
+    },
+    {
+        "documentation": "https://kb.wedos.com/cs/zakaznik/otp.html",
+        "name": "Wedos",
+        "website": "https://hosting.wedos.com"
+    },
+    {
+        "documentation": "https://www.world4you.com/faq/en/w4y-app/faq.zwei-faktor-authentifizierung-world4you-app.html",
+        "name": "World4You",
+        "website": "https://www.world4you.com"
+    },
+    {
+        "documentation": "https://wpengine.com/support/2-factor-authentication/",
+        "name": "WP Engine",
+        "website": "https://wpengine.com/"
+    },
+    {
+        "documentation": "https://customercare.23andme.com/hc/en-us/articles/360034119874",
+        "name": "23andMe",
+        "website": "https://www.23andme.com/"
+    },
+    {
+        "documentation": "https://cronometer.zendesk.com/hc/en-us/articles/360042096672",
+        "name": "Cronometer",
+        "website": "https://cronometer.com/"
+    },
+    {
+        "documentation": "https://support.followmyhealth.com/2020/03/10/turning-on-two-factor-authentication-while-logged-into-your-account/",
+        "name": "FollowMyHealth",
+        "website": "https://www.followmyhealth.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Fit",
+        "website": "https://fit.google.com"
+    },
+    {
+        "documentation": "https://support.hint.com/support/solutions/articles/61000283118",
+        "name": "Hint Health",
+        "website": "https://www.hint.com"
+    },
+    {
+        "documentation": "https://www.myheritage.com/help-center/en/article/how-do-i-set-up-two-factor-authentication-for-my-myheritage-account",
+        "name": "MyHeritage",
+        "website": "https://www.myheritage.com/"
+    },
+    {
+        "documentation": "https://runsignup.blog/2018/09/06/multi-factor-authentication/",
+        "name": "RunSignUp",
+        "website": "https://runsignup.com/"
+    },
+    {
+        "documentation": "https://www.login.gov/help/creating-an-account/two-factor-authentication/",
+        "name": "login.gov",
+        "website": "https://login.gov/"
+    },
+    {
+        "documentation": "https://www.realme.govt.nz/help/#second-factor-authentication",
+        "name": "RealMe",
+        "website": "https://www.realme.govt.nz/"
+    },
+    {
+        "documentation": "",
+        "name": "US Citizenship and Immigration Services",
+        "website": "https://uscis.gov/"
+    },
+    {
+        "documentation": "https://ashesofcreation.zendesk.com/hc/en-us/articles/360022983234",
+        "name": "Ashes of Creation",
+        "website": "https://ashesofcreation.com"
+    },
+    {
+        "documentation": "",
+        "name": "Aternos",
+        "website": "https://aternos.org/"
+    },
+    {
+        "documentation": "https://help.bethesda.net/app/answers/detail/a_id/48931",
+        "name": "Bethesda",
+        "website": "https://bethesda.net/"
+    },
+    {
+        "documentation": "https://blackdesert.zendesk.com/hc/en-us/articles/360000535909",
+        "name": "Black Desert Online",
+        "website": "https://www.blackdesertonline.com/"
+    },
+    {
+        "documentation": "https://support.bladeandsoul.com/hc/en-us/articles/207578553",
+        "name": "Blade & Soul",
+        "website": "https://www.bladeandsoul.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Bohemia Interactive",
+        "website": "https://www.bohemia.net/"
+    },
+    {
+        "documentation": "https://profile.callofduty.com/cod/announcement2FA",
+        "name": "Call Of Duty",
+        "website": "https://callofduty.com"
+    },
+    {
+        "documentation": "https://help.ea.com/en-us/help/account/origin-login-verification-information/",
+        "name": "Electronic Arts (Origin)",
+        "website": "https://www.ea.com/"
+    },
+    {
+        "documentation": "https://www.epicgames.com/help/en-US/c74/c112/a3218",
+        "name": "Epic Games",
+        "website": "https://www.epicgames.com/"
+    },
+    {
+        "documentation": "",
+        "name": "ESL",
+        "website": "https://www.eslgaming.com"
+    },
+    {
+        "documentation": "https://support.eveonline.com/hc/en-us/articles/203465601",
+        "name": "EVE Online",
+        "website": "https://www.eveonline.com/"
+    },
+    {
+        "documentation": "https://support.faceit.com/hc/en-us/articles/115000254670",
+        "name": "FaceIT",
+        "website": "https://www.faceit.com"
+    },
+    {
+        "documentation": "https://support.fanatical.com/hc/en-us/articles/360002761397",
+        "name": "Fanatical",
+        "website": "https://www.fanatical.com"
+    },
+    {
+        "documentation": "https://support.gaijin.net/hc/en-us/articles/203623622",
+        "name": "Gaijin Entertainment",
+        "website": "https://gaijin.net"
+    },
+    {
+        "documentation": "",
+        "name": "GREE",
+        "website": "https://product.gree.net/"
+    },
+    {
+        "documentation": "https://help.guildwars2.com/hc/en-us/articles/230672927",
+        "name": "Guild Wars 2",
+        "website": "https://www.guildwars2.com"
+    },
+    {
+        "documentation": "https://support.humblebundle.com/hc/en-us/articles/202421374",
+        "name": "Humble Bundle",
+        "website": "https://www.humblebundle.com/"
+    },
+    {
+        "documentation": "https://itch.io/docs/advanced/two-factor-authentication",
+        "name": "itch.io",
+        "website": "https://itch.io/"
+    },
+    {
+        "documentation": "",
+        "name": "lichess.org",
+        "website": "https://lichess.org"
+    },
+    {
+        "documentation": "https://support.nexon.net/hc/en-us/articles/360025920992",
+        "name": "Nexon",
+        "website": "https://www.nexon.com"
+    },
+    {
+        "documentation": "https://help.nexusmods.com/article/74--",
+        "name": "Nexus Mods",
+        "website": "https://www.nexusmods.com/"
+    },
+    {
+        "documentation": "https://en-americas-support.nintendo.com/app/answers/detail/a_id/27496",
+        "name": "Nintendo Account",
+        "website": "https://accounts.nintendo.com/"
+    },
+    {
+        "documentation": "https://support.parsecgaming.com/hc/en-us/articles/360015480691",
+        "name": "Parsec",
+        "website": "https://www.parsecgaming.com"
+    },
+    {
+        "documentation": "https://playstation.com/support/2sv/",
+        "name": "Playstation Network",
+        "website": "https://www.playstation.com/"
+    },
+    {
+        "documentation": "https://mysupport.razer.com/app/answers/detail/a_id/1716",
+        "name": "Razer",
+        "website": "https://www.razer.com/"
+    },
+    {
+        "documentation": "https://support.robertsspaceindustries.com/hc/en-us/articles/115009965628",
+        "name": "Roberts Space Industries",
+        "website": "https://robertsspaceindustries.com/"
+    },
+    {
+        "documentation": "https://support.rockstargames.com/articles/360000031747",
+        "name": "Rockstar Games Social Club",
+        "website": "https://socialclub.rockstargames.com"
+    },
+    {
+        "documentation": "https://support.runescape.com/hc/en-gb/articles/206811835",
+        "name": "RuneScape",
+        "website": "https://www.runescape.com/"
+    },
+    {
+        "documentation": "https://scryfall.com/docs/privacy#scryfall-accounts",
+        "name": "Scryfall",
+        "website": "https://www.scryfall.com/"
+    },
+    {
+        "documentation": "https://www.tibia.com/support/?subtopic=gethelp&topicid=21",
+        "name": "Tibia",
+        "website": "https://www.tibia.com/"
+    },
+    {
+        "documentation": "https://www.toontownrewritten.com/help/faq/accounts--login#twostep",
+        "name": "Toontown Rewritten",
+        "website": "https://www.toontownrewritten.com/"
+    },
+    {
+        "documentation": "https://support.ubi.com/en-GB/Faqs/000039953",
+        "name": "Ubisoft/Uplay",
+        "website": "https://uplay.ubi.com/"
+    },
+    {
+        "documentation": "https://eu.wargaming.net/support/en/products/wot/article/10568/",
+        "name": "Wargaming",
+        "website": "https://wargaming.net/"
+    },
+    {
+        "documentation": "https://support.microsoft.com/en-us/help/12408/",
+        "name": "Xbox Live",
+        "website": "https://www.xbox.com/live"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/pull/4435#issuecomment-566448568",
+        "name": "YoYo Games",
+        "website": "https://www.yoyogames.com/"
+    },
+    {
+        "documentation": "https://help.altoira.com/enabling-/-disabling-two-factor-authentication-2fa",
+        "name": "AltoIRA",
+        "website": "https://www.altoira.com"
+    },
+    {
+        "documentation": "https://sf360.zendesk.com/hc/en-au/articles/360020963051",
+        "name": "BGL Corporate Solutions",
+        "website": "https://www.bglcorp.com/"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/pull/2181#issuecomment-266315173",
+        "name": "Bitbond",
+        "website": "https://www.bitbond.com"
+    },
+    {
+        "documentation": "https://support.carta.com/s/article/2-factor-authentication",
+        "name": "Carta",
+        "website": "https://carta.com/"
+    },
+    {
+        "documentation": "",
+        "name": "DEGIRO",
+        "website": "https://www.degiro.nl"
+    },
+    {
+        "documentation": "https://support.exactonline.com/community/s/knowledge-base#All-All-HNO-Task-general-security-gen-auth-totpregphndsktpt",
+        "name": "Exact Online",
+        "website": "https://exact.com/"
+    },
+    {
+        "documentation": "https://community.expensify.com/discussion/7385",
+        "name": "Expensify",
+        "website": "https://www.expensify.com/"
+    },
+    {
+        "documentation": "https://www.freeagent.com/support/kb/getting-started/two-step-verification",
+        "name": "FreeAgent",
+        "website": "https://www.freeagent.com"
+    },
+    {
+        "documentation": "https://www.freetaxusa.com/faqsearch?search_keyword=authentication",
+        "name": "FreeTaxUSA",
+        "website": "https://www.freetaxusa.com/"
+    },
+    {
+        "documentation": "https://support.gusto.com/1066223171",
+        "name": "Gusto",
+        "website": "https://www.gusto.com"
+    },
+    {
+        "documentation": "",
+        "name": "H&R Block",
+        "website": "https://www.hrblock.com/"
+    },
+    {
+        "documentation": "https://ttlc.intuit.com/questions/2902682",
+        "name": "Intuit TurboTax",
+        "website": "https://turbotax.intuit.com/"
+    },
+    {
+        "documentation": "https://help.justworks.com/hc/en-us/articles/360004477492",
+        "name": "Justworks",
+        "website": "https://justworks.com/"
+    },
+    {
+        "documentation": "https://help.metorik.com/article/22-how-can-i-enable-2fa-on-my-account",
+        "name": "Metorik",
+        "website": "https://www.metorik.com"
+    },
+    {
+        "documentation": "https://help.mint.com/Security/908045661",
+        "name": "Mint",
+        "website": "https://www.mint.com"
+    },
+    {
+        "documentation": "https://www.moneybird.nl/blog/twee-staps-verificatie/",
+        "name": "Moneybird",
+        "website": "https://www.moneybird.com/"
+    },
+    {
+        "documentation": "https://www.northwesternmutual.com/security-and-privacy/",
+        "name": "Northwestern Mutual",
+        "website": "https://www.northwesternmutual.com/"
+    },
+    {
+        "documentation": "https://learn.pocketsmith.com/article/167--",
+        "name": "Pocketsmith",
+        "website": "https://www.pocketsmith.com"
+    },
+    {
+        "documentation": "https://secure02.principal.com/publicvsupply/GetFile?fm=ww42&ty=VOP&EXT=.VOP",
+        "name": "Principal",
+        "website": "https://www.principal.com"
+    },
+    {
+        "documentation": "https://accounts-help.lc.intuit.com/questions/1590157",
+        "name": "Quickbooks Online",
+        "website": "https://quickbooks.intuit.com/"
+    },
+    {
+        "documentation": "https://community.quickfile.co.uk/t/2-factor-authentication/8892",
+        "name": "QuickFile",
+        "website": "https://www.quickfile.co.uk"
+    },
+    {
+        "documentation": "https://help.simpletax.ca/questions/two-factor-authentication",
+        "name": "SimpleTax",
+        "website": "https://simpletax.ca/"
+    },
+    {
+        "documentation": "https://www.taxact.com/support/24138/2019/how-is-a-verification-code-used?hideLayout=True",
+        "name": "Taxact",
+        "website": "https://www.taxact.com"
+    },
+    {
+        "documentation": "https://help.xero.com/nz/MyXero_Two-Step_About",
+        "name": "Xero",
+        "website": "https://www.xero.com/"
+    },
+    {
+        "documentation": "https://docs.youneedabudget.com/article/1364--",
+        "name": "You Need A Budget (YNAB)",
+        "website": "https://www.youneedabudget.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Floatplane",
+        "website": "https://www.floatplane.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Play",
+        "website": "https://play.google.com"
+    },
+    {
+        "documentation": "https://qa.nicovideo.jp/faq/show/4500",
+        "name": "Niconico",
+        "website": "https://www.nicovideo.jp/"
+    },
+    {
+        "documentation": "https://support.plex.tv/articles/two-factor-authentication/",
+        "name": "Plex",
+        "website": "https://www.plex.tv"
+    },
+    {
+        "documentation": "https://forum.rocketbeans.tv/t/35407/31",
+        "name": "Rocket Beans TV",
+        "website": "https://rocketbeans.tv/"
+    },
+    {
+        "documentation": "",
+        "name": "smashcast",
+        "website": "https://www.smashcast.tv/"
+    },
+    {
+        "documentation": "https://help.twitch.tv/s/article/two-factor-authentication",
+        "name": "Twitch",
+        "website": "https://www.twitch.tv/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "YouTube",
+        "website": "https://www.youtube.com/"
+    },
+    {
+        "documentation": "https://www.fastmail.com/help/account/2fa.html",
+        "name": "FastMail",
+        "website": "https://www.fastmail.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Gmail",
+        "website": "https://mail.google.com"
+    },
+    {
+        "documentation": "https://hilfe.gmx.net/sicherheit/2fa/einrichten.html",
+        "name": "GMX.net",
+        "website": "https://www.gmx.net/"
+    },
+    {
+        "documentation": "https://hey.com/security/",
+        "name": "HEY",
+        "website": "https://hey.com/"
+    },
+    {
+        "documentation": "https://help.hushmail.com/hc/en-us/articles/213268943",
+        "name": "Hushmail",
+        "website": "https://www.hushmail.com"
+    },
+    {
+        "documentation": "https://mail.de/hilfe/u2f-authenticator",
+        "name": "mail.de",
+        "website": "https://mail.de/"
+    },
+    {
+        "documentation": "https://kb.mailbox.org/x/5AcS",
+        "name": "mailbox.org",
+        "website": "https://mailbox.org/"
+    },
+    {
+        "documentation": "https://mailfence.com/c/mailfence/more/totp.jsp",
+        "name": "Mailfence",
+        "website": "https://mailfence.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Migadu",
+        "website": "https://www.migadu.com/"
+    },
+    {
+        "documentation": "https://community.mimecast.com/docs/DOC-1915",
+        "name": "Mimecast",
+        "website": "https://www.mimecast.com/"
+    },
+    {
+        "documentation": "https://support.microsoft.com/en-us/help/12408/",
+        "name": "Outlook.com",
+        "website": "https://outlook.com"
+    },
+    {
+        "documentation": "https://pobox.com/helpspot/index.php?pg=kb.chapter&id=65",
+        "name": "Pobox",
+        "website": "https://www.pobox.com/"
+    },
+    {
+        "documentation": "https://posteo.de/en/help/what-is-two-factor-authentication-and-how-do-i-set-it-up",
+        "name": "Posteo",
+        "website": "https://posteo.de/"
+    },
+    {
+        "documentation": "https://protonmail.com/support/knowledge-base/two-factor-authentication/",
+        "name": "ProtonMail",
+        "website": "https://protonmail.com/"
+    },
+    {
+        "documentation": "https://help.runbox.com/account-security/",
+        "name": "Runbox",
+        "website": "https://runbox.com"
+    },
+    {
+        "documentation": "https://support.startmail.com/hc/en-us/articles/360006682158",
+        "name": "StartMail",
+        "website": "https://www.startmail.com"
+    },
+    {
+        "documentation": "https://www.thexyz.com/account/knowledgebase/15/Enabling-two-factor-authentication.html",
+        "name": "Thexyz",
+        "website": "https://www.thexyz.com/"
+    },
+    {
+        "documentation": "https://tutanota.com/howto/#2fa",
+        "name": "Tutanota",
+        "website": "https://tutanota.com/"
+    },
+    {
+        "documentation": "https://hilfe.web.de/sicherheit/2fa/index.html",
+        "name": "Web.de",
+        "website": "https://web.de"
+    },
+    {
+        "documentation": "https://id.yahoo.co.jp/security/otp.html",
+        "name": "Yahoo Japan Mail",
+        "website": "https://mail.yahoo.co.jp/"
+    },
+    {
+        "documentation": "https://yandex.com/support/passport/authorization/twofa.xml",
+        "name": "Yandex.Mail",
+        "website": "https://mail.yandex.com/"
+    },
+    {
+        "documentation": "https://blog.zimbra.com/2016/02/zimbra-collaboration-8-7-two-factor-authentication-2fa-technical-preview/",
+        "name": "Zimbra",
+        "website": "https://www.zimbra.com/"
+    },
+    {
+        "documentation": "https://help.zoho.com/portal/kb/articles/mfa-introduction",
+        "name": "Zoho Mail",
+        "website": "https://www.zoho.com/mail/"
+    },
+    {
+        "documentation": "",
+        "name": "(ISC)2",
+        "website": "https://www.isc2.org"
+    },
+    {
+        "documentation": "https://ecu.teamdynamix.com/TDClient/1409/Portal/Requests/ServiceDet?ID=31556",
+        "name": "East Carolina University",
+        "website": "https://www.ecu.edu"
+    },
+    {
+        "documentation": "",
+        "name": "itslearning",
+        "website": "https://itslearning.com"
+    },
+    {
+        "documentation": "https://www.scc.kit.edu/dienste/2fa.php",
+        "name": "Karlsruher Institut f\u00fcr Technologie",
+        "website": "https://www.kit.edu"
+    },
+    {
+        "documentation": "https://support.knowbe4.com/hc/en-us/articles/225681448",
+        "name": "KnowBe4",
+        "website": "https://www.knowbe4.com/"
+    },
+    {
+        "documentation": "http://kb.mcgill.ca/#artId:7948",
+        "name": "McGill University",
+        "website": "https://mcgill.ca/"
+    },
+    {
+        "documentation": "https://oit.ncsu.edu/it-security/2fa/",
+        "name": "North Carolina State University",
+        "website": "https://ncsu.edu"
+    },
+    {
+        "documentation": "https://www.uni-marburg.de/de/hrz/dienste/2fa",
+        "name": "Philipps-Universit\u00e4t Marburg",
+        "website": "https://www.uni-marburg.de/"
+    },
+    {
+        "documentation": "https://help.pluralsight.com/help/multifactor-authentication",
+        "name": "Pluralsight",
+        "website": "https://www.pluralsight.com"
+    },
+    {
+        "documentation": "https://www.ryerson.ca/ccs/services/ITSecurity/protecting-your-identity/two-factor-authentication/",
+        "name": "Ryerson University",
+        "website": "https://www.ryerson.ca"
+    },
+    {
+        "documentation": "https://www1.udel.edu/it/help/2fa/main.html",
+        "name": "University of Delaware",
+        "website": "https://www.udel.edu/"
+    },
+    {
+        "documentation": "https://www.007names.com/info/two-step.xhtml",
+        "name": "007Names",
+        "website": "https://www.007names.com"
+    },
+    {
+        "documentation": "https://www.ionos.com/help/index.php?id=3269",
+        "name": "1&1 IONOS",
+        "website": "https://www.ionos.com/"
+    },
+    {
+        "documentation": "https://help.101domain.com/account-management/account-security/enabling-disabling-two-factor-verification",
+        "name": "101domain",
+        "website": "https://101domain.com"
+    },
+    {
+        "documentation": "https://www.above.com/manual/my-account-manual-two-step-auth.html",
+        "name": "Above.com",
+        "website": "https://www.above.com"
+    },
+    {
+        "documentation": "https://www.cloudns.net/wiki/article/201/",
+        "name": "ClouDNS",
+        "website": "https://www.cloudns.net/"
+    },
+    {
+        "documentation": "https://directnic.com/knowledge/article/137",
+        "name": "Directnic",
+        "website": "https://directnic.com"
+    },
+    {
+        "documentation": "https://support.dnsmadeeasy.com/support/solutions/articles/47001001027-enable-two-factor-authentication",
+        "name": "DNS Made Easy",
+        "website": "https://www.dnsmadeeasy.com"
+    },
+    {
+        "documentation": "https://support.dnsimple.com/articles/two-factor-authentication/",
+        "name": "DNSimple",
+        "website": "https://dnsimple.com/"
+    },
+    {
+        "documentation": "https://domeneshop.no/faq?id=344",
+        "name": "Domeneshop",
+        "website": "https://domeneshop.no/"
+    },
+    {
+        "documentation": "https://help.dyn.com/2-factor-authentication/",
+        "name": "Dyn",
+        "website": "https://dyn.com/"
+    },
+    {
+        "documentation": "https://dynadot.com/domain/security.html",
+        "name": "Dynadot",
+        "website": "https://dynadot.com/"
+    },
+    {
+        "documentation": "https://www.dynu.com/en-US/Blog/Article?Article=It-is-time-to-enable-two-factor-authentication",
+        "name": "Dynu",
+        "website": "https://www.dynu.com/"
+    },
+    {
+        "documentation": "https://kb.easydns.com/knowledge/account-security/",
+        "name": "easyDNS",
+        "website": "https://easydns.com"
+    },
+    {
+        "documentation": "https://www.enom.com/kb/kb/kb_1687-setup-2-factor.htm",
+        "name": "eNom",
+        "website": "https://www.enom.com/"
+    },
+    {
+        "documentation": "https://help.eurodns.com/s/article/how-do-i-activate-two-step-verification-on-my-account",
+        "name": "EuroDNS",
+        "website": "https://www.eurodns.com"
+    },
+    {
+        "documentation": "https://fabulous.com/knowledge/article/137",
+        "name": "Fabulous",
+        "website": "https://fabulous.com"
+    },
+    {
+        "documentation": "https://help.fasthosts.co.uk/app/answers/detail/a_id/3345",
+        "name": "Fasthosts",
+        "website": "https://www.fasthosts.co.uk/"
+    },
+    {
+        "documentation": "https://docs.gandi.net/en/account_management/security/",
+        "name": "Gandi",
+        "website": "https://gandi.net"
+    },
+    {
+        "documentation": "https://www.godaddy.com/help/enable-two-step-verification-7502",
+        "name": "GoDaddy",
+        "website": "https://www.godaddy.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Domains",
+        "website": "https://domains.google.com"
+    },
+    {
+        "documentation": "https://www.hexonet.net/assets/pdf/2FA.pdf",
+        "name": "Hexonet",
+        "website": "https://www.hexonet.net/"
+    },
+    {
+        "documentation": "https://help.hover.com/hc/en-us/articles/217282267",
+        "name": "Hover.com",
+        "website": "https://www.hover.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Hurricane Electric",
+        "website": "https://www.he.net/"
+    },
+    {
+        "documentation": "https://docs.imperva.com/bundle/cloud-application-security/page/settings/account-settings.htm",
+        "name": "Imperva",
+        "website": "https://www.imperva.com/"
+    },
+    {
+        "documentation": "/notes/internetbs/",
+        "name": "Internet.bs",
+        "website": "https://www.internet.bs"
+    },
+    {
+        "documentation": "https://www.inwx.com/en/offer/mobiletan",
+        "name": "INWX",
+        "website": "https://www.inwx.com/en/"
+    },
+    {
+        "documentation": "https://joker.com/faq/content/52/480/en/what-is-two_factor_authentication.html",
+        "name": "Joker.com",
+        "website": "https://joker.com"
+    },
+    {
+        "documentation": "https://faq.moniker.com/login-into-moniker",
+        "name": "Moniker",
+        "website": "https://www.moniker.com/"
+    },
+    {
+        "documentation": "https://www.name.com/support/categories/200296798",
+        "name": "Name.com",
+        "website": "https://www.name.com/"
+    },
+    {
+        "documentation": "https://www.namecheap.com/security/2fa-two-factor-authentication/",
+        "name": "Namecheap",
+        "website": "https://www.namecheap.com/"
+    },
+    {
+        "documentation": "https://www.names.co.uk/support/3011.html",
+        "name": "Namesco",
+        "website": "https://www.names.co.uk/"
+    },
+    {
+        "documentation": "https://www.namesilo.com/Support/2~Factor-Authentication",
+        "name": "NameSilo.com",
+        "website": "https://www.namesilo.com/"
+    },
+    {
+        "documentation": "https://blog.nearlyfreespeech.net/2014/02/28/price-cuts-more-security-and-recovery-options/",
+        "name": "NearlyFreeSpeech.net",
+        "website": "https://www.nearlyfreespeech.net/"
+    },
+    {
+        "documentation": "https://registrars.nominet.uk/gtlds/onboarding-account-management/your-account/account-security-2/two-factor-authentication-user-guide-2/",
+        "name": "Nominet",
+        "website": "https://www.nominet.uk/"
+    },
+    {
+        "documentation": "https://ns1.com/articles/enabling-2-factor-authentication",
+        "name": "NS1",
+        "website": "https://ns1.com/"
+    },
+    {
+        "documentation": "https://umbrella.cisco.com/blog/2014/05/22/launching-two-step-verification/",
+        "name": "OpenDNS",
+        "website": "https://www.opendns.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Openprovider",
+        "website": "https://www.openprovider.co.uk"
+    },
+    {
+        "documentation": "https://help.opensrs.com/hc/en-us/articles/360009702113-Using-two-factor-authentication-in-webmail",
+        "name": "OpenSRS",
+        "website": "https://opensrs.com"
+    },
+    {
+        "documentation": "https://www.pairdomains.com/kb/posts/345",
+        "name": "pair Domains",
+        "website": "https://www.pairdomains.com/"
+    },
+    {
+        "documentation": "https://kb.porkbun.com/category/20--",
+        "name": "Porkbun",
+        "website": "https://porkbun.com"
+    },
+    {
+        "documentation": "https://support.rebrandly.com/hc/en-us/articles/360007220373",
+        "name": "Rebrandly",
+        "website": "https://rebrandly.com"
+    },
+    {
+        "documentation": "https://blog.register4less.com/two-factor-authentication/",
+        "name": "Register4Less",
+        "website": "https://register4less.com/"
+    },
+    {
+        "documentation": "https://registro.br/ajuda/gerenciamento-de-conta/token/",
+        "name": "Registro.br",
+        "website": "https://registro.br"
+    },
+    {
+        "documentation": "https://synergywholesale.com/faq/article/can-i-enable-two-factor-authentication-on-my-wholesale-system-account/",
+        "name": "Synergy Wholesale",
+        "website": "https://synergywholesale.com/"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/pull/3845#issuecomment-491518360",
+        "name": "UK2",
+        "website": "https://www.uk2.net/"
+    },
+    {
+        "documentation": "https://uniregistry.help/my-account-en/what-is-two-step-verification/",
+        "name": "Uniregistry",
+        "website": "https://uniregistry.com/"
+    },
+    {
+        "documentation": "https://help.uniteddomains.com/hc/en-us/articles/115001458813",
+        "name": "United Domains USA",
+        "website": "https://www.uniteddomains.com/"
+    },
+    {
+        "documentation": "https://www.ud-reselling.com/en/security/",
+        "name": "united-domains Reselling",
+        "website": "https://www.ud-reselling.com/en/"
+    },
+    {
+        "documentation": "https://help.united-domains.de/faq-article/wie-aktiviere-ich-die-zweistufige-verifizierung-und-mache-mein-portfolio-login-sicherer",
+        "name": "united-domains.de",
+        "website": "https://www.united-domains.de/"
+    },
+    {
+        "documentation": "https://ventraip.com.au/faq/article/two-factor-authentication-faq-vipcontrol/",
+        "name": "VentraIP",
+        "website": "https://ventraip.com.au/"
+    },
+    {
+        "documentation": "https://docs.activestate.com/platform/prefs/twofactor.html",
+        "name": "ActiveState",
+        "website": "https://www.activestate.com"
+    },
+    {
+        "documentation": "https://airbrake.io/docs/features/two-factor-authentication/",
+        "name": "Airbrake",
+        "website": "https://airbrake.io"
+    },
+    {
+        "documentation": "https://www.algolia.com/doc/security/best-security-practices/#two-factor-authentication-2fa",
+        "name": "Algolia",
+        "website": "https://algolia.com"
+    },
+    {
+        "documentation": "https://docs.appsignal.com/user-account/two-factor-authentication.html",
+        "name": "AppSignal",
+        "website": "https://appsignal.com"
+    },
+    {
+        "documentation": "https://www.appveyor.com/blog/2018/11/07/2FA-implementation/",
+        "name": "AppVeyor",
+        "website": "https://www.appveyor.com"
+    },
+    {
+        "documentation": "https://www.deployhq.com/support/managing-your-account/personal-profile/two-factor-authentication",
+        "name": "aTech Media",
+        "website": "https://atechmedia.com"
+    },
+    {
+        "documentation": "https://confluence.atlassian.com/cloud/secure-your-account-with-two-step-verification-939505063.html",
+        "name": "Atlassian Cloud",
+        "website": "https://id.atlassian.com"
+    },
+    {
+        "documentation": "https://help.batch.com/en/articles/2721053",
+        "name": "Batch",
+        "website": "https://batch.com"
+    },
+    {
+        "documentation": "https://confluence.atlassian.com/x/425QLg",
+        "name": "Bitbucket",
+        "website": "https://bitbucket.org"
+    },
+    {
+        "documentation": "https://buddy.works/blog/introducing-two-factor-authentication",
+        "name": "Buddy",
+        "website": "https://buddy.works"
+    },
+    {
+        "documentation": "https://docs.bugsnag.com/product/account-and-security/#security",
+        "name": "Bugsnag",
+        "website": "https://bugsnag.com"
+    },
+    {
+        "documentation": "",
+        "name": "Bugzilla@Mozilla",
+        "website": "https://bugzilla.mozilla.org"
+    },
+    {
+        "documentation": "https://buildkite.com/changelog/31-two-factor-authentication",
+        "name": "Buildkite",
+        "website": "https://buildkite.com"
+    },
+    {
+        "documentation": "https://kb.builtwith.com/account-management/how-to-enable-2fa-on-builtwith/",
+        "name": "BuiltWith",
+        "website": "https://builtwith.com"
+    },
+    {
+        "documentation": "https://documentation.codeship.com/general/about/2fa/",
+        "name": "Codeship",
+        "website": "https://codeship.com/"
+    },
+    {
+        "documentation": "https://help.compose.com/docs/two-factor-authentication",
+        "name": "Compose",
+        "website": "https://www.compose.com/"
+    },
+    {
+        "documentation": "https://support.crowdin.com/account-settings/#two-factor-authentication",
+        "name": "Crowdin",
+        "website": "https://crowdin.com/"
+    },
+    {
+        "documentation": "https://www.deployhq.com/support/managing-your-account/personal-profile/two-factor-authentication",
+        "name": "DeployHQ",
+        "website": "https://www.deployhq.com/"
+    },
+    {
+        "documentation": "https://www.docker.com/blog/designing-docker-hub-2fa/",
+        "name": "Docker",
+        "website": "https://www.docker.com/"
+    },
+    {
+        "documentation": "https://support.dominodatalab.com/hc/en-us/articles/115000998406",
+        "name": "Domino Data Lab",
+        "website": "https://www.dominodatalab.com/"
+    },
+    {
+        "documentation": "https://www.drupal.org/drupalorg/docs/user-accounts/setting-up-two-factor-authentication",
+        "name": "Drupal.org",
+        "website": "https://www.drupal.org/"
+    },
+    {
+        "documentation": "https://docs.elmah.io/how-to-enable-two-factor-login/",
+        "name": "elmah.io",
+        "website": "https://elmah.io"
+    },
+    {
+        "documentation": "https://doc.arcgis.com/en/arcgis-online/reference/multifactor.htm",
+        "name": "Esri",
+        "website": "https://www.esri.com"
+    },
+    {
+        "documentation": "https://support.fogbugz.com/hc/en-us/articles/360011262434",
+        "name": "FogBugz & Kiln",
+        "website": "https://www.fogbugz.com/"
+    },
+    {
+        "documentation": "https://help.github.com/en/github/authenticating-to-github/configuring-two-factor-authentication",
+        "name": "GitHub",
+        "website": "https://github.com"
+    },
+    {
+        "documentation": "https://docs.gitlab.com/ee/user/profile/account/two_factor_authentication.html",
+        "name": "GitLab",
+        "website": "https://gitlab.com"
+    },
+    {
+        "documentation": "https://www.terraform.io/docs/enterprise/users-teams-organizations/2fa.html",
+        "name": "HashiCorp Terraform Enterprise",
+        "website": "https://app.terraform.io/"
+    },
+    {
+        "documentation": "https://www.vagrantup.com/docs/vagrant-cloud/users/authentication.html#two-factor-authentication",
+        "name": "HashiCorp Vagrant Cloud",
+        "website": "https://app.vagrantup.com/"
+    },
+    {
+        "documentation": "https://docs.heap.io/docs/2fa",
+        "name": "Heap Analytics",
+        "website": "https://heapanalytics.com/"
+    },
+    {
+        "documentation": "https://support.invisionapp.com/hc/en-us/articles/360033708112",
+        "name": "InVision",
+        "website": "https://www.invisionapp.com"
+    },
+    {
+        "documentation": "https://support.itglue.com/hc/en-us/articles/360004933757",
+        "name": "IT Glue",
+        "website": "https://www.itglue.com/"
+    },
+    {
+        "documentation": "https://www.jetbrains.com/help/hub/2fa-with-token.html",
+        "name": "JetBrains",
+        "website": "https://jetbrains.com"
+    },
+    {
+        "documentation": "https://www.koding.com/blog/2015/06/two-factor-authentication/",
+        "name": "Koding",
+        "website": "https://koding.com"
+    },
+    {
+        "documentation": "https://help.ubuntu.com/community/SSO/FAQs/2FA",
+        "name": "Launchpad",
+        "website": "https://launchpad.net"
+    },
+    {
+        "documentation": "https://www.looker.com/docs/admin/security/two-factor-authentication",
+        "name": "Looker",
+        "website": "https://looker.com/"
+    },
+    {
+        "documentation": "https://docs.mapbox.com/accounts/overview/settings/#security",
+        "name": "Mapbox",
+        "website": "https://www.mapbox.com"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/pull/2273#issuecomment-271876292",
+        "name": "Metrological",
+        "website": "https://www.metrological.com/"
+    },
+    {
+        "documentation": "https://docs.cloudmanager.mongodb.com/core/two-factor-authentication/",
+        "name": "MongoDB Cloud Manager",
+        "website": "https://cloud.mongodb.com"
+    },
+    {
+        "documentation": "https://docs.npmjs.com/configuring-two-factor-authentication",
+        "name": "npm",
+        "website": "https://www.npmjs.com/"
+    },
+    {
+        "documentation": "https://azure.microsoft.com/en-us/documentation/articles/multi-factor-authentication/",
+        "name": "NuGet",
+        "website": "https://www.nuget.org"
+    },
+    {
+        "documentation": "https://github.com/composer/packagist/pull/1031",
+        "name": "Packagist",
+        "website": "https://packagist.org"
+    },
+    {
+        "documentation": "https://library.panic.com/general/sync-2fa/",
+        "name": "Panic Sync",
+        "website": "https://panic.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Phacility",
+        "website": "https://phacility.com/"
+    },
+    {
+        "documentation": "https://www.pivotaltracker.com/help/articles/two_factor_auth/",
+        "name": "Pivotal Tracker",
+        "website": "https://www.pivotaltracker.com"
+    },
+    {
+        "documentation": "https://learn.profitwell.com/article/wsudrpi199-setting-up-2-factor-authentication",
+        "name": "ProfitWell",
+        "website": "https://profitwell.com"
+    },
+    {
+        "documentation": "https://support.pushover.app/i49",
+        "name": "Pushover",
+        "website": "https://pushover.net/"
+    },
+    {
+        "documentation": "https://pypi.org/help/#twofa",
+        "name": "PyPI",
+        "website": "https://pypi.org/"
+    },
+    {
+        "documentation": "https://help.pythonanywhere.com/pages/SecuringYourAccount/",
+        "name": "PythonAnywhere",
+        "website": "https://www.pythonanywhere.com"
+    },
+    {
+        "documentation": "https://raygun.com/docs/workflow/two-factor-authentication",
+        "name": "Raygun",
+        "website": "https://raygun.com"
+    },
+    {
+        "documentation": "https://beanbag.freshdesk.com/support/solutions/articles/3000006998",
+        "name": "RBCommons",
+        "website": "https://rbcommons.com"
+    },
+    {
+        "documentation": "https://docs.readme.com/docs/two-factor-authentication",
+        "name": "ReadMe",
+        "website": "https://readme.com"
+    },
+    {
+        "documentation": "https://scotthelme.co.uk/dealing-with-account-recovery-and-2fa/",
+        "name": "Report URI",
+        "website": "https://report-uri.com"
+    },
+    {
+        "documentation": "https://rollbar.com/docs/two-factor-authentication/",
+        "name": "Rollbar",
+        "website": "https://rollbar.com/"
+    },
+    {
+        "documentation": "https://guides.rubygems.org/setting-up-multifactor-authentication/",
+        "name": "RubyGems.org",
+        "website": "https://rubygems.org"
+    },
+    {
+        "documentation": "",
+        "name": "Scripting Helpers",
+        "website": "https://scriptinghelpers.org/"
+    },
+    {
+        "documentation": "https://semaphoreci.com/docs/two-step-verification.html",
+        "name": "Semaphore",
+        "website": "https://semaphoreci.com"
+    },
+    {
+        "documentation": "https://blog.sentry.io/2016/06/22/introducing-2fa",
+        "name": "Sentry",
+        "website": "https://sentry.io"
+    },
+    {
+        "documentation": "https://sourceforge.net/blog/introducing-multifactor-authentication-on-sourceforge/",
+        "name": "SourceForge",
+        "website": "https://sourceforge.net/"
+    },
+    {
+        "documentation": "https://www.statuscake.com/kb/knowledge-base/how-to-change-the-statuscake-password-for-login/",
+        "name": "StatusCake",
+        "website": "https://statuscake.com/"
+    },
+    {
+        "documentation": "https://help.sumologic.com/Manage/Security/About_2-Step_Verification",
+        "name": "Sumo Logic",
+        "website": "https://www.sumologic.com"
+    },
+    {
+        "documentation": "https://support.twilio.com/hc/en-us/sections/360008377353",
+        "name": "Twilio",
+        "website": "https://www.twilio.com/"
+    },
+    {
+        "documentation": "https://documentation.unbounce.com/hc/en-us/articles/360001372503",
+        "name": "Unbounce",
+        "website": "https://unbounce.com"
+    },
+    {
+        "documentation": "https://support.unity3d.com/hc/en-us/articles/208764976",
+        "name": "Unity",
+        "website": "https://unity3d.com/"
+    },
+    {
+        "documentation": "https://blog.uptimerobot.com/introducing-two-factor-authentication-2fa/",
+        "name": "Uptime Robot",
+        "website": "https://uptimerobot.com"
+    },
+    {
+        "documentation": "https://support.microsoft.com/en-us/help/12408/",
+        "name": "Visual Studio Codespaces",
+        "website": "https://www.visualstudio.com/"
+    },
+    {
+        "documentation": "https://zapier.com/help/two-factor-authentication/",
+        "name": "Zapier",
+        "website": "https://zapier.com"
+    },
+    {
+        "documentation": "https://support.anycoindirect.eu/hc/en-gb/articles/115001423191",
+        "name": "AnycoinDirect",
+        "website": "https://anycoindirect.eu"
+    },
+    {
+        "documentation": "https://support.bcnex.net/hc/en-us/articles/360019419173",
+        "name": "Bcnex",
+        "website": "https://www.bcnex.net/"
+    },
+    {
+        "documentation": "https://www.binance.com/en/support/faq/c-1#/1/11",
+        "name": "Binance",
+        "website": "https://www.binance.com/"
+    },
+    {
+        "documentation": "https://bitbay.net/en/safety",
+        "name": "BitBay",
+        "website": "https://bitbay.net/"
+    },
+    {
+        "documentation": "https://www.bitcoin.de/de/faq/was-ist-die-2-step-verification-2-faktor-authentifizierung/46.html",
+        "name": "Bitcoin.de",
+        "website": "https://bitcoin.de"
+    },
+    {
+        "documentation": "https://blog.bitcointrade.com.br/2fa-o-que-e-e-como-cadastrar/",
+        "name": "BitcoinTrade",
+        "website": "https://bitcointrade.com.br/"
+    },
+    {
+        "documentation": "https://support.bitfinex.com/hc/en-us/sections/203192029",
+        "name": "Bitfinex",
+        "website": "https://www.bitfinex.com"
+    },
+    {
+        "documentation": "https://bitflyer.com/en-jp/faq/2-10",
+        "name": "Bitflyer",
+        "website": "https://bitflyer.com"
+    },
+    {
+        "documentation": "",
+        "name": "BitGo",
+        "website": "https://www.bitgo.com"
+    },
+    {
+        "documentation": "https://en.bithumb.com/customer_support/info_guide?seq=510",
+        "name": "Bithumb",
+        "website": "https://www.bithumb.com/"
+    },
+    {
+        "documentation": "https://blog.bitmex.com/use-two-factor-authentication-and-dont-reuse-passwords/",
+        "name": "BitMEX",
+        "website": "https://www.bitmex.com"
+    },
+    {
+        "documentation": "https://support.bitpanda.com/hc/en-us/articles/360002015220",
+        "name": "Bitpanda",
+        "website": "https://www.bitpanda.com/"
+    },
+    {
+        "documentation": "https://support.bitpay.com/hc/en-us/articles/360006612692",
+        "name": "Bitpay",
+        "website": "https://bitpay.com"
+    },
+    {
+        "documentation": "https://www.bitstamp.net/s/documents/bitstamp_2_factor_authentication_guide.pdf",
+        "name": "Bitstamp",
+        "website": "https://bitstamp.net"
+    },
+    {
+        "documentation": "https://bittrex.zendesk.com/hc/en-us/articles/115000198612",
+        "name": "Bittrex",
+        "website": "https://bittrex.com"
+    },
+    {
+        "documentation": "https://support.blockchain.com/hc/en-us/articles/211164103",
+        "name": "Blockchain",
+        "website": "https://blockchain.info/"
+    },
+    {
+        "documentation": "https://blockfi.com/blockfi-news/two-factor-authentication-2fa-now-available-for-all-blockfi-accounts/",
+        "name": "BlockFi",
+        "website": "https://blockfi.com/"
+    },
+    {
+        "documentation": "https://braziliex.com/faq/index.php?id=288",
+        "name": "Braziliex",
+        "website": "https://braziliex.com/"
+    },
+    {
+        "documentation": "https://support.btcbox.co.jp/hc/en-us/articles/360001886053",
+        "name": "BTC BOX",
+        "website": "https://www.btcbox.co.jp/"
+    },
+    {
+        "documentation": "https://www.btcmarkets.net/faq#q27",
+        "name": "BTC Markets",
+        "website": "https://www.btcmarkets.net/"
+    },
+    {
+        "documentation": "https://blog.btcpop.co/2017/04/27/signing-security-btcpop-co-account/",
+        "name": "BTCPOP",
+        "website": "https://btcpop.co/"
+    },
+    {
+        "documentation": "https://soporte.buda.com/es/articles/2379080",
+        "name": "Buda",
+        "website": "https://www.buda.com"
+    },
+    {
+        "documentation": "https://help.bybit.com/hc/en-us/articles/360039748653",
+        "name": "Bybit",
+        "website": "https://www.bybit.com/"
+    },
+    {
+        "documentation": "https://cex.io/guide#4",
+        "name": "CEX.IO",
+        "website": "https://cex.io/"
+    },
+    {
+        "documentation": "https://changelly.com/faq#what-is-2fa-authentication",
+        "name": "Changelly",
+        "website": "https://changelly.com/"
+    },
+    {
+        "documentation": "https://support.circle.com/hc/en-us/articles/213560483",
+        "name": "Circle",
+        "website": "https://circle.com"
+    },
+    {
+        "documentation": "https://coincafeinc.wordpress.com/2016/01/08/2fa/",
+        "name": "Coin Cafe",
+        "website": "https://coincafe.com"
+    },
+    {
+        "documentation": "https://coinapult.com/faq",
+        "name": "Coinapult",
+        "website": "https://coinapult.com"
+    },
+    {
+        "documentation": "https://support.coinbase.com/customer/en/portal/articles/1658338",
+        "name": "Coinbase",
+        "website": "https://www.coinbase.com/"
+    },
+    {
+        "documentation": "https://faq.coincheck.com/s/article/20204?language=en_US",
+        "name": "Coincheck",
+        "website": "https://coincheck.com/"
+    },
+    {
+        "documentation": "https://coindeal.com/security",
+        "name": "CoinDeal",
+        "website": "https://coindeal.com"
+    },
+    {
+        "documentation": "https://support.coinfalcon.com/en-us/article/-nkjppd/",
+        "name": "CoinFalcon",
+        "website": "https://coinfalcon.com/"
+    },
+    {
+        "documentation": "https://support.coingate.com/en/65/-",
+        "name": "CoinGate",
+        "website": "https://coingate.com"
+    },
+    {
+        "documentation": "https://help.coinify.com/hc/en-us/articles/360014173320",
+        "name": "Coinify",
+        "website": "https://coinify.com/"
+    },
+    {
+        "documentation": "https://support.coinjar.com/hc/en-us/articles/202910075",
+        "name": "Coinjar",
+        "website": "https://coinjar.com"
+    },
+    {
+        "documentation": "",
+        "name": "CoinOne",
+        "website": "https://coinone.co.kr/"
+    },
+    {
+        "documentation": "https://support.coins.ph/hc/en-us/articles/202604924",
+        "name": "Coins.ph",
+        "website": "https://coins.ph/"
+    },
+    {
+        "documentation": "https://coinspot.zendesk.com/hc/en-us/sections/115000049254",
+        "name": "Coinspot",
+        "website": "https://www.coinspot.com.au/"
+    },
+    {
+        "documentation": "https://help.cointracker.io/en/articles/2641553",
+        "name": "CoinTracker",
+        "website": "https://www.cointracker.io"
+    },
+    {
+        "documentation": "",
+        "name": "CoinTracking",
+        "website": "https://cointracking.info/"
+    },
+    {
+        "documentation": "https://help.coinut.com/hc/en-us/articles/360005061354",
+        "name": "Coinut",
+        "website": "https://coinut.com/"
+    },
+    {
+        "documentation": "https://help.crypto.com/en/articles/3511439",
+        "name": "Crypto",
+        "website": "https://www.crypto.com"
+    },
+    {
+        "documentation": "https://cryptonator.zendesk.com/hc/en-us/articles/201715352",
+        "name": "Cryptonator",
+        "website": "https://www.cryptonator.com"
+    },
+    {
+        "documentation": "https://docs.dsx.uk/dsx/getting-started-with-dsx/your-security-is-our-priority/enable-two-factor-authentication",
+        "name": "DSX",
+        "website": "https://dsx.uk/"
+    },
+    {
+        "documentation": "https://support.gatehub.net/hc/en-us/articles/360021168234",
+        "name": "Gatehub",
+        "website": "https://gatehub.net"
+    },
+    {
+        "documentation": "https://support.hitbtc.com/en/support/solutions/articles/63000224976",
+        "name": "HitBTC",
+        "website": "https://www.hitbtc.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Invictus Capital",
+        "website": "https://invictuscapital.com"
+    },
+    {
+        "documentation": "https://support.korbit.co.kr/customer/en/portal/articles/1717692",
+        "name": "Korbit",
+        "website": "https://www.korbit.co.kr"
+    },
+    {
+        "documentation": "https://support.kraken.com/hc/en-us/articles/360000426923",
+        "name": "Kraken",
+        "website": "https://www.kraken.com/"
+    },
+    {
+        "documentation": "https://support.kuna.io/en/support/solutions/articles/17000083405",
+        "name": "Kuna",
+        "website": "https://www.kuna.io/"
+    },
+    {
+        "documentation": "https://help.liquid.com/en/articles/2273273",
+        "name": "Liquid",
+        "website": "https://www.liquid.com/"
+    },
+    {
+        "documentation": "https://support.litebit.eu/hc/en-us/articles/115000953504",
+        "name": "LiteBit",
+        "website": "https://www.litebit.eu/"
+    },
+    {
+        "documentation": "https://localbitcoins.com/guides/security",
+        "name": "LocalBitcoins",
+        "website": "https://localbitcoins.com/"
+    },
+    {
+        "documentation": "",
+        "name": "LocalCryptos",
+        "website": "https://localcryptos.com"
+    },
+    {
+        "documentation": "https://www.luno.com/help/en/articles/1000203420",
+        "name": "Luno",
+        "website": "https://www.luno.com/"
+    },
+    {
+        "documentation": "https://maicoin2.freshdesk.com/en/support/solutions/articles/32000016116",
+        "name": "MaiCoin",
+        "website": "https://www.maicoin.com"
+    },
+    {
+        "documentation": "https://suporte.mercadobitcoin.com.br/hc/pt-br/articles/360000385152",
+        "name": "Mercado Bitcoin",
+        "website": "https://www.mercadobitcoin.com.br/"
+    },
+    {
+        "documentation": "https://www.okex.com/support/hc/en-us/articles/360000350271",
+        "name": "OKEx",
+        "website": "https://www.okex.com/"
+    },
+    {
+        "documentation": "https://paykassa.pro/en/news/s-paykassa-vashi-dannye-pod-nadejnoy-zashchitoy/",
+        "name": "PayKassa",
+        "website": "https://paykassa.pro/"
+    },
+    {
+        "documentation": "https://support.poloniex.circle.com/hc/en-us/articles/360025399352",
+        "name": "Poloniex",
+        "website": "https://poloniex.com/"
+    },
+    {
+        "documentation": "https://support.remitano.com/en/articles/781044",
+        "name": "Remitano",
+        "website": "https://remitano.com/"
+    },
+    {
+        "documentation": "https://github.com/2factorauth/twofactorauth/pull/2321#issuecomment-273971890",
+        "name": "SatoshiTango",
+        "website": "https://satoshitango.com/"
+    },
+    {
+        "documentation": "https://help.stex.com/en/articles/3486981#individual-account-security-settings",
+        "name": "STEX",
+        "website": "https://stex.com"
+    },
+    {
+        "documentation": "https://support.uphold.com/hc/en-us/articles/360024042471",
+        "name": "Uphold",
+        "website": "https://uphold.com/"
+    },
+    {
+        "documentation": "https://support.viabtc.com/hc/en-us/articles/900001693343",
+        "name": "ViaBTC",
+        "website": "https://viabtc.com/"
+    },
+    {
+        "documentation": "https://wirexapp.com/hc/articles/207160259",
+        "name": "Wirex",
+        "website": "https://wirexapp.com/"
+    },
+    {
+        "documentation": "https://help.actionnetwork.org/hc/en-us/articles/217206826",
+        "name": "Action Network",
+        "website": "https://actionnetwork.org/"
+    },
+    {
+        "documentation": "https://docs.airship.com/tutorials/security/2fa/",
+        "name": "Airship",
+        "website": "https://www.airship.com/"
+    },
+    {
+        "documentation": "https://3.basecamp-help.com/article/443--",
+        "name": "Basecamp",
+        "website": "https://basecamp.com/"
+    },
+    {
+        "documentation": "https://helpdesk.bitrix24.com/open/9800171/",
+        "name": "Bitrix24",
+        "website": "https://www.bitrix24.com/"
+    },
+    {
+        "documentation": "https://help.37signals.com/sign-in/questions/480",
+        "name": "Campfire",
+        "website": "https://campfirenow.com/"
+    },
+    {
+        "documentation": "https://capsulecrm.com/support/user-preferences/#enabling-two-factor-authentication",
+        "name": "Capsule",
+        "website": "https://capsulecrm.com/"
+    },
+    {
+        "documentation": "https://help.close.com/docs/enabling-2fa",
+        "name": "Close",
+        "website": "https://close.com/"
+    },
+    {
+        "documentation": "https://help.cloze.com/knowledge_base/topics/how-do-i-enable-2-step-authentication",
+        "name": "Cloze",
+        "website": "https://www.cloze.com/"
+    },
+    {
+        "documentation": "https://customer.io/docs/two-factor-auth",
+        "name": "Customer.io",
+        "website": "https://customer.io"
+    },
+    {
+        "documentation": "https://directmailmac.com/support/article/507",
+        "name": "Direct Mail",
+        "website": "https://directmailmac.com"
+    },
+    {
+        "documentation": "https://support.discordapp.com/hc/en-us/articles/219576828",
+        "name": "Discord",
+        "website": "https://discordapp.com/"
+    },
+    {
+        "documentation": "https://www.fax.plus/help/articles/how-can-i-enable-disable-two-factor-authentication",
+        "name": "FAX.PLUS",
+        "website": "https://www.fax.plus"
+    },
+    {
+        "documentation": "https://help.frontapp.com/t/36249g",
+        "name": "Front App",
+        "website": "https://frontapp.com"
+    },
+    {
+        "documentation": "https://chatgrape.com/doc/deployment/2fa.html",
+        "name": "Grape",
+        "website": "https://chatgrape.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Groups.io",
+        "website": "https://groups.io"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Hangouts",
+        "website": "https://hangouts.google.com/"
+    },
+    {
+        "documentation": "https://knowledge.hubspot.com/articles/kcs_article/account/how-can-i-set-up-two-factor-authentication-for-my-hubspot-login",
+        "name": "HubSpot",
+        "website": "https://www.hubspot.com/"
+    },
+    {
+        "documentation": "https://www.intercom.com/help/en/articles/181",
+        "name": "Intercom",
+        "website": "https://www.intercom.com/"
+    },
+    {
+        "documentation": "https://kb.mailchimp.com/accounts/login/set-up-a-two-factor-authentication-app-at-login",
+        "name": "MailChimp",
+        "website": "https://mailchimp.com/"
+    },
+    {
+        "documentation": "https://help.mailgun.com/hc/en-us/articles/360011664433",
+        "name": "Mailgun",
+        "website": "https://www.mailgun.com"
+    },
+    {
+        "documentation": "https://missiveapp.com/faq/enable-2-factor-authentication",
+        "name": "Missive App",
+        "website": "https://missiveapp.com/"
+    },
+    {
+        "documentation": "https://support.nulab.com/hc/en-us/articles/115001025087",
+        "name": "Nulab",
+        "website": "https://nulab.com/"
+    },
+    {
+        "documentation": "https://postmarkapp.com/support/article/1081-how-do-i-use-two-factor-authentication-2fa",
+        "name": "Postmarkapp",
+        "website": "https://www.postmarkapp.com/"
+    },
+    {
+        "documentation": "https://developer.salesforce.com/docs/atlas.en-us.securityImplGuide.meta/securityImplGuide/add_time-based_token.htm",
+        "name": "Salesforce",
+        "website": "https://www.salesforce.com"
+    },
+    {
+        "documentation": "https://support.microsoft.com/en-us/help/12408/",
+        "name": "Skype",
+        "website": "https://www.skype.com"
+    },
+    {
+        "documentation": "https://get.slack.help/hc/en-us/articles/204509068",
+        "name": "Slack",
+        "website": "https://slack.com/"
+    },
+    {
+        "documentation": "https://help.socketlabs.com/docs/two-step-verification",
+        "name": "SocketLabs",
+        "website": "https://socketlabs.com/"
+    },
+    {
+        "documentation": "https://www.sparkpost.com/docs/my-account-and-profile/enabling-two-factor-authentication/",
+        "name": "SparkPost",
+        "website": "https://sparkpost.com/"
+    },
+    {
+        "documentation": "https://www.stackfield.com/help/-2032",
+        "name": "Stackfield",
+        "website": "https://www.stackfield.com/"
+    },
+    {
+        "documentation": "https://support.zoom.us/hc/en-us/articles/360038247071",
+        "name": "Zoom",
+        "website": "https://www.zoom.us"
+    },
+    {
+        "documentation": "https://aws.amazon.com/iam/features/mfa/",
+        "name": "Amazon Web Services",
+        "website": "https://aws.amazon.com"
+    },
+    {
+        "documentation": "https://www.brightbox.com/docs/guides/manager/two-factor-authentication/",
+        "name": "Brightbox",
+        "website": "https://www.brightbox.com/"
+    },
+    {
+        "documentation": "https://blog.cloud66.com/two-factor-authentication-for-your-accounts/",
+        "name": "Cloud 66",
+        "website": "https://www.cloud66.com"
+    },
+    {
+        "documentation": "https://cloud.ca/two-factor-authentication-is-now-available-on-cloud-ca/",
+        "name": "cloud.ca",
+        "website": "https://cloud.ca"
+    },
+    {
+        "documentation": "https://www.digitalocean.com/docs/accounts/security/2fa/",
+        "name": "DigitalOcean",
+        "website": "https://www.digitalocean.com/"
+    },
+    {
+        "documentation": "https://support.cloud.engineyard.com/hc/en-us/community/posts/203752678",
+        "name": "Engine Yard",
+        "website": "https://www.engineyard.com"
+    },
+    {
+        "documentation": "https://metal.equinix.com/developers/docs/accounts/two-factor-authentication/",
+        "name": "Equinix Metal",
+        "website": "https://metal.equinix.com"
+    },
+    {
+        "documentation": "https://help.fortrabbit.com/account#toc-setting-up-2fa",
+        "name": "fortrabbit",
+        "website": "https://www.fortrabbit.com/"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Cloud Platform",
+        "website": "https://cloud.google.com"
+    },
+    {
+        "documentation": "https://devcenter.heroku.com/articles/two-factor-authentication",
+        "name": "Heroku",
+        "website": "https://www.heroku.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Hostiso",
+        "website": "https://hostiso.com/"
+    },
+    {
+        "documentation": "https://cloud.ibm.com/docs/iam?topic=iam-types",
+        "name": "IBM Cloud",
+        "website": "https://cloud.ibm.com"
+    },
+    {
+        "documentation": "https://docs.jelastic.com/two-factor-authentication",
+        "name": "Jelastic",
+        "website": "https://jelastic.com"
+    },
+    {
+        "documentation": "https://docs.joyent.com/public-cloud/getting-started/2fa",
+        "name": "Joyent",
+        "website": "https://www.joyent.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Laravel Forge",
+        "website": "https://forge.laravel.com/"
+    },
+    {
+        "documentation": "https://kb.leaseweb.com/users-and-accounts/managing-your-profile/setup-two-factor-authentication",
+        "name": "Leaseweb",
+        "website": "https://www.leaseweb.com/"
+    },
+    {
+        "documentation": "https://www.linode.com/docs/security/linode-manager-security-controls",
+        "name": "Linode",
+        "website": "https://www.linode.com/"
+    },
+    {
+        "documentation": "https://help.macstadium.com/articles/macstadium-two-factor-authentication-guide",
+        "name": "MacStadium",
+        "website": "https://www.macstadium.com/"
+    },
+    {
+        "documentation": "https://azure.microsoft.com/en-us/documentation/articles/multi-factor-authentication/",
+        "name": "Microsoft Azure",
+        "website": "https://azure.microsoft.com/"
+    },
+    {
+        "documentation": "https://docs.mlab.com/security/#two-factor-authentication",
+        "name": "mLab",
+        "website": "https://mlab.com/"
+    },
+    {
+        "documentation": "https://support.rackspace.com/how-to/multi-factor-authentication-from-the-cloud-control-panel/",
+        "name": "Rackspace",
+        "website": "https://www.rackspace.com/"
+    },
+    {
+        "documentation": "https://blog.scaleway.com/2017/introducing-two-factor-authentication-on-scaleway/",
+        "name": "Scaleway",
+        "website": "https://www.scaleway.com"
+    },
+    {
+        "documentation": "https://scalr-wiki.atlassian.net/wiki/display/docs/Two-Factor+Authentication",
+        "name": "Scalr",
+        "website": "https://www.scalr.com"
+    },
+    {
+        "documentation": "https://support.tilaa.com/hc/en-us/articles/360020167352",
+        "name": "Tilaa",
+        "website": "https://www.tilaa.com"
+    },
+    {
+        "documentation": "https://www.upcloud.com/support/two-factor-authentication/",
+        "name": "UpCloud",
+        "website": "https://www.upcloud.com"
+    },
+    {
+        "documentation": "https://userify.com/docs/multifactor-authentication/",
+        "name": "Userify",
+        "website": "https://userify.com"
+    },
+    {
+        "documentation": "https://www.vultr.com/docs/using-two-factor-authentication-to-login-to-vultr-control-panel",
+        "name": "Vultr",
+        "website": "https://www.vultr.com"
+    },
+    {
+        "documentation": "https://support.betfair.com/app/answers/detail/a_id/126",
+        "name": "Betfair",
+        "website": "https://www.betfair.com/"
+    },
+    {
+        "documentation": "",
+        "name": "Betvictor",
+        "website": "https://www.betvictor.com"
+    },
+    {
+        "documentation": "https://cloudbet.zendesk.com/hc/en-us/articles/223120088/",
+        "name": "Cloudbet",
+        "website": "https://www.cloudbet.com/"
+    },
+    {
+        "documentation": "https://help.smarkets.com/hc/en-gb/articles/115000822171",
+        "name": "Smarkets",
+        "website": "https://www.smarkets.com/"
+    },
+    {
+        "documentation": "https://www.addiko.hr/static/uploads/mtoken-uputa-za-koristenje.pdf",
+        "name": "Addiko Bank",
+        "website": "https://www.addiko.hr/"
+    },
+    {
+        "documentation": "https://www.avanza.se/kundservice.html/1335/tvafaktorsinloggning/d264248e-bea3-48a0-bf2d-157309734649",
+        "name": "Avanza",
+        "website": "https://www.avanza.se/"
+    },
+    {
+        "documentation": "https://support.bitwala.com/hc/en-gb/articles/360000613360",
+        "name": "Bitwala",
+        "website": "https://www.bitwala.com/"
+    },
+    {
+        "documentation": "https://www.woodforest.com/Personal/Services/Online-Banking/Online-Banking-Security",
+        "name": "Woodforest National Bank",
+        "website": "https://www.woodforest.com/"
+    },
+    {
+        "documentation": "https://help.backblaze.com/hc/en-us/articles/217666588",
+        "name": "Backblaze",
+        "website": "https://www.backblaze.com"
+    },
+    {
+        "documentation": "https://help.dropbox.com/security/enable-two-step-verification",
+        "name": "Dropbox",
+        "website": "https://www.dropbox.com"
+    },
+    {
+        "documentation": "https://help.evernote.com/hc/en-us/articles/208314238",
+        "name": "Evernote",
+        "website": "https://evernote.com"
+    },
+    {
+        "documentation": "https://www.files.com/docs/features/two-factor-auth/",
+        "name": "Files.com",
+        "website": "https://www.files.com"
+    },
+    {
+        "documentation": "https://www.google.com/intl/en-US/landing/2step/features.html",
+        "name": "Google Drive",
+        "website": "https://drive.google.com"
+    },
+    {
+        "documentation": "https://docs.jottacloud.com/en/articles/1292931",
+        "name": "Jottacloud",
+        "website": "https://www.jottacloud.com"
+    },
+    {
+        "documentation": "https://koofr.eu/help/other/how-do-i-enable-2-step-verification/",
+        "name": "Koofr",
+        "website": "https://koofr.eu"
+    },
+    {
+        "documentation": "https://mega.nz/help/client/webclient/security-and-privacy/5bb5436cf1b70966038b456b",
+        "name": "Mega",
+        "website": "https://mega.nz/"
+    },
+    {
+        "documentation": "https://www.nimbox.co.uk/help-centre/two-step-two-factor-authentication-2fa/",
+        "name": "Nimbox",
+        "website": "https://www.nimbox.co.uk/"
+    },
+    {
+        "documentation": "https://support.microsoft.com/en-us/help/12408/",
+        "name": "OneDrive",
+        "website": "https://onedrive.live.com"
+    },
+    {
+        "documentation": "https://www.pcloud.com/help/general-help-center/how-can-i-set-up-two-factor-authentication",
+        "name": "PCloud",
+        "website": "https://www.pcloud.com"
+    },
+    {
+        "documentation": "https://www.qnap.com/en-us/how-to/tutorial/article/how-to-enhance-account-security-using-2-step-verification",
+        "name": "QNAP",
+        "website": "https://www.qnap.com"
+    },
+    {
+        "documentation": "https://www.sync.com/help/how-do-i-setup-two-factor-authentication/",
+        "name": "Sync",
+        "website": "https://www.sync.com"
+    },
+    {
+        "documentation": "https://originwww.synology.com/en-us/knowledgebase/tutorials/615#t5",
+        "name": "Synology",
+        "website": "https://www.synology.com/"
+    },
+    {
+        "documentation": "https://support.tresorit.com/hc/en-us/articles/216114527",
+        "name": "Tresorit",
+        "website": "https://tresorit.com/"
+    },
+    {
+        "documentation": "https://wasabi.com/wp-content/themes/wasabi/docs/User_Guide/index.html#t=topics%2FCONSOLE_ACCESS_for_the_Root_User.htm",
+        "name": "Wasabi",
+        "website": "https://wasabi.com/"
+    },
+    {
+        "documentation": "https://wiki.zoolz.com/how-do-i-enable-two-factor-authentication-on-my-zoolz-intelligent-account/",
+        "name": "Zoolz",
+        "website": "https://intelli.zoolz.com/"
+    },
+    {
+        "digits": 8,
+        "documentation": "https://eu.battle.net/support/en/article/10363",
+        "name": "Battle.net",
+        "website": "https://battle.net"
+    },
+    {
+        "digits": 8,
+        "documentation": "https://eu.battle.net/support/en/article/10363",
+        "name": "Blizzard",
+        "website": "https://blizzard.com"
+    },
+    {
+        "name": "Gitea",
+        "website": "https://gitea.io"
+    }
+]
