@@ -3,7 +3,10 @@ use std::fmt::Debug;
 use anyhow::Result;
 use gtk::{gio, gio::prelude::*};
 
-use crate::models::{Account, Algorithm, OTPMethod, ProvidersModel};
+use crate::{
+    models::{keyring, Account, Algorithm, OTPMethod, ProvidersModel},
+    utils::spawn_tokio_blocking,
+};
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
 pub enum Operation {
@@ -55,22 +58,32 @@ pub trait RestorableItem: Debug {
     fn counter(&self) -> Option<u32>;
 
     fn restore(&self, provider: &ProvidersModel) -> Result<()> {
-        let provider = provider.find_or_create(
-            &self.issuer(),
-            self.period(),
-            self.method(),
-            None,
-            self.algorithm(),
-            self.digits(),
-            self.counter(),
-            None,
-            None,
-        )?;
+        let owned_token = self.secret().clone();
+        let token_exists =
+            spawn_tokio_blocking(async move { keyring::token_exists(&owned_token).await })?;
+        if !token_exists {
+            let provider = provider.find_or_create(
+                &self.issuer(),
+                self.period(),
+                self.method(),
+                None,
+                self.algorithm(),
+                self.digits(),
+                self.counter(),
+                None,
+                None,
+            )?;
 
-        let account = Account::create(&self.account(), &self.secret(), self.counter(), &provider)?;
-
-        provider.add_account(&account);
-
+            let account =
+                Account::create(&self.account(), &self.secret(), self.counter(), &provider)?;
+            provider.add_account(&account);
+        } else {
+            tracing::info!(
+                "Account {}/{} already exists",
+                self.issuer(),
+                self.account()
+            );
+        }
         Ok(())
     }
 }

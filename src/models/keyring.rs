@@ -60,6 +60,22 @@ pub async fn remove_token(token_id: &str) -> anyhow::Result<()> {
     Ok(())
 }
 
+pub async fn token_exists(token: &str) -> anyhow::Result<bool> {
+    let attributes = HashMap::from([("application", config::APP_ID), ("type", "token")]);
+    let items = SECRET_SERVICE
+        .get()
+        .unwrap()
+        .search_items(attributes)
+        .await?;
+    for item in items {
+        let item_token = String::from_utf8(hex::decode(&*item.secret().await?)?)?;
+        if item_token == token {
+            return Ok(true);
+        }
+    }
+    Ok(false)
+}
+
 pub async fn has_set_password() -> anyhow::Result<bool> {
     let attributes = password_attributes();
     match SECRET_SERVICE.get().unwrap().search_items(attributes).await {
