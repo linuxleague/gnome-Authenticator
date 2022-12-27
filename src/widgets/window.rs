@@ -7,7 +7,7 @@ use once_cell::sync::OnceCell;
 use crate::{
     application::Application,
     config,
-    models::{keyring, Account, OTPUri, ProvidersModel},
+    models::{keyring, Account, OTPUri, ProvidersModel, SETTINGS},
     utils::spawn_tokio_blocking,
     widgets::{
         accounts::AccountDetailsPage,
@@ -29,10 +29,9 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/window.ui")]
     pub struct Window {
-        pub settings: gio::Settings,
         pub model: OnceCell<ProvidersModel>,
         #[template_child]
         pub main_stack: TemplateChild<gtk::Stack>,
@@ -69,28 +68,6 @@ mod imp {
         const NAME: &'static str = "Window";
         type Type = super::Window;
         type ParentType = adw::ApplicationWindow;
-
-        fn new() -> Self {
-            let settings = gio::Settings::new(config::APP_ID);
-            Self {
-                settings,
-                providers: TemplateChild::default(),
-                model: OnceCell::default(),
-                account_details: TemplateChild::default(),
-                search_entry: TemplateChild::default(),
-                deck: TemplateChild::default(),
-                error_revealer: TemplateChild::default(),
-                empty_status_page: TemplateChild::default(),
-                search_btn: TemplateChild::default(),
-                password_entry: TemplateChild::default(),
-                accounts_stack: TemplateChild::default(),
-                locked_img: TemplateChild::default(),
-                title_stack: TemplateChild::default(),
-                main_stack: TemplateChild::default(),
-                unlock_button: TemplateChild::default(),
-                toast_overlay: TemplateChild::default(),
-            }
-        }
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -267,14 +244,14 @@ impl Window {
         imp.locked_img.set_from_icon_name(Some(config::APP_ID));
 
         // load latest window state
-        let width = imp.settings.int("window-width");
-        let height = imp.settings.int("window-height");
+        let width = SETTINGS.int("window-width");
+        let height = SETTINGS.int("window-height");
 
         if width > -1 && height > -1 {
             self.set_default_size(width, height);
         }
 
-        let is_maximized = imp.settings.boolean("is-maximized");
+        let is_maximized = SETTINGS.boolean("is-maximized");
         if is_maximized {
             self.maximize();
         }
@@ -316,12 +293,11 @@ impl Window {
     }
 
     fn save_window_state(&self) -> anyhow::Result<()> {
-        let settings = &self.imp().settings;
         let size = self.default_size();
-        settings.set_int("window-width", size.0)?;
-        settings.set_int("window-height", size.1)?;
+        SETTINGS.set_int("window-width", size.0)?;
+        SETTINGS.set_int("window-height", size.1)?;
 
-        settings.set_boolean("is-maximized", self.is_maximized())?;
+        SETTINGS.set_boolean("is-maximized", self.is_maximized())?;
         Ok(())
     }
 

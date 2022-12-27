@@ -84,6 +84,37 @@
             </child>
           </object>
         </child>
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Network</property>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">_Download Favicons</property>
+                <property name="use-underline">True</property>
+                <property name="activatable-widget">download_favicons_switch</property>
+                <property name="subtitle" translatable="yes">Automatically attempt fetching a website icon</property>
+                <child>
+                  <object class="GtkSwitch" id="download_favicons_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwActionRow">
+                <property name="title" translatable="yes">_Metered Connection</property>
+                <property name="use-underline">True</property>
+                <property name="activatable-widget">download_favicons_metered_switch</property>
+                <property name="subtitle" translatable="yes">Fetch a website icon on a metered connection</property>
+                <child>
+                  <object class="GtkSwitch" id="download_favicons_metered_switch">
+                    <property name="valign">center</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -104,4 +135,3 @@
     </child>
   </template>
 </interface>
-

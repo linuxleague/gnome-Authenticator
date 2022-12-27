@@ -11,9 +11,11 @@ mod otp_uri;
 mod provider;
 mod provider_sorter;
 mod providers;
+mod settings;
 
 pub static RUNTIME: Lazy<tokio::runtime::Runtime> =
     Lazy::new(|| tokio::runtime::Runtime::new().unwrap());
+pub static SETTINGS: Lazy<Settings> = Lazy::new(|| Settings::default());
 pub static FAVICONS_PATH: Lazy<std::path::PathBuf> = Lazy::new(|| {
     gtk::glib::user_cache_dir()
         .join("authenticator")
@@ -30,4 +32,5 @@ pub use self::{
     provider::{Provider, ProviderPatch},
     provider_sorter::ProviderSorter,
     providers::ProvidersModel,
+    settings::Settings,
 };

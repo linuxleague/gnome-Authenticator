@@ -3,7 +3,7 @@ use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
 use gtk_macros::send;
 use tracing::error;
 
-use crate::models::{Provider, FAVICONS_PATH, RUNTIME};
+use crate::models::{Provider, FAVICONS_PATH, RUNTIME, SETTINGS};
 
 pub enum ImageAction {
     Ready(String),
@@ -22,6 +22,7 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_image.ui")]
     pub struct ProviderImage {
         pub size: Cell<u32>,
+        pub was_downloaded: Cell<bool>,
         pub sender: Sender<ImageAction>,
         pub receiver: RefCell<Option<Receiver<ImageAction>>>,
         pub provider: RefCell<Option<Provider>>,
@@ -48,6 +49,7 @@ mod imp {
                 sender,
                 receiver,
                 size: Cell::new(96),
+                was_downloaded: Cell::new(false),
                 stack: TemplateChild::default(),
                 image: TemplateChild::default(),
                 spinner: TemplateChild::default(),
@@ -166,6 +168,7 @@ impl ProviderImage {
                 } else {
                     imp.image.set_from_file(large_file.path());
                 }
+                imp.was_downloaded.set(true);
                 imp.stack.set_visible_child_name("image");
             }
             _ => {
@@ -176,6 +179,16 @@ impl ProviderImage {
 
     fn fetch(&self) {
         let imp = self.imp();
+        let network_monitor = gio::NetworkMonitor::default();
+        if network_monitor.is_network_metered() && !SETTINGS.download_favicons_metered() {
+            imp.image.set_from_icon_name(Some("provider-fallback"));
+            imp.stack.set_visible_child_name("image");
+            return;
+        } else if !SETTINGS.download_favicons() {
+            imp.image.set_from_icon_name(Some("provider-fallback"));
+            imp.stack.set_visible_child_name("image");
+            return;
+        }
         if let Some(handle) = imp.join_handle.borrow_mut().take() {
             handle.abort();
         }
@@ -203,6 +216,7 @@ impl ProviderImage {
 
                 glib::MainContext::default().spawn_local(clone!(@weak self as this => async move {
                    let imp = this.imp();
+                   imp.was_downloaded.set(true);
                     match receiver.await {
                         Ok(Some(cache_name)) => {
                             send!(imp.sender.clone(), ImageAction::Ready(cache_name));
@@ -247,6 +261,24 @@ impl ProviderImage {
         self.bind_property("size", &*imp.image, "pixel-size")
             .sync_create()
             .build();
+        SETTINGS.connect_download_favicons_changed(clone!(@weak self as image => move |state| {
+            if state && !image.imp().was_downloaded.get() {
+                image.fetch();
+            }
+        }));
+
+        SETTINGS.connect_download_favicons_metered_changed(
+            clone!(@weak self as image => move |state| {
+                let network_monitor = gio::NetworkMonitor::default();
+                if !image.imp().was_downloaded.get() {
+                    if network_monitor.is_network_metered() && state {
+                        image.fetch();
+                    } else if !network_monitor.is_network_metered() {
+                        image.fetch();
+                    }
+                }
+            }),
+        );
     }
 
     fn do_action(&self, action: ImageAction) -> glib::Continue {

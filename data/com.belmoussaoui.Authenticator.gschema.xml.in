@@ -34,5 +34,15 @@
     <key name="keyrings-migrated" type="b">
       <default>false</default>
     </key>
+    <key name="download-favicons" type="b">
+      <default>true</default>
+      <summary>Download Favicons</summary>
+      <description>Whether the application should attempt to find an icon for the providers.</description>
+    </key>
+    <key name="download-favicons-metered" type="b">
+      <default>true</default>
+      <summary>Download Favicons over metered connections</summary>
+      <description>Whether the application should download favicons over a metered connection.</description>
+    </key>
   </schema>
 </schemalist>

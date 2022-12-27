@@ -11,6 +11,7 @@ use crate::{
     config,
     models::{
         keyring, Account, OTPUri, Provider, ProvidersModel, FAVICONS_PATH, RUNTIME, SECRET_SERVICE,
+        SETTINGS,
     },
     utils::spawn_tokio_blocking,
     widgets::{PreferencesWindow, ProvidersDialog, Window},
@@ -21,7 +22,7 @@ mod imp {
 
     use adw::subclass::prelude::*;
     use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
-    use once_cell::sync::{Lazy, OnceCell};
+    use once_cell::sync::Lazy;
 
     use super::*;
 
@@ -34,7 +35,6 @@ mod imp {
         pub locked: Cell<bool>,
         pub lock_timeout_id: RefCell<Option<glib::SourceId>>,
         pub can_be_locked: Cell<bool>,
-        pub settings: OnceCell<gio::Settings>,
         pub search_provider: RefCell<Option<SearchProvider<super::Application>>>,
     }
 
@@ -96,7 +96,6 @@ mod imp {
                 .activate(|app: &Self::Type, _, _| {
                     let model = &app.imp().model;
                     let window = app.active_window();
-
                     let preferences = PreferencesWindow::new(model.clone());
                     preferences.set_has_set_password(app.can_be_locked());
                     preferences.connect_restore_completed(clone!(@weak window =>move |_| {
@@ -182,7 +181,7 @@ mod imp {
                 }
             });
 
-            self.settings.get().unwrap().connect_changed(
+            SETTINGS.connect_changed(
                 None,
                 clone!(@weak app => move |settings, key| {
                     match key {
@@ -279,8 +278,7 @@ impl Application {
         std::fs::create_dir_all(&*FAVICONS_PATH).ok();
 
         // To be removed in the upcoming release
-        let settings = gio::Settings::new(config::APP_ID);
-        if !settings.boolean("keyrings-migrated") {
+        if !SETTINGS.boolean("keyrings-migrated") {
             tracing::info!("Migrating the secrets to the file backend");
             let output: oo7::Result<()> = RUNTIME.block_on(async {
                 oo7::migrate(
@@ -295,7 +293,7 @@ impl Application {
             });
             match output {
                 Ok(_) => {
-                    settings
+                    SETTINGS
                         .set_boolean("keyrings-migrated", true)
                         .expect("Failed to update settings");
                     tracing::info!("Secrets were migrated successfully");
@@ -330,7 +328,6 @@ impl Application {
         if !has_set_password {
             app.imp().model.load();
         }
-        app.imp().settings.set(settings).unwrap();
 
         ApplicationExtManual::run(&app);
     }
@@ -390,8 +387,8 @@ impl Application {
     /// Starts or restarts the lock timeout.
     pub fn restart_lock_timeout(&self) {
         let imp = self.imp();
-        let auto_lock = imp.settings.get().unwrap().boolean("auto-lock");
-        let timeout = imp.settings.get().unwrap().uint("auto-lock-timeout") * 60;
+        let auto_lock = SETTINGS.boolean("auto-lock");
+        let timeout = SETTINGS.uint("auto-lock-timeout") * 60;
 
         if !auto_lock {
             return;
@@ -420,7 +417,7 @@ impl Application {
     fn update_color_scheme(&self) {
         let manager = self.style_manager();
         if !manager.system_supports_color_schemes() {
-            let color_scheme = if self.imp().settings.get().unwrap().boolean("dark-theme") {
+            let color_scheme = if SETTINGS.boolean("dark-theme") {
                 adw::ColorScheme::PreferDark
             } else {
                 adw::ColorScheme::PreferLight
