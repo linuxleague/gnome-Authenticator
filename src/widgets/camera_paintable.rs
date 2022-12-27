@@ -141,26 +141,47 @@ impl CameraPaintable {
         }));
 
         paintable.connect_invalidate_size(clone!(@weak self as pt => move |_| {
-            pt.invalidate_size  ();
+            pt.invalidate_size();
         }));
-        imp.sink_paintable.replace(Some(paintable));
         let tee = gst::ElementFactory::make_with_name("tee", None)?;
-        let videoconvert1 = gst::ElementFactory::make_with_name("videoconvert", None)?;
-        let videoconvert2 = gst::ElementFactory::make_with_name("videoconvert", None)?;
+        let videoconvert = gst::ElementFactory::make_with_name("videoconvert", None)?;
         let queue1 = gst::ElementFactory::make_with_name("queue", None)?;
         let queue2 = gst::ElementFactory::make_with_name("queue", None)?;
         let zbar = gst::ElementFactory::make_with_name("zbar", None)?;
         let fakesink = gst::ElementFactory::make_with_name("fakesink", None)?;
+        let sink = if paintable
+            .property::<Option<gdk::GLContext>>("gl-context")
+            .is_some()
+        {
+            gst::ElementFactory::make("glsinkbin")
+                .property("sink", &sink)
+                .build()
+                .unwrap()
+        } else {
+            let bin = gst::Bin::default();
+            let convert = gst::ElementFactory::make_with_name("videoconvert", None)?;
+
+            bin.add(&convert)?;
+            bin.add(&sink)?;
+            convert.link(&sink)?;
+
+            bin.add_pad(&gst::GhostPad::with_target(
+                Some("sink"),
+                &convert.static_pad("sink").unwrap(),
+            )?)?;
+
+            bin.upcast()
+        };
+        imp.sink_paintable.replace(Some(paintable));
 
         pipeline.add_many(&[
             &pipewire_src,
             &tee,
             &queue1,
-            &videoconvert1,
+            &videoconvert,
             &zbar,
             &fakesink,
             &queue2,
-            &videoconvert2,
             &sink,
         ])?;
 
@@ -168,12 +189,12 @@ impl CameraPaintable {
             &pipewire_src,
             &tee,
             &queue1,
-            &videoconvert1,
+            &videoconvert,
             &zbar,
             &fakesink,
         ])?;
         tee.link_pads(None, &queue2, None)?;
-        gst::Element::link_many(&[&queue2, &videoconvert2, &sink])?;
+        gst::Element::link_many(&[&queue2, &sink])?;
 
         let bus = pipeline.bus().unwrap();
         bus.add_watch_local(
