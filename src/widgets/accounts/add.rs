@@ -201,9 +201,14 @@ impl AccountAddDialog {
     }
 
     #[template_callback]
-    fn camera_code_detected(&self, _camera: Camera, code: String) {
-        if let Ok(otp_uri) = OTPUri::from_str(&code) {
-            self.set_from_otp_uri(&otp_uri);
+    fn camera_code_detected(&self, code: String, _camera: Camera) {
+        match OTPUri::from_str(&code) {
+            Ok(otp_uri) => {
+                self.set_from_otp_uri(&otp_uri);
+            }
+            Err(err) => {
+                tracing::error!("Failed to parse OTP uri code {err}");
+            }
         }
     }
 

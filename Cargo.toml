@@ -6,7 +6,7 @@ version = "4.1.6"
 [dependencies]
 adw = {package = "libadwaita", version = "0.2", features = ["v1_2"]}
 anyhow = "1.0"
-ashpd = {version = "0.4.0-alpha.1", features = ["pipewire", "gtk4"]}
+ashpd = {version = "0.4.0-alpha.1", features = ["pipewire", "gtk4", "tracing"]}
 binascii = "0.1"
 diesel = {version = "2.0", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "2.0", features = ["sqlite"]}

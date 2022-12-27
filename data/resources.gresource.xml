@@ -35,6 +35,7 @@
     <file preprocess="xml-stripblanks" alias="refresh-symbolic.svg">resources/icons/refresh-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="copy-symbolic.svg">resources/icons/copy-symbolic.svg</file>
     <file preprocess="xml-stripblanks" alias="link-symbolic.svg">resources/icons/link-symbolic.svg</file>
+    <file preprocess="xml-stripblanks" alias="video-camera-symbolic.svg">resources/icons/video-camera-symbolic.svg</file>
   </gresource>
   <gresource prefix="/com/belmoussaoui/Authenticator/icons/48x48/status/">
     <file preprocess="xml-stripblanks" alias="provider-fallback.svg">resources/icons/provider-fallback.svg</file>

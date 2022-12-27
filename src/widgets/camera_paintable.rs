@@ -31,6 +31,7 @@ mod imp {
     pub struct CameraPaintable {
         pub sender: RefCell<Option<Sender<CameraEvent>>>,
         pub pipeline: RefCell<Option<gst::Pipeline>>,
+        pub pipewire_element: RefCell<Option<gst::Element>>,
         pub sink_paintable: RefCell<Option<gdk::Paintable>>,
     }
 
@@ -110,25 +111,25 @@ impl CameraPaintable {
         paintable
     }
 
-    pub fn set_pipewire_node_id<F: AsRawFd>(
-        &self,
-        fd: F,
-        node_id: Option<u32>,
-    ) -> anyhow::Result<()> {
-        let raw_fd = fd.as_raw_fd();
-        let pipewire_element = gst::ElementFactory::make_with_name("pipewiresrc", None)?;
-        pipewire_element.set_property("fd", &raw_fd);
-        if let Some(node_id) = node_id {
-            pipewire_element.set_property("path", &node_id.to_string());
-            tracing::debug!("Loading PipeWire Node ID: {} with FD: {}", node_id, raw_fd);
-        } else {
-            tracing::debug!("Loading PipeWire with FD: {}", raw_fd);
-        }
-        self.init_pipeline(pipewire_element)?;
+    pub fn set_pipewire_node_id(&self, node_id: u32) -> anyhow::Result<()> {
+        let pipewire_element = self.imp().pipewire_element.borrow().clone().unwrap();
+        pipewire_element.set_property("path", &node_id.to_string());
+        tracing::debug!("Loading PipeWire Node ID: {node_id}");
+        self.close_pipeline();
+        self.init_pipeline(&pipewire_element)?;
         Ok(())
     }
 
-    fn init_pipeline(&self, pipewire_src: gst::Element) -> anyhow::Result<()> {
+    pub fn set_pipewire_fd<F: AsRawFd>(&self, fd: F) -> anyhow::Result<()> {
+        let raw_fd = fd.as_raw_fd();
+        let pipewire_element = gst::ElementFactory::make_with_name("pipewiresrc", None)?;
+        pipewire_element.set_property("fd", &raw_fd);
+        tracing::debug!("Loading PipeWire with FD: {}", raw_fd);
+        self.imp().pipewire_element.replace(Some(pipewire_element));
+        Ok(())
+    }
+
+    fn init_pipeline(&self, pipewire_src: &gst::Element) -> anyhow::Result<()> {
         tracing::debug!("Init pipeline");
         let imp = self.imp();
         let pipeline = gst::Pipeline::new(None);
@@ -175,7 +176,7 @@ impl CameraPaintable {
         imp.sink_paintable.replace(Some(paintable));
 
         pipeline.add_many(&[
-            &pipewire_src,
+            pipewire_src,
             &tee,
             &queue1,
             &videoconvert,
@@ -185,14 +186,7 @@ impl CameraPaintable {
             &sink,
         ])?;
 
-        gst::Element::link_many(&[
-            &pipewire_src,
-            &tee,
-            &queue1,
-            &videoconvert,
-            &zbar,
-            &fakesink,
-        ])?;
+        gst::Element::link_many(&[pipewire_src, &tee, &queue1, &videoconvert, &zbar, &fakesink])?;
         tee.link_pads(None, &queue2, None)?;
         gst::Element::link_many(&[&queue2, &sink])?;
 
