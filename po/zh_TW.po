@@ -2,534 +2,708 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Authenticator package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Freddy Cheng <freddy4212@gmail.com>, 2022.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-20 05:14+0200\n"
-"PO-Revision-Date: 2019-01-29 03:08+0000\n"
-"Last-Translator: Louies <louies0623@gmail.com>\n"
-"Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
-"authenticator/translation/zh_Hant/>\n"
-"Language: zh_Hant\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2022-05-07 18:01+0000\n"
+"PO-Revision-Date: 2022-05-26 14:30+0800\n"
+"Last-Translator: Freddy Cheng <freddy4212@gmail.com>\n"
+"Language-Team: Chinese - Taiwan <chinese-l10n@googlegroups.com>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"X-Generator: Gtranslator 41.0\n"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:3
-#: src/Authenticator/application.py.in:37
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:142 src/main.rs:40
 msgid "Authenticator"
+msgstr "驗證器"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "雙重認證身份驗證器"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:145
+msgid "Generate Two-Factor Codes"
+msgstr "產生雙重認證驗證碼"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
 msgstr ""
+"Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;雙重認證;身份驗證;驗證碼;"
+"兩段式驗證;產生器;驗證器;"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:7
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:5
-msgid "Two-factor authentication code generator"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "預設視窗寬度"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:9
-msgid ""
-"Simple application that generates a two-factor authentication code, created "
-"for GNOME."
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "預設視窗高度"
 
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:10
-msgid "Features:"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:12
-msgid "QR code scanner"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:13
-msgid "Beautiful UI"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:14
-msgid "Huge database of more than 560 supported services"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:15
-#, fuzzy
-msgid "Keep your PIN tokens secure by locking the application with a password"
-msgstr "鎖定應用程式"
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:16
-msgid "Automtically fetch an image for services using their favicon"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:17
-msgid "The possibility to add new services"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:37
-msgid ""
-"New 3.31 beta is out! Here's an overview of what changed Please backup your "
-"accounts before updating to the latest version and restore the data after "
-"update."
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:42
-msgid "New settings window"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:43
-msgid "Download provider images using their favicon if possible"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:44
-msgid "Night Light feature: not working yet!"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:45
-msgid ""
-"The possiblity to enable/disable a password without having to reset "
-"everything"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:46
-msgid ""
-"You can now add new providers and set images for providers that we didn't "
-"find an icon for"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:47
-msgid "Mobile ready"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:48
-msgid "New icon by Tobias"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:49
-msgid "Bunch of fixed bugs"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:55
-msgid ""
-"Since I have moved the application to GOME Gitlab's World group, a Flatpak "
-"build for each new commit is available to download from the site's website."
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:59
-msgid "Backup and restore from a basic JSON file"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:60
-msgid "Backup and restore from an encrypted-GPG JSON file"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:61
-msgid "Add andOTP support (free and open Android 2FA application)"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:62
-msgid "New Settings Widow with 3 sections: appearance, behavior and backup"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:63
-msgid "Fix Flatpak Build with the latest GNOME Runtime"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:64
-msgid "Move the project to GOME Gitlab's World group"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:71
-msgid "GNOME Shell Search provider"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:72
-msgid "Codes expire simultaneously #91"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:79
-msgid "Revamped main window to more closely follow the GNOME HIG"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:80
-msgid "Revamped add a new account window to make it easier to use"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:81
-msgid ""
-"Possibility to add an account from a provider not listed in the shipped "
-"database"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:82
-msgid "Possibilty to edit an account"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:83
-msgid "One Time Password now visible by default"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:90
-msgid "Fix python-dbus by using GDbus instead"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:97
-msgid "Fix the QRScanner on GNOME Shell"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:98
-msgid "Add a new entry for the account's username"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:99
-msgid "Updated database of supported accounts"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:106
-msgid "HOTFIX: App not running in DE other than GNOME"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:113
-msgid "Rename project to Authenticator"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:114
-msgid "Cleaner code base"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:115
-msgid "Faster startup"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:116
-msgid "Remove unneeded features"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:117
-msgid "Switch to pyzbar instead of zbarlight"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:118
-msgid "Flatpak package"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.appdata.xml.in.in:134
-msgid "Bilal Elmoussaoui"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:4
-msgid "Two-factor authentication"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:10
-msgid "Gnome;GTK;Verification;"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.desktop.in.in:11
-msgid "@appid@"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:6
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:7
-msgid "Default window position"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:11
-#: src/Authenticator/widgets/settings.py:83
-#, fuzzy
-msgid "Dark Theme"
-msgstr "黑暗主題"
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:12
-#: src/Authenticator/widgets/settings.py:84
-msgid "Whether the application should use a dark theme."
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:16
-#: src/Authenticator/widgets/settings.py:88
-msgid "Night Light"
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:17
-#: src/Authenticator/widgets/settings.py:89
-msgid "Automatically enable dark mode at night."
-msgstr ""
-
-#: data/com.github.bilelmoussaoui.Authenticator.gschema.xml.in:21
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
 msgid "Default window maximized behaviour"
+msgstr "預設視窗最大化行為"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Dark Mode"
+msgstr "深色模式"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether the application should use a dark mode."
+msgstr "應用程式是否要使用深色模式。"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock"
+msgstr "自動上鎖"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Whether to auto lock the application or not"
+msgstr "能自動將驗證器上鎖"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+msgid "Auto lock timeout"
+msgstr "自動上鎖時間"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+msgid "Lock the application on idle after X minutes"
+msgstr "應用程式閒置指定的分鐘數後會自動上鎖"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "用於產生雙重認證驗證碼的簡單應用程式。"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "功能："
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "支援 TOTP/HOTP/Steam 計算方法"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "支援 SHA-1/SHA-256/SHA-512 演算法"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "透過相機或螢幕快照掃描 QR 碼"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "使用密碼上鎖驗證器"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "美觀的使用者界面"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "GNOME Shell search provider"
+msgstr "整合進 GNOME Shell 的搜尋結果"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, andOTP, Aegis "
+"(encrypted / plain-text)"
 msgstr ""
+"備份到常見的應用程式如 FreeOTP+、andOTP、Aegis（加密或純文字）或從其還原"
 
-#: data/ui/about_dialog.ui.in:10
-msgid "Two-factor authentication code generator."
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "主視窗"
 
-#: data/ui/about_dialog.ui.in:13
-msgid "translator-credits"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:24
+msgid "Add a New Account"
+msgstr "新增帳號"
 
-#: data/ui/account_add.ui:22
-msgid "Add a new account"
-msgstr ""
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Add a New Provider"
+msgstr "新增提供者"
 
-#: data/ui/account_add.ui:25 data/ui/account_edit.ui:19
-msgid "Close"
-msgstr "關閉"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
+msgid "Account Details"
+msgstr "帳號細節"
 
-#: data/ui/account_add.ui:34
-msgid "Add"
-msgstr "添加"
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
+msgid "Backup/Restore formats support"
+msgstr "備份/還原格式支援"
 
-#: data/ui/account_add.ui:54
-#, fuzzy
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:246
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/resources/ui/account_add.ui:6
+msgid "_Camera"
+msgstr "相機(_C)"
+
+#: data/resources/ui/account_add.ui:10
+msgid "_Screenshot"
+msgstr "螢幕快照(_S)"
+
+#: data/resources/ui/account_add.ui:44
+#: data/resources/ui/account_details_page.ui:24 data/resources/ui/camera.ui:35
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/providers_dialog.ui:184
+msgid "Go Back"
+msgstr "返回"
+
+#: data/resources/ui/account_add.ui:49
+msgid "_Add"
+msgstr "新增(_A)"
+
+#: data/resources/ui/account_add.ui:61
 msgid "Scan QR Code"
-msgstr "掃描 QR Code"
+msgstr "掃描 QR 碼"
 
-#: data/ui/account_config.ui:85
-msgid "Enable 2FA for this account"
-msgstr ""
-
-#: data/ui/account_config.ui:86
-msgid "2FA Token"
-msgstr ""
-
-#: data/ui/account_config.ui:100
-msgid "Account Name"
-msgstr ""
-
-#: data/ui/account_config.ui:123
+#: data/resources/ui/account_add.ui:100
+#: data/resources/ui/account_details_page.ui:121
 msgid "Provider"
-msgstr "供應商"
+msgstr "提供者"
 
-#: data/ui/account_edit.ui:28 data/ui/settings.ui.in:50
-msgid "Save"
-msgstr "儲存"
+#: data/resources/ui/account_add.ui:101
+msgid "Token issuer"
+msgstr "金鑰發行者"
 
-#: data/ui/account_row.ui:23
-msgid "Edit"
-msgstr "編輯"
+#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_details_page.ui:111
+msgid "Account"
+msgstr "帳號"
 
-#: data/ui/account_row.ui:41
-msgid "Delete"
-msgstr "删除"
+#: data/resources/ui/account_add.ui:130
+msgid "Token"
+msgstr "金鑰"
 
-#: data/ui/account_row.ui:97
+#: data/resources/ui/account_add.ui:144
+#: data/resources/ui/account_details_page.ui:183
+#: data/resources/ui/provider_page.ui:209
+msgid "Counter"
+msgstr "計數器"
+
+#: data/resources/ui/account_add.ui:169
+#: data/resources/ui/account_details_page.ui:163
+#: data/resources/ui/provider_page.ui:175
+msgid "Algorithm"
+msgstr "演算法"
+
+#: data/resources/ui/account_add.ui:181
+#: data/resources/ui/account_details_page.ui:173
+#: data/resources/ui/provider_page.ui:162
+msgid "Computing Method"
+msgstr "計算方法"
+
+#: data/resources/ui/account_add.ui:193
+#: data/resources/ui/account_details_page.ui:193
+#: data/resources/ui/provider_page.ui:192
+msgid "Period"
+msgstr "更新週期"
+
+#: data/resources/ui/account_add.ui:194 data/resources/ui/provider_page.ui:193
+msgid "Duration in seconds until the next password update"
+msgstr "密碼更新所間隔的秒數"
+
+#: data/resources/ui/account_add.ui:206
+#: data/resources/ui/account_details_page.ui:203
+#: data/resources/ui/provider_page.ui:226
+msgid "Digits"
+msgstr "位數"
+
+#: data/resources/ui/account_add.ui:207 data/resources/ui/provider_page.ui:227
+msgid "Length of the generated code"
+msgstr "產生的驗證碼長度"
+
+#: data/resources/ui/account_add.ui:219
+#: data/resources/ui/account_details_page.ui:213
+#: data/resources/ui/provider_page.ui:148
+msgid "Website"
+msgstr "網站"
+
+#: data/resources/ui/account_add.ui:224
+msgid "How to Set Up"
+msgstr "如何設定"
+
+#: data/resources/ui/account_details_page.ui:56
+#| msgid "Edit"
+msgid "_Edit"
+msgstr "編輯(_E)"
+
+#: data/resources/ui/account_details_page.ui:71
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:55
+#| msgid "Save"
+msgid "_Save"
+msgstr "儲存(_S)"
+
+#: data/resources/ui/account_details_page.ui:86
+#: data/resources/ui/provider_page.ui:260
+#| msgid "Delete"
+msgid "_Delete"
+msgstr "删除(_D)"
+
+#: data/resources/ui/account_details_page.ui:218
+msgid "Help"
+msgstr "求助"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "增加計數器數值"
+
+#: data/resources/ui/account_row.ui:33
 msgid "Copy PIN to clipboard"
-msgstr ""
+msgstr "將 PIN 複製到剪貼簿"
 
-#: data/ui/password_widget.ui:46
-#, fuzzy
-msgid "Current Password:"
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "找不到相機"
+
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "從螢幕快照(_F)"
+
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "設定密碼"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "密碼設定後驗證器將開始鎖定。"
+
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "目前密碼"
+
+#: data/resources/ui/preferences_password_page.ui:66
+msgid "New Passphrase"
+msgstr "新密碼"
+
+#: data/resources/ui/preferences_password_page.ui:79
+msgid "Repeat Passphrase"
 msgstr "再次輸入密碼"
 
-#: data/ui/password_widget.ui:90
-#, fuzzy
-msgid "New Password:"
-msgstr "密碼"
+#: data/resources/ui/preferences_password_page.ui:100
+#: data/resources/ui/provider_page.ui:100
+msgid "_Reset"
+msgstr "重設(_R)"
 
-#: data/ui/password_widget.ui:135
-msgid "Confirm New Password:"
-msgstr ""
-
-#: data/ui/password_widget.ui:183 src/Authenticator/widgets/settings.py:208
-#, fuzzy
-msgid "Change Password"
-msgstr "密碼"
-
-#: data/ui/password_widget.ui:204
-#, fuzzy
-msgid "Delete Password"
-msgstr "再次輸入密碼"
-
-#: data/ui/provider_image.ui:41
-msgid "We couldn't find an image for this provider"
-msgstr ""
-
-#. Night mode action
-#: data/ui/settings.ui.in:28 src/Authenticator/application.py.in:112
-msgid "Preferences"
-msgstr "偏好設定"
-
-#: data/ui/settings.ui.in:95
-msgid "Behaviour"
-msgstr ""
-
-#: data/ui/shortcuts.ui:13
-msgctxt "shortcut window"
+#: data/resources/ui/preferences.ui:16
 msgid "General"
-msgstr ""
+msgstr "一般"
 
-#: data/ui/shortcuts.ui:17
-msgctxt "shortcut window"
-msgid "Show Shortcuts"
-msgstr ""
+#: data/resources/ui/preferences.ui:19
+msgid "Appearance"
+msgstr "外觀"
 
-#: data/ui/shortcuts.ui:24
-msgctxt "shortcut window"
-msgid "Preferences"
-msgstr ""
+#: data/resources/ui/preferences.ui:22
+msgid "_Dark Mode"
+msgstr "深色模式(_D)"
 
-#: data/ui/shortcuts.ui:31
-msgctxt "shortcut window"
-msgid "Quit"
-msgstr ""
+#: data/resources/ui/preferences.ui:25
+msgid "Whether the application should use a dark mode"
+msgstr "應用程式是否要使用深色模式"
 
-#: data/ui/shortcuts.ui:40
-msgctxt "shortcut window"
-msgid "Accounts"
-msgstr ""
+#: data/resources/ui/preferences.ui:37
+msgid "Privacy"
+msgstr "隱私"
 
-#: data/ui/shortcuts.ui:44
-msgctxt "shortcut window"
-msgid "Add"
-msgstr ""
+#: data/resources/ui/preferences.ui:40
+msgid "_Passphrase"
+msgstr "密碼(_P)"
 
-#: data/ui/shortcuts.ui:51
-msgctxt "shortcut window"
-msgid "Search"
-msgstr ""
+#: data/resources/ui/preferences.ui:42
+msgid "Set up a passphrase to lock the application with"
+msgstr "設定密碼用於鎖定驗證器"
 
-#: data/ui/window.ui.in:182
-msgid "There are no accounts yet…"
-msgstr ""
+#: data/resources/ui/preferences.ui:54
+msgid "_Auto Lock the Application"
+msgstr "自動上鎖驗證器(_A)"
 
-#: data/ui/window.ui.in:211
-msgid "Add a new account from the menu"
-msgstr ""
+#: data/resources/ui/preferences.ui:57
+msgid "Whether to automatically lock the application"
+msgstr "是否要自動上鎖驗證器"
 
-#: data/ui/window.ui.in:227
-#, fuzzy
-msgid "Scan a QR Code"
-msgstr "掃描 QR Code"
+#: data/resources/ui/preferences.ui:68
+msgid "Auto Lock _Timeout"
+msgstr "自動上鎖時間(_T)"
 
-#: data/ui/window.ui.in:373
-msgid "No results found"
-msgstr ""
+#: data/resources/ui/preferences.ui:69
+msgid "The time in minutes"
+msgstr "自動上鎖的分鐘數"
 
-#: data/ui/window.ui.in:437
-msgid "Authenticator is locked"
-msgstr ""
+#: data/resources/ui/preferences.ui:92
+msgid "Backup/Restore"
+msgstr "備份/還原"
 
-#: data/ui/window.ui.in:476
-msgid "Unlock"
-msgstr ""
-
-#: src/authenticator.py.in:50
-msgid "Start in debug mode"
-msgstr ""
-
-#: src/authenticator.py.in:52
-msgid "Authenticator version number"
-msgstr ""
-
-#: src/Authenticator/application.py.in:92
-#: src/Authenticator/widgets/settings.py:92
-msgid "Lock the application"
-msgstr "鎖定應用程式"
-
-#: src/Authenticator/application.py.in:100
-msgid "from a plain-text JSON file"
-msgstr ""
-
-#: src/Authenticator/application.py.in:101
-msgid "in a plain-text JSON file"
-msgstr ""
-
-#: src/Authenticator/application.py.in:103
-msgid "Restore"
-msgstr "還原"
-
-#: src/Authenticator/application.py.in:104
+#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:371
 msgid "Backup"
 msgstr "備份"
 
-#: src/Authenticator/application.py.in:113
-msgid "Donate"
-msgstr "贊助"
+#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:378
+msgid "Restore"
+msgstr "還原"
 
-#: src/Authenticator/application.py.in:114
+#: data/resources/ui/provider_page.ui:110
+msgid "Select a _File"
+msgstr "選擇檔案(_F)"
+
+#: data/resources/ui/provider_page.ui:134
+msgid "Name"
+msgstr "名稱"
+
+#: data/resources/ui/provider_page.ui:149
+msgid "Used to fetch the provider icon"
+msgstr "用於取得提供者的圖示"
+
+#: data/resources/ui/provider_page.ui:210
+msgid "The by default value for counter-based computing method"
+msgstr "HOTP 計算方法的預設數值"
+
+#: data/resources/ui/provider_page.ui:244
+msgid "Help URL"
+msgstr "求助連結"
+
+#: data/resources/ui/provider_page.ui:245
+msgid "Provider setup instructions"
+msgstr "提供者提供的設定指南"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "提供者"
+
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:228
+#| msgid "Provider"
+msgid "New Provider"
+msgstr "新增提供者"
+
+#: data/resources/ui/providers_dialog.ui:60 data/resources/ui/window.ui:254
+msgid "Search"
+msgstr "搜尋"
+
+#: data/resources/ui/providers_dialog.ui:102
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "沒有結果"
+
+#: data/resources/ui/providers_dialog.ui:103
+msgid "No providers matching the query were found."
+msgstr "找不到符合的提供者。"
+
+#: data/resources/ui/providers_dialog.ui:194
+msgid "No Provider Selected"
+msgstr "沒有選擇提供者"
+
+#: data/resources/ui/providers_dialog.ui:195
+msgid "Select a provider or create a new one"
+msgstr "選擇提供者或新增提供者"
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "找不到符合的帳號或提供者。"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "一般"
+
+#: data/resources/ui/shortcuts.ui:14
+#| msgid "Keyboard Shortcuts"
+msgctxt "shortcut window"
 msgid "Keyboard Shortcuts"
-msgstr "鍵盤快速鍵"
+msgstr "鍵盤捷徑鍵"
 
-#: src/Authenticator/application.py.in:115
-msgid "About Authenticator"
-msgstr ""
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "上鎖"
 
-#: src/Authenticator/models/account.py:71
-msgid "Default"
-msgstr ""
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "偏好設定"
 
-#: src/Authenticator/widgets/accounts/add.py:58
-msgid "Invalid QR code"
-msgstr "無效的 QR code"
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "離開"
 
-#: src/Authenticator/widgets/accounts/list.py:143
-msgid "The One-Time Passwords expires in {} seconds"
-msgstr ""
+#: data/resources/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "帳號"
 
-#: src/Authenticator/widgets/accounts/row.py:80
-msgid "Couldn't generate the secret code"
-msgstr ""
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "New Account"
+msgstr "新增帳號"
 
-#: src/Authenticator/widgets/accounts/row.py:91
-msgid "The PIN of {} was copied to the clipboard"
-msgstr ""
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "搜尋"
 
-#: src/Authenticator/widgets/accounts/row.py:123
-msgid "The account was updated successfully"
-msgstr ""
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "顯示提供者清單"
 
-#: src/Authenticator/widgets/notification.py:43
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "鎖定驗證器(_L)"
+
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "提供者(_R)"
+
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "偏好設定(_P)"
+
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "鍵盤捷徑鍵(_K)"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "關於驗證器(_A)"
+
+#: data/resources/ui/window.ui:97
+msgid "Authenticator is Locked"
+msgstr "驗證器已上鎖"
+
+#: data/resources/ui/window.ui:124
+msgid "_Unlock"
+msgstr "解鎖(_U)"
+
+#: data/resources/ui/window.ui:172 data/resources/ui/window.ui:211
+msgid "New Account"
+msgstr "新增帳號"
+
+#: data/resources/ui/window.ui:179 data/resources/ui/window.ui:248
+msgid "Menu"
+msgstr "選單"
+
+#: data/resources/ui/window.ui:190
+msgid "No Accounts"
+msgstr "沒有帳號"
+
+#: data/resources/ui/window.ui:191
+msgid "Add an account or scan a QR code first."
+msgstr "新增帳號或掃描 QR 碼即可開始使用。"
+
+#: src/application.rs:149
+msgid "translator-credits"
+msgstr "Freddy Cheng <freddy4212@gmail.com>, 2022."
+
+#: src/application.rs:442 src/widgets/accounts/row.rs:43
+msgid "One-Time password copied"
+msgstr "已複製一次性密碼"
+
+#: src/application.rs:443
+msgid "Password was copied successfully"
+msgstr "密碼複製成功"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:526 src/backup/aegis.rs:576
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:530
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "匯出成包含純文字或加密字段的 JSON 檔"
+
+#: src/backup/aegis.rs:580
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "從包含純文字或加密字段的 JSON 檔匯入"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:69
+msgid "a_ndOTP"
+msgstr "andOTP (_N)"
+
+#: src/backup/andotp.rs:73
+msgid "Into a plain-text JSON file"
+msgstr "匯出成純文字 JSON 檔"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:128
+msgid "an_dOTP"
+msgstr "andOTP (_D)"
+
+#: src/backup/andotp.rs:132 src/backup/bitwarden.rs:142 src/backup/legacy.rs:37
+msgid "From a plain-text JSON file"
+msgstr "從純文字 JSON 檔匯入"
+
+#: src/backup/bitwarden.rs:68
+msgid "Unknown account"
+msgstr "不明帳號"
+
+#: src/backup/bitwarden.rs:76
+msgid "Unknown issuer"
+msgstr "不明發行者"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:138
+msgid "_Bitwarden"
+msgstr "Bitwarden (_B)"
+
+#: src/backup/freeotp.rs:20
+msgid "_Authenticator"
+msgstr "驗證器(_A)"
+
+#: src/backup/freeotp.rs:24
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "匯出成純文字檔，與 FreeOTP+ 相容"
+
+#: src/backup/freeotp.rs:63
+msgid "A_uthenticator"
+msgstr "驗證器(_U)"
+
+#: src/backup/freeotp.rs:67
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "從純文字檔匯入，與 FreeOTP+ 相容"
+
+#. Translators: this is for restoring a backup from the old Authenticator release
+#: src/backup/legacy.rs:33
+msgid "Au_thenticator (Legacy)"
+msgstr "驗證器（舊版）(_T)"
+
+#: src/models/algorithm.rs:60
+msgid "Counter-based"
+msgstr "HOTP"
+
+#: src/models/algorithm.rs:61
+msgid "Time-based"
+msgstr "TOTP"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:63
+msgid "Steam"
+msgstr "Steam"
+
+#: src/models/algorithm.rs:131
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:132
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:133
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:202
+#| msgid "Invalid QR code"
+msgid "Invalid Token"
+msgstr "金鑰無效"
+
+#: src/widgets/window.rs:341
+msgid "Wrong Password"
+msgstr "密碼錯誤"
+
+#: src/widgets/preferences/password_page.rs:218
+#: src/widgets/preferences/password_page.rs:257
+msgid "Wrong Passphrase"
+msgstr "密碼錯誤"
+
+#: src/widgets/preferences/window.rs:211 src/widgets/preferences/window.rs:279
+msgid "Key / Passphrase"
+msgstr "金鑰/密碼"
+
+#: src/widgets/preferences/window.rs:212
+msgid "The key that will be used to decrypt the vault"
+msgstr "金鑰將用於加密"
+
+#: src/widgets/preferences/window.rs:228 src/widgets/preferences/window.rs:295
+#| msgid "Selection mode"
+msgid "Select File"
+msgstr "選擇檔案"
+
+#: src/widgets/preferences/window.rs:280
+msgid "The key used to encrypt the vault"
+msgstr "用於解密的金鑰"
+
+#: src/widgets/preferences/window.rs:374 src/widgets/preferences/window.rs:381
+#: src/widgets/providers/page.rs:324
+#| msgid "Selection mode"
+msgid "Select"
+msgstr "選擇"
+
+#: src/widgets/preferences/window.rs:375 src/widgets/preferences/window.rs:382
+#: src/widgets/providers/page.rs:325
+msgid "Cancel"
+msgstr "取消"
+
+#: src/widgets/providers/dialog.rs:174
+msgid "Provider created successfully"
+msgstr "成功建立提供者"
+
+#: src/widgets/providers/dialog.rs:186
+msgid "Provider updated successfully"
+msgstr "成功更新提供者"
+
+#: src/widgets/providers/dialog.rs:199
+msgid "Provider removed successfully"
+msgstr "成功移除提供者"
+
+#: src/widgets/providers/page.rs:204
+msgid "Editing Provider: {}"
+msgstr "編輯提供者：{}"
+
+#: src/widgets/providers/page.rs:332
+msgid "Image"
+msgstr "影像"
+
+#: src/widgets/providers/page.rs:367
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "有帳號使用這個提供者因而無法刪除，請先將帳號刪除"
+
+#~ msgid "Close"
+#~ msgstr "關閉"
+
+#~ msgid "Add"
+#~ msgstr "添加"
+
 #, fuzzy
-msgid "Close the notification"
-msgstr "鎖定應用程式"
+#~ msgid "Delete Password"
+#~ msgstr "再次輸入密碼"
 
-#: src/Authenticator/widgets/notification.py:48
-#: src/Authenticator/widgets/notification.py:63
-msgid "Undo"
-msgstr ""
-
-#: src/Authenticator/widgets/settings.py:93
 #, fuzzy
-msgid "Lock the application with a password"
-msgstr "鎖定應用程式"
+#~ msgid "Scan a QR Code"
+#~ msgstr "掃描 QR Code"
 
-#: src/Authenticator/widgets/settings.py:157
+#~ msgid "Donate"
+#~ msgstr "贊助"
+
 #, fuzzy
-msgid "Authentication password is now enabled."
-msgstr "再次輸入密碼"
+#~ msgid "Close the notification"
+#~ msgstr "鎖定應用程式"
 
-#: src/Authenticator/widgets/settings.py:159
 #, fuzzy
-msgid "The authentication password was updated."
-msgstr "再次輸入密碼"
+#~ msgid "The authentication password was updated."
+#~ msgstr "再次輸入密碼"
 
-#: src/Authenticator/widgets/settings.py:163
 #, fuzzy
-msgid "The authentication password was deleted."
-msgstr "再次輸入密碼"
+#~ msgid "The authentication password was deleted."
+#~ msgstr "再次輸入密碼"
 
-#: src/Authenticator/widgets/settings.py:204
 #, fuzzy
-msgid "Save Password"
-msgstr "密碼"
-
-#: src/Authenticator/widgets/utils.py:40 src/Authenticator/widgets/utils.py:45
-msgid "JSON files"
-msgstr ""
+#~ msgid "Save Password"
+#~ msgstr "密碼"
 
 #~ msgid "Settings"
 #~ msgstr "設定"
 
-#~ msgid "Cancel"
-#~ msgstr "取消"
-
 #~ msgid "Copy"
 #~ msgstr "複製"
-
-#~ msgid "Search"
-#~ msgstr "搜尋"
-
-#~ msgid "Selection mode"
-#~ msgstr "選擇模式"
-
-#~ msgid "Appearance"
-#~ msgstr "外觀"
