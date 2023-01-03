@@ -156,8 +156,7 @@ impl CameraPaintable {
         {
             gst::ElementFactory::make("glsinkbin")
                 .property("sink", &sink)
-                .build()
-                .unwrap()
+                .build()?
         } else {
             let bin = gst::Bin::default();
             let convert = gst::ElementFactory::make_with_name("videoconvert", None)?;

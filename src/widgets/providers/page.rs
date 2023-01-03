@@ -167,7 +167,7 @@ impl ProviderPage {
     pub fn set_provider(&self, provider: Option<Provider>) {
         let imp = self.imp();
         if let Some(provider) = provider {
-            imp.delete_button.show();
+            imp.delete_button.set_visible(true);
             imp.name_entry.set_text(&provider.name());
             imp.period_spinbutton.set_value(provider.period() as f64);
 
@@ -202,7 +202,7 @@ impl ProviderPage {
             imp.selected_provider.replace(Some(provider));
         } else {
             imp.name_entry.set_text("");
-            imp.delete_button.hide();
+            imp.delete_button.set_visible(false);
             imp.period_spinbutton
                 .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
             imp.provider_website_entry.set_text("");
@@ -315,10 +315,7 @@ impl ProviderPage {
             .filters(&model)
             .build();
 
-        if let Ok(Some(file)) = file_chooser
-            .open_future(Some(&parent), gio::File::NONE)
-            .await
-        {
+        if let Ok(file) = file_chooser.open_future(Some(&parent)).await {
             self.set_image(file);
         };
     }
@@ -377,22 +374,22 @@ impl ProviderPage {
         let selected = OTPMethod::from(combo_row.selected());
         match selected {
             OTPMethod::TOTP => {
-                imp.default_counter_row.hide();
-                imp.period_row.show();
+                imp.default_counter_row.set_visible(false);
+                imp.period_row.set_visible(true);
                 imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
                 imp.period_spinbutton
                     .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
             }
             OTPMethod::HOTP => {
-                imp.default_counter_row.show();
-                imp.period_row.hide();
+                imp.default_counter_row.set_visible(true);
+                imp.period_row.set_visible(false);
                 imp.default_counter_spinbutton
                     .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
                 imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
             }
             OTPMethod::Steam => {
-                imp.default_counter_row.hide();
-                imp.period_row.show();
+                imp.default_counter_row.set_visible(false);
+                imp.period_row.set_visible(true);
                 imp.digits_spinbutton
                     .set_value(otp::STEAM_DEFAULT_DIGITS as f64);
                 imp.period_spinbutton

@@ -1,5 +1,6 @@
 use adw::prelude::*;
 use gtk::{
+    gio,
     glib::{self, clone},
     subclass::prelude::*,
 };
@@ -54,8 +55,15 @@ mod imp {
             let obj = self.obj();
             let gesture = gtk::GestureClick::new();
             gesture.connect_pressed(clone!(@weak obj as row => move |_,_,_,_| {
-                if let Some(ref uri) = *row.imp().uri.borrow() {
-                    gtk::show_uri(gtk::Window::NONE, uri, 0);
+                if let Some(uri) = row.imp().uri.borrow().clone() {
+                    let ctx = glib::MainContext::default();
+                    ctx.spawn_local(async move {
+                        let file = gio::File::for_uri(&uri);
+                        let launcher = gtk::FileLauncher::new(Some(&file));
+                        if let Err(err) = launcher.launch_future(gtk::Window::NONE).await {
+                            tracing::error!("Failed to open URI {err}");
+                        }
+                    });
                 };
             }));
 

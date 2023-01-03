@@ -218,7 +218,7 @@ impl Window {
         dialog.connect_added(clone!(@weak self as win => move |_| {
             win.providers().refilter();
         }));
-        dialog.show();
+        dialog.present();
     }
 
     pub fn providers(&self) -> ProvidersList {

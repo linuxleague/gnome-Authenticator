@@ -180,7 +180,7 @@ impl AccountDetailsPage {
             }),
         );
 
-        dialog.show();
+        dialog.present();
     }
 
     pub fn set_account(&self, account: &Account) {
@@ -211,25 +211,25 @@ impl AccountDetailsPage {
         imp.method_label
             .set_text(&provider.method().to_locale_string());
         if provider.method() == OTPMethod::HOTP {
-            imp.counter_row.show();
-            imp.period_row.hide();
+            imp.counter_row.set_visible(true);
+            imp.period_row.set_visible(false);
         } else {
-            imp.counter_row.hide();
-            imp.period_row.show();
+            imp.counter_row.set_visible(false);
+            imp.period_row.set_visible(true);
             imp.period_label.set_text(&provider.period().to_string());
         }
         imp.digits_label.set_text(&provider.digits().to_string());
         if let Some(ref help) = provider.help_url() {
             imp.help_row.set_uri(help);
-            imp.help_row.show();
+            imp.help_row.set_visible(true);
         } else {
-            imp.help_row.hide();
+            imp.help_row.set_visible(false);
         }
         if let Some(ref website) = provider.website() {
             imp.website_row.set_uri(website);
-            imp.website_row.show();
+            imp.website_row.set_visible(true);
         } else {
-            imp.website_row.hide();
+            imp.website_row.set_visible(false);
         }
         imp.selected_provider.replace(Some(provider));
     }

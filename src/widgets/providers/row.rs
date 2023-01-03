@@ -162,7 +162,7 @@ impl ProviderRow {
 
         imp.image.set_provider(Some(&provider));
         if provider.method() == OTPMethod::HOTP {
-            imp.progress_icon.hide();
+            imp.progress_icon.set_visible(false);
         } else {
             // Update the progress bar whnever the remaining-time is updated
             self.tick_progressbar();

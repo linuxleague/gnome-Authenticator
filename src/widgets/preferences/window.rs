@@ -291,7 +291,7 @@ impl PreferencesWindow {
             clone!(@weak self as win, @weak model => move |_, _| {
                 let ctx = glib::MainContext::default();
                 ctx.spawn_local(clone!(@weak win, @weak model => async move {
-                    if let Ok(Some(file)) = win.select_file(filters, Operation::Backup).await {
+                    if let Ok(file) = win.select_file(filters, Operation::Backup).await {
                         let key = T::ENCRYPTABLE.then(|| {
                             win.encyption_key(Operation::Backup, &T::identifier())
                         }).flatten();
@@ -455,7 +455,7 @@ impl PreferencesWindow {
                 clone!(@weak self as win => move |_, _| {
                     let ctx = glib::MainContext::default();
                     ctx.spawn_local(clone!(@weak win => async move {
-                        if let Ok(Some(file)) = win.select_file(filters, Operation::Restore).await {
+                        if let Ok(file) = win.select_file(filters, Operation::Restore).await {
                             let key = T::ENCRYPTABLE.then(|| {
                                 win.encyption_key(Operation::Restore, &T::identifier())
                             }).flatten();
@@ -505,7 +505,7 @@ impl PreferencesWindow {
         &self,
         filters: &'static [&str],
         operation: Operation,
-    ) -> Result<Option<gio::File>, glib::Error> {
+    ) -> Result<gio::File, glib::Error> {
         let filters_model = gio::ListStore::new(gtk::FileFilter::static_type());
         filters.iter().for_each(|f| {
             let filter = gtk::FileFilter::new();
@@ -521,7 +521,7 @@ impl PreferencesWindow {
                     .filters(&filters_model)
                     .title(&gettext("Backup"))
                     .build();
-                dialog.save_future(Some(self), gio::File::NONE, None).await
+                dialog.save_future(Some(self)).await
             }
             Operation::Restore => {
                 let dialog = gtk::FileDialog::builder()
@@ -529,7 +529,7 @@ impl PreferencesWindow {
                     .filters(&filters_model)
                     .title(&gettext("Restore"))
                     .build();
-                dialog.open_future(Some(self), gio::File::NONE).await
+                dialog.open_future(Some(self)).await
             }
         }
     }

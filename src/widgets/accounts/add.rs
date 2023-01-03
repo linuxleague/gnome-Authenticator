@@ -290,7 +290,7 @@ impl AccountAddDialog {
     fn set_provider(&self, provider: Option<Provider>) {
         let imp = self.imp();
         if let Some(provider) = provider {
-            imp.more_list.show();
+            imp.more_list.set_visible(true);
             imp.provider_entry.set_text(&provider.name());
             imp.period_label.set_text(&provider.period().to_string());
 
@@ -306,12 +306,12 @@ impl AccountAddDialog {
 
             match provider.method() {
                 OTPMethod::TOTP | OTPMethod::Steam => {
-                    imp.counter_row.hide();
-                    imp.period_row.show();
+                    imp.counter_row.set_visible(false);
+                    imp.period_row.set_visible(true);
                 }
                 OTPMethod::HOTP => {
-                    imp.counter_row.show();
-                    imp.period_row.hide();
+                    imp.counter_row.set_visible(true);
+                    imp.period_row.set_visible(false);
                 }
             };
 

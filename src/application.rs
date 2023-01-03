@@ -106,7 +106,7 @@ mod imp {
                         app.set_can_be_locked(state);
                     }));
                     preferences.set_transient_for(Some(&window));
-                    preferences.show();
+                    preferences.present();
                 }).build();
 
             // About
@@ -147,7 +147,7 @@ mod imp {
                         window.providers().refilter();
                     }));
                     providers.set_transient_for(Some(&window));
-                    providers.show();
+                    providers.present();
                 })
                 .build();
 
