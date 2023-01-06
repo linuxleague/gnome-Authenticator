@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
 "POT-Creation-Date: 2022-07-11 03:50+0000\n"
-"PO-Revision-Date: 2022-12-28 16:36+0100\n"
+"PO-Revision-Date: 2023-01-06 17:58+0100\n"
 "Last-Translator: Quentin PAGÈS\n"
 "Language-Team: \n"
 "Language: oc\n"
@@ -88,7 +88,7 @@ msgstr "Foncionalitats :"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "Time-based/Counter-based/Steam methods support"
-msgstr ""
+msgstr "Metòdes preses en carga : en foncion del temps, en compatador e Steam"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "SHA-1/SHA-256/SHA-512 algorithms support"
@@ -363,7 +363,7 @@ msgstr "Utilizat per recuperar l’icòna del provesidor"
 
 #: data/resources/ui/provider_page.ui:213
 msgid "The by default value for counter-based computing method"
-msgstr ""
+msgstr "La valor per defaut del metòde qu’utiliza un comptador"
 
 #: data/resources/ui/provider_page.ui:247
 msgid "Help URL"
