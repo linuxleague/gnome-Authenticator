@@ -1,15 +1,15 @@
 # Korean translation of the Authenticator in GNOME circle.
 # Copyright (C) Authenticator authors and many contributors.
 # This file is distributed under the same license as the Authenticator package.
-# Seong-ho Cho <shcho@gnome.org>, 2021-2022.
+# Seong-ho Cho <shcho@gnome.org>, 2021-2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2022-07-11 03:50+0000\n"
-"PO-Revision-Date: 2022-08-25 16:59+0900\n"
-"Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
+"POT-Creation-Date: 2023-01-24 18:13+0000\n"
+"PO-Revision-Date: 2023-01-27 02:43+0900\n"
+"Last-Translator: Seong-ho Cho <darkcircle.0426@gmail.com>\n"
 "Language-Team: Korean <gnome-kr@googlegroups.com>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:130 src/main.rs:45
+#: data/resources/ui/window.ui:34 src/application.rs:117 src/main.rs:41
 msgid "Authenticator"
 msgstr "인증기"
 
@@ -30,7 +30,7 @@ msgstr "이중 인증"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:133
+#: src/application.rs:120
 msgid "Generate Two-Factor Codes"
 msgstr "이중 인증 코드 생성"
 
@@ -75,6 +75,24 @@ msgstr "자동 잠금 제한시간"
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
 msgid "Lock the application on idle after X minutes"
 msgstr "X분 후 프로그램 잠금"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
+msgid "Download Favicons"
+msgstr "파비콘 다운로드"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
+msgid ""
+"Whether the application should attempt to find an icon for the providers."
+msgstr "프로그램이 제공자 아이콘을 찾을 지 여부."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:44
+msgid "Download Favicons over metered connections"
+msgstr "종량제 연결로 파비콘 다운로드"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:45
+msgid ""
+"Whether the application should download favicons over a metered connection."
+msgstr "프로그램에서 종량제 연결망에서도 파비콘을 다운로드할 지 여부."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid "Simple application for generating Two-Factor Authentication Codes."
@@ -137,22 +155,22 @@ msgstr "계정 세부 정보"
 msgid "Backup/Restore formats support"
 msgstr "백업/복원 형식 지원"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:271
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:282
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:351
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:352
 msgid "_Camera"
 msgstr "카메라(_C)"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:357
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:358
 msgid "_Screenshot"
 msgstr "스크린샷(_S)"
 
 #: data/resources/ui/account_add.ui:45
 #: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:48
+#: data/resources/ui/provider_page.ui:45
 #: data/resources/ui/providers_dialog.ui:194
 msgid "Go Back"
 msgstr "뒤로 이동"
@@ -161,7 +179,7 @@ msgstr "뒤로 이동"
 msgid "_Add"
 msgstr "추가(_A)"
 
-#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:345
+#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:346
 msgid "Scan QR Code"
 msgstr "QR 코드 스캔"
 
@@ -174,60 +192,60 @@ msgstr "제공자"
 msgid "Token issuer"
 msgstr "토큰 발급자"
 
-#: data/resources/ui/account_add.ui:117
+#: data/resources/ui/account_add.ui:116
 #: data/resources/ui/account_details_page.ui:116
 msgid "Account"
 msgstr "계정"
 
-#: data/resources/ui/account_add.ui:132
+#: data/resources/ui/account_add.ui:122
 msgid "Token"
 msgstr "토큰"
 
-#: data/resources/ui/account_add.ui:147
+#: data/resources/ui/account_add.ui:129
 #: data/resources/ui/account_details_page.ui:188
-#: data/resources/ui/provider_page.ui:212
+#: data/resources/ui/provider_page.ui:191
 msgid "Counter"
 msgstr "카운터"
 
-#: data/resources/ui/account_add.ui:172
+#: data/resources/ui/account_add.ui:154
 #: data/resources/ui/account_details_page.ui:168
-#: data/resources/ui/provider_page.ui:178
+#: data/resources/ui/provider_page.ui:157
 msgid "Algorithm"
 msgstr "알고리즘"
 
-#: data/resources/ui/account_add.ui:184
+#: data/resources/ui/account_add.ui:166
 #: data/resources/ui/account_details_page.ui:178
-#: data/resources/ui/provider_page.ui:164
+#: data/resources/ui/provider_page.ui:142
 msgid "Computing Method"
 msgstr "처리 방식"
 
-#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_add.ui:178
 #: data/resources/ui/account_details_page.ui:198
-#: data/resources/ui/provider_page.ui:195
+#: data/resources/ui/provider_page.ui:174
 msgid "Period"
 msgstr "주기"
 
-#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:196
+#: data/resources/ui/account_add.ui:179 data/resources/ui/provider_page.ui:175
 msgid "Duration in seconds until the next password update"
 msgstr "다음 암호 업데이트까지의 초 단위 시간"
 
-#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_add.ui:191
 #: data/resources/ui/account_details_page.ui:208
-#: data/resources/ui/provider_page.ui:229
+#: data/resources/ui/provider_page.ui:208
 msgid "Digits"
 msgstr "숫자"
 
-#: data/resources/ui/account_add.ui:210 data/resources/ui/provider_page.ui:230
+#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:209
 msgid "Length of the generated code"
 msgstr "생성 코드 길이"
 
-#: data/resources/ui/account_add.ui:222
+#: data/resources/ui/account_add.ui:204
 #: data/resources/ui/account_details_page.ui:218
-#: data/resources/ui/provider_page.ui:149
+#: data/resources/ui/provider_page.ui:136
 msgid "Website"
 msgstr "웹사이트"
 
-#: data/resources/ui/account_add.ui:227
+#: data/resources/ui/account_add.ui:209
 msgid "How to Set Up"
 msgstr "설정 방법"
 
@@ -237,12 +255,12 @@ msgstr "편집(_E)"
 
 #: data/resources/ui/account_details_page.ui:76
 #: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:55
+#: data/resources/ui/provider_page.ui:52
 msgid "_Save"
 msgstr "저장(_S)"
 
 #: data/resources/ui/account_details_page.ui:91
-#: data/resources/ui/provider_page.ui:264
+#: data/resources/ui/provider_page.ui:233
 msgid "_Delete"
 msgstr "삭제(_D)"
 
@@ -278,16 +296,16 @@ msgstr "암호를 설정하고 나면 인증기는 잠긴 상태에서 시작합
 msgid "Current Passphrase"
 msgstr "현재 암호"
 
-#: data/resources/ui/preferences_password_page.ui:66
+#: data/resources/ui/preferences_password_page.ui:58
 msgid "New Passphrase"
 msgstr "새 암호"
 
-#: data/resources/ui/preferences_password_page.ui:80
+#: data/resources/ui/preferences_password_page.ui:64
 msgid "Repeat Passphrase"
 msgstr "암호 반복 입력"
 
-#: data/resources/ui/preferences_password_page.ui:102
-#: data/resources/ui/provider_page.ui:100
+#: data/resources/ui/preferences_password_page.ui:78
+#: data/resources/ui/provider_page.ui:97
 msgid "_Reset"
 msgstr "초기화(_R)"
 
@@ -335,47 +353,59 @@ msgstr "자동 잠금 제한시간(_T)"
 msgid "The time in minutes"
 msgstr "분단위 시간"
 
+#: data/resources/ui/preferences.ui:89
+msgid "Network"
+msgstr "네트워크"
+
 #: data/resources/ui/preferences.ui:92
+msgid "_Download Favicons"
+msgstr "파비콘 다운로드(_D)"
+
+#: data/resources/ui/preferences.ui:95
+msgid "Automatically attempt fetching a website icon"
+msgstr "웹사이트 아이콘 가져오기를 자동으로 시도합니다"
+
+#: data/resources/ui/preferences.ui:105
+msgid "_Metered Connection"
+msgstr "종량제 연결(_M)"
+
+#: data/resources/ui/preferences.ui:108
+msgid "Fetch a website icon on a metered connection"
+msgstr "종량제 연결망에서 웹사이트 아이콘을 가져옵니다"
+
+#: data/resources/ui/preferences.ui:123
 msgid "Backup/Restore"
 msgstr "백업/복원"
 
-#: data/resources/ui/preferences.ui:95 src/widgets/preferences/window.rs:511
+#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:522
 msgid "Backup"
 msgstr "백업"
 
-#: data/resources/ui/preferences.ui:100 src/widgets/preferences/window.rs:518
+#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:530
 msgid "Restore"
 msgstr "복원"
 
-#: data/resources/ui/provider_page.ui:110
+#: data/resources/ui/provider_page.ui:107
 msgid "Select a _File"
 msgstr "파일 선택(_F)"
 
-#: data/resources/ui/provider_page.ui:134
+#: data/resources/ui/provider_page.ui:130
 msgid "Name"
 msgstr "이름"
 
-#: data/resources/ui/provider_page.ui:150
-msgid "Used to fetch the provider icon"
-msgstr "제공자 아이콘을 가져올 때 사용"
-
-#: data/resources/ui/provider_page.ui:213
+#: data/resources/ui/provider_page.ui:192
 msgid "The by default value for counter-based computing method"
 msgstr "카운트 기반 처리 방식에 쓰는 기본값"
 
-#: data/resources/ui/provider_page.ui:247
+#: data/resources/ui/provider_page.ui:225
 msgid "Help URL"
 msgstr "도움말 URL"
-
-#: data/resources/ui/provider_page.ui:248
-msgid "Provider setup instructions"
-msgstr "제공자 설정 절차"
 
 #: data/resources/ui/providers_dialog.ui:5
 msgid "Providers"
 msgstr "제공자"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:237
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:225
 msgid "New Provider"
 msgstr "새 제공자"
 
@@ -493,15 +523,14 @@ msgstr "계정 없음"
 msgid "Add an account or scan a QR code first."
 msgstr "계정을 추가하거나 QR 코드를 우선 스캔하십시오."
 
-#: src/application.rs:113
+#: src/application.rs:103
 msgid "Accounts restored successfully"
 msgstr "계정 복원에 성공했습니다"
 
-#: src/application.rs:137
+# NOTE: 크레딧은 실명만 기입하십시오. 익명 발견 즉시 삭제합니다.
+#: src/application.rs:132
 msgid "translator-credits"
-msgstr ""
-"Minori Hiraoka <minori@mnetwork.co.kr>\n"
-"Seong-ho Cho <shcho@gnome.org>"
+msgstr "조성호 <shcho@gnome.org>"
 
 #: src/application.rs:451 src/widgets/accounts/row.rs:45
 msgid "One-Time password copied"
@@ -513,15 +542,15 @@ msgstr "암호 복사에 성공했습니다"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:377 src/backup/aegis.rs:429
+#: src/backup/aegis.rs:393 src/backup/aegis.rs:445
 msgid "Aegis"
 msgstr "이지스"
 
-#: src/backup/aegis.rs:381
+#: src/backup/aegis.rs:397
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "원시 텍스트 또는 암호화 필드가 들어간 JSON 파일로"
 
-#: src/backup/aegis.rs:433
+#: src/backup/aegis.rs:449
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "원시 텍스트 또는 암호화 필드가 들어간 JSON 파일에서"
 
@@ -586,28 +615,28 @@ msgstr "구글 인증기에서 만든 QR 코드에서"
 msgid "Au_thenticator (Legacy)"
 msgstr "인증기(구형) (_T)"
 
-#: src/models/algorithm.rs:61
+#: src/models/algorithm.rs:56
 msgid "Counter-based"
 msgstr "카운터 기반"
 
-#: src/models/algorithm.rs:62
+#: src/models/algorithm.rs:57
 msgid "Time-based"
 msgstr "시간 기반"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:64
+#: src/models/algorithm.rs:59
 msgid "Steam"
 msgstr "스팀"
 
-#: src/models/algorithm.rs:132
+#: src/models/algorithm.rs:122
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:133
+#: src/models/algorithm.rs:123
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:134
+#: src/models/algorithm.rs:124
 msgid "SHA-512"
 msgstr "SHA-512"
 
@@ -615,76 +644,78 @@ msgstr "SHA-512"
 msgid "Invalid Token"
 msgstr "부적절한 토큰"
 
-#: src/widgets/window.rs:300
+#: src/widgets/window.rs:105
 msgid "Wrong Password"
 msgstr "잘못된 암호"
 
-#: src/widgets/preferences/password_page.rs:218
-#: src/widgets/preferences/password_page.rs:257
+#: src/widgets/preferences/password_page.rs:211
+#: src/widgets/preferences/password_page.rs:250
 msgid "Wrong Passphrase"
 msgstr "잘못된 암호"
 
-#: src/widgets/preferences/window.rs:249 src/widgets/preferences/window.rs:317
+#: src/widgets/preferences/window.rs:251 src/widgets/preferences/window.rs:318
 msgid "Key / Passphrase"
 msgstr "키 / 암호"
 
-#: src/widgets/preferences/window.rs:250
+#: src/widgets/preferences/window.rs:252
 msgid "The key that will be used to decrypt the vault"
 msgstr "볼트를 암호화 해제할 때 활용할 키입니다"
 
-#: src/widgets/preferences/window.rs:266 src/widgets/preferences/window.rs:333
+#: src/widgets/preferences/window.rs:268 src/widgets/preferences/window.rs:334
 msgid "Select File"
 msgstr "파일 선택"
 
-#: src/widgets/preferences/window.rs:318
+#: src/widgets/preferences/window.rs:319
 msgid "The key used to encrypt the vault"
 msgstr "볼트를 암호화할 때 사용할 키입니다"
 
-#: src/widgets/preferences/window.rs:405 src/widgets/preferences/window.rs:438
+#: src/widgets/preferences/window.rs:406 src/widgets/preferences/window.rs:439
 msgid "Unable to restore accounts"
 msgstr "계정을 복원할 수 없습니다"
 
-#: src/widgets/preferences/window.rs:416
+#: src/widgets/preferences/window.rs:417
 msgid "Something went wrong"
 msgstr "뭔가가 잘못됐네요"
 
-#: src/widgets/preferences/window.rs:444
+#: src/widgets/preferences/window.rs:445
 msgid "Couldn't find a QR code"
 msgstr "QR 코드를 찾을 수 없습니다"
 
-#: src/widgets/preferences/window.rs:514 src/widgets/preferences/window.rs:521
-#: src/widgets/providers/page.rs:321
-msgid "Select"
-msgstr "선택"
-
-#: src/widgets/preferences/window.rs:515 src/widgets/preferences/window.rs:522
-#: src/widgets/providers/page.rs:322
-msgid "Cancel"
-msgstr "취소"
-
-#: src/widgets/providers/dialog.rs:246
+#: src/widgets/providers/dialog.rs:244
 msgid "Provider created successfully"
 msgstr "제공자 추가에 성공했습니다"
 
-#: src/widgets/providers/dialog.rs:256
+#: src/widgets/providers/dialog.rs:254
 msgid "Provider updated successfully"
 msgstr "제공자 정보 업데이트에 성공했습니다"
 
-#: src/widgets/providers/dialog.rs:273
+#: src/widgets/providers/dialog.rs:271
 msgid "Provider removed successfully"
 msgstr "제공자 정보 제거에 성공했습니다"
 
-#: src/widgets/providers/page.rs:213
+#: src/widgets/providers/page.rs:201
 msgid "Editing Provider: {}"
 msgstr "편집 제공자: {}"
 
-#: src/widgets/providers/page.rs:329
+#: src/widgets/providers/page.rs:308
 msgid "Image"
 msgstr "이미지"
 
-#: src/widgets/providers/page.rs:364
+#: src/widgets/providers/page.rs:341
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "계정을 할당한 제공자가 이미 있습니다. 우선 해당 항목을 제거하십시오"
+
+#~ msgid "Used to fetch the provider icon"
+#~ msgstr "제공자 아이콘을 가져올 때 사용"
+
+#~ msgid "Provider setup instructions"
+#~ msgstr "제공자 설정 절차"
+
+#~ msgid "Select"
+#~ msgstr "선택"
+
+#~ msgid "Cancel"
+#~ msgstr "취소"
 
 #~ msgid "D_etails"
 #~ msgstr "세부 정보(_E)"
