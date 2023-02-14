@@ -146,7 +146,9 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl Window {
     pub fn new(model: ProvidersModel, app: &Application) -> Self {
-        let window = glib::Object::new::<Window>(&[("application", app)]);
+        let window = glib::Object::builder::<Window>()
+            .property("application", app)
+            .build();
         app.add_window(&window);
 
         if config::PROFILE == "Devel" {
@@ -201,7 +203,7 @@ impl Window {
     }
 
     pub fn add_toast(&self, toast: adw::Toast) {
-        self.imp().toast_overlay.add_toast(&toast);
+        self.imp().toast_overlay.add_toast(toast);
     }
 
     pub fn open_add_account(&self, otp_uri: Option<&OTPUri>) {

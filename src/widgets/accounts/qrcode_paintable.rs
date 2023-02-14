@@ -104,6 +104,6 @@ impl QRCodePaintable {
 
 impl Default for QRCodePaintable {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }

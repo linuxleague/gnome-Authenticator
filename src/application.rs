@@ -100,7 +100,7 @@ mod imp {
                     preferences.set_has_set_password(app.can_be_locked());
                     preferences.connect_restore_completed(clone!(@weak window =>move |_| {
                         window.providers().refilter();
-                        window.imp().toast_overlay.add_toast(&adw::Toast::new(&gettext("Accounts restored successfully")));
+                        window.imp().toast_overlay.add_toast(adw::Toast::new(&gettext("Accounts restored successfully")));
                     }));
                     preferences.connect_has_set_password_notify(clone!(@weak app => move |_, state| {
                         app.set_can_be_locked(state);
@@ -161,8 +161,7 @@ mod imp {
                 lock_action,
                 providers_action,
                 preferences_action,
-            ])
-            .unwrap();
+            ]);
             app.bind_property("can-be-locked", &get_action!(app, @lock), "enabled")
                 .sync_create()
                 .build();
@@ -317,13 +316,13 @@ impl Application {
 
         let has_set_password =
             spawn_tokio_blocking(async { keyring::has_set_password().await.unwrap_or(false) });
-        let app = glib::Object::new::<Application>(&[
-            ("application-id", &Some(config::APP_ID)),
-            ("flags", &gio::ApplicationFlags::HANDLES_OPEN),
-            ("resource-base-path", &"/com/belmoussaoui/Authenticator"),
-            ("is-locked", &has_set_password),
-            ("can-be-locked", &has_set_password),
-        ]);
+        let app = glib::Object::builder::<Application>()
+            .property("application-id", &Some(config::APP_ID))
+            .property("flags", &gio::ApplicationFlags::HANDLES_OPEN)
+            .property("resource-base-path", &"/com/belmoussaoui/Authenticator")
+            .property("is-locked", &has_set_password)
+            .property("can-be-locked", &has_set_password)
+            .build();
         // Only load the model if the app is not locked
         if !has_set_password {
             app.imp().model.load();

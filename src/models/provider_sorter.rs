@@ -36,6 +36,6 @@ glib::wrapper! {
 
 impl Default for ProviderSorter {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }

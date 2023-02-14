@@ -122,7 +122,9 @@ glib::wrapper! {
 
 impl AccountRow {
     pub fn new(account: Account) -> Self {
-        glib::Object::new(&[("account", &account)])
+        glib::Object::builder()
+            .property("account", &account)
+            .build()
     }
 
     fn account(&self) -> Account {

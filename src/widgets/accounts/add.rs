@@ -126,7 +126,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl AccountAddDialog {
     pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new::<Self>(&[]);
+        let dialog = glib::Object::new::<Self>();
 
         dialog.imp().model.set(model).unwrap();
         dialog.setup_widget();

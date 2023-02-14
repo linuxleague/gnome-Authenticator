@@ -35,6 +35,6 @@ glib::wrapper! {
 
 impl Default for AccountSorter {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }

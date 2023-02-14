@@ -91,6 +91,6 @@ impl AccountsModel {
 
 impl Default for AccountsModel {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }

@@ -121,7 +121,8 @@ impl ProvidersList {
     fn setup_widget(&self) {
         let imp = self.imp();
 
-        let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&imp.sorter));
+        let sort_model =
+            gtk::SortListModel::new(Some(imp.filter_model.clone()), Some(imp.sorter.clone()));
 
         imp.providers_list.bind_model(
             Some(&sort_model),

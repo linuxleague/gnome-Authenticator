@@ -408,6 +408,6 @@ impl ProviderPage {
 
 impl Default for ProviderPage {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }

@@ -229,6 +229,6 @@ impl ProvidersModel {
 
 impl Default for ProvidersModel {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }

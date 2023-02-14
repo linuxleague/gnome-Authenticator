@@ -67,7 +67,7 @@ mod imp {
                 };
             }));
 
-            obj.add_controller(&gesture);
+            obj.add_controller(gesture);
 
             let image_suffix = gtk::Image::from_icon_name("link-symbolic");
             image_suffix.add_css_class("dim-label");

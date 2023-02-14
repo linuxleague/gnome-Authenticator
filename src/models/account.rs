@@ -234,13 +234,13 @@ impl Account {
         provider: Provider,
         token: Option<&str>,
     ) -> Result<Account> {
-        let account = glib::Object::new::<Self>(&[
-            ("id", &id),
-            ("name", &name),
-            ("token-id", &token_id),
-            ("provider", &provider),
-            ("counter", &counter),
-        ]);
+        let account = glib::Object::builder::<Self>()
+            .property("id", &id)
+            .property("name", &name)
+            .property("token-id", &token_id)
+            .property("provider", &provider)
+            .property("counter", &counter)
+            .build();
 
         let token = if let Some(t) = token {
             t.to_string()

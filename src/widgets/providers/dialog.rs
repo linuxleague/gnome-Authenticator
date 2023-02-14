@@ -99,7 +99,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl ProvidersDialog {
     pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new::<ProvidersDialog>(&[]);
+        let dialog = glib::Object::new::<Self>();
 
         dialog.setup_widget(model);
         dialog
@@ -133,9 +133,9 @@ impl ProvidersDialog {
         );
 
         let sorter = ProviderSorter::default();
-        let sort_model = gtk::SortListModel::new(Some(&imp.filter_model), Some(&sorter));
+        let sort_model = gtk::SortListModel::new(Some(imp.filter_model.clone()), Some(sorter));
 
-        let selection_model = gtk::NoSelection::new(Some(&sort_model));
+        let selection_model = gtk::NoSelection::new(Some(sort_model));
         imp.providers_list
             .bind_model(Some(&selection_model), move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
@@ -241,7 +241,7 @@ impl ProvidersDialog {
         self.emit_by_name::<()>("changed", &[]);
         self.imp()
             .toast_overlay
-            .add_toast(&adw::Toast::new(&gettext("Provider created successfully")));
+            .add_toast(adw::Toast::new(&gettext("Provider created successfully")));
         self.set_view(View::Placeholder);
     }
 
@@ -251,7 +251,7 @@ impl ProvidersDialog {
         self.emit_by_name::<()>("changed", &[]);
         self.imp()
             .toast_overlay
-            .add_toast(&adw::Toast::new(&gettext("Provider updated successfully")));
+            .add_toast(adw::Toast::new(&gettext("Provider updated successfully")));
     }
 
     #[template_callback]
@@ -268,7 +268,7 @@ impl ProvidersDialog {
         self.emit_by_name::<()>("changed", &[]);
         self.imp()
             .toast_overlay
-            .add_toast(&adw::Toast::new(&gettext("Provider removed successfully")));
+            .add_toast(adw::Toast::new(&gettext("Provider removed successfully")));
     }
 }
 
@@ -358,7 +358,7 @@ mod row {
 
     impl Default for ProviderActionRow {
         fn default() -> Self {
-            glib::Object::new(&[])
+            glib::Object::new()
         }
     }
 }

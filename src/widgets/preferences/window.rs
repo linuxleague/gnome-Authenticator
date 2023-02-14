@@ -147,7 +147,7 @@ glib::wrapper! {
 
 impl PreferencesWindow {
     pub fn new(model: ProvidersModel) -> Self {
-        let window = glib::Object::new::<Self>(&[]);
+        let window = glib::Object::new::<Self>();
         window.imp().model.set(model).unwrap();
         window.setup_widget();
         window
@@ -403,7 +403,7 @@ impl PreferencesWindow {
 
                                     get_action!(win.imp().actions, @close_page).activate(None);
 
-                                    win.add_toast(&adw::Toast::new(&gettext("Unable to restore accounts")));
+                                    win.add_toast(adw::Toast::new(&gettext("Unable to restore accounts")));
                                 },
                             },
                             Err(error) => {
@@ -414,7 +414,7 @@ impl PreferencesWindow {
 
                                 get_action!(win.imp().actions, @close_page).activate(None);
 
-                                win.add_toast(&adw::Toast::new(&gettext("Something went wrong")));
+                                win.add_toast(adw::Toast::new(&gettext("Something went wrong")));
                             },
                         }
                     });
@@ -436,13 +436,13 @@ impl PreferencesWindow {
                                         "scanned QR code: {}",
                                     ), error);
 
-                                    win.add_toast(&adw::Toast::new(&gettext("Unable to restore accounts")));
+                                    win.add_toast(adw::Toast::new(&gettext("Unable to restore accounts")));
                                 },
                             },
                             Err(error) => {
                                 tracing::error!("Encountered an error while trying to scan from the screenshot: {}", error);
 
-                                win.add_toast(&adw::Toast::new(&gettext("Couldn't find a QR code")));
+                                win.add_toast(adw::Toast::new(&gettext("Couldn't find a QR code")));
                             },
                         }
                     });

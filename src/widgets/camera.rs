@@ -15,7 +15,7 @@ use image::GenericImageView;
 use once_cell::sync::Lazy;
 
 use super::{CameraItem, CameraRow};
-use crate::widgets::CameraPaintable;
+use crate::{utils::spawn_tokio, widgets::CameraPaintable};
 
 mod screenshot {
     use super::*;
@@ -46,14 +46,18 @@ mod screenshot {
         } else {
             ashpd::WindowIdentifier::default()
         };
-        let uri = ScreenshotRequest::default()
-            .identifier(identifier)
-            .modal(true)
-            .interactive(true)
-            .build()
-            .await?;
+        let uri = spawn_tokio(async {
+            ScreenshotRequest::default()
+                .identifier(identifier)
+                .modal(true)
+                .interactive(true)
+                .build()
+                .await?
+                .response()
+        })
+        .await?;
 
-        Ok(gio::File::for_uri(uri.as_str()))
+        Ok(gio::File::for_uri(uri.uri().as_str()))
     }
 }
 
@@ -231,7 +235,7 @@ impl Camera {
 
     pub fn scan_from_camera(&self) {
         spawn!(clone!(@weak self as camera => async move {
-            match ashpd::desktop::camera::request().await {
+            match spawn_tokio(async {ashpd::desktop::camera::request().await }).await {
                 Ok(Some((stream_fd, nodes_id))) => {
                     match camera.imp().paintable.set_pipewire_fd(stream_fd) {
                         Ok(_) => {
@@ -330,7 +334,7 @@ impl Camera {
                 }
             }));
         }));
-        let list_view = gtk::ListView::new(Some(&imp.selection), Some(&factory));
+        let list_view = gtk::ListView::new(Some(imp.selection.clone()), Some(factory));
         popover.set_child(Some(&list_view));
 
         imp.selection.connect_selected_item_notify(glib::clone!(@weak self as obj, @weak popover => move |selection| {
@@ -366,6 +370,6 @@ impl Camera {
 
 impl Default for Camera {
     fn default() -> Self {
-        glib::Object::new(&[])
+        glib::Object::new()
     }
 }

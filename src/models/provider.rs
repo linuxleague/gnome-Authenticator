@@ -109,7 +109,7 @@ mod imp {
                 image_uri: RefCell::default(),
                 method: RefCell::new(OTPMethod::default().to_string()),
                 period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
-                filter_model: gtk::FilterListModel::new(Some(&model), gtk::Filter::NONE),
+                filter_model: gtk::FilterListModel::new(Some(model.clone()), None::<gtk::Filter>),
                 accounts: model,
                 tick_callback: RefCell::default(),
                 remaining_time: Cell::default(),
@@ -307,18 +307,18 @@ impl Provider {
         help_url: Option<String>,
         image_uri: Option<String>,
     ) -> Provider {
-        glib::Object::new(&[
-            ("id", &id),
-            ("name", &name),
-            ("website", &website),
-            ("help-url", &help_url),
-            ("image-uri", &image_uri),
-            ("period", &period),
-            ("method", &method.to_string()),
-            ("algorithm", &algorithm.to_string()),
-            ("digits", &digits),
-            ("default-counter", &default_counter),
-        ])
+        glib::Object::builder()
+            .property("id", &id)
+            .property("name", &name)
+            .property("website", &website)
+            .property("help-url", &help_url)
+            .property("image-uri", &image_uri)
+            .property("period", &period)
+            .property("method", &method.to_string())
+            .property("algorithm", &algorithm.to_string())
+            .property("digits", &digits)
+            .property("default-counter", &default_counter)
+            .build()
     }
 
     pub async fn favicon(

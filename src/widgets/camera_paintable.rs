@@ -106,7 +106,7 @@ glib::wrapper! {
 
 impl CameraPaintable {
     pub fn new(sender: Sender<CameraEvent>) -> Self {
-        let paintable = glib::Object::new::<Self>(&[]);
+        let paintable = glib::Object::new::<Self>();
         paintable.imp().sender.replace(Some(sender));
         paintable
     }

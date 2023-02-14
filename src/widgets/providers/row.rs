@@ -104,7 +104,9 @@ glib::wrapper! {
 
 impl ProviderRow {
     pub fn new(provider: Provider) -> Self {
-        glib::Object::new(&[("provider", &provider)])
+        glib::Object::builder()
+            .property("provider", &provider)
+            .build()
     }
 
     pub fn connect_changed<F>(&self, callback: F) -> glib::SignalHandlerId
@@ -177,7 +179,8 @@ impl ProviderRow {
             .build();
 
         let sorter = AccountSorter::default();
-        let sort_model = gtk::SortListModel::new(Some(provider.accounts()), Some(&sorter));
+        let sort_model =
+            gtk::SortListModel::new(Some(provider.accounts().clone()), Some(sorter.clone()));
 
         let create_callback = clone!(@strong self as provider_row, @strong sorter, @strong provider => move |account: &glib::Object| {
             let account = account.clone().downcast::<Account>().unwrap();

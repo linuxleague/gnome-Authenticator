@@ -57,7 +57,7 @@ glib::wrapper! {
 
 impl CameraPage {
     pub fn new(actions: gio::SimpleActionGroup) -> Self {
-        let page = glib::Object::new::<Self>(&[]);
+        let page = glib::Object::new::<Self>();
         page.imp().actions.set(actions).unwrap();
         page.setup_widget();
         page
