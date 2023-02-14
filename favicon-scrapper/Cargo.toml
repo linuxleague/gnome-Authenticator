@@ -9,11 +9,11 @@ autotests = false
 [dependencies]
 reqwest = "0.11"
 percent-encoding = "2.1"
-quick-xml = "0.22"
+quick-xml = "0.27"
 image = {version = "0.24", features = ["ico", "png"], default-features = false}
 url = "2.2"
 once_cell = "1.9"
 tracing = "0.1"
-base64 = "0.13.0"
+base64 = "0.21"
 svg_metadata = "0.4"
 tokio = { version = "1.0", features = ["rt-multi-thread", "fs", "io-util", "macros"] }

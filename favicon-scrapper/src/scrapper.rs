@@ -1,7 +1,10 @@
 use std::{fmt, path::PathBuf};
 
 use percent_encoding::percent_decode_str;
-use quick_xml::events::{attributes::Attribute, BytesStart, Event};
+use quick_xml::{
+    events::{attributes::Attribute, BytesStart, Event},
+    name::QName,
+};
 use tracing::debug;
 use url::Url;
 
@@ -98,17 +101,16 @@ impl Scrapper {
     }
 
     fn from_reader(reader: &mut quick_xml::Reader<&[u8]>, base_url: Option<&Url>) -> Vec<Favicon> {
-        let mut buf = Vec::new();
         let mut urls = Vec::new();
         loop {
-            match reader.read_event(&mut buf) {
+            match reader.read_event() {
                 Ok(Event::Start(ref e)) | Ok(Event::Empty(ref e)) => match e.name() {
-                    b"link" => {
+                    QName(b"link") => {
                         if let Some(url) = Self::from_link(e, base_url) {
                             urls.push(url);
                         }
                     }
-                    b"meta" => {
+                    QName(b"meta") => {
                         if let Some(url) = Self::from_meta(e, base_url) {
                             urls.push(url);
                         }
@@ -120,7 +122,6 @@ impl Scrapper {
                 _ => (),
             }
         }
-        buf.clear();
         urls
     }
 
@@ -131,7 +132,7 @@ impl Scrapper {
         for attr in e.html_attributes() {
             match attr {
                 Ok(Attribute {
-                    key: b"content",
+                    key: QName(b"content"),
                     value,
                 }) => {
                     let mut href = String::from_utf8(value.into_owned()).ok()?;
@@ -147,7 +148,7 @@ impl Scrapper {
                     };
                 }
                 Ok(Attribute {
-                    key: b"name",
+                    key: QName(b"name"),
                     value,
                 }) => {
                     if SUPPORTED_META.contains(&value.into_owned().as_slice()) {
@@ -176,7 +177,7 @@ impl Scrapper {
         for attr in e.html_attributes() {
             match attr {
                 Ok(Attribute {
-                    key: b"href",
+                    key: QName(b"href"),
                     value,
                 }) => {
                     let mut href = String::from_utf8(value.into_owned()).ok()?;
@@ -228,7 +229,7 @@ impl Scrapper {
                     }
                 }
                 Ok(Attribute {
-                    key: b"sizes",
+                    key: QName(b"sizes"),
                     value,
                 }) => {
                     let size_inner = String::from_utf8(value.into_owned()).ok()?.to_lowercase();
@@ -239,7 +240,10 @@ impl Scrapper {
                         metadata.size = Some((w, h));
                     }
                 }
-                Ok(Attribute { key: b"rel", value }) => {
+                Ok(Attribute {
+                    key: QName(b"rel"),
+                    value,
+                }) => {
                     if SUPPORTED_RELS.contains(&value.into_owned().as_slice()) {
                         has_proper_rel = true;
                     }

@@ -6,7 +6,7 @@ version = "4.2.0"
 [dependencies]
 adw = {package = "libadwaita", version = "0.3", features = ["v1_2"]}
 anyhow = "1.0"
-ashpd = {version = "0.4.0-alpha.4", features = ["pipewire", "gtk4", "tracing"]}
+ashpd = {version = "0.4.0-alpha.4", default-features = false, features = ["pipewire", "gtk4", "tokio", "tracing"]}
 binascii = "0.1"
 diesel = {version = "2.0", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "2.0", features = ["sqlite"]}
@@ -33,7 +33,7 @@ url = "2.2"
 zbar-rust = "0.0"
 scrypt = { version = "0.10", default-features = false }
 aes-gcm = "0.10"
-base64 = "0.20"
+base64 = "0.21"
 uuid = { version = "1.0", features = ["v4"] }
 favicon-scrapper = {path = "./favicon-scrapper"}
 image = {version = "0.24", default-features = false, features = ["png"]}
