@@ -181,7 +181,8 @@
                                           <object class="GtkMenuButton">
                                             <property name="menu-model">menu</property>
                                             <property name="icon-name">open-menu-symbolic</property>
-                                            <property name="tooltip-text" translatable="yes">Menu</property>
+                                            <property name="primary">True</property>
+                                            <property name="tooltip-text" translatable="yes">Main Menu</property>
                                           </object>
                                         </child>
                                         <style>
@@ -254,7 +255,8 @@
                                           <object class="GtkMenuButton">
                                             <property name="menu-model">menu</property>
                                             <property name="icon-name">open-menu-symbolic</property>
-                                            <property name="tooltip-text" translatable="yes">Menu</property>
+                                            <property name="primary">True</property>
+                                            <property name="tooltip-text" translatable="yes">Main Menu</property>
                                           </object>
                                         </child>
                                         <child type="end">
