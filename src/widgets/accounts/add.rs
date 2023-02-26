@@ -4,7 +4,6 @@ use anyhow::Result;
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
 use gtk::{glib, prelude::*, subclass::prelude::*};
-use gtk_macros::spawn;
 use once_cell::sync::{Lazy, OnceCell};
 
 use crate::{
@@ -73,7 +72,7 @@ mod imp {
             klass.bind_template();
             klass.bind_template_instance_callbacks();
 
-            klass.install_action("add.previous", None, move |dialog, _, _| {
+            klass.install_action("add.previous", None, |dialog, _, _| {
                 let imp = dialog.imp();
                 if imp.deck.visible_child_name().unwrap() != "main" {
                     imp.deck.set_visible_child_name("main");
@@ -82,18 +81,18 @@ mod imp {
                 }
             });
 
-            klass.install_action("add.save", None, move |dialog, _, _| {
+            klass.install_action("add.save", None, |dialog, _, _| {
                 if dialog.save().is_ok() {
                     dialog.close();
                 }
             });
 
-            klass.install_action("add.camera", None, move |dialog, _, _| {
-                dialog.scan_from_camera();
+            klass.install_action_async("add.camera", None, |dialog, _, _| async move {
+                dialog.scan_from_camera().await;
             });
 
-            klass.install_action("add.screenshot", None, move |dialog, _, _| {
-                dialog.scan_from_screenshot();
+            klass.install_action_async("add.screenshot", None, |dialog, _, _| async move {
+                dialog.scan_from_screenshot().await;
             });
         }
 
@@ -224,17 +223,15 @@ impl AccountAddDialog {
         imp.deck.set_visible_child_name("main");
     }
 
-    fn scan_from_screenshot(&self) {
-        spawn!(clone!(@weak self as page => async move {
-            if let Err(err) = page.imp().camera.scan_from_screenshot().await {
-                tracing::error!("Failed to scan from screenshot {}", err);
-            }
-        }));
+    async fn scan_from_screenshot(&self) {
+        if let Err(err) = self.imp().camera.scan_from_screenshot().await {
+            tracing::error!("Failed to scan from screenshot {}", err);
+        }
     }
 
-    fn scan_from_camera(&self) {
+    async fn scan_from_camera(&self) {
         let imp = self.imp();
-        imp.camera.scan_from_camera();
+        imp.camera.scan_from_camera().await;
         imp.deck.set_visible_child_name("camera");
     }
 

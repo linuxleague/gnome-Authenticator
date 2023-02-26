@@ -10,7 +10,6 @@ use gtk::{
     glib::{self, clone, Receiver},
     prelude::*,
 };
-use gtk_macros::spawn;
 use image::GenericImageView;
 use once_cell::sync::Lazy;
 
@@ -233,23 +232,21 @@ impl Camera {
         imp.selection.set_selected(0);
     }
 
-    pub fn scan_from_camera(&self) {
-        spawn!(clone!(@weak self as camera => async move {
-            match spawn_tokio(async {ashpd::desktop::camera::request().await }).await {
-                Ok(Some((stream_fd, nodes_id))) => {
-                    match camera.imp().paintable.set_pipewire_fd(stream_fd) {
-                        Ok(_) => {
-                            camera.set_streams(nodes_id);
-                        },
-                        Err(err) => tracing::error!("Failed to start the camera stream {err}"),
-                    };
-                },
-                Ok(None) => {
-                    camera.set_state(CameraState::NotFound);
-                }
-                Err(e) => tracing::error!("Failed to stream {}", e),
+    pub async fn scan_from_camera(&self) {
+        match spawn_tokio(async { ashpd::desktop::camera::request().await }).await {
+            Ok(Some((stream_fd, nodes_id))) => {
+                match self.imp().paintable.set_pipewire_fd(stream_fd) {
+                    Ok(_) => {
+                        self.set_streams(nodes_id);
+                    }
+                    Err(err) => tracing::error!("Failed to start the camera stream {err}"),
+                };
             }
-        }));
+            Ok(None) => {
+                self.set_state(CameraState::NotFound);
+            }
+            Err(e) => tracing::error!("Failed to stream {}", e),
+        }
     }
 
     pub async fn scan_from_screenshot(&self) -> anyhow::Result<()> {

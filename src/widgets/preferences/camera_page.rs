@@ -96,7 +96,7 @@ impl CameraPage {
         drop(tx);
         drop(src);
 
-        imp.camera.scan_from_camera();
+        imp.camera.scan_from_camera().await;
 
         match rx.await {
             Ok(code) => Ok(code),
