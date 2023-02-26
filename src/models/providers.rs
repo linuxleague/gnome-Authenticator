@@ -1,5 +1,4 @@
 use anyhow::Result;
-use glib::StaticType;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 use super::{otp, Account, Algorithm, OTPMethod, Provider, ProviderPatch};

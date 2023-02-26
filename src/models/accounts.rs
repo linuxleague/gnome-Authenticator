@@ -1,4 +1,3 @@
-use glib::StaticType;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 use super::account::Account;
