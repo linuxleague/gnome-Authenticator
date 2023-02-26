@@ -24,7 +24,7 @@ fn init_i18n() -> anyhow::Result<()> {
     Ok(())
 }
 
-fn main() {
+fn main() -> glib::ExitCode {
     tracing_subscriber::fmt::init();
     gtk::init().expect("failed to init gtk");
     gst::init().expect("failed to init gstreamer");
@@ -40,5 +40,5 @@ fn main() {
 
     glib::set_application_name(&gettext("Authenticator"));
 
-    Application::run();
+    Application::run()
 }

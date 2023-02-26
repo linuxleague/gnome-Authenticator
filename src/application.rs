@@ -248,7 +248,7 @@ glib::wrapper! {
 }
 
 impl Application {
-    pub fn run() {
+    pub fn run() -> glib::ExitCode {
         tracing::info!("Authenticator ({})", config::APP_ID);
         tracing::info!("Version: {} ({})", config::VERSION, config::PROFILE);
         tracing::info!("Datadir: {}", config::PKGDATADIR);
@@ -307,7 +307,7 @@ impl Application {
             app.imp().model.load();
         }
 
-        ApplicationExtManual::run(&app);
+        app.run()
     }
 
     pub fn active_window(&self) -> Window {
