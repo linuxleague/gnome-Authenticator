@@ -235,11 +235,11 @@ impl Account {
         token: Option<&str>,
     ) -> Result<Account> {
         let account = glib::Object::builder::<Self>()
-            .property("id", &id)
-            .property("name", &name)
-            .property("token-id", &token_id)
-            .property("provider", &provider)
-            .property("counter", &counter)
+            .property("id", id)
+            .property("name", name)
+            .property("token-id", token_id)
+            .property("provider", provider)
+            .property("counter", counter)
             .build();
 
         let token = if let Some(t) = token {
@@ -288,7 +288,7 @@ impl Account {
             }
         };
 
-        self.set_property("otp", &label);
+        self.set_property("otp", label);
     }
 
     /// Increment the internal counter in case of a HOTP account
@@ -391,7 +391,7 @@ impl Account {
             .set(accounts::columns::name.eq(name))
             .execute(&mut conn)?;
 
-        self.set_property("name", &name);
+        self.set_property("name", name);
         Ok(())
     }
 
@@ -404,7 +404,7 @@ impl Account {
             .set(accounts::columns::counter.eq(counter as i32))
             .execute(&mut conn)?;
 
-        self.set_property("counter", &counter);
+        self.set_property("counter", counter);
         Ok(())
     }
 

@@ -296,11 +296,11 @@ impl Application {
         let has_set_password =
             spawn_tokio_blocking(async { keyring::has_set_password().await.unwrap_or(false) });
         let app = glib::Object::builder::<Application>()
-            .property("application-id", &Some(config::APP_ID))
-            .property("flags", &gio::ApplicationFlags::HANDLES_OPEN)
-            .property("resource-base-path", &"/com/belmoussaoui/Authenticator")
-            .property("is-locked", &has_set_password)
-            .property("can-be-locked", &has_set_password)
+            .property("application-id", config::APP_ID)
+            .property("flags", gio::ApplicationFlags::HANDLES_OPEN)
+            .property("resource-base-path", "/com/belmoussaoui/Authenticator")
+            .property("is-locked", has_set_password)
+            .property("can-be-locked", has_set_password)
             .build();
         // Only load the model if the app is not locked
         if !has_set_password {

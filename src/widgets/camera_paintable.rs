@@ -113,7 +113,7 @@ impl CameraPaintable {
 
     pub fn set_pipewire_node_id(&self, node_id: u32) -> anyhow::Result<()> {
         let pipewire_element = self.imp().pipewire_element.borrow().clone().unwrap();
-        pipewire_element.set_property("path", &node_id.to_string());
+        pipewire_element.set_property("path", node_id.to_string());
         tracing::debug!("Loading PipeWire Node ID: {node_id}");
         self.close_pipeline();
         self.init_pipeline(&pipewire_element)?;
@@ -123,7 +123,7 @@ impl CameraPaintable {
     pub fn set_pipewire_fd<F: AsRawFd>(&self, fd: F) -> anyhow::Result<()> {
         let raw_fd = fd.as_raw_fd();
         let pipewire_element = gst::ElementFactory::make_with_name("pipewiresrc", None)?;
-        pipewire_element.set_property("fd", &raw_fd);
+        pipewire_element.set_property("fd", raw_fd);
         tracing::debug!("Loading PipeWire with FD: {}", raw_fd);
         self.imp().pipewire_element.replace(Some(pipewire_element));
         Ok(())

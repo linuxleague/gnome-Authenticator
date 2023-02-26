@@ -308,16 +308,16 @@ impl Provider {
         image_uri: Option<String>,
     ) -> Provider {
         glib::Object::builder()
-            .property("id", &id)
-            .property("name", &name)
-            .property("website", &website)
-            .property("help-url", &help_url)
-            .property("image-uri", &image_uri)
-            .property("period", &period)
-            .property("method", &method.to_string())
-            .property("algorithm", &algorithm.to_string())
-            .property("digits", &digits)
-            .property("default-counter", &default_counter)
+            .property("id", id)
+            .property("name", name)
+            .property("website", website)
+            .property("help-url", help_url)
+            .property("image-uri", image_uri)
+            .property("period", period)
+            .property("method", method.to_string())
+            .property("algorithm", algorithm.to_string())
+            .property("digits", digits)
+            .property("default-counter", default_counter)
             .build()
     }
 
@@ -499,7 +499,7 @@ impl Provider {
             .set(providers::columns::image_uri.eq(uri))
             .execute(&mut conn)?;
 
-        self.set_property("image-uri", &uri);
+        self.set_property("image-uri", uri);
         self.notify("image-uri");
         Ok(())
     }
@@ -551,14 +551,14 @@ impl Provider {
         if period == remaining_time {
             self.regenerate_otp();
         }
-        self.set_property("remaining-time", &remaining_time);
+        self.set_property("remaining-time", remaining_time);
     }
 
     fn setup_tick_callback(&self) {
         if self.imp().tick_callback.borrow().is_some() || !self.method().is_time_based() {
             return;
         }
-        self.set_property("remaining-time", &(self.period() as u64));
+        self.set_property("remaining-time", self.period() as u64);
 
         match self.method() {
             OTPMethod::TOTP | OTPMethod::Steam => {

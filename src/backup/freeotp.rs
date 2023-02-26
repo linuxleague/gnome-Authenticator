@@ -78,7 +78,6 @@ impl Restorable for FreeOTP {
 
         let items = uris
             .split('\n')
-            .into_iter()
             .filter_map(|uri| OTPUri::from_str(uri).ok())
             .collect::<Vec<OTPUri>>();
 
