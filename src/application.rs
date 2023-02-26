@@ -93,10 +93,10 @@ mod imp {
                 .activate(|app: &Self::Type, _, _| {
                     let window = app.active_window();
                     adw::AboutWindow::builder()
-                        .application_name(&gettext("Authenticator"))
+                        .application_name(gettext("Authenticator"))
                         .modal(true)
                         .version(config::VERSION)
-                        .comments(&gettext("Generate Two-Factor Codes"))
+                        .comments(gettext("Generate Two-Factor Codes"))
                         .website("https://gitlab.gnome.org/World/Authenticator")
                         .developers(vec![
                             "Bilal Elmoussaoui",
@@ -105,7 +105,7 @@ mod imp {
                             "Julia Johannesen",
                         ])
                         .artists(vec!["Alexandros Felekidis", "Tobias Bernard"])
-                        .translator_credits(&gettext("translator-credits"))
+                        .translator_credits(gettext("translator-credits"))
                         .application_icon(config::APP_ID)
                         .license_type(gtk::License::Gpl30)
                         .transient_for(&window)

@@ -58,7 +58,7 @@ pub trait RestorableItem: Debug {
     fn counter(&self) -> Option<u32>;
 
     fn restore(&self, provider: &ProvidersModel) -> Result<()> {
-        let owned_token = self.secret().clone();
+        let owned_token = self.secret();
         let token_exists =
             spawn_tokio_blocking(async move { keyring::token_exists(&owned_token).await })?;
         if !token_exists {

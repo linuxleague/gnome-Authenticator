@@ -162,8 +162,8 @@ impl AccountDetailsPage {
         let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
 
         let dialog = adw::MessageDialog::builder()
-            .heading(&gettext("Are you sure you want to delete the account?"))
-            .body(&gettext("This action is irreversible"))
+            .heading(gettext("Are you sure you want to delete the account?"))
+            .body(gettext("This action is irreversible"))
             .modal(true)
             .transient_for(&parent)
             .build();

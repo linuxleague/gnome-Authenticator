@@ -205,15 +205,15 @@ impl PreferencesWindow {
         let imp = self.imp();
         if T::ENCRYPTABLE {
             let row = adw::ExpanderRow::builder()
-                .title(&T::title())
-                .subtitle(&T::subtitle())
+                .title(T::title())
+                .subtitle(T::subtitle())
                 .show_enable_switch(false)
                 .enable_expansion(true)
                 .use_underline(true)
                 .build();
             let key_row = adw::ActionRow::builder()
-                .title(&gettext("Key / Passphrase"))
-                .subtitle(&gettext("The key that will be used to decrypt the vault"))
+                .title(gettext("Key / Passphrase"))
+                .subtitle(gettext("The key that will be used to decrypt the vault"))
                 .build();
 
             let key_entry = gtk::PasswordEntry::builder()
@@ -229,8 +229,8 @@ impl PreferencesWindow {
             let key_button = gtk::Button::builder()
                 .valign(gtk::Align::Center)
                 .halign(gtk::Align::End)
-                .label(&gettext("Select File"))
-                .action_name(&format!("backup.{}", T::identifier()))
+                .label(gettext("Select File"))
+                .action_name(format!("backup.{}", T::identifier()))
                 .build();
             button_row.add_suffix(&key_button);
             row.add_row(&button_row);
@@ -238,11 +238,11 @@ impl PreferencesWindow {
             imp.backup_group.add(&row);
         } else {
             let row = adw::ActionRow::builder()
-                .title(&T::title())
-                .subtitle(&T::subtitle())
+                .title(T::title())
+                .subtitle(T::subtitle())
                 .activatable(true)
                 .use_underline(true)
-                .action_name(&format!("backup.{}", T::identifier()))
+                .action_name(format!("backup.{}", T::identifier()))
                 .build();
 
             imp.backup_group.add(&row);
@@ -272,15 +272,15 @@ impl PreferencesWindow {
         let imp = self.imp();
         if T::ENCRYPTABLE {
             let row = adw::ExpanderRow::builder()
-                .title(&T::title())
-                .subtitle(&T::subtitle())
+                .title(T::title())
+                .subtitle(T::subtitle())
                 .show_enable_switch(false)
                 .enable_expansion(true)
                 .use_underline(true)
                 .build();
             let key_row = adw::ActionRow::builder()
-                .title(&gettext("Key / Passphrase"))
-                .subtitle(&gettext("The key used to encrypt the vault"))
+                .title(gettext("Key / Passphrase"))
+                .subtitle(gettext("The key used to encrypt the vault"))
                 .build();
             let key_entry = gtk::PasswordEntry::builder()
                 .valign(gtk::Align::Center)
@@ -295,8 +295,8 @@ impl PreferencesWindow {
             let key_button = gtk::Button::builder()
                 .valign(gtk::Align::Center)
                 .halign(gtk::Align::End)
-                .label(&gettext("Select File"))
-                .action_name(&format!("restore.{}", T::identifier()))
+                .label(gettext("Select File"))
+                .action_name(format!("restore.{}", T::identifier()))
                 .build();
             button_row.add_suffix(&key_button);
             row.add_row(&button_row);
@@ -307,7 +307,7 @@ impl PreferencesWindow {
                 .halign(gtk::Align::Fill)
                 .valign(gtk::Align::Center)
                 .icon_name("qrscanner-symbolic")
-                .tooltip_text(&gettext("Scan QR Code"))
+                .tooltip_text(gettext("Scan QR Code"))
                 .menu_model(&{
                     let menu = gio::Menu::new();
 
@@ -328,8 +328,8 @@ impl PreferencesWindow {
                 .build();
 
             let row = adw::ActionRow::builder()
-                .title(&T::title())
-                .subtitle(&T::subtitle())
+                .title(T::title())
+                .subtitle(T::subtitle())
                 .activatable(true)
                 .activatable_widget(&menu_button)
                 .use_underline(true)
@@ -340,11 +340,11 @@ impl PreferencesWindow {
             imp.restore_group.add(&row);
         } else {
             let row = adw::ActionRow::builder()
-                .title(&T::title())
-                .subtitle(&T::subtitle())
+                .title(T::title())
+                .subtitle(T::subtitle())
                 .activatable(true)
                 .use_underline(true)
-                .action_name(&format!("restore.{}", T::identifier()))
+                .action_name(format!("restore.{}", T::identifier()))
                 .build();
 
             imp.restore_group.add(&row);
@@ -483,7 +483,7 @@ impl PreferencesWindow {
                 let dialog = gtk::FileDialog::builder()
                     .modal(true)
                     .filters(&filters_model)
-                    .title(&gettext("Backup"))
+                    .title(gettext("Backup"))
                     .build();
                 dialog.save_future(Some(self)).await
             }
@@ -491,7 +491,7 @@ impl PreferencesWindow {
                 let dialog = gtk::FileDialog::builder()
                     .modal(true)
                     .filters(&filters_model)
-                    .title(&gettext("Restore"))
+                    .title(gettext("Restore"))
                     .build();
                 dialog.open_future(Some(self)).await
             }

@@ -160,11 +160,9 @@ impl ProviderImage {
     fn fetch(&self) {
         let imp = self.imp();
         let network_monitor = gio::NetworkMonitor::default();
-        if network_monitor.is_network_metered() && !SETTINGS.download_favicons_metered() {
-            imp.image.set_from_icon_name(Some("provider-fallback"));
-            imp.stack.set_visible_child_name("image");
-            return;
-        } else if !SETTINGS.download_favicons() {
+        if (network_monitor.is_network_metered() && !SETTINGS.download_favicons_metered())
+            || !SETTINGS.download_favicons()
+        {
             imp.image.set_from_icon_name(Some("provider-fallback"));
             imp.stack.set_visible_child_name("image");
             return;
@@ -246,13 +244,9 @@ impl ProviderImage {
         SETTINGS.connect_download_favicons_metered_changed(
             clone!(@weak self as image => move |state| {
                 let network_monitor = gio::NetworkMonitor::default();
-                if !image.imp().was_downloaded.get() {
-                    if network_monitor.is_network_metered() && state {
-                        image.fetch();
-                    } else if !network_monitor.is_network_metered() {
+                    if !image.imp().was_downloaded.get() && (network_monitor.is_network_metered() && state) || !network_monitor.is_network_metered() {
                         image.fetch();
                     }
-                }
             }),
         );
     }
