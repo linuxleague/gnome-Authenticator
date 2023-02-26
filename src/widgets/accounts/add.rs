@@ -294,7 +294,7 @@ impl AccountAddDialog {
             imp.provider_entry.set_text(&provider.name());
             imp.period_label.set_text(&provider.period().to_string());
 
-            imp.image.set_provider(Some(&provider));
+            imp.image.set_provider(&provider);
 
             imp.method_label
                 .set_text(&provider.method().to_locale_string());
@@ -315,10 +315,10 @@ impl AccountAddDialog {
                 }
             };
 
-            if let Some(ref website) = provider.website() {
+            if let Some(website) = provider.website() {
                 imp.provider_website_row.set_uri(website);
             }
-            if let Some(ref help_url) = provider.help_url() {
+            if let Some(help_url) = provider.help_url() {
                 imp.provider_help_row.set_uri(help_url);
             }
             imp.selected_provider.borrow_mut().replace(provider);

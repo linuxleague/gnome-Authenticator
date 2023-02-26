@@ -1,5 +1,5 @@
 use glib::{clone, Receiver, Sender};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use gtk_macros::send;
 use tracing::error;
 
@@ -13,18 +13,19 @@ pub enum ImageAction {
 mod imp {
     use std::cell::{Cell, RefCell};
 
-    use glib::{subclass, ParamSpec, ParamSpecObject, ParamSpecUInt, Value};
-    use once_cell::sync::Lazy;
+    use glib::subclass;
 
     use super::*;
-
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, gtk::CompositeTemplate, glib::Properties)]
+    #[properties(wrapper_type  = super::ProviderImage)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_image.ui")]
     pub struct ProviderImage {
+        #[property(get, set, minimum = 32, maximum = 96, default = 48, construct)]
         pub size: Cell<u32>,
         pub was_downloaded: Cell<bool>,
         pub sender: Sender<ImageAction>,
         pub receiver: RefCell<Option<Receiver<ImageAction>>>,
+        #[property(get, set = Self::set_provider)]
         pub provider: RefCell<Option<Provider>>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
@@ -74,44 +75,47 @@ mod imp {
             self.obj().setup_widget();
         }
 
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecObject::builder::<Provider>("provider").build(),
-                    ParamSpecUInt::builder("size")
-                        .minimum(32)
-                        .maximum(96)
-                        .default_value(48)
-                        .construct()
-                        .build(),
-                ]
-            });
-            PROPERTIES.as_ref()
-        }
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "provider" => {
-                    let provider = value.get().unwrap();
-                    self.provider.replace(provider);
-                }
-                "size" => {
-                    let size = value.get().unwrap();
-                    self.size.set(size);
-                }
-                _ => unimplemented!(),
-            }
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "provider" => self.provider.borrow().to_value(),
-                "size" => self.size.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
     }
     impl WidgetImpl for ProviderImage {}
     impl BoxImpl for ProviderImage {}
+
+    impl ProviderImage {
+        fn set_provider(&self, provider: Option<Provider>) {
+            let obj = self.obj();
+            if let Some(provider) = provider {
+                self.provider.borrow_mut().replace(provider.clone());
+                if provider.website().is_some() || provider.image_uri().is_some() {
+                    self.stack.set_visible_child_name("loading");
+                    self.spinner.start();
+                    obj.on_provider_image_changed();
+                }
+                let signal_id =
+                    provider.connect_image_uri_notify(clone!(@weak obj as image => move |_, _| {
+                        image.on_provider_image_changed();
+                    }));
+                self.signal_id.replace(Some(signal_id));
+                return;
+            } else if let (Some(signal_id), Some(provider)) =
+                (self.signal_id.borrow_mut().take(), obj.provider())
+            {
+                let _ = self.provider.take();
+                provider.disconnect(signal_id);
+            }
+
+            self.image.set_from_icon_name(Some("provider-fallback"));
+        }
+    }
 }
 
 glib::wrapper! {
@@ -119,30 +123,6 @@ glib::wrapper! {
         @extends gtk::Widget, gtk::Box;
 }
 impl ProviderImage {
-    pub fn set_provider(&self, provider: Option<&Provider>) {
-        let imp = self.imp();
-        if let Some(provider) = provider {
-            self.set_property("provider", &provider);
-            if provider.website().is_some() || provider.image_uri().is_some() {
-                imp.stack.set_visible_child_name("loading");
-                imp.spinner.start();
-                self.on_provider_image_changed();
-            }
-            let signal_id =
-                provider.connect_image_uri_notify(clone!(@weak self as image => move |_, _| {
-                    image.on_provider_image_changed();
-                }));
-            imp.signal_id.replace(Some(signal_id));
-            return;
-        } else if let (Some(signal_id), Some(provider)) =
-            (imp.signal_id.borrow_mut().take(), self.provider())
-        {
-            provider.disconnect(signal_id);
-        }
-
-        imp.image.set_from_icon_name(Some("provider-fallback"));
-    }
-
     fn on_provider_image_changed(&self) {
         let imp = self.imp();
         let provider = self.provider().unwrap();
@@ -245,10 +225,6 @@ impl ProviderImage {
 
         imp.image.set_from_file(file.path());
         imp.stack.set_visible_child_name("image");
-    }
-
-    fn provider(&self) -> Option<Provider> {
-        self.property("provider")
     }
 
     fn setup_widget(&self) {

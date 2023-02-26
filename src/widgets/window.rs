@@ -275,7 +275,8 @@ impl Window {
     }
 
     fn setup_signals(&self, app: &Application) {
-        app.connect_is_locked_notify(clone!(@weak self as win => move |_, is_locked| {
+        app.connect_is_locked_notify(clone!(@weak self as win => move |app| {
+            let is_locked = app.is_locked();
             if is_locked{
                 win.set_view(View::Login);
             } else {

@@ -3,23 +3,25 @@ use std::cell::{Cell, RefCell};
 use gettextrs::gettext;
 use gtk::{
     gio,
-    glib::{self, clone, subclass::InitializingObject, ParamSpec, ParamSpecBoolean, Value},
+    glib::{self, clone, subclass::InitializingObject},
     prelude::*,
     subclass::prelude::*,
-    CompositeTemplate,
 };
 use gtk_macros::{action, get_action};
-use once_cell::sync::{Lazy, OnceCell};
 
 use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
 
 mod imp {
+    use once_cell::sync::OnceCell;
+
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[properties(wrapper_type = super::PasswordPage)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_password_page.ui")]
     pub struct PasswordPage {
         pub actions: OnceCell<gio::SimpleActionGroup>,
+        #[property(get, set, construct)]
         pub has_set_password: Cell<bool>,
         #[template_child]
         pub current_password_entry: TemplateChild<adw::PasswordEntryRow>,
@@ -51,30 +53,16 @@ mod imp {
     }
 
     impl ObjectImpl for PasswordPage {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecBoolean::builder("has-set-password")
-                    .construct()
-                    .build()]
-            });
-            PROPERTIES.as_ref()
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "has-set-password" => {
-                    let has_set_password = value.get().unwrap();
-                    self.has_set_password.set(has_set_password);
-                }
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "has-set-password" => self.has_set_password.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
         fn constructed(&self) {
@@ -83,7 +71,7 @@ mod imp {
             self.status_page.set_icon_name(Some(config::APP_ID));
             page.reset_validation();
             // Reset the validation whenever the password state changes
-            page.connect_has_set_password_notify(clone!(@weak page  => move |_, _| {
+            page.connect_has_set_password_notify(clone!(@weak page  => move |_| {
                 page.reset_validation();
             }));
         }
@@ -111,27 +99,6 @@ impl PasswordPage {
         page.imp().actions.set(actions).unwrap();
         page.setup_actions();
         page
-    }
-
-    pub fn has_set_password(&self) -> bool {
-        self.property::<bool>("has-set-password")
-    }
-
-    pub fn set_has_set_password(&self, new_value: bool) {
-        self.set_property("has-set-password", &new_value);
-    }
-
-    pub fn connect_has_set_password_notify<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, bool) + 'static,
-    {
-        self.connect_notify_local(
-            Some("has-set-password"),
-            clone!(@weak self as win => move |_, _| {
-                let has_set_password = win.has_set_password();
-                callback(&win, has_set_password);
-            }),
-        )
     }
 
     #[template_callback]

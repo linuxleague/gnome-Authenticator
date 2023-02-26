@@ -1,7 +1,7 @@
 use adw::prelude::*;
 use gettextrs::gettext;
 use glib::clone;
-use gtk::{gio, glib, subclass::prelude::*, CompositeTemplate};
+use gtk::{gio, glib, subclass::prelude::*};
 use gtk_macros::{action, get_action, spawn};
 use once_cell::sync::OnceCell;
 
@@ -20,19 +20,18 @@ mod imp {
         collections::HashMap,
     };
 
-    use adw::subclass::{preferences_window::PreferencesWindowImpl, window::AdwWindowImpl};
-    use glib::{
-        subclass::{self, Signal},
-        ParamSpec, ParamSpecBoolean, Value,
-    };
+    use adw::subclass::prelude::*;
+    use glib::subclass::{self, Signal};
     use once_cell::sync::Lazy;
 
     use super::*;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, gtk::CompositeTemplate, glib::Properties)]
+    #[properties(wrapper_type = super::PreferencesWindow)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences.ui")]
     pub struct PreferencesWindow {
         pub model: OnceCell<ProvidersModel>,
+        #[property(get, set, construct)]
         pub has_set_password: Cell<bool>,
         pub actions: gio::SimpleActionGroup,
         pub backup_actions: gio::SimpleActionGroup,
@@ -97,36 +96,22 @@ mod imp {
     }
 
     impl ObjectImpl for PreferencesWindow {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecBoolean::builder("has-set-password")
-                    .construct()
-                    .build()]
-            });
-            PROPERTIES.as_ref()
-        }
-
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> =
                 Lazy::new(|| vec![Signal::builder("restore-completed").action().build()]);
             SIGNALS.as_ref()
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "has-set-password" => {
-                    let has_set_password = value.get().unwrap();
-                    self.has_set_password.set(has_set_password);
-                }
-                _ => unimplemented!(),
-            }
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "has-set-password" => self.has_set_password.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
         fn constructed(&self) {
@@ -163,27 +148,6 @@ impl PreferencesWindow {
             clone!(@weak self as win => @default-return None, move |_| {
                 callback(&win);
                 None
-            }),
-        )
-    }
-
-    pub fn has_set_password(&self) -> bool {
-        self.property("has-set-password")
-    }
-
-    pub fn set_has_set_password(&self, state: bool) {
-        self.set_property("has-set-password", &state)
-    }
-
-    pub fn connect_has_set_password_notify<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, bool) + 'static,
-    {
-        self.connect_notify_local(
-            Some("has-set-password"),
-            clone!(@weak self as win => move |_, _| {
-                let has_set_password = win.has_set_password();
-                callback(&win, has_set_password);
             }),
         )
     }

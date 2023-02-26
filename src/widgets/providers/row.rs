@@ -1,7 +1,7 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use adw::prelude::*;
-use gtk::{glib, glib::clone, subclass::prelude::*, CompositeTemplate};
+use gtk::{glib, glib::clone, subclass::prelude::*};
 
 use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
@@ -9,20 +9,17 @@ use crate::{
 };
 
 mod imp {
-    use std::cell::RefCell;
-
-    use glib::{
-        subclass::{self, Signal},
-        ParamSpec, ParamSpecObject, Value,
-    };
-    use once_cell::sync::Lazy;
+    use glib::subclass::{self, Signal};
+    use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_row.ui")]
+    #[properties(wrapper_type = super::ProviderRow)]
     pub struct ProviderRow {
-        pub provider: RefCell<Option<Provider>>,
+        #[property(get, set, construct_only)]
+        pub provider: OnceCell<Provider>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -49,15 +46,6 @@ mod imp {
     }
 
     impl ObjectImpl for ProviderRow {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecObject::builder::<Provider>("provider")
-                    .construct_only()
-                    .build()]
-            });
-            PROPERTIES.as_ref()
-        }
-
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
@@ -71,21 +59,16 @@ mod imp {
             SIGNALS.as_ref()
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "provider" => {
-                    let provider = value.get().unwrap();
-                    self.provider.replace(provider);
-                }
-                _ => unimplemented!(),
-            }
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "provider" => self.provider.borrow().to_value(),
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
         fn constructed(&self) {
@@ -138,10 +121,6 @@ impl ProviderRow {
         )
     }
 
-    fn provider(&self) -> Provider {
-        self.property("provider")
-    }
-
     fn tick_progressbar(&self) {
         let imp = self.imp();
         let period_millis = self.provider().period() as u128 * 1000;
@@ -162,7 +141,7 @@ impl ProviderRow {
 
         self.add_css_class(&provider.method().to_string());
 
-        imp.image.set_provider(Some(&provider));
+        imp.image.set_provider(&provider);
         if provider.method() == OTPMethod::HOTP {
             imp.progress_icon.set_visible(false);
         } else {

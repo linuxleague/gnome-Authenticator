@@ -196,7 +196,7 @@ impl ProviderPage {
                 imp.methods_model
                     .find_position(provider.method().into_glib()),
             );
-            imp.image.set_provider(Some(&provider));
+            imp.image.set_provider(&provider);
             imp.title
                 .set_title(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
             imp.selected_provider.replace(Some(provider));
@@ -221,7 +221,8 @@ impl ProviderPage {
                 imp.methods_model
                     .find_position(OTPMethod::default().into_glib()),
             );
-            imp.image.set_provider(None);
+            // FIXME: replace with something that works
+            // imp.image.set_provider(None);
             imp.title.set_title(&gettext("New Provider"));
             imp.selected_provider.replace(None);
         }

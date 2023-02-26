@@ -2,20 +2,19 @@ use adw::prelude::*;
 use gtk::{
     gio,
     glib::{self, clone},
-    subclass::prelude::*,
 };
 
 mod imp {
     use std::cell::RefCell;
 
     use adw::subclass::prelude::*;
-    use glib::{ParamSpec, ParamSpecString, Value};
-    use once_cell::sync::Lazy;
 
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Debug, Default, glib::Properties)]
+    #[properties(wrapper_type = super::UrlRow)]
     pub struct UrlRow {
+        #[property(get, set = Self::set_uri)]
         pub uri: RefCell<Option<String>>,
     }
 
@@ -27,27 +26,16 @@ mod imp {
     }
 
     impl ObjectImpl for UrlRow {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> =
-                Lazy::new(|| vec![ParamSpecString::builder("uri").build()]);
-            PROPERTIES.as_ref()
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "uri" => {
-                    let uri = value.get().unwrap();
-                    self.uri.replace(uri);
-                }
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "uri" => self.uri.borrow().to_value(),
-                _ => unimplemented!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
         fn constructed(&self) {
@@ -78,16 +66,16 @@ mod imp {
     impl ListBoxRowImpl for UrlRow {}
     impl PreferencesRowImpl for UrlRow {}
     impl ActionRowImpl for UrlRow {}
+
+    impl UrlRow {
+        pub fn set_uri(&self, uri: &str) {
+            self.obj().set_subtitle(uri);
+            self.uri.borrow_mut().replace(uri.to_owned());
+        }
+    }
 }
 
 glib::wrapper! {
     pub struct UrlRow(ObjectSubclass<imp::UrlRow>)
         @extends gtk::Widget, gtk::ListBoxRow, adw::PreferencesRow, adw::ActionRow;
-}
-
-impl UrlRow {
-    pub fn set_uri(&self, uri: &str) {
-        self.set_subtitle(uri);
-        self.imp().uri.borrow_mut().replace(uri.to_string());
-    }
 }

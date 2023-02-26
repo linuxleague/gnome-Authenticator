@@ -1,16 +1,15 @@
-use gtk::{gdk, glib, prelude::*, subclass::prelude::*};
+use gtk::{gdk, glib, graphene, gsk, prelude::*, subclass::prelude::*};
 
 pub(crate) mod imp {
     use std::cell::Cell;
 
-    use glib::{ParamSpec, ParamSpecFloat, Value};
-    use gtk::{graphene, gsk};
-    use once_cell::sync::Lazy;
-
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Debug, Default, glib::Properties)]
+    #[properties(wrapper_type = super::ProgressIcon)]
     pub struct ProgressIcon {
+        #[property(get, set = Self::set_progress, minimum = 0.0,
+                   maximum = 1.0, default = 0.0, explicit_notify)]
         pub progress: Cell<f32>,
     }
 
@@ -22,30 +21,16 @@ pub(crate) mod imp {
     }
 
     impl ObjectImpl for ProgressIcon {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecFloat::builder("progress")
-                    .minimum(0.0)
-                    .maximum(1.0)
-                    .default_value(0.0)
-                    .explicit_notify()
-                    .build()]
-            });
-            PROPERTIES.as_ref()
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "progress" => self.obj().progress().to_value(),
-                _ => unreachable!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "progress" => self.obj().set_progress(value.get().unwrap()),
-                _ => unreachable!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
 
         fn constructed(&self) {
@@ -85,6 +70,19 @@ pub(crate) mod imp {
             (size, size, -1, -1)
         }
     }
+
+    impl ProgressIcon {
+        fn set_progress(&self, progress: f32) {
+            let obj = self.obj();
+            if (progress - obj.progress()).abs() < f32::EPSILON {
+                return;
+            }
+            let clamped = progress.clamp(0.0, 1.0);
+            self.progress.replace(clamped);
+            obj.queue_draw();
+            obj.notify_progress();
+        }
+    }
 }
 
 glib::wrapper! {
@@ -93,24 +91,10 @@ glib::wrapper! {
 }
 
 impl ProgressIcon {
-    pub fn set_progress(&self, progress: f32) {
-        if (progress - self.progress()).abs() < f32::EPSILON {
-            return;
-        }
-        let clamped = progress.clamp(0.0, 1.0);
-        self.imp().progress.replace(clamped);
-        self.queue_draw();
-        self.notify("progress");
-    }
-
     fn size(&self) -> i32 {
         let width = self.width_request();
         let height = self.width_request();
 
         std::cmp::max(16, std::cmp::min(width, height))
-    }
-
-    fn progress(&self) -> f32 {
-        self.imp().progress.get()
     }
 }

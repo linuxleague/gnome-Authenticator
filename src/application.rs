@@ -21,19 +21,20 @@ mod imp {
     use std::cell::{Cell, RefCell};
 
     use adw::subclass::prelude::*;
-    use glib::{ParamSpec, ParamSpecBoolean, Value, WeakRef};
-    use once_cell::sync::Lazy;
 
     use super::*;
 
     // The basic struct that holds our state and widgets
     // (Ref)Cells are used for members which need to be mutable
-    #[derive(Default)]
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::Application)]
     pub struct Application {
-        pub window: RefCell<Option<WeakRef<Window>>>,
+        pub window: RefCell<Option<glib::WeakRef<Window>>>,
         pub model: ProvidersModel,
-        pub locked: Cell<bool>,
+        #[property(get, set, construct)]
+        pub is_locked: Cell<bool>,
         pub lock_timeout_id: RefCell<Option<glib::SourceId>>,
+        #[property(get, set, construct)]
         pub can_be_locked: Cell<bool>,
         pub search_provider: RefCell<Option<SearchProvider<super::Application>>>,
     }
@@ -48,38 +49,16 @@ mod imp {
 
     // Overrides GObject vfuncs
     impl ObjectImpl for Application {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecBoolean::builder("is-locked").construct().build(),
-                    ParamSpecBoolean::builder("can-be-locked")
-                        .construct()
-                        .build(),
-                ]
-            });
-            PROPERTIES.as_ref()
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "is-locked" => {
-                    let locked = value.get().unwrap();
-                    self.locked.set(locked);
-                }
-                "can-be-locked" => {
-                    let can_be_locked = value.get().unwrap();
-                    self.can_be_locked.set(can_be_locked);
-                }
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "is-locked" => self.locked.get().to_value(),
-                "can-be-locked" => self.can_be_locked.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
     }
 
@@ -102,8 +81,8 @@ mod imp {
                         window.providers().refilter();
                         window.imp().toast_overlay.add_toast(adw::Toast::new(&gettext("Accounts restored successfully")));
                     }));
-                    preferences.connect_has_set_password_notify(clone!(@weak app => move |_, state| {
-                        app.set_can_be_locked(state);
+                    preferences.connect_has_set_password_notify(clone!(@weak app => move |pref| {
+                        app.set_can_be_locked(pref.has_set_password());
                     }));
                     preferences.set_transient_for(Some(&window));
                     preferences.present();
@@ -120,15 +99,12 @@ mod imp {
                         .comments(&gettext("Generate Two-Factor Codes"))
                         .website("https://gitlab.gnome.org/World/Authenticator")
                         .developers(vec![
-                            "Bilal Elmoussaoui".to_string(),
-                            "Maximiliano Sandoval".to_string(),
-                            "Christopher Davis".to_string(),
-                            "Julia Johannesen".to_string(),
+                            "Bilal Elmoussaoui",
+                            "Maximiliano Sandoval",
+                            "Christopher Davis",
+                            "Julia Johannesen",
                         ])
-                        .artists(vec![
-                            "Alexandros Felekidis".to_string(),
-                            "Tobias Bernard".to_string(),
-                        ])
+                        .artists(vec!["Alexandros Felekidis", "Tobias Bernard"])
                         .translator_credits(&gettext("translator-credits"))
                         .application_icon(config::APP_ID)
                         .license_type(gtk::License::Gpl30)
@@ -174,8 +150,8 @@ mod imp {
                 .sync_create()
                 .build();
 
-            app.connect_can_be_locked_notify(|app, can_be_locked| {
-                if !can_be_locked {
+            app.connect_can_be_locked_notify(|app| {
+                if !app.can_be_locked() {
                     app.cancel_lock_timeout();
                 }
             });
@@ -199,19 +175,22 @@ mod imp {
             );
             app.update_color_scheme();
 
-            let search_provider_path = config::OBJECT_PATH;
-            let search_provider_name = format!("{}.SearchProvider", config::APP_ID);
-
-            let ctx = glib::MainContext::default();
-            ctx.spawn_local(clone!(@strong app as application => async move {
-                let imp = application.imp();
-                match SearchProvider::new(application.clone(), search_provider_name, search_provider_path).await {
-                    Ok(search_provider) => {
-                        imp.search_provider.replace(Some(search_provider));
-                    },
-                    Err(err) => tracing::debug!("Could not start search provider: {}", err),
-                };
-            }));
+            // TODO: fixme by using a tokio wrapper
+            // let search_provider_path = config::OBJECT_PATH;
+            // let search_provider_name = format!("{}.SearchProvider",
+            // config::APP_ID);
+            //
+            // let ctx = glib::MainContext::default();
+            // ctx.spawn_local(clone!(@strong app as application => async move {
+            // let imp = application.imp();
+            // match SearchProvider::new(application.clone(),
+            // search_provider_name, search_provider_path).await {
+            // Ok(search_provider) => {
+            // imp.search_provider.replace(Some(search_provider));
+            // },
+            // Err(err) => tracing::debug!("Could not start search provider:
+            // {}", err), };
+            // }));
         }
 
         fn activate(&self) {
@@ -339,48 +318,6 @@ impl Application {
             .unwrap()
             .upgrade()
             .unwrap()
-    }
-
-    pub fn is_locked(&self) -> bool {
-        self.property("is-locked")
-    }
-
-    pub fn set_is_locked(&self, state: bool) {
-        self.set_property("is-locked", &state);
-    }
-
-    pub fn connect_is_locked_notify<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, bool) + 'static,
-    {
-        self.connect_notify_local(
-            Some("is-locked"),
-            clone!(@weak self as app => move |_, _| {
-                let is_locked = app.is_locked();
-                callback(&app, is_locked);
-            }),
-        )
-    }
-
-    pub fn can_be_locked(&self) -> bool {
-        self.property("can-be-locked")
-    }
-
-    pub fn connect_can_be_locked_notify<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, bool) + 'static,
-    {
-        self.connect_notify_local(
-            Some("can-be-locked"),
-            clone!(@weak self as app => move |_, _| {
-                let can_be_locked = app.can_be_locked();
-                callback(&app, can_be_locked);
-            }),
-        )
-    }
-
-    pub fn set_can_be_locked(&self, state: bool) {
-        self.set_property("can-be-locked", &state);
     }
 
     /// Starts or restarts the lock timeout.

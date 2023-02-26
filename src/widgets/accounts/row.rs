@@ -1,22 +1,22 @@
-use std::cell::RefCell;
-
-use gtk::{gdk, glib, prelude::*, CompositeTemplate};
+use gtk::{gdk, glib, prelude::*};
 
 use crate::models::{Account, OTPMethod};
 
 mod imp {
     use adw::subclass::prelude::*;
     use gettextrs::gettext;
-    use glib::{subclass, ParamSpec, ParamSpecObject, Value};
-    use once_cell::sync::Lazy;
+    use glib::subclass;
+    use once_cell::sync::OnceCell;
 
     use super::*;
     use crate::widgets::Window;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[properties(wrapper_type = super::AccountRow)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_row.ui")]
     pub struct AccountRow {
-        pub account: RefCell<Option<Account>>,
+        #[property(get, set, construct_only)]
+        pub account: OnceCell<Account>,
         #[template_child]
         pub increment_btn: TemplateChild<gtk::Button>,
         #[template_child]
@@ -60,29 +60,16 @@ mod imp {
     }
 
     impl ObjectImpl for AccountRow {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![ParamSpecObject::builder::<Account>("account")
-                    .construct_only()
-                    .build()]
-            });
-            PROPERTIES.as_ref()
-        }
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "account" => {
-                    let account = value.get().unwrap();
-                    self.account.replace(account);
-                }
-                _ => unimplemented!(),
-            }
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "account" => self.account.borrow().to_value(),
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
         fn constructed(&self) {
@@ -125,9 +112,5 @@ impl AccountRow {
         glib::Object::builder()
             .property("account", &account)
             .build()
-    }
-
-    fn account(&self) -> Account {
-        self.property("account")
     }
 }

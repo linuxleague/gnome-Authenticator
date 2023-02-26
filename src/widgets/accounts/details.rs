@@ -219,13 +219,13 @@ impl AccountDetailsPage {
             imp.period_label.set_text(&provider.period().to_string());
         }
         imp.digits_label.set_text(&provider.digits().to_string());
-        if let Some(ref help) = provider.help_url() {
+        if let Some(help) = provider.help_url() {
             imp.help_row.set_uri(help);
             imp.help_row.set_visible(true);
         } else {
             imp.help_row.set_visible(false);
         }
-        if let Some(ref website) = provider.website() {
+        if let Some(website) = provider.website() {
             imp.website_row.set_uri(website);
             imp.website_row.set_visible(true);
         } else {
