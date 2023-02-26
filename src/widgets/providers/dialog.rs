@@ -139,8 +139,7 @@ impl ProvidersDialog {
         imp.providers_list
             .bind_model(Some(&selection_model), move |obj| {
                 let provider = obj.clone().downcast::<Provider>().unwrap();
-                let row = ProviderActionRow::default();
-                row.set_provider(provider);
+                let row = ProviderActionRow::new(&provider);
                 row.upcast::<gtk::Widget>()
             });
 
@@ -275,16 +274,15 @@ impl ProvidersDialog {
 mod row {
     use super::*;
     mod imp {
-        use std::cell::RefCell;
-
-        use glib::{ParamSpec, ParamSpecObject, Value};
-        use once_cell::sync::Lazy;
+        use once_cell::sync::OnceCell;
 
         use super::*;
 
-        #[derive(Debug, Default)]
+        #[derive(Debug, Default, glib::Properties)]
+        #[properties(wrapper_type = super::ProviderActionRow)]
         pub struct ProviderActionRow {
-            pub provider: RefCell<Option<Provider>>,
+            #[property(get, set = Self::set_provider, construct_only)]
+            pub provider: OnceCell<Provider>,
             pub title_label: gtk::Label,
         }
 
@@ -296,27 +294,16 @@ mod row {
         }
 
         impl ObjectImpl for ProviderActionRow {
-            fn properties() -> &'static [ParamSpec] {
-                static PROPERTIES: Lazy<Vec<ParamSpec>> =
-                    Lazy::new(|| vec![ParamSpecObject::builder::<Provider>("provider").build()]);
-                PROPERTIES.as_ref()
+            fn properties() -> &'static [glib::ParamSpec] {
+                Self::derived_properties()
             }
 
-            fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-                match pspec.name() {
-                    "provider" => {
-                        let provider = value.get().unwrap();
-                        self.provider.replace(provider);
-                    }
-                    _ => unimplemented!(),
-                }
+            fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+                self.derived_set_property(id, value, pspec)
             }
 
-            fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-                match pspec.name() {
-                    "provider" => self.provider.borrow().to_value(),
-                    _ => unimplemented!(),
-                }
+            fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+                self.derived_property(id, pspec)
             }
 
             fn constructed(&self) {
@@ -338,6 +325,13 @@ mod row {
         }
         impl WidgetImpl for ProviderActionRow {}
         impl ListBoxRowImpl for ProviderActionRow {}
+
+        impl ProviderActionRow {
+            pub fn set_provider(&self, provider: Provider) {
+                self.title_label.set_text(&provider.name());
+                self.provider.set(provider).unwrap();
+            }
+        }
     }
 
     glib::wrapper! {
@@ -346,19 +340,10 @@ mod row {
     }
 
     impl ProviderActionRow {
-        pub fn set_provider(&self, provider: Provider) {
-            self.set_property("provider", &provider);
-            self.imp().title_label.set_text(&provider.name());
-        }
-
-        pub fn provider(&self) -> Provider {
-            self.property("provider")
-        }
-    }
-
-    impl Default for ProviderActionRow {
-        fn default() -> Self {
-            glib::Object::new()
+        pub fn new(provider: &Provider) -> Self {
+            glib::Object::builder()
+                .property("provider", provider)
+                .build()
         }
     }
 }
