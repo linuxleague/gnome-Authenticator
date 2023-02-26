@@ -1,5 +1,3 @@
-use std::borrow::Cow;
-
 use anyhow::Result;
 use gettextrs::gettext;
 use percent_encoding::percent_decode;
@@ -55,7 +53,8 @@ impl Restorable for Google {
                 "data" => {
                     let bytes = value.into_owned().into_bytes();
                     let decoded = percent_decode(&bytes);
-                    let decoded = match base64::decode(&*Cow::from(decoded)) {
+                    let decoded = match data_encoding::BASE64.decode(&decoded.collect::<Vec<u8>>())
+                    {
                         Ok(decoded) => decoded,
                         Err(_) => return None,
                     };

@@ -33,7 +33,7 @@ url = "2.2"
 zbar-rust = "0.0"
 scrypt = { version = "0.10", default-features = false }
 aes-gcm = "0.10"
-base64 = "0.21"
+data-encoding = "2.3"
 uuid = { version = "1.0", features = ["v4"] }
 favicon-scrapper = {path = "./favicon-scrapper"}
 image = {version = "0.24", default-features = false, features = ["png"]}

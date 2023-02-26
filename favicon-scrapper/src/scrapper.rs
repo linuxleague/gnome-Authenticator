@@ -195,7 +195,9 @@ impl Scrapper {
                             .unwrap_or_default();
                         data = icon_data.next().and_then(|data| {
                             if data.starts_with("base64") {
-                                base64::decode(data.trim_start_matches("base64,")).ok()
+                                data_encoding::BASE64
+                                    .decode(data.trim_start_matches("base64,").as_bytes())
+                                    .ok()
                             } else {
                                 Some(
                                     percent_decode_str(data)

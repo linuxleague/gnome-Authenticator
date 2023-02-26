@@ -142,7 +142,7 @@ impl Aegis {
             *self = Self::Encrypted(AegisEncrypted {
                 version: plain_text.version,
                 header,
-                db: base64::encode(db_encrypted),
+                db: data_encoding::BASE64.encode(&db_encrypted),
             });
         } else {
             // This is an implementation error. Thus, panic is okay.
@@ -500,7 +500,8 @@ impl Restorable for Aegis {
                 }
 
                 // Ciphertext is stored in base64, we have to decode it.
-                let mut ciphertext = base64::decode(encrypted.db)
+                let mut ciphertext = data_encoding::BASE64
+                    .decode(encrypted.db.as_bytes())
                     .context("Cannot decode (base64) encoded database")?;
 
                 // Add the encryption tag
