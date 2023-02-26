@@ -8,7 +8,6 @@ use gtk::{
     prelude::*,
     CompositeTemplate,
 };
-use gtk_macros::get_action;
 use once_cell::sync::OnceCell;
 use tokio::{
     select,
@@ -177,7 +176,7 @@ impl CameraPage {
         let actions = imp.actions.get().unwrap();
 
         imp.camera.connect_close(clone!(@weak actions => move |_| {
-            get_action!(actions, @close_page).activate(None);
+            actions.activate_action("close_page", None);
         }));
     }
 }

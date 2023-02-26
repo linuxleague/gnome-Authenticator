@@ -8,9 +8,7 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use gtk_macros::send;
 use once_cell::sync::Lazy;
-use tracing::error;
 
 use crate::widgets::camera::CameraEvent;
 static PIPELINE_NAME: Lazy<glib::GString> = Lazy::new(|| glib::GString::from("camera"));
@@ -209,14 +207,14 @@ impl CameraPaintable {
                             let new_state = structure.get::<gst::State>("new-state")
                                 .unwrap();
                             if new_state == gst::State::Playing {
-                                send!(sender, CameraEvent::StreamStarted);
+                                sender.send(CameraEvent::StreamStarted).unwrap();
                             }
                         }
                     }
                     MessageView::Element(e) => {
                         if let Some(s) = e.structure() {
                             if let Ok(symbol) = s.get::<String>("symbol") {
-                               send!(sender, CameraEvent::CodeDetected(symbol));
+                               sender.send(CameraEvent::CodeDetected(symbol)).unwrap();
                             }
                         }
                     }

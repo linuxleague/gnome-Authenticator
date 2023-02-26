@@ -1,7 +1,5 @@
 use glib::{clone, Receiver, Sender};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use gtk_macros::send;
-use tracing::error;
 
 use crate::models::{Provider, FAVICONS_PATH, RUNTIME, SETTINGS};
 
@@ -197,10 +195,10 @@ impl ProviderImage {
                    imp.was_downloaded.set(true);
                     match receiver.await {
                         Ok(Some(cache_name)) => {
-                            send!(imp.sender.clone(), ImageAction::Ready(cache_name));
+                            imp.sender.send(ImageAction::Ready(cache_name)).unwrap();
                         }
                         Ok(None) =>  {
-                            send!(imp.sender.clone(), ImageAction::Failed);
+                            imp.sender.send(ImageAction::Failed).unwrap();
                         },
                         Err(_) => {
                             tracing::debug!("Provider image fetching aborted");

@@ -1,7 +1,6 @@
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
-use gtk_macros::{action, get_action};
 use once_cell::sync::OnceCell;
 
 use crate::{
@@ -76,6 +75,10 @@ mod imp {
             klass.install_action("win.search", None, move |win, _, _| {
                 let search_btn = &win.imp().search_btn;
                 search_btn.set_active(!search_btn.is_active());
+            });
+
+            klass.install_action("win.add_account", None, move |win, _, _| {
+                win.open_add_account(None);
             });
 
             klass.install_action("win.back", None, move |win, _, _| {
@@ -261,14 +264,8 @@ impl Window {
     }
 
     fn setup_actions(&self, app: &Application) {
-        action!(
-            self,
-            "add_account",
-            clone!(@weak self as win => move |_,_| {
-                win.open_add_account(None);
-            })
-        );
-        app.bind_property("is-locked", &get_action!(self, @add_account), "enabled")
+        let action = self.lookup_action("add_account").unwrap();
+        app.bind_property("is-locked", &action, "enabled")
             .invert_boolean()
             .sync_create()
             .build();

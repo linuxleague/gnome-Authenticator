@@ -4,7 +4,6 @@ use adw::prelude::*;
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*};
-use gtk_macros::get_action;
 use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
 
 use crate::{
@@ -138,14 +137,18 @@ mod imp {
                 providers_action,
                 preferences_action,
             ]);
-            app.bind_property("can-be-locked", &get_action!(app, @lock), "enabled")
+
+            let lock_action = app.lookup_action("lock").unwrap();
+            let preferences_action = app.lookup_action("preferences").unwrap();
+            let providers_action = app.lookup_action("providers").unwrap();
+            app.bind_property("can-be-locked", &lock_action, "enabled")
                 .sync_create()
                 .build();
-            app.bind_property("is-locked", &get_action!(app, @preferences), "enabled")
+            app.bind_property("is-locked", &preferences_action, "enabled")
                 .invert_boolean()
                 .sync_create()
                 .build();
-            app.bind_property("is-locked", &get_action!(app, @providers), "enabled")
+            app.bind_property("is-locked", &providers_action, "enabled")
                 .invert_boolean()
                 .sync_create()
                 .build();
@@ -244,7 +247,7 @@ mod imp {
 glib::wrapper! {
     pub struct Application(ObjectSubclass<imp::Application>)
         @extends gio::Application, gtk::Application, adw::Application,
-        @implements gio::ActionMap;
+        @implements gio::ActionMap, gio::ActionGroup;
 }
 
 impl Application {
