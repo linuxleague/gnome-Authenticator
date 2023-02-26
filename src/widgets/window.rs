@@ -289,10 +289,7 @@ impl Window {
     }
 
     fn app(&self) -> Application {
-        self.application()
-            .unwrap()
-            .downcast::<Application>()
-            .unwrap()
+        self.application().and_downcast::<Application>().unwrap()
     }
 
     fn save_window_state(&self) -> anyhow::Result<()> {

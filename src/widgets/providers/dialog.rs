@@ -138,8 +138,8 @@ impl ProvidersDialog {
         let selection_model = gtk::NoSelection::new(Some(sort_model));
         imp.providers_list
             .bind_model(Some(&selection_model), move |obj| {
-                let provider = obj.clone().downcast::<Provider>().unwrap();
-                let row = ProviderActionRow::new(&provider);
+                let provider = obj.downcast_ref::<Provider>().unwrap();
+                let row = ProviderActionRow::new(provider);
                 row.upcast::<gtk::Widget>()
             });
 
@@ -233,8 +233,7 @@ impl ProvidersDialog {
             .imp()
             .filter_model
             .model()
-            .unwrap()
-            .downcast::<ProvidersModel>()
+            .and_downcast::<ProvidersModel>()
             .unwrap();
         model.append(&provider);
         self.emit_by_name::<()>("changed", &[]);
@@ -259,8 +258,7 @@ impl ProvidersDialog {
             .imp()
             .filter_model
             .model()
-            .unwrap()
-            .downcast::<ProvidersModel>()
+            .and_downcast::<ProvidersModel>()
             .unwrap();
         model.delete_provider(&provider);
         self.set_view(View::Placeholder);

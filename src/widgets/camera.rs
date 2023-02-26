@@ -315,11 +315,11 @@ impl Camera {
         });
         let selection = &imp.selection;
         factory.connect_bind(glib::clone!(@weak selection => move |_, item| {
-            let item = item.clone().downcast::<gtk::ListItem>().unwrap();
+            let item = item.downcast_ref::<gtk::ListItem>().unwrap();
             let child = item.child().unwrap();
             let row = child.downcast_ref::<CameraRow>().unwrap();
 
-            let item = item.item().unwrap().downcast::<glib::BoxedAnyObject>().unwrap();
+            let item = item.item().and_downcast::<glib::BoxedAnyObject>().unwrap();
             let camera_item = item.borrow::<CameraItem>();
             row.set_label(&camera_item.nick);
 

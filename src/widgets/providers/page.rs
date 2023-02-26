@@ -303,7 +303,7 @@ impl ProviderPage {
     }
 
     async fn open_select_image(&self) {
-        let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
+        let parent = self.root().and_downcast::<gtk::Window>().unwrap();
 
         let images_filter = gtk::FileFilter::new();
         images_filter.set_name(Some(&gettext("Image")));

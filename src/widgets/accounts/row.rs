@@ -41,7 +41,7 @@ mod imp {
 
             klass.install_action("account.copy-otp", None, move |row, _, _| {
                 row.account().copy_otp();
-                let window = row.root().unwrap().downcast::<Window>().unwrap();
+                let window = row.root().and_downcast::<Window>().unwrap();
                 let toast = adw::Toast::new(&gettext("One-Time password copied"));
                 toast.set_timeout(3);
                 window.add_toast(toast);
@@ -108,9 +108,7 @@ glib::wrapper! {
 }
 
 impl AccountRow {
-    pub fn new(account: Account) -> Self {
-        glib::Object::builder()
-            .property("account", &account)
-            .build()
+    pub fn new(account: &Account) -> Self {
+        glib::Object::builder().property("account", account).build()
     }
 }

@@ -158,7 +158,7 @@ glib::wrapper! {
 #[gtk::template_callbacks]
 impl AccountDetailsPage {
     fn delete_account(&self) {
-        let parent = self.root().unwrap().downcast::<gtk::Window>().unwrap();
+        let parent = self.root().and_downcast::<gtk::Window>().unwrap();
 
         let dialog = adw::MessageDialog::builder()
             .heading(gettext("Are you sure you want to delete the account?"))

@@ -618,8 +618,7 @@ impl Provider {
         let model = self.accounts_model();
         let provider_name = self.name();
         for pos in 0..model.n_items() {
-            let obj = model.item(pos).unwrap();
-            let account = obj.downcast::<Account>().unwrap();
+            let account = model.item(pos).and_downcast::<Account>().unwrap();
             let account_name = account.name();
 
             if terms

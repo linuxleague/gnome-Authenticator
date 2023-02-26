@@ -86,9 +86,9 @@ glib::wrapper! {
 }
 
 impl ProviderRow {
-    pub fn new(provider: Provider) -> Self {
+    pub fn new(provider: &Provider) -> Self {
         glib::Object::builder()
-            .property("provider", &provider)
+            .property("provider", provider)
             .build()
     }
 
@@ -162,8 +162,8 @@ impl ProviderRow {
             gtk::SortListModel::new(Some(provider.accounts().clone()), Some(sorter.clone()));
 
         let create_callback = clone!(@strong self as provider_row, @strong sorter, @strong provider => move |account: &glib::Object| {
-            let account = account.clone().downcast::<Account>().unwrap();
-            let row = AccountRow::new(account.clone());
+            let account = account.downcast_ref::<Account>().unwrap();
+            let row = AccountRow::new(account);
 
             row.connect_activated(
                 clone!(@weak account, @weak provider_row => move |_| {

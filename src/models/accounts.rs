@@ -67,8 +67,7 @@ impl AccountsModel {
 
     pub fn find_by_id(&self, id: u32) -> Option<Account> {
         for pos in 0..self.n_items() {
-            let obj = self.item(pos)?;
-            let account = obj.downcast::<Account>().unwrap();
+            let account = self.item(pos).and_downcast::<Account>().unwrap();
             if account.id() == id {
                 return Some(account);
             }

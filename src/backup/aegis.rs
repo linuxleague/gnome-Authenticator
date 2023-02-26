@@ -402,11 +402,11 @@ impl Backupable for Aegis {
         let mut aegis_root = Aegis::default();
 
         for i in 0..model.n_items() {
-            let provider = model.item(i).unwrap().downcast::<Provider>().unwrap();
+            let provider = model.item(i).and_downcast::<Provider>().unwrap();
             let accounts = provider.accounts_model();
 
             for j in 0..accounts.n_items() {
-                let account = accounts.item(j).unwrap().downcast::<Account>().unwrap();
+                let account = accounts.item(j).and_downcast::<Account>().unwrap();
                 let otp_item = Item::new(&account);
                 aegis_root.add_item(otp_item);
             }

@@ -127,7 +127,7 @@ impl ProvidersList {
         imp.providers_list.bind_model(
             Some(&sort_model),
             clone!(@strong self as list => move |obj| {
-                let provider = obj.clone().downcast::<Provider>().unwrap();
+                let provider = obj.downcast_ref::<Provider>().unwrap();
                 let row = ProviderRow::new(provider);
                 row.connect_changed(clone!(@weak list => move |_| {
                     list.refilter();

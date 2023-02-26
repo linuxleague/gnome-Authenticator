@@ -93,8 +93,7 @@ impl ProvidersModel {
 
     fn find_by_name(&self, name: &str) -> Option<Provider> {
         for pos in 0..self.n_items() {
-            let obj = self.item(pos)?;
-            let provider = obj.downcast::<Provider>().unwrap();
+            let provider = self.item(pos).and_downcast::<Provider>().unwrap();
             if provider.name() == name {
                 return Some(provider);
             }
@@ -104,8 +103,7 @@ impl ProvidersModel {
 
     pub fn find_by_id(&self, id: u32) -> Option<Provider> {
         for pos in 0..self.n_items() {
-            let obj = self.item(pos)?;
-            let provider = obj.downcast::<Provider>().unwrap();
+            let provider = self.item(pos).and_downcast::<Provider>().unwrap();
             if provider.id() == id {
                 return Some(provider);
             }
@@ -116,8 +114,7 @@ impl ProvidersModel {
     pub fn has_providers(&self) -> bool {
         let mut found = false;
         for pos in 0..self.n_items() {
-            let obj = self.item(pos).unwrap();
-            let provider = obj.downcast::<Provider>().unwrap();
+            let provider = self.item(pos).and_downcast::<Provider>().unwrap();
             if provider.has_accounts() {
                 found = true;
                 break;
@@ -163,8 +160,7 @@ impl ProvidersModel {
     pub fn delete_provider(&self, provider: &Provider) {
         let mut provider_pos = None;
         for pos in 0..self.n_items() {
-            let obj = self.item(pos).unwrap();
-            let p = obj.downcast::<Provider>().unwrap();
+            let p = self.item(pos).and_downcast::<Provider>().unwrap();
             if p.id() == provider.id() {
                 provider_pos = Some(pos);
                 break;
