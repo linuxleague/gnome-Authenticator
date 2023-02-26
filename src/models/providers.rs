@@ -126,6 +126,7 @@ impl ProvidersModel {
         found
     }
 
+    #[allow(deprecated)]
     pub fn completion_model(&self) -> gtk::ListStore {
         let store = gtk::ListStore::new(&[u32::static_type(), String::static_type()]);
         for pos in 0..self.n_items() {

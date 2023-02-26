@@ -4,7 +4,6 @@ use gtk::{
     gdk,
     glib::{self, clone},
     subclass::prelude::*,
-    CompositeTemplate,
 };
 
 use super::qrcode_paintable::QRCodePaintable;
@@ -24,7 +23,7 @@ mod imp {
         widgets::{editable_label::EditableSpin, EditableLabel},
     };
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_details_page.ui")]
     pub struct AccountDetailsPage {
         #[template_child]

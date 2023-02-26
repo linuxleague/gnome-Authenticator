@@ -3,7 +3,7 @@ use std::str::FromStr;
 use anyhow::Result;
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
-use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{glib, prelude::*, subclass::prelude::*};
 use gtk_macros::spawn;
 use once_cell::sync::{Lazy, OnceCell};
 
@@ -20,7 +20,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
     pub struct AccountAddDialog {
         pub model: OnceCell<ProvidersModel>,

@@ -40,6 +40,7 @@ pub(crate) mod imp {
     }
 
     impl WidgetImpl for ProgressIcon {
+        #[allow(deprecated)]
         fn snapshot(&self, snapshot: &gtk::Snapshot) {
             let widget = self.obj();
             let size = widget.size() as f32;
