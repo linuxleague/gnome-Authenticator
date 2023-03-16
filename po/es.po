@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-03-14 15:43+0000\n"
-"PO-Revision-Date: 2023-03-16 10:11+0100\n"
+"POT-Creation-Date: 2023-03-16 09:12+0000\n"
+"PO-Revision-Date: 2023-03-16 10:13+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -369,14 +369,11 @@ msgstr "Red"
 
 #: data/resources/ui/preferences.ui:92
 msgid "_Download Favicons"
-msgstr ""
+msgstr "_Descargar favicons"
 
 #: data/resources/ui/preferences.ui:95
-#, fuzzy
-#| msgid "Automatically fetch an image for services using their favicon"
 msgid "Automatically attempt fetching a website icon"
-msgstr ""
-"Obtener automáticamente una imagen para los servicios utilizando su favicon"
+msgstr "Obtener automáticamente una icono de un sitio web"
 
 #: data/resources/ui/preferences.ui:105
 msgid "_Metered Connection"
