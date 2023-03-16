@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-01-24 18:13+0000\n"
-"PO-Revision-Date: 2023-03-14 16:42+0100\n"
+"POT-Creation-Date: 2023-03-14 15:43+0000\n"
+"PO-Revision-Date: 2023-03-16 10:11+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
 "Language: es_ES\n"
@@ -81,25 +81,24 @@ msgstr "Bloquear la aplicación tras X minutos de inactividad"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
 msgid "Download Favicons"
-msgstr ""
+msgstr "Descargar favicons"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
-#, fuzzy
-#| msgid "Whether the application should use a dark mode."
 msgid ""
 "Whether the application should attempt to find an icon for the providers."
-msgstr "Indica si la aplicación usa un modo oscuro."
+msgstr ""
+"Indica si la aplicación debe intentar buscar un icono para los proveedores."
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:44
 msgid "Download Favicons over metered connections"
-msgstr ""
+msgstr "Descargar favicons en conexiones medidas"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:45
-#, fuzzy
-#| msgid "Whether the application should use a dark mode."
 msgid ""
 "Whether the application should download favicons over a metered connection."
-msgstr "Indica si la aplicación usa un modo oscuro."
+msgstr ""
+"Indica si la aplicación debe intentar descargar favicons en conexiones "
+"medidas."
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
 msgid "Simple application for generating Two-Factor Authentication Codes."
@@ -133,19 +132,16 @@ msgid "Beautiful UI"
 msgstr "Excelente interfaz de usuario"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
-#, fuzzy
-#| msgid "The service provider"
 msgid "GNOME Shell search provider"
-msgstr "El proveedor de servicios"
+msgstr "Proveedor de búsqueda de GNOME Shell"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
-#, fuzzy
-#| msgid "Backup/Restore from/into known applications like FreeOTP+, andOTP"
 msgid ""
 "Backup/Restore from/into known applications like FreeOTP+, Aegis "
 "(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
-"Respaldar/Restaurar desde/en aplicaciones conocidas como FreeOTP+, andOTP"
+"Respaldar/Restaurar desde/en aplicaciones conocidas como FreeOTP+, Aegis "
+"(cifrado / texto plano), andOTP, Google Authenticator"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
