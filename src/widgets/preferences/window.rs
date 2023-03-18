@@ -30,6 +30,7 @@ mod imp {
     #[properties(wrapper_type = super::PreferencesWindow)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences.ui")]
     pub struct PreferencesWindow {
+        #[property(get, set, construct_only)]
         pub model: OnceCell<ProvidersModel>,
         #[property(get, set, construct)]
         pub has_set_password: Cell<bool>,
@@ -116,7 +117,10 @@ mod imp {
 
         fn constructed(&self) {
             self.parent_constructed();
-            self.obj().setup_actions();
+            let obj = self.obj();
+
+            obj.setup_actions();
+            obj.setup_widget();
         }
     }
     impl WidgetImpl for PreferencesWindow {}
@@ -131,11 +135,8 @@ glib::wrapper! {
 }
 
 impl PreferencesWindow {
-    pub fn new(model: ProvidersModel) -> Self {
-        let window = glib::Object::new::<Self>();
-        window.imp().model.set(model).unwrap();
-        window.setup_widget();
-        window
+    pub fn new(model: &ProvidersModel) -> Self {
+        glib::Object::builder().property("model", model).build()
     }
 
     pub fn connect_restore_completed<F>(&self, callback: F) -> glib::SignalHandlerId

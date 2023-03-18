@@ -74,7 +74,7 @@ mod imp {
                 .activate(|app: &Self::Type, _, _| {
                     let model = &app.imp().model;
                     let window = app.active_window();
-                    let preferences = PreferencesWindow::new(model.clone());
+                    let preferences = PreferencesWindow::new(model);
                     preferences.set_has_set_password(app.can_be_locked());
                     preferences.connect_restore_completed(clone!(@weak window =>move |_| {
                         window.providers().refilter();
