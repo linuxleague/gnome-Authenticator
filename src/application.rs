@@ -204,7 +204,7 @@ mod imp {
                 return;
             }
 
-            let window = Window::new(self.model.clone(), &app.clone());
+            let window = Window::new(&self.model, &app);
             window.present();
             self.window.replace(Some(window.downgrade()));
 

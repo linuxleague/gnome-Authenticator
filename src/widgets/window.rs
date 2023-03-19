@@ -28,9 +28,11 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/window.ui")]
+    #[properties(wrapper_type = super::Window)]
     pub struct Window {
+        #[property(get, set, construct_only)]
         pub model: OnceCell<ProvidersModel>,
         #[template_child]
         pub main_stack: TemplateChild<gtk::Stack>,
@@ -67,6 +69,7 @@ mod imp {
         const NAME: &'static str = "Window";
         type Type = super::Window;
         type ParentType = adw::ApplicationWindow;
+        type Interfaces = (gio::Initable,);
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -115,7 +118,57 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for Window {}
+    impl ObjectImpl for Window {
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
+        }
+
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
+        }
+
+        fn constructed(&self) {
+            self.parent_constructed();
+            let win = self.obj();
+            self.providers.set_model(win.model());
+
+            self.providers
+                .model()
+                .connect_items_changed(clone!(@weak win => move |_, _,_,_| {
+                // We do a check on set_view to ensure we always use the right page
+                if !win.app().is_locked() {
+                    win.set_view(View::Accounts);
+                }
+                }));
+
+            win.set_icon_name(Some(config::APP_ID));
+            self.empty_status_page.set_icon_name(Some(config::APP_ID));
+            self.locked_img.set_from_icon_name(Some(config::APP_ID));
+
+            // load latest window state
+            let width = SETTINGS.int("window-width");
+            let height = SETTINGS.int("window-height");
+
+            if width > -1 && height > -1 {
+                win.set_default_size(width, height);
+            }
+
+            let is_maximized = SETTINGS.boolean("is-maximized");
+            if is_maximized {
+                win.maximize();
+            }
+            self.account_details.set_providers_model(win.model());
+
+            if config::PROFILE == "Devel" {
+                win.add_css_class("devel");
+            }
+            win.set_view(View::Accounts);
+        }
+    }
     impl WidgetImpl for Window {}
     impl WindowImpl for Window {
         fn enable_debugging(&self, toggle: bool) -> bool {
@@ -138,29 +191,45 @@ mod imp {
 
     impl ApplicationWindowImpl for Window {}
     impl AdwApplicationWindowImpl for Window {}
+    impl InitableImpl for Window {
+        // As the application property on gtk::ApplicationWindow is not marked
+        // as CONSTRUCT, we need to implement Initable so we can run code once all the
+        // object properties are set.
+        fn init(&self, _cancellable: Option<&gio::Cancellable>) -> Result<(), glib::Error> {
+            let win = self.obj();
+            let app = win.app();
+            win.action_set_enabled("win.add_account", !app.is_locked());
+            app.connect_is_locked_notify(clone!(@weak win => move |app| {
+                let is_locked = app.is_locked();
+                win.action_set_enabled("win.add_account", !is_locked);
+                if is_locked{
+                    win.set_view(View::Login);
+                } else {
+                    win.set_view(View::Accounts);
+                };
+            }));
+            if app.is_locked() {
+                win.set_view(View::Login);
+            }
+            Ok(())
+        }
+    }
 }
 
 glib::wrapper! {
     pub struct Window(ObjectSubclass<imp::Window>)
         @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow, adw::ApplicationWindow,
-        @implements gio::ActionMap, gio::ActionGroup, gtk::Native, gtk::Root;
+        @implements gio::Initable, gio::ActionMap, gio::ActionGroup, gtk::Native, gtk::Root;
 }
 
 #[gtk::template_callbacks]
 impl Window {
-    pub fn new(model: ProvidersModel, app: &Application) -> Self {
-        let window = glib::Object::builder::<Window>()
+    pub fn new(model: &ProvidersModel, app: &Application) -> Self {
+        gio::Initable::builder()
             .property("application", app)
-            .build();
-        app.add_window(&window);
-
-        if config::PROFILE == "Devel" {
-            window.add_css_class("devel");
-        }
-        window.init(model, app);
-        window.set_view(View::Accounts); // Start by default in the accounts state
-        window.setup_signals(app);
-        window
+            .property("model", model)
+            .build(gio::Cancellable::NONE)
+            .unwrap()
     }
 
     pub fn set_view(&self, view: View) {
@@ -227,55 +296,6 @@ impl Window {
 
     pub fn providers(&self) -> ProvidersList {
         self.imp().providers.clone()
-    }
-
-    fn init(&self, model: ProvidersModel, app: &Application) {
-        let imp = self.imp();
-        imp.model.set(model.clone()).unwrap();
-        imp.providers.set_model(model.clone());
-
-        imp.providers.model().connect_items_changed(
-            clone!(@weak self as win, @weak app => move |_, _,_,_| {
-            // We do a check on set_view to ensure we always use the right page
-            if !app.is_locked() {
-                win.set_view(View::Accounts);
-            }
-            }),
-        );
-
-        self.set_icon_name(Some(config::APP_ID));
-        imp.empty_status_page.set_icon_name(Some(config::APP_ID));
-        imp.locked_img.set_from_icon_name(Some(config::APP_ID));
-
-        // load latest window state
-        let width = SETTINGS.int("window-width");
-        let height = SETTINGS.int("window-height");
-
-        if width > -1 && height > -1 {
-            self.set_default_size(width, height);
-        }
-
-        let is_maximized = SETTINGS.boolean("is-maximized");
-        if is_maximized {
-            self.maximize();
-        }
-        imp.account_details.set_providers_model(model);
-    }
-
-    fn setup_signals(&self, app: &Application) {
-        self.action_set_enabled("win.add_account", !app.is_locked());
-        app.connect_is_locked_notify(clone!(@weak self as win => move |app| {
-            let is_locked = app.is_locked();
-            win.action_set_enabled("win.add_account", !is_locked);
-            if is_locked{
-                win.set_view(View::Login);
-            } else {
-                win.set_view(View::Accounts);
-            };
-        }));
-        if app.is_locked() {
-            self.set_view(View::Login);
-        }
     }
 
     fn app(&self) -> Application {
