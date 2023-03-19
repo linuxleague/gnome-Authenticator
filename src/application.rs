@@ -117,7 +117,7 @@ mod imp {
                 .activate(|app: &Self::Type, _, _| {
                     let model = &app.imp().model;
                     let window = app.active_window();
-                    let providers = ProvidersDialog::new(model.clone());
+                    let providers = ProvidersDialog::new(model);
                     providers.connect_changed(clone!(@weak window => move |_| {
                         window.providers().refilter();
                     }));

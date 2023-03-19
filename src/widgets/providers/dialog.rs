@@ -16,13 +16,17 @@ enum View {
 mod imp {
     use adw::subclass::window::AdwWindowImpl;
     use glib::subclass::{self, Signal};
+    use once_cell::sync::OnceCell;
 
     use super::*;
     use crate::config;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
+    #[properties(wrapper_type = super::ProvidersDialog)]
     pub struct ProvidersDialog {
+        #[property(get, set, construct_only)]
+        pub model: OnceCell<ProvidersModel>,
         #[template_child]
         pub page: TemplateChild<ProviderPage>,
         pub filter_model: gtk::FilterListModel,
@@ -82,9 +86,51 @@ mod imp {
                 Lazy::new(|| vec![Signal::builder("changed").build()]);
             SIGNALS.as_ref()
         }
+
         fn constructed(&self) {
             self.parent_constructed();
+            let obj = self.obj();
             self.placeholder_page.set_icon_name(Some(config::APP_ID));
+            self.filter_model.set_model(Some(&obj.model()));
+            self.filter_model.connect_items_changed(
+                clone!(@weak obj as dialog => move |model, _, _, _| {
+                    if model.n_items() == 0 {
+                        dialog.imp().search_stack.set_visible_child_name("no-results");
+                    } else {
+                        dialog.imp().search_stack.set_visible_child_name("results");
+                    }
+                }),
+            );
+
+            let sorter = ProviderSorter::default();
+            let sort_model = gtk::SortListModel::new(Some(self.filter_model.clone()), Some(sorter));
+
+            let selection_model = gtk::NoSelection::new(Some(sort_model));
+            self.providers_list
+                .bind_model(Some(&selection_model), move |obj| {
+                    let provider = obj.downcast_ref::<Provider>().unwrap();
+                    let row = ProviderActionRow::new(provider);
+                    row.upcast::<gtk::Widget>()
+                });
+
+            self.deck
+                .bind_property("folded", &*self.page.imp().revealer, "reveal-child")
+                .sync_create()
+                .build();
+
+            obj.set_view(View::Placeholder);
+        }
+
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
+        }
+
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
     }
     impl WidgetImpl for ProvidersDialog {}
@@ -98,11 +144,8 @@ glib::wrapper! {
 
 #[gtk::template_callbacks]
 impl ProvidersDialog {
-    pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new::<Self>();
-
-        dialog.setup_widget(model);
-        dialog
+    pub fn new(model: &ProvidersModel) -> Self {
+        glib::Object::builder().property("model", model).build()
     }
 
     pub fn connect_changed<F>(&self, callback: F) -> glib::SignalHandlerId
@@ -117,38 +160,6 @@ impl ProvidersDialog {
                 None
             }),
         )
-    }
-
-    fn setup_widget(&self, model: ProvidersModel) {
-        let imp = self.imp();
-        imp.filter_model.set_model(Some(&model));
-        imp.filter_model.connect_items_changed(
-            clone!(@weak self as dialog => move |model, _, _, _| {
-                if model.n_items() == 0 {
-                    dialog.imp().search_stack.set_visible_child_name("no-results");
-                } else {
-                    dialog.imp().search_stack.set_visible_child_name("results");
-                }
-            }),
-        );
-
-        let sorter = ProviderSorter::default();
-        let sort_model = gtk::SortListModel::new(Some(imp.filter_model.clone()), Some(sorter));
-
-        let selection_model = gtk::NoSelection::new(Some(sort_model));
-        imp.providers_list
-            .bind_model(Some(&selection_model), move |obj| {
-                let provider = obj.downcast_ref::<Provider>().unwrap();
-                let row = ProviderActionRow::new(provider);
-                row.upcast::<gtk::Widget>()
-            });
-
-        imp.deck
-            .bind_property("folded", &*imp.page.imp().revealer, "reveal-child")
-            .sync_create()
-            .build();
-
-        self.set_view(View::Placeholder);
     }
 
     fn search(&self, text: String) {

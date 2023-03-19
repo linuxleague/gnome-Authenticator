@@ -19,9 +19,11 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
+    #[properties(wrapper_type = super::AccountAddDialog)]
     pub struct AccountAddDialog {
+        #[property(get, set, construct_only)]
         pub model: OnceCell<ProvidersModel>,
         pub selected_provider: RefCell<Option<Provider>>,
         #[template_child]
@@ -108,9 +110,24 @@ mod imp {
             SIGNALS.as_ref()
         }
 
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
+        }
+
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
         fn constructed(&self) {
             self.parent_constructed();
             self.obj().action_set_enabled("add.save", false);
+
+            self.provider_completion
+                .set_model(Some(&self.model.get().unwrap().completion_model()));
         }
     }
     impl WidgetImpl for AccountAddDialog {}
@@ -124,12 +141,8 @@ glib::wrapper! {
 
 #[gtk::template_callbacks]
 impl AccountAddDialog {
-    pub fn new(model: ProvidersModel) -> Self {
-        let dialog = glib::Object::new::<Self>();
-
-        dialog.imp().model.set(model).unwrap();
-        dialog.setup_widget();
-        dialog
+    pub fn new(model: &ProvidersModel) -> Self {
+        glib::Object::builder().property("model", model).build()
     }
 
     pub fn connect_added<F>(&self, callback: F) -> glib::SignalHandlerId
@@ -160,7 +173,7 @@ impl AccountAddDialog {
     #[template_callback]
     fn match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> Inhibit {
         let provider_id = store.get::<u32>(&iter, 0);
-        let provider = self.imp().model.get().unwrap().find_by_id(provider_id);
+        let provider = self.model().find_by_id(provider_id);
         self.set_provider(provider);
 
         Inhibit(false)
@@ -214,7 +227,7 @@ impl AccountAddDialog {
     #[template_callback]
     fn provider_created(&self, provider: Provider, _page: ProviderPage) {
         let imp = self.imp();
-        let model = imp.model.get().unwrap();
+        let model = self.model();
         model.append(&provider);
 
         imp.provider_completion
@@ -242,10 +255,8 @@ impl AccountAddDialog {
         imp.token_entry.set_text(&otp_uri.secret);
         imp.username_entry.set_text(&otp_uri.label);
 
-        let provider = imp
-            .model
-            .get()
-            .unwrap()
+        let provider = self
+            .model()
             .find_or_create(
                 &otp_uri.issuer,
                 otp_uri.period,
@@ -275,7 +286,7 @@ impl AccountAddDialog {
 
             let account = Account::create(&username, &token, None, provider)?;
 
-            imp.model.get().unwrap().add_account(&account, provider);
+            self.model().add_account(&account, provider);
             self.emit_by_name::<()>("added", &[]);
         // TODO: display an error message saying there was an error form keyring
         } else {
@@ -323,11 +334,5 @@ impl AccountAddDialog {
             imp.selected_provider.borrow_mut().take();
         }
         self.input_validate(None);
-    }
-
-    fn setup_widget(&self) {
-        let imp = self.imp();
-        imp.provider_completion
-            .set_model(Some(&imp.model.get().unwrap().completion_model()));
     }
 }
