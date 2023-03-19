@@ -3,15 +3,15 @@ use std::cell::{Cell, RefCell};
 use gettextrs::gettext;
 use gtk::{
     gio,
-    glib::{self, clone, subclass::InitializingObject},
+    glib::{self, clone},
     prelude::*,
     subclass::prelude::*,
 };
-use gtk_macros::{action, get_action};
 
 use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
 
 mod imp {
+    use glib::subclass::InitializingObject;
     use once_cell::sync::OnceCell;
 
     use super::*;
@@ -20,6 +20,7 @@ mod imp {
     #[properties(wrapper_type = super::PasswordPage)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_password_page.ui")]
     pub struct PasswordPage {
+        #[property(get, set, construct_only)]
         pub actions: OnceCell<gio::SimpleActionGroup>,
         #[property(get, set, construct)]
         pub has_set_password: Cell<bool>,
@@ -68,6 +69,7 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
             let page = self.obj();
+            page.setup_actions();
             self.status_page.set_icon_name(Some(config::APP_ID));
             page.reset_validation();
             // Reset the validation whenever the password state changes
@@ -94,11 +96,8 @@ glib::wrapper! {
 
 #[gtk::template_callbacks]
 impl PasswordPage {
-    pub fn new(actions: gio::SimpleActionGroup) -> Self {
-        let page = glib::Object::new::<Self>();
-        page.imp().actions.set(actions).unwrap();
-        page.setup_actions();
-        page
+    pub fn new(actions: &gio::SimpleActionGroup) -> Self {
+        glib::Object::builder().property("actions", actions).build()
     }
 
     #[template_callback]
@@ -115,7 +114,12 @@ impl PasswordPage {
             password_repeat == password && password != ""
         };
 
-        get_action!(imp.actions.get().unwrap(), @save_password).set_enabled(is_valid);
+        let save_password_action = self
+            .actions()
+            .lookup_action("save_password")
+            .and_downcast::<gio::SimpleAction>()
+            .unwrap();
+        save_password_action.set_enabled(is_valid);
     }
 
     // Called when either the user sets/resets the password to bind/unbind the
@@ -131,39 +135,35 @@ impl PasswordPage {
     }
 
     fn setup_actions(&self) {
-        let imp = self.imp();
-
-        let actions = imp.actions.get().unwrap();
-        action!(
-            actions,
-            "save_password",
-            clone!(@weak self as page => move |_, _| {
+        let actions = self.actions();
+        let save_password = gio::ActionEntry::builder("save_password")
+            .activate(clone!(@weak self as page => move |_, _, _| {
                 let ctx = glib::MainContext::default();
                 ctx.spawn_local(clone!(@weak page => async move {
                     page.save().await;
                 }));
-            })
-        );
-
-        action!(
-            actions,
-            "reset_password",
-            clone!(@weak self as page => move |_,_| {
+            }))
+            .build();
+        let reset_password = gio::ActionEntry::builder("reset_password")
+            .activate(clone!(@weak self as page => move |_, _, _| {
                 let ctx = glib::MainContext::default();
                 ctx.spawn_local(clone!(@weak page => async move {
                     page.reset_password().await;
                 }));
-            })
-        );
-        get_action!(actions, @save_password).set_enabled(false);
+            }))
+            .build();
+        actions.add_action_entries([save_password, reset_password]);
 
-        self.bind_property(
-            "has-set-password",
-            &get_action!(actions, @reset_password),
-            "enabled",
-        )
-        .sync_create()
-        .build();
+        let save_password_action = actions
+            .lookup_action("save_password")
+            .and_downcast::<gio::SimpleAction>()
+            .unwrap();
+        save_password_action.set_enabled(false);
+
+        let reset_password_action = actions.lookup_action("reset_password").unwrap();
+        self.bind_property("has-set-password", &reset_password_action, "enabled")
+            .sync_create()
+            .build();
     }
 
     async fn reset_password(&self) {
@@ -183,11 +183,15 @@ impl PasswordPage {
             spawn_tokio(async move { keyring::reset_password().await.is_ok() }).await;
 
         if password_was_reset {
-            let imp = self.imp();
-            let actions = imp.actions.get().unwrap();
+            let actions = self.actions();
+            actions.activate_action("close_page", None);
 
-            get_action!(actions, @close_page).activate(None);
-            get_action!(actions, @save_password).set_enabled(false);
+            let save_password_action = actions
+                .lookup_action("save_password")
+                .and_downcast::<gio::SimpleAction>()
+                .unwrap();
+
+            save_password_action.set_enabled(false);
             self.set_has_set_password(false);
         }
     }
@@ -202,7 +206,7 @@ impl PasswordPage {
 
     async fn save(&self) {
         let imp = self.imp();
-        let actions = imp.actions.get().unwrap();
+        let actions = self.actions();
 
         let current_password = imp.current_password_entry.text();
         let password = imp.password_entry.text();
@@ -221,9 +225,14 @@ impl PasswordPage {
             spawn_tokio(async move { keyring::set_password(&password).await.is_ok() }).await;
         if password_was_set {
             self.reset();
-            get_action!(actions, @save_password).set_enabled(false);
+            let save_password_action = actions
+                .lookup_action("save_password")
+                .and_downcast::<gio::SimpleAction>()
+                .unwrap();
+
+            save_password_action.set_enabled(false);
             self.set_has_set_password(true);
-            get_action!(actions, @close_page).activate(None);
+            actions.activate_action("close_page", None);
         }
     }
 }

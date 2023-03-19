@@ -20,9 +20,11 @@ use crate::{utils::spawn_tokio, widgets::Camera};
 mod imp {
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_camera_page.ui")]
+    #[properties(wrapper_type = super::CameraPage)]
     pub struct CameraPage {
+        #[property(get, set, construct_only)]
         pub actions: OnceCell<gio::SimpleActionGroup>,
         #[template_child]
         pub camera: TemplateChild<Camera>,
@@ -36,6 +38,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_instance_callbacks();
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -43,7 +46,19 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for CameraPage {}
+    impl ObjectImpl for CameraPage {
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
+        }
+
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
+        }
+    }
 
     impl WidgetImpl for CameraPage {}
     impl BinImpl for CameraPage {}
@@ -54,12 +69,10 @@ glib::wrapper! {
         @extends gtk::Widget, adw::Bin;
 }
 
+#[gtk::template_callbacks]
 impl CameraPage {
-    pub fn new(actions: gio::SimpleActionGroup) -> Self {
-        let page = glib::Object::new::<Self>();
-        page.imp().actions.set(actions).unwrap();
-        page.setup_widget();
-        page
+    pub fn new(actions: &gio::SimpleActionGroup) -> Self {
+        glib::Object::builder().property("actions", actions).build()
     }
 
     pub async fn scan_from_camera(&self) -> Result<String> {
@@ -171,12 +184,8 @@ impl CameraPage {
         }
     }
 
-    fn setup_widget(&self) {
-        let imp = self.imp();
-        let actions = imp.actions.get().unwrap();
-
-        imp.camera.connect_close(clone!(@weak actions => move |_| {
-            actions.activate_action("close_page", None);
-        }));
+    #[template_callback]
+    fn on_camera_close(&self) {
+        self.actions().activate_action("close_page", None);
     }
 }

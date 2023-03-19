@@ -2,7 +2,6 @@ use adw::prelude::*;
 use gettextrs::gettext;
 use glib::clone;
 use gtk::{gio, glib, subclass::prelude::*};
-use gtk_macros::{action, get_action, spawn};
 use once_cell::sync::OnceCell;
 
 use super::{camera_page::CameraPage, password_page::PasswordPage};
@@ -69,8 +68,8 @@ mod imp {
 
             Self {
                 has_set_password: Cell::default(), // Synced from the application
-                camera_page: CameraPage::new(actions.clone()),
-                password_page: PasswordPage::new(actions.clone()),
+                camera_page: CameraPage::new(&actions),
+                password_page: PasswordPage::new(&actions),
                 actions,
                 model: OnceCell::default(),
                 backup_actions: gio::SimpleActionGroup::new(),
@@ -249,13 +248,11 @@ impl PreferencesWindow {
             imp.backup_group.add(&row);
         }
 
-        let model = imp.model.get().unwrap().clone();
-        action!(
-            imp.backup_actions,
-            &T::identifier(),
-            clone!(@weak self as win, @weak model => move |_, _| {
+        let action = gio::ActionEntry::builder(&T::identifier())
+            .activate(clone!(@weak self as win => move |_, _,_| {
                 let ctx = glib::MainContext::default();
-                ctx.spawn_local(clone!(@weak win, @weak model => async move {
+                ctx.spawn_local(clone!(@weak win => async move {
+                    let model = win.model();
                     if let Ok(file) = win.select_file(filters, Operation::Backup).await {
                         let key = T::ENCRYPTABLE.then(|| {
                             win.encyption_key(Operation::Backup, &T::identifier())
@@ -265,8 +262,9 @@ impl PreferencesWindow {
                         }
                     }
                 }));
-            })
-        );
+            }))
+            .build();
+        imp.backup_actions.add_action_entries([action]);
     }
 
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
@@ -351,13 +349,12 @@ impl PreferencesWindow {
             imp.restore_group.add(&row);
         }
         if T::SCANNABLE {
-            action!(
-                imp.restore_actions,
-                &format!("{}.camera", T::identifier()),
-                clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
-                    get_action!(win.imp().actions, @show_camera_page).activate(None);
-                    spawn!(async move {
-                        match camera_page.scan_from_camera().await {
+            let camera_action = gio::ActionEntry::builder(&format!("{}.camera", T::identifier()))
+                .activate(clone!(@weak self as win=> move |_, _, _| {
+                    win.imp().actions.activate_action("show_camera_page", None);
+                    let ctx = glib::MainContext::default();
+                    ctx.spawn_local(clone!(@weak win => async move {
+                        match win.imp().camera_page.scan_from_camera().await {
                             Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
                                 Ok(items) => win.restore_items::<T, T::Item>(items),
                                 Err(error) => {
@@ -366,7 +363,7 @@ impl PreferencesWindow {
                                         "scanned QR code: {}",
                                     ), error);
 
-                                    get_action!(win.imp().actions, @close_page).activate(None);
+                                    win.imp().actions.activate_action("close_page", None);
 
                                     win.add_toast(adw::Toast::new(&gettext("Unable to restore accounts")));
                                 },
@@ -377,47 +374,44 @@ impl PreferencesWindow {
                                     error,
                                 );
 
-                                get_action!(win.imp().actions, @close_page).activate(None);
+                                win.imp().actions.activate_action("close_page", None);
 
                                 win.add_toast(adw::Toast::new(&gettext("Something went wrong")));
                             },
                         }
-                    });
-                })
-            );
-            action!(
-                imp.restore_actions,
-                &format!("{}.screenshot", T::identifier()),
-                clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
-                    spawn!(async move {
-                        match camera_page.scan_from_screenshot().await {
-                            Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
-                                Ok(items) => {
-                                    win.restore_items::<T, T::Item>(items);
-                                },
-                                Err(error) => {
-                                    tracing::error!(concat!(
-                                        "Encountered an error while trying to restore from a ",
-                                        "scanned QR code: {}",
-                                    ), error);
-
-                                    win.add_toast(adw::Toast::new(&gettext("Unable to restore accounts")));
-                                },
+                    }));
+                })).build();
+            let screenshot_action = gio::ActionEntry::builder(&format!("{}.screenshot", T::identifier()))
+            .activate(clone!(@weak self as win => move |_, _, _| {
+                let ctx = glib::MainContext::default();
+                ctx.spawn_local(clone!(@weak win => async move {
+                    match win.imp().camera_page.scan_from_screenshot().await {
+                        Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
+                            Ok(items) => {
+                                win.restore_items::<T, T::Item>(items);
                             },
                             Err(error) => {
-                                tracing::error!("Encountered an error while trying to scan from the screenshot: {}", error);
+                                tracing::error!(concat!(
+                                    "Encountered an error while trying to restore from a ",
+                                    "scanned QR code: {}",
+                                ), error);
 
-                                win.add_toast(adw::Toast::new(&gettext("Couldn't find a QR code")));
+                                win.add_toast(adw::Toast::new(&gettext("Unable to restore accounts")));
                             },
-                        }
-                    });
-                })
-            );
+                        },
+                        Err(error) => {
+                            tracing::error!("Encountered an error while trying to scan from the screenshot: {}", error);
+
+                            win.add_toast(adw::Toast::new(&gettext("Couldn't find a QR code")));
+                        },
+                    }
+                }));
+            })).build();
+            imp.restore_actions
+                .add_action_entries([camera_action, screenshot_action]);
         } else {
-            action!(
-                imp.restore_actions,
-                &T::identifier(),
-                clone!(@weak self as win => move |_, _| {
+            let action = gio::ActionEntry::builder(&T::identifier())
+                .activate(clone!(@weak self as win => move |_, _, _| {
                     let ctx = glib::MainContext::default();
                     ctx.spawn_local(clone!(@weak win => async move {
                         if let Ok(file) = win.select_file(filters, Operation::Restore).await {
@@ -435,9 +429,11 @@ impl PreferencesWindow {
                             }
                         }
                     }));
-                })
-            );
-        }
+                }))
+                .build();
+
+            imp.restore_actions.add_action_entries([action]);
+        };
     }
 
     fn encyption_key(&self, mode: Operation, identifier: &str) -> Option<glib::GString> {
@@ -453,10 +449,10 @@ impl PreferencesWindow {
     }
 
     fn restore_items<T: Restorable<Item = Q>, Q: RestorableItem>(&self, items: Vec<Q>) {
-        let model = self.imp().model.get().unwrap();
+        let model = self.model();
         items
             .iter()
-            .map(move |item| item.restore(model))
+            .map(move |item| item.restore(&model))
             .for_each(|item| {
                 if let Err(err) = item {
                     tracing::warn!("Failed to restore item {}", err);
@@ -522,28 +518,27 @@ impl PreferencesWindow {
                 win.set_search_enabled(true);
             }));
 
-        action!(
-            imp.actions,
-            "show_camera_page",
-            clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
-                win.present_subpage(&camera_page);
-            })
-        );
-        action!(
-            imp.actions,
-            "show_password_page",
-            clone!(@weak self as win, @weak imp.password_page as password_page => move |_, _| {
-                win.present_subpage(&password_page);
-            })
-        );
-        action!(
-            imp.actions,
-            "close_page",
-            clone!(@weak self as win, @weak imp.camera_page as camera_page => move |_, _| {
+        let show_camera_page = gio::ActionEntry::builder("show_camera_page")
+            .activate(clone!(@weak self as win => move |_, _, _| {
+                win.present_subpage(&win.imp().camera_page);
+            }))
+            .build();
+
+        let show_password_page = gio::ActionEntry::builder("show_password_page")
+            .activate(clone!(@weak self as win => move |_, _, _| {
+                win.present_subpage(&win.imp().password_page);
+            }))
+            .build();
+
+        let close_page = gio::ActionEntry::builder("close_page")
+            .activate(clone!(@weak self as win => move |_, _, _| {
                 win.close_subpage();
-                camera_page.imp().camera.stop();
-            })
-        );
+                win.imp().camera_page.imp().camera.stop();
+            }))
+            .build();
+
+        imp.actions
+            .add_action_entries([show_camera_page, show_password_page, close_page]);
 
         self.insert_action_group("preferences", Some(&imp.actions));
         self.insert_action_group("backup", Some(&imp.backup_actions));

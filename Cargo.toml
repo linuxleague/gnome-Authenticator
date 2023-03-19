@@ -14,7 +14,6 @@ gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", version = "0.20"}
 gst4gtk = { package = "gst-plugin-gtk4", version = "0.10", features = ["wayland", "x11egl", "x11glx"]}
 gtk = {package = "gtk4", version = "0.6", features = ["v4_10"]}
-gtk-macros = "0.3"
 search-provider = "0.5"
 hex = { version = "0.4.3", features = [ "serde" ] }
 tracing = "0.1"

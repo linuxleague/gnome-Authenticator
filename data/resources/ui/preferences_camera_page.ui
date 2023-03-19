@@ -2,7 +2,9 @@
 <interface>
   <template parent="AdwBin" class="CameraPage">
     <property name="child">
-      <object class="Camera" id="camera"/>
+      <object class="Camera" id="camera">
+        <signal name="close" handler="on_camera_close" swapped="true" />
+      </object>
     </property>
     <child>
       <object class="GtkShortcutController">

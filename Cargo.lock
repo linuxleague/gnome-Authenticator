@@ -235,7 +235,6 @@ dependencies = [
  "gettext-rs",
  "gst-plugin-gtk4",
  "gstreamer",
- "gtk-macros",
  "gtk4",
  "hex",
  "image 0.24.5",
@@ -1570,12 +1569,6 @@ dependencies = [
  "libc",
  "system-deps",
 ]
-
-[[package]]
-name = "gtk-macros"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da5bf7748fd4cd0b2490df8debcc911809dbcbee4ece9531b96c29a9c729de5a"
 
 [[package]]
 name = "gtk4"
