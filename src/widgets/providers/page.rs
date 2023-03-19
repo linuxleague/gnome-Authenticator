@@ -1,7 +1,10 @@
 use adw::prelude::*;
 use gettextrs::gettext;
-use glib::translate::IntoGlib;
-use gtk::{gdk_pixbuf, gio, glib, subclass::prelude::*, CompositeTemplate};
+use gtk::{
+    gdk_pixbuf, gio,
+    glib::{self, translate::IntoGlib},
+    subclass::prelude::*,
+};
 
 use crate::{
     models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch, FAVICONS_PATH},
@@ -11,12 +14,12 @@ use crate::{
 mod imp {
     use std::cell::RefCell;
 
-    use glib::subclass::{self, Signal};
+    use glib::subclass::Signal;
 
     use super::*;
     use crate::models::OTPMethod;
 
-    #[derive(Debug, CompositeTemplate)]
+    #[derive(Debug, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_page.ui")]
     pub struct ProviderPage {
         pub actions: gio::SimpleActionGroup,
@@ -121,7 +124,7 @@ mod imp {
             });
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

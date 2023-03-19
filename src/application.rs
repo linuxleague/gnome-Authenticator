@@ -2,8 +2,11 @@ use std::{collections::HashMap, str::FromStr};
 
 use adw::prelude::*;
 use gettextrs::gettext;
-use glib::clone;
-use gtk::{gio, glib, subclass::prelude::*};
+use gtk::{
+    gio,
+    glib::{self, clone},
+    subclass::prelude::*,
+};
 use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
 
 use crate::{

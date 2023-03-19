@@ -4,9 +4,8 @@ use adw::subclass::prelude::*;
 use anyhow::Result;
 use gtk::{
     gio,
-    glib::{self, clone, subclass::InitializingObject},
+    glib::{self, clone},
     prelude::*,
-    CompositeTemplate,
 };
 use once_cell::sync::OnceCell;
 use tokio::{
@@ -20,7 +19,7 @@ use crate::{utils::spawn_tokio, widgets::Camera};
 mod imp {
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate, glib::Properties)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_camera_page.ui")]
     #[properties(wrapper_type = super::CameraPage)]
     pub struct CameraPage {
@@ -41,7 +40,7 @@ mod imp {
             klass.bind_template_instance_callbacks();
         }
 
-        fn instance_init(obj: &InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

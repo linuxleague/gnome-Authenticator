@@ -1,7 +1,10 @@
 use adw::prelude::*;
 use gettextrs::gettext;
-use glib::clone;
-use gtk::{gio, glib, subclass::prelude::*};
+use gtk::{
+    gio,
+    glib::{self, clone},
+    subclass::prelude::*,
+};
 use once_cell::sync::OnceCell;
 
 use super::{camera_page::CameraPage, password_page::PasswordPage};
@@ -20,7 +23,7 @@ mod imp {
     };
 
     use adw::subclass::prelude::*;
-    use glib::subclass::{self, Signal};
+    use glib::subclass::Signal;
     use once_cell::sync::Lazy;
 
     use super::*;
@@ -90,7 +93,7 @@ mod imp {
             klass.bind_template();
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

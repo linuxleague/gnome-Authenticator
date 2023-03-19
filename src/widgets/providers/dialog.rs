@@ -1,7 +1,9 @@
 use adw::{prelude::*, subclass::prelude::*};
 use gettextrs::gettext;
-use glib::clone;
-use gtk::{glib, pango, CompositeTemplate};
+use gtk::{
+    glib::{self, clone},
+    pango,
+};
 use row::ProviderActionRow;
 
 use super::ProviderPage;
@@ -15,13 +17,13 @@ enum View {
 
 mod imp {
     use adw::subclass::window::AdwWindowImpl;
-    use glib::subclass::{self, Signal};
+    use glib::subclass::Signal;
     use once_cell::sync::OnceCell;
 
     use super::*;
     use crate::config;
 
-    #[derive(Debug, Default, CompositeTemplate, glib::Properties)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
     #[properties(wrapper_type = super::ProvidersDialog)]
     pub struct ProvidersDialog {
@@ -74,7 +76,7 @@ mod imp {
             });
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

@@ -1,7 +1,10 @@
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use adw::prelude::*;
-use gtk::{glib, glib::clone, subclass::prelude::*};
+use gtk::{
+    glib::{self, clone},
+    subclass::prelude::*,
+};
 
 use crate::{
     models::{Account, AccountSorter, OTPMethod, Provider},
@@ -9,7 +12,7 @@ use crate::{
 };
 
 mod imp {
-    use glib::subclass::{self, Signal};
+    use glib::subclass::Signal;
     use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
@@ -40,7 +43,7 @@ mod imp {
             klass.bind_template();
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

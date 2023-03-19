@@ -1,5 +1,9 @@
-use glib::{clone, Receiver, Sender};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use gtk::{
+    gio,
+    glib::{self, clone, Receiver, Sender},
+    prelude::*,
+    subclass::prelude::*,
+};
 
 use crate::models::{Provider, FAVICONS_PATH, RUNTIME, SETTINGS};
 

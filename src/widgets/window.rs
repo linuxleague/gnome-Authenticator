@@ -1,6 +1,10 @@
 use gettextrs::gettext;
-use glib::{clone, signal::Inhibit};
-use gtk::{gio, glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{
+    gio,
+    glib::{self, clone, signal::Inhibit},
+    prelude::*,
+    subclass::prelude::*,
+};
 use once_cell::sync::OnceCell;
 
 use crate::{
@@ -28,7 +32,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate, glib::Properties)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/window.ui")]
     #[properties(wrapper_type = super::Window)]
     pub struct Window {

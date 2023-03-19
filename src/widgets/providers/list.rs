@@ -1,5 +1,8 @@
-use glib::clone;
-use gtk::{glib, prelude::*, subclass::prelude::*, CompositeTemplate};
+use gtk::{
+    glib::{self, clone},
+    prelude::*,
+    subclass::prelude::*,
+};
 
 use crate::{
     models::{Account, Provider, ProviderSorter, ProvidersModel},
@@ -13,11 +16,11 @@ pub enum ProvidersListView {
 }
 
 mod imp {
-    use glib::subclass::{self, Signal};
+    use glib::subclass::Signal;
 
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_list.ui")]
     pub struct ProvidersList {
         pub filter_model: gtk::FilterListModel,
@@ -38,7 +41,7 @@ mod imp {
             klass.bind_template();
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

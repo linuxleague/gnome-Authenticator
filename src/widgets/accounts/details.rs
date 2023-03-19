@@ -14,7 +14,7 @@ use crate::{
 mod imp {
     use std::cell::RefCell;
 
-    use glib::subclass::{self, Signal};
+    use glib::subclass::Signal;
     use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
@@ -111,7 +111,7 @@ mod imp {
             );
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }

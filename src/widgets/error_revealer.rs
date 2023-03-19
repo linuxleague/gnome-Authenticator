@@ -1,12 +1,9 @@
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
-    use glib::subclass;
-    use gtk::CompositeTemplate;
-
     use super::*;
 
-    #[derive(Debug, Default, CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/error_revealer.ui")]
     pub struct ErrorRevealer {
         #[template_child]
@@ -26,7 +23,7 @@ mod imp {
             klass.bind_template();
         }
 
-        fn instance_init(obj: &subclass::InitializingObject<Self>) {
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
             obj.init_template();
         }
     }
