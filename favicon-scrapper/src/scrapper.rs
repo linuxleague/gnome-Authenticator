@@ -25,7 +25,7 @@ const SUPPORTED_META: [&[u8]; 1] = [b"msapplication-TileImage"];
 pub struct Scrapper(Vec<Favicon>);
 
 impl Scrapper {
-    pub async fn from_url(base_url: Url) -> Result<Self, Error> {
+    pub async fn from_url(base_url: &Url) -> Result<Self, Error> {
         let res = CLIENT.get(base_url.as_str())
             .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15")
             .send()
@@ -35,18 +35,18 @@ impl Scrapper {
     }
 
     #[allow(dead_code)]
-    pub async fn from_file(path: PathBuf, base_url: Option<Url>) -> Result<Self, Error> {
+    pub async fn from_file(path: PathBuf, base_url: Option<&Url>) -> Result<Self, Error> {
         let bytes = tokio::fs::read(path).await?;
         let body = std::str::from_utf8(&bytes)?;
         Self::from_string(body.to_owned(), base_url)
     }
 
-    fn from_string(body: String, base_url: Option<Url>) -> Result<Self, Error> {
+    fn from_string(body: String, base_url: Option<&Url>) -> Result<Self, Error> {
         let mut reader = quick_xml::Reader::from_str(&body);
         reader.check_end_names(false);
         reader.trim_markup_names_in_closing_tags(true);
 
-        let mut icons = Self::from_reader(&mut reader, base_url.as_ref());
+        let mut icons = Self::from_reader(&mut reader, base_url);
         if let Some(base) = base_url {
             let ico_url = base.join("favicon.ico")?;
             if !icons

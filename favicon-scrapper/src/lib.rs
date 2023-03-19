@@ -30,34 +30,30 @@ mod tests {
 
         let scrapper = Scrapper::from_file(
             "./tests/parser/url_shortcut_icon_link.html".into(),
-            Some(base_url.clone()),
+            Some(&base_url),
         )
         .await
         .unwrap();
         let best = scrapper.find_best().await;
         assert_eq!(best, Some(&expected_output));
 
-        let scrapper = Scrapper::from_file(
-            "./tests/parser/url_icon_link.html".into(),
-            Some(base_url.clone()),
-        )
-        .await
-        .unwrap();
+        let scrapper =
+            Scrapper::from_file("./tests/parser/url_icon_link.html".into(), Some(&base_url))
+                .await
+                .unwrap();
         let best = scrapper.find_best().await;
         assert_eq!(best, Some(&expected_output));
 
-        let scrapper = Scrapper::from_file(
-            "./tests/parser/url_fluid_icon.html".into(),
-            Some(base_url.clone()),
-        )
-        .await
-        .unwrap();
+        let scrapper =
+            Scrapper::from_file("./tests/parser/url_fluid_icon.html".into(), Some(&base_url))
+                .await
+                .unwrap();
         let best = scrapper.find_best().await;
         assert_eq!(best, Some(&expected_output));
 
         let scrapper = Scrapper::from_file(
             "./tests/parser/url_apple_touch_icon_precomposed_link.html".into(),
-            Some(base_url.clone()),
+            Some(&base_url),
         )
         .await
         .unwrap();
@@ -66,7 +62,7 @@ mod tests {
 
         let scrapper = Scrapper::from_file(
             "./tests/parser/url_apple_touch_icon.html".into(),
-            Some(base_url.clone()),
+            Some(&base_url),
         )
         .await
         .unwrap();
@@ -75,7 +71,7 @@ mod tests {
 
         let base_url = Url::parse("https://gitlab.com").unwrap();
         let expected_output = Favicon::for_url("https://assets.gitlab-static.net/assets/msapplication-tile-1196ec67452f618d39cdd85e2e3a542f76574c071051ae7effbfde01710eb17d.png", Metadata::new(Format::Png));
-        let scrapper = Scrapper::from_file("./tests/parser/meta_tag.html".into(), Some(base_url))
+        let scrapper = Scrapper::from_file("./tests/parser/meta_tag.html".into(), Some(&base_url))
             .await
             .unwrap();
         let best = scrapper.find_best().await;
@@ -87,7 +83,7 @@ mod tests {
             Metadata::new(Format::Ico),
         );
         let scrapper =
-            Scrapper::from_file("./tests/parser/url_with_port.html".into(), Some(base_url))
+            Scrapper::from_file("./tests/parser/url_with_port.html".into(), Some(&base_url))
                 .await
                 .unwrap();
         let best = scrapper.find_best().await;

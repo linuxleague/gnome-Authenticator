@@ -327,7 +327,7 @@ impl Provider {
         id: u32,
     ) -> Result<String, Box<dyn std::error::Error>> {
         let website_url = Url::parse(&website)?;
-        let favicon = favicon_scrapper::Scrapper::from_url(website_url).await?;
+        let favicon = favicon_scrapper::Scrapper::from_url(&website_url).await?;
         tracing::debug!("Found the following icons {:#?} for {}", favicon, name);
 
         let icon_name = format!("{id}_{}", name.replace(' ', "_"));
