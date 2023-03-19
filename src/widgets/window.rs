@@ -158,7 +158,6 @@ impl Window {
             window.add_css_class("devel");
         }
         window.init(model, app);
-        window.setup_actions(app);
         window.set_view(View::Accounts); // Start by default in the accounts state
         window.setup_signals(app);
         window
@@ -214,7 +213,7 @@ impl Window {
 
         let model = imp.model.get().unwrap();
 
-        let dialog = AccountAddDialog::new(model.clone());
+        let dialog = AccountAddDialog::new(model);
         dialog.set_transient_for(Some(self));
         if let Some(uri) = otp_uri {
             dialog.set_from_otp_uri(uri);
@@ -263,17 +262,11 @@ impl Window {
         imp.account_details.set_providers_model(model);
     }
 
-    fn setup_actions(&self, app: &Application) {
-        let action = self.lookup_action("add_account").unwrap();
-        app.bind_property("is-locked", &action, "enabled")
-            .invert_boolean()
-            .sync_create()
-            .build();
-    }
-
     fn setup_signals(&self, app: &Application) {
+        self.action_set_enabled("win.add_account", !app.is_locked());
         app.connect_is_locked_notify(clone!(@weak self as win => move |app| {
             let is_locked = app.is_locked();
+            win.action_set_enabled("win.add_account", !is_locked);
             if is_locked{
                 win.set_view(View::Login);
             } else {
