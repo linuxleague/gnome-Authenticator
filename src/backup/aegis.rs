@@ -96,6 +96,7 @@ impl Aegis {
             (password_slot.n() as f64).log2() as u8,
             password_slot.r(),
             password_slot.p(),
+            scrypt::Params::RECOMMENDED_LEN,
         )
         // All parameters are default values. Thus, this should always work and unwrap is okay.
         .expect("Scrypt params creation");
@@ -530,6 +531,7 @@ impl Restorable for Aegis {
                             (slot.n() as f64).log2() as u8, // Defaults to 15 by aegis
                             slot.r(),                       // Defaults to 8 by aegis
                             slot.p(),                       // Defaults to 1 by aegis
+                            scrypt::Params::RECOMMENDED_LEN,
                         )
                         .map_err(|_| anyhow::anyhow!("Invalid scrypt parameters"))?;
                         let mut temp_key: [u8; 32] = [0u8; 32];

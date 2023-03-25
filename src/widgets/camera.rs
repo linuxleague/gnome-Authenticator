@@ -50,7 +50,7 @@ mod screenshot {
                 .identifier(identifier)
                 .modal(true)
                 .interactive(true)
-                .build()
+                .send()
                 .await?
                 .response()
         })
