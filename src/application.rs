@@ -181,22 +181,19 @@ mod imp {
             );
             app.update_color_scheme();
 
-            // TODO: fixme by using a tokio wrapper
-            // let search_provider_path = config::OBJECT_PATH;
-            // let search_provider_name = format!("{}.SearchProvider",
-            // config::APP_ID);
-            //
-            // let ctx = glib::MainContext::default();
-            // ctx.spawn_local(clone!(@strong app as application => async move {
-            // let imp = application.imp();
-            // match SearchProvider::new(application.clone(),
-            // search_provider_name, search_provider_path).await {
-            // Ok(search_provider) => {
-            // imp.search_provider.replace(Some(search_provider));
-            // },
-            // Err(err) => tracing::debug!("Could not start search provider:
-            // {}", err), };
-            // }));
+            let search_provider_name = format!("{}.SearchProvider", config::APP_ID);
+            let ctx = glib::MainContext::default();
+            ctx.spawn_local(clone!(@strong app as application => async move {
+                let imp = application.imp();
+                match SearchProvider::new(application.clone(), search_provider_name, config::OBJECT_PATH).await {
+                    Ok(search_provider) => {
+                        imp.search_provider.replace(Some(search_provider));
+                    },
+                    Err(err) => {
+                        tracing::debug!("Could not start search provider:{}", err);
+                    }
+                };
+            }));
         }
 
         fn activate(&self) {
@@ -291,7 +288,7 @@ impl Application {
         RUNTIME.block_on(async {
             let keyring = oo7::Keyring::new()
                 .await
-                .expect("Failed to start a location service");
+                .expect("Failed to start the keyring service");
             keyring
                 .unlock()
                 .await

@@ -179,8 +179,7 @@ impl PasswordPage {
             return;
         }
 
-        let password_was_reset =
-            spawn_tokio(async move { keyring::reset_password().await.is_ok() }).await;
+        let password_was_reset = spawn_tokio(keyring::reset_password()).await.is_ok();
 
         if password_was_reset {
             let actions = self.actions();

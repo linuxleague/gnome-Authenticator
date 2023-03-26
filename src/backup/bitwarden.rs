@@ -174,7 +174,7 @@ mod tests {
   ]
 }"#;
 
-        let bitwarden_items = Bitwarden::restore_from_data(&bitwarden_data.as_bytes(), None)
+        let bitwarden_items = Bitwarden::restore_from_data(bitwarden_data.as_bytes(), None)
             .expect("Restoring from json should work");
 
         assert_eq!(bitwarden_items[0].account(), "test@testmail.com");
@@ -217,7 +217,7 @@ mod tests {
   ]
 }"#;
 
-        let bitwarden_items = Bitwarden::restore_from_data(&bitwarden_data.as_bytes(), None)
+        let bitwarden_items = Bitwarden::restore_from_data(bitwarden_data.as_bytes(), None)
             .expect("Restoring from json should work");
 
         assert_eq!(bitwarden_items[0].account(), "test@testmail.com");

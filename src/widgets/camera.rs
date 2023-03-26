@@ -233,7 +233,7 @@ impl Camera {
     }
 
     pub async fn scan_from_camera(&self) {
-        match spawn_tokio(async { ashpd::desktop::camera::request().await }).await {
+        match spawn_tokio(ashpd::desktop::camera::request()).await {
             Ok(Some((stream_fd, nodes_id))) => {
                 match self.imp().paintable.set_pipewire_fd(stream_fd) {
                     Ok(_) => {
