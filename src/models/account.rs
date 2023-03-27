@@ -1,10 +1,7 @@
 use core::cmp::Ordering;
 
 use anyhow::{Context, Result};
-use diesel::{
-    Associations, BelongingToDsl, ExpressionMethods, Identifiable, Insertable, QueryDsl, Queryable,
-    RunQueryDsl,
-};
+use diesel::prelude::*;
 use gtk::{
     glib::{self, clone},
     prelude::*,

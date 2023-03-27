@@ -6,7 +6,7 @@ use std::{
 };
 
 use anyhow::Result;
-use diesel::{ExpressionMethods, Identifiable, Insertable, QueryDsl, Queryable, RunQueryDsl};
+use diesel::prelude::*;
 use gtk::{
     gdk_pixbuf, gio,
     glib::{self, clone},
