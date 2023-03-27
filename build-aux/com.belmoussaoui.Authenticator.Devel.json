@@ -5,7 +5,7 @@
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.rust-stable",
-        "org.freedesktop.Sdk.Extension.llvm14"
+        "org.freedesktop.Sdk.Extension.llvm15"
     ],
     "command": "authenticator",
     "finish-args": [
@@ -18,12 +18,13 @@
         "--env=RUST_LOG=authenticator=debug,ashpd=debug,oo7=debug",
         "--env=G_MESSAGES_DEBUG=none",
         "--talk-name=org.gtk.vfs.*",
-        "--filesystem=xdg-run/gvfs", "--filesystem=xdg-run/gvfsd"
+        "--filesystem=xdg-run/gvfs",
+        "--filesystem=xdg-run/gvfsd"
     ],
     "build-options": {
         "append-path": "/usr/lib/sdk/rust-stable/bin",
-        "prepend-path": "/usr/lib/sdk/llvm14/bin",
-        "prepend-ld-library-path": "/usr/lib/sdk/llvm14/lib",
+        "prepend-path": "/usr/lib/sdk/llvm15/bin",
+        "prepend-ld-library-path": "/usr/lib/sdk/llvm15/lib",
         "env": {
             "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER": "clang",
             "CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS": "-C link-arg=-fuse-ld=/usr/lib/sdk/rust-stable/bin/mold",
@@ -42,23 +43,29 @@
         {
             "name": "zbar",
             "config-opts": [
-                "--without-qt",
-                "--without-gtk",
-                "--without-xv",
-                "--without-imagemagick",
+                "--disable-doc",
                 "--disable-video",
+                "--enable-codes=qrcode",
+                "--without-dbus",
+                "--without-directshow",
+                "--without-gir",
+                "--without-graphicsmagick",
+                "--without-gtk",
+                "--without-imagemagick",
+                "--without-jpeg",
                 "--without-java",
+                "--without-npapi",
                 "--without-python",
-                "--with-dbus=no",
-                "--enable-doc=no",
-                "--with-introspection=no",
-                "--enable-codes=qrcode"
+                "--without-qt",
+                "--without-qt5",
+                "--without-xshm",
+                "--without-xv"
             ],
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://git.linuxtv.org/zbar.git",
-                    "commit": "50726104adc930c67642da65249dda62e2981591"
+                    "type": "archive",
+                    "url": "https://linuxtv.org/downloads/zbar/zbar-0.23.1.tar.gz",
+                    "sha256": "c72b19eb63f48781ae5ff1830236f4e753f4bd6418cd781aea1cd85d625b119e"
                 },
                 {
                     "type": "script",
@@ -72,6 +79,7 @@
         {
             "name": "gst-bad-plugins",
             "buildsystem": "meson",
+            "subdir": "subprojects/gst-plugins-bad",
             "config-opts": [
                 "-Dzbar=enabled",
                 "-Drsvg=disabled",
@@ -83,8 +91,9 @@
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad.git",
-                    "branch": "1.18"
+                    "disable-submodules": true,
+                    "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer.git",
+                    "tag": "1.20.6"
                 }
             ]
         },
