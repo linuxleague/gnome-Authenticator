@@ -1,7 +1,6 @@
 use core::cmp::Ordering;
 use std::{
     cell::{Cell, RefCell},
-    str::FromStr,
     string::ToString,
     time::{SystemTime, UNIX_EPOCH},
 };
@@ -373,9 +372,9 @@ impl Provider {
         self.set_properties(&[
             ("name", &patch.name),
             ("period", &(patch.period as u32)),
-            ("method", &OTPMethod::from_str(&patch.method)?),
+            ("method", &patch.method.parse::<OTPMethod>()?),
             ("digits", &(patch.digits as u32)),
-            ("algorithm", &Algorithm::from_str(&patch.algorithm)?),
+            ("algorithm", &patch.algorithm.parse::<Algorithm>()?),
             ("default-counter", &(patch.default_counter as u32)),
         ]);
 
@@ -520,8 +519,8 @@ impl From<DiProvider> for Provider {
             p.id as u32,
             &p.name,
             p.period as u32,
-            OTPMethod::from_str(&p.method).unwrap(),
-            Algorithm::from_str(&p.algorithm).unwrap(),
+            p.method.parse::<OTPMethod>().unwrap(),
+            p.algorithm.parse::<Algorithm>().unwrap(),
             p.digits as u32,
             p.default_counter as u32,
             p.website,

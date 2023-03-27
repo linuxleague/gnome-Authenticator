@@ -1,5 +1,3 @@
-use std::str::FromStr;
-
 use anyhow::Result;
 use gettextrs::gettext;
 use glib::{clone, signal::Inhibit};
@@ -213,8 +211,8 @@ impl AccountAddDialog {
     }
 
     #[template_callback]
-    fn camera_code_detected(&self, code: String, _camera: Camera) {
-        match OTPUri::from_str(&code) {
+    fn camera_code_detected(&self, code: &str, _camera: Camera) {
+        match code.parse::<OTPUri>() {
             Ok(otp_uri) => {
                 self.set_from_otp_uri(&otp_uri);
             }

@@ -1,5 +1,3 @@
-use std::str::FromStr;
-
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::prelude::*;
@@ -78,7 +76,7 @@ impl Restorable for FreeOTP {
 
         let items = uris
             .split('\n')
-            .filter_map(|uri| OTPUri::from_str(uri).ok())
+            .filter_map(|uri| uri.parse::<OTPUri>().ok())
             .collect::<Vec<OTPUri>>();
 
         Ok(items)

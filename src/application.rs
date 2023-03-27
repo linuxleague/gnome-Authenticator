@@ -1,4 +1,4 @@
-use std::{collections::HashMap, str::FromStr};
+use std::collections::HashMap;
 
 use adw::prelude::*;
 use futures_util::StreamExt;
@@ -215,7 +215,7 @@ mod imp {
             self.activate();
             let uris = files
                 .iter()
-                .filter_map(|f| OTPUri::from_str(&f.uri()).ok())
+                .filter_map(|f| f.uri().parse::<OTPUri>().ok())
                 .collect::<Vec<OTPUri>>();
             // We only handle a single URI (see the desktop file)
             if let Some(uri) = uris.get(0) {

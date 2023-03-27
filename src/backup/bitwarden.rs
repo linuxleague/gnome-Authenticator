@@ -1,5 +1,3 @@
-use std::str::FromStr;
-
 use anyhow::Result;
 use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
@@ -131,7 +129,7 @@ impl Restorable for Bitwarden {
         for mut item in bitwarden_root.items {
             if let Some(ref login) = item.login {
                 if let Some(ref totp) = login.totp {
-                    if let Ok(uri) = OTPUri::from_str(totp) {
+                    if let Ok(uri) = totp.parse::<OTPUri>() {
                         item.overwrite_with(uri);
                     }
                     items.push(item);
