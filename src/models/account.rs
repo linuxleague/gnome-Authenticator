@@ -1,5 +1,4 @@
 use core::cmp::Ordering;
-use std::cell::{Cell, RefCell};
 
 use anyhow::{Context, Result};
 use diesel::{
@@ -47,18 +46,28 @@ pub struct DiAccount {
 
 #[doc(hidden)]
 mod imp {
-    use glib::{ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, Value};
+    use std::cell::{Cell, RefCell};
+
+    use glib::ParamSpecObject;
     use once_cell::sync::Lazy;
 
     use super::*;
 
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::Account)]
     pub struct Account {
+        #[property(get, set, construct)]
         pub id: Cell<u32>,
+        #[property(get, set)]
         pub otp: RefCell<String>,
+        #[property(get, set = Self::set_name)]
         pub name: RefCell<String>,
+        #[property(get, set = Self::set_counter, default = otp::HOTP_DEFAULT_COUNTER)]
         pub counter: Cell<u32>,
         pub token: OnceCell<String>,
+        #[property(get, set, construct_only)]
         pub token_id: RefCell<String>,
+        // We don't use property here as we can't mark the getter as not nullable
         pub provider: RefCell<Option<Provider>>,
     }
 
@@ -81,65 +90,83 @@ mod imp {
     }
 
     impl ObjectImpl for Account {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecUInt::builder("id").construct().build(),
-                    ParamSpecUInt::builder("counter")
-                        .default_value(otp::HOTP_DEFAULT_COUNTER)
-                        .build(),
-                    ParamSpecString::builder("name").build(),
-                    ParamSpecString::builder("token-id").build(),
-                    ParamSpecString::builder("otp").build(),
-                    ParamSpecObject::builder::<Provider>("provider").build(),
-                ]
+        fn properties() -> &'static [glib::ParamSpec] {
+            static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
+                let mut props = Account::derived_properties()
+                    .into_iter()
+                    .cloned()
+                    .collect::<Vec<_>>();
+                props.push(ParamSpecObject::builder::<Provider>("provider").build());
+                props
             });
             PROPERTIES.as_ref()
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
             match pspec.name() {
-                "id" => {
-                    let id = value.get().unwrap();
-                    self.id.replace(id);
-                }
-                "name" => {
-                    let name = value.get().unwrap();
-                    self.name.replace(name);
-                }
-                "counter" => {
-                    let counter = value.get().unwrap();
-                    self.counter.replace(counter);
-                }
-                "otp" => {
-                    let otp = value.get().unwrap();
-                    self.otp.replace(otp);
-                }
-                "token-id" => {
-                    let token_id = value.get().unwrap();
-                    self.token_id.replace(token_id);
-                }
                 "provider" => {
                     let provider = value.get().unwrap();
                     self.provider.replace(provider);
                 }
-                _ => unimplemented!(),
+                _ => self.derived_set_property(id, value, pspec),
             }
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
             match pspec.name() {
-                "id" => self.id.get().to_value(),
-                "name" => self.name.borrow().to_value(),
-                "counter" => self.counter.get().to_value(),
-                "otp" => self.otp.borrow().to_value(),
-                "token-id" => self.token_id.borrow().to_value(),
                 "provider" => self.provider.borrow().to_value(),
-                _ => unimplemented!(),
+                _ => self.derived_property(id, pspec),
+            }
+        }
+    }
+
+    impl Account {
+        fn set_name_inner(&self, id: i32, name: &str) -> Result<()> {
+            let db = database::connection();
+            let mut conn = db.get()?;
+
+            let target = accounts::table.filter(accounts::columns::id.eq(id));
+            diesel::update(target)
+                .set(accounts::columns::name.eq(name))
+                .execute(&mut conn)?;
+            Ok(())
+        }
+
+        fn set_name(&self, name: &str) {
+            match self.set_name_inner(self.obj().id() as i32, name) {
+                Ok(_) => {
+                    self.name.replace(name.to_owned());
+                }
+                Err(err) => {
+                    tracing::warn!("Failed to update account name {err}");
+                }
+            }
+        }
+
+        fn set_counter_inner(&self, id: i32, counter: u32) -> Result<()> {
+            let db = database::connection();
+            let mut conn = db.get()?;
+
+            let target = accounts::table.filter(accounts::columns::id.eq(id));
+            diesel::update(target)
+                .set(accounts::columns::counter.eq(counter as i32))
+                .execute(&mut conn)?;
+            Ok(())
+        }
+
+        fn set_counter(&self, counter: u32) {
+            match self.set_counter_inner(self.obj().id() as i32, counter) {
+                Ok(_) => {
+                    self.counter.set(counter);
+                }
+                Err(err) => {
+                    tracing::warn!("Failed to update account counter {err}");
+                }
             }
         }
     }
 }
+
 glib::wrapper! {
     pub struct Account(ObjectSubclass<imp::Account>);
 }
@@ -288,7 +315,7 @@ impl Account {
             }
         };
 
-        self.set_property("otp", label);
+        self.set_otp(label);
     }
 
     /// Increment the internal counter in case of a HOTP account
@@ -306,10 +333,6 @@ impl Account {
         Ok(())
     }
 
-    pub fn otp(&self) -> String {
-        self.property("otp")
-    }
-
     pub fn copy_otp(&self) {
         let display = gtk::gdk::Display::default().unwrap();
         let clipboard = display.clipboard();
@@ -321,10 +344,6 @@ impl Account {
         if self.provider().method() == OTPMethod::HOTP {
             self.generate_otp();
         }
-    }
-
-    pub fn id(&self) -> u32 {
-        self.imp().id.get()
     }
 
     pub fn provider(&self) -> Provider {
@@ -339,38 +358,12 @@ impl Account {
         diesel::update(target)
             .set(accounts::columns::provider_id.eq(provider.id() as i32))
             .execute(&mut conn)?;
-
         self.set_property("provider", provider);
         Ok(())
     }
 
-    pub fn counter(&self) -> u32 {
-        self.imp().counter.get()
-    }
-
-    pub fn name(&self) -> String {
-        self.imp().name.borrow().clone()
-    }
-
-    pub fn connect_name_notify<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, String) + 'static,
-    {
-        self.connect_notify_local(
-            Some("name"),
-            clone!(@weak self as app => move |_, _| {
-                let name = app.name();
-                callback(&app, name);
-            }),
-        )
-    }
-
     pub fn token(&self) -> String {
         self.imp().token.get().unwrap().clone()
-    }
-
-    pub fn token_id(&self) -> String {
-        self.imp().token_id.borrow().clone()
     }
 
     pub fn otp_uri(&self) -> OTPUri {
@@ -380,32 +373,6 @@ impl Account {
     pub fn qr_code(&self) -> QRCodeData {
         let otp: String = self.otp_uri().into();
         QRCodeData::from(otp.as_str())
-    }
-
-    pub fn set_name(&self, name: &str) -> Result<()> {
-        let db = database::connection();
-        let mut conn = db.get()?;
-
-        let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
-        diesel::update(target)
-            .set(accounts::columns::name.eq(name))
-            .execute(&mut conn)?;
-
-        self.set_property("name", name);
-        Ok(())
-    }
-
-    pub fn set_counter(&self, counter: u32) -> Result<()> {
-        let db = database::connection();
-        let mut conn = db.get()?;
-
-        let target = accounts::table.filter(accounts::columns::id.eq(self.id() as i32));
-        diesel::update(target)
-            .set(accounts::columns::counter.eq(counter as i32))
-            .execute(&mut conn)?;
-
-        self.set_property("counter", counter);
-        Ok(())
     }
 
     pub fn delete(&self) -> Result<()> {

@@ -253,7 +253,7 @@ impl AccountDetailsPage {
         imp.provider_stack.set_visible_child_name("display");
 
         if let Some(account) = imp.account.borrow().as_ref() {
-            account.set_name(&imp.account_label.text())?;
+            account.set_name(imp.account_label.text());
 
             if let Some(selected_provider) = imp.selected_provider.borrow().as_ref() {
                 let current_provider = account.provider();
@@ -267,7 +267,7 @@ impl AccountDetailsPage {
             }
 
             let old_counter = account.counter();
-            account.set_counter(imp.counter_label.value())?;
+            account.set_counter(imp.counter_label.value());
             // regenerate the otp value if the counter value was changed
             if old_counter != account.counter() && account.provider().method() == OTPMethod::HOTP {
                 account.generate_otp();

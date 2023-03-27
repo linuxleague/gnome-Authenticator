@@ -174,7 +174,7 @@ impl ProviderRow {
                 }),
             );
 
-            account.connect_name_notify(clone!(@weak provider_row, @weak sorter => move |_, _| {
+            account.connect_name_notify(clone!(@weak provider_row, @weak sorter => move |_| {
                 // Re-sort in case the name was updated
                 sorter.changed(gtk::SorterChange::Different);
                 provider_row.emit_by_name::<()>("changed", &[]);
