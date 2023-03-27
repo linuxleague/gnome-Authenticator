@@ -103,7 +103,7 @@ mod imp {
                     obj.on_provider_image_changed();
                 }
                 let signal_id =
-                    provider.connect_image_uri_notify(clone!(@weak obj as image => move |_, _| {
+                    provider.connect_image_uri_notify(clone!(@weak obj as image => move |_| {
                         image.on_provider_image_changed();
                     }));
                 self.signal_id.replace(Some(signal_id));
@@ -274,9 +274,7 @@ impl ProviderImage {
         };
         if let Some(provider) = self.provider() {
             let guard = provider.freeze_notify();
-            if let Err(err) = provider.set_image_uri(&image_path) {
-                tracing::warn!("Failed to update provider image {}", err);
-            }
+            provider.set_image_uri(image_path);
             drop(guard);
         }
 

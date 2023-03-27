@@ -150,7 +150,7 @@ impl ProviderRow {
         } else {
             // Update the progress bar whnever the remaining-time is updated
             self.tick_progressbar();
-            provider.connect_remaining_time_notify(clone!(@weak self as row => move |_, _| {
+            provider.connect_remaining_time_notify(clone!(@weak self as row => move |_| {
                 row.tick_progressbar();
             }));
         }

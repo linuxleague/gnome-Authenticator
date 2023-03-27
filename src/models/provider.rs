@@ -66,27 +66,37 @@ pub struct DiProvider {
     pub method: String,
 }
 mod imp {
-    use glib::{
-        ParamSpec, ParamSpecObject, ParamSpecString, ParamSpecUInt, ParamSpecUInt64, SourceId,
-        Value,
-    };
-    use once_cell::sync::Lazy;
+    use glib::SourceId;
 
     use super::*;
 
+    #[derive(glib::Properties)]
+    #[properties(wrapper_type = super::Provider)]
     pub struct Provider {
+        #[property(get, set, construct_only)]
         pub id: Cell<u32>,
+        #[property(get, set)]
         pub name: RefCell<String>,
+        #[property(get, set, maximum = 1000, default = otp::TOTP_DEFAULT_PERIOD)]
         pub period: Cell<u32>,
-        pub method: RefCell<String>,
+        #[property(get, set, builder(OTPMethod::default()))]
+        pub method: Cell<OTPMethod>,
+        #[property(get, set, default = otp::HOTP_DEFAULT_COUNTER)]
         pub default_counter: Cell<u32>,
-        pub algorithm: RefCell<String>,
+        #[property(get, set, builder(Algorithm::default()))]
+        pub algorithm: Cell<Algorithm>,
+        #[property(get, set, maximum = 1000, default = otp::DEFAULT_DIGITS)]
         pub digits: Cell<u32>,
+        #[property(get, set)]
         pub website: RefCell<Option<String>>,
+        #[property(get, set)]
         pub help_url: RefCell<Option<String>>,
+        #[property(get, set = Self::set_image_uri, explicit_notify)]
         pub image_uri: RefCell<Option<String>>,
+        #[property(get, set)]
         pub remaining_time: Cell<u64>,
-        pub accounts: AccountsModel,
+        #[property(get)]
+        pub accounts_model: AccountsModel,
         pub filter_model: gtk::FilterListModel,
         pub tick_callback: RefCell<Option<SourceId>>,
     }
@@ -101,16 +111,16 @@ mod imp {
             Self {
                 id: Cell::default(),
                 default_counter: Cell::new(otp::HOTP_DEFAULT_COUNTER),
-                algorithm: RefCell::new(Algorithm::default().to_string()),
+                algorithm: Cell::new(Algorithm::default()),
                 digits: Cell::new(otp::DEFAULT_DIGITS),
                 name: RefCell::default(),
                 website: RefCell::default(),
                 help_url: RefCell::default(),
                 image_uri: RefCell::default(),
-                method: RefCell::new(OTPMethod::default().to_string()),
+                method: Cell::new(OTPMethod::default()),
                 period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
                 filter_model: gtk::FilterListModel::new(Some(model.clone()), None::<gtk::Filter>),
-                accounts: model,
+                accounts_model: model,
                 tick_callback: RefCell::default(),
                 remaining_time: Cell::default(),
             }
@@ -118,106 +128,16 @@ mod imp {
     }
 
     impl ObjectImpl for Provider {
-        fn properties() -> &'static [ParamSpec] {
-            static PROPERTIES: Lazy<Vec<ParamSpec>> = Lazy::new(|| {
-                vec![
-                    ParamSpecUInt::builder("id").construct().build(),
-                    ParamSpecString::builder("name").build(),
-                    ParamSpecObject::builder::<AccountsModel>("accounts").build(),
-                    ParamSpecUInt::builder("period")
-                        .maximum(1000)
-                        .default_value(otp::TOTP_DEFAULT_PERIOD)
-                        .build(),
-                    ParamSpecUInt::builder("digits")
-                        .maximum(1000)
-                        .default_value(otp::DEFAULT_DIGITS)
-                        .build(),
-                    ParamSpecUInt::builder("default-counter")
-                        .default_value(otp::HOTP_DEFAULT_COUNTER)
-                        .build(),
-                    ParamSpecString::builder("algorithm")
-                        .default_value(Some(Algorithm::default().to_string().as_str()))
-                        .build(),
-                    ParamSpecString::builder("method")
-                        .default_value(Some(OTPMethod::default().to_string().as_str()))
-                        .build(),
-                    ParamSpecString::builder("website").build(),
-                    ParamSpecString::builder("help-url").build(),
-                    ParamSpecString::builder("image-uri")
-                        .explicit_notify()
-                        .build(),
-                    ParamSpecUInt64::builder("remaining-time").build(),
-                ]
-            });
-            PROPERTIES.as_ref()
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
         }
 
-        fn set_property(&self, _id: usize, value: &Value, pspec: &ParamSpec) {
-            match pspec.name() {
-                "id" => {
-                    let id = value.get().unwrap();
-                    self.id.replace(id);
-                }
-                "name" => {
-                    let name = value.get().unwrap();
-                    self.name.replace(name);
-                }
-                "period" => {
-                    let period = value.get().unwrap();
-                    self.period.replace(period);
-                }
-                "method" => {
-                    let method = value.get().unwrap();
-                    self.method.replace(method);
-                }
-                "digits" => {
-                    let digits = value.get().unwrap();
-                    self.digits.replace(digits);
-                }
-                "algorithm" => {
-                    let algorithm = value.get().unwrap();
-                    self.algorithm.replace(algorithm);
-                }
-                "default-counter" => {
-                    let default_counter = value.get().unwrap();
-                    self.default_counter.replace(default_counter);
-                }
-                "website" => {
-                    let website = value.get().unwrap();
-                    self.website.replace(website);
-                }
-                "help-url" => {
-                    let help_url = value.get().unwrap();
-                    self.help_url.replace(help_url);
-                }
-                "image-uri" => {
-                    let image_uri = value.get().unwrap();
-                    self.image_uri.replace(image_uri);
-                }
-                "remaining-time" => {
-                    let remaining_time = value.get().unwrap();
-                    self.remaining_time.set(remaining_time);
-                }
-                _ => unimplemented!(),
-            }
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
         }
 
-        fn property(&self, _id: usize, pspec: &ParamSpec) -> Value {
-            match pspec.name() {
-                "id" => self.id.get().to_value(),
-                "name" => self.name.borrow().to_value(),
-                "period" => self.period.get().to_value(),
-                "method" => self.method.borrow().to_value(),
-                "digits" => self.digits.get().to_value(),
-                "algorithm" => self.algorithm.borrow().to_value(),
-                "default-counter" => self.default_counter.get().to_value(),
-                "website" => self.website.borrow().to_value(),
-                "help-url" => self.help_url.borrow().to_value(),
-                "image-uri" => self.image_uri.borrow().to_value(),
-                "accounts" => self.accounts.to_value(),
-                "remaining-time" => self.remaining_time.get().to_value(),
-                _ => unimplemented!(),
-            }
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
         }
 
         fn dispose(&self) {
@@ -225,6 +145,29 @@ mod imp {
             if let Some(source_id) = self.tick_callback.borrow_mut().take() {
                 source_id.remove();
             }
+        }
+    }
+
+    impl Provider {
+        fn set_image_uri_inner(&self, id: i32, uri: Option<&str>) -> anyhow::Result<()> {
+            let db = database::connection();
+            let mut conn = db.get()?;
+
+            let target = providers::table.filter(providers::columns::id.eq(id));
+            diesel::update(target)
+                .set(providers::columns::image_uri.eq(uri))
+                .execute(&mut conn)?;
+
+            Ok(())
+        }
+
+        fn set_image_uri(&self, uri: Option<&str>) {
+            let obj = self.obj();
+            if let Err(err) = self.set_image_uri_inner(obj.id() as i32, uri) {
+                tracing::warn!("Failed to update provider image {}", err);
+            }
+            self.image_uri.replace(uri.map(ToOwned::to_owned));
+            obj.notify_image_uri();
         }
     }
 }
@@ -314,8 +257,8 @@ impl Provider {
             .property("help-url", help_url)
             .property("image-uri", image_uri)
             .property("period", period)
-            .property("method", method.to_string())
-            .property("algorithm", algorithm.to_string())
+            .property("method", method)
+            .property("algorithm", algorithm)
             .property("digits", digits)
             .property("default-counter", default_counter)
             .build()
@@ -380,50 +323,6 @@ impl Provider {
         }
     }
 
-    pub fn id(&self) -> u32 {
-        self.imp().id.get()
-    }
-
-    pub fn name(&self) -> String {
-        self.imp().name.borrow().clone()
-    }
-
-    pub fn digits(&self) -> u32 {
-        self.imp().digits.get()
-    }
-
-    pub fn default_counter(&self) -> u32 {
-        self.imp().default_counter.get()
-    }
-
-    pub fn period(&self) -> u32 {
-        self.imp().period.get()
-    }
-
-    pub fn algorithm(&self) -> Algorithm {
-        Algorithm::from_str(&self.imp().algorithm.borrow().clone()).unwrap()
-    }
-
-    pub fn method(&self) -> OTPMethod {
-        OTPMethod::from_str(&self.imp().method.borrow().clone()).unwrap()
-    }
-
-    pub fn website(&self) -> Option<String> {
-        self.imp()
-            .website
-            .borrow()
-            .clone()
-            .and_then(|w| if w.is_empty() { None } else { Some(w) })
-    }
-
-    pub fn help_url(&self) -> Option<String> {
-        self.imp()
-            .help_url
-            .borrow()
-            .clone()
-            .and_then(|h| if h.is_empty() { None } else { Some(h) })
-    }
-
     pub fn delete(&self) -> Result<()> {
         let db = database::connection();
         let mut conn = db.get()?;
@@ -474,9 +373,9 @@ impl Provider {
         self.set_properties(&[
             ("name", &patch.name),
             ("period", &(patch.period as u32)),
-            ("method", &patch.method),
+            ("method", &OTPMethod::from_str(&patch.method)?),
             ("digits", &(patch.digits as u32)),
-            ("algorithm", &patch.algorithm),
+            ("algorithm", &Algorithm::from_str(&patch.algorithm)?),
             ("default-counter", &(patch.default_counter as u32)),
         ]);
 
@@ -490,54 +389,10 @@ impl Provider {
         Ok(())
     }
 
-    pub fn set_image_uri(&self, uri: &str) -> Result<()> {
-        let db = database::connection();
-        let mut conn = db.get()?;
-
-        let target = providers::table.filter(providers::columns::id.eq(self.id() as i32));
-        diesel::update(target)
-            .set(providers::columns::image_uri.eq(uri))
-            .execute(&mut conn)?;
-
-        self.set_property("image-uri", uri);
-        self.notify("image-uri");
-        Ok(())
-    }
-
-    pub fn image_uri(&self) -> Option<String> {
-        self.imp().image_uri.borrow().clone()
-    }
-
-    pub fn connect_image_uri_notify<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, Option<String>) + 'static,
-    {
-        self.connect_notify_local(
-            Some("image-uri"),
-            clone!(@weak self as provider => move |_, _| {
-                let image_uri = provider.image_uri();
-                callback(&provider, image_uri);
-            }),
-        )
-    }
-
     pub fn open_help(&self) {
         if let Some(ref url) = self.help_url() {
             gio::AppInfo::launch_default_for_uri(url, None::<&gio::AppLaunchContext>).unwrap();
         }
-    }
-
-    pub fn connect_remaining_time_notify<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, u64) + 'static,
-    {
-        self.connect_notify_local(
-            Some("remaining-time"),
-            clone!(@weak self as provider => move |_, _| {
-                let remaining_time = provider.property("remaining-time");
-                callback(&provider, remaining_time);
-            }),
-        )
     }
 
     fn tick(&self) {
@@ -551,14 +406,14 @@ impl Provider {
         if period == remaining_time {
             self.regenerate_otp();
         }
-        self.set_property("remaining-time", remaining_time);
+        self.set_remaining_time(remaining_time);
     }
 
     fn setup_tick_callback(&self) {
         if self.imp().tick_callback.borrow().is_some() || !self.method().is_time_based() {
             return;
         }
-        self.set_property("remaining-time", self.period() as u64);
+        self.set_remaining_time(self.period() as u64);
 
         match self.method() {
             OTPMethod::TOTP | OTPMethod::Steam => {
@@ -585,21 +440,17 @@ impl Provider {
     }
 
     pub fn has_accounts(&self) -> bool {
-        self.imp().accounts.n_items() != 0
+        self.accounts_model().n_items() != 0
     }
 
     fn add_accounts(&self, accounts: &[Account]) {
-        self.imp().accounts.splice(accounts);
+        self.accounts_model().splice(accounts);
         self.setup_tick_callback();
     }
 
     pub fn add_account(&self, account: &Account) {
-        self.imp().accounts.append(account);
+        self.accounts_model().append(account);
         self.setup_tick_callback();
-    }
-
-    pub fn accounts_model(&self) -> &AccountsModel {
-        &self.imp().accounts
     }
 
     fn tokenize_search(account_name: &str, provider_name: &str, term: &str) -> bool {
@@ -650,8 +501,9 @@ impl Provider {
 
     pub fn remove_account(&self, account: &Account) {
         let imp = self.imp();
-        if let Some(pos) = imp.accounts.find_position_by_id(account.id()) {
-            imp.accounts.remove(pos);
+        let model = self.accounts_model();
+        if let Some(pos) = model.find_position_by_id(account.id()) {
+            model.remove(pos);
             if !self.has_accounts() && self.method().is_time_based() {
                 // Stop ticking
                 if let Some(source_id) = imp.tick_callback.borrow_mut().take() {
