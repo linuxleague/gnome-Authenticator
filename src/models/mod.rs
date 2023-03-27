@@ -11,6 +11,7 @@ mod otp_uri;
 mod provider;
 mod provider_sorter;
 mod providers;
+mod search_provider;
 mod settings;
 
 pub static RUNTIME: Lazy<tokio::runtime::Runtime> =
@@ -32,5 +33,6 @@ pub use self::{
     provider::{Provider, ProviderPatch},
     provider_sorter::ProviderSorter,
     providers::ProvidersModel,
+    search_provider::{start, SearchProviderAction},
     settings::Settings,
 };

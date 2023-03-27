@@ -1,19 +1,20 @@
 use std::{collections::HashMap, str::FromStr};
 
 use adw::prelude::*;
+use futures_util::StreamExt;
 use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{self, clone},
     subclass::prelude::*,
 };
-use search_provider::{ResultID, ResultMeta, SearchProvider, SearchProviderImpl};
+use search_provider::ResultMeta;
 
 use crate::{
     config,
     models::{
-        keyring, Account, OTPUri, Provider, ProvidersModel, FAVICONS_PATH, RUNTIME, SECRET_SERVICE,
-        SETTINGS,
+        keyring, start as start_search_provider, Account, OTPUri, Provider, ProvidersModel,
+        SearchProviderAction, FAVICONS_PATH, RUNTIME, SECRET_SERVICE, SETTINGS,
     },
     utils::spawn_tokio_blocking,
     widgets::{PreferencesWindow, ProvidersDialog, Window},
@@ -38,7 +39,6 @@ mod imp {
         pub lock_timeout_id: RefCell<Option<glib::SourceId>>,
         #[property(get, set, construct)]
         pub can_be_locked: Cell<bool>,
-        pub search_provider: RefCell<Option<SearchProvider<super::Application>>>,
     }
 
     // Sets up the basics for the GObject
@@ -181,18 +181,9 @@ mod imp {
             );
             app.update_color_scheme();
 
-            let search_provider_name = format!("{}.SearchProvider", config::APP_ID);
             let ctx = glib::MainContext::default();
-            ctx.spawn_local(clone!(@strong app as application => async move {
-                let imp = application.imp();
-                match SearchProvider::new(application.clone(), search_provider_name, config::OBJECT_PATH).await {
-                    Ok(search_provider) => {
-                        imp.search_provider.replace(Some(search_provider));
-                    },
-                    Err(err) => {
-                        tracing::debug!("Could not start search provider:{}", err);
-                    }
-                };
+            ctx.spawn_local(clone!(@strong app => async move {
+                app.start_search_provider().await;
             }));
         }
 
@@ -375,49 +366,60 @@ impl Application {
 
         Some((provider, account))
     }
-}
 
-impl SearchProviderImpl for Application {
-    fn launch_search(&self, terms: &[String], timestamp: u32) {
-        self.activate();
-        let window = self.active_window();
-        window.imp().search_entry.set_text(&terms.join(" "));
-        window.imp().search_btn.set_active(true);
-        window.present_with_time(timestamp);
-    }
-
-    fn activate_result(&self, _identifier: ResultID, _terms: &[String], _timestamp: u32) {
-        let notification = gio::Notification::new(&gettext("One-Time password copied"));
-        notification.set_body(Some(&gettext("Password was copied successfully")));
-        self.send_notification(None, &notification);
-    }
-
-    fn initial_result_set(&self, terms: &[String]) -> Vec<ResultID> {
-        // don't show any results if the application is locked
-        if self.is_locked() {
-            vec![]
-        } else {
-            self.imp()
-                .model
-                .find_accounts(terms)
-                .into_iter()
-                .map(|account| format!("{}:{}", account.provider().id(), account.id()))
-                .collect::<Vec<_>>()
+    async fn start_search_provider(&self) {
+        let mut receiver = match start_search_provider().await {
+            Err(err) => {
+                tracing::error!("Failed to start search provider {err}");
+                return;
+            }
+            Ok(receiver) => receiver,
+        };
+        loop {
+            let response = receiver.next().await.unwrap();
+            match response {
+                SearchProviderAction::LaunchSearch(terms, timestamp) => {
+                    self.activate();
+                    let window = self.active_window();
+                    window.imp().search_entry.set_text(&terms.join(" "));
+                    window.imp().search_btn.set_active(true);
+                    window.present_with_time(timestamp);
+                }
+                SearchProviderAction::ActivateResult => {
+                    let notification = gio::Notification::new(&gettext("One-Time password copied"));
+                    notification.set_body(Some(&gettext("Password was copied successfully")));
+                    self.send_notification(None, &notification);
+                }
+                SearchProviderAction::InitialResultSet(terms, sender) => {
+                    // don't show any results if the application is locked
+                    let response = if self.is_locked() {
+                        vec![]
+                    } else {
+                        self.imp()
+                            .model
+                            .find_accounts(&terms)
+                            .into_iter()
+                            .map(|account| format!("{}:{}", account.provider().id(), account.id()))
+                            .collect::<Vec<_>>()
+                    };
+                    let _ = sender.send(response).unwrap();
+                }
+                SearchProviderAction::ResultMetas(identifiers, sender) => {
+                    let metas = identifiers
+                        .iter()
+                        .filter_map(|id| {
+                            self.account_provider_by_identifier(id)
+                                .map(|(provider, account)| {
+                                    ResultMeta::builder(id.to_owned(), &account.name())
+                                        .description(&provider.name())
+                                        .clipboard_text(&account.otp().replace(' ', ""))
+                                        .build()
+                                })
+                        })
+                        .collect::<Vec<_>>();
+                    let _ = sender.send(metas).unwrap();
+                }
+            }
         }
-    }
-
-    fn result_metas(&self, identifiers: &[ResultID]) -> Vec<ResultMeta> {
-        identifiers
-            .iter()
-            .filter_map(|id| {
-                self.account_provider_by_identifier(id)
-                    .map(|(provider, account)| {
-                        ResultMeta::builder(id.to_owned(), &account.name())
-                            .description(&provider.name())
-                            .clipboard_text(&account.otp().replace(' ', ""))
-                            .build()
-                    })
-            })
-            .collect::<Vec<_>>()
     }
 }
