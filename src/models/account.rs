@@ -1,4 +1,4 @@
-use core::cmp::Ordering;
+use std::cmp::Ordering;
 
 use anyhow::{Context, Result};
 use diesel::prelude::*;
@@ -7,15 +7,10 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use once_cell::sync::OnceCell;
 use unicase::UniCase;
 
-use super::{
-    provider::{DiProvider, Provider},
-    OTPMethod, OTPUri, RUNTIME,
-};
 use crate::{
-    models::{database, keyring, otp},
+    models::{database, keyring, otp, DieselProvider, OTPMethod, OTPUri, Provider, RUNTIME},
     schema::accounts,
     utils::spawn_tokio_blocking,
     widgets::QRCodeData,
@@ -31,9 +26,9 @@ struct NewAccount {
 }
 
 #[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
-#[diesel(belongs_to(DiProvider, foreign_key = provider_id))]
+#[diesel(belongs_to(DieselProvider, foreign_key = provider_id))]
 #[diesel(table_name = accounts)]
-pub struct DiAccount {
+pub struct DieselAccount {
     pub id: i32,
     pub name: String,
     pub counter: i32,
@@ -46,7 +41,7 @@ mod imp {
     use std::cell::{Cell, RefCell};
 
     use glib::ParamSpecObject;
-    use once_cell::sync::Lazy;
+    use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
 
@@ -197,7 +192,7 @@ impl Account {
 
         accounts::table
             .order(accounts::columns::id.desc())
-            .first::<DiAccount>(&mut conn)
+            .first::<DieselAccount>(&mut conn)
             .map_err(From::from)
             .map(|account| {
                 Self::new(
@@ -216,9 +211,9 @@ impl Account {
         let db = database::connection();
         let mut conn = db.get()?;
 
-        let dip: DiProvider = p.into();
-        let results = DiAccount::belonging_to(&dip)
-            .load::<DiAccount>(&mut conn)?
+        let dip = DieselProvider::from(p);
+        let results = DieselAccount::belonging_to(&dip)
+            .load::<DieselAccount>(&mut conn)?
             .into_iter()
             .filter_map(clone!(@strong p => move |account| {
                 match Self::new(

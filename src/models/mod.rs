@@ -1,4 +1,5 @@
 use once_cell::sync::Lazy;
+
 mod account;
 mod account_sorter;
 mod accounts;
@@ -30,7 +31,7 @@ pub use self::{
     algorithm::{Algorithm, OTPMethod},
     keyring::SECRET_SERVICE,
     otp_uri::OTPUri,
-    provider::{Provider, ProviderPatch},
+    provider::{DieselProvider, Provider, ProviderPatch},
     provider_sorter::ProviderSorter,
     providers::ProvidersModel,
     search_provider::{start, SearchProviderAction},

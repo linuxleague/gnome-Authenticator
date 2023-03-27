@@ -1,6 +1,5 @@
-use core::cmp::Ordering;
 use std::{
-    cell::{Cell, RefCell},
+    cmp::Ordering,
     string::ToString,
     time::{SystemTime, UNIX_EPOCH},
 };
@@ -16,9 +15,8 @@ use gtk::{
 use unicase::UniCase;
 use url::Url;
 
-use super::algorithm::{Algorithm, OTPMethod};
 use crate::{
-    models::{database, otp, Account, AccountsModel, FAVICONS_PATH},
+    models::{database, otp, Account, AccountsModel, Algorithm, OTPMethod, FAVICONS_PATH},
     schema::providers,
 };
 
@@ -52,7 +50,7 @@ struct NewProvider {
 
 #[derive(Identifiable, Queryable, Hash, PartialEq, Eq, Debug, Clone)]
 #[diesel(table_name = providers)]
-pub struct DiProvider {
+pub struct DieselProvider {
     pub id: i32,
     pub name: String,
     pub website: Option<String>,
@@ -64,8 +62,9 @@ pub struct DiProvider {
     pub algorithm: String,
     pub method: String,
 }
+
 mod imp {
-    use glib::SourceId;
+    use std::cell::{Cell, RefCell};
 
     use super::*;
 
@@ -97,7 +96,7 @@ mod imp {
         #[property(get)]
         pub accounts_model: AccountsModel,
         pub filter_model: gtk::FilterListModel,
-        pub tick_callback: RefCell<Option<SourceId>>,
+        pub tick_callback: RefCell<Option<glib::SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -207,7 +206,7 @@ impl Provider {
 
         providers::table
             .order(providers::columns::id.desc())
-            .first::<DiProvider>(&mut conn)
+            .first::<DieselProvider>(&mut conn)
             .map_err(From::from)
             .map(From::from)
     }
@@ -225,7 +224,7 @@ impl Provider {
         let mut conn = db.get()?;
 
         let results = providers
-            .load::<DiProvider>(&mut conn)?
+            .load::<DieselProvider>(&mut conn)?
             .into_iter()
             .map(From::from)
             .map(|p: Provider| {
@@ -513,8 +512,8 @@ impl Provider {
     }
 }
 
-impl From<DiProvider> for Provider {
-    fn from(p: DiProvider) -> Self {
+impl From<DieselProvider> for Provider {
+    fn from(p: DieselProvider) -> Self {
         Self::new(
             p.id as u32,
             &p.name,
@@ -530,7 +529,7 @@ impl From<DiProvider> for Provider {
     }
 }
 
-impl From<&Provider> for DiProvider {
+impl From<&Provider> for DieselProvider {
     fn from(p: &Provider) -> Self {
         Self {
             id: p.id() as i32,
