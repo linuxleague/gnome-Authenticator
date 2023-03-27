@@ -19,7 +19,7 @@ use url::Url;
 use super::algorithm::{Algorithm, OTPMethod};
 use crate::{
     models::{database, otp, Account, AccountsModel, FAVICONS_PATH},
-    schema::{accounts, providers},
+    schema::providers,
 };
 
 #[derive(Debug)]
@@ -51,7 +51,7 @@ struct NewProvider {
 }
 
 #[derive(Identifiable, Queryable, Hash, PartialEq, Eq, Debug, Clone)]
-#[diesel(table_name = accounts)]
+#[diesel(table_name = providers)]
 pub struct DiProvider {
     pub id: i32,
     pub name: String,
