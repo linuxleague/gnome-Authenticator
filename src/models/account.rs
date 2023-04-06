@@ -10,7 +10,7 @@ use gtk::{
 use unicase::UniCase;
 
 use crate::{
-    models::{database, keyring, otp, DieselProvider, OTPMethod, OTPUri, Provider, RUNTIME},
+    models::{database, keyring, otp, DieselProvider, Method, OTPUri, Provider, RUNTIME},
     schema::accounts,
     utils::spawn_tokio_blocking,
     widgets::QRCodeData,
@@ -277,13 +277,13 @@ impl Account {
         let provider = self.provider();
 
         let counter = match provider.method() {
-            OTPMethod::TOTP => otp::time_based_counter(provider.period()),
-            OTPMethod::HOTP => self.counter() as u64,
-            OTPMethod::Steam => otp::time_based_counter(otp::STEAM_DEFAULT_PERIOD),
+            Method::TOTP => otp::time_based_counter(provider.period()),
+            Method::HOTP => self.counter() as u64,
+            Method::Steam => otp::time_based_counter(otp::STEAM_DEFAULT_PERIOD),
         };
 
         let otp_password: Result<String> = match provider.method() {
-            OTPMethod::Steam => otp::steam(&self.token(), counter),
+            Method::Steam => otp::steam(&self.token(), counter),
             _ => {
                 let token = otp::hotp(
                     &self.token(),

@@ -4,7 +4,7 @@ use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
 
 use super::{Backupable, Restorable, RestorableItem};
-use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
+use crate::models::{Account, Algorithm, Method, Provider, ProvidersModel};
 
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -14,7 +14,7 @@ pub struct AndOTP {
     pub label: String,
     pub digits: u32,
     #[serde(rename = "type")]
-    pub method: OTPMethod,
+    pub method: Method,
     pub algorithm: Algorithm,
     pub thumbnail: Option<String>,
     pub last_used: i64,
@@ -41,7 +41,7 @@ impl RestorableItem for AndOTP {
         self.period
     }
 
-    fn method(&self) -> OTPMethod {
+    fn method(&self) -> Method {
         self.method
     }
 

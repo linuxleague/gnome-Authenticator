@@ -9,7 +9,7 @@ use serde::{de::Deserializer, ser::Serializer, Deserialize, Serialize};
 #[derive(Debug, Default, Eq, PartialEq, Clone, Copy, glib::Enum)]
 #[repr(u32)]
 #[enum_type(name = "OTPMethod")]
-pub enum OTPMethod {
+pub enum Method {
     #[enum_value(name = "TOTP")]
     #[default]
     TOTP = 0,
@@ -18,7 +18,7 @@ pub enum OTPMethod {
     Steam = 2,
 }
 
-impl Serialize for OTPMethod {
+impl Serialize for Method {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
@@ -27,7 +27,7 @@ impl Serialize for OTPMethod {
     }
 }
 
-impl<'de> Deserialize<'de> for OTPMethod {
+impl<'de> Deserialize<'de> for Method {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: Deserializer<'de>,
@@ -36,7 +36,7 @@ impl<'de> Deserialize<'de> for OTPMethod {
     }
 }
 
-impl From<u32> for OTPMethod {
+impl From<u32> for Method {
     fn from(u: u32) -> Self {
         match u {
             1 => Self::HOTP,
@@ -46,7 +46,7 @@ impl From<u32> for OTPMethod {
     }
 }
 
-impl OTPMethod {
+impl Method {
     pub fn is_time_based(self) -> bool {
         matches!(self, Self::TOTP | Self::Steam)
     }
@@ -65,19 +65,19 @@ impl OTPMethod {
     }
 }
 
-impl FromStr for OTPMethod {
+impl FromStr for Method {
     type Err = anyhow::Error;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s.to_lowercase().as_ref() {
             "totp" | "otp" => Ok(Self::TOTP),
             "hotp" => Ok(Self::HOTP),
             "steam" => Ok(Self::Steam),
-            _ => anyhow::bail!("Unsupported OTPMethod"),
+            _ => anyhow::bail!("Unsupported Method"),
         }
     }
 }
 
-impl ToString for OTPMethod {
+impl ToString for Method {
     fn to_string(&self) -> String {
         match *self {
             Self::TOTP => "totp",
@@ -91,7 +91,7 @@ impl ToString for OTPMethod {
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Default, Eq, PartialEq, Clone, Copy, glib::Enum)]
 #[repr(u32)]
-#[enum_type(name = "Algorithm")]
+#[enum_type(name = "OTPAlgorithm")]
 pub enum Algorithm {
     #[enum_value(name = "SHA1")]
     #[default]

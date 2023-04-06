@@ -3,7 +3,7 @@ use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
 
 use super::{Restorable, RestorableItem};
-use crate::models::{Algorithm, OTPMethod, OTPUri};
+use crate::models::{Algorithm, Method, OTPUri};
 
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Bitwarden {
@@ -18,7 +18,7 @@ pub struct BitwardenItem {
     #[serde(skip)]
     algorithm: Algorithm,
     #[serde(skip)]
-    method: OTPMethod,
+    method: Method,
     #[serde(skip)]
     digits: Option<u32>,
     #[serde(skip)]
@@ -62,7 +62,7 @@ impl RestorableItem for BitwardenItem {
         self.period
     }
 
-    fn method(&self) -> OTPMethod {
+    fn method(&self) -> Method {
         self.method
     }
 

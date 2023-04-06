@@ -8,7 +8,7 @@ use gtk::{
 
 use super::qrcode_paintable::QRCodePaintable;
 use crate::{
-    models::{Account, OTPMethod, Provider, ProvidersModel},
+    models::{Account, Provider, ProvidersModel},
     widgets::UrlRow,
 };
 mod imp {

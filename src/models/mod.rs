@@ -28,7 +28,7 @@ pub use self::{
     account::Account,
     account_sorter::AccountSorter,
     accounts::AccountsModel,
-    algorithm::{Algorithm, OTPMethod},
+    algorithm::{Algorithm, Method},
     keyring::SECRET_SERVICE,
     otp_uri::OTPUri,
     provider::{DieselProvider, Provider, ProviderPatch},

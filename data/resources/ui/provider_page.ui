@@ -157,7 +157,7 @@
                         <property name="title" translatable="yes">Algorithm</property>
                         <property name="model">
                           <object class="AdwEnumListModel">
-                            <property name="enum-type">Algorithm</property>
+                            <property name="enum-type">OTPAlgorithm</property>
                           </object>
                         </property>
                         <property name="expression">

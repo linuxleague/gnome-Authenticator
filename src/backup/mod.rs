@@ -4,7 +4,7 @@ use anyhow::Result;
 use gtk::{gio, gio::prelude::*};
 
 use crate::{
-    models::{keyring, Account, Algorithm, OTPMethod, ProvidersModel},
+    models::{keyring, Account, Algorithm, Method, ProvidersModel},
     utils::spawn_tokio_blocking,
 };
 
@@ -52,7 +52,7 @@ pub trait RestorableItem: Debug {
     fn issuer(&self) -> String;
     fn secret(&self) -> String;
     fn period(&self) -> Option<u32>;
-    fn method(&self) -> OTPMethod;
+    fn method(&self) -> Method;
     fn algorithm(&self) -> Algorithm;
     fn digits(&self) -> Option<u32>;
     fn counter(&self) -> Option<u32>;

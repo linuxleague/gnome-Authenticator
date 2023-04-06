@@ -1,7 +1,7 @@
 use anyhow::Result;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
-use super::{otp, Account, Algorithm, OTPMethod, Provider, ProviderPatch};
+use super::{otp, Account, Algorithm, Method, Provider, ProviderPatch};
 
 mod imp {
     use std::cell::{Cell, RefCell};
@@ -45,7 +45,7 @@ impl ProvidersModel {
         &self,
         name: &str,
         period: Option<u32>,
-        method: OTPMethod,
+        method: Method,
         website: Option<String>,
         algorithm: Algorithm,
         digits: Option<u32>,

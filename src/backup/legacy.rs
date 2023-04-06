@@ -3,7 +3,7 @@ use gettextrs::gettext;
 use serde::{Deserialize, Serialize};
 
 use super::{Restorable, RestorableItem};
-use crate::models::{Algorithm, OTPMethod};
+use crate::models::{Algorithm, Method};
 
 // Same as andOTP except uses the first tag for the issuer
 #[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -12,7 +12,7 @@ pub struct LegacyAuthenticator {
     pub label: String,
     pub digits: u32,
     #[serde(rename = "type")]
-    pub method: OTPMethod,
+    pub method: Method,
     pub algorithm: Algorithm,
     pub thumbnail: String,
     pub last_used: i64,
@@ -65,7 +65,7 @@ impl RestorableItem for LegacyAuthenticator {
         Some(self.period)
     }
 
-    fn method(&self) -> OTPMethod {
+    fn method(&self) -> Method {
         self.method
     }
 

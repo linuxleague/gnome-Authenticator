@@ -5,7 +5,7 @@ use prost::{Enumeration, Message};
 use url::Url;
 
 use super::Restorable;
-use crate::models::{Algorithm, OTPMethod, OTPUri};
+use crate::models::{Algorithm, Method, OTPUri};
 
 #[derive(Default, Debug, Clone, PartialEq, Eq)]
 pub struct Google;
@@ -89,8 +89,8 @@ impl Restorable for Google {
                     },
                     method: match otp.r#type() {
                         protobuf::migration_payload::OtpType::OTP_INVALID => return folded,
-                        protobuf::migration_payload::OtpType::OTP_HOTP => OTPMethod::HOTP,
-                        protobuf::migration_payload::OtpType::OTP_TOTP => OTPMethod::TOTP,
+                        protobuf::migration_payload::OtpType::OTP_HOTP => Method::HOTP,
+                        protobuf::migration_payload::OtpType::OTP_TOTP => Method::TOTP,
                     },
                     secret: {
                         let secret = &*otp.secret;

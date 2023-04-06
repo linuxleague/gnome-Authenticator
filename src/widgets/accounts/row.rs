@@ -1,6 +1,6 @@
 use gtk::{gdk, glib, prelude::*};
 
-use crate::models::{Account, OTPMethod};
+use crate::models::Account;
 
 mod imp {
     use adw::subclass::prelude::*;

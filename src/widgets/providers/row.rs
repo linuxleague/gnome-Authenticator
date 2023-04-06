@@ -7,7 +7,7 @@ use gtk::{
 };
 
 use crate::{
-    models::{Account, AccountSorter, OTPMethod, Provider},
+    models::{Account, AccountSorter, Provider},
     widgets::{accounts::AccountRow, ProgressIcon, ProviderImage},
 };
 

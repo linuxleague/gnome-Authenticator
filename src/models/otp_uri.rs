@@ -5,7 +5,7 @@ use url::Url;
 
 use crate::{
     backup::RestorableItem,
-    models::{otp, Account, Algorithm, OTPMethod},
+    models::{otp, Account, Algorithm, Method},
 };
 
 #[allow(clippy::upper_case_acronyms)]
@@ -15,7 +15,7 @@ pub struct OTPUri {
     pub label: String,
     pub secret: String,
     pub issuer: String,
-    pub method: OTPMethod,
+    pub method: Method,
     pub digits: Option<u32>,
     pub period: Option<u32>,
     pub counter: Option<u32>,
@@ -38,7 +38,7 @@ impl RestorableItem for OTPUri {
         self.period
     }
 
-    fn method(&self) -> OTPMethod {
+    fn method(&self) -> Method {
         self.method
     }
 
@@ -74,7 +74,7 @@ impl TryFrom<Url> for OTPUri {
 
         let pairs = url.query_pairs();
 
-        let method = OTPMethod::from_str(url.host_str().unwrap())?;
+        let method = Method::from_str(url.host_str().unwrap())?;
 
         let account_info = url
             .path()

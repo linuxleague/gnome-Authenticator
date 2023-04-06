@@ -19,7 +19,7 @@ use rand::RngCore;
 use serde::{Deserialize, Serialize};
 
 use super::{Backupable, Restorable, RestorableItem};
-use crate::models::{Account, Algorithm, OTPMethod, Provider, ProvidersModel};
+use crate::models::{Account, Algorithm, Method, Provider, ProvidersModel};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -277,7 +277,7 @@ impl Default for Database {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Item {
     #[serde(rename = "type")]
-    pub method: OTPMethod,
+    pub method: Method,
     // UUID is omitted
     #[serde(rename = "name")]
     pub label: String,
@@ -365,7 +365,7 @@ impl RestorableItem for Item {
         self.info.period
     }
 
-    fn method(&self) -> OTPMethod {
+    fn method(&self) -> Method {
         self.method
     }
 
@@ -775,7 +775,7 @@ mod tests {
         assert_eq!(aegis_items[0].algorithm(), Algorithm::SHA1);
         assert_eq!(aegis_items[0].digits(), Some(6));
         assert_eq!(aegis_items[0].counter(), None);
-        assert_eq!(aegis_items[0].method(), OTPMethod::TOTP);
+        assert_eq!(aegis_items[0].method(), Method::TOTP);
 
         assert_eq!(aegis_items[1].account(), "Benjamin");
         assert_eq!(aegis_items[1].issuer(), "Air Canada");
@@ -784,7 +784,7 @@ mod tests {
         assert_eq!(aegis_items[1].algorithm(), Algorithm::SHA256);
         assert_eq!(aegis_items[1].digits(), Some(7));
         assert_eq!(aegis_items[1].counter(), Some(50));
-        assert_eq!(aegis_items[1].method(), OTPMethod::HOTP);
+        assert_eq!(aegis_items[1].method(), Method::HOTP);
 
         assert_eq!(aegis_items[2].account(), "Sophia");
         assert_eq!(aegis_items[2].issuer(), "Boeing");
@@ -793,7 +793,7 @@ mod tests {
         assert_eq!(aegis_items[2].algorithm(), Algorithm::SHA1);
         assert_eq!(aegis_items[2].digits(), Some(5));
         assert_eq!(aegis_items[2].counter(), None);
-        assert_eq!(aegis_items[2].method(), OTPMethod::Steam);
+        assert_eq!(aegis_items[2].method(), Method::Steam);
     }
 
     #[test]
@@ -879,7 +879,7 @@ mod tests {
         assert_eq!(aegis_items[0].algorithm(), Algorithm::SHA1);
         assert_eq!(aegis_items[0].digits(), Some(6));
         assert_eq!(aegis_items[0].counter(), None);
-        assert_eq!(aegis_items[0].method(), OTPMethod::TOTP);
+        assert_eq!(aegis_items[0].method(), Method::TOTP);
 
         assert_eq!(aegis_items[3].account(), "James");
         assert_eq!(aegis_items[3].issuer(), "Issuu");
@@ -888,7 +888,7 @@ mod tests {
         assert_eq!(aegis_items[3].algorithm(), Algorithm::SHA1);
         assert_eq!(aegis_items[3].digits(), Some(6));
         assert_eq!(aegis_items[3].counter(), Some(1));
-        assert_eq!(aegis_items[3].method(), OTPMethod::HOTP);
+        assert_eq!(aegis_items[3].method(), Method::HOTP);
 
         assert_eq!(aegis_items[6].account(), "Sophia");
         assert_eq!(aegis_items[6].issuer(), "Boeing");
@@ -897,7 +897,7 @@ mod tests {
         assert_eq!(aegis_items[6].algorithm(), Algorithm::SHA1);
         assert_eq!(aegis_items[6].digits(), Some(5));
         assert_eq!(aegis_items[6].counter(), None);
-        assert_eq!(aegis_items[6].method(), OTPMethod::Steam);
+        assert_eq!(aegis_items[6].method(), Method::Steam);
     }
 
     // TODO: add tests for importing

@@ -16,7 +16,7 @@ use unicase::UniCase;
 use url::Url;
 
 use crate::{
-    models::{database, otp, Account, AccountsModel, Algorithm, OTPMethod, FAVICONS_PATH},
+    models::{database, otp, Account, AccountsModel, Algorithm, Method, FAVICONS_PATH},
     schema::providers,
 };
 
@@ -77,8 +77,8 @@ mod imp {
         pub name: RefCell<String>,
         #[property(get, set, maximum = 1000, default = otp::TOTP_DEFAULT_PERIOD)]
         pub period: Cell<u32>,
-        #[property(get, set, builder(OTPMethod::default()))]
-        pub method: Cell<OTPMethod>,
+        #[property(get, set, builder(Method::default()))]
+        pub method: Cell<Method>,
         #[property(get, set, default = otp::HOTP_DEFAULT_COUNTER)]
         pub default_counter: Cell<u32>,
         #[property(get, set, builder(Algorithm::default()))]
@@ -115,7 +115,7 @@ mod imp {
                 website: RefCell::default(),
                 help_url: RefCell::default(),
                 image_uri: RefCell::default(),
-                method: Cell::new(OTPMethod::default()),
+                method: Cell::new(Method::default()),
                 period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
                 filter_model: gtk::FilterListModel::new(Some(model.clone()), None::<gtk::Filter>),
                 accounts_model: model,
@@ -181,7 +181,7 @@ impl Provider {
         period: u32,
         algorithm: Algorithm,
         website: Option<String>,
-        method: OTPMethod,
+        method: Method,
         digits: u32,
         default_counter: u32,
         help_url: Option<String>,
@@ -240,7 +240,7 @@ impl Provider {
         id: u32,
         name: &str,
         period: u32,
-        method: OTPMethod,
+        method: Method,
         algorithm: Algorithm,
         digits: u32,
         default_counter: u32,
@@ -371,7 +371,7 @@ impl Provider {
         self.set_properties(&[
             ("name", &patch.name),
             ("period", &(patch.period as u32)),
-            ("method", &patch.method.parse::<OTPMethod>()?),
+            ("method", &patch.method.parse::<Method>()?),
             ("digits", &(patch.digits as u32)),
             ("algorithm", &patch.algorithm.parse::<Algorithm>()?),
             ("default-counter", &(patch.default_counter as u32)),
@@ -414,7 +414,7 @@ impl Provider {
         self.set_remaining_time(self.period() as u64);
 
         match self.method() {
-            OTPMethod::TOTP | OTPMethod::Steam => {
+            Method::TOTP | Method::Steam => {
                 let source_id = glib::timeout_add_seconds_local(
                     1,
                     clone!(@weak self as provider => @default-return glib::Continue(false), move || {
@@ -518,7 +518,7 @@ impl From<DieselProvider> for Provider {
             p.id as u32,
             &p.name,
             p.period as u32,
-            p.method.parse::<OTPMethod>().unwrap(),
+            p.method.parse::<Method>().unwrap(),
             p.algorithm.parse::<Algorithm>().unwrap(),
             p.digits as u32,
             p.default_counter as u32,

@@ -5,7 +5,7 @@ use gtk::{glib, prelude::*, subclass::prelude::*};
 use once_cell::sync::{Lazy, OnceCell};
 
 use crate::{
-    models::{otp, Account, OTPMethod, OTPUri, Provider, ProvidersModel},
+    models::{otp, Account, OTPUri, Provider, ProvidersModel},
     widgets::{providers::ProviderPage, Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
 
@@ -310,16 +310,13 @@ impl AccountAddDialog {
 
             imp.digits_label.set_text(&provider.digits().to_string());
 
-            match provider.method() {
-                OTPMethod::TOTP | OTPMethod::Steam => {
-                    imp.counter_row.set_visible(false);
-                    imp.period_row.set_visible(true);
-                }
-                OTPMethod::HOTP => {
-                    imp.counter_row.set_visible(true);
-                    imp.period_row.set_visible(false);
-                }
-            };
+            if provider.method().is_time_based() {
+                imp.counter_row.set_visible(false);
+                imp.period_row.set_visible(true);
+            } else {
+                imp.counter_row.set_visible(true);
+                imp.period_row.set_visible(false);
+            }
 
             if let Some(website) = provider.website() {
                 imp.provider_website_row.set_uri(website);

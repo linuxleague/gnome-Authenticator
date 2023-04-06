@@ -7,7 +7,7 @@ use gtk::{
 };
 
 use crate::{
-    models::{i18n, otp, Algorithm, OTPMethod, Provider, ProviderPatch, FAVICONS_PATH},
+    models::{i18n, otp, Algorithm, Method, Provider, ProviderPatch, FAVICONS_PATH},
     widgets::{ErrorRevealer, ProviderImage},
 };
 
@@ -17,7 +17,7 @@ mod imp {
     use glib::subclass::Signal;
 
     use super::*;
-    use crate::models::OTPMethod;
+    use crate::models::Method;
 
     #[derive(Debug, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_page.ui")]
@@ -70,7 +70,7 @@ mod imp {
         type ParentType = gtk::Box;
 
         fn new() -> Self {
-            let methods_model = adw::EnumListModel::new(OTPMethod::static_type());
+            let methods_model = adw::EnumListModel::new(Method::static_type());
             let algorithms_model = adw::EnumListModel::new(Algorithm::static_type());
 
             Self {
@@ -100,7 +100,7 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
-            OTPMethod::static_type();
+            Method::static_type();
             Algorithm::static_type();
             klass.bind_template();
             klass.bind_template_instance_callbacks();
@@ -222,7 +222,7 @@ impl ProviderPage {
 
             imp.method_comborow.set_selected(
                 imp.methods_model
-                    .find_position(OTPMethod::default().into_glib()),
+                    .find_position(Method::default().into_glib()),
             );
             // FIXME: replace with something that works
             // imp.image.set_provider(None);
@@ -244,7 +244,7 @@ impl ProviderPage {
         let help_url = imp.provider_help_entry.text().to_string();
         let period = imp.period_spinbutton.value() as u32;
         let digits = imp.digits_spinbutton.value() as u32;
-        let method = OTPMethod::from(imp.method_comborow.selected());
+        let method = Method::from(imp.method_comborow.selected());
         let algorithm = Algorithm::from(imp.algorithm_comborow.selected());
         let default_counter = imp.default_counter_spinbutton.value() as u32;
 
@@ -375,23 +375,23 @@ impl ProviderPage {
     fn on_method_changed(&self, _pspec: glib::ParamSpec, combo_row: adw::ComboRow) {
         let imp = self.imp();
 
-        let selected = OTPMethod::from(combo_row.selected());
+        let selected = Method::from(combo_row.selected());
         match selected {
-            OTPMethod::TOTP => {
+            Method::TOTP => {
                 imp.default_counter_row.set_visible(false);
                 imp.period_row.set_visible(true);
                 imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
                 imp.period_spinbutton
                     .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
             }
-            OTPMethod::HOTP => {
+            Method::HOTP => {
                 imp.default_counter_row.set_visible(true);
                 imp.period_row.set_visible(false);
                 imp.default_counter_spinbutton
                     .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
                 imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
             }
-            OTPMethod::Steam => {
+            Method::Steam => {
                 imp.default_counter_row.set_visible(false);
                 imp.period_row.set_visible(true);
                 imp.digits_spinbutton
@@ -404,9 +404,9 @@ impl ProviderPage {
         }
 
         imp.algorithm_comborow
-            .set_sensitive(selected != OTPMethod::Steam);
-        imp.period_row.set_sensitive(selected != OTPMethod::Steam);
-        imp.digits_row.set_sensitive(selected != OTPMethod::Steam);
+            .set_sensitive(selected != Method::Steam);
+        imp.period_row.set_sensitive(selected != Method::Steam);
+        imp.digits_row.set_sensitive(selected != Method::Steam);
     }
 }
 
