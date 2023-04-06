@@ -84,10 +84,7 @@ mod imp {
     impl ObjectImpl for Account {
         fn properties() -> &'static [glib::ParamSpec] {
             static PROPERTIES: Lazy<Vec<glib::ParamSpec>> = Lazy::new(|| {
-                let mut props = Account::derived_properties()
-                    .into_iter()
-                    .cloned()
-                    .collect::<Vec<_>>();
+                let mut props = Account::derived_properties().to_vec();
                 props.push(ParamSpecObject::builder::<Provider>("provider").build());
                 props
             });

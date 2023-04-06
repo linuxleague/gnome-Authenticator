@@ -402,7 +402,7 @@ impl Application {
                             .map(|account| format!("{}:{}", account.provider().id(), account.id()))
                             .collect::<Vec<_>>()
                     };
-                    let _ = sender.send(response).unwrap();
+                    sender.send(response).unwrap();
                 }
                 SearchProviderAction::ResultMetas(identifiers, sender) => {
                     let metas = identifiers
@@ -417,7 +417,7 @@ impl Application {
                                 })
                         })
                         .collect::<Vec<_>>();
-                    let _ = sender.send(metas).unwrap();
+                    sender.send(metas).unwrap();
                 }
             }
         }
