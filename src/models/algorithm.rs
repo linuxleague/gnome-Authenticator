@@ -47,8 +47,12 @@ impl From<u32> for OTPMethod {
 }
 
 impl OTPMethod {
-    pub fn is_time_based(&self) -> bool {
-        self != &Self::HOTP
+    pub fn is_time_based(self) -> bool {
+        matches!(self, Self::TOTP | Self::Steam)
+    }
+
+    pub fn is_event_based(self) -> bool {
+        matches!(self, Self::HOTP)
     }
 
     pub fn to_locale_string(self) -> String {

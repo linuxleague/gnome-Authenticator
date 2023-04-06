@@ -408,7 +408,7 @@ impl Provider {
     }
 
     fn setup_tick_callback(&self) {
-        if self.imp().tick_callback.borrow().is_some() || !self.method().is_time_based() {
+        if self.imp().tick_callback.borrow().is_some() || self.method().is_event_based() {
             return;
         }
         self.set_remaining_time(self.period() as u64);

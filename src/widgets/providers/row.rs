@@ -145,7 +145,7 @@ impl ProviderRow {
         self.add_css_class(&provider.method().to_string());
 
         imp.image.set_provider(&provider);
-        if provider.method() == OTPMethod::HOTP {
+        if provider.method().is_event_based() {
             imp.progress_icon.set_visible(false);
         } else {
             // Update the progress bar whnever the remaining-time is updated

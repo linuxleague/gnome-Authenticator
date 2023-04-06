@@ -157,7 +157,7 @@ impl From<OTPUri> for String {
         if let Some(digits) = val.digits {
             write!(otp_uri, "&digits={digits}").unwrap();
         }
-        if val.method == OTPMethod::HOTP {
+        if val.method.is_event_based() {
             write!(
                 otp_uri,
                 "&counter={}",

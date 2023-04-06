@@ -330,7 +330,7 @@ impl Account {
         clipboard.set_text(code);
 
         // Indirectly increment the counter once the token was copied
-        if self.provider().method() == OTPMethod::HOTP {
+        if self.provider().method().is_event_based() {
             self.generate_otp();
         }
     }

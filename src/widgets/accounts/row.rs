@@ -93,7 +93,7 @@ mod imp {
 
             // Only display the increment button if it is a HOTP account
             self.increment_btn
-                .set_visible(account.provider().method() == OTPMethod::HOTP);
+                .set_visible(account.provider().method().is_event_based());
         }
     }
     impl WidgetImpl for AccountRow {}

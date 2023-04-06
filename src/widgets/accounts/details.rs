@@ -187,7 +187,7 @@ impl AccountDetailsPage {
         let qr_code = account.qr_code();
         imp.qrcode_paintable.set_qrcode(qr_code);
 
-        if account.provider().method() == OTPMethod::HOTP {
+        if account.provider().method().is_event_based() {
             imp.counter_label.set_text(account.counter());
         }
         self.set_provider(account.provider());
@@ -209,7 +209,7 @@ impl AccountDetailsPage {
             .set_text(&provider.algorithm().to_locale_string());
         imp.method_label
             .set_text(&provider.method().to_locale_string());
-        if provider.method() == OTPMethod::HOTP {
+        if provider.method().is_event_based() {
             imp.counter_row.set_visible(true);
             imp.period_row.set_visible(false);
         } else {
@@ -269,7 +269,7 @@ impl AccountDetailsPage {
             let old_counter = account.counter();
             account.set_counter(imp.counter_label.value());
             // regenerate the otp value if the counter value was changed
-            if old_counter != account.counter() && account.provider().method() == OTPMethod::HOTP {
+            if old_counter != account.counter() && account.provider().method().is_event_based() {
                 account.generate_otp();
             }
         }
