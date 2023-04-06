@@ -32,16 +32,16 @@ impl<'de> Deserialize<'de> for OTPMethod {
     where
         D: Deserializer<'de>,
     {
-        Ok(OTPMethod::from_str(&String::deserialize(deserializer)?).unwrap())
+        Ok(Self::from_str(&String::deserialize(deserializer)?).unwrap())
     }
 }
 
 impl From<u32> for OTPMethod {
     fn from(u: u32) -> Self {
         match u {
-            1 => OTPMethod::HOTP,
-            2 => OTPMethod::Steam,
-            _ => OTPMethod::default(),
+            1 => Self::HOTP,
+            2 => Self::Steam,
+            _ => Self::default(),
         }
     }
 }
@@ -57,10 +57,10 @@ impl OTPMethod {
 
     pub fn to_locale_string(self) -> String {
         match self {
-            OTPMethod::HOTP => gettext("Counter-based"),
-            OTPMethod::TOTP => gettext("Time-based"),
+            Self::HOTP => gettext("Counter-based"),
+            Self::TOTP => gettext("Time-based"),
             // Translators: Steam refers to the gaming application by Valve.
-            OTPMethod::Steam => gettext("Steam"),
+            Self::Steam => gettext("Steam"),
         }
     }
 }
@@ -80,9 +80,9 @@ impl FromStr for OTPMethod {
 impl ToString for OTPMethod {
     fn to_string(&self) -> String {
         match *self {
-            OTPMethod::TOTP => "totp",
-            OTPMethod::HOTP => "hotp",
-            OTPMethod::Steam => "steam",
+            Self::TOTP => "totp",
+            Self::HOTP => "hotp",
+            Self::Steam => "steam",
         }
         .to_string()
     }
@@ -116,16 +116,16 @@ impl<'de> Deserialize<'de> for Algorithm {
     where
         D: Deserializer<'de>,
     {
-        Ok(Algorithm::from_str(&String::deserialize(deserializer)?).unwrap())
+        Ok(Self::from_str(&String::deserialize(deserializer)?).unwrap())
     }
 }
 
 impl Algorithm {
     pub fn to_locale_string(self) -> String {
         match self {
-            Algorithm::SHA1 => gettext("SHA-1"),
-            Algorithm::SHA256 => gettext("SHA-256"),
-            Algorithm::SHA512 => gettext("SHA-512"),
+            Self::SHA1 => gettext("SHA-1"),
+            Self::SHA256 => gettext("SHA-256"),
+            Self::SHA512 => gettext("SHA-512"),
         }
     }
 }
@@ -145,9 +145,9 @@ impl FromStr for Algorithm {
 impl ToString for Algorithm {
     fn to_string(&self) -> String {
         match *self {
-            Algorithm::SHA1 => "sha1",
-            Algorithm::SHA256 => "sha256",
-            Algorithm::SHA512 => "sha512",
+            Self::SHA1 => "sha1",
+            Self::SHA256 => "sha256",
+            Self::SHA512 => "sha512",
         }
         .to_string()
     }
@@ -166,9 +166,9 @@ impl From<Algorithm> for hmac::Algorithm {
 impl From<u32> for Algorithm {
     fn from(u: u32) -> Self {
         match u {
-            1 => Algorithm::SHA256,
-            2 => Algorithm::SHA512,
-            _ => Algorithm::default(),
+            1 => Self::SHA256,
+            2 => Self::SHA512,
+            _ => Self::default(),
         }
     }
 }
