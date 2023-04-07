@@ -1,6 +1,6 @@
 use std::{fmt::Write, str::FromStr};
 
-use percent_encoding::percent_decode_str;
+use percent_encoding::{percent_decode_str, utf8_percent_encode, NON_ALPHANUMERIC};
 use url::Url;
 
 use crate::{
@@ -11,14 +11,14 @@ use crate::{
 #[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Clone)]
 pub struct OTPUri {
-    pub algorithm: Algorithm,
-    pub label: String,
-    pub secret: String,
-    pub issuer: String,
-    pub method: Method,
-    pub digits: Option<u32>,
-    pub period: Option<u32>,
-    pub counter: Option<u32>,
+    pub(crate) algorithm: Algorithm,
+    pub(crate) label: String,
+    pub(crate) secret: String,
+    pub(crate) issuer: String,
+    pub(crate) method: Method,
+    pub(crate) digits: Option<u32>,
+    pub(crate) period: Option<u32>,
+    pub(crate) counter: Option<u32>,
 }
 
 impl RestorableItem for OTPUri {
@@ -149,9 +149,9 @@ impl From<OTPUri> for String {
         let mut otp_uri = format!(
             "otpauth://{}/{}?secret={}&issuer={}&algorithm={}",
             val.method.to_string(),
-            val.label,
+            utf8_percent_encode(&val.label, NON_ALPHANUMERIC).to_string(),
             val.secret,
-            val.issuer,
+            utf8_percent_encode(&val.issuer, NON_ALPHANUMERIC).to_string(),
             val.algorithm.to_string(),
         );
         if let Some(digits) = val.digits {
@@ -188,5 +188,52 @@ impl From<&Account> for OTPUri {
             period: Some(a.provider().period()),
             counter: Some(a.counter()),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::str::FromStr;
+
+    use super::OTPUri;
+    use crate::{
+        backup::RestorableItem,
+        models::{Algorithm, Method},
+    };
+
+    #[test]
+    fn uri_decode() {
+        let uri = OTPUri::from_str(
+            "otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example",
+        )
+        .unwrap();
+        assert_eq!(uri.method(), Method::TOTP);
+        assert_eq!(uri.issuer(), "Example");
+        assert_eq!(uri.secret(), "JBSWY3DPEHPK3PXP");
+        assert_eq!(uri.account(), "alice@google.com");
+
+        let uri = OTPUri::from_str("otpauth://totp/ACME%20Co:john.doe@email.com?secret=HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ&issuer=ACME%20Co&algorithm=SHA1&digits=6&period=30").unwrap();
+        assert_eq!(uri.period(), Some(30));
+        assert_eq!(uri.digits(), Some(6));
+        assert_eq!(uri.algorithm(), Algorithm::SHA1);
+        assert_eq!(uri.issuer(), "ACME Co");
+        assert_eq!(uri.secret(), "HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ");
+        assert_eq!(uri.account(), "john.doe@email.com");
+        assert_eq!(uri.method(), Method::TOTP);
+    }
+
+    #[test]
+    fn uri_encode() {
+        let uri = OTPUri {
+            algorithm: Algorithm::SHA1,
+            label: "account test".to_owned(),
+            secret: "dznF36H0IIg17rK".to_owned(),
+            issuer: "Test".to_owned(),
+            method: Method::TOTP,
+            digits: Some(6),
+            period: Some(30),
+            counter: None,
+        };
+        assert_eq!(String::from(uri), "otpauth://totp/account%20test?secret=dznF36H0IIg17rK&issuer=Test&algorithm=sha1&digits=6&period=30");
     }
 }

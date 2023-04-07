@@ -5,6 +5,7 @@ use gtk::{glib, prelude::*, subclass::prelude::*};
 use once_cell::sync::{Lazy, OnceCell};
 
 use crate::{
+    backup::RestorableItem,
     models::{otp, Account, OTPUri, Provider, ProvidersModel},
     widgets::{providers::ProviderPage, Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
@@ -250,19 +251,19 @@ impl AccountAddDialog {
         let imp = self.imp();
         imp.deck.set_visible_child_name("main"); // Switch back the form view
 
-        imp.token_entry.set_text(&otp_uri.secret);
-        imp.username_entry.set_text(&otp_uri.label);
+        imp.token_entry.set_text(&otp_uri.secret());
+        imp.username_entry.set_text(&otp_uri.account());
 
         let provider = self
             .model()
             .find_or_create(
-                &otp_uri.issuer,
-                otp_uri.period,
-                otp_uri.method,
+                &otp_uri.issuer(),
+                otp_uri.period(),
+                otp_uri.method(),
                 None,
-                otp_uri.algorithm,
-                otp_uri.digits,
-                otp_uri.counter,
+                otp_uri.algorithm(),
+                otp_uri.digits(),
+                otp_uri.counter(),
                 None,
                 None,
             )
