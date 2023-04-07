@@ -9,7 +9,6 @@ use crate::{
 };
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Debug, Clone)]
 pub struct OTPUri {
     pub(crate) algorithm: Algorithm,
     pub(crate) label: String,

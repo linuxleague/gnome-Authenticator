@@ -8,7 +8,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Default)]
     pub struct ProvidersModel(pub RefCell<Vec<Provider>>, pub Cell<bool>);
 
     #[glib::object_subclass]

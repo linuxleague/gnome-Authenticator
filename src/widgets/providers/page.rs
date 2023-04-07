@@ -19,7 +19,7 @@ mod imp {
     use super::*;
     use crate::models::Method;
 
-    #[derive(Debug, gtk::CompositeTemplate)]
+    #[derive(gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_page.ui")]
     pub struct ProviderPage {
         pub actions: gio::SimpleActionGroup,

@@ -5,7 +5,7 @@ pub(crate) mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, glib::Properties)]
+    #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::ProgressIcon)]
     pub struct ProgressIcon {
         #[property(get, set = Self::set_progress, minimum = 0.0,

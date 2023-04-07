@@ -1,16 +1,16 @@
 use anyhow::Result;
 use gettextrs::gettext;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 use super::{Restorable, RestorableItem};
 use crate::models::{Algorithm, Method, OTPUri};
 
-#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Deserialize)]
 pub struct Bitwarden {
     items: Vec<BitwardenItem>,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Deserialize)]
 pub struct BitwardenItem {
     #[serde(rename = "name")]
     issuer: Option<String>,
@@ -27,7 +27,7 @@ pub struct BitwardenItem {
     counter: Option<u32>,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Deserialize)]
 struct BitwardenDetails {
     username: Option<String>,
     totp: Option<String>,
@@ -55,7 +55,13 @@ impl RestorableItem for BitwardenItem {
     }
 
     fn secret(&self) -> String {
-        self.login.clone().unwrap().totp.unwrap()
+        self.login
+            .as_ref()
+            .unwrap()
+            .totp
+            .as_ref()
+            .unwrap()
+            .to_owned()
     }
 
     fn period(&self) -> Option<u32> {

@@ -23,7 +23,7 @@ mod imp {
     use super::*;
     use crate::config;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_dialog.ui")]
     #[properties(wrapper_type = super::ProvidersDialog)]
     pub struct ProvidersDialog {
@@ -289,7 +289,7 @@ mod row {
 
         use super::*;
 
-        #[derive(Debug, Default, glib::Properties)]
+        #[derive(Default, glib::Properties)]
         #[properties(wrapper_type = super::ProviderActionRow)]
         pub struct ProviderActionRow {
             #[property(get, set = Self::set_provider, construct_only)]

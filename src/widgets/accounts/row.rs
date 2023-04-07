@@ -11,7 +11,7 @@ mod imp {
     use super::*;
     use crate::widgets::Window;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(Default, gtk::CompositeTemplate, glib::Properties)]
     #[properties(wrapper_type = super::AccountRow)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_row.ui")]
     pub struct AccountRow {

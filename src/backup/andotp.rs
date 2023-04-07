@@ -7,7 +7,7 @@ use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, Method, Provider, ProvidersModel};
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Serialize, Deserialize)]
 pub struct AndOTP {
     pub secret: String,
     pub issuer: String,

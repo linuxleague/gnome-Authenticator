@@ -6,7 +6,7 @@ mod imp {
     use super::*;
     use crate::models::Account;
 
-    #[derive(Debug, Default)]
+    #[derive(Default)]
     pub struct AccountSorter;
 
     #[glib::object_subclass]

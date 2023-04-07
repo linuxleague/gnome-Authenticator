@@ -1,5 +1,3 @@
-use std::fmt::Debug;
-
 use anyhow::Result;
 use gtk::{gio, gio::prelude::*};
 
@@ -8,7 +6,6 @@ use crate::{
     utils::spawn_tokio_blocking,
 };
 
-#[derive(Debug, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
 pub enum Operation {
     Backup,
     Restore,
@@ -47,7 +44,7 @@ pub trait Restorable: Sized {
     }
 }
 
-pub trait RestorableItem: Debug {
+pub trait RestorableItem {
     fn account(&self) -> String;
     fn issuer(&self) -> String;
     fn secret(&self) -> String;

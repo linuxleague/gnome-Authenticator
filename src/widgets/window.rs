@@ -19,7 +19,6 @@ use crate::{
     },
 };
 
-#[derive(PartialEq, Eq, Debug)]
 pub enum View {
     Login,
     Accounts,
@@ -32,7 +31,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/window.ui")]
     #[properties(wrapper_type = super::Window)]
     pub struct Window {

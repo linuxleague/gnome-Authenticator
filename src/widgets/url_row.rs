@@ -11,7 +11,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, glib::Properties)]
+    #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::UrlRow)]
     pub struct UrlRow {
         #[property(get, set = Self::set_uri)]

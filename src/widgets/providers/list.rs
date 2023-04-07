@@ -9,7 +9,6 @@ use crate::{
     widgets::providers::ProviderRow,
 };
 
-#[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
 pub enum ProvidersListView {
     NoSearchResults,
     List,
@@ -20,7 +19,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[derive(Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_list.ui")]
     pub struct ProvidersList {
         pub filter_model: gtk::FilterListModel,

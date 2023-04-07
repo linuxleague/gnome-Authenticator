@@ -18,7 +18,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_add.ui")]
     #[properties(wrapper_type = super::AccountAddDialog)]
     pub struct AccountAddDialog {

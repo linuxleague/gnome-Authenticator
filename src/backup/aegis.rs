@@ -21,7 +21,7 @@ use serde::{Deserialize, Serialize};
 use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, Method, Provider, ProvidersModel};
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum Aegis {
     Encrypted(AegisEncrypted),
@@ -29,7 +29,7 @@ pub enum Aegis {
 }
 
 /// Plaintext version of the JSON format.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct AegisPlainText {
     version: u32,
     header: Header,
@@ -51,7 +51,7 @@ impl Default for AegisPlainText {
 
 /// Encrypted version of the JSON format. `db` is simply a base64 encoded string
 /// with an encrypted AegisDatabase.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct AegisEncrypted {
     version: u32,
     header: Header,
@@ -158,7 +158,7 @@ impl Aegis {
 ///
 /// Contains all necessary information for encrypting / decrypting the vault (db
 /// field).
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Header {
     #[serde(default)]
     pub slots: Option<Vec<HeaderSlot>>,
@@ -169,7 +169,7 @@ pub struct Header {
 /// Header Slots
 ///
 /// Containts information to decrypt the master key.
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct HeaderSlot {
     // We are not interested in biometric slots at the moment. Thus, we omit these information.
     // However, in the future, authenticator app might be able to lock / unlock the database using
@@ -236,7 +236,7 @@ impl Default for HeaderSlot {
 }
 
 /// Parameters to Database Encryption
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct HeaderParam {
     #[serde(with = "hex::serde")]
     pub nonce: [u8; 12],
@@ -258,7 +258,7 @@ impl Default for HeaderParam {
 }
 
 /// Contains All OTP Entries
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Database {
     pub version: u32,
     pub entries: Vec<Item>,
@@ -274,7 +274,7 @@ impl Default for Database {
 }
 
 /// An OTP Entry
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Item {
     #[serde(rename = "type")]
     pub method: Method,
@@ -335,7 +335,7 @@ impl Item {
 }
 
 /// OTP Entry Details
-#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Detail {
     pub secret: String,
     #[serde(rename = "algo")]

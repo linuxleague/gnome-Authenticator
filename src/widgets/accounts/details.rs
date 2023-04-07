@@ -23,7 +23,7 @@ mod imp {
         widgets::{editable_label::EditableSpin, EditableLabel},
     };
 
-    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[derive(Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_details_page.ui")]
     pub struct AccountDetailsPage {
         #[template_child]

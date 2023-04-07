@@ -25,7 +25,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Default)]
     pub struct CameraPaintable {
         pub sender: RefCell<Option<Sender<CameraEvent>>>,
         pub pipeline: RefCell<Option<gst::Pipeline>>,

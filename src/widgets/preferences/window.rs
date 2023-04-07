@@ -28,7 +28,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(gtk::CompositeTemplate, glib::Properties)]
     #[properties(wrapper_type = super::PreferencesWindow)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences.ui")]
     pub struct PreferencesWindow {

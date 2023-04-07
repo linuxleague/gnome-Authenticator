@@ -5,7 +5,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[derive(Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/editable_label.ui")]
     pub struct EditableLabel {
         #[template_child]
@@ -50,7 +50,7 @@ mod imp {
     }
     impl BinImpl for EditableLabel {}
 
-    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[derive(Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/editable_spin.ui")]
     pub struct EditableSpin {
         #[template_child]

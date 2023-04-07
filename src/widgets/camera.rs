@@ -60,13 +60,11 @@ mod screenshot {
     }
 }
 
-#[derive(Debug)]
 pub enum CameraEvent {
     CodeDetected(String),
     StreamStarted,
 }
 
-#[derive(Debug)]
 pub enum CameraState {
     NotFound,
     Ready,
@@ -77,7 +75,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, gtk::CompositeTemplate)]
+    #[derive(gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/camera.ui")]
     pub struct Camera {
         pub paintable: CameraPaintable,
@@ -270,12 +268,13 @@ impl Camera {
 
     fn set_state(&self, state: CameraState) {
         let imp = self.imp();
-        tracing::info!("The camera state changed to {:#?}", state);
         match state {
             CameraState::NotFound => {
+                tracing::info!("The camera state changed: Not Found");
                 imp.stack.set_visible_child_name("not-found");
             }
             CameraState::Ready => {
+                tracing::info!("The camera state changed: Ready");
                 imp.stack.set_visible_child_name("stream");
                 imp.spinner.stop();
             }

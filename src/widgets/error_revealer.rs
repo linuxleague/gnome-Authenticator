@@ -3,7 +3,7 @@ use gtk::{glib, prelude::*, subclass::prelude::*};
 mod imp {
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[derive(Default, gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/error_revealer.ui")]
     pub struct ErrorRevealer {
         #[template_child]

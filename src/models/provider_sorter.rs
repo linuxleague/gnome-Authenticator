@@ -7,7 +7,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Default)]
     pub struct ProviderSorter;
 
     #[glib::object_subclass]

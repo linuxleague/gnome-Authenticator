@@ -7,7 +7,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Default)]
     pub struct AccountsModel(pub RefCell<Vec<Account>>);
 
     #[glib::object_subclass]

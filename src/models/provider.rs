@@ -20,7 +20,6 @@ use crate::{
     schema::providers,
 };
 
-#[derive(Debug)]
 pub struct ProviderPatch {
     pub name: String,
     pub website: Option<String>,
@@ -48,7 +47,7 @@ struct NewProvider {
     pub method: String,
 }
 
-#[derive(Identifiable, Queryable, Hash, PartialEq, Eq, Debug, Clone)]
+#[derive(Identifiable, Queryable)]
 #[diesel(table_name = providers)]
 pub struct DieselProvider {
     pub id: i32,

@@ -18,7 +18,7 @@ mod imp {
     use glib::subclass;
 
     use super::*;
-    #[derive(Debug, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(gtk::CompositeTemplate, glib::Properties)]
     #[properties(wrapper_type  = super::ProviderImage)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_image.ui")]
     pub struct ProviderImage {

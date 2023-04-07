@@ -7,7 +7,6 @@ use url::Url;
 use super::Restorable;
 use crate::models::{Algorithm, Method, OTPUri};
 
-#[derive(Default, Debug, Clone, PartialEq, Eq)]
 pub struct Google;
 
 impl Restorable for Google {
@@ -131,7 +130,7 @@ impl Restorable for Google {
 mod protobuf {
     use super::*;
 
-    #[derive(Clone, Message)]
+    #[derive(Message)]
     pub struct MigrationPayload {
         #[prost(message, repeated)]
         pub otp_parameters: Vec<migration_payload::OtpParameters>,
@@ -148,20 +147,20 @@ mod protobuf {
     pub mod migration_payload {
         use super::*;
 
-        #[derive(Debug, Copy, Clone, PartialEq, Eq, Enumeration)]
+        #[derive(Debug, Enumeration)]
         pub enum Algorithm {
             ALGO_INVALID = 0,
             ALGO_SHA1 = 1,
         }
 
-        #[derive(Debug, Copy, Clone, PartialEq, Eq, Enumeration)]
+        #[derive(Debug, Enumeration)]
         pub enum OtpType {
             OTP_INVALID = 0,
             OTP_HOTP = 1,
             OTP_TOTP = 2,
         }
 
-        #[derive(Clone, PartialEq, Eq, Message)]
+        #[derive(Message)]
         pub struct OtpParameters {
             #[prost(bytes)]
             pub secret: Vec<u8>,

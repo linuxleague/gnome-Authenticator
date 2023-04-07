@@ -1,6 +1,6 @@
 use gtk::{glib, prelude::*, subclass::prelude::*};
 
-#[derive(Debug, Clone, glib::Boxed)]
+#[derive(Clone, glib::Boxed)]
 #[boxed_type(name = "CameraItem")]
 pub struct CameraItem {
     pub nick: String,
@@ -10,7 +10,7 @@ pub struct CameraItem {
 mod imp {
     use super::*;
 
-    #[derive(Debug, Default)]
+    #[derive(Default)]
     pub struct CameraRow {
         pub label: gtk::Label,
         pub checkmark: gtk::Image,

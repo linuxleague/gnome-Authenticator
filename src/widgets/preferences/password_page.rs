@@ -16,7 +16,7 @@ mod imp {
 
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(Default, gtk::CompositeTemplate, glib::Properties)]
     #[properties(wrapper_type = super::PasswordPage)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_password_page.ui")]
     pub struct PasswordPage {

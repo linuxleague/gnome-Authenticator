@@ -1,12 +1,12 @@
 use anyhow::Result;
 use gettextrs::gettext;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 use super::{Restorable, RestorableItem};
 use crate::models::{Algorithm, Method};
 
 // Same as andOTP except uses the first tag for the issuer
-#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Deserialize)]
 pub struct LegacyAuthenticator {
     pub secret: String,
     pub label: String,

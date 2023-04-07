@@ -1,7 +1,6 @@
 use gtk::{gdk, glib, graphene, prelude::*, subclass::prelude::*};
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Debug, Clone)]
 pub struct QRCodeData {
     pub width: i32,
     pub height: i32,
@@ -66,7 +65,7 @@ mod imp {
     use super::*;
 
     #[allow(clippy::upper_case_acronyms)]
-    #[derive(Debug, Default)]
+    #[derive(Default)]
     pub struct QRCodePaintable {
         pub qrcode: RefCell<Option<QRCodeData>>,
     }

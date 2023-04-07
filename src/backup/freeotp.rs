@@ -7,7 +7,7 @@ use super::{Backupable, Restorable};
 use crate::models::{Account, OTPUri, Provider, ProvidersModel};
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Default, Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Serialize, Deserialize)]
 pub struct FreeOTP {}
 
 impl Backupable for FreeOTP {

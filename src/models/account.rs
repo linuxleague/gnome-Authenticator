@@ -25,7 +25,7 @@ struct NewAccount {
     pub counter: i32,
 }
 
-#[derive(Identifiable, Queryable, Associations, Hash, PartialEq, Eq, Debug, Clone)]
+#[derive(Identifiable, Queryable, Associations)]
 #[diesel(belongs_to(DieselProvider, foreign_key = provider_id))]
 #[diesel(table_name = accounts)]
 pub struct DieselAccount {

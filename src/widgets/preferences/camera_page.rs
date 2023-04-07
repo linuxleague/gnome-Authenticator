@@ -19,7 +19,7 @@ use crate::{utils::spawn_tokio, widgets::Camera};
 mod imp {
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
+    #[derive(Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/preferences_camera_page.ui")]
     #[properties(wrapper_type = super::CameraPage)]
     pub struct CameraPage {
