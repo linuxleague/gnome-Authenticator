@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-01-24 18:13+0000\n"
-"PO-Revision-Date: 2023-01-25 11:48+0000\n"
+"POT-Creation-Date: 2023-04-07 00:48+0000\n"
+"PO-Revision-Date: 2023-04-07 11:05+0100\n"
 "Last-Translator: Hugo Carvalho <hugokarvalho@hotmail.com>\n"
 "Language-Team: Portuguese (https://l10n.gnome.org/teams/pt/)\n"
 "Language: pt\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:117 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:98 src/main.rs:41
 msgid "Authenticator"
 msgstr "Autenticador"
 
@@ -30,7 +30,7 @@ msgstr "Autenticação de dois fatores"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:120
+#: src/application.rs:101
 msgid "Generate Two-Factor Codes"
 msgstr "Gera códigos de dois fatores"
 
@@ -160,11 +160,11 @@ msgstr "Suporte a formatos de cópia de segurança/restauro"
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:352
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:318
 msgid "_Camera"
 msgstr "_Câmara"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:358
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:324
 msgid "_Screenshot"
 msgstr "Captura de _ecrã"
 
@@ -180,7 +180,7 @@ msgstr "Voltar"
 msgid "_Add"
 msgstr "_Adicionar"
 
-#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:346
+#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:312
 msgid "Scan QR Code"
 msgstr "Digitalizar código QR"
 
@@ -379,11 +379,11 @@ msgstr "Buscar um ícone de website numa ligação limitada"
 msgid "Backup/Restore"
 msgstr "Cópia de segurança/Restaurar"
 
-#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:522
+#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:486
 msgid "Backup"
 msgstr "Cópia de segurança"
 
-#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:530
+#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:494
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -407,11 +407,13 @@ msgstr "URL de ajuda"
 msgid "Providers"
 msgstr "Provedores"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:225
+#. FIXME: replace with something that works
+#. imp.image.set_provider(None);
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:229
 msgid "New Provider"
 msgstr "Novo provedor"
 
-#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:263
+#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:265
 msgid "Search"
 msgstr "Procurar"
 
@@ -509,52 +511,52 @@ msgstr "O Autenticador está bloqueado"
 msgid "_Unlock"
 msgstr "_Desbloquear"
 
-#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:216
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:217
 msgid "New Account"
 msgstr "Nova conta"
 
-#: data/resources/ui/window.ui:184 data/resources/ui/window.ui:257
-msgid "Menu"
-msgstr "Menu"
+#: data/resources/ui/window.ui:185 data/resources/ui/window.ui:259
+msgid "Main Menu"
+msgstr "Menu principal"
 
-#: data/resources/ui/window.ui:195
+#: data/resources/ui/window.ui:196
 msgid "No Accounts"
 msgstr "Nenhuma conta"
 
-#: data/resources/ui/window.ui:196
+#: data/resources/ui/window.ui:197
 msgid "Add an account or scan a QR code first."
 msgstr "Adicionar uma conta ou analisar primeiro um código QR."
 
-#: src/application.rs:103
+#: src/application.rs:84
 msgid "Accounts restored successfully"
 msgstr "Contas restauradas com sucesso"
 
-#: src/application.rs:132
+#: src/application.rs:110
 msgid "translator-credits"
 msgstr ""
 "Rui Mendes <xz9@protonmail.com>\n"
 "Manuela Silva <mmsrs@sky.com>\n"
 "Hugo Carvalho <hugokarvalho@hotmail.com>"
 
-#: src/application.rs:451 src/widgets/accounts/row.rs:45
+#: src/application.rs:389 src/widgets/accounts/row.rs:45
 msgid "One-Time password copied"
 msgstr "Palavra-passe única copiada"
 
-#: src/application.rs:452
+#: src/application.rs:390
 msgid "Password was copied successfully"
 msgstr "A palavra-passe foi copiada com sucesso"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:393 src/backup/aegis.rs:445
+#: src/backup/aegis.rs:394 src/backup/aegis.rs:446
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:397
+#: src/backup/aegis.rs:398
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "Num ficheiro JSON contendo texto simples ou campos encriptados"
 
-#: src/backup/aegis.rs:449
+#: src/backup/aegis.rs:450
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "De um ficheiro JSON contendo texto simples ou campos encriptados"
 
@@ -572,44 +574,44 @@ msgstr "Num ficheiro de texto simples JSON"
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:123 src/backup/legacy.rs:40
+#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:121 src/backup/legacy.rs:40
 msgid "From a plain-text JSON file"
 msgstr "De um ficheiro de texto simples JSON"
 
-#: src/backup/bitwarden.rs:47
+#: src/backup/bitwarden.rs:45
 msgid "Unknown account"
 msgstr "Conta desconhecida"
 
-#: src/backup/bitwarden.rs:55
+#: src/backup/bitwarden.rs:53
 msgid "Unknown issuer"
 msgstr "Emissor desconhecido"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:119
+#: src/backup/bitwarden.rs:117
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:23
+#: src/backup/freeotp.rs:21
 msgid "_Authenticator"
 msgstr "_Autenticador"
 
-#: src/backup/freeotp.rs:27
+#: src/backup/freeotp.rs:25
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Num ficheiro de texto simples, compatível com FreeOTP+"
 
-#: src/backup/freeotp.rs:69
+#: src/backup/freeotp.rs:67
 msgid "A_uthenticator"
 msgstr "A_utenticador"
 
-#: src/backup/freeotp.rs:73
+#: src/backup/freeotp.rs:71
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "De um ficheiro de texto simples, compatível com FreeOTP+"
 
-#: src/backup/google.rs:26
+#: src/backup/google.rs:24
 msgid "Google Authenticator"
 msgstr "Google Authenticator"
 
-#: src/backup/google.rs:30
+#: src/backup/google.rs:28
 msgid "From a QR code generated by Google Authenticator"
 msgstr "A partir de um código QR gerado pelo Google Authenticator"
 
@@ -619,93 +621,93 @@ msgstr "A partir de um código QR gerado pelo Google Authenticator"
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_tenticador (legado)"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "Baseado em contador"
 
-#: src/models/algorithm.rs:57
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "Baseado no tempo"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:59
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:122
+#: src/models/algorithm.rs:126
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:123
+#: src/models/algorithm.rs:127
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:124
+#: src/models/algorithm.rs:128
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:275
+#: src/widgets/accounts/add.rs:282
 msgid "Invalid Token"
 msgstr "Token inválido"
 
-#: src/widgets/window.rs:105
+#: src/widgets/window.rs:115
 msgid "Wrong Password"
 msgstr "Palavra-passe incorreta"
 
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:250
+#: src/widgets/preferences/password_page.rs:178
+#: src/widgets/preferences/password_page.rs:220
 msgid "Wrong Passphrase"
 msgstr "Frase secreta incorreta"
 
-#: src/widgets/preferences/window.rs:251 src/widgets/preferences/window.rs:318
+#: src/widgets/preferences/window.rs:218 src/widgets/preferences/window.rs:284
 msgid "Key / Passphrase"
 msgstr "Chave / Frase secreta"
 
-#: src/widgets/preferences/window.rs:252
+#: src/widgets/preferences/window.rs:219
 msgid "The key that will be used to decrypt the vault"
 msgstr "A chave que será utilizada para desencriptar o cofre"
 
-#: src/widgets/preferences/window.rs:268 src/widgets/preferences/window.rs:334
+#: src/widgets/preferences/window.rs:235 src/widgets/preferences/window.rs:300
 msgid "Select File"
 msgstr "Selecionar ficheiro"
 
-#: src/widgets/preferences/window.rs:319
+#: src/widgets/preferences/window.rs:285
 msgid "The key used to encrypt the vault"
 msgstr "A chave utilizada para encriptar o cofre"
 
-#: src/widgets/preferences/window.rs:406 src/widgets/preferences/window.rs:439
+#: src/widgets/preferences/window.rs:371 src/widgets/preferences/window.rs:402
 msgid "Unable to restore accounts"
 msgstr "Não foi possível restaurar contas"
 
-#: src/widgets/preferences/window.rs:417
+#: src/widgets/preferences/window.rs:382
 msgid "Something went wrong"
 msgstr "Algo correu mal"
 
-#: src/widgets/preferences/window.rs:445
+#: src/widgets/preferences/window.rs:408
 msgid "Couldn't find a QR code"
 msgstr "Não foi possível encontrar um código QR"
 
-#: src/widgets/providers/dialog.rs:244
+#: src/widgets/providers/dialog.rs:255
 msgid "Provider created successfully"
 msgstr "Provedor criado com sucesso"
 
-#: src/widgets/providers/dialog.rs:254
+#: src/widgets/providers/dialog.rs:265
 msgid "Provider updated successfully"
 msgstr "Provedor atualizado com sucesso"
 
-#: src/widgets/providers/dialog.rs:271
+#: src/widgets/providers/dialog.rs:281
 msgid "Provider removed successfully"
 msgstr "Provedor removido com sucesso"
 
-#: src/widgets/providers/page.rs:201
+#: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "A editar provedor: {}"
 
-#: src/widgets/providers/page.rs:308
+#: src/widgets/providers/page.rs:312
 msgid "Image"
 msgstr "Imagem"
 
-#: src/widgets/providers/page.rs:341
+#: src/widgets/providers/page.rs:345
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "O provedor tem contas atribuídas. Remova-as primeiro"
 
