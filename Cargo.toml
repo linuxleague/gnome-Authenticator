@@ -8,7 +8,6 @@ adw = {package = "libadwaita", version = "0.3", features = ["v1_2"]}
 aes-gcm = "0.10"
 anyhow = "1.0"
 ashpd = {version = "0.4", default-features = false, features = ["pipewire", "gtk4", "tokio", "tracing"]}
-binascii = "0.1"
 data-encoding = "2.3"
 diesel = {version = "2.0", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "2.0", features = ["sqlite"]}

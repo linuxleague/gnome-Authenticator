@@ -4,6 +4,7 @@ use std::{
 };
 
 use anyhow::{anyhow, Result};
+use data_encoding::BASE32;
 use ring::hmac;
 
 use super::Algorithm;
@@ -21,15 +22,15 @@ pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 /// Decodes a secret (given as an RFC4648 base32-encoded ASCII string)
 /// into a byte string. It fails if secret is not a valid Base32 string.
 fn decode_secret(secret: &str) -> Result<Vec<u8>> {
-    let secret = secret.trim().replace(' ', "").to_uppercase();
+    let secret = secret.trim().replace(' ', "").to_ascii_uppercase();
     // The buffer should have a length of secret.len() * 5 / 8.
-    let size = secret.len();
-    let mut output_buffer = std::iter::repeat(0).take(size).collect::<Vec<u8>>();
-    let vec = binascii::b32decode(secret.as_bytes(), &mut output_buffer)
-        .map_err(|_| anyhow!("Invalid Input"))?
-        .to_vec();
+    BASE32
+        .decode(secret.as_bytes())
+        .map_err(|_| anyhow!("Invalid Input"))
+}
 
-    Ok(vec)
+pub fn encode_secret(secret: &[u8]) -> String {
+    BASE32.encode(secret)
 }
 
 /// Validates if `secret` is a valid Base32 String.
@@ -61,14 +62,13 @@ fn encode_digest(digest: &[u8]) -> Result<u32> {
 /// (HOTP) given an RFC4648 base32 encoded secret, and an integer counter.
 pub(crate) fn hotp(secret: &str, counter: u64, algorithm: Algorithm, digits: u32) -> Result<u32> {
     let decoded = decode_secret(secret)?;
-    let digest = encode_digest(calc_digest(decoded.as_slice(), counter, algorithm).as_ref())?;
+    let digest = encode_digest(calc_digest(&decoded, counter, algorithm).as_ref())?;
     Ok(digest % 10_u32.pow(digits))
 }
 
 pub(crate) fn steam(secret: &str, counter: u64) -> Result<String> {
     let decoded = decode_secret(secret)?;
-    let mut full_token =
-        encode_digest(calc_digest(decoded.as_slice(), counter, Algorithm::SHA1).as_ref())?;
+    let mut full_token = encode_digest(calc_digest(&decoded, counter, Algorithm::SHA1).as_ref())?;
 
     let mut code = String::new();
     let total_chars = STEAM_CHARS.len() as u32;
@@ -103,30 +103,16 @@ pub(crate) fn time_based_counter(period: u32) -> u64 {
 
 #[cfg(test)]
 mod tests {
-    use super::{format, hotp, steam, Algorithm, DEFAULT_DIGITS, TOTP_DEFAULT_PERIOD};
+    use super::{
+        encode_secret, format, hotp, steam, Algorithm, DEFAULT_DIGITS, TOTP_DEFAULT_PERIOD,
+    };
+
     #[test]
     fn test_totp() {
-        let secret_sha1 = String::from_utf8(
-            binascii::b32encode(b"12345678901234567890", &mut [0; 64])
-                .unwrap()
-                .to_vec(),
-        )
-        .unwrap();
-        let secret_sha256 = String::from_utf8(
-            binascii::b32encode(b"12345678901234567890123456789012", &mut [0; 64])
-                .unwrap()
-                .to_vec(),
-        )
-        .unwrap();
-        let secret_sha512 = String::from_utf8(
-            binascii::b32encode(
-                b"1234567890123456789012345678901234567890123456789012345678901234",
-                &mut [0; 128],
-            )
-            .unwrap()
-            .to_vec(),
-        )
-        .unwrap();
+        let secret_sha1 = encode_secret(b"12345678901234567890");
+        let secret_sha256 = encode_secret(b"12345678901234567890123456789012");
+        let secret_sha512 =
+            encode_secret(b"1234567890123456789012345678901234567890123456789012345678901234");
 
         let counter1 = 59 / TOTP_DEFAULT_PERIOD as u64;
         assert_eq!(
@@ -228,12 +214,7 @@ mod tests {
             hotp("BASE32SECRET3232", 1401, Algorithm::SHA1, DEFAULT_DIGITS).ok(),
             Some(316439)
         );
-        let secret = String::from_utf8(
-            binascii::b32encode(b"12345678901234567890", &mut [0; 64])
-                .unwrap()
-                .to_vec(),
-        )
-        .unwrap();
+        let secret = encode_secret(b"12345678901234567890");
         assert_eq!(
             Some(755224),
             hotp(&secret, 0, Algorithm::SHA1, DEFAULT_DIGITS).ok()

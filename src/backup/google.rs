@@ -5,7 +5,7 @@ use prost::{Enumeration, Message};
 use url::Url;
 
 use super::Restorable;
-use crate::models::{Algorithm, Method, OTPUri};
+use crate::models::{otp, Algorithm, Method, OTPUri};
 
 pub struct Google;
 
@@ -92,20 +92,7 @@ impl Restorable for Google {
                         protobuf::migration_payload::OtpType::OTP_TOTP => Method::TOTP,
                     },
                     secret: {
-                        let secret = &*otp.secret;
-
-                        let mut buffer = [0; 128];
-
-                        if binascii::b32encode(secret, &mut buffer).is_err() {
-                            return folded;
-                        }
-
-                        let buffer = buffer.to_vec();
-
-                        let string = match String::from_utf8(buffer) {
-                            Ok(string) => string,
-                            Err(_) => return folded,
-                        };
+                        let string = otp::encode_secret(&*otp.secret);
 
                         string
                             .trim_end_matches(|c| c == '\0' || c == '=')
