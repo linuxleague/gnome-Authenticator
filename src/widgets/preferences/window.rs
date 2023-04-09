@@ -47,14 +47,10 @@ mod imp {
         pub restore_group: TemplateChild<adw::PreferencesGroup>,
         #[template_child(id = "auto_lock_switch")]
         pub auto_lock: TemplateChild<gtk::Switch>,
-        #[template_child(id = "dark_mode_switch")]
-        pub dark_mode: TemplateChild<gtk::Switch>,
         #[template_child(id = "download_favicons_switch")]
         pub download_favicons: TemplateChild<gtk::Switch>,
         #[template_child(id = "download_favicons_metered_switch")]
         pub download_favicons_metered: TemplateChild<gtk::Switch>,
-        #[template_child]
-        pub dark_mode_group: TemplateChild<adw::PreferencesGroup>,
         #[template_child(id = "lock_timeout_spin_btn")]
         pub lock_timeout: TemplateChild<gtk::SpinButton>,
         pub key_entries: RefCell<HashMap<String, gtk::PasswordEntry>>,
@@ -78,13 +74,11 @@ mod imp {
                 backup_actions: gio::SimpleActionGroup::new(),
                 restore_actions: gio::SimpleActionGroup::new(),
                 auto_lock: TemplateChild::default(),
-                dark_mode: TemplateChild::default(),
                 download_favicons: TemplateChild::default(),
                 download_favicons_metered: TemplateChild::default(),
                 lock_timeout: TemplateChild::default(),
                 backup_group: TemplateChild::default(),
                 restore_group: TemplateChild::default(),
-                dark_mode_group: TemplateChild::default(),
                 key_entries: RefCell::default(),
             }
         }
@@ -158,13 +152,6 @@ impl PreferencesWindow {
     fn setup_widget(&self) {
         let imp = self.imp();
 
-        let style_manager = adw::StyleManager::default();
-        imp.dark_mode_group
-            .set_visible(!style_manager.system_supports_color_schemes());
-
-        SETTINGS
-            .bind("dark-theme", &*imp.dark_mode, "active")
-            .build();
         SETTINGS
             .bind("download-favicons", &*imp.download_favicons, "active")
             .build();

@@ -174,12 +174,10 @@ mod imp {
                             }
                         },
                         "auto-lock-timeout" => app.restart_lock_timeout(),
-                        "dark-theme" => app.update_color_scheme(),
                         _ => ()
                     }
                 }),
             );
-            app.update_color_scheme();
 
             let ctx = glib::MainContext::default();
             ctx.spawn_local(clone!(@strong app => async move {
@@ -341,18 +339,6 @@ impl Application {
     fn cancel_lock_timeout(&self) {
         if let Some(id) = self.imp().lock_timeout_id.borrow_mut().take() {
             id.remove();
-        }
-    }
-
-    fn update_color_scheme(&self) {
-        let manager = self.style_manager();
-        if !manager.system_supports_color_schemes() {
-            let color_scheme = if SETTINGS.boolean("dark-theme") {
-                adw::ColorScheme::PreferDark
-            } else {
-                adw::ColorScheme::PreferLight
-            };
-            manager.set_color_scheme(color_scheme);
         }
     }
 
