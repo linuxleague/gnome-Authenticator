@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-09 01:47+0000\n"
-"PO-Revision-Date: 2023-04-09 04:21+0200\n"
+"POT-Creation-Date: 2023-04-09 03:43+0000\n"
+"PO-Revision-Date: 2023-04-09 19:50+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -157,11 +157,11 @@ msgstr "მარქაფი/აღდგენის ფორმატებ�
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:330
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:331
 msgid "_Camera"
 msgstr "_კამერა"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:336
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:337
 msgid "_Screenshot"
 msgstr "_ეკრანის ანაბეჭდი"
 
@@ -181,7 +181,7 @@ msgstr "უკან დაბრუნება"
 msgid "_Add"
 msgstr "_დამატება"
 
-#: data/resources/ui/account_add.ui:66 src/widgets/preferences/window.rs:324
+#: data/resources/ui/account_add.ui:66 src/widgets/preferences/window.rs:325
 msgid "Scan QR Code"
 msgstr "QR კოდის სკანირება"
 
@@ -373,17 +373,17 @@ msgstr "_გაზომვადი შეერთება"
 
 #: data/resources/ui/preferences.ui:108
 msgid "Fetch a website icon on a metered connection"
-msgstr ""
+msgstr "ვებსაიტის ხატულის მიღება გაზომვადი მიერთებისას"
 
 #: data/resources/ui/preferences.ui:123
 msgid "Backup/Restore"
 msgstr "მარქაფი/აღდგენა"
 
-#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:504
+#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:505
 msgid "Backup"
 msgstr "მარქაფი"
 
-#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:512
+#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:513
 msgid "Restore"
 msgstr "აღდგენა"
 
@@ -604,6 +604,14 @@ msgstr "A_uthenticator"
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr ""
 
+#: src/backup/freeotp_json.rs:77
+msgid "FreeOTP+"
+msgstr ""
+
+#: src/backup/freeotp_json.rs:81
+msgid "From a plain-text JSON file, compatible with FreeOTP+"
+msgstr "უბრალო ტექსტური JSON ფაილიდან, თავსებადია FreeOTP+-თან"
+
 #: src/backup/google.rs:23
 msgid "Google Authenticator"
 msgstr "Google Authenticator"
@@ -664,31 +672,31 @@ msgstr "არასწორი პაროლი"
 msgid "Wrong Passphrase"
 msgstr "არასწორი საიდუმლო ფრაზა"
 
-#: src/widgets/preferences/window.rs:218 src/widgets/preferences/window.rs:296
+#: src/widgets/preferences/window.rs:219 src/widgets/preferences/window.rs:297
 msgid "Key / Passphrase"
 msgstr "გასაღები / კოდური ფრაზა"
 
-#: src/widgets/preferences/window.rs:219
+#: src/widgets/preferences/window.rs:220
 msgid "The key that will be used to decrypt the vault"
 msgstr "საცავის გასაშიფრად გამოყენებული გასაღები"
 
-#: src/widgets/preferences/window.rs:235 src/widgets/preferences/window.rs:312
+#: src/widgets/preferences/window.rs:236 src/widgets/preferences/window.rs:313
 msgid "Select File"
 msgstr "აირჩიეთ ფაილი"
 
-#: src/widgets/preferences/window.rs:297
+#: src/widgets/preferences/window.rs:298
 msgid "The key used to encrypt the vault"
 msgstr "საცავის დასაშიფრად გამოყენებული გასაღები"
 
-#: src/widgets/preferences/window.rs:383 src/widgets/preferences/window.rs:414
+#: src/widgets/preferences/window.rs:384 src/widgets/preferences/window.rs:415
 msgid "Unable to restore accounts"
 msgstr "ანგარიშების აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:394
+#: src/widgets/preferences/window.rs:395
 msgid "Something went wrong"
 msgstr "რაღაც არასწორად ხდება"
 
-#: src/widgets/preferences/window.rs:420
+#: src/widgets/preferences/window.rs:421
 msgid "Couldn't find a QR code"
 msgstr "QR კოდი ვერ ვიპოვე"
 
