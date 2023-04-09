@@ -12,7 +12,7 @@ mod window;
 
 pub use self::{
     accounts::{AccountAddDialog, QRCodeData},
-    camera::{Camera, CameraEvent},
+    camera::{screenshot, Camera, CameraEvent},
     camera_paintable::CameraPaintable,
     camera_row::{CameraItem, CameraRow},
     editable_label::EditableLabel,

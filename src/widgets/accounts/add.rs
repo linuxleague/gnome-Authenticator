@@ -1,20 +1,24 @@
+use adw::subclass::prelude::*;
 use anyhow::Result;
 use gettextrs::gettext;
-use glib::{clone, signal::Inhibit};
-use gtk::{glib, prelude::*, subclass::prelude::*};
-use once_cell::sync::{Lazy, OnceCell};
+use gtk::{
+    gio,
+    glib::{self, clone},
+    prelude::*,
+    Inhibit,
+};
 
 use crate::{
     backup::RestorableItem,
     models::{otp, Account, OTPUri, Provider, ProvidersModel},
-    widgets::{providers::ProviderPage, Camera, ErrorRevealer, ProviderImage, UrlRow},
+    widgets::{providers::ProviderPage, screenshot, Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
 
 mod imp {
     use std::cell::RefCell;
 
-    use adw::subclass::prelude::*;
     use glib::subclass::{InitializingObject, Signal};
+    use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
 
@@ -79,6 +83,12 @@ mod imp {
                     imp.deck.set_visible_child_name("main");
                 } else {
                     dialog.close();
+                }
+            });
+
+            klass.install_action_async("add.qrcode", None, |dialog, _, _| async move {
+                if let Err(err) = dialog.from_qrcode().await {
+                    tracing::error!("Failed to load from QR Code file: {err}");
                 }
             });
 
@@ -270,6 +280,26 @@ impl AccountAddDialog {
             .ok();
 
         self.set_provider(provider);
+    }
+
+    async fn from_qrcode(&self) -> Result<()> {
+        let images_filter = gtk::FileFilter::new();
+        images_filter.set_name(Some(&gettext("Image")));
+        images_filter.add_pixbuf_formats();
+        let model = gio::ListStore::new(gtk::FileFilter::static_type());
+        model.append(&images_filter);
+
+        let dialog = gtk::FileDialog::builder()
+            .modal(true)
+            .filters(&model)
+            .title(gettext("Select QR Code"))
+            .build();
+        let file = dialog.open_future(Some(self)).await?;
+        let (data, _) = file.load_contents_future().await?;
+        let code = screenshot::scan(&data)?;
+        let uri = code.parse::<OTPUri>()?;
+        self.set_from_otp_uri(&uri);
+        Ok(())
     }
 
     fn save(&self) -> Result<()> {

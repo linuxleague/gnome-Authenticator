@@ -16,7 +16,7 @@ use once_cell::sync::Lazy;
 use super::{CameraItem, CameraRow};
 use crate::{utils::spawn_tokio, widgets::CameraPaintable};
 
-mod screenshot {
+pub mod screenshot {
     use super::*;
 
     pub fn scan(data: &[u8]) -> Result<String> {

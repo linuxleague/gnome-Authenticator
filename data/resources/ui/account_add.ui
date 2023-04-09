@@ -10,6 +10,10 @@
         <attribute name="label" translatable="yes">_Screenshot</attribute>
         <attribute name="action">add.screenshot</attribute>
       </item>
+      <item>
+        <attribute name="label" translatable="yes">_QR Code Image</attribute>
+        <attribute name="action">add.qrcode</attribute>
+      </item>
     </section>
   </menu>
   <object class="GtkAdjustment" id="counter_adjustment">
