@@ -252,14 +252,14 @@ impl PreferencesWindow {
             imp.backup_group.add(&row);
         }
 
-        let action = gio::ActionEntry::builder(&T::IDENTIFIER)
+        let action = gio::ActionEntry::builder(T::IDENTIFIER)
             .activate(clone!(@weak self as win => move |_, _,_| {
                 let ctx = glib::MainContext::default();
                 ctx.spawn_local(clone!(@weak win => async move {
                     let model = win.model();
                     if let Ok(file) = win.select_file(filters, Operation::Backup).await {
                         let key = T::ENCRYPTABLE.then(|| {
-                            win.encyption_key(Operation::Backup, &T::IDENTIFIER)
+                            win.encyption_key(Operation::Backup, T::IDENTIFIER)
                         }).flatten();
                         match T::backup(&model,key.as_deref()) {
                             Ok(content) => {
@@ -426,13 +426,13 @@ impl PreferencesWindow {
             imp.restore_actions
                 .add_action_entries([camera_action, screenshot_action]);
         } else {
-            let action = gio::ActionEntry::builder(&T::IDENTIFIER)
+            let action = gio::ActionEntry::builder(T::IDENTIFIER)
                 .activate(clone!(@weak self as win => move |_, _, _| {
                     let ctx = glib::MainContext::default();
                     ctx.spawn_local(clone!(@weak win => async move {
                         if let Ok(file) = win.select_file(filters, Operation::Restore).await {
                             let key = T::ENCRYPTABLE.then(|| {
-                                win.encyption_key(Operation::Restore, &T::IDENTIFIER)
+                                win.encyption_key(Operation::Restore, T::IDENTIFIER)
                             }).flatten();
                             match file.load_contents_future().await{
                                 Ok(content) => {

@@ -87,7 +87,7 @@ mod imp {
             });
 
             klass.install_action_async("add.qrcode", None, |dialog, _, _| async move {
-                if let Err(err) = dialog.from_qrcode().await {
+                if let Err(err) = dialog.open_qr_code().await {
                     tracing::error!("Failed to load from QR Code file: {err}");
                 }
             });
@@ -282,7 +282,7 @@ impl AccountAddDialog {
         self.set_provider(provider);
     }
 
-    async fn from_qrcode(&self) -> Result<()> {
+    async fn open_qr_code(&self) -> Result<()> {
         let images_filter = gtk::FileFilter::new();
         images_filter.set_name(Some(&gettext("Image")));
         images_filter.add_pixbuf_formats();

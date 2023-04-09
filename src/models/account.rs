@@ -199,7 +199,7 @@ impl Account {
                     &account.name,
                     &account.token_id,
                     account.counter as u32,
-                    provider.clone(),
+                    provider,
                     Some(token),
                 )
                 .unwrap()
@@ -220,7 +220,7 @@ impl Account {
                     &account.name,
                     &account.token_id,
                     account.counter as u32,
-                    p.clone(),
+                    &p,
                     None,
                 )
                 {
@@ -249,14 +249,14 @@ impl Account {
         name: &str,
         token_id: &str,
         counter: u32,
-        provider: Provider,
+        provider: &Provider,
         token: Option<&str>,
     ) -> Result<Account> {
         let account = glib::Object::builder::<Self>()
             .property("id", id)
             .property("name", name)
             .property("token-id", token_id)
-            .property("provider", provider.clone())
+            .property("provider", provider)
             .property("counter", counter)
             .build();
 
