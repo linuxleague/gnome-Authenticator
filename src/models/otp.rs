@@ -4,7 +4,7 @@ use std::{
 };
 
 use anyhow::{anyhow, Result};
-use data_encoding::BASE32;
+use data_encoding::BASE32_NOPAD;
 use ring::hmac;
 
 use super::Algorithm;
@@ -24,13 +24,13 @@ pub static TOTP_DEFAULT_PERIOD: u32 = 30;
 fn decode_secret(secret: &str) -> Result<Vec<u8>> {
     let secret = secret.trim().replace(' ', "").to_ascii_uppercase();
     // The buffer should have a length of secret.len() * 5 / 8.
-    BASE32
+    BASE32_NOPAD
         .decode(secret.as_bytes())
         .map_err(|_| anyhow!("Invalid Input"))
 }
 
 pub fn encode_secret(secret: &[u8]) -> String {
-    BASE32.encode(secret)
+    BASE32_NOPAD.encode(secret)
 }
 
 /// Validates if `secret` is a valid Base32 String.
