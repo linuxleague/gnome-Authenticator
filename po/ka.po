@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-07 00:48+0000\n"
-"PO-Revision-Date: 2023-04-07 04:21+0200\n"
+"POT-Creation-Date: 2023-04-09 01:47+0000\n"
+"PO-Revision-Date: 2023-04-09 04:21+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -124,7 +124,7 @@ msgstr "ლამაზ ინტერფეისი"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
 msgid "GNOME Shell search provider"
-msgstr ""
+msgstr "GNOME Shell-ის ძიების პროვაიდერი"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
@@ -137,7 +137,7 @@ msgid "Main Window"
 msgstr "მთავარი ფანჯარა"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
-#: data/resources/ui/account_add.ui:24
+#: data/resources/ui/account_add.ui:28
 msgid "Add a New Account"
 msgstr "ახალი ანგარიშის დამატება"
 
@@ -157,15 +157,19 @@ msgstr "მარქაფი/აღდგენის ფორმატებ�
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:318
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:330
 msgid "_Camera"
 msgstr "_კამერა"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:324
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:336
 msgid "_Screenshot"
 msgstr "_ეკრანის ანაბეჭდი"
 
-#: data/resources/ui/account_add.ui:45
+#: data/resources/ui/account_add.ui:14
+msgid "_QR Code Image"
+msgstr "_QR კოდის სურათი"
+
+#: data/resources/ui/account_add.ui:49
 #: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:45
@@ -173,77 +177,77 @@ msgstr "_ეკრანის ანაბეჭდი"
 msgid "Go Back"
 msgstr "უკან დაბრუნება"
 
-#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_add.ui:54
 msgid "_Add"
 msgstr "_დამატება"
 
-#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:312
+#: data/resources/ui/account_add.ui:66 src/widgets/preferences/window.rs:324
 msgid "Scan QR Code"
 msgstr "QR კოდის სკანირება"
 
-#: data/resources/ui/account_add.ui:101
+#: data/resources/ui/account_add.ui:105
 #: data/resources/ui/account_details_page.ui:126
 msgid "Provider"
 msgstr "სერვისის მომწოდებელი"
 
-#: data/resources/ui/account_add.ui:102
+#: data/resources/ui/account_add.ui:106
 msgid "Token issuer"
 msgstr "კოდის გამომცემელი"
 
-#: data/resources/ui/account_add.ui:116
+#: data/resources/ui/account_add.ui:120
 #: data/resources/ui/account_details_page.ui:116
 msgid "Account"
 msgstr "ანგარიში"
 
-#: data/resources/ui/account_add.ui:122
+#: data/resources/ui/account_add.ui:126
 msgid "Token"
 msgstr "ტოკენი"
 
-#: data/resources/ui/account_add.ui:129
+#: data/resources/ui/account_add.ui:133
 #: data/resources/ui/account_details_page.ui:188
 #: data/resources/ui/provider_page.ui:191
 msgid "Counter"
 msgstr "მთვლელი"
 
-#: data/resources/ui/account_add.ui:154
+#: data/resources/ui/account_add.ui:158
 #: data/resources/ui/account_details_page.ui:168
 #: data/resources/ui/provider_page.ui:157
 msgid "Algorithm"
 msgstr "ალგორითმი"
 
-#: data/resources/ui/account_add.ui:166
+#: data/resources/ui/account_add.ui:170
 #: data/resources/ui/account_details_page.ui:178
 #: data/resources/ui/provider_page.ui:142
 msgid "Computing Method"
 msgstr "გამოთვლის მეთოდი"
 
-#: data/resources/ui/account_add.ui:178
+#: data/resources/ui/account_add.ui:182
 #: data/resources/ui/account_details_page.ui:198
 #: data/resources/ui/provider_page.ui:174
 msgid "Period"
 msgstr "პერიოდი"
 
-#: data/resources/ui/account_add.ui:179 data/resources/ui/provider_page.ui:175
+#: data/resources/ui/account_add.ui:183 data/resources/ui/provider_page.ui:175
 msgid "Duration in seconds until the next password update"
-msgstr ""
+msgstr "ხანგრძლივობა წამებში მომდევნო პაროლის განახლებამდე"
 
-#: data/resources/ui/account_add.ui:191
+#: data/resources/ui/account_add.ui:195
 #: data/resources/ui/account_details_page.ui:208
 #: data/resources/ui/provider_page.ui:208
 msgid "Digits"
 msgstr "ციფრები"
 
-#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:209
+#: data/resources/ui/account_add.ui:196 data/resources/ui/provider_page.ui:209
 msgid "Length of the generated code"
 msgstr "გენერირებული კოდის სიგრძე"
 
-#: data/resources/ui/account_add.ui:204
+#: data/resources/ui/account_add.ui:208
 #: data/resources/ui/account_details_page.ui:218
 #: data/resources/ui/provider_page.ui:136
 msgid "Website"
 msgstr "ვებგვერდი"
 
-#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_add.ui:213
 msgid "How to Set Up"
 msgstr "როგორ მოვირგოთ"
 
@@ -288,7 +292,7 @@ msgstr "საკვანძო ფრაზის მორგება"
 
 #: data/resources/ui/preferences_password_page.ui:33
 msgid "Authenticator will start locked after a passphrase is set."
-msgstr ""
+msgstr "ავთენტიფიკატორი დაიწყებს ჩაკეტვას საიდუმლო ფრაზის დაყენების შემდეგ."
 
 #: data/resources/ui/preferences_password_page.ui:52
 msgid "Current Passphrase"
@@ -321,7 +325,7 @@ msgstr "_მუქი რეჟიმი"
 
 #: data/resources/ui/preferences.ui:25
 msgid "Whether the application should use a dark mode"
-msgstr ""
+msgstr "გამოვიყენო თუ არა მუქი თემა"
 
 #: data/resources/ui/preferences.ui:37
 msgid "Privacy"
@@ -333,7 +337,7 @@ msgstr "­_საკვანძო ფრაზა"
 
 #: data/resources/ui/preferences.ui:42
 msgid "Set up a passphrase to lock the application with"
-msgstr ""
+msgstr "დააყენეთ საიდუმლო ფრაზა, რომ ჩაკეტოთ პროგრამა"
 
 #: data/resources/ui/preferences.ui:54
 msgid "_Auto Lock the Application"
@@ -375,11 +379,11 @@ msgstr ""
 msgid "Backup/Restore"
 msgstr "მარქაფი/აღდგენა"
 
-#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:486
+#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:504
 msgid "Backup"
 msgstr "მარქაფი"
 
-#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:494
+#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:512
 msgid "Restore"
 msgstr "აღდგენა"
 
@@ -521,7 +525,7 @@ msgstr "ანგარიშების გარეშე"
 
 #: data/resources/ui/window.ui:197
 msgid "Add an account or scan a QR code first."
-msgstr ""
+msgstr "ჯერ დაამატეთ ანგარიში ან დაასკანირეთ QR კოდი."
 
 #: src/application.rs:84
 msgid "Accounts restored successfully"
@@ -541,7 +545,7 @@ msgstr "პაროლი წარმატებით დაკოპირ�
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:394 src/backup/aegis.rs:446
+#: src/backup/aegis.rs:394 src/backup/aegis.rs:438
 msgid "Aegis"
 msgstr "Aegis"
 
@@ -549,7 +553,7 @@ msgstr "Aegis"
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr ""
 
-#: src/backup/aegis.rs:450
+#: src/backup/aegis.rs:442
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr ""
 
@@ -563,11 +567,11 @@ msgid "Into a plain-text JSON file"
 msgstr "უბრალო ტექსტურ JSON ფაილში"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:131
+#: src/backup/andotp.rs:122
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:121 src/backup/legacy.rs:40
+#: src/backup/andotp.rs:126 src/backup/bitwarden.rs:127 src/backup/legacy.rs:40
 msgid "From a plain-text JSON file"
 msgstr "უბრალო ტექსტური JSON ფაილიდან"
 
@@ -580,7 +584,7 @@ msgid "Unknown issuer"
 msgstr "უცნობი გამომცემელი"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:117
+#: src/backup/bitwarden.rs:123
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
@@ -592,21 +596,21 @@ msgstr "_Authenticator"
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr ""
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:58
 msgid "A_uthenticator"
 msgstr "A_uthenticator"
 
-#: src/backup/freeotp.rs:71
+#: src/backup/freeotp.rs:62
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr ""
 
-#: src/backup/google.rs:24
+#: src/backup/google.rs:23
 msgid "Google Authenticator"
 msgstr "Google Authenticator"
 
-#: src/backup/google.rs:28
+#: src/backup/google.rs:27
 msgid "From a QR code generated by Google Authenticator"
-msgstr ""
+msgstr "Google Authenticator- ის მიერ გენერირებული QR კოდიდან"
 
 #. Translators: this is for restoring a backup from the old Authenticator
 #. release
@@ -639,11 +643,19 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:282
+#: src/widgets/accounts/add.rs:287 src/widgets/providers/page.rs:312
+msgid "Image"
+msgstr "ასლი"
+
+#: src/widgets/accounts/add.rs:295
+msgid "Select QR Code"
+msgstr "აირჩიეთ QR კოდი"
+
+#: src/widgets/accounts/add.rs:312
 msgid "Invalid Token"
 msgstr "არასწორი კოდი"
 
-#: src/widgets/window.rs:115
+#: src/widgets/window.rs:114
 msgid "Wrong Password"
 msgstr "არასწორი პაროლი"
 
@@ -652,7 +664,7 @@ msgstr "არასწორი პაროლი"
 msgid "Wrong Passphrase"
 msgstr "არასწორი საიდუმლო ფრაზა"
 
-#: src/widgets/preferences/window.rs:218 src/widgets/preferences/window.rs:284
+#: src/widgets/preferences/window.rs:218 src/widgets/preferences/window.rs:296
 msgid "Key / Passphrase"
 msgstr "გასაღები / კოდური ფრაზა"
 
@@ -660,23 +672,23 @@ msgstr "გასაღები / კოდური ფრაზა"
 msgid "The key that will be used to decrypt the vault"
 msgstr "საცავის გასაშიფრად გამოყენებული გასაღები"
 
-#: src/widgets/preferences/window.rs:235 src/widgets/preferences/window.rs:300
+#: src/widgets/preferences/window.rs:235 src/widgets/preferences/window.rs:312
 msgid "Select File"
 msgstr "აირჩიეთ ფაილი"
 
-#: src/widgets/preferences/window.rs:285
+#: src/widgets/preferences/window.rs:297
 msgid "The key used to encrypt the vault"
 msgstr "საცავის დასაშიფრად გამოყენებული გასაღები"
 
-#: src/widgets/preferences/window.rs:371 src/widgets/preferences/window.rs:402
+#: src/widgets/preferences/window.rs:383 src/widgets/preferences/window.rs:414
 msgid "Unable to restore accounts"
 msgstr "ანგარიშების აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:382
+#: src/widgets/preferences/window.rs:394
 msgid "Something went wrong"
 msgstr "რაღაც არასწორად ხდება"
 
-#: src/widgets/preferences/window.rs:408
+#: src/widgets/preferences/window.rs:420
 msgid "Couldn't find a QR code"
 msgstr "QR კოდი ვერ ვიპოვე"
 
@@ -695,10 +707,6 @@ msgstr "მომწოდებელი წარმატებით წა�
 #: src/widgets/providers/page.rs:204
 msgid "Editing Provider: {}"
 msgstr "მომწოდებლის ჩასწორება: {}"
-
-#: src/widgets/providers/page.rs:312
-msgid "Image"
-msgstr "ასლი"
 
 #: src/widgets/providers/page.rs:345
 msgid "The provider has accounts assigned to it, please remove them first"
