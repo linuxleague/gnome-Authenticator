@@ -258,13 +258,13 @@ mod tests {
     }
 
     #[test]
-    fn test_steam_totp() {
+    fn test_steam() {
         assert_eq!(steam("BASE32SECRET3232", 0).ok(), Some("2TC8B".into()));
         assert_eq!(steam("BASE32SECRET3232", 1).ok(), Some("YKKK4".into()));
     }
 
     #[test]
-    fn test_otp_format() {
+    fn otp_format() {
         assert_eq!(format(1234, 5), "01 234");
         assert_eq!(format(1234, 6), "001 234");
         assert_eq!(format(123456, 6), "123 456");

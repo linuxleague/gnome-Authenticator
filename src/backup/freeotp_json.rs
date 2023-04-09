@@ -89,34 +89,8 @@ mod tests {
 
     #[test]
     fn parse() {
-        let data = r#"{
-            "tokenOrder": [
-                "foo1",
-                "foo2"
-            ],
-            "tokens": [
-                {
-                    "algo": "SHA1",
-                    "counter": 0,
-                    "digits": 6,
-                    "issuerExt": "foo1",
-                    "label": "bar1",
-                    "period": 30,
-                    "secret": [0,0,13,111,-99],
-                    "type": "TOTP"
-                },
-                {
-                    "algo": "SHA1",
-                    "issuerExt": "foo2",
-                    "label": "bar2",
-                    "secret": [8,66,29,111,-99],
-                    "type": "TOTP"
-                }
-            ]
-        }"#;
-
-        let items = FreeOTPJSON::restore_from_data(data.as_bytes(), None)
-            .expect("Restoring from json should work");
+        let data = std::fs::read_to_string("./src/backup/tests/freeotp_json.json").unwrap();
+        let items = FreeOTPJSON::restore_from_data(data.as_bytes(), None).unwrap();
 
         assert_eq!(items[0].account(), "bar1");
         assert_eq!(items[0].issuer(), "foo1");

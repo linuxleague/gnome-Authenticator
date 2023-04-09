@@ -1,0 +1,46 @@
+{
+    "items": [
+        {
+            "id": "6095e880-06e0-4073-b38e-aade00f849d2",
+            "organizationId": null,
+            "folderId": null,
+            "type": 1,
+            "name": "test.com",
+            "notes": null,
+            "favorite": false,
+            "login": {
+                "uris": [
+                    {
+                        "match": null,
+                        "uri": "https://test.com"
+                    }
+                ],
+                "username": "test@testmail.com",
+                "password": "äö^ 4234",
+                "totp": "otpauth://totp/test.com:source.test_test%40testmail.com?secret=S22VG5VDNIUK2YIOMPNJ2ADNM3FNZSR2&issuer=test.com"
+            },
+            "collectionIds": null
+        },
+        {
+            "id": "6095e880-06e0-4073-b38e-aade00f849d2",
+            "organizationId": null,
+            "folderId": null,
+            "type": 1,
+            "name": "test.com",
+            "notes": null,
+            "favorite": false,
+            "login": {
+                "uris": [
+                    {
+                        "match": null,
+                        "uri": "https://test.com"
+                    }
+                ],
+                "username": "test@testmail.com",
+                "password": "27ß4357ß2345%",
+                "totp": "xkbu m5fw xxaa jqml 64qh yhi2 xdyf wjz2"
+            },
+            "collectionIds": null
+        }
+    ]
+}

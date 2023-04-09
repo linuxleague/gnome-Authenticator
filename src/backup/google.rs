@@ -168,18 +168,16 @@ mod tests {
     use super::{super::RestorableItem, *};
 
     #[test]
-    fn test_google_restore_otpauth() {
-        let google_data = b"otpauth-migration://offline?data=CjYKEExyJfPiZeroMa/MdF%2BnkTISE2pvaG5kb2VAZXhhbXBsZS5jb20aB0Rpc2NvcmQgASgBMAIQARgBIAA%3D";
+    fn parse() {
+        let data = b"otpauth-migration://offline?data=CjYKEExyJfPiZeroMa/MdF%2BnkTISE2pvaG5kb2VAZXhhbXBsZS5jb20aB0Rpc2NvcmQgASgBMAIQARgBIAA%3D";
+        let items = Google::restore_from_data(data, None).unwrap();
 
-        let google_items = Google::restore_from_data(google_data, None)
-            .expect("Restoring from otpauth-migration uri should work");
-
-        assert_eq!(google_items[0].account(), "johndoe@example.com");
-        assert_eq!(google_items[0].issuer(), "Discord");
-        assert_eq!(google_items[0].secret(), "JRZCL47CMXVOQMNPZR2F7J4RGI");
-        assert_eq!(google_items[0].period(), None);
-        assert_eq!(google_items[0].algorithm(), Algorithm::SHA1);
-        assert_eq!(google_items[0].digits(), None);
-        assert_eq!(google_items[0].counter(), Some(0));
+        assert_eq!(items[0].account(), "johndoe@example.com");
+        assert_eq!(items[0].issuer(), "Discord");
+        assert_eq!(items[0].secret(), "JRZCL47CMXVOQMNPZR2F7J4RGI");
+        assert_eq!(items[0].period(), None);
+        assert_eq!(items[0].algorithm(), Algorithm::SHA1);
+        assert_eq!(items[0].digits(), None);
+        assert_eq!(items[0].counter(), Some(0));
     }
 }

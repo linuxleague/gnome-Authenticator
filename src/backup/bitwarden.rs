@@ -147,88 +147,24 @@ impl Restorable for Bitwarden {
 mod tests {
     use super::*;
     #[test]
-    fn test_bitwarden_restore_otpauth() {
-        let bitwarden_data = r#"{
-  "items": [
-    {
-      "id": "6095e880-06e0-4073-b38e-aade00f849d2",
-      "organizationId": null,
-      "folderId": null,
-      "type": 1,
-      "name": "test.com",
-      "notes": null,
-      "favorite": false,
-      "login": {
-        "uris": [
-          {
-            "match": null,
-            "uri": "https://test.com"
-          }
-        ],
-        "username": "test@testmail.com",
-        "password": "äö^ 4234",
-        "totp": "otpauth://totp/test.com:source.test_test%40testmail.com?secret=S22VG5VDNIUK2YIOMPNJ2ADNM3FNZSR2&issuer=test.com"
-      },
-      "collectionIds": null
-    }
-  ]
-}"#;
+    fn parse() {
+        let data = std::fs::read_to_string("./src/backup/tests/bitwarden.json").unwrap();
+        let items = Bitwarden::restore_from_data(data.as_bytes(), None).unwrap();
 
-        let bitwarden_items = Bitwarden::restore_from_data(bitwarden_data.as_bytes(), None)
-            .expect("Restoring from json should work");
+        assert_eq!(items[0].account(), "test@testmail.com");
+        assert_eq!(items[0].issuer(), "test.com");
+        assert_eq!(items[0].secret(), "S22VG5VDNIUK2YIOMPNJ2ADNM3FNZSR2");
+        assert_eq!(items[0].period(), None);
+        assert_eq!(items[0].algorithm(), Algorithm::default());
+        assert_eq!(items[0].digits(), None);
+        assert_eq!(items[0].counter(), None);
 
-        assert_eq!(bitwarden_items[0].account(), "test@testmail.com");
-        assert_eq!(bitwarden_items[0].issuer(), "test.com");
-        assert_eq!(
-            bitwarden_items[0].secret(),
-            "S22VG5VDNIUK2YIOMPNJ2ADNM3FNZSR2"
-        );
-        assert_eq!(bitwarden_items[0].period(), None);
-        assert_eq!(bitwarden_items[0].algorithm(), Algorithm::default());
-        assert_eq!(bitwarden_items[0].digits(), None);
-        assert_eq!(bitwarden_items[0].counter(), None);
-    }
-
-    #[test]
-    fn test_bitwarden_restore_totp_number() {
-        let bitwarden_data = r#"{
-  "items": [
-    {
-      "id": "6095e880-06e0-4073-b38e-aade00f849d2",
-      "organizationId": null,
-      "folderId": null,
-      "type": 1,
-      "name": "test.com",
-      "notes": null,
-      "favorite": false,
-      "login": {
-        "uris": [
-          {
-            "match": null,
-            "uri": "https://test.com"
-          }
-        ],
-        "username": "test@testmail.com",
-        "password": "27ß4357ß2345%",
-        "totp": "xkbu m5fw xxaa jqml 64qh yhi2 xdyf wjz2"
-      },
-      "collectionIds": null
-    }
-  ]
-}"#;
-
-        let bitwarden_items = Bitwarden::restore_from_data(bitwarden_data.as_bytes(), None)
-            .expect("Restoring from json should work");
-
-        assert_eq!(bitwarden_items[0].account(), "test@testmail.com");
-        assert_eq!(bitwarden_items[0].issuer(), "test.com");
-        assert_eq!(
-            bitwarden_items[0].secret(),
-            "xkbu m5fw xxaa jqml 64qh yhi2 xdyf wjz2"
-        );
-        assert_eq!(bitwarden_items[0].period(), None);
-        assert_eq!(bitwarden_items[0].algorithm(), Algorithm::default());
-        assert_eq!(bitwarden_items[0].digits(), None);
-        assert_eq!(bitwarden_items[0].counter(), None);
+        assert_eq!(items[1].account(), "test@testmail.com");
+        assert_eq!(items[1].issuer(), "test.com");
+        assert_eq!(items[1].secret(), "xkbu m5fw xxaa jqml 64qh yhi2 xdyf wjz2");
+        assert_eq!(items[1].period(), None);
+        assert_eq!(items[1].algorithm(), Algorithm::default());
+        assert_eq!(items[1].digits(), None);
+        assert_eq!(items[1].counter(), None);
     }
 }

@@ -201,7 +201,7 @@ mod tests {
     };
 
     #[test]
-    fn uri_decode() {
+    fn decode() {
         let uri = OTPUri::from_str(
             "otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example",
         )
@@ -222,7 +222,7 @@ mod tests {
     }
 
     #[test]
-    fn uri_encode() {
+    fn encode() {
         let uri = OTPUri {
             algorithm: Algorithm::SHA1,
             label: "account test".to_owned(),
