@@ -9,6 +9,7 @@ use gtk::{
 };
 use unicase::UniCase;
 
+use super::Token;
 use crate::{
     models::{database, keyring, otp, DieselProvider, Method, OTPUri, Provider, RUNTIME},
     schema::accounts,
@@ -44,6 +45,7 @@ mod imp {
     use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
+    use crate::models::Token;
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::Account)]
@@ -56,7 +58,7 @@ mod imp {
         pub name: RefCell<String>,
         #[property(get, set = Self::set_counter, default = otp::HOTP_DEFAULT_COUNTER)]
         pub counter: Cell<u32>,
-        pub token: OnceCell<String>,
+        pub token: OnceCell<Token>,
         #[property(get, set, construct_only)]
         pub token_id: RefCell<String>,
         // We don't use property here as we can't mark the getter as not nullable
@@ -254,7 +256,7 @@ impl Account {
             .property("id", id)
             .property("name", name)
             .property("token-id", token_id)
-            .property("provider", provider)
+            .property("provider", provider.clone())
             .property("counter", counter)
             .build();
 
@@ -268,6 +270,7 @@ impl Account {
                 })
             })?
         };
+        let token = Token::from_str(&token, provider.algorithm(), provider.digits())?;
         account.imp().token.set(token).unwrap();
         account.generate_otp();
         Ok(account)
@@ -283,17 +286,8 @@ impl Account {
         };
 
         let otp_password: Result<String> = match provider.method() {
-            Method::Steam => otp::steam(&self.token(), counter),
-            _ => {
-                let token = otp::hotp(
-                    &self.token(),
-                    counter,
-                    provider.algorithm(),
-                    provider.digits(),
-                );
-
-                token.map(|d| otp::format(d, provider.digits() as usize))
-            }
+            Method::Steam => self.token().steam(counter),
+            _ => self.token().hotp_formatted(counter),
         };
 
         let label = match otp_password {
@@ -351,8 +345,8 @@ impl Account {
         Ok(())
     }
 
-    pub fn token(&self) -> String {
-        self.imp().token.get().unwrap().clone()
+    pub fn token(&self) -> &Token {
+        self.imp().token.get().unwrap()
     }
 
     pub fn otp_uri(&self) -> OTPUri {

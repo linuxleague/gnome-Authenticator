@@ -1,6 +1,7 @@
 use anyhow::Result;
 use gettextrs::gettext;
 use serde::Deserialize;
+use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use super::{Restorable, RestorableItem};
 use crate::models::{
@@ -30,8 +31,9 @@ pub struct BitwardenItem {
     counter: Option<u32>,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, ZeroizeOnDrop, Zeroize)]
 struct BitwardenDetails {
+    #[zeroize(skip)]
     username: Option<String>,
     totp: Option<String>,
 }

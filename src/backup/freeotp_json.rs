@@ -1,6 +1,7 @@
 use anyhow::Result;
 use gettextrs::gettext;
 use serde::Deserialize;
+use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use super::{Restorable, RestorableItem};
 use crate::models::{otp::encode_secret, Algorithm, Method};
@@ -10,18 +11,25 @@ pub struct FreeOTPJSON {
     tokens: Vec<FreeOTPItem>,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Zeroize, ZeroizeOnDrop)]
 pub struct FreeOTPItem {
+    #[zeroize(skip)]
     algo: Algorithm,
     // Note: For some reason FreeOTP adds -1 to the counter
+    #[zeroize(skip)]
     counter: Option<u32>,
+    #[zeroize(skip)]
     digits: Option<u32>,
+    #[zeroize(skip)]
     label: String,
     #[serde(rename = "issuerExt")]
+    #[zeroize(skip)]
     issuer: String,
+    #[zeroize(skip)]
     period: Option<u32>,
     secret: Vec<i16>,
     #[serde(rename = "type")]
+    #[zeroize(skip)]
     method: Method,
 }
 

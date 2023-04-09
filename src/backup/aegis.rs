@@ -17,6 +17,7 @@ use gettextrs::gettext;
 use gtk::prelude::*;
 use rand::RngCore;
 use serde::{Deserialize, Serialize};
+use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, Method, Provider, ProvidersModel};
@@ -301,7 +302,7 @@ impl Item {
 
         // First, create a detail struct
         let detail = Detail {
-            secret: account.token(),
+            secret: account.token().as_string(),
             algorithm: provider.algorithm(),
             digits: provider.digits(),
             // TODO should be none for hotp
@@ -335,13 +336,17 @@ impl Item {
 }
 
 /// OTP Entry Details
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Zeroize, ZeroizeOnDrop)]
 pub struct Detail {
     pub secret: String,
     #[serde(rename = "algo")]
+    #[zeroize(skip)]
     pub algorithm: Algorithm,
+    #[zeroize(skip)]
     pub digits: u32,
+    #[zeroize(skip)]
     pub period: Option<u32>,
+    #[zeroize(skip)]
     pub counter: Option<u32>,
 }
 

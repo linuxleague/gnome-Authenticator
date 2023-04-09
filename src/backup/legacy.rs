@@ -1,22 +1,31 @@
 use anyhow::Result;
 use gettextrs::gettext;
 use serde::Deserialize;
+use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use super::{Restorable, RestorableItem};
 use crate::models::{Algorithm, Method};
 
 // Same as andOTP except uses the first tag for the issuer
-#[derive(Deserialize)]
+#[derive(Deserialize, Zeroize, ZeroizeOnDrop)]
 pub struct LegacyAuthenticator {
     pub secret: String,
+    #[zeroize(skip)]
     pub label: String,
+    #[zeroize(skip)]
     pub digits: u32,
     #[serde(rename = "type")]
+    #[zeroize(skip)]
     pub method: Method,
+    #[zeroize(skip)]
     pub algorithm: Algorithm,
+    #[zeroize(skip)]
     pub thumbnail: String,
+    #[zeroize(skip)]
     pub last_used: i64,
+    #[zeroize(skip)]
     pub tags: Vec<String>,
+    #[zeroize(skip)]
     pub period: u32,
 }
 

@@ -2,6 +2,7 @@ use std::{fmt::Write, str::FromStr};
 
 use percent_encoding::{percent_decode_str, utf8_percent_encode, NON_ALPHANUMERIC};
 use url::Url;
+use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use crate::{
     backup::RestorableItem,
@@ -9,14 +10,22 @@ use crate::{
 };
 
 #[allow(clippy::upper_case_acronyms)]
+#[derive(Zeroize, ZeroizeOnDrop)]
 pub struct OTPUri {
+    #[zeroize(skip)]
     pub(crate) algorithm: Algorithm,
+    #[zeroize(skip)]
     pub(crate) label: String,
     pub(crate) secret: String,
+    #[zeroize(skip)]
     pub(crate) issuer: String,
+    #[zeroize(skip)]
     pub(crate) method: Method,
+    #[zeroize(skip)]
     pub(crate) digits: Option<u32>,
+    #[zeroize(skip)]
     pub(crate) period: Option<u32>,
+    #[zeroize(skip)]
     pub(crate) counter: Option<u32>,
 }
 
@@ -180,7 +189,7 @@ impl From<&Account> for OTPUri {
         Self {
             method: a.provider().method(),
             label: a.name(),
-            secret: a.token(),
+            secret: a.token().as_string(),
             issuer: a.provider().name(),
             algorithm: a.provider().algorithm(),
             digits: Some(a.provider().digits()),

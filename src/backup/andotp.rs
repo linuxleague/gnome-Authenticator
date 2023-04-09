@@ -2,25 +2,37 @@ use anyhow::Result;
 use gettextrs::gettext;
 use gtk::prelude::*;
 use serde::{Deserialize, Serialize};
+use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use super::{Backupable, Restorable, RestorableItem};
 use crate::models::{Account, Algorithm, Method, Provider, ProvidersModel};
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Zeroize, ZeroizeOnDrop)]
 pub struct AndOTP {
     pub secret: String,
+    #[zeroize(skip)]
     pub issuer: String,
+    #[zeroize(skip)]
     pub label: String,
+    #[zeroize(skip)]
     pub digits: u32,
     #[serde(rename = "type")]
+    #[zeroize(skip)]
     pub method: Method,
+    #[zeroize(skip)]
     pub algorithm: Algorithm,
+    #[zeroize(skip)]
     pub thumbnail: Option<String>,
+    #[zeroize(skip)]
     pub last_used: i64,
+    #[zeroize(skip)]
     pub used_frequency: i32,
+    #[zeroize(skip)]
     pub counter: Option<u32>,
+    #[zeroize(skip)]
     pub tags: Vec<String>,
+    #[zeroize(skip)]
     pub period: Option<u32>,
 }
 
@@ -82,7 +94,7 @@ impl Backupable for AndOTP {
                 let account = accounts.item(j).and_downcast::<Account>().unwrap();
 
                 let otp_item = AndOTP {
-                    secret: account.token(),
+                    secret: account.token().as_string(),
                     issuer: provider.name(),
                     label: account.name(),
                     digits: provider.digits(),

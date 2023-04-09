@@ -181,6 +181,7 @@ dependencies = [
  "url",
  "uuid",
  "zbar-rust",
+ "zeroize",
 ]
 
 [[package]]

@@ -14,6 +14,7 @@ mod provider_sorter;
 mod providers;
 mod search_provider;
 mod settings;
+mod token;
 
 pub static RUNTIME: Lazy<tokio::runtime::Runtime> =
     Lazy::new(|| tokio::runtime::Runtime::new().unwrap());
@@ -36,4 +37,5 @@ pub use self::{
     providers::ProvidersModel,
     search_provider::{start, SearchProviderAction},
     settings::Settings,
+    token::Token,
 };

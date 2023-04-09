@@ -94,8 +94,8 @@ impl Restorable for Google {
                             .trim_end_matches(|c| c == '\0' || c == '=')
                             .to_owned()
                     },
-                    label: otp.name,
-                    issuer: otp.issuer,
+                    label: otp.name.clone(),
+                    issuer: otp.issuer.clone(),
                     period: None,
                     counter: Some(otp.counter as u32),
                 });
@@ -128,6 +128,8 @@ mod protobuf {
     }
 
     pub mod migration_payload {
+        use zeroize::{Zeroize, ZeroizeOnDrop};
+
         use super::*;
 
         #[derive(Debug, Enumeration)]
@@ -143,21 +145,27 @@ mod protobuf {
             OTP_TOTP = 2,
         }
 
-        #[derive(Message)]
+        #[derive(Message, Zeroize, ZeroizeOnDrop)]
         pub struct OtpParameters {
             #[prost(bytes)]
             pub secret: Vec<u8>,
+            #[zeroize(skip)]
             #[prost(string)]
             pub name: String,
             #[prost(string)]
+            #[zeroize(skip)]
             pub issuer: String,
             #[prost(enumeration = "Algorithm")]
+            #[zeroize(skip)]
             pub algorithm: i32,
             #[prost(int32)]
+            #[zeroize(skip)]
             pub digits: i32,
             #[prost(enumeration = "OtpType")]
+            #[zeroize(skip)]
             pub r#type: i32,
             #[prost(int64)]
+            #[zeroize(skip)]
             pub counter: i64,
         }
     }
