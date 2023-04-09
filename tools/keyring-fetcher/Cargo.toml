@@ -6,6 +6,6 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-oo7 = {version = "0.1.0-alpha.5", features = ["tracing", "unstable", "async-std"]}
+oo7 = {version = "0.1.0", default-features = false, features = ["tracing", "unstable", "async-std"]}
 async-std = "1.11.0"
 hex = "0.4"
