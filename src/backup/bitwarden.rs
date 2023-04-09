@@ -3,7 +3,10 @@ use gettextrs::gettext;
 use serde::Deserialize;
 
 use super::{Restorable, RestorableItem};
-use crate::models::{Algorithm, Method, OTPUri};
+use crate::models::{
+    otp::{STEAM_DEFAULT_DIGITS, STEAM_DEFAULT_PERIOD},
+    Algorithm, Method, OTPUri,
+};
 
 #[derive(Deserialize)]
 pub struct Bitwarden {
@@ -87,15 +90,14 @@ impl RestorableItem for BitwardenItem {
 
 impl BitwardenItem {
     fn overwrite_with(&mut self, uri: OTPUri) {
-        if self.issuer.is_none() {
-            self.issuer = Some(uri.issuer());
-        }
+        self.issuer = Some(uri.issuer());
 
         if let Some(ref mut login) = self.login {
             login.totp = Some(uri.secret());
+            login.username = Some(uri.account());
         } else {
             self.login = Some(BitwardenDetails {
-                username: None,
+                username: Some(uri.account()),
                 totp: Some(uri.secret()),
             });
         }
@@ -129,12 +131,19 @@ impl Restorable for Bitwarden {
         let mut items = Vec::new();
 
         for mut item in bitwarden_root.items {
-            if let Some(ref login) = item.login {
+            if let Some(ref mut login) = item.login {
                 if let Some(ref totp) = login.totp {
-                    if let Ok(uri) = totp.parse::<OTPUri>() {
+                    if totp.starts_with("steam://") {
+                        login.totp = Some(totp.trim_start_matches("steam://").to_owned());
+                        item.algorithm = Algorithm::SHA1;
+                        item.method = Method::Steam;
+                        item.period = Some(STEAM_DEFAULT_PERIOD);
+                        item.digits = Some(STEAM_DEFAULT_DIGITS);
+                        items.push(item);
+                    } else if let Ok(uri) = totp.parse::<OTPUri>() {
                         item.overwrite_with(uri);
+                        items.push(item);
                     }
-                    items.push(item);
                 }
             }
         }
@@ -151,20 +160,40 @@ mod tests {
         let data = std::fs::read_to_string("./src/backup/tests/bitwarden.json").unwrap();
         let items = Bitwarden::restore_from_data(data.as_bytes(), None).unwrap();
 
-        assert_eq!(items[0].account(), "test@testmail.com");
-        assert_eq!(items[0].issuer(), "test.com");
-        assert_eq!(items[0].secret(), "S22VG5VDNIUK2YIOMPNJ2ADNM3FNZSR2");
-        assert_eq!(items[0].period(), None);
-        assert_eq!(items[0].algorithm(), Algorithm::default());
-        assert_eq!(items[0].digits(), None);
+        assert_eq!(items[0].account(), "Mason");
+        assert_eq!(items[0].issuer(), "Deno");
+        assert_eq!(items[0].secret(), "4SJHB4GSD43FZBAI7C2HLRJGPQ");
+        assert_eq!(items[0].period(), Some(30));
+        assert_eq!(items[0].method(), Method::TOTP);
+        assert_eq!(items[0].algorithm(), Algorithm::SHA1);
+        assert_eq!(items[0].digits(), Some(6));
         assert_eq!(items[0].counter(), None);
 
-        assert_eq!(items[1].account(), "test@testmail.com");
-        assert_eq!(items[1].issuer(), "test.com");
-        assert_eq!(items[1].secret(), "xkbu m5fw xxaa jqml 64qh yhi2 xdyf wjz2");
-        assert_eq!(items[1].period(), None);
-        assert_eq!(items[1].algorithm(), Algorithm::default());
-        assert_eq!(items[1].digits(), None);
+        assert_eq!(items[1].account(), "James");
+        assert_eq!(items[1].issuer(), "SPDX");
+        assert_eq!(items[1].secret(), "5OM4WOOGPLQEF6UGN3CPEOOLWU");
+        assert_eq!(items[1].period(), Some(20));
+        assert_eq!(items[1].method(), Method::TOTP);
+        assert_eq!(items[1].algorithm(), Algorithm::SHA256);
+        assert_eq!(items[1].digits(), Some(7));
         assert_eq!(items[1].counter(), None);
+
+        assert_eq!(items[2].account(), "Elijah");
+        assert_eq!(items[2].issuer(), "Airbnb");
+        assert_eq!(items[2].secret(), "7ELGJSGXNCCTV3O6LKJWYFV2RA");
+        assert_eq!(items[2].period(), Some(50));
+        assert_eq!(items[2].method(), Method::TOTP);
+        assert_eq!(items[2].algorithm(), Algorithm::SHA512);
+        assert_eq!(items[2].digits(), Some(8));
+        assert_eq!(items[2].counter(), None);
+
+        assert_eq!(items[3].account(), "Unknown account");
+        assert_eq!(items[3].issuer(), "Test Steam");
+        assert_eq!(items[3].secret(), "JRZCL47CMXVOQMNPZR2F7J4RGI");
+        assert_eq!(items[3].period(), Some(30));
+        assert_eq!(items[3].method(), Method::Steam);
+        assert_eq!(items[3].algorithm(), Algorithm::SHA1);
+        assert_eq!(items[3].digits(), Some(5));
+        assert_eq!(items[3].counter(), None);
     }
 }
