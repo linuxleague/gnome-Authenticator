@@ -25,7 +25,7 @@ impl Backupable for FreeOTP {
         gettext("Into a plain-text file, compatible with FreeOTP+")
     }
 
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File, _key: Option<&str>) -> Result<()> {
+    fn backup(model: &ProvidersModel, _key: Option<&str>) -> Result<Vec<u8>> {
         let mut items: Vec<String> = Vec::new();
 
         for i in 0..model.n_items() {
@@ -40,16 +40,7 @@ impl Backupable for FreeOTP {
         }
 
         let content = items.join("\n");
-
-        into.replace_contents(
-            content.as_bytes(),
-            None,
-            false,
-            gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
-            gtk::gio::Cancellable::NONE,
-        )?;
-
-        Ok(())
+        Ok(content.as_bytes().to_vec())
     }
 }
 

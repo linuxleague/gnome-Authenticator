@@ -260,8 +260,20 @@ impl PreferencesWindow {
                         let key = T::ENCRYPTABLE.then(|| {
                             win.encyption_key(Operation::Backup, &T::identifier())
                         }).flatten();
-                        if let Err(err) = T::backup(&model, &file, key.as_deref()) {
-                            tracing::warn!("Failed to create a backup {}", err);
+                        match T::backup(&model,key.as_deref()) {
+                            Ok(content) => {
+                                if let Err(err) = file.replace_contents_future(
+                                    content,
+                                    None,
+                                    false,
+                                    gio::FileCreateFlags::REPLACE_DESTINATION,
+                                ).await {
+                                    tracing::warn!("Faild to save the backup {}", err.1);
+                                }
+                            },
+                            Err(err) => {
+                                tracing::warn!("Failed to create a backup {err}");
+                            }
                         }
                     }
                 }));
@@ -421,13 +433,19 @@ impl PreferencesWindow {
                             let key = T::ENCRYPTABLE.then(|| {
                                 win.encyption_key(Operation::Restore, &T::identifier())
                             }).flatten();
-
-                            match T::restore_from_file(&file, key.as_deref()) {
-                                Ok(items) => {
-                                    win.restore_items::<T, T::Item>(items);
-                                },
+                            match file.load_contents_future().await{
+                                Ok(content) => {
+                                    match T::restore_from_data(&content.0, key.as_deref()) {
+                                        Ok(items) => {
+                                            win.restore_items::<T, T::Item>(items);
+                                        },
+                                        Err(err) => {
+                                            tracing::warn!("Failed to parse the selected file {err}");
+                                        }
+                                    };
+                                }
                                 Err(err) => {
-                                    tracing::warn!("Failed to parse the selected file {}", err);
+                                    tracing::error!("Failed to read the selected file {err}");
                                 }
                             }
                         }

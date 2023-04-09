@@ -92,7 +92,7 @@ impl Restorable for Google {
                         protobuf::migration_payload::OtpType::OTP_TOTP => Method::TOTP,
                     },
                     secret: {
-                        let string = otp::encode_secret(&*otp.secret);
+                        let string = otp::encode_secret(&otp.secret);
 
                         string
                             .trim_end_matches(|c| c == '\0' || c == '=')

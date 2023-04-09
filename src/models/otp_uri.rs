@@ -148,9 +148,9 @@ impl From<OTPUri> for String {
         let mut otp_uri = format!(
             "otpauth://{}/{}?secret={}&issuer={}&algorithm={}",
             val.method.to_string(),
-            utf8_percent_encode(&val.label, NON_ALPHANUMERIC).to_string(),
+            utf8_percent_encode(&val.label, NON_ALPHANUMERIC),
             val.secret,
-            utf8_percent_encode(&val.issuer, NON_ALPHANUMERIC).to_string(),
+            utf8_percent_encode(&val.issuer, NON_ALPHANUMERIC),
             val.algorithm.to_string(),
         );
         if let Some(digits) = val.digits {

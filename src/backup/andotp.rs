@@ -74,7 +74,7 @@ impl Backupable for AndOTP {
         gettext("Into a plain-text JSON file")
     }
 
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File, _key: Option<&str>) -> Result<()> {
+    fn backup(model: &ProvidersModel, _key: Option<&str>) -> Result<Vec<u8>> {
         let mut items = Vec::new();
 
         for i in 0..model.n_items() {
@@ -103,16 +103,7 @@ impl Backupable for AndOTP {
         }
 
         let content = serde_json::ser::to_string_pretty(&items)?;
-
-        into.replace_contents(
-            content.as_bytes(),
-            None,
-            false,
-            gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
-            gtk::gio::Cancellable::NONE,
-        )?;
-
-        Ok(())
+        Ok(content.as_bytes().to_vec())
     }
 }
 

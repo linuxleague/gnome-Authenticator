@@ -398,7 +398,7 @@ impl Backupable for Aegis {
         gettext("Into a JSON file containing plain-text or encrypted fields")
     }
 
-    fn backup(model: &ProvidersModel, into: &gtk::gio::File, key: Option<&str>) -> Result<()> {
+    fn backup(model: &ProvidersModel, key: Option<&str>) -> Result<Vec<u8>> {
         // Create structure
         let mut aegis_root = Aegis::default();
 
@@ -419,15 +419,7 @@ impl Backupable for Aegis {
 
         let content = serde_json::ser::to_string_pretty(&aegis_root)?;
 
-        into.replace_contents(
-            content.as_bytes(),
-            None,
-            false,
-            gtk::gio::FileCreateFlags::REPLACE_DESTINATION,
-            gtk::gio::Cancellable::NONE,
-        )?;
-
-        Ok(())
+        Ok(content.as_bytes().to_vec())
     }
 }
 

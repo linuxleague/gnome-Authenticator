@@ -1,5 +1,4 @@
 use anyhow::Result;
-use gtk::{gio, gio::prelude::*};
 
 use crate::{
     models::{keyring, Account, Algorithm, Method, ProvidersModel},
@@ -30,18 +29,6 @@ pub trait Restorable: Sized {
     /// If `key` is `None`, then the implementation should assume that the slice
     /// is unencrypted, and error if it only supports encrypted slices.
     fn restore_from_data(from: &[u8], key: Option<&str>) -> Result<Vec<Self::Item>>;
-
-    /// Restore many items from a file, optiontally using a key to unencrypt it.
-    ///
-    /// If `key` is `None`, then the implementation should assume that the file
-    /// is unencrypted, and error if it only supports encrypted files.
-    ///
-    /// By default, this method reads the file and passes the files content to
-    /// `Self::restore_from_data`.
-    fn restore_from_file(from: &gio::File, key: Option<&str>) -> Result<Vec<Self::Item>> {
-        let (data, _) = from.load_contents(gio::Cancellable::NONE)?;
-        Self::restore_from_data(&data, key)
-    }
 }
 
 pub trait RestorableItem {
@@ -94,7 +81,7 @@ pub trait Backupable: Sized {
     // Used to define the `backup.$identifier` action
     fn identifier() -> String;
     // if no key is provided the backup code should save it as plain text
-    fn backup(provider: &ProvidersModel, into: &gtk::gio::File, key: Option<&str>) -> Result<()>;
+    fn backup(provider: &ProvidersModel, key: Option<&str>) -> Result<Vec<u8>>;
 }
 
 mod aegis;
