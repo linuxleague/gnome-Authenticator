@@ -13,6 +13,7 @@ pub struct FreeOTPJSON {
 #[derive(Deserialize)]
 pub struct FreeOTPItem {
     algo: Algorithm,
+    // Note: For some reason FreeOTP adds -1 to the counter
     counter: Option<u32>,
     digits: Option<u32>,
     label: String,
@@ -59,7 +60,12 @@ impl RestorableItem for FreeOTPItem {
     }
 
     fn counter(&self) -> Option<u32> {
-        self.counter
+        if self.method().is_event_based() {
+            // for some reason, FreeOTP adds -1 to the counter
+            self.counter.map(|c| c + 1)
+        } else {
+            None
+        }
     }
 }
 
@@ -92,24 +98,58 @@ mod tests {
         let data = std::fs::read_to_string("./src/backup/tests/freeotp_json.json").unwrap();
         let items = FreeOTPJSON::restore_from_data(data.as_bytes(), None).unwrap();
 
-        assert_eq!(items[0].account(), "bar1");
-        assert_eq!(items[0].issuer(), "foo1");
-        assert_eq!(items[0].secret(), "AAAA2345");
+        assert_eq!(items[0].account(), "Mason");
+        assert_eq!(items[0].issuer(), "Deno");
+        assert_eq!(items[0].secret(), "4SJHB4GSD43FZBAI7C2HLRJGPQ");
         assert_eq!(items[0].period(), Some(30));
-        assert_eq!(items[0].algorithm(), Algorithm::default());
-        assert_eq!(items[0].method(), Method::default());
+        assert_eq!(items[0].method(), Method::TOTP);
+        assert_eq!(items[0].algorithm(), Algorithm::SHA1);
         assert_eq!(items[0].digits(), Some(6));
-        assert_eq!(items[0].counter(), Some(0));
+        assert_eq!(items[0].counter(), None);
 
-        assert_eq!(items[1].account(), "bar2");
-        assert_eq!(items[1].issuer(), "foo2");
-        assert_eq!(items[1].secret(), "BBBB2345");
-        assert_eq!(items[1].period(), None);
-        assert_eq!(items[1].algorithm(), Algorithm::default());
-        assert_eq!(items[1].method(), Method::default());
-        assert_eq!(items[1].digits(), None);
+        assert_eq!(items[1].account(), "James");
+        assert_eq!(items[1].issuer(), "SPDX");
+        assert_eq!(items[1].secret(), "5OM4WOOGPLQEF6UGN3CPEOOLWU");
+        assert_eq!(items[1].period(), Some(20));
+        assert_eq!(items[1].method(), Method::TOTP);
+        assert_eq!(items[1].algorithm(), Algorithm::SHA256);
+        assert_eq!(items[1].digits(), Some(7));
         assert_eq!(items[1].counter(), None);
+
+        assert_eq!(items[2].account(), "Elijah");
+        assert_eq!(items[2].issuer(), "Airbnb");
+        assert_eq!(items[2].secret(), "7ELGJSGXNCCTV3O6LKJWYFV2RA");
+        assert_eq!(items[2].period(), Some(50));
+        assert_eq!(items[2].method(), Method::TOTP);
+        assert_eq!(items[2].algorithm(), Algorithm::SHA512);
+        assert_eq!(items[2].digits(), Some(8));
+        assert_eq!(items[2].counter(), None);
+
+        assert_eq!(items[3].account(), "James");
+        assert_eq!(items[3].issuer(), "Issuu");
+        assert_eq!(items[3].secret(), "YOOMIXWS5GN6RTBPUFFWKTW5M4");
+        assert_eq!(items[3].period(), Some(30));
+        assert_eq!(items[3].method(), Method::HOTP);
+        assert_eq!(items[3].algorithm(), Algorithm::SHA1);
+        assert_eq!(items[3].digits(), Some(6));
+        assert_eq!(items[3].counter(), Some(1));
+
+        assert_eq!(items[4].account(), "Benjamin");
+        assert_eq!(items[4].issuer(), "Air Canada");
+        assert_eq!(items[4].secret(), "KUVJJOM753IHTNDSZVCNKL7GII");
+        assert_eq!(items[4].period(), Some(30));
+        assert_eq!(items[4].method(), Method::HOTP);
+        assert_eq!(items[4].algorithm(), Algorithm::SHA256);
+        assert_eq!(items[4].digits(), Some(7));
+        assert_eq!(items[4].counter(), Some(50));
+
+        assert_eq!(items[5].account(), "Mason");
+        assert_eq!(items[5].issuer(), "WWE");
+        assert_eq!(items[5].secret(), "5VAML3X35THCEBVRLV24CGBKOY");
+        assert_eq!(items[5].period(), Some(30));
+        assert_eq!(items[5].method(), Method::HOTP);
+        assert_eq!(items[5].algorithm(), Algorithm::SHA512);
+        assert_eq!(items[5].digits(), Some(8));
+        assert_eq!(items[5].counter(), Some(10300));
     }
 }
-
-//
