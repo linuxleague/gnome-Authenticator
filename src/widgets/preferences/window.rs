@@ -226,7 +226,7 @@ impl PreferencesWindow {
             key_row.add_suffix(&key_entry);
             imp.key_entries
                 .borrow_mut()
-                .insert(format!("backup.{}", T::identifier()), key_entry);
+                .insert(format!("backup.{}", T::IDENTIFIER), key_entry);
             row.add_row(&key_row);
 
             let button_row = adw::ActionRow::new();
@@ -234,7 +234,7 @@ impl PreferencesWindow {
                 .valign(gtk::Align::Center)
                 .halign(gtk::Align::End)
                 .label(gettext("Select File"))
-                .action_name(format!("backup.{}", T::identifier()))
+                .action_name(format!("backup.{}", T::IDENTIFIER))
                 .build();
             button_row.add_suffix(&key_button);
             row.add_row(&button_row);
@@ -246,20 +246,20 @@ impl PreferencesWindow {
                 .subtitle(T::subtitle())
                 .activatable(true)
                 .use_underline(true)
-                .action_name(format!("backup.{}", T::identifier()))
+                .action_name(format!("backup.{}", T::IDENTIFIER))
                 .build();
 
             imp.backup_group.add(&row);
         }
 
-        let action = gio::ActionEntry::builder(&T::identifier())
+        let action = gio::ActionEntry::builder(&T::IDENTIFIER)
             .activate(clone!(@weak self as win => move |_, _,_| {
                 let ctx = glib::MainContext::default();
                 ctx.spawn_local(clone!(@weak win => async move {
                     let model = win.model();
                     if let Ok(file) = win.select_file(filters, Operation::Backup).await {
                         let key = T::ENCRYPTABLE.then(|| {
-                            win.encyption_key(Operation::Backup, &T::identifier())
+                            win.encyption_key(Operation::Backup, &T::IDENTIFIER)
                         }).flatten();
                         match T::backup(&model,key.as_deref()) {
                             Ok(content) => {
@@ -303,7 +303,7 @@ impl PreferencesWindow {
             key_row.add_suffix(&key_entry);
             imp.key_entries
                 .borrow_mut()
-                .insert(format!("restore.{}", T::identifier()), key_entry);
+                .insert(format!("restore.{}", T::IDENTIFIER), key_entry);
             row.add_row(&key_row);
 
             let button_row = adw::ActionRow::new();
@@ -311,7 +311,7 @@ impl PreferencesWindow {
                 .valign(gtk::Align::Center)
                 .halign(gtk::Align::End)
                 .label(gettext("Select File"))
-                .action_name(format!("restore.{}", T::identifier()))
+                .action_name(format!("restore.{}", T::IDENTIFIER))
                 .build();
             button_row.add_suffix(&key_button);
             row.add_row(&button_row);
@@ -329,13 +329,13 @@ impl PreferencesWindow {
                     menu.insert(
                         0,
                         Some(&gettext("_Camera")),
-                        Some(&format!("restore.{}.camera", T::identifier())),
+                        Some(&format!("restore.{}.camera", T::IDENTIFIER)),
                     );
 
                     menu.insert(
                         1,
                         Some(&gettext("_Screenshot")),
-                        Some(&format!("restore.{}.screenshot", T::identifier())),
+                        Some(&format!("restore.{}.screenshot", T::IDENTIFIER)),
                     );
 
                     menu
@@ -359,13 +359,13 @@ impl PreferencesWindow {
                 .subtitle(T::subtitle())
                 .activatable(true)
                 .use_underline(true)
-                .action_name(format!("restore.{}", T::identifier()))
+                .action_name(format!("restore.{}", T::IDENTIFIER))
                 .build();
 
             imp.restore_group.add(&row);
         }
         if T::SCANNABLE {
-            let camera_action = gio::ActionEntry::builder(&format!("{}.camera", T::identifier()))
+            let camera_action = gio::ActionEntry::builder(&format!("{}.camera", T::IDENTIFIER))
                 .activate(clone!(@weak self as win=> move |_, _, _| {
                     win.imp().actions.activate_action("show_camera_page", None);
                     let ctx = glib::MainContext::default();
@@ -397,7 +397,7 @@ impl PreferencesWindow {
                         }
                     }));
                 })).build();
-            let screenshot_action = gio::ActionEntry::builder(&format!("{}.screenshot", T::identifier()))
+            let screenshot_action = gio::ActionEntry::builder(&format!("{}.screenshot", T::IDENTIFIER))
             .activate(clone!(@weak self as win => move |_, _, _| {
                 let ctx = glib::MainContext::default();
                 ctx.spawn_local(clone!(@weak win => async move {
@@ -426,13 +426,13 @@ impl PreferencesWindow {
             imp.restore_actions
                 .add_action_entries([camera_action, screenshot_action]);
         } else {
-            let action = gio::ActionEntry::builder(&T::identifier())
+            let action = gio::ActionEntry::builder(&T::IDENTIFIER)
                 .activate(clone!(@weak self as win => move |_, _, _| {
                     let ctx = glib::MainContext::default();
                     ctx.spawn_local(clone!(@weak win => async move {
                         if let Ok(file) = win.select_file(filters, Operation::Restore).await {
                             let key = T::ENCRYPTABLE.then(|| {
-                                win.encyption_key(Operation::Restore, &T::identifier())
+                                win.encyption_key(Operation::Restore, &T::IDENTIFIER)
                             }).flatten();
                             match file.load_contents_future().await{
                                 Ok(content) => {

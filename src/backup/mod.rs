@@ -17,11 +17,13 @@ pub trait Restorable: Sized {
     /// Indicates that the GUI needs to show a QR code scanner.
     const SCANNABLE: bool = false;
 
+    // Used to define the `restore.$identifier` action
+    const IDENTIFIER: &'static str;
+
     type Item: RestorableItem;
 
     fn title() -> String;
     fn subtitle() -> String;
-    fn identifier() -> String;
 
     /// Restore many items from a slice of data, optionally using a key to
     /// unencrypt it.
@@ -75,11 +77,11 @@ pub trait RestorableItem {
 pub trait Backupable: Sized {
     /// Indicates that the GUI might need to prompt for a password.
     const ENCRYPTABLE: bool = false;
+    // Used to define the `backup.$identifier` action
+    const IDENTIFIER: &'static str;
 
     fn title() -> String;
     fn subtitle() -> String;
-    // Used to define the `backup.$identifier` action
-    fn identifier() -> String;
     // if no key is provided the backup code should save it as plain text
     fn backup(provider: &ProvidersModel, key: Option<&str>) -> Result<Vec<u8>>;
 }

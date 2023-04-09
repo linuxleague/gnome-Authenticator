@@ -384,10 +384,7 @@ impl RestorableItem for Item {
 
 impl Backupable for Aegis {
     const ENCRYPTABLE: bool = true;
-
-    fn identifier() -> String {
-        "Aegis".to_string()
-    }
+    const IDENTIFIER: &'static str = "aegis";
 
     fn title() -> String {
         // Translators: This is for making a backup for the aegis Android app.
@@ -426,12 +423,8 @@ impl Backupable for Aegis {
 impl Restorable for Aegis {
     const ENCRYPTABLE: bool = true;
     const SCANNABLE: bool = false;
-
+    const IDENTIFIER: &'static str = "aegis";
     type Item = Item;
-
-    fn identifier() -> String {
-        "Aegis".to_string()
-    }
 
     fn title() -> String {
         // Translators: This is for restoring a backup from the aegis Android app.

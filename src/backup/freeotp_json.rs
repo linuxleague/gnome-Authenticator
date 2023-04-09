@@ -66,12 +66,8 @@ impl RestorableItem for FreeOTPItem {
 impl Restorable for FreeOTPJSON {
     const ENCRYPTABLE: bool = false;
     const SCANNABLE: bool = false;
-
+    const IDENTIFIER: &'static str = "freeotp_json";
     type Item = FreeOTPItem;
-
-    fn identifier() -> String {
-        "freeotp_json".to_string()
-    }
 
     fn title() -> String {
         gettext("FreeOTP+")

@@ -60,10 +60,7 @@ impl RestorableItem for AndOTP {
 
 impl Backupable for AndOTP {
     const ENCRYPTABLE: bool = false;
-
-    fn identifier() -> String {
-        "andotp".to_string()
-    }
+    const IDENTIFIER: &'static str = "andotp";
 
     fn title() -> String {
         // Translators: This is for making a backup for the andOTP Android app.
@@ -110,12 +107,8 @@ impl Backupable for AndOTP {
 impl Restorable for AndOTP {
     const ENCRYPTABLE: bool = false;
     const SCANNABLE: bool = false;
-
+    const IDENTIFIER: &'static str = "andotp";
     type Item = Self;
-
-    fn identifier() -> String {
-        "andotp".to_string()
-    }
 
     fn title() -> String {
         // Translators: This is for restoring a backup from the andOTP Android app.

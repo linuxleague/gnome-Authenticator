@@ -12,10 +12,7 @@ pub struct FreeOTP {}
 
 impl Backupable for FreeOTP {
     const ENCRYPTABLE: bool = false;
-
-    fn identifier() -> String {
-        "authenticator".to_string()
-    }
+    const IDENTIFIER: &'static str = "authenticator";
 
     fn title() -> String {
         gettext("_Authenticator")
@@ -47,12 +44,8 @@ impl Backupable for FreeOTP {
 impl Restorable for FreeOTP {
     const ENCRYPTABLE: bool = false;
     const SCANNABLE: bool = false;
-
+    const IDENTIFIER: &'static str = "authenticator";
     type Item = OTPUri;
-
-    fn identifier() -> String {
-        "authenticator".to_string()
-    }
 
     fn title() -> String {
         gettext("A_uthenticator")

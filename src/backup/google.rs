@@ -12,12 +12,8 @@ pub struct Google;
 impl Restorable for Google {
     const ENCRYPTABLE: bool = false;
     const SCANNABLE: bool = true;
-
+    const IDENTIFIER: &'static str = "google";
     type Item = OTPUri;
-
-    fn identifier() -> String {
-        "google".to_string()
-    }
 
     fn title() -> String {
         gettext("Google Authenticator")

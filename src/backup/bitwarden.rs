@@ -111,12 +111,8 @@ impl BitwardenItem {
 impl Restorable for Bitwarden {
     const ENCRYPTABLE: bool = false;
     const SCANNABLE: bool = false;
-
+    const IDENTIFIER: &'static str = "bitwarden";
     type Item = BitwardenItem;
-
-    fn identifier() -> String {
-        "bitwarden".to_string()
-    }
 
     fn title() -> String {
         // Translators: This is for restoring a backup from Bitwarden.

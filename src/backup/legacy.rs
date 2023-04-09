@@ -23,12 +23,8 @@ pub struct LegacyAuthenticator {
 impl Restorable for LegacyAuthenticator {
     const ENCRYPTABLE: bool = false;
     const SCANNABLE: bool = false;
-
+    const IDENTIFIER: &'static str = "authenticator_legacy";
     type Item = Self;
-
-    fn identifier() -> String {
-        "authenticator_legacy".to_string()
-    }
 
     fn title() -> String {
         // Translators: this is for restoring a backup from the old Authenticator
