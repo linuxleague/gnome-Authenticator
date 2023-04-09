@@ -88,9 +88,10 @@ mod aegis;
 mod andotp;
 mod bitwarden;
 mod freeotp;
+mod freeotp_json;
 mod google;
 mod legacy;
 pub use self::{
-    aegis::Aegis, andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP, google::Google,
-    legacy::LegacyAuthenticator,
+    aegis::Aegis, andotp::AndOTP, bitwarden::Bitwarden, freeotp::FreeOTP,
+    freeotp_json::FreeOTPJSON, google::Google, legacy::LegacyAuthenticator,
 };

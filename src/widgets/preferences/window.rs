@@ -10,8 +10,8 @@ use once_cell::sync::OnceCell;
 use super::{camera_page::CameraPage, password_page::PasswordPage};
 use crate::{
     backup::{
-        Aegis, AndOTP, Backupable, Bitwarden, FreeOTP, Google, LegacyAuthenticator, Operation,
-        Restorable, RestorableItem,
+        Aegis, AndOTP, Backupable, Bitwarden, FreeOTP, FreeOTPJSON, Google, LegacyAuthenticator,
+        Operation, Restorable, RestorableItem,
     },
     models::{ProvidersModel, SETTINGS},
 };
@@ -197,6 +197,7 @@ impl PreferencesWindow {
         self.register_backup::<AndOTP>(&["application/json"]);
 
         self.register_restore::<FreeOTP>(&["text/plain"]);
+        self.register_restore::<FreeOTPJSON>(&["application/json"]);
         self.register_restore::<Aegis>(&["application/json"]);
         self.register_restore::<AndOTP>(&["application/json"]);
         self.register_restore::<Bitwarden>(&["application/json"]);
