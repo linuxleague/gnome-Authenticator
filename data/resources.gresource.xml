@@ -21,8 +21,6 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="preferences_password_page.ui">resources/ui/preferences_password_page.ui</file>
 
     <file compressed="true" preprocess="xml-stripblanks" alias="camera.ui">resources/ui/camera.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="editable_label.ui">resources/ui/editable_label.ui</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="editable_spin.ui">resources/ui/editable_spin.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="error_revealer.ui">resources/ui/error_revealer.ui</file>
 
     <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">resources/ui/shortcuts.ui</file>

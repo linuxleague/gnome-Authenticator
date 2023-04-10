@@ -2,7 +2,6 @@ mod accounts;
 mod camera;
 mod camera_paintable;
 mod camera_row;
-mod editable_label;
 mod error_revealer;
 mod preferences;
 mod progress_icon;
@@ -15,7 +14,6 @@ pub use self::{
     camera::{screenshot, Camera, CameraEvent},
     camera_paintable::CameraPaintable,
     camera_row::{CameraItem, CameraRow},
-    editable_label::EditableLabel,
     error_revealer::ErrorRevealer,
     preferences::PreferencesWindow,
     progress_icon::ProgressIcon,
