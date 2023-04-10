@@ -322,7 +322,7 @@ impl Account {
     }
 
     pub fn provider(&self) -> Provider {
-        self.property("provider")
+        self.imp().provider.borrow().clone().unwrap()
     }
 
     pub fn set_provider(&self, provider: &Provider) -> Result<()> {
@@ -333,7 +333,8 @@ impl Account {
         diesel::update(target)
             .set(accounts::columns::provider_id.eq(provider.id() as i32))
             .execute(&mut conn)?;
-        self.set_property("provider", provider);
+        self.imp().provider.replace(Some(provider.clone()));
+        self.notify("provider");
         Ok(())
     }
 
