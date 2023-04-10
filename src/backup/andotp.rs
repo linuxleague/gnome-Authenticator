@@ -94,7 +94,7 @@ impl Backupable for AndOTP {
                 let account = accounts.item(j).and_downcast::<Account>().unwrap();
 
                 let otp_item = AndOTP {
-                    secret: account.token().as_string(),
+                    secret: account.otp().secret(),
                     issuer: provider.name(),
                     label: account.name(),
                     digits: provider.digits(),

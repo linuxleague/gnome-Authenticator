@@ -1,7 +1,7 @@
 use anyhow::Result;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
-use super::{otp, Account, Algorithm, Method, Provider, ProviderPatch};
+use super::{Account, Algorithm, Method, Provider, ProviderPatch, OTP};
 
 mod imp {
     use std::cell::{Cell, RefCell};
@@ -75,12 +75,12 @@ impl ProvidersModel {
             None => {
                 let p = Provider::create(
                     name,
-                    period.unwrap_or(otp::TOTP_DEFAULT_PERIOD),
+                    period.unwrap_or(OTP::DEFAULT_PERIOD),
                     algorithm,
                     website,
                     method,
-                    digits.unwrap_or(otp::DEFAULT_DIGITS),
-                    default_counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER),
+                    digits.unwrap_or(OTP::DEFAULT_DIGITS),
+                    default_counter.unwrap_or(OTP::DEFAULT_COUNTER),
                     help_url,
                     image_uri,
                 )?;

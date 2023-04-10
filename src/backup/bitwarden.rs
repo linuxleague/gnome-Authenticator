@@ -4,10 +4,7 @@ use serde::Deserialize;
 use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use super::{Restorable, RestorableItem};
-use crate::models::{
-    otp::{STEAM_DEFAULT_DIGITS, STEAM_DEFAULT_PERIOD},
-    Algorithm, Method, OTPUri,
-};
+use crate::models::{Algorithm, Method, OTPUri, OTP};
 
 #[derive(Deserialize)]
 pub struct Bitwarden {
@@ -139,8 +136,8 @@ impl Restorable for Bitwarden {
                         login.totp = Some(totp.trim_start_matches("steam://").to_owned());
                         item.algorithm = Algorithm::SHA1;
                         item.method = Method::Steam;
-                        item.period = Some(STEAM_DEFAULT_PERIOD);
-                        item.digits = Some(STEAM_DEFAULT_DIGITS);
+                        item.period = Some(OTP::STEAM_DEFAULT_PERIOD);
+                        item.digits = Some(OTP::STEAM_DEFAULT_DIGITS);
                         items.push(item);
                     } else if let Ok(uri) = totp.parse::<OTPUri>() {
                         item.overwrite_with(uri);

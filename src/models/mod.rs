@@ -7,14 +7,13 @@ mod algorithm;
 pub mod database;
 pub mod i18n;
 pub mod keyring;
-pub mod otp;
+mod otp;
 mod otp_uri;
 mod provider;
 mod provider_sorter;
 mod providers;
 mod search_provider;
 mod settings;
-mod token;
 
 pub static RUNTIME: Lazy<tokio::runtime::Runtime> =
     Lazy::new(|| tokio::runtime::Runtime::new().unwrap());
@@ -31,11 +30,11 @@ pub use self::{
     accounts::AccountsModel,
     algorithm::{Algorithm, Method},
     keyring::SECRET_SERVICE,
+    otp::OTP,
     otp_uri::OTPUri,
     provider::{DieselProvider, Provider, ProviderPatch},
     provider_sorter::ProviderSorter,
     providers::ProvidersModel,
     search_provider::{start, SearchProviderAction},
     settings::Settings,
-    token::Token,
 };

@@ -302,7 +302,7 @@ impl Item {
 
         // First, create a detail struct
         let detail = Detail {
-            secret: account.token().as_string(),
+            secret: account.otp().secret(),
             algorithm: provider.algorithm(),
             digits: provider.digits(),
             // TODO should be none for hotp

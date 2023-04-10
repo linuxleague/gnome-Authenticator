@@ -87,7 +87,7 @@ mod imp {
                 .build();
 
             account
-                .bind_property("otp", &*self.otp_label, "label")
+                .bind_property("code", &*self.otp_label, "label")
                 .sync_create()
                 .build();
 

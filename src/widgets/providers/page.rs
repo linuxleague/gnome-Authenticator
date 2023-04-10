@@ -7,7 +7,7 @@ use gtk::{
 };
 
 use crate::{
-    models::{i18n, otp, Algorithm, Method, Provider, ProviderPatch, FAVICONS_PATH},
+    models::{i18n, Algorithm, Method, Provider, ProviderPatch, FAVICONS_PATH, OTP},
     widgets::{ErrorRevealer, ProviderImage},
 };
 
@@ -17,7 +17,6 @@ mod imp {
     use glib::subclass::Signal;
 
     use super::*;
-    use crate::models::Method;
 
     #[derive(gtk::CompositeTemplate)]
     #[template(resource = "/com/belmoussaoui/Authenticator/provider_page.ui")]
@@ -206,8 +205,7 @@ impl ProviderPage {
         } else {
             imp.name_entry.set_text("");
             imp.delete_button.set_visible(false);
-            imp.period_spinbutton
-                .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
+            imp.period_spinbutton.set_value(OTP::DEFAULT_PERIOD as f64);
             imp.provider_website_entry.set_text("");
             imp.provider_help_entry.set_text("");
 
@@ -217,8 +215,8 @@ impl ProviderPage {
             );
 
             imp.default_counter_spinbutton
-                .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
-            imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
+                .set_value(OTP::DEFAULT_COUNTER as f64);
+            imp.digits_spinbutton.set_value(OTP::DEFAULT_DIGITS as f64);
 
             imp.method_comborow.set_selected(
                 imp.methods_model
@@ -380,24 +378,23 @@ impl ProviderPage {
             Method::TOTP => {
                 imp.default_counter_row.set_visible(false);
                 imp.period_row.set_visible(true);
-                imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
-                imp.period_spinbutton
-                    .set_value(otp::TOTP_DEFAULT_PERIOD as f64);
+                imp.digits_spinbutton.set_value(OTP::DEFAULT_DIGITS as f64);
+                imp.period_spinbutton.set_value(OTP::DEFAULT_PERIOD as f64);
             }
             Method::HOTP => {
                 imp.default_counter_row.set_visible(true);
                 imp.period_row.set_visible(false);
                 imp.default_counter_spinbutton
-                    .set_value(otp::HOTP_DEFAULT_COUNTER as f64);
-                imp.digits_spinbutton.set_value(otp::DEFAULT_DIGITS as f64);
+                    .set_value(OTP::DEFAULT_COUNTER as f64);
+                imp.digits_spinbutton.set_value(OTP::DEFAULT_DIGITS as f64);
             }
             Method::Steam => {
                 imp.default_counter_row.set_visible(false);
                 imp.period_row.set_visible(true);
                 imp.digits_spinbutton
-                    .set_value(otp::STEAM_DEFAULT_DIGITS as f64);
+                    .set_value(OTP::STEAM_DEFAULT_DIGITS as f64);
                 imp.period_spinbutton
-                    .set_value(otp::STEAM_DEFAULT_PERIOD as f64);
+                    .set_value(OTP::STEAM_DEFAULT_PERIOD as f64);
                 imp.algorithm_comborow
                     .set_selected(Algorithm::default().into_glib() as u32);
             }

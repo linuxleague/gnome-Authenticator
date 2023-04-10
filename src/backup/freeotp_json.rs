@@ -4,7 +4,7 @@ use serde::Deserialize;
 use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use super::{Restorable, RestorableItem};
-use crate::models::{otp::encode_secret, Algorithm, Method};
+use crate::models::{Algorithm, Method};
 
 #[derive(Deserialize)]
 pub struct FreeOTPJSON {
@@ -48,7 +48,7 @@ impl RestorableItem for FreeOTPItem {
             .iter()
             .map(|x| (x & 0xff) as u8)
             .collect::<Vec<_>>();
-        encode_secret(&secret)
+        data_encoding::BASE32_NOPAD.encode(&secret)
     }
 
     fn period(&self) -> Option<u32> {

@@ -6,7 +6,7 @@ use zeroize::{Zeroize, ZeroizeOnDrop};
 
 use crate::{
     backup::RestorableItem,
-    models::{otp, Account, Algorithm, Method},
+    models::{Account, Algorithm, Method, OTP},
 };
 
 #[allow(clippy::upper_case_acronyms)]
@@ -169,14 +169,14 @@ impl From<OTPUri> for String {
             write!(
                 otp_uri,
                 "&counter={}",
-                val.counter.unwrap_or(otp::HOTP_DEFAULT_COUNTER)
+                val.counter.unwrap_or(OTP::DEFAULT_COUNTER)
             )
             .unwrap();
         } else {
             write!(
                 otp_uri,
                 "&period={}",
-                val.period.unwrap_or(otp::TOTP_DEFAULT_PERIOD)
+                val.period.unwrap_or(OTP::DEFAULT_PERIOD)
             )
             .unwrap();
         }
@@ -189,7 +189,7 @@ impl From<&Account> for OTPUri {
         Self {
             method: a.provider().method(),
             label: a.name(),
-            secret: a.token().as_string(),
+            secret: a.otp().secret(),
             issuer: a.provider().name(),
             algorithm: a.provider().algorithm(),
             digits: Some(a.provider().digits()),

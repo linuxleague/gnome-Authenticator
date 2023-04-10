@@ -10,7 +10,7 @@ use gtk::{
 
 use crate::{
     backup::RestorableItem,
-    models::{otp, Account, OTPUri, Provider, ProvidersModel},
+    models::{Account, OTPUri, Provider, ProvidersModel, OTP},
     widgets::{providers::ProviderPage, screenshot, Camera, ErrorRevealer, ProviderImage, UrlRow},
 };
 
@@ -308,7 +308,7 @@ impl AccountAddDialog {
         if let Some(ref provider) = *imp.selected_provider.borrow() {
             let username = imp.username_entry.text();
             let token = imp.token_entry.text();
-            if !otp::is_valid(&token) {
+            if !OTP::is_valid(&token) {
                 imp.error_revealer.popup(&gettext("Invalid Token"));
                 anyhow::bail!("Token {} is not a valid Base32 secret", &token);
             }

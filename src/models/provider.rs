@@ -16,7 +16,7 @@ use unicase::UniCase;
 use url::Url;
 
 use crate::{
-    models::{database, otp, Account, AccountsModel, Algorithm, Method, FAVICONS_PATH},
+    models::{database, Account, AccountsModel, Algorithm, Method, FAVICONS_PATH, OTP},
     schema::providers,
 };
 
@@ -74,15 +74,15 @@ mod imp {
         pub id: Cell<u32>,
         #[property(get, set)]
         pub name: RefCell<String>,
-        #[property(get, set, maximum = 1000, default = otp::TOTP_DEFAULT_PERIOD)]
+        #[property(get, set, maximum = 1000, default = OTP::DEFAULT_PERIOD)]
         pub period: Cell<u32>,
         #[property(get, set, builder(Method::default()))]
         pub method: Cell<Method>,
-        #[property(get, set, default = otp::HOTP_DEFAULT_COUNTER)]
+        #[property(get, set, default = OTP::DEFAULT_COUNTER)]
         pub default_counter: Cell<u32>,
         #[property(get, set, builder(Algorithm::default()))]
         pub algorithm: Cell<Algorithm>,
-        #[property(get, set, maximum = 1000, default = otp::DEFAULT_DIGITS)]
+        #[property(get, set, maximum = 1000, default = OTP::DEFAULT_DIGITS)]
         pub digits: Cell<u32>,
         #[property(get, set)]
         pub website: RefCell<Option<String>>,
@@ -107,15 +107,15 @@ mod imp {
             let model = AccountsModel::default();
             Self {
                 id: Cell::default(),
-                default_counter: Cell::new(otp::HOTP_DEFAULT_COUNTER),
+                default_counter: Cell::new(OTP::DEFAULT_COUNTER),
                 algorithm: Cell::new(Algorithm::default()),
-                digits: Cell::new(otp::DEFAULT_DIGITS),
+                digits: Cell::new(OTP::DEFAULT_DIGITS),
                 name: RefCell::default(),
                 website: RefCell::default(),
                 help_url: RefCell::default(),
                 image_uri: RefCell::default(),
                 method: Cell::new(Method::default()),
-                period: Cell::new(otp::TOTP_DEFAULT_PERIOD),
+                period: Cell::new(OTP::DEFAULT_PERIOD),
                 filter_model: gtk::FilterListModel::new(Some(model.clone()), None::<gtk::Filter>),
                 accounts_model: model,
                 tick_callback: RefCell::default(),

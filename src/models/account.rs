@@ -9,9 +9,8 @@ use gtk::{
 };
 use unicase::UniCase;
 
-use super::Token;
 use crate::{
-    models::{database, keyring, otp, DieselProvider, Method, OTPUri, Provider, RUNTIME},
+    models::{database, keyring, DieselProvider, Method, OTPUri, Provider, OTP, RUNTIME},
     schema::accounts,
     utils::spawn_tokio_blocking,
     widgets::QRCodeData,
@@ -45,7 +44,6 @@ mod imp {
     use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
-    use crate::models::Token;
 
     #[derive(glib::Properties)]
     #[properties(wrapper_type = super::Account)]
@@ -53,12 +51,12 @@ mod imp {
         #[property(get, set, construct)]
         pub id: Cell<u32>,
         #[property(get, set)]
-        pub otp: RefCell<String>,
+        pub code: RefCell<String>,
         #[property(get, set = Self::set_name)]
         pub name: RefCell<String>,
-        #[property(get, set = Self::set_counter, default = otp::HOTP_DEFAULT_COUNTER)]
+        #[property(get, set = Self::set_counter, default = OTP::DEFAULT_COUNTER)]
         pub counter: Cell<u32>,
-        pub token: OnceCell<Token>,
+        pub otp: OnceCell<OTP>,
         #[property(get, set, construct_only)]
         pub token_id: RefCell<String>,
         // We don't use property here as we can't mark the getter as not nullable
@@ -73,12 +71,12 @@ mod imp {
         fn new() -> Self {
             Self {
                 id: Cell::default(),
-                counter: Cell::new(otp::HOTP_DEFAULT_COUNTER),
+                counter: Cell::new(OTP::DEFAULT_COUNTER),
                 name: RefCell::default(),
-                otp: RefCell::default(),
+                code: RefCell::default(),
                 token_id: RefCell::default(),
                 provider: RefCell::default(),
-                token: OnceCell::default(),
+                otp: OnceCell::default(),
             }
         }
     }
@@ -250,7 +248,7 @@ impl Account {
         token_id: &str,
         counter: u32,
         provider: &Provider,
-        token: Option<&str>,
+        secret: Option<&str>,
     ) -> Result<Account> {
         let account = glib::Object::builder::<Self>()
             .property("id", id)
@@ -260,7 +258,7 @@ impl Account {
             .property("counter", counter)
             .build();
 
-        let token = if let Some(t) = token {
+        let secret = if let Some(t) = secret {
             t.to_string()
         } else {
             let token_id = token_id.to_owned();
@@ -270,8 +268,8 @@ impl Account {
                 })
             })?
         };
-        let token = Token::from_str(&token, provider.algorithm(), provider.digits())?;
-        account.imp().token.set(token).unwrap();
+        let otp = OTP::from_str(&secret, provider.algorithm(), provider.digits())?;
+        account.imp().otp.set(otp).unwrap();
         account.generate_otp();
         Ok(account)
     }
@@ -279,15 +277,10 @@ impl Account {
     pub fn generate_otp(&self) {
         let provider = self.provider();
 
-        let counter = match provider.method() {
-            Method::TOTP => otp::time_based_counter(provider.period()),
-            Method::HOTP => self.counter() as u64,
-            Method::Steam => otp::time_based_counter(otp::STEAM_DEFAULT_PERIOD),
-        };
-
-        let otp_password: Result<String> = match provider.method() {
-            Method::Steam => self.token().steam(counter),
-            _ => self.token().hotp_formatted(counter),
+        let otp_password = match provider.method() {
+            Method::Steam => self.otp().steam(None),
+            Method::TOTP => self.otp().totp_formatted(Some(provider.period())),
+            Method::HOTP => self.otp().hotp_formatted(self.counter() as u64),
         };
 
         let label = match otp_password {
@@ -298,7 +291,7 @@ impl Account {
             }
         };
 
-        self.set_otp(label);
+        self.set_code(label);
     }
 
     /// Increment the internal counter in case of a HOTP account
@@ -320,8 +313,8 @@ impl Account {
         let display = gtk::gdk::Display::default().unwrap();
         let clipboard = display.clipboard();
         // The codes come with the white space shown in the label.
-        let code = &self.imp().otp.borrow().replace(' ', "");
-        clipboard.set_text(code);
+        let code = self.code().replace(' ', "");
+        clipboard.set_text(&code);
 
         // Indirectly increment the counter once the token was copied
         if self.provider().method().is_event_based() {
@@ -345,8 +338,8 @@ impl Account {
         Ok(())
     }
 
-    pub fn token(&self) -> &Token {
-        self.imp().token.get().unwrap()
+    pub fn otp(&self) -> &OTP {
+        self.imp().otp.get().unwrap()
     }
 
     pub fn otp_uri(&self) -> OTPUri {

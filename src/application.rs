@@ -412,7 +412,7 @@ impl Application {
                                 .map(|(provider, account)| {
                                     ResultMeta::builder(id.to_owned(), &account.name())
                                         .description(&provider.name())
-                                        .clipboard_text(&account.otp().replace(' ', ""))
+                                        .clipboard_text(&account.code().replace(' ', ""))
                                         .build()
                                 })
                         })
