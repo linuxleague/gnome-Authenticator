@@ -1,0 +1,723 @@
+# Lithuanian translation for authenticator.
+# Copyright (C) 2023 authenticator's COPYRIGHT HOLDER
+# This file is distributed under the same license as the authenticator package.
+# Mprogramavimai <mprogramavimai@gmail.com>, 2023.
+# Martynas <gnomei18n@mprogramavimai.lt>, 2023.
+# Aurimas Černius <aurisc4@gmail.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: authenticator master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2023-04-10 15:02+0000\n"
+"PO-Revision-Date: 2023-04-10 22:45+0300\n"
+"Last-Translator: Aurimas Černius <aurisc4@gmail.com>\n"
+"Language-Team: Lietuvių <gnome-lt@lists.akl.lt>\n"
+"Language: lt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"(n%100<10 || n%100>=20) ? 1 : 2)\n"
+"X-Generator: Gtranslator 42.0\n"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:98 src/main.rs:41
+msgid "Authenticator"
+msgstr "Tapatybė"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "Dviejų faktorių tapatybės patvirtinimas"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:101
+msgid "Generate Two-Factor Codes"
+msgstr "Sukurti dviejų faktorių kodus"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr ""
+"Gnome;GTK;Patvirtinimas;2FA;Autentikacija;OTP;TOTP;Tapatybė;Patvirtinimas;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Numatytasis lango plotis"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Numatytasis lango aukštis"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Numatytasis lango išdidinimo elgesys"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Auto lock"
+msgstr "Automatinis užrakinimas"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether to auto lock the application or not"
+msgstr "Ar automatiškai užrakinti programą"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock timeout"
+msgstr "Automatinio užrakinimo laikmatis"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Lock the application on idle after X minutes"
+msgstr "Automatiškai užrakinti programą po X minučių"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:34
+msgid "Download Favicons"
+msgstr "Atsisiųsti piktogramas"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:35
+msgid ""
+"Whether the application should attempt to find an icon for the providers."
+msgstr "Ar programa turėtų bandyti atrasti tiekėjų piktogramas."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
+msgid "Download Favicons over metered connections"
+msgstr "Atsisiųsti piktogramas naudojant matuojamus ryšius"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
+msgid ""
+"Whether the application should download favicons over a metered connection."
+msgstr ""
+"Ar programa turėtų atsisiųsti piktogramas naudojant matuojamą interneto ryšį."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr ""
+"Paprasta programa dviejų faktorių tapatybės patvirtinimo kodams sukurti."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "Funkcijos:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "Laiko/skaitiklio/srauto metodų palaikymas"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "SHA-1/SHA-256/SHA-512 algoritmų palaikymas"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "QR kodo skeneris naudojant kamerą arba ekrano nuotrauką"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "Užrakinti programą su slaptažodžiu"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "Gražus dizainas"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "GNOME Shell search provider"
+msgstr "GNOME apvalkalo paieškos tiekėjas"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
+msgstr ""
+"Sukurti/atkurti atsarginę kopiją iš/į žinomas programas, tokias kaip "
+"FreeOTP+, Aegis (šifruotas / grynojo teksto), andOTP, Google Authenticator"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "Pagrindinis langas"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:29
+msgid "Add a New Account"
+msgstr "Pridėti naują paskyrą"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Add a New Provider"
+msgstr "Pridėti naują tiekėją"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
+msgid "Account Details"
+msgstr "Paskyros detalės"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
+msgid "Backup/Restore formats support"
+msgstr "Atsarginių kopijų formatų palaikymas"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:282
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:318
+msgid "_Camera"
+msgstr "_Kamera"
+
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:324
+msgid "_Screenshot"
+msgstr "_Ekrano nuotrauka"
+
+#: data/resources/ui/account_add.ui:14
+msgid "_QR Code Image"
+msgstr "_QR kodo paveikslėlis"
+
+#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_details_page.ui:31 data/resources/ui/camera.ui:13
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:45
+#: data/resources/ui/providers_dialog.ui:194
+msgid "Go Back"
+msgstr "Grįžti"
+
+#: data/resources/ui/account_add.ui:55
+msgid "_Add"
+msgstr "_Pridėti"
+
+#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:312
+msgid "Scan QR Code"
+msgstr "Skenuoti QR kodą"
+
+#: data/resources/ui/account_add.ui:106
+#: data/resources/ui/account_details_page.ui:102
+msgid "Provider"
+msgstr "Tiekėjas"
+
+#: data/resources/ui/account_add.ui:107
+msgid "Token issuer"
+msgstr "Kodo išdavėjas"
+
+#: data/resources/ui/account_add.ui:121
+#: data/resources/ui/account_details_page.ui:97
+msgid "Account"
+msgstr "Paskyra"
+
+#: data/resources/ui/account_add.ui:127
+msgid "Token"
+msgstr "Leksema"
+
+#: data/resources/ui/account_add.ui:134
+#: data/resources/ui/account_details_page.ui:146
+#: data/resources/ui/provider_page.ui:191
+msgid "Counter"
+msgstr "Skaitiklis"
+
+#: data/resources/ui/account_add.ui:159
+#: data/resources/ui/account_details_page.ui:125
+#: data/resources/ui/provider_page.ui:157
+msgid "Algorithm"
+msgstr "Algoritmas"
+
+#: data/resources/ui/account_add.ui:171
+#: data/resources/ui/account_details_page.ui:135
+#: data/resources/ui/provider_page.ui:142
+msgid "Computing Method"
+msgstr "Skaičiavimo metodas"
+
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:162
+#: data/resources/ui/provider_page.ui:174
+msgid "Period"
+msgstr "Periodas"
+
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:175
+msgid "Duration in seconds until the next password update"
+msgstr "Trukmė sekundėmis iki kito slaptažodžio atnaujinimo"
+
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:172
+#: data/resources/ui/provider_page.ui:208
+msgid "Digits"
+msgstr "Skaitmenys"
+
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:209
+msgid "Length of the generated code"
+msgstr "Generuoto kodo ilgis"
+
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:182
+#: data/resources/ui/provider_page.ui:136
+msgid "Website"
+msgstr "Interneto svetainė"
+
+#: data/resources/ui/account_add.ui:214
+msgid "How to Set Up"
+msgstr "Kaip pradėti naudotis"
+
+#: data/resources/ui/account_details_page.ui:61
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:52
+msgid "_Save"
+msgstr "Į_rašyti"
+
+#: data/resources/ui/account_details_page.ui:72
+#: data/resources/ui/provider_page.ui:233
+msgid "_Delete"
+msgstr "Iš_trinti"
+
+#: data/resources/ui/account_details_page.ui:187
+msgid "Help"
+msgstr "Žinynas"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Padidinti skaitiklį"
+
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "Kopijuoti PIN į iškarpinę"
+
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "Kamera nerasta"
+
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "_Iš ekrano nuotraukos"
+
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "Nusistatyti slaptafrazę"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "Tapatybė pasileis užrakinta, kai slaptažofrazė bus nustatyta."
+
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "Dabartinė slaptafrazė"
+
+#: data/resources/ui/preferences_password_page.ui:58
+msgid "New Passphrase"
+msgstr "Naujas slaptafrazė"
+
+#: data/resources/ui/preferences_password_page.ui:64
+msgid "Repeat Passphrase"
+msgstr "Pakartoti slaptafrazę"
+
+#: data/resources/ui/preferences_password_page.ui:78
+#: data/resources/ui/provider_page.ui:97
+msgid "_Reset"
+msgstr "_Atstatyti"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "Esmė"
+
+#: data/resources/ui/preferences.ui:19
+msgid "Privacy"
+msgstr "Privatumas"
+
+#: data/resources/ui/preferences.ui:22
+msgid "_Passphrase"
+msgstr "_Slaptafrazė"
+
+#: data/resources/ui/preferences.ui:24
+msgid "Set up a passphrase to lock the application with"
+msgstr "Nustatykite slaptafrazę programai užrakinti"
+
+#: data/resources/ui/preferences.ui:36
+msgid "_Auto Lock the Application"
+msgstr "_Automatiškai užrakinti programą"
+
+#: data/resources/ui/preferences.ui:39
+msgid "Whether to automatically lock the application"
+msgstr "Ar automatiškai užrakinti programą"
+
+#: data/resources/ui/preferences.ui:50
+msgid "Auto Lock _Timeout"
+msgstr "Automatinio užrakinimo _laikas"
+
+#: data/resources/ui/preferences.ui:51
+msgid "The time in minutes"
+msgstr "Laikas minutėmis"
+
+#: data/resources/ui/preferences.ui:71
+msgid "Network"
+msgstr "Tinklas"
+
+#: data/resources/ui/preferences.ui:74
+msgid "_Download Favicons"
+msgstr "_Atsisiųsti piktogramas"
+
+#: data/resources/ui/preferences.ui:77
+msgid "Automatically attempt fetching a website icon"
+msgstr "Automatiškai pabandyti gauti svetainės piktogramą"
+
+#: data/resources/ui/preferences.ui:87
+msgid "_Metered Connection"
+msgstr "_Matuojamas ryšys"
+
+#: data/resources/ui/preferences.ui:90
+msgid "Fetch a website icon on a metered connection"
+msgstr "Gauti svetainės piktogramą naudojant matuojamą ryšį"
+
+#: data/resources/ui/preferences.ui:105
+msgid "Backup/Restore"
+msgstr "Padaryti/atkurti atsarginę kopiją"
+
+#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:492
+msgid "Backup"
+msgstr "Sukurti atsarginę kopiją"
+
+#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:500
+msgid "Restore"
+msgstr "Atkurti iš atsarginės kopijos"
+
+#: data/resources/ui/provider_page.ui:107
+msgid "Select a _File"
+msgstr "Pasirinkite _failą"
+
+#: data/resources/ui/provider_page.ui:130
+msgid "Name"
+msgstr "Padavinimas"
+
+#: data/resources/ui/provider_page.ui:192
+msgid "The by default value for counter-based computing method"
+msgstr "Tai yra numatytoji reikšmė skaitiklio skaičiavimo metodui"
+
+#: data/resources/ui/provider_page.ui:225
+msgid "Help URL"
+msgstr "Žinyno URL"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "Tiekėjai"
+
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:226
+msgid "New Provider"
+msgstr "Naujas tiekėjas"
+
+#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:265
+msgid "Search"
+msgstr "Paieška"
+
+#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "Nėra rezultatų"
+
+#: data/resources/ui/providers_dialog.ui:109
+msgid "No providers matching the query were found."
+msgstr "Nerasta tiekėjų, atitinkančių užklausą."
+
+#: data/resources/ui/providers_dialog.ui:204
+msgid "No Provider Selected"
+msgstr "Nepasirinktas joks tiekėjas"
+
+#: data/resources/ui/providers_dialog.ui:205
+msgid "Select a provider or create a new one"
+msgstr "Pasirinkite tiekėją arba sukurkite naują"
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "Nerasta paskyrų ar tiekėjų, atitinkančių užklausą."
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Esmė"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "Klaviatūros trumpiniai"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Užrakinti"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Nuostatos"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Išeiti"
+
+#: data/resources/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "Paskyros"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "New Account"
+msgstr "Nauja paskyra"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Paieška"
+
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "Rodyti tiekėjų sąrašą"
+
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "_Užrakinti programą"
+
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "_Tiekėjai"
+
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_Nuostatos"
+
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "_Klaviatūros trumpiniai"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "_Apie Tapatybę"
+
+#: data/resources/ui/window.ui:101
+msgid "Authenticator is Locked"
+msgstr "Tapatybė užrakinta"
+
+#: data/resources/ui/window.ui:129
+msgid "_Unlock"
+msgstr "_Atrakinti"
+
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:217
+msgid "New Account"
+msgstr "Nauja paskyra"
+
+#: data/resources/ui/window.ui:185 data/resources/ui/window.ui:259
+msgid "Main Menu"
+msgstr "Pagrindinis meniu"
+
+#: data/resources/ui/window.ui:196
+msgid "No Accounts"
+msgstr "Nėra paskyrų"
+
+#: data/resources/ui/window.ui:197
+msgid "Add an account or scan a QR code first."
+msgstr "Pridėti paskyrą arba pirmiau skenuoti QR kodą."
+
+#: src/application.rs:84
+msgid "Accounts restored successfully"
+msgstr "Paskyros sėkmingai atkurtos"
+
+#: src/application.rs:110
+msgid "translator-credits"
+msgstr ""
+"Išvertė:\n"
+"Aurimas Černius <aurisc4@gmail.com>"
+
+#: src/application.rs:375 src/widgets/accounts/row.rs:45
+msgid "One-Time password copied"
+msgstr "Vienkartinis slaptažodis nukopijuotas"
+
+#: src/application.rs:376
+msgid "Password was copied successfully"
+msgstr "Slaptažodis sėkmingai nukopijuotas"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:399 src/backup/aegis.rs:439
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:403
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "Į JSON failą, turintį grynojo teksto, arba šifruotus laukus"
+
+#: src/backup/aegis.rs:443
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Iš JSON failo, turinčio grynąjį tekstą, arba šifruotų laukų"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:79
+msgid "a_ndOTP"
+msgstr "a_noOTP"
+
+#: src/backup/andotp.rs:83
+msgid "Into a plain-text JSON file"
+msgstr "Į grynojo teksto JSON failą"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:127
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:131 src/backup/bitwarden.rs:124 src/backup/legacy.rs:45
+msgid "From a plain-text JSON file"
+msgstr "Iš grynojo teksto JSON failo"
+
+#: src/backup/bitwarden.rs:47
+msgid "Unknown account"
+msgstr "Nežinoma paskyra"
+
+#: src/backup/bitwarden.rs:55
+msgid "Unknown issuer"
+msgstr "Nežinomas išdavėjas"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:120
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
+
+#: src/backup/freeotp.rs:18
+msgid "_Authenticator"
+msgstr "_Authenticator"
+
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "Į grynojo teksto failą, palaikomą su FreeOTP+"
+
+#: src/backup/freeotp.rs:51
+msgid "A_uthenticator"
+msgstr "A_uthenticator"
+
+#: src/backup/freeotp.rs:55
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Iš grynojo teksto failo, palaikomo su FreeOTP+"
+
+#: src/backup/freeotp_json.rs:87
+msgid "FreeOTP+"
+msgstr "FreeOTP+"
+
+#: src/backup/freeotp_json.rs:91
+msgid "From a plain-text JSON file, compatible with FreeOTP+"
+msgstr "Iš grynojo teksto failo, palaikomo su FreeOTP+"
+
+#: src/backup/google.rs:19
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:23
+msgid "From a QR code generated by Google Authenticator"
+msgstr "Iš QR kodo, sukurto Google Authenticator"
+
+#. Translators: this is for restoring a backup from the old Authenticator
+#. release
+#: src/backup/legacy.rs:41
+msgid "Au_thenticator (Legacy)"
+msgstr "Au_thenticator (senas)"
+
+#: src/models/algorithm.rs:60
+msgid "Counter-based"
+msgstr "Skaitiklio metodo"
+
+#: src/models/algorithm.rs:61
+msgid "Time-based"
+msgstr "Laiko metodo"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:63
+msgid "Steam"
+msgstr "Srauto"
+
+#: src/models/algorithm.rs:126
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:128
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:287 src/widgets/providers/page.rs:309
+msgid "Image"
+msgstr "Nuotrauka"
+
+#: src/widgets/accounts/add.rs:295
+msgid "Select QR Code"
+msgstr "Pasirinkite QR kodą"
+
+#: src/widgets/accounts/add.rs:312
+msgid "Invalid Token"
+msgstr "Netinkamas kodas"
+
+#: src/widgets/window.rs:114
+msgid "Wrong Password"
+msgstr "Blogas slaptažodis"
+
+#: src/widgets/preferences/password_page.rs:178
+#: src/widgets/preferences/password_page.rs:220
+msgid "Wrong Passphrase"
+msgstr "Bloga slaptafrazė"
+
+#: src/widgets/preferences/window.rs:206 src/widgets/preferences/window.rs:284
+msgid "Key / Passphrase"
+msgstr "Raktas / slaptafrazė"
+
+#: src/widgets/preferences/window.rs:207
+msgid "The key that will be used to decrypt the vault"
+msgstr "Šis raktas bus naudojamas kodams iššifruoti"
+
+#: src/widgets/preferences/window.rs:223 src/widgets/preferences/window.rs:300
+msgid "Select File"
+msgstr "Pasirinkite failą"
+
+#: src/widgets/preferences/window.rs:285
+msgid "The key used to encrypt the vault"
+msgstr "Šis raktas bus naudojamas kodams užšifruoti"
+
+#: src/widgets/preferences/window.rs:371 src/widgets/preferences/window.rs:402
+msgid "Unable to restore accounts"
+msgstr "Negalime atkurti paskyrų"
+
+#: src/widgets/preferences/window.rs:382
+msgid "Something went wrong"
+msgstr "Atsitiko kažkas negero"
+
+#: src/widgets/preferences/window.rs:408
+msgid "Couldn't find a QR code"
+msgstr "Nepavyko rasti QR kodo"
+
+#: src/widgets/providers/dialog.rs:255
+msgid "Provider created successfully"
+msgstr "Tiekėjas sėkmingai sukurtas"
+
+#: src/widgets/providers/dialog.rs:265
+msgid "Provider updated successfully"
+msgstr "Tiekėjas sėkmingai atnaujintas"
+
+#: src/widgets/providers/dialog.rs:281
+msgid "Provider removed successfully"
+msgstr "Tiekėjas sėkmingai pašalintas"
+
+#: src/widgets/providers/page.rs:203
+msgid "Editing Provider: {}"
+msgstr "Redaguojamas tiekėjas: {}"
+
+#: src/widgets/providers/page.rs:342
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "Tiekėjas turi jam priskirtas paskyras, pirmiau pašalinkite jas"
+
+#~ msgid "Dark Mode"
+#~ msgstr "Tamsus režimas"
+
+#~ msgid "Whether the application should use a dark mode."
+#~ msgstr "Ar aplikacija turėtų naudoti tamsųjį režimą."
+
+#~ msgid "_Edit"
+#~ msgstr "_Redaguoti"
+
+#~ msgid "Appearance"
+#~ msgstr "Išvaizda"
+
+#~ msgid "_Dark Mode"
+#~ msgstr "Tamsus režimas"
+
+#~ msgid "Whether the application should use a dark mode"
+#~ msgstr "Ar aplikacija turėtų naudoti tamsųjį režimą"
