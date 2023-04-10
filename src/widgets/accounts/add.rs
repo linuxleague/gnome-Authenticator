@@ -331,7 +331,7 @@ impl AccountAddDialog {
             imp.provider_entry.set_text(&provider.name());
             imp.period_label.set_text(&provider.period().to_string());
 
-            imp.image.set_provider(&provider);
+            imp.image.set_provider(Some(&provider));
 
             imp.method_label
                 .set_text(&provider.method().to_locale_string());

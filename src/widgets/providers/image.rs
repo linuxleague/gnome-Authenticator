@@ -27,7 +27,7 @@ mod imp {
         pub was_downloaded: Cell<bool>,
         pub sender: Sender<ImageAction>,
         pub receiver: RefCell<Option<Receiver<ImageAction>>>,
-        #[property(get, set = Self::set_provider)]
+        #[property(get, set = Self::set_provider, nullable)]
         pub provider: RefCell<Option<Provider>>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,

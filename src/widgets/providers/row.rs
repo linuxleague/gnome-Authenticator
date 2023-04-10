@@ -144,7 +144,7 @@ impl ProviderRow {
 
         self.add_css_class(&provider.method().to_string());
 
-        imp.image.set_provider(&provider);
+        imp.image.set_provider(Some(&provider));
         if provider.method().is_event_based() {
             imp.progress_icon.set_visible(false);
         } else {
