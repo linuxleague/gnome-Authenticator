@@ -300,16 +300,19 @@ impl Item {
     pub fn new(account: &Account) -> Self {
         let provider = account.provider();
 
-        // First, create a detail struct
-        let detail = Detail {
+        let mut detail = Detail {
             secret: account.otp().secret(),
             algorithm: provider.algorithm(),
             digits: provider.digits(),
-            // TODO should be none for hotp
-            period: Some(provider.period()),
-            // TODO should be none for totp
-            counter: Some(account.counter()),
+            period: None,
+            counter: None,
         };
+
+        if provider.method().is_event_based() {
+            detail.counter = Some(account.counter());
+        } else {
+            detail.period = Some(provider.period());
+        }
 
         Self {
             method: provider.method(),
