@@ -101,19 +101,10 @@
                               <object class="GtkListBox">
                                 <property name="selection-mode">none</property>
                                 <child>
-                                  <object class="AdwActionRow">
-                                    <property name="activatable-widget">provider_entry</property>
-                                    <property name="title" translatable="yes">Provider</property>
-                                    <property name="subtitle" translatable="yes">Token issuer</property>
-                                    <child>
-                                      <object class="GtkEntry" id="provider_entry">
-                                        <property name="halign">end</property>
-                                        <property name="valign">center</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="completion">provider_completion</property>
-                                        <property name="enable-emoji-completion">True</property>
-                                      </object>
-                                    </child>
+                                  <object class="ProviderEntryRow" id="provider_entry">
+                                    <signal name="notify::provider" handler="on_provider_changed" swapped="true" />
+                                    <signal name="create" handler="on_provider_create" swapped="true" />
+                                    <property name="model" bind-source="AccountAddDialog" bind-property="model" />
                                   </object>
                                 </child>
                                 <child>
@@ -264,23 +255,4 @@
       </object>
     </child>
   </template>
-  <object class="GtkEntryCompletion" id="provider_completion">
-    <property name="minimum-key-length">1</property>
-    <property name="text-column">1</property>
-    <property name="inline-selection">True</property>
-    <signal name="match-selected" handler="match_selected" swapped="true" />
-    <signal name="no-matches" handler="no_matches_selected" swapped="true" />
-    <child>
-      <object class="GtkCellRendererText" />
-      <attributes>
-        <attribute name="text">1</attribute>
-      </attributes>
-    </child>
-  </object>
-  <object class="GtkSizeGroup">
-    <widgets>
-      <widget name="provider_entry"/>
-      <widget name="counter_spinbutton"/>
-    </widgets>
-  </object>
 </interface>

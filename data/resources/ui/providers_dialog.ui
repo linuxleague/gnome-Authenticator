@@ -13,7 +13,7 @@
           <object class="AdwLeafletPage">
             <property name="name">providers</property>
             <property name="child">
-              <object class="GtkBox">
+              <object class="GtkBox" id="providers_page">
                 <property name="width-request">200</property>
                 <property name="orientation">vertical</property>
                 <child>
@@ -122,7 +122,7 @@
           <object class="AdwLeafletPage">
             <property name="navigatable">False</property>
             <property name="child">
-              <object class="GtkBox">
+              <object class="GtkBox" id="separator_page">
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkWindowHandle" id="header_separator">

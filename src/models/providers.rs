@@ -123,20 +123,6 @@ impl ProvidersModel {
         found
     }
 
-    #[allow(deprecated)]
-    pub fn completion_model(&self) -> gtk::ListStore {
-        let store = gtk::ListStore::new(&[u32::static_type(), String::static_type()]);
-        for pos in 0..self.n_items() {
-            let obj = self.item(pos).unwrap();
-            let provider = obj.downcast_ref::<Provider>().unwrap();
-            store.set(
-                &store.append(),
-                &[(0, &provider.id()), (1, &provider.name())],
-            );
-        }
-        store
-    }
-
     pub fn append(&self, provider: &Provider) {
         let pos = {
             let mut data = self.imp().0.borrow_mut();

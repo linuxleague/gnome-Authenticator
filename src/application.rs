@@ -121,7 +121,7 @@ mod imp {
                     let model = &app.imp().model;
                     let window = app.active_window();
                     let providers = ProvidersDialog::new(model);
-                    providers.connect_changed(clone!(@weak window => move |_| {
+                    providers.connect_changed(clone!(@weak window => move |_, _| {
                         window.providers().refilter();
                     }));
                     providers.set_transient_for(Some(&window));

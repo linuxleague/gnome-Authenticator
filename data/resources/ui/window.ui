@@ -291,6 +291,7 @@
                           <object class="AccountDetailsPage" id="account_details">
                             <signal name="provider-changed" handler="on_provider_changed" swapped="true" />
                             <signal name="removed" handler="on_account_removed" swapped="true" />
+                            <property name="model" bind-source="Window" bind-property="model" />
                           </object>
                         </property>
                       </object>

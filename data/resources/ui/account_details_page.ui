@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <object class="GtkEntryCompletion" id="provider_completion">
-    <property name="minimum-key-length">1</property>
-    <property name="text-column">1</property>
-    <property name="inline-selection">True</property>
-    <signal name="match-selected" handler="provider_match_selected" swapped="true" />
-    <child>
-      <object class="GtkCellRendererText" />
-      <attributes>
-        <attribute name="text">1</attribute>
-      </attributes>
-    </child>
-  </object>
   <object class="GtkAdjustment" id="counter_adjustment">
     <property name="lower">0</property>
     <property name="upper">4294967295</property>
@@ -98,17 +86,10 @@
                           </object>
                         </child>
                         <child>
-                          <object class="AdwActionRow">
-                            <property name="title" translatable="yes">Provider</property>
-                            <child>
-                              <object class="GtkEntry" id="provider_entry">
-                                <property name="halign">end</property>
-                                <property name="valign">center</property>
-                                <property name="hexpand">True</property>
-                                <property name="completion">provider_completion</property>
-                                <property name="enable-emoji-completion">True</property>
-                              </object>
-                            </child>
+                          <object class="ProviderEntryRow" id="provider_entry">
+                            <signal name="notify::provider" handler="on_provider_notify" swapped="true" />
+                            <signal name="create" handler="on_provider_create" swapped="true" />
+                            <property name="model" bind-source="AccountDetailsPage" bind-property="model" />
                           </object>
                         </child>
                         <style>

@@ -164,7 +164,6 @@ mod imp {
             if is_maximized {
                 win.maximize();
             }
-            self.account_details.set_providers_model(win.model());
 
             if config::PROFILE == "Devel" {
                 win.add_css_class("devel");

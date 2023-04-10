@@ -16,6 +16,8 @@ enum View {
 }
 
 mod imp {
+    use std::cell::Cell;
+
     use adw::subclass::window::AdwWindowImpl;
     use glib::subclass::Signal;
     use once_cell::sync::OnceCell;
@@ -50,6 +52,11 @@ mod imp {
         pub placeholder_page: TemplateChild<adw::StatusPage>,
         #[template_child]
         pub toast_overlay: TemplateChild<adw::ToastOverlay>,
+        #[template_child]
+        pub providers_page: TemplateChild<gtk::Box>,
+        #[template_child]
+        pub separator_page: TemplateChild<gtk::Box>,
+        pub create_only: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -84,8 +91,11 @@ mod imp {
     impl ObjectImpl for ProvidersDialog {
         fn signals() -> &'static [Signal] {
             use once_cell::sync::Lazy;
-            static SIGNALS: Lazy<Vec<Signal>> =
-                Lazy::new(|| vec![Signal::builder("changed").build()]);
+            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+                vec![Signal::builder("changed")
+                    .param_types([Provider::static_type()])
+                    .build()]
+            });
             SIGNALS.as_ref()
         }
 
@@ -150,15 +160,26 @@ impl ProvidersDialog {
         glib::Object::builder().property("model", model).build()
     }
 
+    pub fn create_with(&self, name: &str) {
+        self.add_provider();
+        let imp = self.imp();
+        imp.page.name_entry().set_text(name);
+        imp.create_only.set(true);
+        imp.providers_list.set_visible(false);
+        imp.providers_page.set_visible(false);
+        imp.separator_page.set_visible(false);
+    }
+
     pub fn connect_changed<F>(&self, callback: F) -> glib::SignalHandlerId
     where
-        F: Fn(&Self) + 'static,
+        F: Fn(&Self, Provider) + 'static,
     {
         self.connect_local(
             "changed",
             false,
-            clone!(@weak self as dialog => @default-return None, move |_| {
-                callback(&dialog);
+            clone!(@weak self as dialog => @default-return None, move |args| {
+                let provider = args[1].get::<Provider>().unwrap();
+                callback(&dialog, provider);
                 None
             }),
         )
@@ -234,6 +255,7 @@ impl ProvidersDialog {
             imp.title_stack.set_visible_child_name("title");
         }
     }
+
     #[template_callback]
     fn on_row_activated(&self, row: ProviderActionRow, _list: gtk::ListBox) {
         let provider = row.provider();
@@ -242,24 +264,27 @@ impl ProvidersDialog {
 
     #[template_callback]
     fn on_provider_created(&self, provider: Provider, _page: ProviderPage) {
-        let model = self
-            .imp()
+        let imp = self.imp();
+        let model = imp
             .filter_model
             .model()
             .and_downcast::<ProvidersModel>()
             .unwrap();
         model.append(&provider);
-        self.emit_by_name::<()>("changed", &[]);
-        self.imp()
-            .toast_overlay
-            .add_toast(adw::Toast::new(&gettext("Provider created successfully")));
-        self.set_view(View::Placeholder);
+        self.emit_by_name::<()>("changed", &[&provider]);
+        if imp.create_only.get() {
+            self.close();
+        } else {
+            imp.toast_overlay
+                .add_toast(adw::Toast::new(&gettext("Provider created successfully")));
+            self.set_view(View::Placeholder);
+        }
     }
 
     #[template_callback]
-    fn on_provider_updated(&self, _provider: Provider, _page: ProviderPage) {
+    fn on_provider_updated(&self, provider: Provider, _page: ProviderPage) {
         self.set_view(View::List);
-        self.emit_by_name::<()>("changed", &[]);
+        self.emit_by_name::<()>("changed", &[&provider]);
         self.imp()
             .toast_overlay
             .add_toast(adw::Toast::new(&gettext("Provider updated successfully")));
@@ -275,7 +300,7 @@ impl ProvidersDialog {
             .unwrap();
         model.delete_provider(&provider);
         self.set_view(View::Placeholder);
-        self.emit_by_name::<()>("changed", &[]);
+        self.emit_by_name::<()>("changed", &[&provider]);
         self.imp()
             .toast_overlay
             .add_toast(adw::Toast::new(&gettext("Provider removed successfully")));

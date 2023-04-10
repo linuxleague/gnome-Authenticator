@@ -5,13 +5,15 @@ use gtk::{
     gio,
     glib::{self, clone},
     prelude::*,
-    Inhibit,
 };
 
 use crate::{
     backup::RestorableItem,
     models::{Account, OTPUri, Provider, ProvidersModel, OTP},
-    widgets::{providers::ProviderPage, screenshot, Camera, ErrorRevealer, ProviderImage, UrlRow},
+    widgets::{
+        providers::{ProviderEntryRow, ProviderPage},
+        screenshot, Camera, ErrorRevealer, ProviderImage, UrlRow,
+    },
 };
 
 mod imp {
@@ -50,7 +52,7 @@ mod imp {
         #[template_child]
         pub digits_label: TemplateChild<gtk::Label>,
         #[template_child]
-        pub provider_entry: TemplateChild<gtk::Entry>,
+        pub provider_entry: TemplateChild<ProviderEntryRow>,
         #[template_child]
         pub method_label: TemplateChild<gtk::Label>,
         #[template_child]
@@ -59,8 +61,6 @@ mod imp {
         pub counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub period_row: TemplateChild<adw::ActionRow>,
-        #[template_child]
-        pub provider_completion: TemplateChild<gtk::EntryCompletion>,
         #[template_child]
         pub error_revealer: TemplateChild<ErrorRevealer>,
         #[template_child]
@@ -133,10 +133,8 @@ mod imp {
 
         fn constructed(&self) {
             self.parent_constructed();
-            self.obj().action_set_enabled("add.save", false);
-
-            self.provider_completion
-                .set_model(Some(&self.model.get().unwrap().completion_model()));
+            let obj = self.obj();
+            obj.action_set_enabled("add.save", false);
         }
     }
     impl WidgetImpl for AccountAddDialog {}
@@ -180,36 +178,6 @@ impl AccountAddDialog {
     }
 
     #[template_callback]
-    fn match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> Inhibit {
-        let provider_id = store.get::<u32>(&iter, 0);
-        let provider = self.model().find_by_id(provider_id);
-        self.set_provider(provider);
-
-        Inhibit(false)
-    }
-
-    #[template_callback]
-    fn no_matches_selected(&self, completion: gtk::EntryCompletion) {
-        // in case the provider doesn't exists, let the user create a new one by showing
-        // a dialog for that TODO: replace this whole completion provider thing
-        // with a custom widget
-        let imp = self.imp();
-        let entry = completion.entry().unwrap();
-
-        imp.deck.set_visible_child_name("create-provider");
-        imp.provider_page
-            .imp()
-            .back_btn
-            .set_action_name(Some("add.previous"));
-        imp.provider_page.imp().revealer.set_reveal_child(true);
-        imp.provider_page.set_provider(None);
-
-        let name_entry = imp.provider_page.name_entry();
-        name_entry.set_text(&entry.text());
-        name_entry.set_position(entry.cursor_position());
-    }
-
-    #[template_callback]
     fn deck_visible_child_name_notify(&self, _pspec: glib::ParamSpec, deck: adw::Leaflet) {
         if deck.visible_child_name().as_deref() != Some("camera") {
             self.imp().camera.stop();
@@ -234,13 +202,33 @@ impl AccountAddDialog {
     }
 
     #[template_callback]
+    fn on_provider_changed(&self) {
+        let provider = self.imp().provider_entry.provider();
+        self.set_provider(provider);
+    }
+
+    #[template_callback]
+    fn on_provider_create(&self, entry: &ProviderEntryRow) {
+        let imp = self.imp();
+
+        imp.deck.set_visible_child_name("create-provider");
+        imp.provider_page
+            .imp()
+            .back_btn
+            .set_action_name(Some("add.previous"));
+        imp.provider_page.imp().revealer.set_reveal_child(true);
+        imp.provider_page.set_provider(None);
+
+        let name_entry = imp.provider_page.name_entry();
+        name_entry.set_text(&entry.text());
+    }
+
+    #[template_callback]
     fn provider_created(&self, provider: Provider, _page: ProviderPage) {
         let imp = self.imp();
         let model = self.model();
         model.append(&provider);
 
-        imp.provider_completion
-            .set_model(Some(&model.completion_model()));
         self.set_provider(Some(provider));
         imp.deck.set_visible_child_name("main");
     }
@@ -328,9 +316,7 @@ impl AccountAddDialog {
         let imp = self.imp();
         if let Some(provider) = provider {
             imp.more_list.set_visible(true);
-            imp.provider_entry.set_text(&provider.name());
             imp.period_label.set_text(&provider.period().to_string());
-
             imp.image.set_provider(Some(&provider));
 
             imp.method_label

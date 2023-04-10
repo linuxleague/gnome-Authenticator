@@ -9,7 +9,7 @@ use gtk::{
 use super::{QRCodeData, QRCodePaintable};
 use crate::{
     models::{Account, Provider, ProvidersModel},
-    widgets::UrlRow,
+    widgets::{providers::ProviderEntryRow, ProvidersDialog, UrlRow},
 };
 mod imp {
     use std::cell::RefCell;
@@ -19,8 +19,9 @@ mod imp {
 
     use super::*;
 
-    #[derive(Default, gtk::CompositeTemplate)]
+    #[derive(Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/belmoussaoui/Authenticator/account_details_page.ui")]
+    #[properties(wrapper_type = super::AccountDetailsPage)]
     pub struct AccountDetailsPage {
         #[template_child]
         pub website_row: TemplateChild<UrlRow>,
@@ -49,11 +50,10 @@ mod imp {
         pub qrcode_paintable: QRCodePaintable,
         pub account: RefCell<Option<Account>>,
         #[template_child]
-        pub provider_completion: TemplateChild<gtk::EntryCompletion>,
-        #[template_child]
-        pub provider_entry: TemplateChild<gtk::Entry>,
+        pub provider_entry: TemplateChild<ProviderEntryRow>,
         pub selected_provider: RefCell<Option<Provider>>,
-        pub providers_model: OnceCell<ProvidersModel>,
+        #[property(get, set)]
+        pub model: OnceCell<ProvidersModel>,
     }
 
     #[glib::object_subclass]
@@ -106,6 +106,18 @@ mod imp {
             SIGNALS.as_ref()
         }
 
+        fn properties() -> &'static [glib::ParamSpec] {
+            Self::derived_properties()
+        }
+
+        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
+            self.derived_set_property(id, value, pspec)
+        }
+
+        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
+            self.derived_property(id, pspec)
+        }
+
         fn constructed(&self) {
             self.parent_constructed();
             self.qrcode_picture
@@ -148,6 +160,26 @@ impl AccountDetailsPage {
         dialog.present();
     }
 
+    #[template_callback]
+    fn on_provider_create(&self, entry: ProviderEntryRow) {
+        let model = self.model();
+        let window = self.root().and_downcast::<gtk::Window>();
+        let dialog = ProvidersDialog::new(&model);
+        dialog.create_with(&entry.text());
+        dialog.connect_changed(move |_dialog, provider| {
+            entry.set_selected_provider(Some(provider), true);
+        });
+        dialog.set_transient_for(window.as_ref());
+        dialog.present();
+    }
+
+    #[template_callback]
+    fn on_provider_notify(&self) {
+        if let Some(provider) = self.imp().provider_entry.provider() {
+            self.set_provider(provider);
+        }
+    }
+
     pub fn set_account(&self, account: &Account) {
         let imp = self.imp();
         let qr_code = QRCodeData::from(String::from(account.otp_uri()));
@@ -156,21 +188,15 @@ impl AccountDetailsPage {
         if account.provider().method().is_event_based() {
             imp.counter_spinbutton.set_value(account.counter() as f64);
         }
+        imp.provider_entry
+            .set_selected_provider(Some(account.provider()), true);
         self.set_provider(account.provider());
         imp.account_label.set_text(&account.name());
         imp.account.replace(Some(account.clone()));
     }
 
-    pub fn set_providers_model(&self, model: ProvidersModel) {
-        self.imp()
-            .provider_completion
-            .set_model(Some(&model.completion_model()));
-        self.imp().providers_model.set(model).unwrap();
-    }
-
     fn set_provider(&self, provider: Provider) {
         let imp = self.imp();
-        imp.provider_entry.set_text(&provider.name());
         imp.algorithm_label
             .set_text(&provider.algorithm().to_locale_string());
         imp.method_label
@@ -211,7 +237,6 @@ impl AccountDetailsPage {
                     selected_provider.add_account(account);
                     current_provider.remove_account(account);
                     account.set_provider(selected_provider)?;
-                    imp.provider_entry.set_text(&selected_provider.name());
                     self.emit_by_name::<()>("provider-changed", &[]);
                 }
             }
@@ -224,18 +249,5 @@ impl AccountDetailsPage {
             }
         }
         Ok(())
-    }
-
-    #[template_callback]
-    fn provider_match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> gtk::Inhibit {
-        let provider_id = store.get::<u32>(&iter, 0);
-        let model = self.imp().providers_model.get().unwrap();
-        let provider = model.find_by_id(provider_id);
-        self.set_provider(
-            provider.unwrap_or_else(clone!(@strong self as page => move || {
-                page.imp().account.borrow().as_ref().unwrap().provider()
-            })),
-        );
-        gtk::Inhibit(false)
     }
 }

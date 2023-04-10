@@ -9,6 +9,7 @@
     <file compressed="true" preprocess="xml-stripblanks" alias="account_row.ui">resources/ui/account_row.ui</file>
 
     <!-- Providers -->
+    <file compressed="true" preprocess="xml-stripblanks" alias="provider_entry_row.ui">resources/ui/provider_entry_row.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_image.ui">resources/ui/provider_image.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_page.ui">resources/ui/provider_page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="provider_row.ui">resources/ui/provider_row.ui</file>

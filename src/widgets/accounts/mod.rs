@@ -1,6 +1,4 @@
-#[allow(deprecated)]
 mod add;
-#[allow(deprecated)]
 mod details;
 mod qrcode_paintable;
 mod row;
