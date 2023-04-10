@@ -6,7 +6,7 @@ use gtk::{
     subclass::prelude::*,
 };
 
-use super::qrcode_paintable::QRCodePaintable;
+use super::{QRCodeData, QRCodePaintable};
 use crate::{
     models::{Account, Provider, ProvidersModel},
     widgets::UrlRow,
@@ -184,7 +184,7 @@ impl AccountDetailsPage {
 
     pub fn set_account(&self, account: &Account) {
         let imp = self.imp();
-        let qr_code = account.qr_code();
+        let qr_code = QRCodeData::from(String::from(account.otp_uri()));
         imp.qrcode_paintable.set_qrcode(qr_code);
 
         if account.provider().method().is_event_based() {

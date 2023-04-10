@@ -13,7 +13,6 @@ use crate::{
     models::{database, keyring, DieselProvider, Method, OTPUri, Provider, OTP, RUNTIME},
     schema::accounts,
     utils::spawn_tokio_blocking,
-    widgets::QRCodeData,
 };
 
 #[derive(Insertable)]
@@ -344,11 +343,6 @@ impl Account {
 
     pub fn otp_uri(&self) -> OTPUri {
         self.into()
-    }
-
-    pub fn qr_code(&self) -> QRCodeData {
-        let otp: String = self.otp_uri().into();
-        QRCodeData::from(otp.as_str())
     }
 
     pub fn delete(&self) -> Result<()> {

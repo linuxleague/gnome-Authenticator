@@ -7,9 +7,9 @@ pub struct QRCodeData {
     pub items: Vec<Vec<bool>>,
 }
 
-impl From<&str> for QRCodeData {
-    fn from(data: &str) -> Self {
-        let code = qrcode::QrCode::new(data.as_bytes()).unwrap();
+impl<B: AsRef<[u8]>> From<B> for QRCodeData {
+    fn from(data: B) -> Self {
+        let code = qrcode::QrCode::new(data).unwrap();
         let items = code
             .render::<char>()
             .quiet_zone(false)
@@ -34,32 +34,6 @@ impl From<&str> for QRCodeData {
 }
 
 mod imp {
-
-    fn snapshot_qrcode(snapshot: &gtk::Snapshot, qrcode: &QRCodeData, width: f64, height: f64) {
-        let padding_squares = 3.max(qrcode.height / 10);
-        let square_height = height as f32 / (qrcode.height + 2 * padding_squares) as f32;
-        let square_width = width as f32 / (qrcode.width + 2 * padding_squares) as f32;
-        let padding = square_height * padding_squares as f32;
-        let rect = graphene::Rect::new(0.0, 0.0, width as f32, height as f32);
-        snapshot.append_color(&gdk::RGBA::WHITE, &rect);
-        qrcode.items.iter().enumerate().for_each(|(y, line)| {
-            line.iter().enumerate().for_each(|(x, is_dark)| {
-                if *is_dark {
-                    let mut black = gdk::RGBA::BLACK;
-                    black.set_alpha(0.85);
-
-                    let position = graphene::Rect::new(
-                        (x as f32) * square_width + padding,
-                        (y as f32) * square_height + padding,
-                        square_width,
-                        square_height,
-                    );
-
-                    snapshot.append_color(&black, &position);
-                };
-            });
-        });
-    }
     use std::cell::RefCell;
 
     use super::*;
@@ -81,7 +55,30 @@ mod imp {
     impl PaintableImpl for QRCodePaintable {
         fn snapshot(&self, snapshot: &gdk::Snapshot, width: f64, height: f64) {
             if let Some(ref qrcode) = *self.qrcode.borrow() {
-                snapshot_qrcode(snapshot.as_ref(), qrcode, width, height);
+                let padding_squares = 3.max(qrcode.height / 10);
+                let square_height = height as f32 / (qrcode.height + 2 * padding_squares) as f32;
+                let square_width = width as f32 / (qrcode.width + 2 * padding_squares) as f32;
+                let padding = square_height * padding_squares as f32;
+
+                let rect = graphene::Rect::new(0.0, 0.0, width as f32, height as f32);
+                snapshot.append_color(&gdk::RGBA::WHITE, &rect);
+                qrcode.items.iter().enumerate().for_each(|(y, line)| {
+                    line.iter().enumerate().for_each(|(x, is_dark)| {
+                        if *is_dark {
+                            let mut black = gdk::RGBA::BLACK;
+                            black.set_alpha(0.85);
+
+                            let position = graphene::Rect::new(
+                                (x as f32) * square_width + padding,
+                                (y as f32) * square_height + padding,
+                                square_width,
+                                square_height,
+                            );
+
+                            snapshot.append_color(&black, &position);
+                        };
+                    });
+                });
             }
         }
     }
