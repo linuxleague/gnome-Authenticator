@@ -56,7 +56,7 @@ mod imp {
         pub download_favicons_metered: TemplateChild<gtk::Switch>,
         #[template_child(id = "lock_timeout_spin_btn")]
         pub lock_timeout: TemplateChild<gtk::SpinButton>,
-        pub key_entries: RefCell<HashMap<String, gtk::PasswordEntry>>,
+        pub key_entries: RefCell<HashMap<String, adw::PasswordEntryRow>>,
     }
 
     #[glib::object_subclass]
@@ -205,19 +205,13 @@ impl PreferencesWindow {
                 .enable_expansion(true)
                 .use_underline(true)
                 .build();
-            let key_row = adw::ActionRow::builder()
+            let key_entry = adw::PasswordEntryRow::builder()
                 .title(gettext("Key / Passphrase"))
-                .subtitle(gettext("The key that will be used to decrypt the vault"))
                 .build();
-
-            let key_entry = gtk::PasswordEntry::builder()
-                .valign(gtk::Align::Center)
-                .build();
-            key_row.add_suffix(&key_entry);
+            row.add_row(&key_entry);
             imp.key_entries
                 .borrow_mut()
                 .insert(format!("backup.{}", T::IDENTIFIER), key_entry);
-            row.add_row(&key_row);
 
             let button_row = adw::ActionRow::new();
             let key_button = gtk::Button::builder()
@@ -283,18 +277,14 @@ impl PreferencesWindow {
                 .enable_expansion(true)
                 .use_underline(true)
                 .build();
-            let key_row = adw::ActionRow::builder()
+            let key_entry = adw::PasswordEntryRow::builder()
                 .title(gettext("Key / Passphrase"))
-                .subtitle(gettext("The key used to encrypt the vault"))
                 .build();
-            let key_entry = gtk::PasswordEntry::builder()
-                .valign(gtk::Align::Center)
-                .build();
-            key_row.add_suffix(&key_entry);
+            row.add_row(&key_entry);
+
             imp.key_entries
                 .borrow_mut()
                 .insert(format!("restore.{}", T::IDENTIFIER), key_entry);
-            row.add_row(&key_row);
 
             let button_row = adw::ActionRow::new();
             let key_button = gtk::Button::builder()
