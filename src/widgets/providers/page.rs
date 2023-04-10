@@ -245,7 +245,7 @@ impl ProviderPage {
         let algorithm = Algorithm::from(imp.algorithm_comborow.selected());
         let default_counter = imp.default_counter_spinbutton.value() as u32;
 
-        let image_uri = if let Some(file) = imp.selected_image.borrow().clone() {
+        let image_uri = if let Some(file) = imp.selected_image.borrow().as_ref() {
             let basename = file.basename().unwrap();
             let icon_name = glib::base64_encode(basename.to_str().unwrap().as_bytes());
             let small_icon_name = format!("{icon_name}_32x32");
@@ -271,7 +271,7 @@ impl ProviderPage {
             None
         };
 
-        if let Some(provider) = imp.selected_provider.borrow().clone() {
+        if let Some(provider) = imp.selected_provider.borrow().as_ref() {
             provider.update(&ProviderPatch {
                 name: name.to_string(),
                 website: Some(website),
@@ -284,7 +284,7 @@ impl ProviderPage {
                 method: method.to_string(),
                 is_backup_restore: false,
             })?;
-            self.emit_by_name::<()>("updated", &[&provider]);
+            self.emit_by_name::<()>("updated", &[provider]);
         } else {
             let provider = Provider::create(
                 &name,
@@ -336,13 +336,13 @@ impl ProviderPage {
 
     fn delete_provider(&self) -> anyhow::Result<()> {
         let imp = self.imp();
-        if let Some(provider) = imp.selected_provider.borrow().clone() {
+        if let Some(provider) = imp.selected_provider.borrow().as_ref() {
             if provider.has_accounts() {
                 imp.error_revealer.popup(&gettext(
                     "The provider has accounts assigned to it, please remove them first",
                 ));
             } else if provider.delete().is_ok() {
-                self.emit_by_name::<()>("deleted", &[&provider]);
+                self.emit_by_name::<()>("deleted", &[provider]);
             }
         } else {
             anyhow::bail!("Can't remove a provider as none are selected");
