@@ -1,4 +1,5 @@
 use adw::prelude::*;
+use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{
     gio,
@@ -14,6 +15,7 @@ use crate::{
         Operation, Restorable, RestorableItem,
     },
     models::{ProvidersModel, SETTINGS},
+    widgets::screenshot,
 };
 
 mod imp {
@@ -243,31 +245,32 @@ impl PreferencesWindow {
             .activate(clone!(@weak self as win => move |_, _,_| {
                 let ctx = glib::MainContext::default();
                 ctx.spawn_local(clone!(@weak win => async move {
-                    let model = win.model();
-                    if let Ok(file) = win.select_file(filters, Operation::Backup).await {
-                        let key = T::ENCRYPTABLE.then(|| {
-                            win.encyption_key(Operation::Backup, T::IDENTIFIER)
-                        }).flatten();
-                        match T::backup(&model,key.as_deref()) {
-                            Ok(content) => {
-                                if let Err(err) = file.replace_contents_future(
-                                    content,
-                                    None,
-                                    false,
-                                    gio::FileCreateFlags::REPLACE_DESTINATION,
-                                ).await {
-                                    tracing::warn!("Faild to save the backup {}", err.1);
-                                }
-                            },
-                            Err(err) => {
-                                tracing::warn!("Failed to create a backup {err}");
-                            }
-                        }
+                    if let Err(err) = win.backup_into_file::<T>(filters).await {
+                        tracing::error!("Failed to backup into a file {err}");
+                        win.add_toast(adw::Toast::new(&gettext("Failed to create a backup")));
                     }
                 }));
             }))
             .build();
         imp.backup_actions.add_action_entries([action]);
+    }
+
+    async fn backup_into_file<T: Backupable>(&self, filters: &'static [&str]) -> Result<()> {
+        let model = self.model();
+        let file = self.select_file(filters, Operation::Backup).await?;
+        let key = T::ENCRYPTABLE
+            .then(|| self.encryption_key(Operation::Backup, T::IDENTIFIER))
+            .flatten();
+        let content = T::backup(&model, key.as_deref())?;
+        file.replace_contents_future(
+            content,
+            None,
+            false,
+            gio::FileCreateFlags::REPLACE_DESTINATION,
+        )
+        .await
+        .map_err(|e| e.1)?;
+        Ok(())
     }
 
     fn register_restore<T: Restorable>(&self, filters: &'static [&str]) {
@@ -313,16 +316,18 @@ impl PreferencesWindow {
                 .menu_model(&{
                     let menu = gio::Menu::new();
 
-                    menu.insert(
-                        0,
+                    menu.append(
                         Some(&gettext("_Camera")),
                         Some(&format!("restore.{}.camera", T::IDENTIFIER)),
                     );
-
-                    menu.insert(
-                        1,
+                    menu.append(
                         Some(&gettext("_Screenshot")),
                         Some(&format!("restore.{}.screenshot", T::IDENTIFIER)),
+                    );
+
+                    menu.append(
+                        Some(&gettext("_QR Code Image")),
+                        Some(&format!("restore.{}.file", T::IDENTIFIER)),
                     );
 
                     menu
@@ -357,85 +362,46 @@ impl PreferencesWindow {
                     win.imp().actions.activate_action("show_camera_page", None);
                     let ctx = glib::MainContext::default();
                     ctx.spawn_local(clone!(@weak win => async move {
-                        match win.imp().camera_page.scan_from_camera().await {
-                            Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
-                                Ok(items) => win.restore_items::<T, T::Item>(items),
-                                Err(error) => {
-                                    tracing::error!(concat!(
-                                        "Encountered an error while trying to restore from a ",
-                                        "scanned QR code: {}",
-                                    ), error);
-
-                                    win.imp().actions.activate_action("close_page", None);
-
-                                    win.add_toast(adw::Toast::new(&gettext("Unable to restore accounts")));
-                                },
-                            },
-                            Err(error) => {
-                                tracing::error!(
-                                    "Encountered an error while trying to scan from the camera: {}",
-                                    error,
-                                );
-
-                                win.imp().actions.activate_action("close_page", None);
-
-                                win.add_toast(adw::Toast::new(&gettext("Something went wrong")));
-                            },
+                        if let Err(err) = win.restore_from_camera::<T, T::Item>().await {
+                            tracing::error!("Failed to restore from camera {err}");
+                            win.add_toast(adw::Toast::new(&gettext("Failed to restore from camera")));
                         }
                     }));
-                })).build();
-            let screenshot_action = gio::ActionEntry::builder(&format!("{}.screenshot", T::IDENTIFIER))
-            .activate(clone!(@weak self as win => move |_, _, _| {
-                let ctx = glib::MainContext::default();
-                ctx.spawn_local(clone!(@weak win => async move {
-                    match win.imp().camera_page.scan_from_screenshot().await {
-                        Ok(code) => match T::restore_from_data(code.as_bytes(), None) {
-                            Ok(items) => {
-                                win.restore_items::<T, T::Item>(items);
-                            },
-                            Err(error) => {
-                                tracing::error!(concat!(
-                                    "Encountered an error while trying to restore from a ",
-                                    "scanned QR code: {}",
-                                ), error);
-
-                                win.add_toast(adw::Toast::new(&gettext("Unable to restore accounts")));
-                            },
-                        },
-                        Err(error) => {
-                            tracing::error!("Encountered an error while trying to scan from the screenshot: {}", error);
-
-                            win.add_toast(adw::Toast::new(&gettext("Couldn't find a QR code")));
-                        },
-                    }
-                }));
-            })).build();
+                }))
+                .build();
+            let screenshot_action =
+                gio::ActionEntry::builder(&format!("{}.screenshot", T::IDENTIFIER))
+                    .activate(clone!(@weak self as win => move |_, _, _| {
+                        let ctx = glib::MainContext::default();
+                        ctx.spawn_local(clone!(@weak win => async move {
+                            if let Err(err) = win.restore_from_screenshot::<T, T::Item>().await {
+                                tracing::error!("Failed to restore from a screenshot {err}");
+                                win.add_toast(adw::Toast::new(&gettext("Failed to restore from a screenshot")));
+                            }
+                        }));
+                    }))
+                    .build();
+            let file_action = gio::ActionEntry::builder(&format!("{}.file", T::IDENTIFIER))
+                .activate(clone!(@weak self as win => move |_, _, _| {
+                    let ctx = glib::MainContext::default();
+                    ctx.spawn_local(clone!(@weak win => async move {
+                        if let Err(err) = win.restore_from_image::<T, T::Item>().await {
+                            tracing::error!("Failed to restore from an image {err}");
+                            win.add_toast(adw::Toast::new(&gettext("Failed to restore from an image")));
+                        }
+                    }));
+                }))
+                .build();
             imp.restore_actions
-                .add_action_entries([camera_action, screenshot_action]);
+                .add_action_entries([camera_action, file_action, screenshot_action]);
         } else {
             let action = gio::ActionEntry::builder(T::IDENTIFIER)
                 .activate(clone!(@weak self as win => move |_, _, _| {
                     let ctx = glib::MainContext::default();
                     ctx.spawn_local(clone!(@weak win => async move {
-                        if let Ok(file) = win.select_file(filters, Operation::Restore).await {
-                            let key = T::ENCRYPTABLE.then(|| {
-                                win.encyption_key(Operation::Restore, T::IDENTIFIER)
-                            }).flatten();
-                            match file.load_contents_future().await{
-                                Ok(content) => {
-                                    match T::restore_from_data(&content.0, key.as_deref()) {
-                                        Ok(items) => {
-                                            win.restore_items::<T, T::Item>(items);
-                                        },
-                                        Err(err) => {
-                                            tracing::warn!("Failed to parse the selected file {err}");
-                                        }
-                                    };
-                                }
-                                Err(err) => {
-                                    tracing::error!("Failed to read the selected file {err}");
-                                }
-                            }
+                        if let Err(err) = win.restore_from_file::<T, T::Item>(filters).await {
+                            tracing::error!("Failed to restore from a file {err}");
+                            win.add_toast(adw::Toast::new(&gettext("Failed to restore from a file")));
                         }
                     }));
                 }))
@@ -444,8 +410,58 @@ impl PreferencesWindow {
             imp.restore_actions.add_action_entries([action]);
         };
     }
+    async fn restore_from_file<T: Restorable<Item = Q>, Q: RestorableItem>(
+        &self,
+        filters: &'static [&str],
+    ) -> Result<()> {
+        let file = self.select_file(filters, Operation::Restore).await?;
+        let key = T::ENCRYPTABLE
+            .then(|| self.encryption_key(Operation::Restore, T::IDENTIFIER))
+            .flatten();
+        let content = file.load_contents_future().await?;
+        let items = T::restore_from_data(&content.0, key.as_deref())?;
+        self.restore_items::<T, T::Item>(items);
+        Ok(())
+    }
 
-    fn encyption_key(&self, mode: Operation, identifier: &str) -> Option<glib::GString> {
+    async fn restore_from_camera<T: Restorable<Item = Q>, Q: RestorableItem>(&self) -> Result<()> {
+        let code = self.imp().camera_page.scan_from_camera().await?;
+        let items = T::restore_from_data(code.as_bytes(), None)?;
+        self.restore_items::<T, T::Item>(items);
+        self.imp().actions.activate_action("close_page", None);
+        Ok(())
+    }
+
+    async fn restore_from_screenshot<T: Restorable<Item = Q>, Q: RestorableItem>(
+        &self,
+    ) -> Result<()> {
+        let code = self.imp().camera_page.scan_from_screenshot().await?;
+        let items = T::restore_from_data(code.as_bytes(), None)?;
+        self.restore_items::<T, T::Item>(items);
+        Ok(())
+    }
+
+    async fn restore_from_image<T: Restorable<Item = Q>, Q: RestorableItem>(&self) -> Result<()> {
+        let images_filter = gtk::FileFilter::new();
+        images_filter.set_name(Some(&gettext("Image")));
+        images_filter.add_pixbuf_formats();
+        let model = gio::ListStore::new(gtk::FileFilter::static_type());
+        model.append(&images_filter);
+
+        let dialog = gtk::FileDialog::builder()
+            .modal(true)
+            .filters(&model)
+            .title(gettext("Select QR Code"))
+            .build();
+        let file = dialog.open_future(Some(self)).await?;
+        let (data, _) = file.load_contents_future().await?;
+        let code = screenshot::scan(&data)?;
+        let items = T::restore_from_data(code.as_bytes(), None)?;
+        self.restore_items::<T, T::Item>(items);
+        Ok(())
+    }
+
+    fn encryption_key(&self, mode: Operation, identifier: &str) -> Option<glib::GString> {
         let identifier = match mode {
             Operation::Backup => format!("backup.{identifier}",),
             Operation::Restore => format!("restore.{identifier}"),
