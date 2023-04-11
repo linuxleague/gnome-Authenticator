@@ -16,7 +16,7 @@ use crate::{
         keyring, start as start_search_provider, Account, OTPUri, Provider, ProvidersModel,
         SearchProviderAction, FAVICONS_PATH, RUNTIME, SECRET_SERVICE, SETTINGS,
     },
-    utils::spawn_tokio_blocking,
+    utils::{spawn, spawn_tokio_blocking},
     widgets::{PreferencesWindow, ProvidersDialog, Window},
 };
 
@@ -179,8 +179,7 @@ mod imp {
                 }),
             );
 
-            let ctx = glib::MainContext::default();
-            ctx.spawn_local(clone!(@strong app => async move {
+            spawn(clone!(@strong app => async move {
                 app.start_search_provider().await;
             }));
         }

@@ -5,7 +5,10 @@ use gtk::{
     subclass::prelude::*,
 };
 
-use crate::models::{Provider, FAVICONS_PATH, RUNTIME, SETTINGS};
+use crate::{
+    models::{Provider, FAVICONS_PATH, RUNTIME, SETTINGS},
+    utils::spawn,
+};
 
 pub enum ImageAction {
     Ready(String),
@@ -194,7 +197,7 @@ impl ProviderImage {
                 let join_handle = RUNTIME.spawn(future);
                 imp.join_handle.borrow_mut().replace(join_handle);
 
-                glib::MainContext::default().spawn_local(clone!(@weak self as this => async move {
+                spawn(clone!(@weak self as this => async move {
                    let imp = this.imp();
                    imp.was_downloaded.set(true);
                     match receiver.await {

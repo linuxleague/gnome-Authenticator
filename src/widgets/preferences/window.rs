@@ -15,6 +15,7 @@ use crate::{
         Operation, Restorable, RestorableItem,
     },
     models::{ProvidersModel, SETTINGS},
+    utils::spawn,
     widgets::screenshot,
 };
 
@@ -243,8 +244,7 @@ impl PreferencesWindow {
 
         let action = gio::ActionEntry::builder(T::IDENTIFIER)
             .activate(clone!(@weak self as win => move |_, _,_| {
-                let ctx = glib::MainContext::default();
-                ctx.spawn_local(clone!(@weak win => async move {
+                spawn(clone!(@weak win => async move {
                     if let Err(err) = win.backup_into_file::<T>(filters).await {
                         tracing::error!("Failed to backup into a file {err}");
                         win.add_toast(adw::Toast::new(&gettext("Failed to create a backup")));
@@ -360,8 +360,7 @@ impl PreferencesWindow {
             let camera_action = gio::ActionEntry::builder(&format!("{}.camera", T::IDENTIFIER))
                 .activate(clone!(@weak self as win=> move |_, _, _| {
                     win.imp().actions.activate_action("show_camera_page", None);
-                    let ctx = glib::MainContext::default();
-                    ctx.spawn_local(clone!(@weak win => async move {
+                    spawn(clone!(@weak win => async move {
                         if let Err(err) = win.restore_from_camera::<T, T::Item>().await {
                             tracing::error!("Failed to restore from camera {err}");
                             win.add_toast(adw::Toast::new(&gettext("Failed to restore from camera")));
@@ -372,8 +371,7 @@ impl PreferencesWindow {
             let screenshot_action =
                 gio::ActionEntry::builder(&format!("{}.screenshot", T::IDENTIFIER))
                     .activate(clone!(@weak self as win => move |_, _, _| {
-                        let ctx = glib::MainContext::default();
-                        ctx.spawn_local(clone!(@weak win => async move {
+                        spawn(clone!(@weak win => async move {
                             if let Err(err) = win.restore_from_screenshot::<T, T::Item>().await {
                                 tracing::error!("Failed to restore from a screenshot {err}");
                                 win.add_toast(adw::Toast::new(&gettext("Failed to restore from a screenshot")));
@@ -383,8 +381,7 @@ impl PreferencesWindow {
                     .build();
             let file_action = gio::ActionEntry::builder(&format!("{}.file", T::IDENTIFIER))
                 .activate(clone!(@weak self as win => move |_, _, _| {
-                    let ctx = glib::MainContext::default();
-                    ctx.spawn_local(clone!(@weak win => async move {
+                    spawn(clone!(@weak win => async move {
                         if let Err(err) = win.restore_from_image::<T, T::Item>().await {
                             tracing::error!("Failed to restore from an image {err}");
                             win.add_toast(adw::Toast::new(&gettext("Failed to restore from an image")));
@@ -397,8 +394,7 @@ impl PreferencesWindow {
         } else {
             let action = gio::ActionEntry::builder(T::IDENTIFIER)
                 .activate(clone!(@weak self as win => move |_, _, _| {
-                    let ctx = glib::MainContext::default();
-                    ctx.spawn_local(clone!(@weak win => async move {
+                    spawn(clone!(@weak win => async move {
                         if let Err(err) = win.restore_from_file::<T, T::Item>(filters).await {
                             tracing::error!("Failed to restore from a file {err}");
                             win.add_toast(adw::Toast::new(&gettext("Failed to restore from a file")));

@@ -8,7 +8,12 @@ use gtk::{
     subclass::prelude::*,
 };
 
-use crate::{config, models::keyring, utils::spawn_tokio, widgets::ErrorRevealer};
+use crate::{
+    config,
+    models::keyring,
+    utils::{spawn, spawn_tokio},
+    widgets::ErrorRevealer,
+};
 
 mod imp {
     use glib::subclass::InitializingObject;
@@ -138,16 +143,14 @@ impl PasswordPage {
         let actions = self.actions();
         let save_password = gio::ActionEntry::builder("save_password")
             .activate(clone!(@weak self as page => move |_, _, _| {
-                let ctx = glib::MainContext::default();
-                ctx.spawn_local(clone!(@weak page => async move {
+                spawn(clone!(@weak page => async move {
                     page.save().await;
                 }));
             }))
             .build();
         let reset_password = gio::ActionEntry::builder("reset_password")
             .activate(clone!(@weak self as page => move |_, _, _| {
-                let ctx = glib::MainContext::default();
-                ctx.spawn_local(clone!(@weak page => async move {
+                spawn(clone!(@weak page => async move {
                     page.reset_password().await;
                 }));
             }))
