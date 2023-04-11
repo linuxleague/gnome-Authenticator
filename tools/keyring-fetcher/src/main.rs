@@ -23,8 +23,8 @@ async fn main() -> oo7::Result<()> {
         )]))
         .await?;
 
-    let secret = items[0].secret().await?;
-    let keyring = oo7::portal::Keyring::load(keyring_path, &secret).await?;
+    let secret = oo7::portal::Secret::from(items[0].secret().await?.to_vec());
+    let keyring = oo7::portal::Keyring::load(keyring_path, secret).await?;
 
     let keyring_items = keyring
         .search_items(HashMap::from([("type", "token")]))
