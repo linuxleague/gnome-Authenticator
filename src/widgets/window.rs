@@ -109,7 +109,7 @@ mod imp {
                     app.set_is_locked(false);
                     app.restart_lock_timeout();
                     win.set_view(View::Accounts);
-                    imp.model.get().unwrap().load();
+                    win.model().load();
                 } else {
                     imp.error_revealer.popup(&gettext("Wrong Password"));
                 }
@@ -249,7 +249,7 @@ impl Window {
                 imp.deck.set_visible_child_name("accounts");
                 imp.deck.set_can_navigate_back(false);
                 if imp.providers.model().n_items() == 0 {
-                    if imp.model.get().unwrap().has_providers() {
+                    if self.model().has_providers() {
                         // We do have at least one provider
                         // the 0 items comes from the search filter, so let's show an empty search
                         // page instead
@@ -280,11 +280,8 @@ impl Window {
     }
 
     pub fn open_add_account(&self, otp_uri: Option<&OTPUri>) {
-        let imp = self.imp();
-
-        let model = imp.model.get().unwrap();
-
-        let dialog = AccountAddDialog::new(model);
+        let model = self.model();
+        let dialog = AccountAddDialog::new(&model);
         dialog.set_transient_for(Some(self));
         if let Some(uri) = otp_uri {
             dialog.set_from_otp_uri(uri);

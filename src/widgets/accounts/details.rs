@@ -167,7 +167,7 @@ impl AccountDetailsPage {
         let dialog = ProvidersDialog::new(&model);
         dialog.create_with(&entry.text());
         dialog.connect_changed(move |_dialog, provider| {
-            entry.set_selected_provider(Some(provider), true);
+            entry.set_provider(Some(provider));
         });
         dialog.set_transient_for(window.as_ref());
         dialog.present();
@@ -188,8 +188,7 @@ impl AccountDetailsPage {
         if account.provider().method().is_event_based() {
             imp.counter_spinbutton.set_value(account.counter() as f64);
         }
-        imp.provider_entry
-            .set_selected_provider(Some(account.provider()), true);
+        imp.provider_entry.set_provider(Some(account.provider()));
         self.set_provider(account.provider());
         imp.account_label.set_text(&account.name());
         imp.account.replace(Some(account.clone()));
