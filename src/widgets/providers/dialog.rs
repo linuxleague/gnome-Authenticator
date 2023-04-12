@@ -1,12 +1,8 @@
 use adw::{prelude::*, subclass::prelude::*};
 use gettextrs::gettext;
-use gtk::{
-    glib::{self, clone},
-    pango,
-};
-use row::ProviderActionRow;
+use gtk::glib::{self, clone};
 
-use super::ProviderPage;
+use super::{dialog_row::ProviderActionRow, ProviderPage};
 use crate::models::{Provider, ProviderSorter, ProvidersModel};
 
 enum View {
@@ -18,9 +14,8 @@ enum View {
 mod imp {
     use std::cell::Cell;
 
-    use adw::subclass::window::AdwWindowImpl;
     use glib::subclass::Signal;
-    use once_cell::sync::OnceCell;
+    use once_cell::sync::{Lazy, OnceCell};
 
     use super::*;
     use crate::config;
@@ -90,7 +85,6 @@ mod imp {
 
     impl ObjectImpl for ProvidersDialog {
         fn signals() -> &'static [Signal] {
-            use once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![Signal::builder("changed")
                     .param_types([Provider::static_type()])
@@ -304,82 +298,5 @@ impl ProvidersDialog {
         self.imp()
             .toast_overlay
             .add_toast(adw::Toast::new(&gettext("Provider removed successfully")));
-    }
-}
-
-mod row {
-    use super::*;
-    mod imp {
-        use once_cell::sync::OnceCell;
-
-        use super::*;
-
-        #[derive(Default, glib::Properties)]
-        #[properties(wrapper_type = super::ProviderActionRow)]
-        pub struct ProviderActionRow {
-            #[property(get, set = Self::set_provider, construct_only)]
-            pub provider: OnceCell<Provider>,
-            pub title_label: gtk::Label,
-        }
-
-        #[glib::object_subclass]
-        impl ObjectSubclass for ProviderActionRow {
-            const NAME: &'static str = "ProviderActionRow";
-            type Type = super::ProviderActionRow;
-            type ParentType = gtk::ListBoxRow;
-        }
-
-        impl ObjectImpl for ProviderActionRow {
-            fn properties() -> &'static [glib::ParamSpec] {
-                Self::derived_properties()
-            }
-
-            fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-                self.derived_set_property(id, value, pspec)
-            }
-
-            fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-                self.derived_property(id, pspec)
-            }
-
-            fn constructed(&self) {
-                self.parent_constructed();
-                let hbox = gtk::Box::builder()
-                    .orientation(gtk::Orientation::Horizontal)
-                    .margin_bottom(12)
-                    .margin_end(6)
-                    .margin_top(12)
-                    .margin_start(6)
-                    .build();
-                self.title_label.set_valign(gtk::Align::Center);
-                self.title_label.set_halign(gtk::Align::Start);
-                self.title_label.set_wrap(true);
-                self.title_label.set_ellipsize(pango::EllipsizeMode::End);
-                hbox.append(&self.title_label);
-                self.obj().set_child(Some(&hbox));
-            }
-        }
-        impl WidgetImpl for ProviderActionRow {}
-        impl ListBoxRowImpl for ProviderActionRow {}
-
-        impl ProviderActionRow {
-            pub fn set_provider(&self, provider: Provider) {
-                self.title_label.set_text(&provider.name());
-                self.provider.set(provider).unwrap();
-            }
-        }
-    }
-
-    glib::wrapper! {
-        pub struct ProviderActionRow(ObjectSubclass<imp::ProviderActionRow>)
-            @extends gtk::Widget, gtk::ListBoxRow;
-    }
-
-    impl ProviderActionRow {
-        pub fn new(provider: &Provider) -> Self {
-            glib::Object::builder()
-                .property("provider", provider)
-                .build()
-        }
     }
 }
