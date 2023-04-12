@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-09 03:43+0000\n"
-"PO-Revision-Date: 2023-04-09 09:04+0300\n"
+"POT-Creation-Date: 2023-04-11 21:09+0000\n"
+"PO-Revision-Date: 2023-04-12 08:08+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -56,45 +56,37 @@ msgid "Default window maximized behaviour"
 msgstr "Типова поведінка щодо максимізації вікна"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Mode"
-msgstr "Темний режим"
-
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark mode."
-msgstr "Чи слід віддавати перевагу у програмі темному режиму."
-
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
 msgstr "Автозамикання"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
 msgid "Whether to auto lock the application or not"
 msgstr "Чи слід автоматично замикати програму"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock timeout"
 msgstr "Час очікування на автозамикання"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
 msgid "Lock the application on idle after X minutes"
 msgstr ""
 "Замикати програму, якщо у ній не виконується ніяких дій протягом вказаної "
 "кількості хвилин."
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:34
 msgid "Download Favicons"
 msgstr "Отримувати піктограми"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:35
 msgid ""
 "Whether the application should attempt to find an icon for the providers."
 msgstr "Чи слід програмі намагатися шукати піктограму для надавачів даних."
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:44
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
 msgid "Download Favicons over metered connections"
 msgstr "Отримувати піктограми з'єднанням з обліком"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:45
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
 msgid ""
 "Whether the application should download favicons over a metered connection."
 msgstr ""
@@ -146,7 +138,7 @@ msgid "Main Window"
 msgstr "Головне вікно"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
-#: data/resources/ui/account_add.ui:28
+#: data/resources/ui/account_add.ui:29
 msgid "Add a New Account"
 msgstr "Додавання нового облікового запису"
 
@@ -166,117 +158,112 @@ msgstr "Підтримка форматів резервного копіюва�
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:331
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:320
 msgid "_Camera"
 msgstr "_Камера"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:337
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:324
 msgid "_Screenshot"
 msgstr "З_німок вікна"
 
-#: data/resources/ui/account_add.ui:14
-#| msgid "QR code scanner"
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:329
 msgid "_QR Code Image"
 msgstr "Зображення _QR-коду"
 
-#: data/resources/ui/account_add.ui:49
-#: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
+#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_details_page.ui:31 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:45
 #: data/resources/ui/providers_dialog.ui:194
 msgid "Go Back"
 msgstr "Назад"
 
-#: data/resources/ui/account_add.ui:54
+#: data/resources/ui/account_add.ui:55
 msgid "_Add"
 msgstr "Д_одати"
 
-#: data/resources/ui/account_add.ui:66 src/widgets/preferences/window.rs:325
+#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:315
 msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
-#: data/resources/ui/account_add.ui:105
-#: data/resources/ui/account_details_page.ui:126
+#: data/resources/ui/account_add.ui:106
+#: data/resources/ui/account_details_page.ui:102
 msgid "Provider"
 msgstr "Надавач даних"
 
-#: data/resources/ui/account_add.ui:106
+#: data/resources/ui/account_add.ui:107
 msgid "Token issuer"
 msgstr "Видавець жетона"
 
-#: data/resources/ui/account_add.ui:120
-#: data/resources/ui/account_details_page.ui:116
+#: data/resources/ui/account_add.ui:121
+#: data/resources/ui/account_details_page.ui:97
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: data/resources/ui/account_add.ui:126
+#: data/resources/ui/account_add.ui:127
 msgid "Token"
 msgstr "Ключ"
 
-#: data/resources/ui/account_add.ui:133
-#: data/resources/ui/account_details_page.ui:188
+#: data/resources/ui/account_add.ui:134
+#: data/resources/ui/account_details_page.ui:146
 #: data/resources/ui/provider_page.ui:191
 msgid "Counter"
 msgstr "Лічильник"
 
-#: data/resources/ui/account_add.ui:158
-#: data/resources/ui/account_details_page.ui:168
+#: data/resources/ui/account_add.ui:159
+#: data/resources/ui/account_details_page.ui:125
 #: data/resources/ui/provider_page.ui:157
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:170
-#: data/resources/ui/account_details_page.ui:178
+#: data/resources/ui/account_add.ui:171
+#: data/resources/ui/account_details_page.ui:135
 #: data/resources/ui/provider_page.ui:142
 msgid "Computing Method"
 msgstr "Метод обчислення"
 
-#: data/resources/ui/account_add.ui:182
-#: data/resources/ui/account_details_page.ui:198
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:162
 #: data/resources/ui/provider_page.ui:174
 msgid "Period"
 msgstr "Період"
 
-#: data/resources/ui/account_add.ui:183 data/resources/ui/provider_page.ui:175
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:175
 msgid "Duration in seconds until the next password update"
 msgstr "Тривалість періоду (у секундах) до наступного оновлення пароля"
 
-#: data/resources/ui/account_add.ui:195
-#: data/resources/ui/account_details_page.ui:208
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:172
 #: data/resources/ui/provider_page.ui:208
 msgid "Digits"
 msgstr "Цифри"
 
-#: data/resources/ui/account_add.ui:196 data/resources/ui/provider_page.ui:209
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:209
 msgid "Length of the generated code"
 msgstr "Довжина створеного коду"
 
-#: data/resources/ui/account_add.ui:208
-#: data/resources/ui/account_details_page.ui:218
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:182
 #: data/resources/ui/provider_page.ui:136
 msgid "Website"
 msgstr "Сайт"
 
-#: data/resources/ui/account_add.ui:213
+#: data/resources/ui/account_add.ui:214
 msgid "How to Set Up"
 msgstr "Як налаштувати"
 
 #: data/resources/ui/account_details_page.ui:61
-msgid "_Edit"
-msgstr "З_міни"
-
-#: data/resources/ui/account_details_page.ui:76
 #: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:52
 msgid "_Save"
 msgstr "З_берегти"
 
-#: data/resources/ui/account_details_page.ui:91
+#: data/resources/ui/account_details_page.ui:72
 #: data/resources/ui/provider_page.ui:233
 msgid "_Delete"
 msgstr "В_илучити"
 
-#: data/resources/ui/account_details_page.ui:223
+#: data/resources/ui/account_details_page.ui:187
 msgid "Help"
 msgstr "Довідка"
 
@@ -326,74 +313,62 @@ msgid "General"
 msgstr "Загальне"
 
 #: data/resources/ui/preferences.ui:19
-msgid "Appearance"
-msgstr "Вигляд"
-
-#: data/resources/ui/preferences.ui:22
-msgid "_Dark Mode"
-msgstr "_Темний режим"
-
-#: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark mode"
-msgstr "Чи слід віддавати перевагу у програмі темному режиму"
-
-#: data/resources/ui/preferences.ui:37
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: data/resources/ui/preferences.ui:40
+#: data/resources/ui/preferences.ui:22
 msgid "_Passphrase"
 msgstr "Па_роль"
 
-#: data/resources/ui/preferences.ui:42
+#: data/resources/ui/preferences.ui:24
 msgid "Set up a passphrase to lock the application with"
 msgstr "Встановіть пароль, за допомогою якого буде замкнено програму"
 
-#: data/resources/ui/preferences.ui:54
+#: data/resources/ui/preferences.ui:36
 msgid "_Auto Lock the Application"
 msgstr "_Автоматично замкнути програму"
 
-#: data/resources/ui/preferences.ui:57
+#: data/resources/ui/preferences.ui:39
 msgid "Whether to automatically lock the application"
 msgstr "Чи слід автоматично замикати програму"
 
-#: data/resources/ui/preferences.ui:68
+#: data/resources/ui/preferences.ui:50
 msgid "Auto Lock _Timeout"
 msgstr "_Час очікування на автозамикання"
 
-#: data/resources/ui/preferences.ui:69
+#: data/resources/ui/preferences.ui:51
 msgid "The time in minutes"
 msgstr "Час у хвилинах"
 
-#: data/resources/ui/preferences.ui:89
+#: data/resources/ui/preferences.ui:71
 msgid "Network"
 msgstr "Мережа"
 
-#: data/resources/ui/preferences.ui:92
+#: data/resources/ui/preferences.ui:74
 msgid "_Download Favicons"
 msgstr "_Отримувати піктограми"
 
-#: data/resources/ui/preferences.ui:95
+#: data/resources/ui/preferences.ui:77
 msgid "Automatically attempt fetching a website icon"
 msgstr "Автоматично намагатися отримати піктограму сайта"
 
-#: data/resources/ui/preferences.ui:105
+#: data/resources/ui/preferences.ui:87
 msgid "_Metered Connection"
 msgstr "З'єднання із об_ліком"
 
-#: data/resources/ui/preferences.ui:108
+#: data/resources/ui/preferences.ui:90
 msgid "Fetch a website icon on a metered connection"
 msgstr "Отримувати піктограму сайта на з'єднанні з обліком"
 
-#: data/resources/ui/preferences.ui:123
+#: data/resources/ui/preferences.ui:105
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:505
+#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:504
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:513
+#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:512
 msgid "Restore"
 msgstr "Відновити"
 
@@ -417,9 +392,7 @@ msgstr "Адреса довідки"
 msgid "Providers"
 msgstr "Надавачі даних"
 
-#. FIXME: replace with something that works
-#. imp.image.set_provider(None);
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:229
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:226
 msgid "New Provider"
 msgstr "Новий надавач даних"
 
@@ -434,8 +407,7 @@ msgstr "Нічого не знайдено"
 
 #: data/resources/ui/providers_dialog.ui:109
 msgid "No providers matching the query were found."
-msgstr ""
-"Не знайдено жодного надавача даних, який відповідає заданим критеріям."
+msgstr "Не знайдено жодного надавача даних, який відповідає заданим критеріям."
 
 #: data/resources/ui/providers_dialog.ui:204
 msgid "No Provider Selected"
@@ -529,7 +501,6 @@ msgid "New Account"
 msgstr "Створити обліковий запис"
 
 #: data/resources/ui/window.ui:185 data/resources/ui/window.ui:259
-#| msgid "Menu"
 msgid "Main Menu"
 msgstr "Головне меню"
 
@@ -549,95 +520,94 @@ msgstr "Облікові записи успішно відновлено"
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/application.rs:389 src/widgets/accounts/row.rs:45
+#: src/application.rs:374 src/widgets/accounts/row.rs:45
 msgid "One-Time password copied"
 msgstr "Одноразовий пароль скопійовано"
 
-#: src/application.rs:390
+#: src/application.rs:375
 msgid "Password was copied successfully"
 msgstr "Пароль успішно скопійовано"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:394 src/backup/aegis.rs:438
+#: src/backup/aegis.rs:399 src/backup/aegis.rs:439
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:398
+#: src/backup/aegis.rs:403
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "До файла JSON, який містить прості текстові або зашифровані поля"
 
-#: src/backup/aegis.rs:442
+#: src/backup/aegis.rs:443
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "З файла JSON, який містить прості текстові або зашифровані поля"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:79
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:74
+#: src/backup/andotp.rs:83
 msgid "Into a plain-text JSON file"
 msgstr "До звичайного текстового файла JSON"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:122
+#: src/backup/andotp.rs:127
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:126 src/backup/bitwarden.rs:127 src/backup/legacy.rs:40
+#: src/backup/andotp.rs:131 src/backup/bitwarden.rs:124 src/backup/legacy.rs:45
 msgid "From a plain-text JSON file"
 msgstr "Зі звичайного текстового файла JSON"
 
-#: src/backup/bitwarden.rs:45
+#: src/backup/bitwarden.rs:47
 msgid "Unknown account"
 msgstr "Невідомий обліковий запис"
 
-#: src/backup/bitwarden.rs:53
+#: src/backup/bitwarden.rs:55
 msgid "Unknown issuer"
 msgstr "Невідомий видавець"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:123
+#: src/backup/bitwarden.rs:120
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:21
+#: src/backup/freeotp.rs:18
 msgid "_Authenticator"
 msgstr "_Розпізнавач"
 
-#: src/backup/freeotp.rs:25
+#: src/backup/freeotp.rs:22
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "До звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/backup/freeotp.rs:58
+#: src/backup/freeotp.rs:51
 msgid "A_uthenticator"
 msgstr "Р_озпізнавач"
 
-#: src/backup/freeotp.rs:62
+#: src/backup/freeotp.rs:55
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Зі звичайного текстового файла, сумісного з FreeOTP+"
 
-#: src/backup/freeotp_json.rs:77
+#: src/backup/freeotp_json.rs:87
 msgid "FreeOTP+"
 msgstr "FreeOTP+"
 
-#: src/backup/freeotp_json.rs:81
-#| msgid "From a plain-text file, compatible with FreeOTP+"
+#: src/backup/freeotp_json.rs:91
 msgid "From a plain-text JSON file, compatible with FreeOTP+"
 msgstr "Зі звичайного текстового файла JSON, сумісного з FreeOTP+"
 
-#: src/backup/google.rs:23
+#: src/backup/google.rs:19
 msgid "Google Authenticator"
 msgstr "Google Authenticator"
 
-#: src/backup/google.rs:27
+#: src/backup/google.rs:23
 msgid "From a QR code generated by Google Authenticator"
 msgstr "З QR-коду, який створено Google Authenticator"
 
 #. Translators: this is for restoring a backup from the old Authenticator
 #. release
-#: src/backup/legacy.rs:36
+#: src/backup/legacy.rs:41
 msgid "Au_thenticator (Legacy)"
 msgstr "Роз_пізнавач (застарілий)"
 
@@ -666,12 +636,12 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:287 src/widgets/providers/page.rs:312
+#: src/widgets/accounts/add.rs:287 src/widgets/preferences/window.rs:442
+#: src/widgets/providers/page.rs:309
 msgid "Image"
 msgstr "Зображення"
 
-#: src/widgets/accounts/add.rs:295
-#| msgid "Scan QR Code"
+#: src/widgets/accounts/add.rs:295 src/widgets/preferences/window.rs:450
 msgid "Select QR Code"
 msgstr "Виберіть QR-код"
 
@@ -683,38 +653,47 @@ msgstr "Некоректний жетон"
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/password_page.rs:178
-#: src/widgets/preferences/password_page.rs:220
+#: src/widgets/preferences/password_page.rs:181
+#: src/widgets/preferences/password_page.rs:223
 msgid "Wrong Passphrase"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/window.rs:219 src/widgets/preferences/window.rs:297
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:287
 msgid "Key / Passphrase"
 msgstr "Ключ / Пароль"
 
-#: src/widgets/preferences/window.rs:220
+#: src/widgets/preferences/window.rs:210
 msgid "The key that will be used to decrypt the vault"
 msgstr "Ключ, який буде використано для розшифрування сховища"
 
-#: src/widgets/preferences/window.rs:236 src/widgets/preferences/window.rs:313
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:303
 msgid "Select File"
 msgstr "Вибір файла"
 
-#: src/widgets/preferences/window.rs:298
+#: src/widgets/preferences/window.rs:250
+msgid "Failed to create a backup"
+msgstr "Не вдалося створити резервну копію"
+
+#: src/widgets/preferences/window.rs:288
 msgid "The key used to encrypt the vault"
 msgstr "Ключ, який використовується для розшифрування сховища"
 
-#: src/widgets/preferences/window.rs:384 src/widgets/preferences/window.rs:415
-msgid "Unable to restore accounts"
-msgstr "Не вдалося відновити облікові записи"
+#: src/widgets/preferences/window.rs:366
+msgid "Failed to restore from camera"
+msgstr "Не вдалося відновити з камери"
 
-#: src/widgets/preferences/window.rs:395
-msgid "Something went wrong"
-msgstr "Виникли якісь проблеми"
+#: src/widgets/preferences/window.rs:377
+#| msgid "Capture from a screenshot"
+msgid "Failed to restore from a screenshot"
+msgstr "Не вдалося відновити зі знімка вікна"
 
-#: src/widgets/preferences/window.rs:421
-msgid "Couldn't find a QR code"
-msgstr "Не вдалося знайти QR-код"
+#: src/widgets/preferences/window.rs:387
+msgid "Failed to restore from an image"
+msgstr "Не вдалося відновити з зображення"
+
+#: src/widgets/preferences/window.rs:400
+msgid "Failed to restore from a file"
+msgstr "Не вдалося відновити з файла"
 
 #: src/widgets/providers/dialog.rs:255
 msgid "Provider created successfully"
@@ -728,15 +707,42 @@ msgstr "Надавача успішно оновлено"
 msgid "Provider removed successfully"
 msgstr "Надавача успішно вилучено"
 
-#: src/widgets/providers/page.rs:204
+#: src/widgets/providers/page.rs:203
 msgid "Editing Provider: {}"
 msgstr "Редагування надавача даних: {}"
 
-#: src/widgets/providers/page.rs:345
+#: src/widgets/providers/page.rs:342
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку "
 "вилучіть ці записи."
+
+#~ msgid "Dark Mode"
+#~ msgstr "Темний режим"
+
+#~ msgid "Whether the application should use a dark mode."
+#~ msgstr "Чи слід віддавати перевагу у програмі темному режиму."
+
+#~ msgid "_Edit"
+#~ msgstr "З_міни"
+
+#~ msgid "Appearance"
+#~ msgstr "Вигляд"
+
+#~ msgid "_Dark Mode"
+#~ msgstr "_Темний режим"
+
+#~ msgid "Whether the application should use a dark mode"
+#~ msgstr "Чи слід віддавати перевагу у програмі темному режиму"
+
+#~ msgid "Unable to restore accounts"
+#~ msgstr "Не вдалося відновити облікові записи"
+
+#~ msgid "Something went wrong"
+#~ msgstr "Виникли якісь проблеми"
+
+#~ msgid "Couldn't find a QR code"
+#~ msgstr "Не вдалося знайти QR-код"
 
 #~ msgid "Used to fetch the provider icon"
 #~ msgstr "Використовується для отримання піктограми надавача даних"
@@ -758,9 +764,6 @@ msgstr ""
 
 #~ msgid "More"
 #~ msgstr "Більше"
-
-#~ msgid "Capture from a screenshot"
-#~ msgstr "Захопити зі знімка вікна"
 
 #~| msgid "There are no accounts currently"
 #~ msgid "There Are no Accounts Currently"
