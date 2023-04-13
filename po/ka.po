@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-11 21:09+0000\n"
-"PO-Revision-Date: 2023-04-12 05:29+0200\n"
+"POT-Creation-Date: 2023-04-12 08:27+0000\n"
+"PO-Revision-Date: 2023-04-13 06:25+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -166,8 +166,8 @@ msgstr "_QR კოდის სურათი"
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:45
 #: data/resources/ui/providers_dialog.ui:194
-msgid "Go Back"
-msgstr "უკან დაბრუნება"
+msgid "Back"
+msgstr "უკან"
 
 #: data/resources/ui/account_add.ui:55
 msgid "_Add"
@@ -702,6 +702,9 @@ msgstr "მომწოდებლის ჩასწორება: {}"
 #: src/widgets/providers/page.rs:342
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "ამ მომწოდებელს ანგარიშები ჯერ კიდევ გააჩნია. ჯერ ისინი წაშალეთ"
+
+#~ msgid "Go Back"
+#~ msgstr "უკან დაბრუნება"
 
 #~ msgid "Dark Mode"
 #~ msgstr "მუქი რეჟიმი"
