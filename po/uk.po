@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-11 21:09+0000\n"
-"PO-Revision-Date: 2023-04-12 08:08+0300\n"
+"POT-Creation-Date: 2023-04-12 08:27+0000\n"
+"PO-Revision-Date: 2023-04-13 19:20+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -175,7 +175,8 @@ msgstr "Зображення _QR-коду"
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:45
 #: data/resources/ui/providers_dialog.ui:194
-msgid "Go Back"
+#| msgid "Backup"
+msgid "Back"
 msgstr "Назад"
 
 #: data/resources/ui/account_add.ui:55
@@ -407,7 +408,8 @@ msgstr "Нічого не знайдено"
 
 #: data/resources/ui/providers_dialog.ui:109
 msgid "No providers matching the query were found."
-msgstr "Не знайдено жодного надавача даних, який відповідає заданим критеріям."
+msgstr ""
+"Не знайдено жодного надавача даних, який відповідає заданим критеріям."
 
 #: data/resources/ui/providers_dialog.ui:204
 msgid "No Provider Selected"
@@ -683,7 +685,6 @@ msgid "Failed to restore from camera"
 msgstr "Не вдалося відновити з камери"
 
 #: src/widgets/preferences/window.rs:377
-#| msgid "Capture from a screenshot"
 msgid "Failed to restore from a screenshot"
 msgstr "Не вдалося відновити зі знімка вікна"
 
@@ -716,6 +717,9 @@ msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку "
 "вилучіть ці записи."
+
+#~ msgid "Go Back"
+#~ msgstr "Назад"
 
 #~ msgid "Dark Mode"
 #~ msgstr "Темний режим"
