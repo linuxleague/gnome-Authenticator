@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-07 00:48+0000\n"
-"PO-Revision-Date: 2023-04-07 10:40+0300\n"
+"POT-Creation-Date: 2023-04-12 08:27+0000\n"
+"PO-Revision-Date: 2023-04-12 15:17+0300\n"
 "Last-Translator: Aleksandr Melman <Alexmelman88@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/authenticator/"
 "translation/ru/>\n"
@@ -55,43 +55,35 @@ msgid "Default window maximized behaviour"
 msgstr "Поведение при развернутом окне по умолчанию"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Mode"
-msgstr "Темный режим"
-
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark mode."
-msgstr "Должно ли приложение использовать темный режим."
-
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
 msgstr "Автоблокировка"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
 msgid "Whether to auto lock the application or not"
 msgstr "Автоматически блокировать приложение или нет"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock timeout"
 msgstr "Интервал автоблокировки"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
 msgid "Lock the application on idle after X minutes"
 msgstr "Заблокировать приложение в простое через X минут"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:34
 msgid "Download Favicons"
 msgstr "Загрузка фавиконов"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:35
 msgid ""
 "Whether the application should attempt to find an icon for the providers."
 msgstr "Должно ли приложение пытаться найти иконку для провайдеров."
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:44
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
 msgid "Download Favicons over metered connections"
 msgstr "Загрузка фавиконов при тарифицируемых соединениях"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:45
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
 msgid ""
 "Whether the application should download favicons over a metered connection."
 msgstr ""
@@ -142,7 +134,7 @@ msgid "Main Window"
 msgstr "Главное окно"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
-#: data/resources/ui/account_add.ui:24
+#: data/resources/ui/account_add.ui:29
 msgid "Add a New Account"
 msgstr "Добавить новую учетную запись"
 
@@ -162,7 +154,7 @@ msgstr "Поддержка форматов резервного копиров�
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:318
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:320
 msgid "_Camera"
 msgstr "_Камера"
 
@@ -170,104 +162,104 @@ msgstr "_Камера"
 msgid "_Screenshot"
 msgstr "_Снимок экрана"
 
-#: data/resources/ui/account_add.ui:45
-#: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:329
+msgid "_QR Code Image"
+msgstr "Изображение _QR-кода"
+
+#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_details_page.ui:31 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:45
 #: data/resources/ui/providers_dialog.ui:194
-msgid "Go Back"
+msgid "Back"
 msgstr "Назад"
 
-#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_add.ui:55
 msgid "_Add"
 msgstr "_Добавить"
 
-#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:312
+#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:315
 msgid "Scan QR Code"
 msgstr "Сканировать QR Код"
 
-#: data/resources/ui/account_add.ui:101
-#: data/resources/ui/account_details_page.ui:126
+#: data/resources/ui/account_add.ui:106
+#: data/resources/ui/account_details_page.ui:102
 msgid "Provider"
 msgstr "Провайдер"
 
-#: data/resources/ui/account_add.ui:102
+#: data/resources/ui/account_add.ui:107
 msgid "Token issuer"
 msgstr "Издатель токена"
 
-#: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:116
+#: data/resources/ui/account_add.ui:121
+#: data/resources/ui/account_details_page.ui:97
 msgid "Account"
 msgstr "Учетная запись"
 
-#: data/resources/ui/account_add.ui:122
+#: data/resources/ui/account_add.ui:127
 msgid "Token"
 msgstr "Токен"
 
-#: data/resources/ui/account_add.ui:129
-#: data/resources/ui/account_details_page.ui:188
+#: data/resources/ui/account_add.ui:134
+#: data/resources/ui/account_details_page.ui:146
 #: data/resources/ui/provider_page.ui:191
 msgid "Counter"
 msgstr "Счетчик"
 
-#: data/resources/ui/account_add.ui:154
-#: data/resources/ui/account_details_page.ui:168
+#: data/resources/ui/account_add.ui:159
+#: data/resources/ui/account_details_page.ui:125
 #: data/resources/ui/provider_page.ui:157
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:166
-#: data/resources/ui/account_details_page.ui:178
+#: data/resources/ui/account_add.ui:171
+#: data/resources/ui/account_details_page.ui:135
 #: data/resources/ui/provider_page.ui:142
 msgid "Computing Method"
 msgstr "Метод вычислений"
 
-#: data/resources/ui/account_add.ui:178
-#: data/resources/ui/account_details_page.ui:198
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:162
 #: data/resources/ui/provider_page.ui:174
 msgid "Period"
 msgstr "Период"
 
-#: data/resources/ui/account_add.ui:179 data/resources/ui/provider_page.ui:175
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:175
 msgid "Duration in seconds until the next password update"
 msgstr "Продолжительность в секундах до следующего обновления пароля"
 
-#: data/resources/ui/account_add.ui:191
-#: data/resources/ui/account_details_page.ui:208
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:172
 #: data/resources/ui/provider_page.ui:208
 msgid "Digits"
 msgstr "Цифры"
 
-#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:209
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:209
 msgid "Length of the generated code"
 msgstr "Длина генерируемого кода"
 
-#: data/resources/ui/account_add.ui:204
-#: data/resources/ui/account_details_page.ui:218
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:182
 #: data/resources/ui/provider_page.ui:136
 msgid "Website"
 msgstr "Веб-сайт"
 
-#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_add.ui:214
 msgid "How to Set Up"
 msgstr "Как настроить"
 
 #: data/resources/ui/account_details_page.ui:61
-msgid "_Edit"
-msgstr "_Правка"
-
-#: data/resources/ui/account_details_page.ui:76
 #: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:52
 msgid "_Save"
 msgstr "_Сохранить"
 
-#: data/resources/ui/account_details_page.ui:91
+#: data/resources/ui/account_details_page.ui:72
 #: data/resources/ui/provider_page.ui:233
 msgid "_Delete"
 msgstr "_Удалить"
 
-#: data/resources/ui/account_details_page.ui:223
+#: data/resources/ui/account_details_page.ui:187
 msgid "Help"
 msgstr "Справка"
 
@@ -317,74 +309,62 @@ msgid "General"
 msgstr "Общие"
 
 #: data/resources/ui/preferences.ui:19
-msgid "Appearance"
-msgstr "Внешний вид"
-
-#: data/resources/ui/preferences.ui:22
-msgid "_Dark Mode"
-msgstr "_Темный режим"
-
-#: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark mode"
-msgstr "Должно ли приложение использовать темный режим"
-
-#: data/resources/ui/preferences.ui:37
 msgid "Privacy"
 msgstr "Конфиденциальность"
 
-#: data/resources/ui/preferences.ui:40
+#: data/resources/ui/preferences.ui:22
 msgid "_Passphrase"
 msgstr "_Кодовая фраза"
 
-#: data/resources/ui/preferences.ui:42
+#: data/resources/ui/preferences.ui:24
 msgid "Set up a passphrase to lock the application with"
 msgstr "Установить кодовую фразу для блокировки приложения с помощью"
 
-#: data/resources/ui/preferences.ui:54
+#: data/resources/ui/preferences.ui:36
 msgid "_Auto Lock the Application"
 msgstr "_Автоблокировка приложения"
 
-#: data/resources/ui/preferences.ui:57
+#: data/resources/ui/preferences.ui:39
 msgid "Whether to automatically lock the application"
 msgstr "Нужно ли автоматически блокировать приложение"
 
-#: data/resources/ui/preferences.ui:68
+#: data/resources/ui/preferences.ui:50
 msgid "Auto Lock _Timeout"
 msgstr "Интервал _автоблокировки"
 
-#: data/resources/ui/preferences.ui:69
+#: data/resources/ui/preferences.ui:51
 msgid "The time in minutes"
 msgstr "Время в минутах"
 
-#: data/resources/ui/preferences.ui:89
+#: data/resources/ui/preferences.ui:71
 msgid "Network"
 msgstr "Сеть"
 
-#: data/resources/ui/preferences.ui:92
+#: data/resources/ui/preferences.ui:74
 msgid "_Download Favicons"
 msgstr "_Загружать фавиконы"
 
-#: data/resources/ui/preferences.ui:95
+#: data/resources/ui/preferences.ui:77
 msgid "Automatically attempt fetching a website icon"
 msgstr "Автоматическая попытка получения значка веб-сайта"
 
-#: data/resources/ui/preferences.ui:105
+#: data/resources/ui/preferences.ui:87
 msgid "_Metered Connection"
 msgstr "_Тарифицируемое соединение"
 
-#: data/resources/ui/preferences.ui:108
+#: data/resources/ui/preferences.ui:90
 msgid "Fetch a website icon on a metered connection"
 msgstr "Получение значка веб-сайта при тарифицируемом соединении"
 
-#: data/resources/ui/preferences.ui:123
+#: data/resources/ui/preferences.ui:105
 msgid "Backup/Restore"
 msgstr "Резервное копирование/восстановление"
 
-#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:486
+#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:504
 msgid "Backup"
 msgstr "Резервное копирование"
 
-#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:494
+#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:512
 msgid "Restore"
 msgstr "Восстановление"
 
@@ -408,9 +388,7 @@ msgstr "URL Справки"
 msgid "Providers"
 msgstr "Провайдеры"
 
-#. FIXME: replace with something that works
-#. imp.image.set_provider(None);
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:229
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:226
 msgid "New Provider"
 msgstr "Новый провайдер"
 
@@ -536,86 +514,94 @@ msgstr "Учетные записи успешно восстановлены"
 msgid "translator-credits"
 msgstr "Aleksandr Melman <alexmelman88@gmail.com>, 2022-2023"
 
-#: src/application.rs:389 src/widgets/accounts/row.rs:45
+#: src/application.rs:374 src/widgets/accounts/row.rs:45
 msgid "One-Time password copied"
 msgstr "Одноразовый пароль скопирован"
 
-#: src/application.rs:390
+#: src/application.rs:375
 msgid "Password was copied successfully"
 msgstr "Пароль был успешно скопирован"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:394 src/backup/aegis.rs:446
+#: src/backup/aegis.rs:399 src/backup/aegis.rs:439
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:398
+#: src/backup/aegis.rs:403
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "В JSON-файл, содержащий открытый текст или зашифрованные поля"
 
-#: src/backup/aegis.rs:450
+#: src/backup/aegis.rs:443
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "Из JSON-файла, содержащего открытый текст или зашифрованные поля"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:79
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:74
+#: src/backup/andotp.rs:83
 msgid "Into a plain-text JSON file"
 msgstr "В текстовый JSON-файл"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:131
+#: src/backup/andotp.rs:127
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:121 src/backup/legacy.rs:40
+#: src/backup/andotp.rs:131 src/backup/bitwarden.rs:124 src/backup/legacy.rs:45
 msgid "From a plain-text JSON file"
 msgstr "Из текстового JSON-файла"
 
-#: src/backup/bitwarden.rs:45
+#: src/backup/bitwarden.rs:47
 msgid "Unknown account"
 msgstr "Неизвестная учетная запись"
 
-#: src/backup/bitwarden.rs:53
+#: src/backup/bitwarden.rs:55
 msgid "Unknown issuer"
 msgstr "Неизвестный издатель"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:117
+#: src/backup/bitwarden.rs:120
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:21
+#: src/backup/freeotp.rs:18
 msgid "_Authenticator"
 msgstr "_Аутентификатор"
 
-#: src/backup/freeotp.rs:25
+#: src/backup/freeotp.rs:22
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "В текстовый файл, совместимый с FreeOTP+"
 
-#: src/backup/freeotp.rs:67
+#: src/backup/freeotp.rs:51
 msgid "A_uthenticator"
 msgstr "А_утентификатор"
 
-#: src/backup/freeotp.rs:71
+#: src/backup/freeotp.rs:55
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Из текстового файла, совместимого с FreeOTP+"
 
-#: src/backup/google.rs:24
+#: src/backup/freeotp_json.rs:87
+msgid "FreeOTP+"
+msgstr "FreeOTP+"
+
+#: src/backup/freeotp_json.rs:91
+msgid "From a plain-text JSON file, compatible with FreeOTP+"
+msgstr "Из текстового JSON-файла, совместимого с FreeOTP+"
+
+#: src/backup/google.rs:19
 msgid "Google Authenticator"
 msgstr "Google Authenticator"
 
-#: src/backup/google.rs:28
+#: src/backup/google.rs:23
 msgid "From a QR code generated by Google Authenticator"
 msgstr "Из QR-кода, сгенерированного Google Authenticator"
 
 #. Translators: this is for restoring a backup from the old Authenticator
 #. release
-#: src/backup/legacy.rs:36
+#: src/backup/legacy.rs:41
 msgid "Au_thenticator (Legacy)"
 msgstr "Ау_тентификатор (Устаревшее)"
 
@@ -644,46 +630,63 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:282
+#: src/widgets/accounts/add.rs:287 src/widgets/preferences/window.rs:442
+#: src/widgets/providers/page.rs:309
+msgid "Image"
+msgstr "Изображение"
+
+#: src/widgets/accounts/add.rs:295 src/widgets/preferences/window.rs:450
+msgid "Select QR Code"
+msgstr "Выбрать QR-код"
+
+#: src/widgets/accounts/add.rs:312
 msgid "Invalid Token"
 msgstr "Некорректный токен"
 
-#: src/widgets/window.rs:115
+#: src/widgets/window.rs:114
 msgid "Wrong Password"
 msgstr "Неверный пароль"
 
-#: src/widgets/preferences/password_page.rs:178
-#: src/widgets/preferences/password_page.rs:220
+#: src/widgets/preferences/password_page.rs:181
+#: src/widgets/preferences/password_page.rs:223
 msgid "Wrong Passphrase"
 msgstr "Неверная кодовая фраза"
 
-#: src/widgets/preferences/window.rs:218 src/widgets/preferences/window.rs:284
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:287
 msgid "Key / Passphrase"
 msgstr "Ключ / Кодовая фраза"
 
-#: src/widgets/preferences/window.rs:219
+#: src/widgets/preferences/window.rs:210
 msgid "The key that will be used to decrypt the vault"
 msgstr "Ключ, который будет использоваться для расшифровки хранилища"
 
-#: src/widgets/preferences/window.rs:235 src/widgets/preferences/window.rs:300
+#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:303
 msgid "Select File"
 msgstr "Выбрать файл"
 
-#: src/widgets/preferences/window.rs:285
+#: src/widgets/preferences/window.rs:250
+msgid "Failed to create a backup"
+msgstr "Не удалось создать резервную копию"
+
+#: src/widgets/preferences/window.rs:288
 msgid "The key used to encrypt the vault"
 msgstr "Ключ, используемый для шифрования хранилища"
 
-#: src/widgets/preferences/window.rs:371 src/widgets/preferences/window.rs:402
-msgid "Unable to restore accounts"
-msgstr "Невозможно восстановить учетные записи"
+#: src/widgets/preferences/window.rs:366
+msgid "Failed to restore from camera"
+msgstr "Не удалось восстановить с камеры"
 
-#: src/widgets/preferences/window.rs:382
-msgid "Something went wrong"
-msgstr "Что-то пошло не так"
+#: src/widgets/preferences/window.rs:377
+msgid "Failed to restore from a screenshot"
+msgstr "Не удалось восстановить из снимка экрана"
 
-#: src/widgets/preferences/window.rs:408
-msgid "Couldn't find a QR code"
-msgstr "Не удалось найти QR-код"
+#: src/widgets/preferences/window.rs:387
+msgid "Failed to restore from an image"
+msgstr "Не удалось восстановить из образа"
+
+#: src/widgets/preferences/window.rs:400
+msgid "Failed to restore from a file"
+msgstr "Не удалось восстановить из файла"
 
 #: src/widgets/providers/dialog.rs:255
 msgid "Provider created successfully"
@@ -697,17 +700,40 @@ msgstr "Провайдер успешно обновлен"
 msgid "Provider removed successfully"
 msgstr "Провайдер успешно удален"
 
-#: src/widgets/providers/page.rs:204
+#: src/widgets/providers/page.rs:203
 msgid "Editing Provider: {}"
 msgstr "Редактирование провайдера: {}"
 
-#: src/widgets/providers/page.rs:312
-msgid "Image"
-msgstr "Изображение"
-
-#: src/widgets/providers/page.rs:345
+#: src/widgets/providers/page.rs:342
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Провайдеру присвоены учетные записи, сначала удалите их"
+
+#~ msgid "Dark Mode"
+#~ msgstr "Темный режим"
+
+#~ msgid "Whether the application should use a dark mode."
+#~ msgstr "Должно ли приложение использовать темный режим."
+
+#~ msgid "Go Back"
+#~ msgstr "Назад"
+
+#~ msgid "_Edit"
+#~ msgstr "_Правка"
+
+#~ msgid "Appearance"
+#~ msgstr "Внешний вид"
+
+#~ msgid "_Dark Mode"
+#~ msgstr "_Темный режим"
+
+#~ msgid "Whether the application should use a dark mode"
+#~ msgstr "Должно ли приложение использовать темный режим"
+
+#~ msgid "Something went wrong"
+#~ msgstr "Что-то пошло не так"
+
+#~ msgid "Couldn't find a QR code"
+#~ msgstr "Не удалось найти QR-код"
 
 #~ msgid "Used to fetch the provider icon"
 #~ msgstr "Служит для получения значка провайдера"
