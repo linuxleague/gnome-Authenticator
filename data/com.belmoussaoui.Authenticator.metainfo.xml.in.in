@@ -47,6 +47,14 @@
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.3.0" date="2022-04-20">
+      <ul>
+        <li>Fix compatibility with https://2fas.com/check-token/</li>
+        <li>backup: Add FreeOTP+ JSON format support</li>
+        <li>Allow importing from an image file containing a QR code</li>
+        <li>Add tests for all the supported backup formats</li>
+      </ul>
+    </release>
     <release version="4.2.0" date="2022-12-27">
       <ul>
         <li>Mutli Camera support when scanning a QR code</li>
