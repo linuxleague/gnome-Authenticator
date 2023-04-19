@@ -12,8 +12,9 @@ data-encoding = "2.3"
 diesel = {version = "2.0", features = ["sqlite", "r2d2"]}
 diesel_migrations = {version = "2.0", features = ["sqlite"]}
 favicon-scrapper = {path = "./favicon-scrapper"}
-futures-util = "0.3"
 futures-channel = "0.3"
+futures-executor = "0.3"
+futures-util = "0.3"
 gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", version = "0.20"}
 gst4gtk = {package = "gst-plugin-gtk4", version = "0.10", features = ["wayland", "x11egl", "x11glx"]}

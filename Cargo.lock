@@ -154,6 +154,7 @@ dependencies = [
  "diesel_migrations",
  "favicon-scrapper",
  "futures-channel",
+ "futures-executor",
  "futures-util",
  "gettext-rs",
  "gst-plugin-gtk4",

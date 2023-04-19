@@ -42,25 +42,27 @@ impl SearchProviderImpl for SearchProvider {
     }
 
     fn initial_result_set(&self, terms: &[String]) -> Vec<ResultID> {
-        let (sender, mut receiver) = futures_channel::oneshot::channel();
+        let (sender, receiver) = futures_channel::oneshot::channel();
         let _ = self
             .sender
             .unbounded_send(SearchProviderAction::InitialResultSet(
                 terms.to_owned(),
                 sender,
             ));
-        receiver.try_recv().unwrap().unwrap()
+        let fut = async { receiver.await.unwrap() };
+        futures_executor::block_on(fut)
     }
 
     fn result_metas(&self, identifiers: &[ResultID]) -> Vec<ResultMeta> {
-        let (sender, mut receiver) = futures_channel::oneshot::channel();
+        let (sender, receiver) = futures_channel::oneshot::channel();
         let _ = self
             .sender
             .unbounded_send(SearchProviderAction::ResultMetas(
                 identifiers.to_owned(),
                 sender,
             ));
-        receiver.try_recv().unwrap().unwrap()
+        let fut = async { receiver.await.unwrap() };
+        futures_executor::block_on(fut)
     }
 }
 
