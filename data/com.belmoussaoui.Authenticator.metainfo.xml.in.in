@@ -47,6 +47,12 @@
   <url type="donation">https://liberapay.com/bielmoussaoui</url>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="4.3.1" date="2022-04-22">
+      <ul>
+        <li>Add support for rotated camera</li>
+        <li>Prefer front camera when possible</li>
+      </ul>
+    </release>
     <release version="4.3.0" date="2022-04-20">
       <ul>
         <li>Fix compatibility with https://2fas.com/check-token/</li>
