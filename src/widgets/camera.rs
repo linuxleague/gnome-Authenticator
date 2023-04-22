@@ -16,6 +16,8 @@ use once_cell::sync::Lazy;
 use super::{CameraItem, CameraRow};
 use crate::{utils::spawn_tokio, widgets::CameraPaintable};
 
+static CAMERA_LOCATION: &str = "api.libcamera.location";
+
 pub mod screenshot {
     use super::*;
 
@@ -213,6 +215,8 @@ impl Camera {
 
     fn set_streams(&self, streams: Vec<ashpd::desktop::camera::Stream>) {
         let imp = self.imp();
+        let mut selected_stream = 0;
+        let mut id = 0;
         for stream in streams {
             let default = gettext("Unknown Device");
             let nick = stream
@@ -221,13 +225,20 @@ impl Camera {
                 .unwrap_or(&default)
                 .to_string();
 
+            if let Some(location) = stream.properties().get(CAMERA_LOCATION) {
+                if location == "front" {
+                    selected_stream = id;
+                }
+            }
+
             let item = CameraItem {
                 nick,
                 node_id: stream.node_id(),
             };
             imp.stream_list.append(&glib::BoxedAnyObject::new(item));
+            id += 1;
         }
-        imp.selection.set_selected(0);
+        imp.selection.set_selected(selected_stream);
     }
 
     pub async fn scan_from_camera(&self) {
