@@ -17,6 +17,7 @@ futures-executor = "0.3"
 futures-util = "0.3"
 gettext-rs = {version = "0.7", features = ["gettext-system"]}
 gst = {package = "gstreamer", version = "0.20"}
+gst_video = { package = "gstreamer-video", version = "0.20"}
 gst4gtk = {package = "gst-plugin-gtk4", version = "0.10", features = ["wayland", "x11egl", "x11glx"]}
 gtk = {package = "gtk4", version = "0.6", features = ["v4_10"]}
 hex = {version = "0.4.3", features = ["serde"]}

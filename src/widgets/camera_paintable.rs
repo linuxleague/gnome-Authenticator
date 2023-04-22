@@ -19,7 +19,7 @@ static PIPELINE_NAME: Lazy<glib::GString> = Lazy::new(|| glib::GString::from("ca
 ///                         /
 ///     pipewiresrc -- tee
 ///                         \
-///                            queue -- glsinkbin
+///                            queue -- videoflip - glsinkbin
 mod imp {
     use std::cell::RefCell;
 
@@ -148,6 +148,11 @@ impl CameraPaintable {
         let queue2 = gst::ElementFactory::make_with_name("queue", None)?;
         let zbar = gst::ElementFactory::make_with_name("zbar", None)?;
         let fakesink = gst::ElementFactory::make_with_name("fakesink", None)?;
+
+        let videoflip = gst::ElementFactory::make("videoflip")
+            .property("video-direction", gst_video::VideoOrientationMethod::Auto)
+            .build()?;
+
         let sink = if paintable
             .property::<Option<gdk::GLContext>>("gl-context")
             .is_some()
@@ -180,12 +185,13 @@ impl CameraPaintable {
             &zbar,
             &fakesink,
             &queue2,
+            &videoflip,
             &sink,
         ])?;
 
         gst::Element::link_many(&[pipewire_src, &tee, &queue1, &videoconvert, &zbar, &fakesink])?;
         tee.link_pads(None, &queue2, None)?;
-        gst::Element::link_many(&[&queue2, &sink])?;
+        gst::Element::link_many(&[&queue2, &videoflip, &sink])?;
 
         let bus = pipeline.bus().unwrap();
         bus.add_watch_local(

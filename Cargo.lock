@@ -159,6 +159,7 @@ dependencies = [
  "gettext-rs",
  "gst-plugin-gtk4",
  "gstreamer",
+ "gstreamer-video",
  "gtk4",
  "hex",
  "image 0.24.6",
