@@ -1,0 +1,742 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Ingirafn <ingirafn@this.is>, 2023.
+# Sveinn í Felli <sv1@fellsnet.is>, 2023.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2023-04-26 08:33+0000\n"
+"PO-Revision-Date: 2023-04-26 16:46+0000\n"
+"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
+"Language-Team: Icelandic\n"
+"Language: is\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 21.12.3\n"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:34 src/application.rs:98 src/main.rs:41
+msgid "Authenticator"
+msgstr "Authenticator"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "Tveggja-þátta (TOTP) auðkenning"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:101
+msgid "Generate Two-Factor Codes"
+msgstr "Býr til tvíþættann auðkenningarkóða"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "Gnome;GTK;Staðfesting;2FA;Auðkenning;OTP;TOTP;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "Sjálfgefin breidd glugga"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "Sjálfgefin hæð glugga"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "Sjálfgefin hámörkuð gluggastærð "
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Auto lock"
+msgstr "Sjálfkrafa læsing"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether to auto lock the application or not"
+msgstr "Hvort forritið sé sjálfkrafa læst eða ekki."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock timeout"
+msgstr "_Tímamörk sjálfvirkrar læsingar"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Lock the application on idle after X minutes"
+msgstr "Læsa forriti eftir aðgerðaleysi í X mínútur"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:34
+msgid "Download Favicons"
+msgstr "Sækja táknmyndir"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:35
+#| msgid ""
+#| "\"Whether the application should attempt to find an icon for the "
+#| "providers."
+msgid ""
+"Whether the application should attempt to find an icon for the providers."
+msgstr "Hvort forritið ætti að reyna að finna táknmynd fyrir netþjónustur."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
+msgid "Download Favicons over metered connections"
+msgstr "Sækja táknmyndir á gjaldfærðri nettengingu"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
+#| msgid ""
+#| "\"Whether the application should download favicons over a metered "
+#| "connection."
+msgid ""
+"Whether the application should download favicons over a metered connection."
+msgstr "Hvort forritið ætti að sækja táknmyndir á gjaldfærðri nettengingu."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "Einfalt forrit til að búa til tvíþátta auðkenningarkóða."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "Eiginleikar:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "Tímatengt/Teljaratengt/Stuðningur við Steam-aðferðir"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "SHA-1/SHA-256/SHA-512 algrími studd"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "Skönnun QR-kóða með myndavél eða skjámynd"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "Læsið forritinu með lykilorði"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "Fallegt viðmót"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "GNOME Shell search provider"
+msgstr "Leitarþjónusta GNOME skeljar"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
+msgstr ""
+"Öryggisafrita/Endurheimta úr/í þekktum forritum eins og FreeOTP+, Aegis"
+" (dulritað / hreinn texti), andOTP, Google Authenticator"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "Aðalgluggi"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:29
+msgid "Add a New Account"
+msgstr "Bæta við nýjum aðgangi"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Add a New Provider"
+msgstr "Bæta við nýrri netþjónustu"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
+msgid "Account Details"
+msgstr "Upplýsingar um aðgang"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
+msgid "Backup/Restore formats support"
+msgstr "Snið studd við öryggisafritun/endurheimtu"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:296
+msgid "Bilal Elmoussaoui"
+msgstr "Bilal Elmoussaoui"
+
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:310
+msgid "_Camera"
+msgstr "_Myndavél"
+
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:314
+msgid "_Screenshot"
+msgstr "_Skjámynd"
+
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:319
+msgid "_QR Code Image"
+msgstr "Mynd af _QR-kóða"
+
+#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_details_page.ui:31 data/resources/ui/camera.ui:13
+#: data/resources/ui/preferences_password_page.ui:13
+#: data/resources/ui/provider_page.ui:45
+#: data/resources/ui/providers_dialog.ui:194
+#| msgid "Backup"
+msgid "Back"
+msgstr "Til baka"
+
+#: data/resources/ui/account_add.ui:55
+msgid "_Add"
+msgstr "_Bæta við"
+
+#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:305
+msgid "Scan QR Code"
+msgstr "Skanna QR-kóða"
+
+#: data/resources/ui/account_add.ui:106
+#: data/resources/ui/account_details_page.ui:102
+msgid "Provider"
+msgstr "Netþjónusta"
+
+#: data/resources/ui/account_add.ui:107
+msgid "Token issuer"
+msgstr "Útgefandi teikns"
+
+#: data/resources/ui/account_add.ui:121
+#: data/resources/ui/account_details_page.ui:97
+msgid "Account"
+msgstr "Aðgangur"
+
+#: data/resources/ui/account_add.ui:127
+msgid "Token"
+msgstr "Teikn"
+
+#: data/resources/ui/account_add.ui:134
+#: data/resources/ui/account_details_page.ui:146
+#: data/resources/ui/provider_page.ui:191
+msgid "Counter"
+msgstr "Teljari"
+
+#: data/resources/ui/account_add.ui:159
+#: data/resources/ui/account_details_page.ui:125
+#: data/resources/ui/provider_page.ui:157
+msgid "Algorithm"
+msgstr "Algrím"
+
+#: data/resources/ui/account_add.ui:171
+#: data/resources/ui/account_details_page.ui:135
+#: data/resources/ui/provider_page.ui:142
+msgid "Computing Method"
+msgstr "Reikniaðferð"
+
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:162
+#: data/resources/ui/provider_page.ui:174
+msgid "Period"
+msgstr "Tímabil"
+
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:175
+msgid "Duration in seconds until the next password update"
+msgstr "Hve margar sekúndur þar til lykilorð er uppfært næst"
+
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:172
+#: data/resources/ui/provider_page.ui:208
+msgid "Digits"
+msgstr "Tölustafir"
+
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:209
+msgid "Length of the generated code"
+msgstr "Lengd útbúins kóða"
+
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:182
+#: data/resources/ui/provider_page.ui:136
+msgid "Website"
+msgstr "Vefsvæði"
+
+#: data/resources/ui/account_add.ui:214
+msgid "How to Set Up"
+msgstr "Hvernig á að setja upp"
+
+#: data/resources/ui/account_details_page.ui:61
+#: data/resources/ui/preferences_password_page.ui:21
+#: data/resources/ui/provider_page.ui:52
+msgid "_Save"
+msgstr "_Vista"
+
+#: data/resources/ui/account_details_page.ui:72
+#: data/resources/ui/provider_page.ui:233
+msgid "_Delete"
+msgstr "_Eyða"
+
+#: data/resources/ui/account_details_page.ui:187
+msgid "Help"
+msgstr "Hjálp"
+
+#: data/resources/ui/account_row.ui:22
+msgid "Increment the counter"
+msgstr "Hækka teljarann"
+
+#: data/resources/ui/account_row.ui:33
+msgid "Copy PIN to clipboard"
+msgstr "Afrita PIN á klippispjald"
+
+#: data/resources/ui/camera.ui:44
+msgid "No Camera Found"
+msgstr "Engin myndavél fannst"
+
+#: data/resources/ui/camera.ui:47
+msgid "_From a Screenshot"
+msgstr "_Af skjáskoti"
+
+#: data/resources/ui/preferences_password_page.ui:32
+msgid "Set up a Passphrase"
+msgstr "Settu upp aðgangsorð"
+
+#: data/resources/ui/preferences_password_page.ui:33
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "Auhenticator ræsir sig læst eftir að aðgangsorð er stillt."
+
+#: data/resources/ui/preferences_password_page.ui:52
+msgid "Current Passphrase"
+msgstr "Núverandi aðgangsorð "
+
+#: data/resources/ui/preferences_password_page.ui:58
+msgid "New Passphrase"
+msgstr "Nýtt aðgangsorð"
+
+#: data/resources/ui/preferences_password_page.ui:64
+msgid "Repeat Passphrase"
+msgstr "Endurtaktu aðgangsorðið"
+
+#: data/resources/ui/preferences_password_page.ui:78
+#: data/resources/ui/provider_page.ui:97
+msgid "_Reset"
+msgstr "_Endurstilla"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "Almennt"
+
+#: data/resources/ui/preferences.ui:19
+msgid "Privacy"
+msgstr "Gagnaleynd"
+
+#: data/resources/ui/preferences.ui:22
+msgid "_Passphrase"
+msgstr "_Aðgangsorð"
+
+#: data/resources/ui/preferences.ui:24
+msgid "Set up a passphrase to lock the application with"
+msgstr "Settu upp aðgangsorð til að læsa forritinu með"
+
+#: data/resources/ui/preferences.ui:36
+msgid "_Auto Lock the Application"
+msgstr "_Læsa forritinu sjálfkrafa"
+
+#: data/resources/ui/preferences.ui:39
+msgid "Whether to automatically lock the application"
+msgstr "Hvort forritinu sé sjálfkrafa læst eða ekki"
+
+#: data/resources/ui/preferences.ui:50
+msgid "Auto Lock _Timeout"
+msgstr "_Tímamörk sjálfvirkrar læsingar"
+
+#: data/resources/ui/preferences.ui:51
+msgid "The time in minutes"
+msgstr "Tíminn í mínútum"
+
+#: data/resources/ui/preferences.ui:71
+msgid "Network"
+msgstr "Netkerfi"
+
+#: data/resources/ui/preferences.ui:74
+msgid "_Download Favicons"
+msgstr "Sækja táknmyn_dir"
+
+#: data/resources/ui/preferences.ui:77
+msgid "Automatically attempt fetching a website icon"
+msgstr "Reyni sjálfkrafa að sækja táknmynd vefsvæðis"
+
+#: data/resources/ui/preferences.ui:87
+msgid "_Metered Connection"
+msgstr "_Gjaldfærð tenging"
+
+#: data/resources/ui/preferences.ui:90
+msgid "Fetch a website icon on a metered connection"
+msgstr "Sækja táknmynd vefsvæðis á gjaldfærðri tengingu"
+
+#: data/resources/ui/preferences.ui:105
+msgid "Backup/Restore"
+msgstr "Öryggisafrita/Endurheimta"
+
+#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:494
+msgid "Backup"
+msgstr "Öryggisafrit"
+
+#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:502
+msgid "Restore"
+msgstr "Endurheimti"
+
+#: data/resources/ui/provider_page.ui:107
+msgid "Select a _File"
+msgstr "V_eldu skrá"
+
+#: data/resources/ui/provider_page.ui:130
+msgid "Name"
+msgstr "Nafn"
+
+#: data/resources/ui/provider_page.ui:192
+msgid "The by default value for counter-based computing method"
+msgstr "Sjálfgefið gildi notað við talningartengda reikniaðferð"
+
+#: data/resources/ui/provider_page.ui:225
+msgid "Help URL"
+msgstr "Hjálparveffang"
+
+#: data/resources/ui/providers_dialog.ui:5
+msgid "Providers"
+msgstr "Netþjónustur"
+
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:226
+msgid "New Provider"
+msgstr "Ný netþjónusta"
+
+#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:265
+msgid "Search"
+msgstr "Leita"
+
+#: data/resources/ui/providers_dialog.ui:108
+#: data/resources/ui/providers_list.ui:42
+msgid "No Results"
+msgstr "Engin niðurstöður"
+
+#: data/resources/ui/providers_dialog.ui:109
+msgid "No providers matching the query were found."
+msgstr "Engar netþjónustur pössuðu við leitina."
+
+#: data/resources/ui/providers_dialog.ui:204
+msgid "No Provider Selected"
+msgstr "Engin netþjónusta valin"
+
+#: data/resources/ui/providers_dialog.ui:205
+msgid "Select a provider or create a new one"
+msgstr "Veldu netþjónustu eða búiðu til nýja"
+
+#: data/resources/ui/providers_list.ui:43
+msgid "No accounts or providers matching the query were found."
+msgstr "Engir aðgangar eða netþjónustur pössuðu við leitina."
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Almennt"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "Flýtilyklar"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "Læsa"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Kjörstillingar"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Hætta"
+
+#: data/resources/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "Aðgangar"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "New Account"
+msgstr "Nýr aðgangur"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Leita"
+
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "Sýna lista yfir netþjónustur"
+
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "_Læsa forritinu"
+
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "_Netþjónustur"
+
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "K_jörstillingar"
+
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "_Flýtilyklar"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "-Um Authenticator"
+
+#: data/resources/ui/window.ui:101
+msgid "Authenticator is Locked"
+msgstr "Authenticator er læstur"
+
+#: data/resources/ui/window.ui:129
+msgid "_Unlock"
+msgstr "_Aflæsa"
+
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:217
+msgid "New Account"
+msgstr "Nýr aðgangur"
+
+#: data/resources/ui/window.ui:185 data/resources/ui/window.ui:259
+#| msgid "Menu"
+msgid "Main Menu"
+msgstr "Aðalvalmynd"
+
+#: data/resources/ui/window.ui:196
+msgid "No Accounts"
+msgstr "Engir aðgangar"
+
+#: data/resources/ui/window.ui:197
+msgid "Add an account or scan a QR code first."
+msgstr "Bæta við aðgangi eða skanna fyrst QR-kóða."
+
+#: src/application.rs:84
+msgid "Accounts restored successfully"
+msgstr "Aðgangar að fullu endurheimtir"
+
+#: src/application.rs:110
+msgid "translator-credits"
+msgstr "Ingirafn, ingirafn at this dot is ,2023"
+
+#: src/application.rs:374 src/widgets/accounts/row.rs:45
+msgid "One-Time password copied"
+msgstr "Einnota lykilorð afritað"
+
+#: src/application.rs:375
+msgid "Password was copied successfully"
+msgstr "Tókst að afrita lykilorð"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:399 src/backup/aegis.rs:439
+msgid "Aegis"
+msgstr "Aegis"
+
+#: src/backup/aegis.rs:403
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "Í JSON-skrá sem inniheldur hreintexta eða dulritaða reiti"
+
+#: src/backup/aegis.rs:443
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "Úr JSON-skrá sem inniheldur hreintexta eða dulritaða reiti"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:79
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
+
+#: src/backup/andotp.rs:83
+msgid "Into a plain-text JSON file"
+msgstr "Í hreintexta JSON-skrá"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:127
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:131 src/backup/bitwarden.rs:124 src/backup/legacy.rs:45
+msgid "From a plain-text JSON file"
+msgstr "Úr hreintexta JSON-skrá"
+
+#: src/backup/bitwarden.rs:47
+msgid "Unknown account"
+msgstr "Óþekktur aðgangur"
+
+#: src/backup/bitwarden.rs:55
+msgid "Unknown issuer"
+msgstr "Óþekktur útgefandi"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:120
+msgid "_Bitwarden"
+msgstr "_Bitwarden"
+
+#: src/backup/freeotp.rs:18
+msgid "_Authenticator"
+msgstr "_Authenticator"
+
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "Í hreintextaskrá, samræmanlegri við FreeOTP+"
+
+#: src/backup/freeotp.rs:51
+msgid "A_uthenticator"
+msgstr "A_uthenticator"
+
+#: src/backup/freeotp.rs:55
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "Úr hreintextaskrá, samræmanlegri við FreeOTP+"
+
+#: src/backup/freeotp_json.rs:87
+msgid "FreeOTP+"
+msgstr "FreeOTP+"
+
+#: src/backup/freeotp_json.rs:91
+#| msgid "From a plain-text file, compatible with FreeOTP+"
+msgid "From a plain-text JSON file, compatible with FreeOTP+"
+msgstr "Úr hreintexta JSON-skrá, samræmanlegri við FreeOTP+"
+
+#: src/backup/google.rs:19
+msgid "Google Authenticator"
+msgstr "Google Authenticator"
+
+#: src/backup/google.rs:23
+msgid "From a QR code generated by Google Authenticator"
+msgstr "Úr QR-kóða útbúnum af Google Authenticator"
+
+#. Translators: this is for restoring a backup from the old Authenticator
+#. release
+#: src/backup/legacy.rs:41
+msgid "Au_thenticator (Legacy)"
+msgstr "Au_thenticator (eldri gerð)"
+
+#: src/models/algorithm.rs:60
+msgid "Counter-based"
+msgstr "Stuðst við talningu"
+
+#: src/models/algorithm.rs:61
+msgid "Time-based"
+msgstr "Stuðst við tíma"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:63
+msgid "Steam"
+msgstr "Steam"
+
+#: src/models/algorithm.rs:126
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:128
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:287 src/widgets/preferences/window.rs:432
+#: src/widgets/providers/page.rs:309
+msgid "Image"
+msgstr "Mynd"
+
+#: src/widgets/accounts/add.rs:295 src/widgets/preferences/window.rs:440
+#| msgid "Scan QR Code"
+msgid "Select QR Code"
+msgstr "Veldu QR-kóða"
+
+#: src/widgets/accounts/add.rs:313
+msgid "Invalid Token"
+msgstr "Ógilt teikn"
+
+#: src/widgets/window.rs:114
+msgid "Wrong Password"
+msgstr "Rangt lykilorð"
+
+#: src/widgets/preferences/password_page.rs:181
+#: src/widgets/preferences/password_page.rs:223
+msgid "Wrong Passphrase"
+msgstr "Rangt aðgangsorð"
+
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:281
+msgid "Key / Passphrase"
+msgstr "Lykill / aðgangsorð"
+
+#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:293
+msgid "Select File"
+msgstr "Veldu skrá"
+
+#: src/widgets/preferences/window.rs:244
+msgid "Failed to create a backup"
+msgstr "Mistókst að útbúa öryggisafrit"
+
+#: src/widgets/preferences/window.rs:356
+msgid "Failed to restore from camera"
+msgstr "Mistókst að endurheimta úr myndavél"
+
+#: src/widgets/preferences/window.rs:367
+#| msgid "Unable to restore accounts"
+msgid "Failed to restore from a screenshot"
+msgstr "Mistókst að endurheimta úr skjámynd"
+
+#: src/widgets/preferences/window.rs:377
+msgid "Failed to restore from an image"
+msgstr "Mistókst að endurheimta úr mynd"
+
+#: src/widgets/preferences/window.rs:390
+msgid "Failed to restore from a file"
+msgstr "Mistókst að endurheimta úr skrá"
+
+#: src/widgets/providers/dialog.rs:249
+msgid "Provider created successfully"
+msgstr "Tókst að búa til netþjónustu"
+
+#: src/widgets/providers/dialog.rs:259
+msgid "Provider updated successfully"
+msgstr "Uppfærsla netþjónustu tókst"
+
+#: src/widgets/providers/dialog.rs:275
+msgid "Provider removed successfully"
+msgstr "Tókst að fjarlægja netþjónustu"
+
+#: src/widgets/providers/page.rs:203
+msgid "Editing Provider: {}"
+msgstr "Breyti netþjónustu:{}"
+
+#: src/widgets/providers/page.rs:342
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "Netþjónustan er þegar með úthlutaða aðganga, fjarlægðu þá fyrst"
+
+#~ msgid "Dark Mode"
+#~ msgstr "Dökkur hamur"
+
+#~ msgid "Whether the application should use a dark mode."
+#~ msgstr "Hvort forritið ætti að vera stillt á dökkan ham."
+
+#~ msgid "Go Back"
+#~ msgstr "Til baka"
+
+#~ msgid "_Edit"
+#~ msgstr "_Breyta"
+
+#~ msgid "Appearance"
+#~ msgstr "Útlit"
+
+#~ msgid "_Dark Mode"
+#~ msgstr "_Dökkur Hamur"
+
+#~ msgid "Whether the application should use a dark mode"
+#~ msgstr "Þegar forritið ætti að nota dökkan ham"
+
+#~ msgid "The key that will be used to decrypt the vault"
+#~ msgstr "Lykillinn sem notaður verður til að dulkóða öryggishólfið"
+
+#~ msgid "The key used to encrypt the vault"
+#~ msgstr "Lykillinn notaður til að dulkóða öryggishólfið"
+
+#~ msgid "Something went wrong"
+#~ msgstr "Einhvað fór úrskeiðis"
+
+#~ msgid "Couldn't find a QR code"
+#~ msgstr "Fann ekki QR kóða"
