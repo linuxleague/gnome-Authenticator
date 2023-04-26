@@ -308,6 +308,7 @@ impl AccountAddDialog {
         if let Some(ref provider) = *imp.selected_provider.borrow() {
             let username = imp.username_entry.text();
             let token = imp.token_entry.text();
+            let token = token.trim_end_matches('=');
             if !OTP::is_valid(&token) {
                 imp.error_revealer.popup(&gettext("Invalid Token"));
                 anyhow::bail!("Token {} is not a valid Base32 secret", &token);
