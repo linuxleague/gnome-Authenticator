@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-01-24 18:13+0000\n"
-"PO-Revision-Date: 2023-03-10 08:57+0100\n"
+"POT-Creation-Date: 2023-04-19 22:34+0000\n"
+"PO-Revision-Date: 2023-04-28 11:02+0200\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <f.t.public@gmail.com>\n"
 "Language: fur\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:117 src/main.rs:41
+#: data/resources/ui/window.ui:34 src/application.rs:98 src/main.rs:41
 msgid "Authenticator"
 msgstr "Autenticadôr"
 
@@ -30,7 +30,7 @@ msgstr "Autenticazion a doi fatôrs"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:120
+#: src/application.rs:101
 msgid "Generate Two-Factor Codes"
 msgstr "Gjenere codiçs a doi fatôrs"
 
@@ -53,45 +53,37 @@ msgid "Default window maximized behaviour"
 msgstr "Compuartament predefinît dal barcon slargjât"
 
 #: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
-msgid "Dark Mode"
-msgstr "Modalitât scure"
-
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
-msgid "Whether the application should use a dark mode."
-msgstr "Indiche se la aplicazion e à di doprâ une modalitât scure."
-
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock"
 msgstr "Bloc automatic"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
 msgid "Whether to auto lock the application or not"
 msgstr "Indiche se la aplicazion e à di blocâsi in automatic o mancul"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:31
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
 msgid "Auto lock timeout"
 msgstr "Timp di spiete pal bloc automatic"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:32
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
 msgid "Lock the application on idle after X minutes"
 msgstr "Bloche la aplicazion inative dopo X minûts"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:34
 msgid "Download Favicons"
 msgstr "Discjame Favicons"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:35
 msgid ""
 "Whether the application should attempt to find an icon for the providers."
 msgstr ""
 "Indiche se la aplicazion e à di cirî di cjatâ une icone pai furnidôrs di "
 "servizis."
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:44
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
 msgid "Download Favicons over metered connections"
 msgstr "Discjame Favicons su conessions a consum"
 
-#: data/com.belmoussaoui.Authenticator.gschema.xml.in:45
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
 msgid ""
 "Whether the application should download favicons over a metered connection."
 msgstr ""
@@ -143,7 +135,7 @@ msgid "Main Window"
 msgstr "Barcon principâl"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
-#: data/resources/ui/account_add.ui:24
+#: data/resources/ui/account_add.ui:29
 msgid "Add a New Account"
 msgstr "Zonte un gnûf account"
 
@@ -159,116 +151,116 @@ msgstr "Detais Account"
 msgid "Backup/Restore formats support"
 msgstr "Supuart di formâts di backup/ripristin"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:282
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:290
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:352
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:310
 msgid "_Camera"
 msgstr "_Fotocjamare"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:358
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:314
 msgid "_Screenshot"
 msgstr "_Videade"
 
-#: data/resources/ui/account_add.ui:45
-#: data/resources/ui/account_details_page.ui:25 data/resources/ui/camera.ui:13
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:319
+msgid "_QR Code Image"
+msgstr "Imagjin di codiç _QR"
+
+#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_details_page.ui:31 data/resources/ui/camera.ui:13
 #: data/resources/ui/preferences_password_page.ui:13
 #: data/resources/ui/provider_page.ui:45
 #: data/resources/ui/providers_dialog.ui:194
-msgid "Go Back"
-msgstr "Torne indaûr"
+msgid "Back"
+msgstr "Indaûr"
 
-#: data/resources/ui/account_add.ui:50
+#: data/resources/ui/account_add.ui:55
 msgid "_Add"
 msgstr "_Zonte"
 
-#: data/resources/ui/account_add.ui:62 src/widgets/preferences/window.rs:346
+#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:305
 msgid "Scan QR Code"
 msgstr "Scansione codiç QR"
 
-#: data/resources/ui/account_add.ui:101
-#: data/resources/ui/account_details_page.ui:126
+#: data/resources/ui/account_add.ui:106
+#: data/resources/ui/account_details_page.ui:102
 msgid "Provider"
 msgstr "Furnidôr"
 
-#: data/resources/ui/account_add.ui:102
+#: data/resources/ui/account_add.ui:107
 msgid "Token issuer"
 msgstr "Emetidôr di token"
 
-#: data/resources/ui/account_add.ui:116
-#: data/resources/ui/account_details_page.ui:116
+#: data/resources/ui/account_add.ui:121
+#: data/resources/ui/account_details_page.ui:97
 msgid "Account"
 msgstr "Account"
 
-#: data/resources/ui/account_add.ui:122
+#: data/resources/ui/account_add.ui:127
 msgid "Token"
 msgstr "Token"
 
-#: data/resources/ui/account_add.ui:129
-#: data/resources/ui/account_details_page.ui:188
+#: data/resources/ui/account_add.ui:134
+#: data/resources/ui/account_details_page.ui:146
 #: data/resources/ui/provider_page.ui:191
 msgid "Counter"
 msgstr "Contadôr"
 
-#: data/resources/ui/account_add.ui:154
-#: data/resources/ui/account_details_page.ui:168
+#: data/resources/ui/account_add.ui:159
+#: data/resources/ui/account_details_page.ui:125
 #: data/resources/ui/provider_page.ui:157
 msgid "Algorithm"
 msgstr "Algoritmi"
 
-#: data/resources/ui/account_add.ui:166
-#: data/resources/ui/account_details_page.ui:178
+#: data/resources/ui/account_add.ui:171
+#: data/resources/ui/account_details_page.ui:135
 #: data/resources/ui/provider_page.ui:142
 msgid "Computing Method"
 msgstr "Metodi di elaborazion"
 
-#: data/resources/ui/account_add.ui:178
-#: data/resources/ui/account_details_page.ui:198
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:162
 #: data/resources/ui/provider_page.ui:174
 msgid "Period"
 msgstr "Periodi"
 
-#: data/resources/ui/account_add.ui:179 data/resources/ui/provider_page.ui:175
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:175
 msgid "Duration in seconds until the next password update"
 msgstr "Durade in seconts fin al prossim inzornament di password"
 
-#: data/resources/ui/account_add.ui:191
-#: data/resources/ui/account_details_page.ui:208
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:172
 #: data/resources/ui/provider_page.ui:208
 msgid "Digits"
 msgstr "Cifris"
 
-#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:209
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:209
 msgid "Length of the generated code"
 msgstr "Lungjece dal codiç gjenerât"
 
-#: data/resources/ui/account_add.ui:204
-#: data/resources/ui/account_details_page.ui:218
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:182
 #: data/resources/ui/provider_page.ui:136
 msgid "Website"
 msgstr "Sît web"
 
-#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_add.ui:214
 msgid "How to Set Up"
 msgstr "Cemût configurâ"
 
 #: data/resources/ui/account_details_page.ui:61
-msgid "_Edit"
-msgstr "_Modifiche"
-
-#: data/resources/ui/account_details_page.ui:76
 #: data/resources/ui/preferences_password_page.ui:21
 #: data/resources/ui/provider_page.ui:52
 msgid "_Save"
 msgstr "_Salve"
 
-#: data/resources/ui/account_details_page.ui:91
+#: data/resources/ui/account_details_page.ui:72
 #: data/resources/ui/provider_page.ui:233
 msgid "_Delete"
 msgstr "_Elimine"
 
-#: data/resources/ui/account_details_page.ui:223
+#: data/resources/ui/account_details_page.ui:187
 msgid "Help"
 msgstr "Jutori"
 
@@ -318,74 +310,62 @@ msgid "General"
 msgstr "Gjenerâl"
 
 #: data/resources/ui/preferences.ui:19
-msgid "Appearance"
-msgstr "Aspiet"
-
-#: data/resources/ui/preferences.ui:22
-msgid "_Dark Mode"
-msgstr "_Modalitât scure"
-
-#: data/resources/ui/preferences.ui:25
-msgid "Whether the application should use a dark mode"
-msgstr "Indiche se la aplicazion e à di doprâ une modalitât scure"
-
-#: data/resources/ui/preferences.ui:37
 msgid "Privacy"
 msgstr "Riservatece"
 
-#: data/resources/ui/preferences.ui:40
+#: data/resources/ui/preferences.ui:22
 msgid "_Passphrase"
 msgstr "_Passphrase"
 
-#: data/resources/ui/preferences.ui:42
+#: data/resources/ui/preferences.ui:24
 msgid "Set up a passphrase to lock the application with"
 msgstr "Configure une passphrase par blocâ la aplicazion cun"
 
-#: data/resources/ui/preferences.ui:54
+#: data/resources/ui/preferences.ui:36
 msgid "_Auto Lock the Application"
 msgstr "Bloche in _automatic la aplicazion"
 
-#: data/resources/ui/preferences.ui:57
+#: data/resources/ui/preferences.ui:39
 msgid "Whether to automatically lock the application"
 msgstr "Indiche se blocâ in automatic la aplicazion"
 
-#: data/resources/ui/preferences.ui:68
+#: data/resources/ui/preferences.ui:50
 msgid "Auto Lock _Timeout"
 msgstr "_Timp di spiete dal bloc automatic"
 
-#: data/resources/ui/preferences.ui:69
+#: data/resources/ui/preferences.ui:51
 msgid "The time in minutes"
 msgstr "Il timp in minûts"
 
-#: data/resources/ui/preferences.ui:89
+#: data/resources/ui/preferences.ui:71
 msgid "Network"
 msgstr "Rêt"
 
-#: data/resources/ui/preferences.ui:92
+#: data/resources/ui/preferences.ui:74
 msgid "_Download Favicons"
 msgstr "_Discjame Favicons"
 
-#: data/resources/ui/preferences.ui:95
+#: data/resources/ui/preferences.ui:77
 msgid "Automatically attempt fetching a website icon"
 msgstr "Cîr di recuperâ in automatic une icone di un sît web"
 
-#: data/resources/ui/preferences.ui:105
+#: data/resources/ui/preferences.ui:87
 msgid "_Metered Connection"
 msgstr "Conessions a consu_m"
 
-#: data/resources/ui/preferences.ui:108
+#: data/resources/ui/preferences.ui:90
 msgid "Fetch a website icon on a metered connection"
 msgstr "Recupere une icone di sît web suntune conession a consum"
 
-#: data/resources/ui/preferences.ui:123
+#: data/resources/ui/preferences.ui:105
 msgid "Backup/Restore"
 msgstr "Backup/Ripristin"
 
-#: data/resources/ui/preferences.ui:126 src/widgets/preferences/window.rs:522
+#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:494
 msgid "Backup"
 msgstr "Backup"
 
-#: data/resources/ui/preferences.ui:131 src/widgets/preferences/window.rs:530
+#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:502
 msgid "Restore"
 msgstr "Ripristine"
 
@@ -409,11 +389,11 @@ msgstr "URL di jutori"
 msgid "Providers"
 msgstr "Furnidôrs"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:225
+#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:226
 msgid "New Provider"
 msgstr "Gnûf furnidôr"
 
-#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:263
+#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:265
 msgid "Search"
 msgstr "Cîr"
 
@@ -512,67 +492,67 @@ msgstr "L'autenticadôr al è blocât"
 msgid "_Unlock"
 msgstr "_Sbloche"
 
-#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:216
+#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:217
 msgid "New Account"
 msgstr "Gnûf account"
 
-#: data/resources/ui/window.ui:184 data/resources/ui/window.ui:257
-msgid "Menu"
-msgstr "Menù"
+#: data/resources/ui/window.ui:185 data/resources/ui/window.ui:259
+msgid "Main Menu"
+msgstr "Menù principâl"
 
-#: data/resources/ui/window.ui:195
+#: data/resources/ui/window.ui:196
 msgid "No Accounts"
 msgstr "Nissun account"
 
-#: data/resources/ui/window.ui:196
+#: data/resources/ui/window.ui:197
 msgid "Add an account or scan a QR code first."
 msgstr "Prime zonte un account o scansione un codiç QR."
 
-#: src/application.rs:103
+#: src/application.rs:84
 msgid "Accounts restored successfully"
 msgstr "Accounts ripristinâts cun sucès"
 
-#: src/application.rs:132
+#: src/application.rs:110
 msgid "translator-credits"
-msgstr "Fabio Tomat, <f.t.public@gmail.com>, 2021"
+msgstr "Fabio Tomat, <f.t.public@gmail.com>, 2023"
 
-#: src/application.rs:451 src/widgets/accounts/row.rs:45
+#: src/application.rs:374 src/widgets/accounts/row.rs:45
 msgid "One-Time password copied"
 msgstr "Password par une volte sole (OTP) copiade"
 
-#: src/application.rs:452
+#: src/application.rs:375
 msgid "Password was copied successfully"
 msgstr "La password e je stade copiade cun sucès"
 
 #. Translators: This is for making a backup for the aegis Android app.
 #. Translators: This is for restoring a backup from the aegis Android app.
-#: src/backup/aegis.rs:393 src/backup/aegis.rs:445
+#: src/backup/aegis.rs:399 src/backup/aegis.rs:439
 msgid "Aegis"
 msgstr "Aegis"
 
-#: src/backup/aegis.rs:397
+#: src/backup/aegis.rs:403
 msgid "Into a JSON file containing plain-text or encrypted fields"
 msgstr "Intun file JSON che al conten test in clâr o cjamps cifrâts"
 
-#: src/backup/aegis.rs:449
+#: src/backup/aegis.rs:443
 msgid "From a JSON file containing plain-text or encrypted fields"
 msgstr "Di un file JSON che al conten test in clâr o cjamps cifrâts"
 
 #. Translators: This is for making a backup for the andOTP Android app.
-#: src/backup/andotp.rs:70
+#: src/backup/andotp.rs:79
 msgid "a_ndOTP"
 msgstr "a_ndOTP"
 
-#: src/backup/andotp.rs:74
+#: src/backup/andotp.rs:83
 msgid "Into a plain-text JSON file"
 msgstr "Intun file JSON a test sempliç"
 
 #. Translators: This is for restoring a backup from the andOTP Android app.
-#: src/backup/andotp.rs:131
+#: src/backup/andotp.rs:127
 msgid "an_dOTP"
 msgstr "an_dOTP"
 
-#: src/backup/andotp.rs:135 src/backup/bitwarden.rs:123 src/backup/legacy.rs:40
+#: src/backup/andotp.rs:131 src/backup/bitwarden.rs:124 src/backup/legacy.rs:45
 msgid "From a plain-text JSON file"
 msgstr "Di un file JSON a test sempliç"
 
@@ -585,129 +565,178 @@ msgid "Unknown issuer"
 msgstr "Emitent no cognossût"
 
 #. Translators: This is for restoring a backup from Bitwarden.
-#: src/backup/bitwarden.rs:119
+#: src/backup/bitwarden.rs:120
 msgid "_Bitwarden"
 msgstr "_Bitwarden"
 
-#: src/backup/freeotp.rs:23
+#: src/backup/freeotp.rs:18
 msgid "_Authenticator"
 msgstr "_Autenticadôr"
 
-#: src/backup/freeotp.rs:27
+#: src/backup/freeotp.rs:22
 msgid "Into a plain-text file, compatible with FreeOTP+"
 msgstr "Intun file di test sempliç. compatibil cun FreeOTP+"
 
-#: src/backup/freeotp.rs:69
+#: src/backup/freeotp.rs:51
 msgid "A_uthenticator"
 msgstr "A_utenticadôr"
 
-#: src/backup/freeotp.rs:73
+#: src/backup/freeotp.rs:55
 msgid "From a plain-text file, compatible with FreeOTP+"
 msgstr "Di un file di test sempliç, compatibil cun FreeOTP+"
 
-#: src/backup/google.rs:26
+#: src/backup/freeotp_json.rs:87
+msgid "FreeOTP+"
+msgstr "FreeOTP+"
+
+#: src/backup/freeotp_json.rs:91
+msgid "From a plain-text JSON file, compatible with FreeOTP+"
+msgstr "Di un file JSON di test sempliç, compatibil cun FreeOTP+"
+
+#: src/backup/google.rs:19
 msgid "Google Authenticator"
 msgstr "Google Authenticator"
 
-#: src/backup/google.rs:30
+#: src/backup/google.rs:23
 msgid "From a QR code generated by Google Authenticator"
 msgstr "Di un codiç QR gjenerât di Google Authenticator"
 
 #. Translators: this is for restoring a backup from the old Authenticator
 #. release
-#: src/backup/legacy.rs:36
+#: src/backup/legacy.rs:41
 msgid "Au_thenticator (Legacy)"
 msgstr "Au_tenticadôr (vecjo)"
 
-#: src/models/algorithm.rs:56
+#: src/models/algorithm.rs:60
 msgid "Counter-based"
 msgstr "Basât su contadôr"
 
-#: src/models/algorithm.rs:57
+#: src/models/algorithm.rs:61
 msgid "Time-based"
 msgstr "Basât sul timp"
 
 #. Translators: Steam refers to the gaming application by Valve.
-#: src/models/algorithm.rs:59
+#: src/models/algorithm.rs:63
 msgid "Steam"
 msgstr "Steam"
 
-#: src/models/algorithm.rs:122
+#: src/models/algorithm.rs:126
 msgid "SHA-1"
 msgstr "SHA-1"
 
-#: src/models/algorithm.rs:123
+#: src/models/algorithm.rs:127
 msgid "SHA-256"
 msgstr "SHA-256"
 
-#: src/models/algorithm.rs:124
+#: src/models/algorithm.rs:128
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:275
-msgid "Invalid Token"
-msgstr "Token no valit"
-
-#: src/widgets/window.rs:105
-msgid "Wrong Password"
-msgstr "Password sbaliade"
-
-#: src/widgets/preferences/password_page.rs:211
-#: src/widgets/preferences/password_page.rs:250
-msgid "Wrong Passphrase"
-msgstr "Passphrase sbaliade"
-
-#: src/widgets/preferences/window.rs:251 src/widgets/preferences/window.rs:318
-msgid "Key / Passphrase"
-msgstr "Clâf / passphrase"
-
-#: src/widgets/preferences/window.rs:252
-msgid "The key that will be used to decrypt the vault"
-msgstr "La clâf che e vignarà doprade par decifrâ la cassefuarte"
-
-#: src/widgets/preferences/window.rs:268 src/widgets/preferences/window.rs:334
-msgid "Select File"
-msgstr "Selezione file"
-
-#: src/widgets/preferences/window.rs:319
-msgid "The key used to encrypt the vault"
-msgstr "La clâf doprade par cifrâ la cassefuarte"
-
-#: src/widgets/preferences/window.rs:406 src/widgets/preferences/window.rs:439
-msgid "Unable to restore accounts"
-msgstr "Impussibil ripristinâ i accounts"
-
-#: src/widgets/preferences/window.rs:417
-msgid "Something went wrong"
-msgstr "Alc al è lât strucj"
-
-#: src/widgets/preferences/window.rs:445
-msgid "Couldn't find a QR code"
-msgstr "Impussibil cjatâ un codiç QR"
-
-#: src/widgets/providers/dialog.rs:244
-msgid "Provider created successfully"
-msgstr "Furnidôr creât cun sucès"
-
-#: src/widgets/providers/dialog.rs:254
-msgid "Provider updated successfully"
-msgstr "Furnidôr inzornât cun sucès"
-
-#: src/widgets/providers/dialog.rs:271
-msgid "Provider removed successfully"
-msgstr "Furnidôr gjavât cun sucès"
-
-#: src/widgets/providers/page.rs:201
-msgid "Editing Provider: {}"
-msgstr "Furnidôr de modifiche: {}"
-
-#: src/widgets/providers/page.rs:308
+#: src/widgets/accounts/add.rs:287 src/widgets/preferences/window.rs:432
+#: src/widgets/providers/page.rs:309
 msgid "Image"
 msgstr "Imagjin"
 
-#: src/widgets/providers/page.rs:341
+#: src/widgets/accounts/add.rs:295 src/widgets/preferences/window.rs:440
+msgid "Select QR Code"
+msgstr "Selezione codiç QR"
+
+#: src/widgets/accounts/add.rs:312
+msgid "Invalid Token"
+msgstr "Token no valit"
+
+#: src/widgets/window.rs:114
+msgid "Wrong Password"
+msgstr "Password sbaliade"
+
+#: src/widgets/preferences/password_page.rs:181
+#: src/widgets/preferences/password_page.rs:223
+msgid "Wrong Passphrase"
+msgstr "Passphrase sbaliade"
+
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:281
+msgid "Key / Passphrase"
+msgstr "Clâf / passphrase"
+
+#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:293
+msgid "Select File"
+msgstr "Selezione file"
+
+#: src/widgets/preferences/window.rs:244
+msgid "Failed to create a backup"
+msgstr "Impussibil creâ un backup"
+
+#: src/widgets/preferences/window.rs:356
+msgid "Failed to restore from camera"
+msgstr "Impussibil ripristinâ de fotocjamare"
+
+#: src/widgets/preferences/window.rs:367
+msgid "Failed to restore from a screenshot"
+msgstr "Impussibil ripristinâ di une videade"
+
+#: src/widgets/preferences/window.rs:377
+msgid "Failed to restore from an image"
+msgstr "Impussibil ripristinâ di une imagjin"
+
+#: src/widgets/preferences/window.rs:390
+msgid "Failed to restore from a file"
+msgstr "Impussibil ripristinâ di un file"
+
+#: src/widgets/providers/dialog.rs:249
+msgid "Provider created successfully"
+msgstr "Furnidôr creât cun sucès"
+
+#: src/widgets/providers/dialog.rs:259
+msgid "Provider updated successfully"
+msgstr "Furnidôr inzornât cun sucès"
+
+#: src/widgets/providers/dialog.rs:275
+msgid "Provider removed successfully"
+msgstr "Furnidôr gjavât cun sucès"
+
+#: src/widgets/providers/page.rs:203
+msgid "Editing Provider: {}"
+msgstr "Furnidôr de modifiche: {}"
+
+#: src/widgets/providers/page.rs:342
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "Cualchi account al è assegnât al furnidôr, prime gjave i account"
+
+#~ msgid "Dark Mode"
+#~ msgstr "Modalitât scure"
+
+#~ msgid "Whether the application should use a dark mode."
+#~ msgstr "Indiche se la aplicazion e à di doprâ une modalitât scure."
+
+#~ msgid "Go Back"
+#~ msgstr "Torne indaûr"
+
+#~ msgid "_Edit"
+#~ msgstr "_Modifiche"
+
+#~ msgid "Appearance"
+#~ msgstr "Aspiet"
+
+#~ msgid "_Dark Mode"
+#~ msgstr "_Modalitât scure"
+
+#~ msgid "Whether the application should use a dark mode"
+#~ msgstr "Indiche se la aplicazion e à di doprâ une modalitât scure"
+
+#~ msgid "The key that will be used to decrypt the vault"
+#~ msgstr "La clâf che e vignarà doprade par decifrâ la cassefuarte"
+
+#~ msgid "The key used to encrypt the vault"
+#~ msgstr "La clâf doprade par cifrâ la cassefuarte"
+
+#~ msgid "Unable to restore accounts"
+#~ msgstr "Impussibil ripristinâ i accounts"
+
+#~ msgid "Something went wrong"
+#~ msgstr "Alc al è lât strucj"
+
+#~ msgid "Couldn't find a QR code"
+#~ msgstr "Impussibil cjatâ un codiç QR"
 
 #~ msgid "Used to fetch the provider icon"
 #~ msgstr "Doprât par recuperâ la icone dal furnidôr"
@@ -729,12 +758,6 @@ msgstr "Cualchi account al è assegnât al furnidôr, prime gjave i account"
 
 #~ msgid "More"
 #~ msgstr "Di plui"
-
-#~ msgid "Capture from a screenshot"
-#~ msgstr "Cature di une videade"
-
-#~ msgid "QR code scanner"
-#~ msgstr "Analizadôr di codiç QR"
 
 #~ msgid "Huge database of more than 560 supported services"
 #~ msgstr "Base di dâts enorme di plui di 560 servizis supuartâts"
