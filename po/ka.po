@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-12 08:27+0000\n"
-"PO-Revision-Date: 2023-04-13 06:25+0200\n"
+"POT-Creation-Date: 2023-04-19 22:34+0000\n"
+"PO-Revision-Date: 2023-06-19 20:03+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
@@ -96,7 +96,7 @@ msgstr "თვისებები:"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
 msgid "Time-based/Counter-based/Steam methods support"
-msgstr ""
+msgstr "დროზე/ათვლაზე/ნაკადზე დაფუნებული მეთოდების მხარდაჭერა"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
 msgid "SHA-1/SHA-256/SHA-512 algorithms support"
@@ -123,6 +123,8 @@ msgid ""
 "Backup/Restore from/into known applications like FreeOTP+, Aegis "
 "(encrypted / plain-text), andOTP, Google Authenticator"
 msgstr ""
+"მარქაფი/აღდგენა ისეთ აპლიკაციებში ან აპლიკაციებიდან, როგორიცაა FreeOTP+, "
+"Aegis (დაშიფრული / უბრალო ტექსტი) და OTP, Google Authenticator"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
 msgid "Main Window"
@@ -145,19 +147,19 @@ msgstr "ანგარშის დეტალები"
 msgid "Backup/Restore formats support"
 msgstr "მარქაფი/აღდგენის ფორმატების მხარდაჭერა"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:282
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:290
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:320
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:310
 msgid "_Camera"
 msgstr "_კამერა"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:324
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:314
 msgid "_Screenshot"
 msgstr "_ეკრანის ანაბეჭდი"
 
-#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:329
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:319
 msgid "_QR Code Image"
 msgstr "_QR კოდის სურათი"
 
@@ -173,7 +175,7 @@ msgstr "უკან"
 msgid "_Add"
 msgstr "_დამატება"
 
-#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:315
+#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:305
 msgid "Scan QR Code"
 msgstr "QR კოდის სკანირება"
 
@@ -355,11 +357,11 @@ msgstr "ვებსაიტის ხატულის მიღება გ
 msgid "Backup/Restore"
 msgstr "მარქაფი/აღდგენა"
 
-#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:504
+#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:494
 msgid "Backup"
 msgstr "მარქაფი"
 
-#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:512
+#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:502
 msgid "Restore"
 msgstr "აღდგენა"
 
@@ -373,7 +375,7 @@ msgstr "სახელი"
 
 #: data/resources/ui/provider_page.ui:192
 msgid "The by default value for counter-based computing method"
-msgstr ""
+msgstr "ათვლაზე-ბაზირებული გამოთვლის მეთოდის ნაგულისხმები მნიშვნელობა"
 
 #: data/resources/ui/provider_page.ui:225
 msgid "Help URL"
@@ -398,7 +400,7 @@ msgstr "შედეგების გარეშე"
 
 #: data/resources/ui/providers_dialog.ui:109
 msgid "No providers matching the query were found."
-msgstr ""
+msgstr "მოთხოვნის შესაბამისი პროვაიდერები ვერ მოიძებნა."
 
 #: data/resources/ui/providers_dialog.ui:204
 msgid "No Provider Selected"
@@ -410,7 +412,7 @@ msgstr "აირჩიეთ მომწოდებელი ან შექ
 
 #: data/resources/ui/providers_list.ui:43
 msgid "No accounts or providers matching the query were found."
-msgstr ""
+msgstr "მოთხოვნის შესაბამისი ანგარიშები ან პროვაიდერები ნაპოვნი არაა."
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
@@ -525,11 +527,11 @@ msgstr "Aegis"
 
 #: src/backup/aegis.rs:403
 msgid "Into a JSON file containing plain-text or encrypted fields"
-msgstr ""
+msgstr "JSON ფაილში, რომელიც შეიცავს უბრალო ტექსტს ან დაშიფრულ ველებს"
 
 #: src/backup/aegis.rs:443
 msgid "From a JSON file containing plain-text or encrypted fields"
-msgstr ""
+msgstr "JSON ფაილიდან, რომელიც შეიცავს უბრალო ტექსტს ან დაშიფრულ ველებს"
 
 #. Translators: This is for making a backup for the andOTP Android app.
 #: src/backup/andotp.rs:79
@@ -568,7 +570,7 @@ msgstr "_Authenticator"
 
 #: src/backup/freeotp.rs:22
 msgid "Into a plain-text file, compatible with FreeOTP+"
-msgstr ""
+msgstr "უბრალო ტექსტურ ფაილში, თავსებადი FreeOTP+-სთან"
 
 #: src/backup/freeotp.rs:51
 msgid "A_uthenticator"
@@ -576,7 +578,7 @@ msgstr "A_uthenticator"
 
 #: src/backup/freeotp.rs:55
 msgid "From a plain-text file, compatible with FreeOTP+"
-msgstr ""
+msgstr "ჩვეულებრივი ტექსტური ფაილიდან, თავსებადი FreeOTP+-სთან"
 
 #: src/backup/freeotp_json.rs:87
 msgid "FreeOTP+"
@@ -602,11 +604,11 @@ msgstr "Au_thenticator (მოძველებული)"
 
 #: src/models/algorithm.rs:60
 msgid "Counter-based"
-msgstr ""
+msgstr "ათვლაზე-დაფუძნებული"
 
 #: src/models/algorithm.rs:61
 msgid "Time-based"
-msgstr ""
+msgstr "დროზე დაფუძნებული"
 
 #. Translators: Steam refers to the gaming application by Valve.
 #: src/models/algorithm.rs:63
@@ -625,12 +627,12 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:287 src/widgets/preferences/window.rs:442
+#: src/widgets/accounts/add.rs:287 src/widgets/preferences/window.rs:432
 #: src/widgets/providers/page.rs:309
 msgid "Image"
 msgstr "ასლი"
 
-#: src/widgets/accounts/add.rs:295 src/widgets/preferences/window.rs:450
+#: src/widgets/accounts/add.rs:295 src/widgets/preferences/window.rs:440
 msgid "Select QR Code"
 msgstr "აირჩიეთ QR კოდი"
 
@@ -647,51 +649,43 @@ msgstr "არასწორი პაროლი"
 msgid "Wrong Passphrase"
 msgstr "არასწორი საიდუმლო ფრაზა"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:287
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:281
 msgid "Key / Passphrase"
 msgstr "გასაღები / კოდური ფრაზა"
 
-#: src/widgets/preferences/window.rs:210
-msgid "The key that will be used to decrypt the vault"
-msgstr "საცავის გასაშიფრად გამოყენებული გასაღები"
-
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:303
+#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:293
 msgid "Select File"
 msgstr "აირჩიეთ ფაილი"
 
-#: src/widgets/preferences/window.rs:250
+#: src/widgets/preferences/window.rs:244
 msgid "Failed to create a backup"
 msgstr "მარქაფის შექმნის შეცდომა"
 
-#: src/widgets/preferences/window.rs:288
-msgid "The key used to encrypt the vault"
-msgstr "საცავის დასაშიფრად გამოყენებული გასაღები"
-
-#: src/widgets/preferences/window.rs:366
+#: src/widgets/preferences/window.rs:356
 msgid "Failed to restore from camera"
 msgstr "კამერიდან აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:377
+#: src/widgets/preferences/window.rs:367
 msgid "Failed to restore from a screenshot"
 msgstr "ეკრანის ანაბეჭდიდან აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:387
+#: src/widgets/preferences/window.rs:377
 msgid "Failed to restore from an image"
 msgstr "გამოსახულებიდან აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:400
+#: src/widgets/preferences/window.rs:390
 msgid "Failed to restore from a file"
 msgstr "ფაილიდან აღდგენის შეცდომა"
 
-#: src/widgets/providers/dialog.rs:255
+#: src/widgets/providers/dialog.rs:249
 msgid "Provider created successfully"
 msgstr "მომწოდებელი წარმატებით შეიქმნა"
 
-#: src/widgets/providers/dialog.rs:265
+#: src/widgets/providers/dialog.rs:259
 msgid "Provider updated successfully"
 msgstr "მომწოდებელი წარმატებით განახლდა"
 
-#: src/widgets/providers/dialog.rs:281
+#: src/widgets/providers/dialog.rs:275
 msgid "Provider removed successfully"
 msgstr "მომწოდებელი წარმატებით წაიშალა"
 
@@ -702,6 +696,12 @@ msgstr "მომწოდებლის ჩასწორება: {}"
 #: src/widgets/providers/page.rs:342
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "ამ მომწოდებელს ანგარიშები ჯერ კიდევ გააჩნია. ჯერ ისინი წაშალეთ"
+
+#~ msgid "The key that will be used to decrypt the vault"
+#~ msgstr "საცავის გასაშიფრად გამოყენებული გასაღები"
+
+#~ msgid "The key used to encrypt the vault"
+#~ msgstr "საცავის დასაშიფრად გამოყენებული გასაღები"
 
 #~ msgid "Go Back"
 #~ msgstr "უკან დაბრუნება"
