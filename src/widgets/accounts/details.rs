@@ -1,4 +1,5 @@
 use adw::prelude::*;
+use adw::subclass::navigation_page::*;
 use gettextrs::gettext;
 use gtk::{
     gdk,
@@ -60,7 +61,7 @@ mod imp {
     impl ObjectSubclass for AccountDetailsPage {
         const NAME: &'static str = "AccountDetailsPage";
         type Type = super::AccountDetailsPage;
-        type ParentType = gtk::Box;
+        type ParentType = adw::NavigationPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -113,12 +114,12 @@ mod imp {
         }
     }
     impl WidgetImpl for AccountDetailsPage {}
-    impl BoxImpl for AccountDetailsPage {}
+    impl NavigationPageImpl for AccountDetailsPage {}
 }
 
 glib::wrapper! {
     pub struct AccountDetailsPage(ObjectSubclass<imp::AccountDetailsPage>)
-        @extends gtk::Widget, gtk::Box;
+        @extends gtk::Widget, adw::NavigationPage;
 }
 
 #[gtk::template_callbacks]
