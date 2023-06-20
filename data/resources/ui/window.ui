@@ -219,9 +219,6 @@
                                             <signal name="toggled" handler="on_search_btn_toggled" swapped="true" />
                                           </object>
                                         </child>
-                                        <style>
-                                          <class name="titlebar" />
-                                        </style>
                                       </object>
                                     </child>
                                     <child>
