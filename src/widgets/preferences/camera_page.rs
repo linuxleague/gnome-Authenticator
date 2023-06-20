@@ -1,5 +1,6 @@
 use std::{cell::Cell, rc::Rc};
 
+use adw::subclass::navigation_page::*;
 use adw::subclass::prelude::*;
 use anyhow::Result;
 use gtk::{
@@ -33,7 +34,7 @@ mod imp {
     impl ObjectSubclass for CameraPage {
         const NAME: &'static str = "CameraPage";
         type Type = super::CameraPage;
-        type ParentType = adw::Bin;
+        type ParentType = adw::NavigationPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -60,12 +61,12 @@ mod imp {
     }
 
     impl WidgetImpl for CameraPage {}
-    impl BinImpl for CameraPage {}
+    impl NavigationPageImpl for CameraPage {}
 }
 
 glib::wrapper! {
     pub struct CameraPage(ObjectSubclass<imp::CameraPage>)
-        @extends gtk::Widget, adw::Bin;
+        @extends gtk::Widget, adw::NavigationPage;
 }
 
 #[gtk::template_callbacks]

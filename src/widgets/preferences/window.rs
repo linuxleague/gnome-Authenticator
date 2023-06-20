@@ -531,19 +531,19 @@ impl PreferencesWindow {
 
         let show_camera_page = gio::ActionEntry::builder("show_camera_page")
             .activate(clone!(@weak self as win => move |_, _, _| {
-                win.present_subpage(&win.imp().camera_page);
+                win.push_subpage(&win.imp().camera_page);
             }))
             .build();
 
         let show_password_page = gio::ActionEntry::builder("show_password_page")
             .activate(clone!(@weak self as win => move |_, _, _| {
-                win.present_subpage(&win.imp().password_page);
+                win.push_subpage(&win.imp().password_page);
             }))
             .build();
 
         let close_page = gio::ActionEntry::builder("close_page")
             .activate(clone!(@weak self as win => move |_, _, _| {
-                win.close_subpage();
+                win.pop_subpage();
                 win.imp().camera_page.imp().camera.stop();
             }))
             .build();

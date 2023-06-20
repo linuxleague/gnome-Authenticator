@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template parent="AdwBin" class="CameraPage">
+  <template parent="AdwNavigationPage" class="CameraPage">
+    <property name="title" translatable="yes">Camera</property>
     <property name="child">
       <object class="Camera" id="camera">
         <signal name="close" handler="on_camera_close" swapped="true" />

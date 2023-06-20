@@ -1,5 +1,6 @@
 use std::cell::{Cell, RefCell};
 
+use adw::subclass::navigation_page::*;
 use gettextrs::gettext;
 use gtk::{
     gio,
@@ -46,7 +47,7 @@ mod imp {
     impl ObjectSubclass for PasswordPage {
         const NAME: &'static str = "PasswordPage";
         type Type = super::PasswordPage;
-        type ParentType = gtk::Box;
+        type ParentType = adw::NavigationPage;
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -91,12 +92,12 @@ mod imp {
         }
     }
 
-    impl BoxImpl for PasswordPage {}
+    impl NavigationPageImpl for PasswordPage {}
 }
 
 glib::wrapper! {
     pub struct PasswordPage(ObjectSubclass<imp::PasswordPage>)
-        @extends gtk::Widget, gtk::Box;
+        @extends gtk::Widget, adw::NavigationPage;
 }
 
 #[gtk::template_callbacks]
