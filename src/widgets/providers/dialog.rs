@@ -34,11 +34,11 @@ mod imp {
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
+        pub search_bar: TemplateChild<gtk::SearchBar>,
+        #[template_child]
         pub search_btn: TemplateChild<gtk::ToggleButton>,
         #[template_child]
         pub search_stack: TemplateChild<gtk::Stack>,
-        #[template_child]
-        pub title_stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
         #[template_child]
@@ -182,17 +182,17 @@ impl ProvidersDialog {
             View::Form => {
                 imp.deck.set_show_content(true);
                 imp.stack.set_visible_child_name("provider");
-                imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
+                imp.search_bar.set_key_capture_widget(gtk::Widget::NONE);
                 imp.search_entry.emit_stop_search();
             }
             View::List => {
                 imp.deck.set_show_content(false);
-                imp.search_entry.set_key_capture_widget(Some(self));
+                imp.search_bar.set_key_capture_widget(Some(self));
             }
             View::Placeholder => {
                 imp.deck.set_show_content(true);
                 imp.stack.set_visible_child_name("placeholder");
-                imp.search_entry.set_key_capture_widget(Some(self));
+                imp.search_bar.set_key_capture_widget(Some(self));
             }
         }
     }
@@ -216,11 +216,9 @@ impl ProvidersDialog {
     fn on_search_btn_toggled(&self, btn: &gtk::ToggleButton) {
         let imp = self.imp();
         if btn.is_active() {
-            imp.title_stack.set_visible_child_name("search");
             imp.search_entry.grab_focus();
         } else {
             imp.search_entry.set_text("");
-            imp.title_stack.set_visible_child_name("title");
         }
     }
     #[template_callback]
