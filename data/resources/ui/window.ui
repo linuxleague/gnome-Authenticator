@@ -123,11 +123,9 @@
                               <object class="GtkStackPage">
                                 <property name="name">empty</property>
                                 <property name="child">
-                                  <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkHeaderBar">
-                                        <property name="show-title-buttons">True</property>
+                                  <object class="AdwToolbarView">
+                                    <child type="top">
+                                      <object class="AdwHeaderBar">
                                         <child type="start">
                                           <object class="GtkButton">
                                             <property name="action-name">win.add_account</property>
@@ -143,9 +141,6 @@
                                             <property name="tooltip-text" translatable="yes">Main Menu</property>
                                           </object>
                                         </child>
-                                        <style>
-                                          <class name="titlebar" />
-                                        </style>
                                       </object>
                                     </child>
                                     <child>
