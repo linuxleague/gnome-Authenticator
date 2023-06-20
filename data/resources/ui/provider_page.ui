@@ -215,7 +215,7 @@
                         <property name="label" translatable="yes">_Delete</property>
                         <property name="use-underline">True</property>
                         <property name="action-name">providers.delete</property>
-                        <property name="halign">end</property>
+                        <property name="halign">center</property>
                         <style>
                           <class name="pill" />
                           <class name="destructive-action" />
