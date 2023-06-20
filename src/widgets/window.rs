@@ -46,7 +46,7 @@ mod imp {
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
-        pub deck: TemplateChild<adw::Leaflet>,
+        pub navigation_view: TemplateChild<adw::NavigationView>,
         #[template_child]
         pub error_revealer: TemplateChild<ErrorRevealer>,
         #[template_child]
@@ -247,8 +247,7 @@ impl Window {
             View::Accounts => {
                 self.set_default_widget(gtk::Widget::NONE);
                 imp.main_stack.set_visible_child_name("unlocked");
-                imp.deck.set_visible_child_name("accounts");
-                imp.deck.set_can_navigate_back(false);
+                imp.navigation_view.pop();
                 if imp.providers.model().n_items() == 0 {
                     if self.model().has_providers() {
                         // We do have at least one provider
@@ -269,8 +268,7 @@ impl Window {
                 self.set_default_widget(gtk::Widget::NONE);
                 imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 imp.main_stack.set_visible_child_name("unlocked");
-                imp.deck.set_visible_child_name("account");
-                imp.deck.set_can_navigate_back(true);
+                imp.navigation_view.push_by_tag("account");
                 imp.account_details.set_account(&account);
             }
         }

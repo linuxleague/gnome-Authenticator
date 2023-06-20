@@ -110,12 +110,11 @@
               <object class="GtkStackPage">
                 <property name="name">unlocked</property>
                 <property name="child">
-                  <object class="AdwLeaflet" id="deck">
-                    <property name="can-unfold">False</property>
-                    <property name="can-navigate-back">True</property>
+                  <object class="AdwNavigationView" id="navigation_view">
                     <child>
-                      <object class="AdwLeafletPage">
-                        <property name="name">accounts</property>
+                      <object class="AdwNavigationPage">
+                        <property name="tag">accounts</property>
+                        <property name="title" translatable="yes">Accounts</property>
                         <property name="child">
                           <object class="GtkStack" id="accounts_stack">
                             <property name="transition-type">crossfade</property>
@@ -237,14 +236,9 @@
                       </object>
                     </child>
                     <child>
-                      <object class="AdwLeafletPage">
-                        <property name="name">account</property>
-                        <property name="child">
-                          <object class="AccountDetailsPage" id="account_details">
-                            <signal name="provider-changed" handler="on_provider_changed" swapped="true" />
-                            <signal name="removed" handler="on_account_removed" swapped="true" />
-                          </object>
-                        </property>
+                      <object class="AccountDetailsPage" id="account_details">
+                        <signal name="provider-changed" handler="on_provider_changed" swapped="true" />
+                        <signal name="removed" handler="on_account_removed" swapped="true" />
                       </object>
                     </child>
                   </object>
