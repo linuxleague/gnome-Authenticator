@@ -54,7 +54,7 @@ mod imp {
         #[template_child]
         pub password_entry: TemplateChild<gtk::PasswordEntry>,
         #[template_child]
-        pub locked_img: TemplateChild<gtk::Image>,
+        pub locked_status_page: TemplateChild<adw::StatusPage>,
         #[template_child]
         pub accounts_stack: TemplateChild<gtk::Stack>,
         #[template_child]
@@ -150,7 +150,7 @@ mod imp {
 
             win.set_icon_name(Some(config::APP_ID));
             self.empty_status_page.set_icon_name(Some(config::APP_ID));
-            self.locked_img.set_from_icon_name(Some(config::APP_ID));
+            self.locked_status_page.set_icon_name(Some(config::APP_ID));
 
             // load latest window state
             let width = SETTINGS.int("window-width");
