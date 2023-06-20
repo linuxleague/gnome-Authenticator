@@ -30,7 +30,7 @@ mod imp {
         #[template_child]
         pub providers_list: TemplateChild<gtk::ListBox>,
         #[template_child]
-        pub deck: TemplateChild<adw::Leaflet>,
+        pub deck: TemplateChild<adw::NavigationSplitView>,
         #[template_child]
         pub search_entry: TemplateChild<gtk::SearchEntry>,
         #[template_child]
@@ -109,11 +109,6 @@ mod imp {
                     row.upcast::<gtk::Widget>()
                 });
 
-            self.deck
-                .bind_property("folded", &*self.page.imp().revealer, "reveal-child")
-                .sync_create()
-                .build();
-
             obj.set_view(View::Placeholder);
         }
 
@@ -185,17 +180,17 @@ impl ProvidersDialog {
         let imp = self.imp();
         match view {
             View::Form => {
-                imp.deck.set_visible_child_name("provider");
+                imp.deck.set_show_content(true);
                 imp.stack.set_visible_child_name("provider");
                 imp.search_entry.set_key_capture_widget(gtk::Widget::NONE);
                 imp.search_entry.emit_stop_search();
             }
             View::List => {
-                imp.deck.set_visible_child_name("providers");
+                imp.deck.set_show_content(false);
                 imp.search_entry.set_key_capture_widget(Some(self));
             }
             View::Placeholder => {
-                imp.deck.set_visible_child_name("provider");
+                imp.deck.set_show_content(true);
                 imp.stack.set_visible_child_name("placeholder");
                 imp.search_entry.set_key_capture_widget(Some(self));
             }

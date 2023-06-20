@@ -197,11 +197,6 @@ impl AccountAddDialog {
         let entry = completion.entry().unwrap();
 
         imp.deck.set_visible_child_name("create-provider");
-        imp.provider_page
-            .imp()
-            .back_btn
-            .set_action_name(Some("add.previous"));
-        imp.provider_page.imp().revealer.set_reveal_child(true);
         imp.provider_page.set_provider(None);
 
         let name_entry = imp.provider_page.name_entry();

@@ -30,19 +30,6 @@
       <object class="AdwToolbarView">
         <child type="top">
           <object class="AdwHeaderBar">
-            <child type="start">
-              <object class="GtkRevealer" id="revealer">
-                <property name="transition-type">crossfade</property>
-                <child>
-                  <object class="GtkButton" id="back_btn">
-                    <property name="receives-default">True</property>
-                    <property name="action-name">providers.back</property>
-                    <property name="icon-name">go-previous-symbolic</property>
-                    <property name="tooltip-text" translatable="yes">Back</property>
-                  </object>
-                </child>
-              </object>
-            </child>
             <child type="end">
               <object class="GtkButton" id="save_btn">
                 <property name="label" translatable="yes">_Save</property>
@@ -59,8 +46,7 @@
         </child>
         <child>
           <object class="GtkScrolledWindow">
-            <property name="min-content-width">340</property>
-            <property name="min-content-height">400</property>
+            <property name="hscrollbar-policy">never</property>
             <child>
               <object class="AdwClamp">
                 <property name="margin-top">36</property>

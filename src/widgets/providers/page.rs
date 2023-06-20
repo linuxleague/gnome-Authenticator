@@ -26,8 +26,6 @@ mod imp {
         pub methods_model: adw::EnumListModel,
         pub algorithms_model: adw::EnumListModel,
         #[template_child]
-        pub revealer: TemplateChild<gtk::Revealer>,
-        #[template_child]
         pub error_revealer: TemplateChild<ErrorRevealer>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
@@ -57,8 +55,6 @@ mod imp {
         pub delete_button: TemplateChild<gtk::Button>,
         pub selected_provider: RefCell<Option<Provider>>,
         pub selected_image: RefCell<Option<gio::File>>,
-        #[template_child]
-        pub back_btn: TemplateChild<gtk::Button>,
     }
 
     #[glib::object_subclass]
@@ -74,7 +70,6 @@ mod imp {
             Self {
                 actions: gio::SimpleActionGroup::new(),
                 image: TemplateChild::default(),
-                revealer: TemplateChild::default(),
                 error_revealer: TemplateChild::default(),
                 name_entry: TemplateChild::default(),
                 period_spinbutton: TemplateChild::default(),
@@ -88,7 +83,6 @@ mod imp {
                 digits_row: TemplateChild::default(),
                 default_counter_row: TemplateChild::default(),
                 delete_button: TemplateChild::default(),
-                back_btn: TemplateChild::default(),
                 methods_model,
                 algorithms_model,
                 selected_provider: RefCell::default(),

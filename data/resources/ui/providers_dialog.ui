@@ -2,23 +2,25 @@
 <interface>
   <template parent="AdwWindow" class="ProvidersDialog">
     <property name="modal">True</property>
-    <property name="title" translatable="yes">Providers</property>
     <property name="default-width">820</property>
     <property name="default-height">760</property>
+    <property name="width-request">360</property>
+    <property name="height-request">294</property>
     <child>
-      <object class="AdwLeaflet" id="deck">
-        <property name="can-unfold">True</property>
-        <property name="can-navigate-back">True</property>
-        <child>
-          <object class="AdwLeafletPage">
-            <property name="name">providers</property>
+      <object class="AdwBreakpoint">
+        <condition>max-width: 550sp</condition>
+        <setter object="deck" property="collapsed">True</setter>
+      </object>
+    </child>
+    <child>
+      <object class="AdwNavigationSplitView" id="deck">
+        <property name="sidebar">
+          <object class="AdwNavigationPage">
+            <property name="title" translatable="yes">Providers</property>
             <property name="child">
               <object class="AdwToolbarView">
                 <child type="top">
                   <object class="AdwHeaderBar">
-                    <binding name="show-end-title-buttons">
-                      <lookup name="folded">deck</lookup>
-                    </binding>
                     <child type="start">
                       <object class="GtkButton">
                         <property name="receives-default">True</property>
@@ -115,41 +117,10 @@
               </object>
             </property>
           </object>
-        </child>
-        <child>
-          <object class="AdwLeafletPage">
-            <property name="navigatable">False</property>
-            <property name="child">
-              <object class="GtkBox">
-                <property name="orientation">vertical</property>
-                <child>
-                  <object class="GtkWindowHandle" id="header_separator">
-                    <child>
-                      <object class="GtkSeparator">
-                        <property name="orientation">vertical</property>
-                        <style>
-                          <class name="sidebar" />
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkSeparator">
-                    <property name="orientation">vertical</property>
-                    <property name="vexpand">True</property>
-                    <style>
-                      <class name="sidebar" />
-                    </style>
-                  </object>
-                </child>
-              </object>
-            </property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwLeafletPage">
-            <property name="name">provider</property>
+        </property>
+        <property name="content">
+          <object class="AdwNavigationPage">
+            <property name="title" translatable="yes">Provider</property>
             <property name="child">
               <object class="AdwToastOverlay" id="toast_overlay">
                 <property name="child">
@@ -175,22 +146,6 @@
                             <child type="top">
                               <object class="AdwHeaderBar">
                                 <property name="show-title">False</property>
-                                <child type="start">
-                                  <object class="GtkRevealer">
-                                    <property name="transition-type">crossfade</property>
-                                    <binding name="reveal-child">
-                                      <lookup name="folded">deck</lookup>
-                                    </binding>
-                                    <child>
-                                      <object class="GtkButton" id="back_btn">
-                                        <property name="receives-default">True</property>
-                                        <property name="action-name">providers.back</property>
-                                        <property name="icon-name">go-previous-symbolic</property>
-                                        <property name="tooltip-text" translatable="yes">Back</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                </child>
                               </object>
                             </child>
                             <child>
@@ -210,7 +165,7 @@
               </object>
             </property>
           </object>
-        </child>
+        </property>
       </object>
     </child>
     <child>
