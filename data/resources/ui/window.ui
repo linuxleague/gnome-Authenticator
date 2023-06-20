@@ -158,11 +158,10 @@
                               <object class="GtkStackPage">
                                 <property name="name">accounts</property>
                                 <property name="child">
-                                  <object class="GtkBox">
-                                    <property name="orientation">vertical</property>
-                                    <child>
-                                      <object class="GtkHeaderBar">
-                                        <property name="show-title-buttons">True</property>
+                                  <object class="AdwToolbarView">
+                                    <child type="top">
+                                      <object class="AdwHeaderBar">
+                                        <property name="centering-policy">strict</property>
                                         <child type="start">
                                           <object class="GtkButton">
                                             <property name="action-name">win.add_account</property>
