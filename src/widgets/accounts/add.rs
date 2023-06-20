@@ -1,10 +1,10 @@
+use adw::prelude::*;
 use adw::subclass::prelude::*;
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{self, clone},
-    prelude::*,
     Inhibit,
 };
 
@@ -32,7 +32,7 @@ mod imp {
         #[template_child]
         pub camera: TemplateChild<Camera>,
         #[template_child]
-        pub deck: TemplateChild<adw::Leaflet>,
+        pub navigation_view: TemplateChild<adw::NavigationView>,
         #[template_child]
         pub image: TemplateChild<ProviderImage>,
         #[template_child]
@@ -79,8 +79,13 @@ mod imp {
 
             klass.install_action("add.previous", None, |dialog, _, _| {
                 let imp = dialog.imp();
-                if imp.deck.visible_child_name().unwrap() != "main" {
-                    imp.deck.set_visible_child_name("main");
+                if imp
+                    .navigation_view
+                    .visible_page()
+                    .and_then(|page| page.tag())
+                    .is_some_and(|tag| tag != "main")
+                {
+                    imp.navigation_view.pop();
                 } else {
                     dialog.close();
                 }
@@ -196,7 +201,7 @@ impl AccountAddDialog {
         let imp = self.imp();
         let entry = completion.entry().unwrap();
 
-        imp.deck.set_visible_child_name("create-provider");
+        imp.navigation_view.push_by_tag("create-provider");
         imp.provider_page.set_provider(None);
 
         let name_entry = imp.provider_page.name_entry();
@@ -205,10 +210,8 @@ impl AccountAddDialog {
     }
 
     #[template_callback]
-    fn deck_visible_child_name_notify(&self, _pspec: glib::ParamSpec, deck: adw::Leaflet) {
-        if deck.visible_child_name().as_deref() != Some("camera") {
-            self.imp().camera.stop();
-        }
+    fn camera_page_hidden(&self, _page: &adw::NavigationPage) {
+        self.imp().camera.stop();
     }
 
     #[template_callback]
@@ -237,7 +240,7 @@ impl AccountAddDialog {
         imp.provider_completion
             .set_model(Some(&model.completion_model()));
         self.set_provider(Some(provider));
-        imp.deck.set_visible_child_name("main");
+        imp.navigation_view.pop();
     }
 
     async fn scan_from_screenshot(&self) {
@@ -249,12 +252,12 @@ impl AccountAddDialog {
     async fn scan_from_camera(&self) {
         let imp = self.imp();
         imp.camera.scan_from_camera().await;
-        imp.deck.set_visible_child_name("camera");
+        imp.navigation_view.push_by_tag("camera");
     }
 
     pub fn set_from_otp_uri(&self, otp_uri: &OTPUri) {
         let imp = self.imp();
-        imp.deck.set_visible_child_name("main"); // Switch back the form view
+        imp.navigation_view.pop(); // Switch back the form view
 
         imp.token_entry.set_text(&otp_uri.secret());
         imp.username_entry.set_text(&otp_uri.account());
