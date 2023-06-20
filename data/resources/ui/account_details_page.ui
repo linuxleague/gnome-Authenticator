@@ -76,7 +76,6 @@
                 </child>
                 <child>
                   <object class="AdwClamp">
-                    <property name="vexpand">True</property>
                     <child>
                       <object class="GtkBox">
                         <property name="orientation">vertical</property>
