@@ -13,10 +13,8 @@
           <object class="AdwLeafletPage">
             <property name="name">providers</property>
             <property name="child">
-              <object class="GtkBox">
-                <property name="width-request">200</property>
-                <property name="orientation">vertical</property>
-                <child>
+              <object class="AdwToolbarView">
+                <child type="top">
                   <object class="AdwHeaderBar">
                     <binding name="show-end-title-buttons">
                       <lookup name="folded">deck</lookup>
@@ -173,13 +171,10 @@
                       <object class="GtkStackPage">
                         <property name="name">placeholder</property>
                         <property name="child">
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkHeaderBar">
-                                <property name="title-widget">
-                                  <object class="GtkLabel" />
-                                </property>
+                          <object class="AdwToolbarView">
+                            <child type="top">
+                              <object class="AdwHeaderBar">
+                                <property name="show-title">False</property>
                                 <child type="start">
                                   <object class="GtkRevealer">
                                     <property name="transition-type">crossfade</property>

@@ -1,9 +1,10 @@
 use adw::prelude::*;
+use adw::subclass::navigation_page::*;
+use adw::subclass::prelude::*;
 use gettextrs::gettext;
 use gtk::{
     gdk_pixbuf, gio,
     glib::{self, translate::IntoGlib},
-    subclass::prelude::*,
 };
 
 use crate::{
@@ -53,8 +54,6 @@ mod imp {
         #[template_child]
         pub default_counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
-        pub title: TemplateChild<adw::WindowTitle>,
-        #[template_child]
         pub delete_button: TemplateChild<gtk::Button>,
         pub selected_provider: RefCell<Option<Provider>>,
         pub selected_image: RefCell<Option<gio::File>>,
@@ -66,7 +65,7 @@ mod imp {
     impl ObjectSubclass for ProviderPage {
         const NAME: &'static str = "ProviderPage";
         type Type = super::ProviderPage;
-        type ParentType = gtk::Box;
+        type ParentType = adw::NavigationPage;
 
         fn new() -> Self {
             let methods_model = adw::EnumListModel::new(Method::static_type());
@@ -88,7 +87,6 @@ mod imp {
                 period_row: TemplateChild::default(),
                 digits_row: TemplateChild::default(),
                 default_counter_row: TemplateChild::default(),
-                title: TemplateChild::default(),
                 delete_button: TemplateChild::default(),
                 back_btn: TemplateChild::default(),
                 methods_model,
@@ -156,12 +154,12 @@ mod imp {
         }
     }
     impl WidgetImpl for ProviderPage {}
-    impl BoxImpl for ProviderPage {}
+    impl NavigationPageImpl for ProviderPage {}
 }
 
 glib::wrapper! {
     pub struct ProviderPage(ObjectSubclass<imp::ProviderPage>)
-        @extends gtk::Widget, gtk::Box;
+        @extends gtk::Widget, adw::NavigationPage;
 }
 
 #[gtk::template_callbacks]
@@ -199,8 +197,7 @@ impl ProviderPage {
                     .find_position(provider.method().into_glib()),
             );
             imp.image.set_provider(Some(&provider));
-            imp.title
-                .set_title(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
+            self.set_title(&i18n::i18n_f("Editing Provider: {}", &[&provider.name()]));
             imp.selected_provider.replace(Some(provider));
         } else {
             imp.name_entry.set_text("");
@@ -223,7 +220,7 @@ impl ProviderPage {
                     .find_position(Method::default().into_glib()),
             );
             imp.image.set_provider(None::<Provider>);
-            imp.title.set_title(&gettext("New Provider"));
+            self.set_title(&gettext("New Provider"));
             imp.selected_provider.replace(None);
         }
     }
