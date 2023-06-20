@@ -2,18 +2,10 @@
 <interface>
   <template parent="AdwBin" class="Camera">
     <child>
-      <object class="GtkBox">
-        <property name="orientation">vertical</property>
-        <child>
-          <object class="GtkHeaderBar">
-            <child type="start">
-              <object class="GtkButton" id="previous">
-                <property name="receives-default">True</property>
-                <property name="icon-name">go-previous-symbolic</property>
-                <property name="tooltip-text" translatable="yes">Back</property>
-                <signal name="clicked" handler="on_previous_clicked" swapped="true" />
-              </object>
-            </child>
+      <object class="AdwToolbarView">
+        <child type="top">
+          <object class="AdwHeaderBar">
+            <property name="show-title">False</property>
           </object>
         </child>
         <child>

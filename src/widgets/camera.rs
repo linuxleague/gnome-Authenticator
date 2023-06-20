@@ -83,8 +83,6 @@ mod imp {
         pub paintable: CameraPaintable,
         pub receiver: RefCell<Option<Receiver<CameraEvent>>>,
         #[template_child]
-        pub previous: TemplateChild<gtk::Button>,
-        #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
         #[template_child]
         pub picture: TemplateChild<gtk::Picture>,
@@ -120,7 +118,6 @@ mod imp {
             Self {
                 paintable: CameraPaintable::new(sender),
                 receiver,
-                previous: TemplateChild::default(),
                 camera_selection_button: TemplateChild::default(),
                 spinner: TemplateChild::default(),
                 stack: TemplateChild::default(),
@@ -360,11 +357,6 @@ impl Camera {
         }));
 
         imp.camera_selection_button.set_popover(Some(&popover));
-    }
-
-    #[template_callback]
-    fn on_previous_clicked(&self, _btn: gtk::Button) {
-        self.emit_by_name::<()>("close", &[]);
     }
 
     #[template_callback]
