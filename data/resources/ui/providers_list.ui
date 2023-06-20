@@ -7,8 +7,6 @@
     <child>
       <object class="GtkScrolledWindow">
         <property name="vexpand">True</property>
-        <property name="min-content-width">340</property>
-        <property name="min-content-height">400</property>
         <child>
           <object class="GtkStack" id="stack">
             <property name="transition-type">crossfade</property>
