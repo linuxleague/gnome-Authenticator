@@ -2,7 +2,7 @@
 <interface>
   <template parent="AdwBin" class="Camera">
     <child>
-      <object class="AdwToolbarView">
+      <object class="AdwToolbarView" id="toolbar_view">
         <child type="top">
           <object class="AdwHeaderBar">
             <property name="show-title">False</property>
@@ -71,6 +71,7 @@
                           <style>
                             <class name="osd" />
                             <class name="circular" />
+                            <class name="selectionbutton" />
                           </style>
                       </object>
                     </child>

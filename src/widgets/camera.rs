@@ -92,6 +92,8 @@ mod imp {
         pub screenshot: TemplateChild<gtk::Button>,
         #[template_child]
         pub camera_selection_button: TemplateChild<gtk::MenuButton>,
+        #[template_child]
+        pub toolbar_view: TemplateChild<adw::ToolbarView>,
         pub stream_list: gio::ListStore,
         pub selection: gtk::SingleSelection,
     }
@@ -103,6 +105,7 @@ mod imp {
         type ParentType = adw::Bin;
 
         fn class_init(klass: &mut Self::Class) {
+            klass.set_css_name("camera");
             klass.bind_template();
             klass.bind_template_instance_callbacks();
         }
@@ -123,6 +126,7 @@ mod imp {
                 stack: TemplateChild::default(),
                 picture: TemplateChild::default(),
                 screenshot: TemplateChild::default(),
+                toolbar_view: TemplateChild::default(),
                 stream_list: gio::ListStore::new(glib::BoxedAnyObject::static_type()),
                 selection: Default::default(),
             }
@@ -280,10 +284,14 @@ impl Camera {
             CameraState::NotFound => {
                 tracing::info!("The camera state changed: Not Found");
                 imp.stack.set_visible_child_name("not-found");
+                imp.toolbar_view.set_extend_content_to_top_edge(false);
+                imp.toolbar_view.remove_css_class("extended");
             }
             CameraState::Ready => {
                 tracing::info!("The camera state changed: Ready");
                 imp.stack.set_visible_child_name("stream");
+                imp.toolbar_view.set_extend_content_to_top_edge(true);
+                imp.toolbar_view.add_css_class("extended");
                 imp.spinner.stop();
             }
         }
