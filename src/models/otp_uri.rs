@@ -160,7 +160,7 @@ impl From<OTPUri> for String {
             utf8_percent_encode(&val.label, NON_ALPHANUMERIC),
             val.secret,
             utf8_percent_encode(&val.issuer, NON_ALPHANUMERIC),
-            val.algorithm.to_string(),
+            val.algorithm.to_string().to_uppercase(),
         );
         if let Some(digits) = val.digits {
             write!(otp_uri, "&digits={digits}").unwrap();
