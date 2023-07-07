@@ -33,11 +33,11 @@ mod imp {
         #[template_child]
         pub name_entry: TemplateChild<adw::EntryRow>,
         #[template_child]
-        pub period_spinbutton: TemplateChild<gtk::SpinButton>,
+        pub period_spinbutton: TemplateChild<adw::SpinRow>,
         #[template_child]
-        pub digits_spinbutton: TemplateChild<gtk::SpinButton>,
+        pub digits_spinbutton: TemplateChild<adw::SpinRow>,
         #[template_child]
-        pub default_counter_spinbutton: TemplateChild<gtk::SpinButton>,
+        pub default_counter_spinbutton: TemplateChild<adw::SpinRow>,
         #[template_child]
         pub provider_website_entry: TemplateChild<adw::EntryRow>,
         #[template_child]
@@ -46,12 +46,6 @@ mod imp {
         pub method_comborow: TemplateChild<adw::ComboRow>,
         #[template_child]
         pub algorithm_comborow: TemplateChild<adw::ComboRow>,
-        #[template_child]
-        pub period_row: TemplateChild<adw::ActionRow>,
-        #[template_child]
-        pub digits_row: TemplateChild<adw::ActionRow>,
-        #[template_child]
-        pub default_counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub delete_button: TemplateChild<gtk::Button>,
         pub selected_provider: RefCell<Option<Provider>>,
@@ -80,9 +74,6 @@ mod imp {
                 provider_help_entry: TemplateChild::default(),
                 method_comborow: TemplateChild::default(),
                 algorithm_comborow: TemplateChild::default(),
-                period_row: TemplateChild::default(),
-                digits_row: TemplateChild::default(),
-                default_counter_row: TemplateChild::default(),
                 delete_button: TemplateChild::default(),
                 methods_model,
                 algorithms_model,
@@ -367,21 +358,21 @@ impl ProviderPage {
         let selected = Method::from(combo_row.selected());
         match selected {
             Method::TOTP => {
-                imp.default_counter_row.set_visible(false);
-                imp.period_row.set_visible(true);
+                imp.default_counter_spinbutton.set_visible(false);
+                imp.period_spinbutton.set_visible(true);
                 imp.digits_spinbutton.set_value(OTP::DEFAULT_DIGITS as f64);
                 imp.period_spinbutton.set_value(OTP::DEFAULT_PERIOD as f64);
             }
             Method::HOTP => {
-                imp.default_counter_row.set_visible(true);
-                imp.period_row.set_visible(false);
+                imp.default_counter_spinbutton.set_visible(true);
+                imp.period_spinbutton.set_visible(false);
                 imp.default_counter_spinbutton
                     .set_value(OTP::DEFAULT_COUNTER as f64);
                 imp.digits_spinbutton.set_value(OTP::DEFAULT_DIGITS as f64);
             }
             Method::Steam => {
-                imp.default_counter_row.set_visible(false);
-                imp.period_row.set_visible(true);
+                imp.default_counter_spinbutton.set_visible(false);
+                imp.period_spinbutton.set_visible(true);
                 imp.digits_spinbutton
                     .set_value(OTP::STEAM_DEFAULT_DIGITS as f64);
                 imp.period_spinbutton
@@ -393,8 +384,10 @@ impl ProviderPage {
 
         imp.algorithm_comborow
             .set_sensitive(selected != Method::Steam);
-        imp.period_row.set_sensitive(selected != Method::Steam);
-        imp.digits_row.set_sensitive(selected != Method::Steam);
+        imp.period_spinbutton
+            .set_sensitive(selected != Method::Steam);
+        imp.digits_spinbutton
+            .set_sensitive(selected != Method::Steam);
     }
 }
 

@@ -35,13 +35,11 @@ mod imp {
         #[template_child]
         pub method_label: TemplateChild<gtk::Label>,
         #[template_child]
-        pub counter_spinbutton: TemplateChild<gtk::SpinButton>,
+        pub counter_spinbutton: TemplateChild<adw::SpinRow>,
         #[template_child]
         pub period_label: TemplateChild<gtk::Label>,
         #[template_child]
         pub digits_label: TemplateChild<gtk::Label>,
-        #[template_child]
-        pub counter_row: TemplateChild<adw::ActionRow>,
         #[template_child]
         pub period_row: TemplateChild<adw::ActionRow>,
         #[template_child]
@@ -176,10 +174,10 @@ impl AccountDetailsPage {
         imp.method_label
             .set_text(&provider.method().to_locale_string());
         if provider.method().is_event_based() {
-            imp.counter_row.set_visible(true);
+            imp.counter_spinbutton.set_visible(true);
             imp.period_row.set_visible(false);
         } else {
-            imp.counter_row.set_visible(false);
+            imp.counter_spinbutton.set_visible(false);
             imp.period_row.set_visible(true);
             imp.period_label.set_text(&provider.period().to_string());
         }

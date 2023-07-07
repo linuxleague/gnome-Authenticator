@@ -46,22 +46,15 @@
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="AdwSpinRow" id="lock_timeout_spin_btn">
                 <property name="title" translatable="yes">Auto Lock _Timeout</property>
                 <property name="subtitle" translatable="yes">The time in minutes</property>
-                <property name="activatable-widget">lock_timeout_spin_btn</property>
                 <property name="use-underline">True</property>
-                <child>
-                  <object class="GtkSpinButton" id="lock_timeout_spin_btn">
-                    <property name="valign">center</property>
-                    <property name="halign">center</property>
-                    <property name="sensitive" bind-source="auto_lock_switch" bind-property="sensitive" bind-flags="sync-create" />
-                    <property name="adjustment">auto_lock_adjustment</property>
-                    <property name="climb-rate">1</property>
-                    <property name="numeric">True</property>
-                    <property name="update-policy">if-valid</property>
-                  </object>
-                </child>
+                <property name="sensitive" bind-source="auto_lock_switch" bind-property="sensitive" bind-flags="sync-create" />
+                <property name="adjustment">auto_lock_adjustment</property>
+                <property name="climb-rate">1</property>
+                <property name="numeric">True</property>
+                <property name="update-policy">if-valid</property>
               </object>
             </child>
           </object>

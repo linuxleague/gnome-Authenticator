@@ -55,7 +55,7 @@ mod imp {
         #[template_child(id = "download_favicons_metered_switch")]
         pub download_favicons_metered: TemplateChild<gtk::Switch>,
         #[template_child(id = "lock_timeout_spin_btn")]
-        pub lock_timeout: TemplateChild<gtk::SpinButton>,
+        pub lock_timeout: TemplateChild<adw::SpinRow>,
         pub key_entries: RefCell<HashMap<String, adw::PasswordEntryRow>>,
     }
 

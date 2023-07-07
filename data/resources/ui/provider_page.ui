@@ -18,13 +18,6 @@
     <property name="step-increment">1</property>
     <property name="page-increment">10</property>
   </object>
-  <object class="GtkSizeGroup">
-    <widgets>
-      <widget name="digits_spinbutton" />
-      <widget name="period_spinbutton" />
-      <widget name="default_counter_spinbutton" />
-    </widgets>
-  </object>
   <template parent="AdwNavigationPage" class="ProviderPage">
     <child>
       <object class="AdwToolbarView">
@@ -151,55 +144,31 @@
                           <class name="boxed-list" />
                         </style>
                         <child>
-                          <object class="AdwActionRow" id="period_row">
-                            <property name="activatable-widget">period_spinbutton</property>
+                          <object class="AdwSpinRow" id="period_spinbutton">
                             <property name="title" translatable="yes">Period</property>
                             <property name="subtitle" translatable="yes">Duration in seconds until the next password update</property>
-                            <child>
-                              <object class="GtkSpinButton" id="period_spinbutton">
-                                <property name="halign">end</property>
-                                <property name="valign">center</property>
-                                <property name="hexpand">True</property>
-                                <property name="text">0</property>
-                                <property name="adjustment">period_adjustment</property>
-                                <property name="numeric">True</property>
-                              </object>
-                            </child>
+                            <property name="text">0</property>
+                            <property name="adjustment">period_adjustment</property>
+                            <property name="numeric">True</property>
                           </object>
                         </child>
                         <child>
-                          <object class="AdwActionRow" id="default_counter_row">
-                            <property name="activatable-widget">default_counter_spinbutton</property>
+                          <object class="AdwSpinRow" id="default_counter_spinbutton">
                             <property name="title" translatable="yes">Counter</property>
                             <property name="subtitle" translatable="yes">The by default value for counter-based computing method</property>
-                            <child>
-                              <object class="GtkSpinButton" id="default_counter_spinbutton">
-                                <property name="halign">end</property>
-                                <property name="valign">center</property>
-                                <property name="hexpand">True</property>
-                                <property name="text">0</property>
-                                <property name="adjustment">default_counter_adjustment</property>
-                                <property name="numeric">True</property>
-                              </object>
-                            </child>
+                            <property name="text">0</property>
+                            <property name="adjustment">default_counter_adjustment</property>
+                            <property name="numeric">True</property>
                           </object>
                         </child>
                         <child>
-                          <object class="AdwActionRow" id="digits_row">
-                            <property name="activatable-widget">digits_spinbutton</property>
+                          <object class="AdwSpinRow" id="digits_spinbutton">
                             <property name="title" translatable="yes">Digits</property>
                             <property name="subtitle" translatable="yes">Length of the generated code</property>
-                            <child>
-                              <object class="GtkSpinButton" id="digits_spinbutton">
-                                <property name="halign">end</property>
-                                <property name="valign">center</property>
-                                <property name="hexpand">True</property>
-                                <property name="value">6</property>
-                                <property name="text">0</property>
-                                <property name="adjustment">digits_adjustment</property>
-                                <property name="numeric">True</property>
-                              </object>
-                            </child>
+                            <property name="value">6</property>
+                            <property name="text">0</property>
+                            <property name="adjustment">digits_adjustment</property>
+                            <property name="numeric">True</property>
                           </object>
                         </child>
                         <child>

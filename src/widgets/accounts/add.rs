@@ -55,7 +55,7 @@ mod imp {
         #[template_child]
         pub algorithm_label: TemplateChild<gtk::Label>,
         #[template_child]
-        pub counter_row: TemplateChild<adw::ActionRow>,
+        pub counter_spinbutton: TemplateChild<adw::SpinRow>,
         #[template_child]
         pub period_row: TemplateChild<adw::ActionRow>,
         #[template_child]
@@ -340,10 +340,10 @@ impl AccountAddDialog {
             imp.digits_label.set_text(&provider.digits().to_string());
 
             if provider.method().is_time_based() {
-                imp.counter_row.set_visible(false);
+                imp.counter_spinbutton.set_visible(false);
                 imp.period_row.set_visible(true);
             } else {
-                imp.counter_row.set_visible(true);
+                imp.counter_spinbutton.set_visible(true);
                 imp.period_row.set_visible(false);
             }
 
