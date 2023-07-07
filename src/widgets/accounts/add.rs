@@ -306,12 +306,12 @@ impl AccountAddDialog {
             let username = imp.username_entry.text();
             let token = imp.token_entry.text();
             let token = token.trim_end_matches('=');
-            if !OTP::is_valid(&token) {
+            if !OTP::is_valid(token) {
                 imp.error_revealer.popup(&gettext("Invalid Token"));
                 anyhow::bail!("Token {} is not a valid Base32 secret", &token);
             }
 
-            let account = Account::create(&username, &token, None, provider)?;
+            let account = Account::create(&username, token, None, provider)?;
 
             self.model().add_account(&account, provider);
             self.emit_by_name::<()>("added", &[]);

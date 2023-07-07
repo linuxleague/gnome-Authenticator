@@ -217,8 +217,7 @@ impl Camera {
     fn set_streams(&self, streams: Vec<ashpd::desktop::camera::Stream>) {
         let imp = self.imp();
         let mut selected_stream = 0;
-        let mut id = 0;
-        for stream in streams {
+        for (id, stream) in streams.into_iter().enumerate() {
             let default = gettext("Unknown Device");
             let nick = stream
                 .properties()
@@ -237,9 +236,8 @@ impl Camera {
                 node_id: stream.node_id(),
             };
             imp.stream_list.append(&glib::BoxedAnyObject::new(item));
-            id += 1;
         }
-        imp.selection.set_selected(selected_stream);
+        imp.selection.set_selected(selected_stream as u32);
     }
 
     pub async fn scan_from_camera(&self) {
