@@ -1,6 +1,7 @@
-use adw::prelude::*;
-use adw::subclass::navigation_page::*;
-use adw::subclass::prelude::*;
+use adw::{
+    prelude::*,
+    subclass::{navigation_page::*, prelude::*},
+};
 use gettextrs::gettext;
 use gtk::{
     gdk_pixbuf, gio,

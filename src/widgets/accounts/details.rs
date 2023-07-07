@@ -1,5 +1,4 @@
-use adw::prelude::*;
-use adw::subclass::navigation_page::*;
+use adw::{prelude::*, subclass::navigation_page::*};
 use gettextrs::gettext;
 use gtk::{
     gdk,

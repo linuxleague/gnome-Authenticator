@@ -1,7 +1,6 @@
 use std::{cell::Cell, rc::Rc};
 
-use adw::subclass::navigation_page::*;
-use adw::subclass::prelude::*;
+use adw::subclass::{navigation_page::*, prelude::*};
 use anyhow::Result;
 use gtk::{
     gio,
