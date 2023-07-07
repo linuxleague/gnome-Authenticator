@@ -269,10 +269,4 @@
       </attributes>
     </child>
   </object>
-  <object class="GtkSizeGroup">
-    <widgets>
-      <widget name="provider_entry"/>
-      <widget name="counter_spinbutton"/>
-    </widgets>
-  </object>
 </interface>
