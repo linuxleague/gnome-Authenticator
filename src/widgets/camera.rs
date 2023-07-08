@@ -115,7 +115,7 @@ mod imp {
         }
 
         fn new() -> Self {
-            let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+            let (sender, r) = glib::MainContext::channel(glib::Priority::default());
             let receiver = RefCell::new(Some(r));
 
             Self {
@@ -127,7 +127,7 @@ mod imp {
                 picture: TemplateChild::default(),
                 screenshot: TemplateChild::default(),
                 toolbar_view: TemplateChild::default(),
-                stream_list: gio::ListStore::new(glib::BoxedAnyObject::static_type()),
+                stream_list: gio::ListStore::new::<glib::BoxedAnyObject>(),
                 selection: Default::default(),
             }
         }
@@ -267,10 +267,7 @@ impl Camera {
         if let Ok(code) = screenshot::scan(&data) {
             self.emit_by_name::<()>("code-detected", &[&code]);
         }
-        if let Err(err) = screenshot_file
-            .trash_future(glib::source::PRIORITY_HIGH)
-            .await
-        {
+        if let Err(err) = screenshot_file.trash_future(glib::Priority::HIGH).await {
             tracing::error!("Failed to remove scanned screenshot {}", err);
         }
         Ok(())
@@ -298,7 +295,7 @@ impl Camera {
     fn setup_receiver(&self) {
         self.imp().receiver.borrow_mut().take().unwrap().attach(
             None,
-            glib::clone!(@weak self as camera => @default-return glib::Continue(false), move |event| {
+            glib::clone!(@weak self as camera => @default-return glib::ControlFlow::Break, move |event| {
                 match event {
                     CameraEvent::CodeDetected(code) => {
                         camera.emit_by_name::<()>("code-detected", &[&code]);
@@ -307,7 +304,7 @@ impl Camera {
                         camera.set_state(CameraState::Ready);
                     }
                 }
-                glib::Continue(true)
+                glib::ControlFlow::Continue
             }),
         );
     }

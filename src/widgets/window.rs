@@ -1,7 +1,7 @@
 use gettextrs::gettext;
 use gtk::{
     gio,
-    glib::{self, clone, signal::Inhibit},
+    glib::{self, clone},
     prelude::*,
     subclass::prelude::*,
 };
@@ -121,19 +121,8 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for Window {
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
-        }
-
         fn constructed(&self) {
             self.parent_constructed();
             let win = self.obj();
@@ -183,12 +172,11 @@ mod imp {
             }
         }
 
-        fn close_request(&self) -> Inhibit {
-            self.parent_close_request();
+        fn close_request(&self) -> glib::Propagation {
             if let Err(err) = self.obj().save_window_state() {
                 tracing::warn!("Failed to save window state {:#?}", err);
             }
-            Inhibit(false)
+            self.parent_close_request()
         }
     }
 
@@ -339,9 +327,9 @@ impl Window {
     }
 
     #[template_callback]
-    fn on_key_pressed(&self) -> Inhibit {
+    fn on_key_pressed(&self) -> glib::Propagation {
         self.app().restart_lock_timeout();
-        Inhibit(false)
+        glib::Propagation::Proceed
     }
 
     #[template_callback]

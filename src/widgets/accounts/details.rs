@@ -2,7 +2,7 @@ use adw::{prelude::*, subclass::navigation_page::*};
 use gettextrs::gettext;
 use gtk::{
     gdk,
-    glib::{self, clone},
+    glib::{self, clone, ControlFlow},
     subclass::prelude::*,
 };
 
@@ -225,7 +225,7 @@ impl AccountDetailsPage {
     }
 
     #[template_callback]
-    fn provider_match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> gtk::Inhibit {
+    fn provider_match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> ControlFlow {
         let provider_id = store.get::<u32>(&iter, 0);
         let model = self.imp().providers_model.get().unwrap();
         let provider = model.find_by_id(provider_id);
@@ -234,6 +234,6 @@ impl AccountDetailsPage {
                 page.imp().account.borrow().as_ref().unwrap().provider()
             })),
         );
-        gtk::Inhibit(false)
+        ControlFlow::Break
     }
 }

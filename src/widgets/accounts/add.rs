@@ -3,8 +3,7 @@ use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{
     gio,
-    glib::{self, clone},
-    Inhibit,
+    glib::{self, clone, ControlFlow},
 };
 
 use crate::{
@@ -116,23 +115,12 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for AccountAddDialog {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> =
                 Lazy::new(|| vec![Signal::builder("added").action().build()]);
             SIGNALS.as_ref()
-        }
-
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
         }
 
         fn constructed(&self) {
@@ -184,12 +172,12 @@ impl AccountAddDialog {
     }
 
     #[template_callback]
-    fn match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> Inhibit {
+    fn match_selected(&self, store: gtk::ListStore, iter: gtk::TreeIter) -> ControlFlow {
         let provider_id = store.get::<u32>(&iter, 0);
         let provider = self.model().find_by_id(provider_id);
         self.set_provider(provider);
 
-        Inhibit(false)
+        ControlFlow::Break
     }
 
     #[template_callback]
@@ -283,7 +271,7 @@ impl AccountAddDialog {
         let images_filter = gtk::FileFilter::new();
         images_filter.set_name(Some(&gettext("Image")));
         images_filter.add_pixbuf_formats();
-        let model = gio::ListStore::new(gtk::FileFilter::static_type());
+        let model = gio::ListStore::new::<gtk::FileFilter>();
         model.append(&images_filter);
 
         let dialog = gtk::FileDialog::builder()

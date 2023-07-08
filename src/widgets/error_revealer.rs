@@ -51,10 +51,10 @@ impl ErrorRevealer {
         imp.revealer.set_reveal_child(true);
         glib::timeout_add_seconds_local(
             2,
-            glib::clone!(@weak self as error_revealer => @default-return glib::Continue(false), move || {
+            glib::clone!(@weak self as error_revealer => @default-return glib::ControlFlow::Break, move || {
                 error_revealer.imp().revealer.set_reveal_child(false);
                 error_revealer.set_visible(false);
-                glib::Continue(false)
+                glib::ControlFlow::Break
             }),
         );
     }

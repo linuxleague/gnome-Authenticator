@@ -291,7 +291,7 @@ impl ProviderPage {
         let images_filter = gtk::FileFilter::new();
         images_filter.set_name(Some(&gettext("Image")));
         images_filter.add_pixbuf_formats();
-        let model = gio::ListStore::new(gtk::FileFilter::static_type());
+        let model = gio::ListStore::new::<gtk::FileFilter>();
         model.append(&images_filter);
 
         let file_chooser = gtk::FileDialog::builder()

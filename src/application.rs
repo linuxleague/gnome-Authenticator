@@ -49,20 +49,8 @@ mod imp {
         type Type = super::Application;
     }
 
-    // Overrides GObject vfuncs
-    impl ObjectImpl for Application {
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
-        }
-    }
+    #[glib::derived_properties]
+    impl ObjectImpl for Application {}
 
     // Overrides GApplication vfuncs
     impl ApplicationImpl for Application {
@@ -326,9 +314,9 @@ impl Application {
         if !self.is_locked() && self.can_be_locked() {
             let id = glib::timeout_add_seconds_local(
                 timeout,
-                clone!(@weak self as app => @default-return glib::Continue(false), move || {
+                clone!(@weak self as app => @default-return glib::ControlFlow::Break, move || {
                     app.set_is_locked(true);
-                    glib::Continue(false)
+                    glib::ControlFlow::Break
                 }),
             );
             imp.lock_timeout_id.replace(Some(id));

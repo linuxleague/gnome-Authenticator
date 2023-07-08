@@ -49,7 +49,7 @@ mod imp {
         type ParentType = gtk::Box;
 
         fn new() -> Self {
-            let (sender, r) = glib::MainContext::channel(glib::PRIORITY_DEFAULT);
+            let (sender, r) = glib::MainContext::channel(glib::Priority::default());
             let receiver = RefCell::new(Some(r));
             Self {
                 sender,
@@ -74,22 +74,11 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for ProviderImage {
         fn constructed(&self) {
             self.parent_constructed();
             self.obj().setup_widget();
-        }
-
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
         }
     }
     impl WidgetImpl for ProviderImage {}
@@ -235,7 +224,7 @@ impl ProviderImage {
         let receiver = imp.receiver.borrow_mut().take().unwrap();
         receiver.attach(
             None,
-            clone!(@weak self as image => @default-return glib::Continue(false), move |action| image.do_action(action)),
+            clone!(@weak self as image => @default-return glib::ControlFlow::Break, move |action| image.do_action(action)),
         );
         self.bind_property("size", &*imp.image, "pixel-size")
             .sync_create()
@@ -256,7 +245,7 @@ impl ProviderImage {
         );
     }
 
-    fn do_action(&self, action: ImageAction) -> glib::Continue {
+    fn do_action(&self, action: ImageAction) -> glib::ControlFlow {
         let imp = self.imp();
         let image_path = match action {
             // TODO: handle network failure and other errors differently
@@ -283,6 +272,6 @@ impl ProviderImage {
 
         imp.stack.set_visible_child_name("image");
         imp.spinner.stop();
-        glib::Continue(true)
+        glib::ControlFlow::Continue
     }
 }

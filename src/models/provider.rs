@@ -124,19 +124,8 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for Provider {
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
-        }
-
         fn dispose(&self) {
             // Stop ticking
             if let Some(source_id) = self.tick_callback.borrow_mut().take() {
@@ -416,9 +405,9 @@ impl Provider {
             Method::TOTP | Method::Steam => {
                 let source_id = glib::timeout_add_seconds_local(
                     1,
-                    clone!(@weak self as provider => @default-return glib::Continue(false), move || {
+                    clone!(@weak self as provider => @default-return glib::ControlFlow::Break, move || {
                         provider.tick();
-                        glib::Continue(true)
+                        glib::ControlFlow::Continue
                     }),
                 );
                 self.imp().tick_callback.replace(Some(source_id));

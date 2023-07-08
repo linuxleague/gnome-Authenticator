@@ -95,23 +95,12 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for PreferencesWindow {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> =
                 Lazy::new(|| vec![Signal::builder("restore-completed").action().build()]);
             SIGNALS.as_ref()
-        }
-
-        fn properties() -> &'static [glib::ParamSpec] {
-            Self::derived_properties()
-        }
-
-        fn set_property(&self, id: usize, value: &glib::Value, pspec: &glib::ParamSpec) {
-            self.derived_set_property(id, value, pspec)
-        }
-
-        fn property(&self, id: usize, pspec: &glib::ParamSpec) -> glib::Value {
-            self.derived_property(id, pspec)
         }
 
         fn constructed(&self) {
@@ -431,7 +420,7 @@ impl PreferencesWindow {
         let images_filter = gtk::FileFilter::new();
         images_filter.set_name(Some(&gettext("Image")));
         images_filter.add_pixbuf_formats();
-        let model = gio::ListStore::new(gtk::FileFilter::static_type());
+        let model = gio::ListStore::new::<gtk::FileFilter>();
         model.append(&images_filter);
 
         let dialog = gtk::FileDialog::builder()
@@ -478,7 +467,7 @@ impl PreferencesWindow {
         filters: &'static [&str],
         operation: Operation,
     ) -> Result<gio::File, glib::Error> {
-        let filters_model = gio::ListStore::new(gtk::FileFilter::static_type());
+        let filters_model = gio::ListStore::new::<gtk::FileFilter>();
         filters.iter().for_each(|f| {
             let filter = gtk::FileFilter::new();
             filter.add_mime_type(f);

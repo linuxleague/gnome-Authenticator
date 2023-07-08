@@ -31,6 +31,7 @@ mod imp {
         pub pipeline: RefCell<Option<gst::Pipeline>>,
         pub pipewire_element: RefCell<Option<gst::Element>>,
         pub sink_paintable: RefCell<Option<gdk::Paintable>>,
+        pub guard: RefCell<Option<gst::bus::BusWatchGuard>>,
     }
 
     #[glib::object_subclass]
@@ -130,7 +131,7 @@ impl CameraPaintable {
     fn init_pipeline(&self, pipewire_src: &gst::Element) -> anyhow::Result<()> {
         tracing::debug!("Init pipeline");
         let imp = self.imp();
-        let pipeline = gst::Pipeline::new(None);
+        let pipeline = gst::Pipeline::new();
 
         let sink = gst::ElementFactory::make_with_name("gtk4paintablesink", None)?;
         let paintable = sink.property::<gdk::Paintable>("paintable");
@@ -168,10 +169,11 @@ impl CameraPaintable {
             bin.add(&sink)?;
             convert.link(&sink)?;
 
-            bin.add_pad(&gst::GhostPad::with_target(
-                Some("sink"),
-                &convert.static_pad("sink").unwrap(),
-            )?)?;
+            bin.add_pad(
+                &gst::GhostPad::builder_with_target(&convert.static_pad("sink").unwrap())?
+                    .name("sink")
+                    .build(),
+            )?;
 
             bin.upcast()
         };
@@ -194,8 +196,8 @@ impl CameraPaintable {
         gst::Element::link_many(&[&queue2, &videoflip, &sink])?;
 
         let bus = pipeline.bus().unwrap();
-        bus.add_watch_local(
-            clone!(@weak self as paintable => @default-return glib::Continue(false), move |_, msg| {
+        let guard = bus.add_watch_local(
+            clone!(@weak self as paintable => @default-return glib::ControlFlow::Break, move |_, msg| {
                 use gst::MessageView;
                 let sender = paintable.imp().sender.borrow().as_ref().unwrap().clone();
                 match msg.view() {
@@ -226,21 +228,23 @@ impl CameraPaintable {
                     }
                     _ => (),
                 }
-                glib::Continue(true)
+                glib::ControlFlow::Continue
 
             }),
         )?;
+        imp.guard.replace(Some(guard));
         imp.pipeline.replace(Some(pipeline));
         Ok(())
     }
 
     pub fn close_pipeline(&self) {
         tracing::debug!("Closing pipeline");
-        if let Some(pipeline) = self.imp().pipeline.borrow_mut().take() {
+        if let Some(pipeline) = self.imp().pipeline.take() {
             if let Err(err) = pipeline.set_state(gst::State::Null) {
                 tracing::error!("Failed to close the pipeline: {err}");
             }
         }
+        let _ = self.imp().guard.take();
     }
 
     pub fn start(&self) {
