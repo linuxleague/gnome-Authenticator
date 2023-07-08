@@ -49,11 +49,11 @@ mod imp {
         #[template_child]
         pub restore_group: TemplateChild<adw::PreferencesGroup>,
         #[template_child(id = "auto_lock_switch")]
-        pub auto_lock: TemplateChild<gtk::Switch>,
+        pub auto_lock: TemplateChild<adw::SwitchRow>,
         #[template_child(id = "download_favicons_switch")]
-        pub download_favicons: TemplateChild<gtk::Switch>,
+        pub download_favicons: TemplateChild<adw::SwitchRow>,
         #[template_child(id = "download_favicons_metered_switch")]
-        pub download_favicons_metered: TemplateChild<gtk::Switch>,
+        pub download_favicons_metered: TemplateChild<adw::SwitchRow>,
         #[template_child(id = "lock_timeout_spin_btn")]
         pub lock_timeout: TemplateChild<adw::SpinRow>,
         pub key_entries: RefCell<HashMap<String, adw::PasswordEntryRow>>,
