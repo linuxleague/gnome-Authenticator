@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-04-12 08:27+0000\n"
-"PO-Revision-Date: 2023-04-13 19:20+0300\n"
+"POT-Creation-Date: 2023-07-07 22:52+0000\n"
+"PO-Revision-Date: 2023-07-08 09:28+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:34 src/application.rs:98 src/main.rs:41
+#: data/resources/ui/window.ui:36 src/application.rs:98 src/main.rs:41
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -138,7 +138,7 @@ msgid "Main Window"
 msgstr "Головне вікно"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
-#: data/resources/ui/account_add.ui:29
+#: data/resources/ui/account_add.ui:32 data/resources/ui/account_add.ui:49
 msgid "Add a New Account"
 msgstr "Додавання нового облікового запису"
 
@@ -154,117 +154,123 @@ msgstr "Параметри облікового запису"
 msgid "Backup/Restore formats support"
 msgstr "Підтримка форматів резервного копіювання/відновлення"
 
-#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:282
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:296
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:320
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:310
 msgid "_Camera"
 msgstr "_Камера"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:324
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:314
 msgid "_Screenshot"
 msgstr "З_німок вікна"
 
-#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:329
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:319
 msgid "_QR Code Image"
 msgstr "Зображення _QR-коду"
 
-#: data/resources/ui/account_add.ui:50
-#: data/resources/ui/account_details_page.ui:31 data/resources/ui/camera.ui:13
-#: data/resources/ui/preferences_password_page.ui:13
-#: data/resources/ui/provider_page.ui:45
-#: data/resources/ui/providers_dialog.ui:194
-#| msgid "Backup"
-msgid "Back"
-msgstr "Назад"
+#: data/resources/ui/account_add.ui:58
+msgid "Cancel"
+msgstr "Скасувати"
 
-#: data/resources/ui/account_add.ui:55
+#: data/resources/ui/account_add.ui:64
 msgid "_Add"
 msgstr "Д_одати"
 
-#: data/resources/ui/account_add.ui:67 src/widgets/preferences/window.rs:315
+#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:305
 msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
-#: data/resources/ui/account_add.ui:106
-#: data/resources/ui/account_details_page.ui:102
+#: data/resources/ui/account_add.ui:114
+#: data/resources/ui/account_details_page.ui:95
+#: data/resources/ui/providers_dialog.ui:105
 msgid "Provider"
 msgstr "Надавач даних"
 
-#: data/resources/ui/account_add.ui:107
+#: data/resources/ui/account_add.ui:115
 msgid "Token issuer"
 msgstr "Видавець жетона"
 
-#: data/resources/ui/account_add.ui:121
-#: data/resources/ui/account_details_page.ui:97
+#: data/resources/ui/account_add.ui:129
+#: data/resources/ui/account_details_page.ui:90
 msgid "Account"
 msgstr "Обліковий запис"
 
-#: data/resources/ui/account_add.ui:127
+#: data/resources/ui/account_add.ui:135
 msgid "Token"
 msgstr "Ключ"
 
-#: data/resources/ui/account_add.ui:134
-#: data/resources/ui/account_details_page.ui:146
-#: data/resources/ui/provider_page.ui:191
+#: data/resources/ui/account_add.ui:142
+#: data/resources/ui/account_details_page.ui:139
+#: data/resources/ui/provider_page.ui:173
 msgid "Counter"
 msgstr "Лічильник"
 
-#: data/resources/ui/account_add.ui:159
-#: data/resources/ui/account_details_page.ui:125
-#: data/resources/ui/provider_page.ui:157
+#: data/resources/ui/account_add.ui:167
+#: data/resources/ui/account_details_page.ui:118
+#: data/resources/ui/provider_page.ui:139
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:171
-#: data/resources/ui/account_details_page.ui:135
-#: data/resources/ui/provider_page.ui:142
+#: data/resources/ui/account_add.ui:179
+#: data/resources/ui/account_details_page.ui:128
+#: data/resources/ui/provider_page.ui:124
 msgid "Computing Method"
 msgstr "Метод обчислення"
 
-#: data/resources/ui/account_add.ui:183
-#: data/resources/ui/account_details_page.ui:162
-#: data/resources/ui/provider_page.ui:174
+#: data/resources/ui/account_add.ui:191
+#: data/resources/ui/account_details_page.ui:155
+#: data/resources/ui/provider_page.ui:156
 msgid "Period"
 msgstr "Період"
 
-#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:175
+#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:157
 msgid "Duration in seconds until the next password update"
 msgstr "Тривалість періоду (у секундах) до наступного оновлення пароля"
 
-#: data/resources/ui/account_add.ui:196
-#: data/resources/ui/account_details_page.ui:172
-#: data/resources/ui/provider_page.ui:208
+#: data/resources/ui/account_add.ui:204
+#: data/resources/ui/account_details_page.ui:165
+#: data/resources/ui/provider_page.ui:190
 msgid "Digits"
 msgstr "Цифри"
 
-#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:209
+#: data/resources/ui/account_add.ui:205 data/resources/ui/provider_page.ui:191
 msgid "Length of the generated code"
 msgstr "Довжина створеного коду"
 
-#: data/resources/ui/account_add.ui:209
-#: data/resources/ui/account_details_page.ui:182
-#: data/resources/ui/provider_page.ui:136
+#: data/resources/ui/account_add.ui:217
+#: data/resources/ui/account_details_page.ui:175
+#: data/resources/ui/provider_page.ui:118
 msgid "Website"
 msgstr "Сайт"
 
-#: data/resources/ui/account_add.ui:214
+#: data/resources/ui/account_add.ui:222
 msgid "How to Set Up"
 msgstr "Як налаштувати"
 
-#: data/resources/ui/account_details_page.ui:61
-#: data/resources/ui/preferences_password_page.ui:21
-#: data/resources/ui/provider_page.ui:52
+#: data/resources/ui/account_add.ui:242
+#| msgid "_Camera"
+msgid "Camera"
+msgstr "Камера"
+
+#: data/resources/ui/account_add.ui:255
+#| msgid "New Provider"
+msgid "Create Provider"
+msgstr "Створити запис надавача даних"
+
+#: data/resources/ui/account_details_page.ui:55
+#: data/resources/ui/preferences_password_page.ui:17
+#: data/resources/ui/provider_page.ui:35
 msgid "_Save"
 msgstr "З_берегти"
 
-#: data/resources/ui/account_details_page.ui:72
-#: data/resources/ui/provider_page.ui:233
+#: data/resources/ui/account_details_page.ui:66
+#: data/resources/ui/provider_page.ui:215
 msgid "_Delete"
 msgstr "В_илучити"
 
-#: data/resources/ui/account_details_page.ui:187
+#: data/resources/ui/account_details_page.ui:180
 msgid "Help"
 msgstr "Довідка"
 
@@ -276,36 +282,41 @@ msgstr "Збільшити значення лічильника"
 msgid "Copy PIN to clipboard"
 msgstr "Копіювати пін-код до буфера обміну"
 
-#: data/resources/ui/camera.ui:44
+#: data/resources/ui/camera.ui:36
 msgid "No Camera Found"
 msgstr "Не знайдено камери"
 
-#: data/resources/ui/camera.ui:47
+#: data/resources/ui/camera.ui:39
 msgid "_From a Screenshot"
 msgstr "З_і знімка вікна"
 
-#: data/resources/ui/preferences_password_page.ui:32
+#: data/resources/ui/preferences_password_page.ui:4
+#| msgid "Wrong Password"
+msgid "Create Password"
+msgstr "Створити пароль"
+
+#: data/resources/ui/preferences_password_page.ui:28
 msgid "Set up a Passphrase"
 msgstr "Встановіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:33
+#: data/resources/ui/preferences_password_page.ui:29
 msgid "Authenticator will start locked after a passphrase is set."
 msgstr "«Розпізнавач» запускатиметься заблокованим після встановлення пароля."
 
-#: data/resources/ui/preferences_password_page.ui:52
+#: data/resources/ui/preferences_password_page.ui:50
 msgid "Current Passphrase"
 msgstr "Поточний пароль"
 
-#: data/resources/ui/preferences_password_page.ui:58
+#: data/resources/ui/preferences_password_page.ui:56
 msgid "New Passphrase"
 msgstr "Новий пароль"
 
-#: data/resources/ui/preferences_password_page.ui:64
+#: data/resources/ui/preferences_password_page.ui:62
 msgid "Repeat Passphrase"
 msgstr "Повторіть пароль"
 
-#: data/resources/ui/preferences_password_page.ui:78
-#: data/resources/ui/provider_page.ui:97
+#: data/resources/ui/preferences_password_page.ui:76
+#: data/resources/ui/provider_page.ui:79
 msgid "_Reset"
 msgstr "С_кинути"
 
@@ -365,61 +376,61 @@ msgstr "Отримувати піктограму сайта на з'єднан�
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:504
+#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:494
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:512
+#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:502
 msgid "Restore"
 msgstr "Відновити"
 
-#: data/resources/ui/provider_page.ui:107
+#: data/resources/ui/provider_page.ui:89
 msgid "Select a _File"
 msgstr "Вибрати _файл"
 
-#: data/resources/ui/provider_page.ui:130
+#: data/resources/ui/provider_page.ui:112
 msgid "Name"
 msgstr "Назва"
 
-#: data/resources/ui/provider_page.ui:192
+#: data/resources/ui/provider_page.ui:174
 msgid "The by default value for counter-based computing method"
 msgstr "Типове значення методу обчислення на основі лічильника"
 
-#: data/resources/ui/provider_page.ui:225
+#: data/resources/ui/provider_page.ui:207
 msgid "Help URL"
 msgstr "Адреса довідки"
 
-#: data/resources/ui/providers_dialog.ui:5
+#: data/resources/ui/providers_dialog.ui:20
 msgid "Providers"
 msgstr "Надавачі даних"
 
-#: data/resources/ui/providers_dialog.ui:29 src/widgets/providers/page.rs:226
+#: data/resources/ui/providers_dialog.ui:30 src/widgets/providers/page.rs:217
 msgid "New Provider"
 msgstr "Новий надавач даних"
 
-#: data/resources/ui/providers_dialog.ui:64 data/resources/ui/window.ui:265
+#: data/resources/ui/providers_dialog.ui:37 data/resources/ui/window.ui:218
 msgid "Search"
 msgstr "Пошук"
 
-#: data/resources/ui/providers_dialog.ui:108
-#: data/resources/ui/providers_list.ui:42
+#: data/resources/ui/providers_dialog.ui:90
+#: data/resources/ui/providers_list.ui:38
 msgid "No Results"
 msgstr "Нічого не знайдено"
 
-#: data/resources/ui/providers_dialog.ui:109
+#: data/resources/ui/providers_dialog.ui:91
 msgid "No providers matching the query were found."
 msgstr ""
 "Не знайдено жодного надавача даних, який відповідає заданим критеріям."
 
-#: data/resources/ui/providers_dialog.ui:204
+#: data/resources/ui/providers_dialog.ui:136
 msgid "No Provider Selected"
 msgstr "Не вибрано жодного надавача"
 
-#: data/resources/ui/providers_dialog.ui:205
+#: data/resources/ui/providers_dialog.ui:137
 msgid "Select a provider or create a new one"
 msgstr "Виберіть надавача або створіть новий запис"
 
-#: data/resources/ui/providers_list.ui:43
+#: data/resources/ui/providers_list.ui:39
 msgid "No accounts or providers matching the query were found."
 msgstr ""
 "Не знайдено жодного облікового запису або надавача даних, який відповідає "
@@ -490,27 +501,33 @@ msgstr "_Клавіатурні скорочення"
 msgid "_About Authenticator"
 msgstr "П_ро «Розпізнавач»"
 
-#: data/resources/ui/window.ui:101
+#: data/resources/ui/window.ui:66
 msgid "Authenticator is Locked"
 msgstr "«Розпізнавач» замкнено"
 
-#: data/resources/ui/window.ui:129
+#: data/resources/ui/window.ui:89
 msgid "_Unlock"
 msgstr "Віді_мкнути"
 
-#: data/resources/ui/window.ui:177 data/resources/ui/window.ui:217
+#: data/resources/ui/window.ui:119
+#| msgctxt "shortcut window"
+#| msgid "Accounts"
+msgid "Accounts"
+msgstr "Облікові записи"
+
+#: data/resources/ui/window.ui:134 data/resources/ui/window.ui:170
 msgid "New Account"
 msgstr "Створити обліковий запис"
 
-#: data/resources/ui/window.ui:185 data/resources/ui/window.ui:259
+#: data/resources/ui/window.ui:142 data/resources/ui/window.ui:212
 msgid "Main Menu"
 msgstr "Головне меню"
 
-#: data/resources/ui/window.ui:196
+#: data/resources/ui/window.ui:150
 msgid "No Accounts"
 msgstr "Немає облікових записів"
 
-#: data/resources/ui/window.ui:197
+#: data/resources/ui/window.ui:151
 msgid "Add an account or scan a QR code first."
 msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду."
 
@@ -638,16 +655,16 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:287 src/widgets/preferences/window.rs:442
-#: src/widgets/providers/page.rs:309
+#: src/widgets/accounts/add.rs:285 src/widgets/preferences/window.rs:432
+#: src/widgets/providers/page.rs:300
 msgid "Image"
 msgstr "Зображення"
 
-#: src/widgets/accounts/add.rs:295 src/widgets/preferences/window.rs:450
+#: src/widgets/accounts/add.rs:293 src/widgets/preferences/window.rs:440
 msgid "Select QR Code"
 msgstr "Виберіть QR-код"
 
-#: src/widgets/accounts/add.rs:312
+#: src/widgets/accounts/add.rs:311
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
@@ -655,68 +672,70 @@ msgstr "Некоректний жетон"
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/password_page.rs:181
-#: src/widgets/preferences/password_page.rs:223
+#: src/widgets/preferences/password_page.rs:182
+#: src/widgets/preferences/password_page.rs:224
 msgid "Wrong Passphrase"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:287
+#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:281
 msgid "Key / Passphrase"
 msgstr "Ключ / Пароль"
 
-#: src/widgets/preferences/window.rs:210
-msgid "The key that will be used to decrypt the vault"
-msgstr "Ключ, який буде використано для розшифрування сховища"
-
-#: src/widgets/preferences/window.rs:226 src/widgets/preferences/window.rs:303
+#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:293
 msgid "Select File"
 msgstr "Вибір файла"
 
-#: src/widgets/preferences/window.rs:250
+#: src/widgets/preferences/window.rs:244
 msgid "Failed to create a backup"
 msgstr "Не вдалося створити резервну копію"
 
-#: src/widgets/preferences/window.rs:288
-msgid "The key used to encrypt the vault"
-msgstr "Ключ, який використовується для розшифрування сховища"
-
-#: src/widgets/preferences/window.rs:366
+#: src/widgets/preferences/window.rs:356
 msgid "Failed to restore from camera"
 msgstr "Не вдалося відновити з камери"
 
-#: src/widgets/preferences/window.rs:377
+#: src/widgets/preferences/window.rs:367
 msgid "Failed to restore from a screenshot"
 msgstr "Не вдалося відновити зі знімка вікна"
 
-#: src/widgets/preferences/window.rs:387
+#: src/widgets/preferences/window.rs:377
 msgid "Failed to restore from an image"
 msgstr "Не вдалося відновити з зображення"
 
-#: src/widgets/preferences/window.rs:400
+#: src/widgets/preferences/window.rs:390
 msgid "Failed to restore from a file"
 msgstr "Не вдалося відновити з файла"
 
-#: src/widgets/providers/dialog.rs:255
+#: src/widgets/providers/dialog.rs:242
 msgid "Provider created successfully"
 msgstr "Надавача успішно створено"
 
-#: src/widgets/providers/dialog.rs:265
+#: src/widgets/providers/dialog.rs:252
 msgid "Provider updated successfully"
 msgstr "Надавача успішно оновлено"
 
-#: src/widgets/providers/dialog.rs:281
+#: src/widgets/providers/dialog.rs:268
 msgid "Provider removed successfully"
 msgstr "Надавача успішно вилучено"
 
-#: src/widgets/providers/page.rs:203
+#: src/widgets/providers/page.rs:194
 msgid "Editing Provider: {}"
 msgstr "Редагування надавача даних: {}"
 
-#: src/widgets/providers/page.rs:342
+#: src/widgets/providers/page.rs:333
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку "
 "вилучіть ці записи."
+
+#~| msgid "Backup"
+#~ msgid "Back"
+#~ msgstr "Назад"
+
+#~ msgid "The key that will be used to decrypt the vault"
+#~ msgstr "Ключ, який буде використано для розшифрування сховища"
+
+#~ msgid "The key used to encrypt the vault"
+#~ msgstr "Ключ, який використовується для розшифрування сховища"
 
 #~ msgid "Go Back"
 #~ msgstr "Назад"
@@ -756,9 +775,6 @@ msgstr ""
 
 #~ msgid "Select"
 #~ msgstr "Вибрати"
-
-#~ msgid "Cancel"
-#~ msgstr "Скасувати"
 
 #~ msgid "D_etails"
 #~ msgstr "П_одробиці"
