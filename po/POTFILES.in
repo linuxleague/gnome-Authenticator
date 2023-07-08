@@ -5,6 +5,7 @@ data/resources/ui/account_add.ui
 data/resources/ui/account_details_page.ui
 data/resources/ui/account_row.ui
 data/resources/ui/camera.ui
+data/resources/ui/preferences_camera_page.ui
 data/resources/ui/preferences_password_page.ui
 data/resources/ui/preferences.ui
 data/resources/ui/provider_page.ui
