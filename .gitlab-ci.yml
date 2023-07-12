@@ -1,9 +1,6 @@
-include: 'https://gitlab.gnome.org/GNOME/citemplates/raw/master/flatpak/flatpak_ci_initiative.yml'
-
-stages:
-  - check
-  - test
-  - deploy
+include:
+  - project: 'gnome/citemplates'
+    file: 'flatpak/flatpak-ci-initiative-sdk-extensions.yml'
 
 .vars-devel:
   variables:
@@ -12,6 +9,7 @@ stages:
     APP_ID: "com.belmoussaoui.Authenticator.Devel"
     RUNTIME_REPO: "https://nightly.gnome.org/gnome-nightly.flatpakrepo"
     BUNDLE: "authenticator-nightly.flatpak"
+  extends: '.flatpak'
 
 # Build Flatpak for x86_64
 flatpak@x86_64:
@@ -51,7 +49,7 @@ pages:
 
 rustfmt:
   image: "rust:slim"
-  stage: check
+  stage: ".pre"
   script:
     - rustup component add rustfmt
     - echo -e "" >> src/config.rs
