@@ -60,7 +60,7 @@ cargo_home = cargo_target_dir / 'cargo-home'
 test (
   'Cargo tests',
   cargo,
-  args: ['test'],
+  args: ['test', '--bin', meson.project_name()],
   timeout: 600, # cargo might take a bit of time sometimes
   env: ['CARGO_TARGET_DIR=@0@'.format(cargo_target_dir), 'CARGO_HOME=@0@'.format(cargo_home)]
 )

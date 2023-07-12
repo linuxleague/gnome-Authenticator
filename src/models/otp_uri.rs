@@ -242,6 +242,6 @@ mod tests {
             period: Some(30),
             counter: None,
         };
-        assert_eq!(String::from(uri), "otpauth://totp/account%20test?secret=dznF36H0IIg17rK&issuer=Test&algorithm=sha1&digits=6&period=30");
+        assert_eq!(String::from(uri), "otpauth://totp/account%20test?secret=dznF36H0IIg17rK&issuer=Test&algorithm=SHA1&digits=6&period=30");
     }
 }
