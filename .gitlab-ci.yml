@@ -12,26 +12,28 @@ include:
   extends: '.flatpak'
 
 # Build Flatpak for x86_64
-flatpak@x86_64:
+
+build-flatpak:
   extends: ['.flatpak@x86_64', '.vars-devel']
+  stage: build
 
 # Build Flatpak for aarch64
-flatpak@aarch64:
+build-flatpak-aarch64:
   extends: ['.flatpak@aarch64', '.vars-devel']
+  stage: build
 
 nightly@x86_64:
   extends: '.publish_nightly'
-  needs: ['flatpak@x86_64']
+  needs: ['build-flatpak']
 
 nightly@aarch64:
   extends: '.publish_nightly'
-  needs: ['flatpak@aarch64']
+  needs: ['build-flatpak-aarch64']
 
 pages:
   image: "quay.io/gnome_infrastructure/gnome-runtime-images:gnome-master"
-  variables:
-    MANIFEST_PATH: "build-aux/com.belmoussaoui.Authenticator.Devel.json"
-    FLATPAK_MODULE: "authenticator"
+  stage: build
+  extends: ['.vars-devel']
   tags:
     - flatpak
   script:
@@ -56,4 +58,3 @@ rustfmt:
     - rustc -Vv && cargo -Vv
     - cargo fmt --version
     - cargo fmt --all -- --color=always --check
-
