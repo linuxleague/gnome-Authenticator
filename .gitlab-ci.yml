@@ -11,8 +11,12 @@ include:
     BUNDLE: "authenticator-nightly.flatpak"
   extends: '.flatpak'
 
-# Build Flatpak for x86_64
+stages:
+  - build
+  - publish
+  - deploy
 
+# Build Flatpak for x86_64
 build-flatpak:
   extends: ['.flatpak@x86_64', '.vars-devel']
   stage: build
