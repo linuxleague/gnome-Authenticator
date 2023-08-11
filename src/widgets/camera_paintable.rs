@@ -179,7 +179,7 @@ impl CameraPaintable {
         };
         imp.sink_paintable.replace(Some(paintable));
 
-        pipeline.add_many(&[
+        pipeline.add_many([
             pipewire_src,
             &tee,
             &queue1,
@@ -191,9 +191,9 @@ impl CameraPaintable {
             &sink,
         ])?;
 
-        gst::Element::link_many(&[pipewire_src, &tee, &queue1, &videoconvert, &zbar, &fakesink])?;
+        gst::Element::link_many([pipewire_src, &tee, &queue1, &videoconvert, &zbar, &fakesink])?;
         tee.link_pads(None, &queue2, None)?;
-        gst::Element::link_many(&[&queue2, &videoflip, &sink])?;
+        gst::Element::link_many([&queue2, &videoflip, &sink])?;
 
         let bus = pipeline.bus().unwrap();
         let guard = bus.add_watch_local(
