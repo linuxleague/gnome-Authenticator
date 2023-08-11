@@ -247,13 +247,13 @@ dependencies = [
  "gstreamer-video",
  "gtk4",
  "hex",
- "image 0.24.7",
+ "image",
  "libadwaita",
  "once_cell",
  "oo7",
  "percent-encoding",
  "prost",
- "qrcode",
+ "qrencode",
  "rand",
  "ring",
  "rust-argon2",
@@ -860,7 +860,7 @@ name = "favicon-scrapper"
 version = "0.1.0"
 dependencies = [
  "data-encoding",
- "image 0.24.7",
+ "image",
  "once_cell",
  "percent-encoding",
  "quick-xml",
@@ -1402,7 +1402,7 @@ dependencies = [
  "libc",
  "muldiv",
  "num-integer",
- "num-rational 0.4.1",
+ "num-rational",
  "option-operations",
  "paste",
  "pretty-hex",
@@ -1812,20 +1812,6 @@ dependencies = [
 
 [[package]]
 name = "image"
-version = "0.23.14"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24ffcb7e7244a9bf19d35bf2883b9c080c4ced3c07a9895572178cdb8f13f6a1"
-dependencies = [
- "bytemuck",
- "byteorder",
- "color_quant",
- "num-iter",
- "num-rational 0.3.2",
- "num-traits",
-]
-
-[[package]]
-name = "image"
 version = "0.24.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6f3dfdbdd72063086ff443e297b61695500514b1e41095b6fb9a5ab48a70a711"
@@ -1833,7 +1819,7 @@ dependencies = [
  "bytemuck",
  "byteorder",
  "color_quant",
- "num-rational 0.4.1",
+ "num-rational",
  "num-traits",
  "png",
 ]
@@ -2209,7 +2195,7 @@ dependencies = [
  "num-complex",
  "num-integer",
  "num-iter",
- "num-rational 0.4.1",
+ "num-rational",
  "num-traits",
 ]
 
@@ -2266,17 +2252,6 @@ name = "num-iter"
 version = "0.1.43"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d03e6c028c5dc5cac6e2dec0efda81fc887605bb3d884578bb6d6bf7514e252"
-dependencies = [
- "autocfg",
- "num-integer",
- "num-traits",
-]
-
-[[package]]
-name = "num-rational"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "12ac428b1cb17fce6f731001d307d351ec70a6d202fc2e60f7d4c5e42d8f4f07"
 dependencies = [
  "autocfg",
  "num-integer",
@@ -2721,13 +2696,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "qrcode"
-version = "0.12.0"
+name = "qrencode"
+version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "16d2f1455f3630c6e5107b4f2b94e74d76dea80736de0981fd27644216cff57f"
+checksum = "a60db121a642f869443a5d7461fa7978e74248b5299d21d3e97f5c0b1905f7c1"
 dependencies = [
  "checked_int_cast",
- "image 0.23.14",
+ "image",
 ]
 
 [[package]]

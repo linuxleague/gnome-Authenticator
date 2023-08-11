@@ -9,7 +9,7 @@ pub struct QRCodeData {
 
 impl<B: AsRef<[u8]>> From<B> for QRCodeData {
     fn from(data: B) -> Self {
-        let code = qrcode::QrCode::new(data).unwrap();
+        let code = qrencode::QrCode::new(data).unwrap();
         let items = code
             .render::<char>()
             .quiet_zone(false)
