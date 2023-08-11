@@ -264,7 +264,6 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-subscriber",
- "unicase",
  "url",
  "uuid",
  "zbar-rust",

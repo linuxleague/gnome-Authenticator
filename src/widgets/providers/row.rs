@@ -7,7 +7,7 @@ use gtk::{
 };
 
 use crate::{
-    models::{Account, AccountSorter, Provider},
+    models::{Account, Provider},
     widgets::{accounts::AccountRow, ProgressIcon, ProviderImage},
 };
 
@@ -149,7 +149,10 @@ impl ProviderRow {
             .sync_create()
             .build();
 
-        let sorter = AccountSorter::default();
+        let sorter = gtk::StringSorter::builder()
+            .ignore_case(true)
+            .expression(Account::this_expression("name"))
+            .build();
         let sort_model =
             gtk::SortListModel::new(Some(provider.accounts().clone()), Some(sorter.clone()));
 

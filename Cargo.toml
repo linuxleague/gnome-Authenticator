@@ -38,7 +38,6 @@ serde_json = "1.0"
 tokio = {version = "1.0", default-features = false, features = ["rt-multi-thread", "fs", "io-util"]}
 tracing = {version = "0.1", default-features = false}
 tracing-subscriber = {version = "0.3", default-features = false, features = ["fmt"]}
-unicase = "2.6"
 url = "2.2"
 uuid = {version = "1.0", features = ["v4"]}
 zbar-rust = "0.0"

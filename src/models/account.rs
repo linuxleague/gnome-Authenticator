@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 use anyhow::{Context, Result};
 use diesel::prelude::*;
 use gtk::{
@@ -7,7 +5,6 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use unicase::UniCase;
 
 use crate::{
     models::{database, keyring, DieselProvider, Method, OTPUri, Provider, OTP, RUNTIME},
@@ -232,13 +229,6 @@ impl Account {
             }));
 
         Ok(results)
-    }
-
-    pub fn compare(obj1: &glib::Object, obj2: &glib::Object) -> Ordering {
-        let account1 = obj1.downcast_ref::<Account>().unwrap();
-        let account2 = obj2.downcast_ref::<Account>().unwrap();
-
-        UniCase::new(account1.name()).cmp(&UniCase::new(account2.name()))
     }
 
     pub fn new(

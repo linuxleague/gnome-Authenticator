@@ -5,7 +5,7 @@ use gtk::{
 };
 
 use crate::{
-    models::{Account, Provider, ProviderSorter, ProvidersModel},
+    models::{Account, Provider, ProvidersModel},
     widgets::providers::ProviderRow,
 };
 
@@ -23,7 +23,7 @@ mod imp {
     #[template(resource = "/com/belmoussaoui/Authenticator/providers_list.ui")]
     pub struct ProvidersList {
         pub filter_model: gtk::FilterListModel,
-        pub sorter: ProviderSorter,
+        pub sorter: gtk::StringSorter,
         #[template_child]
         pub providers_list: TemplateChild<gtk::ListBox>,
         #[template_child]
@@ -122,6 +122,10 @@ impl ProvidersList {
 
     fn setup_widget(&self) {
         let imp = self.imp();
+
+        imp.sorter.set_ignore_case(true);
+        imp.sorter
+            .set_expression(Some(Provider::this_expression("name")));
 
         let sort_model =
             gtk::SortListModel::new(Some(imp.filter_model.clone()), Some(imp.sorter.clone()));

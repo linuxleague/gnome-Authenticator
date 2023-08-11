@@ -3,7 +3,7 @@ use gettextrs::gettext;
 use gtk::glib::{self, clone};
 
 use super::{dialog_row::ProviderActionRow, ProviderPage};
-use crate::models::{Provider, ProviderSorter, ProvidersModel};
+use crate::models::{Provider, ProvidersModel};
 
 enum View {
     List,
@@ -99,7 +99,10 @@ mod imp {
                 }),
             );
 
-            let sorter = ProviderSorter::default();
+            let sorter = gtk::StringSorter::builder()
+                .ignore_case(true)
+                .expression(Provider::this_expression("name"))
+                .build();
             let sort_model = gtk::SortListModel::new(Some(self.filter_model.clone()), Some(sorter));
 
             let selection_model = gtk::NoSelection::new(Some(sort_model));

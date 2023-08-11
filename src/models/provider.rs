@@ -1,5 +1,4 @@
 use std::{
-    cmp::Ordering,
     string::ToString,
     time::{SystemTime, UNIX_EPOCH},
 };
@@ -12,7 +11,6 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use unicase::UniCase;
 use url::Url;
 
 use crate::{
@@ -197,13 +195,6 @@ impl Provider {
             .first::<DieselProvider>(&mut conn)
             .map_err(From::from)
             .map(From::from)
-    }
-
-    pub fn compare(obj1: &glib::Object, obj2: &glib::Object) -> Ordering {
-        let provider1 = obj1.downcast_ref::<Provider>().unwrap();
-        let provider2 = obj2.downcast_ref::<Provider>().unwrap();
-
-        UniCase::new(provider1.name()).cmp(&UniCase::new(provider2.name()))
     }
 
     pub fn load() -> Result<impl Iterator<Item = Self>> {
