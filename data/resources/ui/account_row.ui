@@ -3,6 +3,7 @@
   <template parent="AdwActionRow" class="AccountRow">
     <property name="activatable">True</property>
     <property name="selectable">False</property>
+    <property name="use-markup">False</property>
     <child type="suffix">
       <object class="GtkLabel" id="otp_label">
         <property name="halign">start</property>
