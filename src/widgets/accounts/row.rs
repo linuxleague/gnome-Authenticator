@@ -3,10 +3,11 @@ use gtk::{gdk, glib, prelude::*};
 use crate::models::Account;
 
 mod imp {
+    use std::cell::OnceCell;
+
     use adw::subclass::prelude::*;
     use gettextrs::gettext;
     use glib::subclass;
-    use once_cell::sync::OnceCell;
 
     use super::*;
     use crate::widgets::Window;

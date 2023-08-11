@@ -3,8 +3,9 @@ use gtk::{glib, prelude::*, subclass::prelude::*};
 use crate::models::Provider;
 
 mod imp {
+    use std::cell::OnceCell;
+
     use gtk::pango;
-    use once_cell::sync::OnceCell;
 
     use super::*;
 

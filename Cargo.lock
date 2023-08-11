@@ -249,7 +249,6 @@ dependencies = [
  "hex",
  "image",
  "libadwaita",
- "once_cell",
  "oo7",
  "percent-encoding",
  "prost",
@@ -860,7 +859,6 @@ version = "0.1.0"
 dependencies = [
  "data-encoding",
  "image",
- "once_cell",
  "percent-encoding",
  "quick-xml",
  "reqwest",

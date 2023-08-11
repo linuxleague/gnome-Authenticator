@@ -114,7 +114,7 @@ mod imp {
 
     impl ObjectImpl for ProviderPage {
         fn signals() -> &'static [Signal] {
-            use once_cell::sync::Lazy;
+            use glib::once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
                     Signal::builder("created")

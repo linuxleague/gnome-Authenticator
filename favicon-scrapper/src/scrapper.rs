@@ -8,7 +8,7 @@ use quick_xml::{
 use tracing::debug;
 use url::Url;
 
-use crate::{Error, Favicon, Format, Metadata, CLIENT};
+use crate::{client, Error, Favicon, Format, Metadata};
 
 const SUPPORTED_RELS: [&[u8]; 7] = [
     b"icon",
@@ -26,7 +26,7 @@ pub struct Scrapper(Vec<Favicon>);
 
 impl Scrapper {
     pub async fn from_url(base_url: &Url) -> Result<Self, Error> {
-        let res = CLIENT.get(base_url.as_str())
+        let res = client().get(base_url.as_str())
             .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15")
             .send()
             .await?;

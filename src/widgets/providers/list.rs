@@ -52,7 +52,7 @@ mod imp {
         }
 
         fn signals() -> &'static [Signal] {
-            use once_cell::sync::Lazy;
+            use glib::once_cell::sync::Lazy;
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![Signal::builder("shared")
                     .param_types([Account::static_type()])

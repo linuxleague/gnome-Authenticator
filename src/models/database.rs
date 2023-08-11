@@ -3,7 +3,7 @@ use std::{fs, fs::File, path::PathBuf};
 use anyhow::Result;
 use diesel::{prelude::*, r2d2, r2d2::ConnectionManager};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
-use once_cell::sync::Lazy;
+use gtk::glib::once_cell::sync::Lazy;
 
 type Pool = r2d2::Pool<ConnectionManager<SqliteConnection>>;
 

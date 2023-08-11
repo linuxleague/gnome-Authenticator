@@ -1,3 +1,5 @@
+use std::cell::OnceCell;
+
 use gettextrs::gettext;
 use gtk::{
     gio,
@@ -5,7 +7,6 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use once_cell::sync::OnceCell;
 
 use crate::{
     application::Application,

@@ -1,6 +1,9 @@
-use once_cell::sync::Lazy;
+use std::sync::OnceLock;
 
-pub static CLIENT: Lazy<reqwest::Client> = Lazy::new(reqwest::Client::new);
+static CLIENT: OnceLock<reqwest::Client> = OnceLock::new();
+pub(crate) fn client<'a>() -> &'a reqwest::Client {
+    CLIENT.get_or_init(|| reqwest::Client::new())
+}
 
 mod error;
 mod favicon;

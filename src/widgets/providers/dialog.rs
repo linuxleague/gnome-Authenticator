@@ -12,8 +12,9 @@ enum View {
 }
 
 mod imp {
-    use glib::subclass::Signal;
-    use once_cell::sync::{Lazy, OnceCell};
+    use std::cell::OnceCell;
+
+    use glib::{once_cell::sync::Lazy, subclass::Signal};
 
     use super::*;
     use crate::config;

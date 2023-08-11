@@ -12,10 +12,9 @@ use crate::{
     widgets::UrlRow,
 };
 mod imp {
-    use std::cell::RefCell;
+    use std::cell::{OnceCell, RefCell};
 
-    use glib::subclass::Signal;
-    use once_cell::sync::{Lazy, OnceCell};
+    use glib::{once_cell::sync::Lazy, subclass::Signal};
 
     use super::*;
 

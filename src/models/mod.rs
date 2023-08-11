@@ -1,4 +1,4 @@
-use once_cell::sync::Lazy;
+use gtk::glib::once_cell::sync::Lazy;
 
 mod account;
 mod accounts;

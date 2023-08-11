@@ -4,6 +4,7 @@ use adw::subclass::prelude::*;
 use anyhow::Result;
 use ashpd::desktop::screenshot::ScreenshotRequest;
 use gettextrs::gettext;
+use glib::once_cell::sync::Lazy;
 use gst::prelude::*;
 use gtk::{
     gio,
@@ -11,7 +12,6 @@ use gtk::{
     prelude::*,
 };
 use image::GenericImageView;
-use once_cell::sync::Lazy;
 
 use super::{CameraItem, CameraRow};
 use crate::{utils::spawn_tokio, widgets::CameraPaintable};

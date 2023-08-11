@@ -7,7 +7,6 @@ use gtk::{
     glib::{self, clone},
     prelude::*,
 };
-use once_cell::sync::OnceCell;
 use tokio::{
     select,
     sync::oneshot,
@@ -17,6 +16,8 @@ use tokio::{
 use crate::{utils::spawn_tokio, widgets::Camera};
 
 mod imp {
+    use std::cell::OnceCell;
+
     use super::*;
 
     #[derive(Default, gtk::CompositeTemplate, glib::Properties)]

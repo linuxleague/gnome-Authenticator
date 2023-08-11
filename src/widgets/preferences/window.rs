@@ -6,7 +6,6 @@ use gtk::{
     glib::{self, clone},
     subclass::prelude::*,
 };
-use once_cell::sync::OnceCell;
 
 use super::{camera_page::CameraPage, password_page::PasswordPage};
 use crate::{
@@ -21,13 +20,12 @@ use crate::{
 
 mod imp {
     use std::{
-        cell::{Cell, RefCell},
+        cell::{Cell, OnceCell, RefCell},
         collections::HashMap,
     };
 
     use adw::subclass::prelude::*;
-    use glib::subclass::Signal;
-    use once_cell::sync::Lazy;
+    use glib::{once_cell::sync::Lazy, subclass::Signal};
 
     use super::*;
 

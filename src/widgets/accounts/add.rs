@@ -13,10 +13,12 @@ use crate::{
 };
 
 mod imp {
-    use std::cell::RefCell;
+    use std::cell::{OnceCell, RefCell};
 
-    use glib::subclass::{InitializingObject, Signal};
-    use once_cell::sync::{Lazy, OnceCell};
+    use glib::{
+        once_cell::sync::Lazy,
+        subclass::{InitializingObject, Signal},
+    };
 
     use super::*;
 

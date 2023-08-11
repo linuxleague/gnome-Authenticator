@@ -4,7 +4,7 @@ use image::io::Reader as ImageReader;
 use tokio::{io::AsyncWriteExt, sync::Mutex};
 use url::Url;
 
-use crate::{Error, Format, Metadata, CLIENT};
+use crate::{client, Error, Format, Metadata};
 
 pub struct Favicon {
     url: Option<Url>,
@@ -63,7 +63,7 @@ impl Favicon {
         } else {
             let has_cached_data = lock.is_some();
             if !has_cached_data {
-                let res = CLIENT.get(self.url().as_str()).send().await?;
+                let res = client().get(self.url().as_str()).send().await?;
                 let bytes = res.bytes().await?.to_vec();
                 lock.replace(bytes);
             }

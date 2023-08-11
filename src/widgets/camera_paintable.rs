@@ -1,5 +1,6 @@
 use std::os::unix::io::AsRawFd;
 
+use glib::once_cell::sync::Lazy;
 use gst::prelude::*;
 use gtk::{
     gdk,
@@ -8,7 +9,6 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use once_cell::sync::Lazy;
 
 use crate::widgets::camera::CameraEvent;
 static PIPELINE_NAME: Lazy<glib::GString> = Lazy::new(|| glib::GString::from("camera"));
