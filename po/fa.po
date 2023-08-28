@@ -1,0 +1,718 @@
+# Persian translation for authenticator.
+# Copyright (C) 2023 authenticator's COPYRIGHT HOLDER
+# This file is distributed under the same license as the authenticator package.
+# Danial Behzadi <dani.behzi@ubuntu.com>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: authenticator master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
+"POT-Creation-Date: 2023-08-27 12:32+0000\n"
+"PO-Revision-Date: 2023-08-28 12:19+0330\n"
+"Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
+"Language-Team: Persian <fa@li.org>\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:3
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
+#: data/resources/ui/window.ui:36 src/application.rs:86 src/main.rs:41
+msgid "Authenticator"
+msgstr "هویت‌سنج"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:4
+msgid "Two-Factor Authentication"
+msgstr "هویت‌سنجی دو عامله"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:5
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
+#: src/application.rs:89
+msgid "Generate Two-Factor Codes"
+msgstr "ایجاد کدهای عامل دوم"
+
+#: data/com.belmoussaoui.Authenticator.desktop.in.in:10
+msgid "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;"
+msgstr "Gnome;GTK;Verification;2FA;Authentication;OTP;TOTP;هویت;عامل;"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:6
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:7
+msgid "Default window width"
+msgstr "پهنای پیش‌گزیدهٔ پنجره"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:11
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:12
+msgid "Default window height"
+msgstr "بلندای پیش‌گزیدهٔ پنجره"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:16
+msgid "Default window maximized behaviour"
+msgstr "رفتار پیش‌گزیدهٔ پنجرهٔ بیشینه شده"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:21
+msgid "Auto lock"
+msgstr "قفل خودکار"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:22
+msgid "Whether to auto lock the application or not"
+msgstr "این که برنامه به طور خودکار قفل شود یا نه"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:26
+msgid "Auto lock timeout"
+msgstr "زمان قفل خودکار"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:27
+msgid "Lock the application on idle after X minutes"
+msgstr "قفل کردن برنامه در حالت بی‌کار پس از x دقیقه"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:34
+msgid "Download Favicons"
+msgstr "بارگیری نقشک‌ها"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:35
+msgid ""
+"Whether the application should attempt to find an icon for the providers."
+msgstr "این که برنامه باید برای یافتن نقشکی برای فراهم کننده تلاش کند یا نه."
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:39
+msgid "Download Favicons over metered connections"
+msgstr "بارگیر نقشک‌ها روی اتّصال‌های اندازه گیری شده"
+
+#: data/com.belmoussaoui.Authenticator.gschema.xml.in:40
+msgid ""
+"Whether the application should download favicons over a metered connection."
+msgstr ""
+"این که برنامه باید نقشک‌ها را روی اتّصال‌های اندازه گیری شده بار بگیرد یا نه."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:10
+msgid "Simple application for generating Two-Factor Authentication Codes."
+msgstr "برنامه‌ای ساده برای ایجاد کدهای هویت‌سنجی دو عامله."
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:11
+msgid "Features:"
+msgstr "ویژگی‌ها:"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:13
+msgid "Time-based/Counter-based/Steam methods support"
+msgstr "پشتیبانی از روش‌های استیم، مبتنی بر زمان و مبتنی بر شمارش"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:14
+msgid "SHA-1/SHA-256/SHA-512 algorithms support"
+msgstr "پشتیبانی از الگوریتم‌های SHA-1/SHA-256/SHA-512"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:15
+msgid "QR code scanner using a camera or from a screenshot"
+msgstr "پویشگر کد پاس با استفاده از دوربین یا نماگرفت"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:16
+msgid "Lock the application with a password"
+msgstr "قفل برنامه با گذرواژه"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:17
+msgid "Beautiful UI"
+msgstr "میانای کاربری زیبا"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:18
+msgid "GNOME Shell search provider"
+msgstr "فراهم کنندهٔ جست‌وجوی پوستهٔ گنوم"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
+msgid ""
+"Backup/Restore from/into known applications like FreeOTP+, Aegis "
+"(encrypted / plain-text), andOTP, Google Authenticator"
+msgstr ""
+"پشتیبان گرفتن در و بازگردانی از برنامه‌های شناخته شده‌ای چون ‪FreeOTP+‬، اجیس "
+"(رمزنگاشته و متن‌خام)، andOTP و هویت‌سنچ گوگل"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:25
+msgid "Main Window"
+msgstr "پنجرهٔ اصلی"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:29
+#: data/resources/ui/account_add.ui:32 data/resources/ui/account_add.ui:49
+msgid "Add a New Account"
+msgstr "افزودن حسابی جدید"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:33
+msgid "Add a New Provider"
+msgstr "افزودن فراهم کنندهٔ جدید"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:37
+msgid "Account Details"
+msgstr "جزییات حساب"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:41
+msgid "Backup/Restore formats support"
+msgstr "پشتیبانی قالب‌های پشتیبان گیری و بازگردانی"
+
+#: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:296
+msgid "Bilal Elmoussaoui"
+msgstr "بلال الموسایی"
+
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:297
+msgid "_Camera"
+msgstr "_دوربین"
+
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:301
+msgid "_Screenshot"
+msgstr "_نماگرفت"
+
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:306
+msgid "_QR Code Image"
+msgstr "_تصویر کد پاس"
+
+#: data/resources/ui/account_add.ui:58
+msgid "Cancel"
+msgstr "لغو"
+
+#: data/resources/ui/account_add.ui:64
+msgid "_Add"
+msgstr "_افزودن"
+
+#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:292
+msgid "Scan QR Code"
+msgstr "پویش کد پاس"
+
+#: data/resources/ui/account_add.ui:114
+#: data/resources/ui/account_details_page.ui:95
+#: data/resources/ui/providers_dialog.ui:105
+msgid "Provider"
+msgstr "فراهم کننده"
+
+#: data/resources/ui/account_add.ui:115
+msgid "Token issuer"
+msgstr "صادرکنندهٔ ژتون"
+
+#: data/resources/ui/account_add.ui:129
+#: data/resources/ui/account_details_page.ui:90
+msgid "Account"
+msgstr "حساب"
+
+#: data/resources/ui/account_add.ui:135
+msgid "Token"
+msgstr "ژتون"
+
+#: data/resources/ui/account_add.ui:141
+#: data/resources/ui/account_details_page.ui:138
+#: data/resources/ui/provider_page.ui:157
+msgid "Counter"
+msgstr "شمارنده"
+
+#: data/resources/ui/account_add.ui:159
+#: data/resources/ui/account_details_page.ui:118
+#: data/resources/ui/provider_page.ui:132
+msgid "Algorithm"
+msgstr "الگوریتم"
+
+#: data/resources/ui/account_add.ui:171
+#: data/resources/ui/account_details_page.ui:128
+#: data/resources/ui/provider_page.ui:117
+msgid "Computing Method"
+msgstr "روش محاسبه"
+
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:147
+#: data/resources/ui/provider_page.ui:148
+msgid "Period"
+msgstr "دوره"
+
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:149
+msgid "Duration in seconds until the next password update"
+msgstr "مدّت به ثانیه تا به‌روز رسانی بعدی گذرواژه"
+
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:157
+#: data/resources/ui/provider_page.ui:166
+msgid "Digits"
+msgstr "ارقام"
+
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:167
+msgid "Length of the generated code"
+msgstr "طول کد ایجاد شده"
+
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:167
+#: data/resources/ui/provider_page.ui:111
+msgid "Website"
+msgstr "پایگاه وب"
+
+#: data/resources/ui/account_add.ui:214
+msgid "How to Set Up"
+msgstr "چگونگی برپایی"
+
+#: data/resources/ui/account_add.ui:234
+#: data/resources/ui/preferences_camera_page.ui:4
+msgid "Camera"
+msgstr "دوربین"
+
+#: data/resources/ui/account_add.ui:247
+msgid "Create Provider"
+msgstr "ایجاد فراهم کننده"
+
+#: data/resources/ui/account_details_page.ui:55
+#: data/resources/ui/preferences_password_page.ui:17
+#: data/resources/ui/provider_page.ui:28
+msgid "_Save"
+msgstr "_ذخیره"
+
+#: data/resources/ui/account_details_page.ui:66
+#: data/resources/ui/provider_page.ui:184
+msgid "_Delete"
+msgstr "_حذف"
+
+#: data/resources/ui/account_details_page.ui:172
+msgid "Help"
+msgstr "راهنما"
+
+#: data/resources/ui/account_row.ui:23
+msgid "Increment the counter"
+msgstr "افزایش شمارنده"
+
+#: data/resources/ui/account_row.ui:34
+msgid "Copy PIN to clipboard"
+msgstr "رونوشت از پین به تخته‌گیره"
+
+#: data/resources/ui/camera.ui:36
+msgid "No Camera Found"
+msgstr "هیچ دوربینی پیدا نشد"
+
+#: data/resources/ui/camera.ui:39
+msgid "_From a Screenshot"
+msgstr "از _نماگرفت"
+
+#: data/resources/ui/preferences_password_page.ui:4
+msgid "Create Password"
+msgstr "ایجاد گذرواژه"
+
+#: data/resources/ui/preferences_password_page.ui:28
+msgid "Set up a Passphrase"
+msgstr "برپایی یک عبارت عبور"
+
+#: data/resources/ui/preferences_password_page.ui:29
+msgid "Authenticator will start locked after a passphrase is set."
+msgstr "پس از برپایی عبارت عبور، هویت‌سنج قفل‌شده آغاز خواهد شد."
+
+#: data/resources/ui/preferences_password_page.ui:50
+msgid "Current Passphrase"
+msgstr "عبارت عبور کنونی"
+
+#: data/resources/ui/preferences_password_page.ui:56
+msgid "New Passphrase"
+msgstr "عبارت‌عبور جدید"
+
+#: data/resources/ui/preferences_password_page.ui:62
+msgid "Repeat Passphrase"
+msgstr "تکرار عبارت عبور"
+
+#: data/resources/ui/preferences_password_page.ui:76
+#: data/resources/ui/provider_page.ui:72
+msgid "_Reset"
+msgstr "_بازنشانی"
+
+#: data/resources/ui/preferences.ui:16
+msgid "General"
+msgstr "عمومی"
+
+#: data/resources/ui/preferences.ui:19
+msgid "Privacy"
+msgstr "محرمانگی"
+
+#: data/resources/ui/preferences.ui:22
+msgid "_Passphrase"
+msgstr "_عبارت عبور"
+
+#: data/resources/ui/preferences.ui:24
+msgid "Set up a passphrase to lock the application with"
+msgstr "برپایی یک عبارت عبور برای قفل برنامه"
+
+#: data/resources/ui/preferences.ui:36
+msgid "_Auto Lock the Application"
+msgstr "_قفل خودکار برنامه"
+
+#: data/resources/ui/preferences.ui:38
+msgid "Whether to automatically lock the application"
+msgstr "این که برنامه به طور خودکار قفل شود یا نه"
+
+#: data/resources/ui/preferences.ui:44
+msgid "Auto Lock _Timeout"
+msgstr "_زمان قفل خودکار"
+
+#: data/resources/ui/preferences.ui:45
+msgid "The time in minutes"
+msgstr "زمان به دقیقه"
+
+#: data/resources/ui/preferences.ui:58
+msgid "Network"
+msgstr "شبکه"
+
+#: data/resources/ui/preferences.ui:61
+msgid "_Download Favicons"
+msgstr "_بارگیری نقشک‌ها"
+
+#: data/resources/ui/preferences.ui:63
+msgid "Automatically attempt fetching a website icon"
+msgstr "تلاش خودکار برای گرفتن نقشک پایگاه وب"
+
+#: data/resources/ui/preferences.ui:68
+msgid "_Metered Connection"
+msgstr "اتّصال _اندازه‌گیری شده"
+
+#: data/resources/ui/preferences.ui:70
+msgid "Fetch a website icon on a metered connection"
+msgstr "گرفتن نقشک پیاگاه وب روی اتّصال اندازه‌گیری شده"
+
+#: data/resources/ui/preferences.ui:80
+msgid "Backup/Restore"
+msgstr "پشتیبان گیری و بازگردانی"
+
+#: data/resources/ui/preferences.ui:83 src/widgets/preferences/window.rs:481
+msgid "Backup"
+msgstr "پشتیبان گیری"
+
+#: data/resources/ui/preferences.ui:88 src/widgets/preferences/window.rs:489
+msgid "Restore"
+msgstr "بازآوری"
+
+#: data/resources/ui/provider_page.ui:82
+msgid "Select a _File"
+msgstr "گزینش _پرونده"
+
+#: data/resources/ui/provider_page.ui:105
+msgid "Name"
+msgstr "نام"
+
+#: data/resources/ui/provider_page.ui:158
+msgid "The by default value for counter-based computing method"
+msgstr "مقدار پیش‌گزیده برای روش محاسبهٔ مبتنی بر شمارش"
+
+#: data/resources/ui/provider_page.ui:176
+msgid "Help URL"
+msgstr "نشانی راهنما"
+
+#: data/resources/ui/providers_dialog.ui:20
+msgid "Providers"
+msgstr "فراهم کنندگان"
+
+#: data/resources/ui/providers_dialog.ui:30 src/widgets/providers/page.rs:209
+msgid "New Provider"
+msgstr "فراهم کنندهٔ جدید"
+
+#: data/resources/ui/providers_dialog.ui:37 data/resources/ui/window.ui:218
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: data/resources/ui/providers_dialog.ui:90
+#: data/resources/ui/providers_list.ui:38
+msgid "No Results"
+msgstr "بدون نتیجه"
+
+#: data/resources/ui/providers_dialog.ui:91
+msgid "No providers matching the query were found."
+msgstr "هیچ فراهم کنندهٔ مطابقی با پرسش‌وجو پیدا نشد."
+
+#: data/resources/ui/providers_dialog.ui:136
+msgid "No Provider Selected"
+msgstr "هیچ فراهم کننده‌ای گزیده نشده"
+
+#: data/resources/ui/providers_dialog.ui:137
+msgid "Select a provider or create a new one"
+msgstr "گزینش یا ایجاد فراهم کننده"
+
+#: data/resources/ui/providers_list.ui:39
+msgid "No accounts or providers matching the query were found."
+msgstr "هیچ حساب یا فراهم کنندهٔ مطابقی با پرسش‌وجو پیدا نشد."
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "عمومی"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Keyboard Shortcuts"
+msgstr "میان‌برهای صفحه‌کلید"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Lock"
+msgstr "قفل کردن"
+
+#: data/resources/ui/shortcuts.ui:26
+msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "ترجیحات"
+
+#: data/resources/ui/shortcuts.ui:32
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "خروج"
+
+#: data/resources/ui/shortcuts.ui:40
+msgctxt "shortcut window"
+msgid "Accounts"
+msgstr "حساب"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "New Account"
+msgstr "حساب جدید"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "جست‌وجو"
+
+#: data/resources/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Show Providers List"
+msgstr "نمایش سیاههٔ فراهم کنندگان"
+
+#: data/resources/ui/window.ui:6
+msgid "_Lock the Application"
+msgstr "_قفل برنامه"
+
+#: data/resources/ui/window.ui:12
+msgid "P_roviders"
+msgstr "_فراهم کنندگان"
+
+#: data/resources/ui/window.ui:16
+msgid "_Preferences"
+msgstr "_ترجیحات"
+
+#: data/resources/ui/window.ui:22
+msgid "_Keyboard Shortcuts"
+msgstr "_میان‌برهای صفحه‌کلید"
+
+#: data/resources/ui/window.ui:26
+msgid "_About Authenticator"
+msgstr "_دربارهٔ هویت‌سنج"
+
+#: data/resources/ui/window.ui:66
+msgid "Authenticator is Locked"
+msgstr "هویت‌سنج قفل شده"
+
+#: data/resources/ui/window.ui:89
+msgid "_Unlock"
+msgstr "قفل‌_گشایی"
+
+#: data/resources/ui/window.ui:119
+msgid "Accounts"
+msgstr "حساب"
+
+#: data/resources/ui/window.ui:134 data/resources/ui/window.ui:170
+msgid "New Account"
+msgstr "حساب جدید"
+
+#: data/resources/ui/window.ui:142 data/resources/ui/window.ui:212
+msgid "Main Menu"
+msgstr "فهرست اصلی"
+
+#: data/resources/ui/window.ui:150
+msgid "No Accounts"
+msgstr "بدون حساب"
+
+#: data/resources/ui/window.ui:151
+msgid "Add an account or scan a QR code first."
+msgstr "نخست حسابی افزوده یا کد پاسی را بپویید."
+
+#: src/application.rs:72
+msgid "Accounts restored successfully"
+msgstr "حساب‌ها با موفّقیت بازگردانده شدند"
+
+#: src/application.rs:98
+msgid "translator-credits"
+msgstr ""
+"آرش موسوی <mousavi.arash@gmail.com>\n"
+"دانیال بهزادی <dani.behzi@ubuntu.com>\n"
+"روزبه پورنادر <roozbeh@farsiweb.info>‏\n"
+"میلاد زکریا <meelad@farsiweb.info>‏\n"
+"الناز سربر <elnaz@farsiweb.info>\n"
+"مهیار مقیمی <mahyar.moqimi@gmail.com>"
+
+#: src/application.rs:362 src/widgets/accounts/row.rs:46
+msgid "One-Time password copied"
+msgstr "گذرواژهٔ یک‌بار مصرف رونوشت شد"
+
+#: src/application.rs:363
+msgid "Password was copied successfully"
+msgstr "گذرواژه با موفّقیت رونوشت شد"
+
+#. Translators: This is for making a backup for the aegis Android app.
+#. Translators: This is for restoring a backup from the aegis Android app.
+#: src/backup/aegis.rs:399 src/backup/aegis.rs:439
+msgid "Aegis"
+msgstr "اجیس"
+
+#: src/backup/aegis.rs:403
+msgid "Into a JSON file containing plain-text or encrypted fields"
+msgstr "در یک پروندهٔ‌ JSON شامل متن خام یا زمینه‌های رمز شده"
+
+#: src/backup/aegis.rs:443
+msgid "From a JSON file containing plain-text or encrypted fields"
+msgstr "از یک پروندهٔ‌ JSON شامل متن خام یا زمینه‌های رمز شده"
+
+#. Translators: This is for making a backup for the andOTP Android app.
+#: src/backup/andotp.rs:79
+msgid "a_ndOTP"
+msgstr "a_ndOTP"
+
+#: src/backup/andotp.rs:83
+msgid "Into a plain-text JSON file"
+msgstr "به یک پروندهٔ خام JSON"
+
+#. Translators: This is for restoring a backup from the andOTP Android app.
+#: src/backup/andotp.rs:127
+msgid "an_dOTP"
+msgstr "an_dOTP"
+
+#: src/backup/andotp.rs:131 src/backup/bitwarden.rs:124 src/backup/legacy.rs:45
+msgid "From a plain-text JSON file"
+msgstr "از یک پروندهٔ خام JSON"
+
+#: src/backup/bitwarden.rs:47
+msgid "Unknown account"
+msgstr "حساب ناشناخته"
+
+#: src/backup/bitwarden.rs:55
+msgid "Unknown issuer"
+msgstr "صادرکنندهٔ ناشناخته"
+
+#. Translators: This is for restoring a backup from Bitwarden.
+#: src/backup/bitwarden.rs:120
+msgid "_Bitwarden"
+msgstr "_بیت‌واردن"
+
+#: src/backup/freeotp.rs:18
+msgid "_Authenticator"
+msgstr "_هویت‌سنج"
+
+#: src/backup/freeotp.rs:22
+msgid "Into a plain-text file, compatible with FreeOTP+"
+msgstr "به یک پروندهٔ خام متنی سازگار با ‪FreeOTP+"
+
+#: src/backup/freeotp.rs:51
+msgid "A_uthenticator"
+msgstr "هویت‌_سنج"
+
+#: src/backup/freeotp.rs:55
+msgid "From a plain-text file, compatible with FreeOTP+"
+msgstr "از یک پروندهٔ خام متنی سازگار با ‪FreeOTP+"
+
+#: src/backup/freeotp_json.rs:87
+msgid "FreeOTP+"
+msgstr "FreeOTP+"
+
+#: src/backup/freeotp_json.rs:91
+msgid "From a plain-text JSON file, compatible with FreeOTP+"
+msgstr "از یک پروندهٔ خام JSON سازگار با ‪FreeOTP+"
+
+#: src/backup/google.rs:19
+msgid "Google Authenticator"
+msgstr "هویت‌سنچ گوگل"
+
+#: src/backup/google.rs:23
+msgid "From a QR code generated by Google Authenticator"
+msgstr "از یک کد پاس ایجاد شده به دست هویت‌سنج گوگل"
+
+#. Translators: this is for restoring a backup from the old Authenticator
+#. release
+#: src/backup/legacy.rs:41
+msgid "Au_thenticator (Legacy)"
+msgstr "هوی_ت‌سنچ (قدیمی)"
+
+#: src/models/algorithm.rs:60
+msgid "Counter-based"
+msgstr "مبتنی بر شمارش"
+
+#: src/models/algorithm.rs:61
+msgid "Time-based"
+msgstr "مبتنی بر زمان"
+
+#. Translators: Steam refers to the gaming application by Valve.
+#: src/models/algorithm.rs:63
+msgid "Steam"
+msgstr "استیم"
+
+#: src/models/algorithm.rs:126
+msgid "SHA-1"
+msgstr "SHA-1"
+
+#: src/models/algorithm.rs:127
+msgid "SHA-256"
+msgstr "SHA-256"
+
+#: src/models/algorithm.rs:128
+msgid "SHA-512"
+msgstr "SHA-512"
+
+#: src/widgets/accounts/add.rs:274 src/widgets/preferences/window.rs:419
+#: src/widgets/providers/page.rs:292
+msgid "Image"
+msgstr "تصویر"
+
+#: src/widgets/accounts/add.rs:282 src/widgets/preferences/window.rs:427
+msgid "Select QR Code"
+msgstr "گزینش کد پاس"
+
+#: src/widgets/accounts/add.rs:300
+msgid "Invalid Token"
+msgstr "ژتون نامعتبر"
+
+#: src/widgets/window.rs:115
+msgid "Wrong Password"
+msgstr "گذرواژهٔ اشتباه"
+
+#: src/widgets/preferences/password_page.rs:172
+#: src/widgets/preferences/password_page.rs:214
+msgid "Wrong Passphrase"
+msgstr "عبارت عبور اشتباه"
+
+#: src/widgets/preferences/window.rs:196 src/widgets/preferences/window.rs:268
+msgid "Key / Passphrase"
+msgstr "کلید یا عبارت عبور"
+
+#: src/widgets/preferences/window.rs:207 src/widgets/preferences/window.rs:280
+msgid "Select File"
+msgstr "انتخاب پرونده"
+
+#: src/widgets/preferences/window.rs:231
+msgid "Failed to create a backup"
+msgstr "شکست در ایجاد پشتیبان"
+
+#: src/widgets/preferences/window.rs:343
+msgid "Failed to restore from camera"
+msgstr "شکست در بازگردانی از دوربین"
+
+#: src/widgets/preferences/window.rs:354
+msgid "Failed to restore from a screenshot"
+msgstr "شکست در بازگردانی از نماگرفت"
+
+#: src/widgets/preferences/window.rs:364
+msgid "Failed to restore from an image"
+msgstr "شکست در بازگردانی از تصویر"
+
+#: src/widgets/preferences/window.rs:377
+msgid "Failed to restore from a file"
+msgstr "شکست در بازگردانی از پرونده"
+
+#: src/widgets/providers/dialog.rs:235
+msgid "Provider created successfully"
+msgstr "فراهم کننده با موفّقیت ساخته شد"
+
+#: src/widgets/providers/dialog.rs:245
+msgid "Provider updated successfully"
+msgstr "فراهم کننده با موفّقیت به‌روز شد"
+
+#: src/widgets/providers/dialog.rs:261
+msgid "Provider removed successfully"
+msgstr "فراهم کننده با موفّقیت برداشته شد"
+
+#: src/widgets/providers/page.rs:186
+msgid "Editing Provider: {}"
+msgstr "ویرایش کردن فراهم کننده: {}"
+
+#: src/widgets/providers/page.rs:325
+msgid "The provider has accounts assigned to it, please remove them first"
+msgstr "فراهم کننده حساب‌های مرتبطی دارد. لطفاً نخست آن‌ها را بردارید"
