@@ -40,7 +40,7 @@
     <child type="suffix">
       <object class="GtkImage">
         <property name="icon_name">go-next-symbolic</property>
-        <property name="tooltip-text">Account details</property>
+        <property name="tooltip-text" translatable="yes">Account details</property>
       </object>
     </child>
   </template>
