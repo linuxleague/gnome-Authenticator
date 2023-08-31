@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-07-07 22:52+0000\n"
-"PO-Revision-Date: 2023-07-08 05:45+0200\n"
+"POT-Creation-Date: 2023-08-30 07:57+0000\n"
+"PO-Revision-Date: 2023-08-31 05:58+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <(nothing)>\n"
 "Language: ka\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:36 src/application.rs:98 src/main.rs:41
+#: data/resources/ui/window.ui:36 src/application.rs:86 src/main.rs:41
 msgid "Authenticator"
 msgstr "Authenticator"
 
@@ -30,7 +30,7 @@ msgstr "2FA ავთენტიკაცია"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:101
+#: src/application.rs:89
 msgid "Generate Two-Factor Codes"
 msgstr "2FA კოდის გენერაცია"
 
@@ -151,15 +151,15 @@ msgstr "მარქაფი/აღდგენის ფორმატებ�
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:310
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:297
 msgid "_Camera"
 msgstr "_კამერა"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:314
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:301
 msgid "_Screenshot"
 msgstr "_ეკრანის ანაბეჭდი"
 
-#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:319
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:306
 msgid "_QR Code Image"
 msgstr "_QR კოდის სურათი"
 
@@ -171,7 +171,7 @@ msgstr "გაუქმება"
 msgid "_Add"
 msgstr "_დამატება"
 
-#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:305
+#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:292
 msgid "Scan QR Code"
 msgstr "QR კოდის სკანირება"
 
@@ -194,84 +194,89 @@ msgstr "ანგარიში"
 msgid "Token"
 msgstr "ტოკენი"
 
-#: data/resources/ui/account_add.ui:142
-#: data/resources/ui/account_details_page.ui:139
-#: data/resources/ui/provider_page.ui:173
+#: data/resources/ui/account_add.ui:141
+#: data/resources/ui/account_details_page.ui:138
+#: data/resources/ui/provider_page.ui:157
 msgid "Counter"
 msgstr "მთვლელი"
 
-#: data/resources/ui/account_add.ui:167
+#: data/resources/ui/account_add.ui:159
 #: data/resources/ui/account_details_page.ui:118
-#: data/resources/ui/provider_page.ui:139
+#: data/resources/ui/provider_page.ui:132
 msgid "Algorithm"
 msgstr "ალგორითმი"
 
-#: data/resources/ui/account_add.ui:179
+#: data/resources/ui/account_add.ui:171
 #: data/resources/ui/account_details_page.ui:128
-#: data/resources/ui/provider_page.ui:124
+#: data/resources/ui/provider_page.ui:117
 msgid "Computing Method"
 msgstr "გამოთვლის მეთოდი"
 
-#: data/resources/ui/account_add.ui:191
-#: data/resources/ui/account_details_page.ui:155
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:147
+#: data/resources/ui/provider_page.ui:148
 msgid "Period"
 msgstr "პერიოდი"
 
-#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:157
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:149
 msgid "Duration in seconds until the next password update"
 msgstr "ხანგრძლივობა წამებში მომდევნო პაროლის განახლებამდე"
 
-#: data/resources/ui/account_add.ui:204
-#: data/resources/ui/account_details_page.ui:165
-#: data/resources/ui/provider_page.ui:190
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:157
+#: data/resources/ui/provider_page.ui:166
 msgid "Digits"
 msgstr "ციფრები"
 
-#: data/resources/ui/account_add.ui:205 data/resources/ui/provider_page.ui:191
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:167
 msgid "Length of the generated code"
 msgstr "გენერირებული კოდის სიგრძე"
 
-#: data/resources/ui/account_add.ui:217
-#: data/resources/ui/account_details_page.ui:175
-#: data/resources/ui/provider_page.ui:118
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:167
+#: data/resources/ui/provider_page.ui:111
 msgid "Website"
 msgstr "ვებგვერდი"
 
-#: data/resources/ui/account_add.ui:222
+#: data/resources/ui/account_add.ui:214
 msgid "How to Set Up"
 msgstr "როგორ მოვირგოთ"
 
-#: data/resources/ui/account_add.ui:242
+#: data/resources/ui/account_add.ui:234
+#: data/resources/ui/preferences_camera_page.ui:4
 msgid "Camera"
 msgstr "კამერა"
 
-#: data/resources/ui/account_add.ui:255
+#: data/resources/ui/account_add.ui:247
 msgid "Create Provider"
 msgstr "ახალი მომწოდებელი"
 
 #: data/resources/ui/account_details_page.ui:55
 #: data/resources/ui/preferences_password_page.ui:17
-#: data/resources/ui/provider_page.ui:35
+#: data/resources/ui/provider_page.ui:28
 msgid "_Save"
 msgstr "_შენახვა"
 
 #: data/resources/ui/account_details_page.ui:66
-#: data/resources/ui/provider_page.ui:215
+#: data/resources/ui/provider_page.ui:184
 msgid "_Delete"
 msgstr "_წაშლა"
 
-#: data/resources/ui/account_details_page.ui:180
+#: data/resources/ui/account_details_page.ui:172
 msgid "Help"
 msgstr "დახმარება"
 
-#: data/resources/ui/account_row.ui:22
+#: data/resources/ui/account_row.ui:23
 msgid "Increment the counter"
 msgstr "მთვლელის გაზრდა"
 
-#: data/resources/ui/account_row.ui:33
+#: data/resources/ui/account_row.ui:34
 msgid "Copy PIN to clipboard"
 msgstr "PIN კოდის ბაფერში კოპირება"
+
+#: data/resources/ui/account_row.ui:43
+msgid "Account details"
+msgstr "ანგარშის დეტალები"
 
 #: data/resources/ui/camera.ui:36
 msgid "No Camera Found"
@@ -306,7 +311,7 @@ msgid "Repeat Passphrase"
 msgstr "საკვანძო ფრაზის გაზიარება"
 
 #: data/resources/ui/preferences_password_page.ui:76
-#: data/resources/ui/provider_page.ui:79
+#: data/resources/ui/provider_page.ui:72
 msgid "_Reset"
 msgstr "_გადატვირთვა"
 
@@ -330,63 +335,63 @@ msgstr "დააყენეთ საიდუმლო ფრაზა, რ�
 msgid "_Auto Lock the Application"
 msgstr "_აპლიკაციის ავტომატური ჩაკეტვა"
 
-#: data/resources/ui/preferences.ui:39
+#: data/resources/ui/preferences.ui:38
 msgid "Whether to automatically lock the application"
 msgstr "ჩაიკეტება აპლიკაცია ავტომატურად, თუ არა"
 
-#: data/resources/ui/preferences.ui:50
+#: data/resources/ui/preferences.ui:44
 msgid "Auto Lock _Timeout"
 msgstr "ავტომატური დაბლოკვის _ვადა"
 
-#: data/resources/ui/preferences.ui:51
+#: data/resources/ui/preferences.ui:45
 msgid "The time in minutes"
 msgstr "დრო წუთებში"
 
-#: data/resources/ui/preferences.ui:71
+#: data/resources/ui/preferences.ui:58
 msgid "Network"
 msgstr "ქსელი"
 
-#: data/resources/ui/preferences.ui:74
+#: data/resources/ui/preferences.ui:61
 msgid "_Download Favicons"
 msgstr "_რჩეული ხატულების გადმოწერა"
 
-#: data/resources/ui/preferences.ui:77
+#: data/resources/ui/preferences.ui:63
 msgid "Automatically attempt fetching a website icon"
 msgstr "ვებსაიტის ხატულის ავტომატური გადმოწერის ცდა"
 
-#: data/resources/ui/preferences.ui:87
+#: data/resources/ui/preferences.ui:68
 msgid "_Metered Connection"
 msgstr "_გაზომვადი შეერთება"
 
-#: data/resources/ui/preferences.ui:90
+#: data/resources/ui/preferences.ui:70
 msgid "Fetch a website icon on a metered connection"
 msgstr "ვებსაიტის ხატულის მიღება გაზომვადი მიერთებისას"
 
-#: data/resources/ui/preferences.ui:105
+#: data/resources/ui/preferences.ui:80
 msgid "Backup/Restore"
 msgstr "მარქაფი/აღდგენა"
 
-#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:494
+#: data/resources/ui/preferences.ui:83 src/widgets/preferences/window.rs:481
 msgid "Backup"
 msgstr "მარქაფი"
 
-#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:502
+#: data/resources/ui/preferences.ui:88 src/widgets/preferences/window.rs:489
 msgid "Restore"
 msgstr "აღდგენა"
 
-#: data/resources/ui/provider_page.ui:89
+#: data/resources/ui/provider_page.ui:82
 msgid "Select a _File"
 msgstr "აირჩიეთ _ფაილი"
 
-#: data/resources/ui/provider_page.ui:112
+#: data/resources/ui/provider_page.ui:105
 msgid "Name"
 msgstr "სახელი"
 
-#: data/resources/ui/provider_page.ui:174
+#: data/resources/ui/provider_page.ui:158
 msgid "The by default value for counter-based computing method"
 msgstr "ათვლაზე-ბაზირებული გამოთვლის მეთოდის ნაგულისხმები მნიშვნელობა"
 
-#: data/resources/ui/provider_page.ui:207
+#: data/resources/ui/provider_page.ui:176
 msgid "Help URL"
 msgstr "დახმარების URL"
 
@@ -394,7 +399,7 @@ msgstr "დახმარების URL"
 msgid "Providers"
 msgstr "მომწოდებლები"
 
-#: data/resources/ui/providers_dialog.ui:30 src/widgets/providers/page.rs:217
+#: data/resources/ui/providers_dialog.ui:30 src/widgets/providers/page.rs:209
 msgid "New Provider"
 msgstr "ახალი მომწოდებელი"
 
@@ -516,19 +521,19 @@ msgstr "ანგარიშების გარეშე"
 msgid "Add an account or scan a QR code first."
 msgstr "ჯერ დაამატეთ ანგარიში ან დაასკანირეთ QR კოდი."
 
-#: src/application.rs:84
+#: src/application.rs:72
 msgid "Accounts restored successfully"
 msgstr "ანგარიშები წარმატებით აღდგა"
 
-#: src/application.rs:110
+#: src/application.rs:98
 msgid "translator-credits"
 msgstr "მთარგმნელის შესახებ"
 
-#: src/application.rs:374 src/widgets/accounts/row.rs:45
+#: src/application.rs:362 src/widgets/accounts/row.rs:46
 msgid "One-Time password copied"
 msgstr "ერთჯერადი პაროლი კოპირებულია"
 
-#: src/application.rs:375
+#: src/application.rs:363
 msgid "Password was copied successfully"
 msgstr "პაროლი წარმატებით დაკოპირდა"
 
@@ -640,73 +645,73 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:285 src/widgets/preferences/window.rs:432
-#: src/widgets/providers/page.rs:300
+#: src/widgets/accounts/add.rs:274 src/widgets/preferences/window.rs:419
+#: src/widgets/providers/page.rs:292
 msgid "Image"
 msgstr "ასლი"
 
-#: src/widgets/accounts/add.rs:293 src/widgets/preferences/window.rs:440
+#: src/widgets/accounts/add.rs:282 src/widgets/preferences/window.rs:427
 msgid "Select QR Code"
 msgstr "აირჩიეთ QR კოდი"
 
-#: src/widgets/accounts/add.rs:311
+#: src/widgets/accounts/add.rs:300
 msgid "Invalid Token"
 msgstr "არასწორი კოდი"
 
-#: src/widgets/window.rs:114
+#: src/widgets/window.rs:115
 msgid "Wrong Password"
 msgstr "არასწორი პაროლი"
 
-#: src/widgets/preferences/password_page.rs:182
-#: src/widgets/preferences/password_page.rs:224
+#: src/widgets/preferences/password_page.rs:172
+#: src/widgets/preferences/password_page.rs:214
 msgid "Wrong Passphrase"
 msgstr "არასწორი საიდუმლო ფრაზა"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:281
+#: src/widgets/preferences/window.rs:196 src/widgets/preferences/window.rs:268
 msgid "Key / Passphrase"
 msgstr "გასაღები / კოდური ფრაზა"
 
-#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:207 src/widgets/preferences/window.rs:280
 msgid "Select File"
 msgstr "აირჩიეთ ფაილი"
 
-#: src/widgets/preferences/window.rs:244
+#: src/widgets/preferences/window.rs:231
 msgid "Failed to create a backup"
 msgstr "მარქაფის შექმნის შეცდომა"
 
-#: src/widgets/preferences/window.rs:356
+#: src/widgets/preferences/window.rs:343
 msgid "Failed to restore from camera"
 msgstr "კამერიდან აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:367
+#: src/widgets/preferences/window.rs:354
 msgid "Failed to restore from a screenshot"
 msgstr "ეკრანის ანაბეჭდიდან აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:377
+#: src/widgets/preferences/window.rs:364
 msgid "Failed to restore from an image"
 msgstr "გამოსახულებიდან აღდგენის შეცდომა"
 
-#: src/widgets/preferences/window.rs:390
+#: src/widgets/preferences/window.rs:377
 msgid "Failed to restore from a file"
 msgstr "ფაილიდან აღდგენის შეცდომა"
 
-#: src/widgets/providers/dialog.rs:242
+#: src/widgets/providers/dialog.rs:235
 msgid "Provider created successfully"
 msgstr "მომწოდებელი წარმატებით შეიქმნა"
 
-#: src/widgets/providers/dialog.rs:252
+#: src/widgets/providers/dialog.rs:245
 msgid "Provider updated successfully"
 msgstr "მომწოდებელი წარმატებით განახლდა"
 
-#: src/widgets/providers/dialog.rs:268
+#: src/widgets/providers/dialog.rs:261
 msgid "Provider removed successfully"
 msgstr "მომწოდებელი წარმატებით წაიშალა"
 
-#: src/widgets/providers/page.rs:194
+#: src/widgets/providers/page.rs:186
 msgid "Editing Provider: {}"
 msgstr "მომწოდებლის ჩასწორება: {}"
 
-#: src/widgets/providers/page.rs:333
+#: src/widgets/providers/page.rs:325
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr "ამ მომწოდებელს ანგარიშები ჯერ კიდევ გააჩნია. ჯერ ისინი წაშალეთ"
 
