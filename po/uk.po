@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-07-07 22:52+0000\n"
-"PO-Revision-Date: 2023-07-08 09:28+0300\n"
+"POT-Creation-Date: 2023-08-30 07:57+0000\n"
+"PO-Revision-Date: 2023-08-31 22:10+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:36 src/application.rs:98 src/main.rs:41
+#: data/resources/ui/window.ui:36 src/application.rs:86 src/main.rs:41
 msgid "Authenticator"
 msgstr "Розпізнавач"
 
@@ -31,7 +31,7 @@ msgstr "Двофакторне розпізнавання"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:101
+#: src/application.rs:89
 msgid "Generate Two-Factor Codes"
 msgstr "Створення двофакторних кодів"
 
@@ -158,15 +158,15 @@ msgstr "Підтримка форматів резервного копіюва�
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:310
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:297
 msgid "_Camera"
 msgstr "_Камера"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:314
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:301
 msgid "_Screenshot"
 msgstr "З_німок вікна"
 
-#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:319
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:306
 msgid "_QR Code Image"
 msgstr "Зображення _QR-коду"
 
@@ -178,7 +178,7 @@ msgstr "Скасувати"
 msgid "_Add"
 msgstr "Д_одати"
 
-#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:305
+#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:292
 msgid "Scan QR Code"
 msgstr "Сканувати QR-код"
 
@@ -201,86 +201,90 @@ msgstr "Обліковий запис"
 msgid "Token"
 msgstr "Ключ"
 
-#: data/resources/ui/account_add.ui:142
-#: data/resources/ui/account_details_page.ui:139
-#: data/resources/ui/provider_page.ui:173
+#: data/resources/ui/account_add.ui:141
+#: data/resources/ui/account_details_page.ui:138
+#: data/resources/ui/provider_page.ui:157
 msgid "Counter"
 msgstr "Лічильник"
 
-#: data/resources/ui/account_add.ui:167
+#: data/resources/ui/account_add.ui:159
 #: data/resources/ui/account_details_page.ui:118
-#: data/resources/ui/provider_page.ui:139
+#: data/resources/ui/provider_page.ui:132
 msgid "Algorithm"
 msgstr "Алгоритм"
 
-#: data/resources/ui/account_add.ui:179
+#: data/resources/ui/account_add.ui:171
 #: data/resources/ui/account_details_page.ui:128
-#: data/resources/ui/provider_page.ui:124
+#: data/resources/ui/provider_page.ui:117
 msgid "Computing Method"
 msgstr "Метод обчислення"
 
-#: data/resources/ui/account_add.ui:191
-#: data/resources/ui/account_details_page.ui:155
-#: data/resources/ui/provider_page.ui:156
+#: data/resources/ui/account_add.ui:183
+#: data/resources/ui/account_details_page.ui:147
+#: data/resources/ui/provider_page.ui:148
 msgid "Period"
 msgstr "Період"
 
-#: data/resources/ui/account_add.ui:192 data/resources/ui/provider_page.ui:157
+#: data/resources/ui/account_add.ui:184 data/resources/ui/provider_page.ui:149
 msgid "Duration in seconds until the next password update"
 msgstr "Тривалість періоду (у секундах) до наступного оновлення пароля"
 
-#: data/resources/ui/account_add.ui:204
-#: data/resources/ui/account_details_page.ui:165
-#: data/resources/ui/provider_page.ui:190
+#: data/resources/ui/account_add.ui:196
+#: data/resources/ui/account_details_page.ui:157
+#: data/resources/ui/provider_page.ui:166
 msgid "Digits"
 msgstr "Цифри"
 
-#: data/resources/ui/account_add.ui:205 data/resources/ui/provider_page.ui:191
+#: data/resources/ui/account_add.ui:197 data/resources/ui/provider_page.ui:167
 msgid "Length of the generated code"
 msgstr "Довжина створеного коду"
 
-#: data/resources/ui/account_add.ui:217
-#: data/resources/ui/account_details_page.ui:175
-#: data/resources/ui/provider_page.ui:118
+#: data/resources/ui/account_add.ui:209
+#: data/resources/ui/account_details_page.ui:167
+#: data/resources/ui/provider_page.ui:111
 msgid "Website"
 msgstr "Сайт"
 
-#: data/resources/ui/account_add.ui:222
+#: data/resources/ui/account_add.ui:214
 msgid "How to Set Up"
 msgstr "Як налаштувати"
 
-#: data/resources/ui/account_add.ui:242
-#| msgid "_Camera"
+#: data/resources/ui/account_add.ui:234
+#: data/resources/ui/preferences_camera_page.ui:4
 msgid "Camera"
 msgstr "Камера"
 
-#: data/resources/ui/account_add.ui:255
-#| msgid "New Provider"
+#: data/resources/ui/account_add.ui:247
 msgid "Create Provider"
 msgstr "Створити запис надавача даних"
 
 #: data/resources/ui/account_details_page.ui:55
 #: data/resources/ui/preferences_password_page.ui:17
-#: data/resources/ui/provider_page.ui:35
+#: data/resources/ui/provider_page.ui:28
 msgid "_Save"
 msgstr "З_берегти"
 
 #: data/resources/ui/account_details_page.ui:66
-#: data/resources/ui/provider_page.ui:215
+#: data/resources/ui/provider_page.ui:184
 msgid "_Delete"
 msgstr "В_илучити"
 
-#: data/resources/ui/account_details_page.ui:180
+#: data/resources/ui/account_details_page.ui:172
 msgid "Help"
 msgstr "Довідка"
 
-#: data/resources/ui/account_row.ui:22
+#: data/resources/ui/account_row.ui:23
 msgid "Increment the counter"
 msgstr "Збільшити значення лічильника"
 
-#: data/resources/ui/account_row.ui:33
+#: data/resources/ui/account_row.ui:34
 msgid "Copy PIN to clipboard"
 msgstr "Копіювати пін-код до буфера обміну"
+
+#: data/resources/ui/account_row.ui:43
+#| msgid "Account Details"
+msgid "Account details"
+msgstr "Параметри облікового запису"
 
 #: data/resources/ui/camera.ui:36
 msgid "No Camera Found"
@@ -291,7 +295,6 @@ msgid "_From a Screenshot"
 msgstr "З_і знімка вікна"
 
 #: data/resources/ui/preferences_password_page.ui:4
-#| msgid "Wrong Password"
 msgid "Create Password"
 msgstr "Створити пароль"
 
@@ -316,7 +319,7 @@ msgid "Repeat Passphrase"
 msgstr "Повторіть пароль"
 
 #: data/resources/ui/preferences_password_page.ui:76
-#: data/resources/ui/provider_page.ui:79
+#: data/resources/ui/provider_page.ui:72
 msgid "_Reset"
 msgstr "С_кинути"
 
@@ -340,63 +343,63 @@ msgstr "Встановіть пароль, за допомогою якого б
 msgid "_Auto Lock the Application"
 msgstr "_Автоматично замкнути програму"
 
-#: data/resources/ui/preferences.ui:39
+#: data/resources/ui/preferences.ui:38
 msgid "Whether to automatically lock the application"
 msgstr "Чи слід автоматично замикати програму"
 
-#: data/resources/ui/preferences.ui:50
+#: data/resources/ui/preferences.ui:44
 msgid "Auto Lock _Timeout"
 msgstr "_Час очікування на автозамикання"
 
-#: data/resources/ui/preferences.ui:51
+#: data/resources/ui/preferences.ui:45
 msgid "The time in minutes"
 msgstr "Час у хвилинах"
 
-#: data/resources/ui/preferences.ui:71
+#: data/resources/ui/preferences.ui:58
 msgid "Network"
 msgstr "Мережа"
 
-#: data/resources/ui/preferences.ui:74
+#: data/resources/ui/preferences.ui:61
 msgid "_Download Favicons"
 msgstr "_Отримувати піктограми"
 
-#: data/resources/ui/preferences.ui:77
+#: data/resources/ui/preferences.ui:63
 msgid "Automatically attempt fetching a website icon"
 msgstr "Автоматично намагатися отримати піктограму сайта"
 
-#: data/resources/ui/preferences.ui:87
+#: data/resources/ui/preferences.ui:68
 msgid "_Metered Connection"
 msgstr "З'єднання із об_ліком"
 
-#: data/resources/ui/preferences.ui:90
+#: data/resources/ui/preferences.ui:70
 msgid "Fetch a website icon on a metered connection"
 msgstr "Отримувати піктограму сайта на з'єднанні з обліком"
 
-#: data/resources/ui/preferences.ui:105
+#: data/resources/ui/preferences.ui:80
 msgid "Backup/Restore"
 msgstr "Резервне копіювання/Відновлення"
 
-#: data/resources/ui/preferences.ui:108 src/widgets/preferences/window.rs:494
+#: data/resources/ui/preferences.ui:83 src/widgets/preferences/window.rs:481
 msgid "Backup"
 msgstr "Резервне копіювання"
 
-#: data/resources/ui/preferences.ui:113 src/widgets/preferences/window.rs:502
+#: data/resources/ui/preferences.ui:88 src/widgets/preferences/window.rs:489
 msgid "Restore"
 msgstr "Відновити"
 
-#: data/resources/ui/provider_page.ui:89
+#: data/resources/ui/provider_page.ui:82
 msgid "Select a _File"
 msgstr "Вибрати _файл"
 
-#: data/resources/ui/provider_page.ui:112
+#: data/resources/ui/provider_page.ui:105
 msgid "Name"
 msgstr "Назва"
 
-#: data/resources/ui/provider_page.ui:174
+#: data/resources/ui/provider_page.ui:158
 msgid "The by default value for counter-based computing method"
 msgstr "Типове значення методу обчислення на основі лічильника"
 
-#: data/resources/ui/provider_page.ui:207
+#: data/resources/ui/provider_page.ui:176
 msgid "Help URL"
 msgstr "Адреса довідки"
 
@@ -404,7 +407,7 @@ msgstr "Адреса довідки"
 msgid "Providers"
 msgstr "Надавачі даних"
 
-#: data/resources/ui/providers_dialog.ui:30 src/widgets/providers/page.rs:217
+#: data/resources/ui/providers_dialog.ui:30 src/widgets/providers/page.rs:209
 msgid "New Provider"
 msgstr "Новий надавач даних"
 
@@ -510,8 +513,6 @@ msgid "_Unlock"
 msgstr "Віді_мкнути"
 
 #: data/resources/ui/window.ui:119
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "Accounts"
 msgstr "Облікові записи"
 
@@ -531,19 +532,19 @@ msgstr "Немає облікових записів"
 msgid "Add an account or scan a QR code first."
 msgstr "Спочатку додайте обліковий запис або виконайте сканування QR-коду."
 
-#: src/application.rs:84
+#: src/application.rs:72
 msgid "Accounts restored successfully"
 msgstr "Облікові записи успішно відновлено"
 
-#: src/application.rs:110
+#: src/application.rs:98
 msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
-#: src/application.rs:374 src/widgets/accounts/row.rs:45
+#: src/application.rs:362 src/widgets/accounts/row.rs:46
 msgid "One-Time password copied"
 msgstr "Одноразовий пароль скопійовано"
 
-#: src/application.rs:375
+#: src/application.rs:363
 msgid "Password was copied successfully"
 msgstr "Пароль успішно скопійовано"
 
@@ -655,73 +656,73 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:285 src/widgets/preferences/window.rs:432
-#: src/widgets/providers/page.rs:300
+#: src/widgets/accounts/add.rs:274 src/widgets/preferences/window.rs:419
+#: src/widgets/providers/page.rs:292
 msgid "Image"
 msgstr "Зображення"
 
-#: src/widgets/accounts/add.rs:293 src/widgets/preferences/window.rs:440
+#: src/widgets/accounts/add.rs:282 src/widgets/preferences/window.rs:427
 msgid "Select QR Code"
 msgstr "Виберіть QR-код"
 
-#: src/widgets/accounts/add.rs:311
+#: src/widgets/accounts/add.rs:300
 msgid "Invalid Token"
 msgstr "Некоректний жетон"
 
-#: src/widgets/window.rs:114
+#: src/widgets/window.rs:115
 msgid "Wrong Password"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/password_page.rs:182
-#: src/widgets/preferences/password_page.rs:224
+#: src/widgets/preferences/password_page.rs:172
+#: src/widgets/preferences/password_page.rs:214
 msgid "Wrong Passphrase"
 msgstr "Помилковий пароль"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:281
+#: src/widgets/preferences/window.rs:196 src/widgets/preferences/window.rs:268
 msgid "Key / Passphrase"
 msgstr "Ключ / Пароль"
 
-#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:207 src/widgets/preferences/window.rs:280
 msgid "Select File"
 msgstr "Вибір файла"
 
-#: src/widgets/preferences/window.rs:244
+#: src/widgets/preferences/window.rs:231
 msgid "Failed to create a backup"
 msgstr "Не вдалося створити резервну копію"
 
-#: src/widgets/preferences/window.rs:356
+#: src/widgets/preferences/window.rs:343
 msgid "Failed to restore from camera"
 msgstr "Не вдалося відновити з камери"
 
-#: src/widgets/preferences/window.rs:367
+#: src/widgets/preferences/window.rs:354
 msgid "Failed to restore from a screenshot"
 msgstr "Не вдалося відновити зі знімка вікна"
 
-#: src/widgets/preferences/window.rs:377
+#: src/widgets/preferences/window.rs:364
 msgid "Failed to restore from an image"
 msgstr "Не вдалося відновити з зображення"
 
-#: src/widgets/preferences/window.rs:390
+#: src/widgets/preferences/window.rs:377
 msgid "Failed to restore from a file"
 msgstr "Не вдалося відновити з файла"
 
-#: src/widgets/providers/dialog.rs:242
+#: src/widgets/providers/dialog.rs:235
 msgid "Provider created successfully"
 msgstr "Надавача успішно створено"
 
-#: src/widgets/providers/dialog.rs:252
+#: src/widgets/providers/dialog.rs:245
 msgid "Provider updated successfully"
 msgstr "Надавача успішно оновлено"
 
-#: src/widgets/providers/dialog.rs:268
+#: src/widgets/providers/dialog.rs:261
 msgid "Provider removed successfully"
 msgstr "Надавача успішно вилучено"
 
-#: src/widgets/providers/page.rs:194
+#: src/widgets/providers/page.rs:186
 msgid "Editing Provider: {}"
 msgstr "Редагування надавача даних: {}"
 
-#: src/widgets/providers/page.rs:333
+#: src/widgets/providers/page.rs:325
 msgid "The provider has accounts assigned to it, please remove them first"
 msgstr ""
 "Із записом надавача даних пов'язано облікові записи. Будь ласка, спочатку "
