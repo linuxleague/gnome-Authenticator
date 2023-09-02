@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-08-27 12:32+0000\n"
-"PO-Revision-Date: 2023-08-28 12:19+0330\n"
+"POT-Creation-Date: 2023-08-30 07:57+0000\n"
+"PO-Revision-Date: 2023-09-02 23:03+0330\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
 "Language: fa\n"
@@ -120,8 +120,8 @@ msgstr "فراهم کنندهٔ جست‌وجوی پوستهٔ گنوم"
 
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:19
 msgid ""
-"Backup/Restore from/into known applications like FreeOTP+, Aegis "
-"(encrypted / plain-text), andOTP, Google Authenticator"
+"Backup/Restore from/into known applications like FreeOTP+, Aegis (encrypted / "
+"plain-text), andOTP, Google Authenticator"
 msgstr ""
 "پشتیبان گرفتن در و بازگردانی از برنامه‌های شناخته شده‌ای چون ‪FreeOTP+‬، اجیس "
 "(رمزنگاشته و متن‌خام)، andOTP و هویت‌سنچ گوگل"
@@ -273,6 +273,10 @@ msgstr "افزایش شمارنده"
 #: data/resources/ui/account_row.ui:34
 msgid "Copy PIN to clipboard"
 msgstr "رونوشت از پین به تخته‌گیره"
+
+#: data/resources/ui/account_row.ui:43
+msgid "Account details"
+msgstr "جزییات حساب"
 
 #: data/resources/ui/camera.ui:36
 msgid "No Camera Found"
