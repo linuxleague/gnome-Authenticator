@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: authenticator master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/World/Authenticator/issues\n"
-"POT-Creation-Date: 2023-07-10 14:45+0000\n"
-"PO-Revision-Date: 2023-04-12 17:19+0200\n"
+"POT-Creation-Date: 2023-09-02 19:34+0000\n"
+"PO-Revision-Date: 2023-09-03 14:37+0200\n"
 "Last-Translator: Vojtěch Perník <translations@pervoj.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:3
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:7
-#: data/resources/ui/window.ui:36 src/application.rs:98 src/main.rs:41
+#: data/resources/ui/window.ui:36 src/application.rs:86 src/main.rs:41
 msgid "Authenticator"
 msgstr "Autentikátor"
 
@@ -33,7 +33,7 @@ msgstr "Dvoufaktorová autentizace"
 
 #: data/com.belmoussaoui.Authenticator.desktop.in.in:5
 #: data/com.belmoussaoui.Authenticator.metainfo.xml.in.in:8
-#: src/application.rs:101
+#: src/application.rs:89
 msgid "Generate Two-Factor Codes"
 msgstr "Generujte dvoufaktorové kódy"
 
@@ -155,15 +155,15 @@ msgstr "Podpora formátů zálohy/obnovy"
 msgid "Bilal Elmoussaoui"
 msgstr "Bilal Elmoussaoui"
 
-#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:310
+#: data/resources/ui/account_add.ui:6 src/widgets/preferences/window.rs:297
 msgid "_Camera"
 msgstr "_Kamera"
 
-#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:314
+#: data/resources/ui/account_add.ui:10 src/widgets/preferences/window.rs:301
 msgid "_Screenshot"
 msgstr "_Snímek obrazovky"
 
-#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:319
+#: data/resources/ui/account_add.ui:14 src/widgets/preferences/window.rs:306
 msgid "_QR Code Image"
 msgstr "Obrázek s _QR kódem"
 
@@ -175,7 +175,7 @@ msgstr "Zrušit"
 msgid "_Add"
 msgstr "_Přidat"
 
-#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:305
+#: data/resources/ui/account_add.ui:76 src/widgets/preferences/window.rs:292
 msgid "Scan QR Code"
 msgstr "Skenovat QR kód"
 
@@ -248,16 +248,12 @@ msgstr "Jak nastavit"
 
 #: data/resources/ui/account_add.ui:234
 #: data/resources/ui/preferences_camera_page.ui:4
-#, fuzzy
-#| msgid "_Camera"
 msgid "Camera"
-msgstr "_Kamera"
+msgstr "Kamera"
 
 #: data/resources/ui/account_add.ui:247
-#, fuzzy
-#| msgid "New Provider"
 msgid "Create Provider"
-msgstr "Nový poskytovatel"
+msgstr "Vytvořit poskytovatele"
 
 #: data/resources/ui/account_details_page.ui:55
 #: data/resources/ui/preferences_password_page.ui:17
@@ -274,13 +270,17 @@ msgstr "_Odstranit"
 msgid "Help"
 msgstr "Nápověda"
 
-#: data/resources/ui/account_row.ui:22
+#: data/resources/ui/account_row.ui:23
 msgid "Increment the counter"
 msgstr "Zvýšit čítač o jedno"
 
-#: data/resources/ui/account_row.ui:33
+#: data/resources/ui/account_row.ui:34
 msgid "Copy PIN to clipboard"
 msgstr "Zkopírovat PIN do schránky"
+
+#: data/resources/ui/account_row.ui:43
+msgid "Account details"
+msgstr "Podrobnosti účtu"
 
 #: data/resources/ui/camera.ui:36
 msgid "No Camera Found"
@@ -291,10 +291,8 @@ msgid "_From a Screenshot"
 msgstr "_Ze snímku obrazovky"
 
 #: data/resources/ui/preferences_password_page.ui:4
-#, fuzzy
-#| msgid "Wrong Password"
 msgid "Create Password"
-msgstr "Nesprávné heslo"
+msgstr "Vytvořit heslo"
 
 #: data/resources/ui/preferences_password_page.ui:28
 msgid "Set up a Passphrase"
@@ -377,11 +375,11 @@ msgstr "Načítat ikony přes měřená spojení"
 msgid "Backup/Restore"
 msgstr "Zálohovat / obnovit"
 
-#: data/resources/ui/preferences.ui:83 src/widgets/preferences/window.rs:494
+#: data/resources/ui/preferences.ui:83 src/widgets/preferences/window.rs:481
 msgid "Backup"
 msgstr "Zálohovat"
 
-#: data/resources/ui/preferences.ui:88 src/widgets/preferences/window.rs:502
+#: data/resources/ui/preferences.ui:88 src/widgets/preferences/window.rs:489
 msgid "Restore"
 msgstr "Obnovit"
 
@@ -508,9 +506,6 @@ msgid "_Unlock"
 msgstr "_Odemknout"
 
 #: data/resources/ui/window.ui:119
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "Accounts"
 msgid "Accounts"
 msgstr "Účty"
 
@@ -530,22 +525,22 @@ msgstr "Žádné účty"
 msgid "Add an account or scan a QR code first."
 msgstr "Nejprve přidejte účet nebo naskenujte QR kód."
 
-#: src/application.rs:84
+#: src/application.rs:72
 msgid "Accounts restored successfully"
 msgstr "Účty se úspěšně obnovily"
 
-#: src/application.rs:110
+#: src/application.rs:98
 msgid "translator-credits"
 msgstr ""
 "Zdeněk Hataš <zdenek.hatas@gmail.com>\n"
 "Marek Černocký <marek@manet.cz>\n"
 "Vojtěch Perník <translations@pervoj.cz>"
 
-#: src/application.rs:374 src/widgets/accounts/row.rs:45
+#: src/application.rs:362 src/widgets/accounts/row.rs:46
 msgid "One-Time password copied"
 msgstr "Jednorázové heslo bylo zkopírováno"
 
-#: src/application.rs:375
+#: src/application.rs:363
 msgid "Password was copied successfully"
 msgstr "Heslo bylo úspěšně zkopírováno"
 
@@ -657,65 +652,65 @@ msgstr "SHA-256"
 msgid "SHA-512"
 msgstr "SHA-512"
 
-#: src/widgets/accounts/add.rs:284 src/widgets/preferences/window.rs:432
+#: src/widgets/accounts/add.rs:274 src/widgets/preferences/window.rs:419
 #: src/widgets/providers/page.rs:292
 msgid "Image"
 msgstr "Obrázek"
 
-#: src/widgets/accounts/add.rs:292 src/widgets/preferences/window.rs:440
+#: src/widgets/accounts/add.rs:282 src/widgets/preferences/window.rs:427
 msgid "Select QR Code"
 msgstr "Vybrat QR kód"
 
-#: src/widgets/accounts/add.rs:310
+#: src/widgets/accounts/add.rs:300
 msgid "Invalid Token"
 msgstr "Neplatný tiket"
 
-#: src/widgets/window.rs:114
+#: src/widgets/window.rs:115
 msgid "Wrong Password"
 msgstr "Nesprávné heslo"
 
-#: src/widgets/preferences/password_page.rs:182
-#: src/widgets/preferences/password_page.rs:224
+#: src/widgets/preferences/password_page.rs:172
+#: src/widgets/preferences/password_page.rs:214
 msgid "Wrong Passphrase"
 msgstr "Nesprávná heslová fráze"
 
-#: src/widgets/preferences/window.rs:209 src/widgets/preferences/window.rs:281
+#: src/widgets/preferences/window.rs:196 src/widgets/preferences/window.rs:268
 msgid "Key / Passphrase"
 msgstr "Klíč / heslová fráze"
 
-#: src/widgets/preferences/window.rs:220 src/widgets/preferences/window.rs:293
+#: src/widgets/preferences/window.rs:207 src/widgets/preferences/window.rs:280
 msgid "Select File"
 msgstr "Výběr souboru"
 
-#: src/widgets/preferences/window.rs:244
+#: src/widgets/preferences/window.rs:231
 msgid "Failed to create a backup"
 msgstr "Nepodařilo se vytvořit zálohu"
 
-#: src/widgets/preferences/window.rs:356
+#: src/widgets/preferences/window.rs:343
 msgid "Failed to restore from camera"
 msgstr "Nepodařilo se obnovit z kamery"
 
-#: src/widgets/preferences/window.rs:367
+#: src/widgets/preferences/window.rs:354
 msgid "Failed to restore from a screenshot"
 msgstr "Nepodařilo se obnovit ze snímku obrazovky"
 
-#: src/widgets/preferences/window.rs:377
+#: src/widgets/preferences/window.rs:364
 msgid "Failed to restore from an image"
 msgstr "Nepodařilo se obnovit z obrázku"
 
-#: src/widgets/preferences/window.rs:390
+#: src/widgets/preferences/window.rs:377
 msgid "Failed to restore from a file"
 msgstr "Nepodařilo se obnovit ze souboru"
 
-#: src/widgets/providers/dialog.rs:242
+#: src/widgets/providers/dialog.rs:235
 msgid "Provider created successfully"
 msgstr "Poskytovatel byl úspěšně vytvořen"
 
-#: src/widgets/providers/dialog.rs:252
+#: src/widgets/providers/dialog.rs:245
 msgid "Provider updated successfully"
 msgstr "Poskytovatel byl úspěšně aktualizován"
 
-#: src/widgets/providers/dialog.rs:268
+#: src/widgets/providers/dialog.rs:261
 msgid "Provider removed successfully"
 msgstr "Poskytovatel byl úspěšně odebrán"
 
